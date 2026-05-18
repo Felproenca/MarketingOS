@@ -1,0 +1,97 @@
+{
+  "_meta": {
+    "description": "Identidade visual do cliente. Lido pela skill-image-generation antes de gerar qualquer prompt. Preencha antes de ativar a skill.",
+    "client": "",
+    "updated_at": ""
+  },
+
+  "identity": {
+    "brand_name": "",
+    "tagline": "",
+    "personality": ["", "", ""],
+    "archetype": ""
+  },
+
+  "palette": {
+    "primary": {
+      "hex": "",
+      "usage": "cor dominante — fundos, elementos principais"
+    },
+    "secondary": {
+      "hex": "",
+      "usage": "cor de apoio — detalhes, ícones"
+    },
+    "accent": {
+      "hex": "",
+      "usage": "cor de destaque — CTAs, títulos"
+    },
+    "neutral": {
+      "hex": "",
+      "usage": "textos, fundos neutros"
+    },
+    "background": {
+      "hex": "",
+      "usage": "fundo padrão das composições"
+    }
+  },
+
+  "typography": {
+    "primary_font": "",
+    "secondary_font": "",
+    "style_notes": ""
+  },
+
+  "visual_style": {
+    "mood": "",
+    "aesthetic": "",
+    "references": ["", ""],
+    "avoid": ["", ""],
+    "lighting": "",
+    "composition": "",
+    "photography_style": ""
+  },
+
+  "image_subjects": {
+    "people": {
+      "include": false,
+      "profile": "",
+      "style": ""
+    },
+    "products": {
+      "include": false,
+      "presentation": "",
+      "background": ""
+    },
+    "environments": {
+      "include": false,
+      "type": "",
+      "mood": ""
+    },
+    "abstract": {
+      "include": false,
+      "elements": ""
+    }
+  },
+
+  "restrictions": {
+    "never_use": ["", ""],
+    "content_restrictions": ["", ""],
+    "legal_notes": ""
+  },
+
+  "pollinations_defaults": {
+    "model": "flux",
+    "width": 1080,
+    "height": 1080,
+    "negative_prompt": "blurry, low quality, distorted, watermark, text, letters, words",
+    "style_suffix": ""
+  },
+
+  "format_specs": {
+    "feed_square": { "width": 1080, "height": 1080, "ratio": "1:1" },
+    "feed_portrait": { "width": 1080, "height": 1350, "ratio": "4:5" },
+    "stories": { "width": 1080, "height": 1920, "ratio": "9:16" },
+    "carousel_slide": { "width": 1080, "height": 1080, "ratio": "1:1" },
+    "meta_ads": { "width": 1200, "height": 628, "ratio": "1.91:1" }
+  }
+}

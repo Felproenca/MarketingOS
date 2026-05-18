@@ -1,0 +1,23 @@
+{
+  "name": "marketing-os",
+  "version": "1.0.0",
+  "description": "",
+  "main": "scripts/command-router.js",
+  "scripts": {
+    "test": "echo \"No automated tests configured\"",
+    "novo": "node scripts/create-client.js",
+    "cmd": "node scripts/command-router.js",
+    "salvar": "node scripts/save.js",
+    "carousel:generate": "node scripts/generate-carousel.js",
+    "carousel:render": "node scripts/render-carousel.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.4.2"
+  },
+  "devDependencies": {
+    "playwright": "^1.60.0"
+  }
+}

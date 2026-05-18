@@ -1,0 +1,154 @@
+{
+  "_meta": {
+    "description": "Benchmarks de performance por nicho e canal. Alimentado pelos metrics.json de todos os clientes ativos. Usado pelo Cursor para avaliar se um resultado é bom, médio ou ruim para aquele contexto específico.",
+    "updated_at": "",
+    "total_clients": 0,
+    "methodology": "Média dos clientes ativos com pelo menos 60 dias de dados. Valores marcados com 'ref' são referências de mercado externas, não dados internos."
+  },
+
+  "global": {
+    "note": "Benchmarks gerais antes de segmentar por nicho. Substituídos pelos valores de nicho quando disponíveis.",
+    "meta_ads": {
+      "ctr_avg": { "value": "1.5%", "range": "0.8%–3%", "source": "ref" },
+      "cpl_avg": { "value": "R$ 0", "range": "", "source": "interno" },
+      "roas_avg": { "value": 0, "range": "", "source": "interno" },
+      "conversion_rate_avg": { "value": "2%", "range": "1%–5%", "source": "ref" }
+    },
+    "instagram_organic": {
+      "engagement_rate_avg": { "value": "3%", "range": "1%–6%", "source": "ref" },
+      "reach_per_post_avg": { "value": 0, "source": "interno" },
+      "follower_growth_monthly_avg": { "value": 0, "source": "interno" }
+    },
+    "site": {
+      "conversion_rate_avg": { "value": "2%", "range": "1%–4%", "source": "ref" },
+      "bounce_rate_avg": { "value": "55%", "range": "40%–70%", "source": "ref" },
+      "avg_session_duration_seconds": { "value": 90, "source": "ref" }
+    },
+    "whatsapp": {
+      "response_rate_avg": { "value": 0, "source": "interno" },
+      "lead_to_sale_conversion_avg": { "value": 0, "source": "interno" }
+    }
+  },
+
+  "niches": {
+    "joalheria": {
+      "note": "Decisão emocional, ticket médio alto, público feminino 25–45 anos.",
+      "clients_count": 0,
+      "meta_ads": {
+        "cpl_avg": { "value": 0, "range": "", "source": "interno" },
+        "roas_avg": { "value": 0, "source": "interno" },
+        "best_objective": "Conversão / Mensagens",
+        "best_format": "Carrossel / Vídeo"
+      },
+      "instagram_organic": {
+        "engagement_rate_avg": { "value": 0, "source": "interno" },
+        "best_content_type": "",
+        "best_posting_frequency": ""
+      },
+      "site": {
+        "conversion_rate_avg": { "value": 0, "source": "interno" },
+        "main_cta": "WhatsApp"
+      },
+      "whatsapp": {
+        "response_rate_avg": { "value": 0, "source": "interno" },
+        "avg_messages_to_close": 0
+      },
+      "insights": []
+    },
+
+    "seguranca_privada": {
+      "note": "Decisão racional, ticket alto, decisor B2B ou responsável familiar.",
+      "clients_count": 0,
+      "meta_ads": {
+        "cpl_avg": { "value": 0, "range": "", "source": "interno" },
+        "roas_avg": { "value": 0, "source": "interno" },
+        "best_objective": "Leads / Mensagens",
+        "best_format": "Imagem / Carrossel educativo"
+      },
+      "instagram_organic": {
+        "engagement_rate_avg": { "value": 0, "source": "interno" },
+        "best_content_type": "Conteúdo consultivo / autoridade",
+        "best_posting_frequency": ""
+      },
+      "site": {
+        "conversion_rate_avg": { "value": 0, "source": "interno" },
+        "main_cta": "Formulário / WhatsApp"
+      },
+      "whatsapp": {
+        "response_rate_avg": { "value": 0, "source": "interno" },
+        "avg_messages_to_close": 0
+      },
+      "insights": []
+    },
+
+    "_template": {
+      "note": "Copie este bloco para adicionar um novo nicho.",
+      "clients_count": 0,
+      "meta_ads": {
+        "cpl_avg": { "value": 0, "range": "", "source": "interno" },
+        "roas_avg": { "value": 0, "source": "interno" },
+        "best_objective": "",
+        "best_format": ""
+      },
+      "instagram_organic": {
+        "engagement_rate_avg": { "value": 0, "source": "interno" },
+        "best_content_type": "",
+        "best_posting_frequency": ""
+      },
+      "site": {
+        "conversion_rate_avg": { "value": 0, "source": "interno" },
+        "main_cta": ""
+      },
+      "whatsapp": {
+        "response_rate_avg": { "value": 0, "source": "interno" },
+        "avg_messages_to_close": 0
+      },
+      "insights": []
+    }
+  },
+
+  "channel_rankings": {
+    "note": "Ranking de canais por eficiência de geração de leads. Atualizado mensalmente.",
+    "by_cpl": [],
+    "by_volume": [],
+    "by_conversion_rate": []
+  },
+
+  "content_performance": {
+    "note": "Formatos de conteúdo com melhor performance agregada entre clientes.",
+    "carousel": {
+      "avg_engagement_rate": 0,
+      "avg_saves_rate": 0,
+      "best_slide_count": 0,
+      "best_hook_type": ""
+    },
+    "reels": {
+      "avg_reach_multiplier": 0,
+      "best_duration_seconds": 0,
+      "best_hook_type": ""
+    },
+    "feed_image": {
+      "avg_engagement_rate": 0,
+      "best_hook_type": ""
+    },
+    "stories": {
+      "avg_tap_forward_rate": 0,
+      "best_interactive_element": ""
+    }
+  },
+
+  "offer_benchmarks": {
+    "note": "Performance de tipos de oferta e CTA por contexto.",
+    "cta_performance": {
+      "whatsapp": { "avg_ctr": 0, "contexts": [] },
+      "form": { "avg_ctr": 0, "contexts": [] },
+      "link_bio": { "avg_ctr": 0, "contexts": [] }
+    },
+    "discount_vs_value": {
+      "note": "Comparativo entre oferta de desconto e oferta de valor adicional.",
+      "discount_conversion_rate": 0,
+      "value_add_conversion_rate": 0,
+      "winner": ""
+    }
+  }
+}

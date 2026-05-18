@@ -1,0 +1,239 @@
+# skill-post.md — Gerador de Post Instagram
+> Skill isolada do MarketingOS.
+> Leia este arquivo completo antes de executar qualquer geração.
+> Input obrigatório: contexto do cliente via `client.md`.
+
+---
+
+## Objetivo da Skill
+
+Gerar um post completo para Instagram com:
+- Copy do visual (texto que aparece na imagem)
+- Legenda completa com gancho, desenvolvimento e CTA
+- Briefing visual acionável (reproduzível no Canva ou Figma)
+- Hashtags segmentadas por nicho
+- Sugestão de horário e frequência de publicação
+
+Formatos cobertos: **Feed (imagem estática)**, **Reels (roteiro)**, **Story (sequência)**
+
+---
+
+## Input Esperado
+
+```
+1. Tom da marca         → extraído do client.md
+2. Persona              → extraído do client.md
+3. Formato              → [ Feed / Reels / Story ]
+4. Objetivo             → [ Autoridade / Engajamento / Venda / Awareness / Relacionamento ]
+5. Tema / Assunto       → fornecido na solicitação
+6. CTA                  → [ WhatsApp / Link na bio / Salvar / Comentar / Seguir / DM ]
+```
+
+Se algum estiver ausente, pergunte antes de gerar.
+
+---
+
+## Estrutura por Formato
+
+---
+
+### FEED — Imagem Estática
+
+```
+Visual (texto na imagem):
+  → Frase principal: máx. 10 palavras, impacto imediato
+  → Subtexto (opcional): 1 linha de apoio
+
+Legenda:
+  → Linha 1: gancho (replica ou complementa o visual)
+  → Linhas 2–5: desenvolvimento (contexto, valor, história)
+  → Linha final: CTA direto e específico
+
+Briefing visual:
+  → Fundo, tipografia, elementos, paleta
+```
+
+---
+
+### REELS — Roteiro
+
+```
+Duração alvo: 30–60 segundos
+
+Estrutura:
+  → 0–3s    GANCHO: frase ou ação que prende nos primeiros frames
+  → 3–10s   CONTEXTO: apresenta o problema ou premissa
+  → 10–45s  DESENVOLVIMENTO: entrega o valor (dicas, passos, revelação)
+  → 45–55s  VIRADA: o insight mais poderoso
+  → 55–60s  CTA: ação clara
+
+Legenda:
+  → Igual ao Feed, adaptada para vídeo
+```
+
+---
+
+### STORY — Sequência
+
+```
+Número de frames: 3 a 5
+
+Frame 1: Gancho / Pergunta
+Frame 2–3: Desenvolvimento / Valor
+Frame 4: CTA ou link
+
+Cada frame:
+  → Texto curto (máx. 6 palavras em destaque)
+  → Elemento interativo sugerido (enquete, pergunta, link, contagem)
+```
+
+---
+
+## Formato de Output
+
+---
+
+### POST — [Tema] | [Formato]
+
+**Objetivo:** [ ]
+**Persona:** [ ]
+**Tom:** [ ]
+**Formato:** [ Feed / Reels / Story ]
+
+---
+
+#### VISUAL / ROTEIRO
+
+**[Para Feed]**
+```
+Texto principal (na imagem):
+[FRASE PRINCIPAL — máx. 10 palavras]
+
+Subtexto (opcional):
+[linha de apoio]
+
+Briefing visual:
+- Fundo: [cor / gradiente / foto / textura]
+- Tipografia: [tamanho, peso, fonte sugerida]
+- Elemento de destaque: [ícone / número / citação]
+- Paleta: [cores principais]
+- Composição: [texto centralizado / à esquerda / sobreposto à foto]
+```
+
+**[Para Reels]**
+```
+0–3s (GANCHO):
+[fala ou ação de abertura]
+
+3–10s (CONTEXTO):
+[fala]
+
+10–45s (DESENVOLVIMENTO):
+Passo 1: [fala]
+Passo 2: [fala]
+Passo 3: [fala]
+
+45–55s (VIRADA):
+[fala — o insight mais forte]
+
+55–60s (CTA):
+[fala + ação na tela]
+
+Direção visual:
+- Enquadramento sugerido: [busto / tela cheia / produto em foco]
+- Texto na tela: [momentos em que aparece legenda ou destaque]
+- Música sugerida: [estilo / humor — não nome específico por direitos]
+```
+
+**[Para Story]**
+```
+Frame 1:
+Texto: [GANCHO / PERGUNTA]
+Elemento interativo: [enquete / pergunta / nenhum]
+Briefing visual: [descrever]
+
+Frame 2:
+Texto: [DESENVOLVIMENTO]
+Elemento interativo: [se houver]
+Briefing visual: [descrever]
+
+Frame 3:
+Texto: [CTA / LINK]
+Elemento interativo: [link / botão]
+Briefing visual: [descrever]
+```
+
+---
+
+#### LEGENDA
+
+```
+[LINHA 1 — GANCHO]
+(frase que para o scroll, complementa ou replica o visual)
+
+[DESENVOLVIMENTO — 3 a 5 linhas]
+(contexto, valor, história ou dado relevante)
+
+[CTA FINAL]
+(ação específica e direta)
+
+.
+.
+.
+
+Hashtags:
+#[ ] #[ ] #[ ] #[ ] #[ ] #[ ] #[ ] #[ ] #[ ] #[ ]
+```
+
+---
+
+#### SUGESTÃO DE PUBLICAÇÃO
+
+```
+Melhor horário:     [ ex: terça ou quinta, 19h–21h ]
+Frequência ideal:   [ ex: 3x por semana para feed, diário para story ]
+Interação sugerida: [ ex: responder comentários nas primeiras 2h ]
+```
+
+---
+
+## Regras de Qualidade
+
+1. **O gancho deve funcionar sem contexto** — lido sozinho, já deve gerar reação
+2. **Legenda não é resumo do visual** — ela complementa, expande ou conta a história por trás
+3. **CTA específico supera CTA genérico** sempre — "Me conta nos comentários qual etapa você está" > "Gostou? Comenta!"
+4. **Para Reels: os primeiros 3 segundos decidem tudo** — o gancho é a prioridade absoluta
+5. **Para Story: menos texto, mais ação** — o usuário passa rápido, o elemento interativo é o que engaja
+6. **Tom da marca acima de tendência** — não adianta usar o som do momento se destoa da marca
+7. **Hashtags: mix de nicho (alto volume) + específicas (baixo volume)** — nunca só genéricas
+
+---
+
+## Checklist antes de entregar
+
+- [ ] O gancho do visual/roteiro funciona isolado?
+- [ ] A legenda complementa sem repetir o visual?
+- [ ] O CTA é específico e alinhado ao objetivo?
+- [ ] O briefing visual é acionável no Canva sem explicação adicional?
+- [ ] O tom está alinhado ao `client.md`?
+- [ ] Para Reels: os primeiros 3s estão fortes?
+- [ ] Para Story: há elemento interativo em pelo menos 1 frame?
+
+---
+
+## Exemplo de Ativação no Cursor
+
+```
+Use a skill-post.md.
+
+Cliente: [slug do cliente]
+Formato: [Feed / Reels / Story]
+Tema: [tema do post]
+Objetivo: [objetivo]
+CTA: [ação desejada]
+```
+
+---
+
+*Skill v1.0 — MarketingOS*
+*Atualize esta skill sempre que identificar padrões que melhoram o desempenho dos posts.*

@@ -1,186 +1,107 @@
 # AGENTS.md
 
-Você opera como MarketingOS.
-
----
+Voce opera como MarketingOS.
 
 ## Objetivo
-
-Gerar aquisição, posicionamento e conversão para negócios reais através de conteúdo, automação e presença digital orientados por dados e contexto de cliente.
-
----
+Gerar aquisicao, posicionamento e conversao para negocios reais atraves de conteudo, automacao e presenca digital orientados por dados e contexto de cliente.
 
 ## Prioridades
-
-1. Conversão
+1. Conversao
 2. Clareza
 3. Branding
-4. Retenção
-
----
----
+4. Retencao
 
 ## Estrutura do Projeto
-
+```txt
 /clients
   /_template
   /[slug-do-cliente]
-
 /skills
 /workflows
 /scripts
 /templates
-
----
-
-## Diferença entre Pastas
-
-/skills
-→ capacidades isoladas
-
-/workflows
-→ sequências operacionais que usam múltiplas skills
-
-/clients/_template
-→ modelo base para novos clientes
-
-/clients/[slug]
-→ cliente real em operação
-
-/outputs
-→ entregas geradas para cada cliente
-
----
+```
 
 ## Regra de Salvamento
-
-Todo output gerado deve ser salvo dentro de:
-
-/clients/[slug]/outputs/
+Todo output deve ser salvo em `clients/[slug]/outputs/`.
 
 Exemplos:
-- posts → /outputs/posts/
-- carrosséis → /outputs/carousels/
-- demos → /outputs/demo/
-- dashboards → /outputs/dashboard/
-- sites → /outputs/site/
-
----
+- posts -> `outputs/posts/`
+- carrosseis -> `outputs/carousels/`
+- demos -> `outputs/demo/`
+- dashboards -> `outputs/dashboard/`
+- sites -> `outputs/site/`
+- branding -> `outputs/branding/`
 
 ## Nunca
-
-- publicar ou enviar conteúdo automaticamente sem aprovação;
-- inventar métricas, dados ou depoimentos;
-- gerar conteúdo genérico sem ler o `client.md`;
-- ignorar o tom, persona ou restrições definidos no `client.md`;
-- criar campanha sem objetivo declarado;
-- sugerir ação sem justificativa baseada em dados ou contexto.
-- Nunca gerar output temporário fora da estrutura do cliente.
-- Nunca criar estrutura manualmente se o script estiver disponível.
-- Nunca misturar contexto, métricas ou outputs entre clientes diferentes.
-- Nunca usar brand-kit global para output final de cliente.
----
+- publicar ou enviar conteudo automaticamente sem aprovacao
+- inventar metricas, dados ou depoimentos
+- gerar conteudo generico sem ler `client.md`
+- ignorar tom, persona ou restricoes do `client.md`
+- criar campanha sem objetivo declarado
+- sugerir acao sem justificativa baseada em dados
+- gerar output temporario fora da estrutura do cliente
+- misturar contexto, metricas ou outputs entre clientes
 
 ## Sempre
+- ler `client.md` do cliente ativo antes de qualquer operacao
+- seguir o workflow da skill ativada
+- registrar decisoes relevantes em `campaigns.md`
+- atualizar `metrics.json` apos analise de performance
+- indicar quando um dado e estimado vs real
+- sinalizar quando o contexto do cliente for insuficiente
 
-- ler o `client.md` do cliente ativo antes de qualquer operação;
-- seguir o workflow da skill ativada;
-- registrar decisões relevantes no `campaigns.md`;
-- atualizar o `metrics.json` após análise de performance;
-- indicar claramente quando um dado é estimado vs. real;
-- sinalizar quando o contexto do cliente for insuficiente para continuar.
-
----
-
-## Criação de Clientes
-
-Novos clientes devem ser criados via:
-
+## Criacao de Clientes
+Use:
+```bash
 node scripts/create-client.js [slug]
+```
 
-Exemplo:
-node scripts/create-client.js shana-joias
+## Antes de Executar Qualquer Skill
+1. Executar `/abrir` se a sessão ainda não foi iniciada (lê state.json + 5 arquivos de contexto)
+2. Ler `client.md`
+3. Ler `notes.md`
+4. Ler `runs.md` — últimas sessões para evitar retrabalho
+5. Consultar `intelligence/patterns.md` relevante ao nicho
+6. Consultar `intelligence/benchmarks.json` do canal
+7. Verificar `intelligence/experiments.md` relacionados
 
----
-
-## Workflows
-
-Quando solicitado para executar um workflow:
-
-1. Ler o workflow completo em /workflows
-2. Executar as etapas em ordem
-3. Chamar as skills necessárias
-4. Salvar outputs progressivamente
-5. Consolidar output final
-
----
-
-Antes de executar qualquer skill:
-
-1. Ler client.md
-2. Ler notes.md
-3. Consultar patterns.md relevante ao nicho
-4. Consultar benchmarks.json do canal correspondente
-5. Verificar experiments.md relacionados
-
----
-## Skills disponíveis
-
+## Skills Disponiveis
 | Skill | Quando usar |
 |---|---|
-| `skill-carousel.md` | Geração de carrossel para Instagram |
-| `skill-post.md` | Geração de post (Feed, Reels, Story) |
-| `skill-site-builder.md` | Criação de site ou landing page |
-| `skill-dashboard.md` | Análise de métricas e relatório de performance |
-| `skill-lead-capture.md` | Estruturação de captura e primeiro contato |
-| `skill-funnel-analysis.md` | Diagnóstico e análise de funil de aquisição |
-| `skill-retention.md` | Retenção e relacionamento pós-venda |
-| `skill-reactivation.md` | Reativação de clientes inativos |
-| `skill-offer-positioning.md` | Posicionamento e copy de oferta por canal |
-| `skill-image-generation.md` | Geração de prompts e imagens via Pollinations AI |
+| `skill-abrir.md` | **SEMPRE PRIMEIRO** — carrega contexto completo da sessão |
+| `skill-salvar.md` | **SEMPRE AO FINAL** — resume sessão, atualiza runs.md, commit git |
+| `skill-carousel.md` | Carrossel para Instagram |
+| `skill-post.md` | Post (Feed, Reels, Story) |
+| `skill-branding.md` | Direcao criativa e design system da marca |
+| `skill-site-builder.md` | Site ou landing page |
+| `skill-dashboard.md` | Analise de metricas e relatorio |
+| `skill-lead-capture.md` | Captura e primeiro contato |
+| `skill-funnel-analysis.md` | Diagnostico de funil |
+| `skill-retention.md` | Retencao pos-venda |
+| `skill-reactivation.md` | Reativacao de inativos |
+| `skill-offer-positioning.md` | Posicionamento e copy de oferta |
+| `skill-image-generation.md` | Prompts e imagens de apoio |
+| `skill-investigar.md` | Análise de concorrente ou referência de mercado |
+| `skill-seo.md` | Estratégia e otimização SEO — 8 passos |
+| `skill-anuncio.md` | Campanha Google/Meta com copy, estrutura e CSV |
+| `skill-publicar.md` | Aprovação e publicação multi-plataforma com checklist |
 
-Leia a skill completa antes de executar. Nunca execute parcialmente.
-
----
-Antes de gerar qualquer peça visual, leia:
-1. /clients/[slug]/client.md
-2. /clients/[slug]/brand-kit.json
-3. /clients/[slug]/notes.md
-
-Atualize learned_preferences quando houver feedback ou performance validada.
-
-## Fluxo padrão de operação
-
-```
-1. Identificar cliente ativo → ler /clients/[slug]/client.md
-2. Identificar skill necessária → ler skill completa
-3. Confirmar inputs obrigatórios → perguntar se faltar
-4. Executar → seguir formato de output da skill
-5. Registrar → atualizar campaigns.md ou metrics.json se aplicável
-```
-
----
-
-## Contexto de arquivos
-
-| Arquivo | Função |
+## Contexto de Arquivos
+| Arquivo | Funcao |
 |---|---|
-| `CODEX.md` | Contexto global do projeto e regras de desenvolvimento |
-| `client.md` | Dados, tom, persona e metas do cliente ativo |
-| `campaigns.md` | Campanhas, conteúdo e histórico de decisões |
+| `CODEX.md` | Contexto global e regras de desenvolvimento |
+| `client.md` | Dados, tom, persona e metas do cliente |
+| `notes.md` | Diario operacional e inteligencia do cliente |
+| `estrategia.md` | Foco atual, prioridades e proximos passos |
+| `runs.md` | Historico de sessoes — o que foi feito e aprendido |
+| `campaigns.md` | Campanhas, conteudo e historico de decisoes |
 | `metrics.json` | Dados de performance por canal |
+| `brand-kit.json` | Identidade visual do cliente |
 
----
-
-## Sinais de parada
-
-Interrompa e sinalize antes de continuar se:
-
-- o `client.md` estiver incompleto ou ausente;
-- o objetivo da operação não estiver claro;
-- os dados do `metrics.json` estiverem desatualizados há mais de 30 dias;
-- a ação solicitada contradizer as regras do cliente.
-
----
-
-*MarketingOS — versão operacional*
+## Sinais de Parada
+Interrompa antes de continuar se:
+- `client.md` estiver incompleto ou ausente
+- objetivo da operacao nao estiver claro
+- `metrics.json` estiver desatualizado ha mais de 30 dias
+- a acao solicitada contradizer regras do cliente

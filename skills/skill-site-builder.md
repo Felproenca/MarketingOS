@@ -14,6 +14,169 @@ Gerar um site completo orientado a conversão com:
 - Briefing visual por seção (para desenvolvimento no Cursor/Next.js ou Figma)
 - Integração com WhatsApp e formulário de captura
 
+## Pre-Requisito Obrigatorio
+
+Antes de gerar qualquer homepage, validar a existencia dos arquivos:
+
+1. `clients/[slug]/client.md`
+2. `clients/[slug]/brand-kit.json`
+3. `clients/[slug]/outputs/branding/visual-direction.md`
+4. `clients/[slug]/outputs/branding/design-system.json`
+5. `clients/[slug]/outputs/branding/references.md`
+
+Se algum arquivo estiver ausente, interromper e executar `skills/skill-branding.md`.
+
+---
+
+## Taste Configuration — Calibração Estética
+
+> Executar ANTES de qualquer geração visual ou de código.
+> Baseado no taste-skill (Leonxlnx/taste-skill) — adaptado para HTML/CSS e contexto de marca.
+
+### Os 3 Dials
+
+Defina os valores com base no `brand-kit.json` e no `visual-direction.md` do cliente.
+Se não especificado, use os defaults abaixo.
+
+| Dial | Escala | Default joias | O que controla |
+|---|---|---|---|
+| `DESIGN_VARIANCE` | 1 (simétrico) → 10 (assimétrico) | **7** | Composição, margens, grade, ritmo de layout |
+| `MOTION_INTENSITY` | 1 (estático) → 10 (cinemático) | **5** | Transições, hovers, animações de entrada |
+| `VISUAL_DENSITY` | 1 (galeria arejada) → 10 (cockpit denso) | **2** | Espaçamento, whitespace, respiração da página |
+
+> Joias premium = espaço generoso (density 2), composição com personalidade (variance 7), movimento elegante mas não excessivo (motion 5).
+
+---
+
+### Tipografia — Regras Obrigatórias
+
+**Fontes permitidas (via Google Fonts ou similar):**
+- Serifa editorial: `Playfair Display`, `Fraunces`, `Cormorant Garamond`, `Newsreader`
+- Sans premium: `Outfit`, `DM Sans`, `Cabinet Grotesk`, `Plus Jakarta Sans`
+- Mono (preços, metadados): `DM Mono`, `Geist Mono`, `JetBrains Mono`
+
+**Fontes proibidas:**
+- `Inter`, `Roboto`, `Arial`, `Open Sans`, `Helvetica`, `Lato` — fontes de template genérico
+
+**Regras de escala:**
+- Display (H1): `font-size: clamp(2.5rem, 5vw, 5rem)` — tracking negativo (`letter-spacing: -0.03em`)
+- Subtítulo: `font-size: 1.125rem`, `line-height: 1.7`, `max-width: 65ch`
+- Labels e micro-copy: Maiúsculas com tracking largo (`letter-spacing: 0.12em`)
+- Preços e numerais: Fonte mono com números tabulares
+
+**Pairing para joias:** Serifa editorial (headlines) + Sans premium (corpo) — nunca dois sans, nunca dois serifados.
+
+---
+
+### Cor — Disciplina de Paleta
+
+**Regras:**
+- Máximo **1 cor de destaque** (accent) — saturação máxima: 75%
+- Base neutra: off-white/creme (`#FDFBF7`, `#F8F5F0`) ou carvão profundo (`#1A1A1A`)
+- Proibido: roxo/azul gradiente "estilo IA", dourado saturado (`#FFD700`), múltiplos metálicos
+- Accent para joias: ouro acinzentado (`#C9A96E`), rosé-gold (`#B76E79`), platina (`#E8E8E8`), não usar puro
+- Sombras tintadas com a cor de fundo — nunca `box-shadow: 0 4px 6px rgba(0,0,0,0.3)` puro
+
+**Verificar `brand-kit.json`** — se accent estiver saturado demais, dessature 20% antes de aplicar.
+
+---
+
+### Layout — Composição por Nível de Variance
+
+**Variance 1–3** (não usar para joias premium):
+Layout centrado, grid simétrico de colunas iguais, padding uniforme.
+
+**Variance 5–7** (default joias):
+- Margens assimétricas: texto alinhado à esquerda com padding-left `8vw` enquanto imagem sangra à direita
+- Grid com colunas proporcionais: `2fr 1fr` em vez de `1fr 1fr`
+- Seções alternadas: texto-esquerda/imagem-direita NUNCA repetido 3x seguido
+- Whitespace generoso entre seções: `padding: 6rem 0` a `10rem 0`
+
+**Variance 8–10** (campanhas especiais):
+Masonry, elementos sobrepostos, tipografia gigante como elemento gráfico.
+
+**Proibido:**
+- Grid de 3 cards iguais como seção de destaque principal
+- Hero com texto à esquerda e imagem à direita (padrão mais batido — usar full-bleed ou centrado editorial)
+- Botões padrão verde/azul sem relação com a marca
+
+---
+
+### Componentes — Padrões de Qualidade
+
+**Produto card (joias):**
+```css
+/* Double-bezel: cria profundidade tátil sem sombra genérica */
+.product-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(200,170,120,0.15);   /* accent tintado */
+  border-radius: 1.5rem;
+  padding: 0.375rem;
+}
+.product-card-inner {
+  background: var(--color-surface);
+  border-radius: calc(1.5rem - 0.375rem);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
+  overflow: hidden;
+}
+```
+
+**Botão CTA:**
+- Hover: `transform: translateY(-1px)` + `box-shadow` suave — simula toque físico
+- Active: `transform: scale(0.98)` — feedback tátil
+- Proibido: efeito de brilho neon ou border-radius 50px padrão
+
+**Estados obrigatórios em todo componente interativo:**
+- `:hover` — sempre declarado
+- `:active` — sempre declarado com feedback visual
+- Imagem ausente — placeholder coerente com a marca (não `broken image icon`)
+
+---
+
+### Motion — Regras de Transição
+
+**Animar apenas:** `transform` e `opacity` — GPU-accelerated, sem layout shift.
+
+**Proibido animar:** `top`, `left`, `width`, `height`, `margin`, `padding`.
+
+**Easing premium:**
+```css
+/* Spring-like para elementos de entrada */
+transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+            opacity 0.3s ease-out;
+
+/* Suave para hovers */
+transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+```
+
+**Sem easing linear** — `transition: all 0.3s linear` é sinal de template genérico.
+
+**Revelação de seções (entrada no viewport):**
+```css
+.reveal {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+```
+
+---
+
+### Anti-Padrões Proibidos (AI Slop)
+
+Antes de gerar qualquer seção, verifique mentalmente:
+
+- [ ] Há grid de 3 colunas iguais como seção principal? → **Recomponha**
+- [ ] Hero usa layout texto-esquerda / imagem-direita padrão? → **Use full-bleed ou centrado**
+- [ ] Alguma fonte da lista proibida? → **Substitua**
+- [ ] Copy tem "Eleve seu estilo", "Sofisticação que transforma", "Timeless Elegance"? → **Reescreva com copy específica do client.md**
+- [ ] Dourado saturado (`#FFD700`, `#FFCC00`)? → **Dessature**
+- [ ] Gradiente roxo-azul em qualquer lugar? → **Remova**
+- [ ] `box-shadow: 0 4px 6px rgba(0,0,0,0.1)` genérico em todo card? → **Tinte com a paleta**
+- [ ] Foto de stock óbvia (mãos perfeitas, fundo branco puro)? → **Use assets reais ou descreva contexto específico**
+- [ ] `transition: all 0.3s linear`? → **Substitua pelo easing premium acima**
+
 ---
 
 ## Input Esperado
@@ -25,6 +188,7 @@ Gerar um site completo orientado a conversão com:
 4. CTA principal        → [ WhatsApp / Formulário / Ligação / Compra ]
 5. Referências visuais  → [ se o cliente forneceu ]
 6. Domínio              → [ se já definido ]
+7. Dials de taste       → [ VARIANCE / MOTION / DENSITY — ou usar defaults ]
 ```
 
 Se algum estiver ausente, consulte o `client.md` antes de perguntar.
@@ -281,6 +445,7 @@ Briefing visual:
 
 ## Regras de Qualidade
 
+**Conversão:**
 1. **Headline de cada seção deve funcionar sozinha** — o usuário que apenas escaneia deve entender o valor
 2. **CTA principal repete no mínimo 3x na página** — Hero, meio e final
 3. **Copy baseada no client.md** — nunca inventar diferenciais, dores ou depoimentos
@@ -289,10 +454,20 @@ Briefing visual:
 6. **WhatsApp integrado em pelo menos 2 pontos** — botão flutuante + CTA principal
 7. **Mobile-first no briefing visual** — descrever como a seção se comporta em tela pequena
 
+**Taste (anti-slop):**
+8. **Rodar checklist de anti-padrões** antes de entregar qualquer seção
+9. **Nenhuma fonte proibida** — verificar lista da Taste Configuration
+10. **1 accent color máximo** — saturação ≤ 75%
+11. **Double-bezel em product cards** — profundidade tátil sem sombra genérica
+12. **Easing premium em todas as transições** — nenhum `linear` ou `ease` padrão
+13. **Hero nunca no formato texto-esquerda/imagem-direita padrão** — usar composição editorial
+14. **Copy sem clichês de IA** — "Eleve", "Sofisticação", "Timeless", "Seamless" são proibidos
+
 ---
 
 ## Checklist antes de entregar
 
+**Conteúdo:**
 - [ ] SEO preenchido (title, meta, H1)?
 - [ ] Hero tem promessa clara + CTA visível?
 - [ ] As dores descritas na seção 2 estão no client.md?
@@ -300,6 +475,16 @@ Briefing visual:
 - [ ] FAQ responde as objeções mapeadas no client.md?
 - [ ] CTA aparece no mínimo 3 vezes na página?
 - [ ] Briefing visual de cada seção é acionável no Cursor/Figma?
+
+**Taste:**
+- [ ] Dials declarados (VARIANCE / MOTION / DENSITY)?
+- [ ] Nenhuma fonte da lista proibida?
+- [ ] Paleta com máximo 1 accent ≤ 75% saturação?
+- [ ] Hero com composição editorial (não template padrão)?
+- [ ] Checklist de anti-padrões rodado e limpo?
+- [ ] Product cards com double-bezel (se e-commerce)?
+- [ ] Transições com easing premium (sem linear)?
+- [ ] Copy sem clichês de IA?
 
 ---
 
@@ -317,5 +502,5 @@ Modo: [Copy + Estrutura / HTML Completo]
 
 ---
 
-*Skill v1.0 — MarketingOS*
-*Atualize esta skill sempre que identificar padrões que melhoram a conversão dos sites.*
+*Skill v2.0 — MarketingOS*
+*v2.0: Taste Configuration integrada (baseada em Leonxlnx/taste-skill) — tipografia, dials, anti-slop, double-bezel, motion.*

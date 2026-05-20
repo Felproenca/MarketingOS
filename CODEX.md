@@ -1,164 +1,84 @@
-# CODEX.md — MarketingOS
-> Arquivo de contexto operacional persistente para desenvolvimento no Cursor / VS Code.
-> Leia este arquivo antes de qualquer sessão de desenvolvimento.
+# CODEX.md - MarketingOS
+> Contexto global de desenvolvimento do projeto.
 
----
+## Visao do Projeto
+MarketingOS e um sistema operacional de marketing para aquisicao, posicionamento e conversao.
+Ele combina `skills` (capacidade isolada), `workflows` (sequencia operacional), contexto por cliente e scripts de execucao.
 
-## 🧭 Visão do Projeto
-
-O MarketingOS é um **ecossistema operacional de aquisição e crescimento** para negócios.
-
-Não é uma agência. Não é um chatbot. É uma plataforma híbrida entre serviço + software, operada por IA, que entrega leads, posicionamento e automação de forma previsível.
-
-**O cliente compra:** leads, crescimento, previsibilidade, posicionamento.
-**O cliente não compra:** IA, agentes, Claude, GPT.
-
----
-
-## 🗂️ Estrutura de Pastas
-
-```
+## Estrutura de Pastas
+```txt
 /marketing-os
-  /skills             → prompts especializados e reutilizáveis por função
-  /clients            → contexto individual por cliente
-    /[cliente-slug]
-      client.md       → levantamento completo do cliente
-      metrics.json    → métricas e KPIs atuais
-      campaigns.md    → campanhas ativas
-  /templates          → templates reutilizáveis (site, posts, carrossel, ads)
-  /workflows          → fluxos operacionais documentados
-  /memory             → logs, histórico, feedbacks por cliente
-  /scripts            → automações, integrações, utilitários
-  CODEX.md            → este arquivo (contexto global do projeto)
+  /clients
+    /_template
+    /[slug]
+      client.md
+      notes.md
+      campaigns.md
+      metrics.json
+      brand-kit.json
+      estrategia.md
+      /outputs
+  /skills
+  /workflows
+  /scripts
+  /intelligence
+  /templates
+  AGENTS.md
+  CODEX.md
 ```
 
----
+## Skills Ativas
 
-## ⚙️ Stack Técnica
+### Sistema (executar sempre)
+- `skill-abrir.md` — abre sessão e carrega contexto do cliente ativo
+- `skill-salvar.md` — fecha sessão com commit git + atualiza runs.md
 
-| Camada | Tecnologia |
-|---|---|
-| IDE / Dev | Cursor / VS Code |
-| Banco de dados | Supabase (Postgres + Auth + Storage) |
-| WhatsApp | Typebot + Evolution API |
-| Ads | Meta Ads (API) |
-| Frontend | Next.js + Tailwind |
-| Deploy | Vercel (frontend) / Railway (backend) |
-| IA | OpenAI Codex|
+### Conteudo
+- `skill-carousel.md`
+- `skill-post.md`
+- `skill-image-generation.md`
 
----
+### Marca e Site
+- `skill-branding.md`
+- `skill-site-builder.md`
+- `skill-offer-positioning.md`
 
-## 🧱 Princípios de Desenvolvimento
+### Inteligencia e Crescimento
+- `skill-investigar.md`
+- `skill-seo.md`
+- `skill-anuncio.md`
+- `skill-publicar.md`
 
-1. **Skills primeiro, agentes depois** — previsibilidade antes de autonomia
-2. **Revelação progressiva de contexto** — carregar só o que a operação precisa
-3. **Core compartilhado + contexto individual** — o que muda por cliente fica em `/clients/[slug]/`
-4. **Memória via arquivos e banco** — nada depende só do modelo
-5. **Custo controlado** — meta de US$20–90/mês por cliente
+### Analise
+- `skill-dashboard.md`
+- `skill-funnel-analysis.md`
 
----
+### Relacionamento
+- `skill-lead-capture.md`
+- `skill-retention.md`
+- `skill-reactivation.md`
 
-## 🔄 Fluxo Operacional Central
+## Regras de Implementacao
+1. Executar `/abrir` antes de qualquer operacao — sem contexto, sem output.
+2. Ler sempre o cliente ativo antes de gerar output.
+3. Salvar todo output em `clients/[slug]/outputs/...`.
+4. Nunca misturar contexto entre clientes.
+5. Priorizar scripts para execucao e skills para decisao.
+6. Documentar novos comandos em `workflows/commands.md`.
+7. Para gerar site, executar branding antes (`/branding` -> `/site`).
+8. Executar `/salvar` ao final de toda sessao com entregavel — atualiza runs.md e faz commit.
+9. Para workflows de mais de uma skill, usar `workflows/pipeline-runner.md`.
 
-```
-Trend / Oportunidade
-  → Conteúdo SEO
-  → Carrossel Instagram
-  → CTA
-  → Criação de sites que convertem
-  → Captura de lead
-  → WhatsApp (Typebot)
-  → Dashboard (Supabase)
-  → Métricas
-  → Sugestão automática
-  → Otimização de campanha
-```
+## Fases
+### Fase 1 - Fundacao
+- Estrutura de projeto e templates por cliente
+- Skills essenciais de conteudo e analise
+- Comandos slash operacionais
 
-Toda feature desenvolvida deve se conectar a algum ponto deste fluxo.
+### Fase 2 - Integracoes
+- Integracao com canais usados por cliente (quando aplicavel)
+- Pipeline de dados e tracking
 
----
-
-## 🧠 Skills Planejadas
-
-| Skill | Função |
-|---|---|
-| `skill-carousel.md` | Gera carrossel com gancho, slides e CTA |
-| `skill-post.md` | Gera post para Feed, Reels ou Story |
-| `skill-site-builder.md` | Desenvolve site ou landing page por seção |
-| `skill-dashboard.md` | Lê metrics.json e gera relatório de performance |
-| `skill-lead-capture.md` | Estrutura captura de leads e primeiro contato |
-| `skill-funnel-analysis.md` | Mapeia e diagnostica o funil ponta a ponta |
-| `skill-retention.md` | Plano de retenção e aumento de LTV |
-| `skill-reactivation.md` | Sequência de reativação por segmento de inativo |
-| `skill-offer-positioning.md` | Posiciona e adapta a oferta por canal |
----
-
-## 🚀 Fases de Desenvolvimento
-
-### Fase 1 — Fundação *(atual)*
-- [ ] Estrutura de pastas criada
-- [ ] Template de site base (Next.js + Tailwind)
-- [ ] Dashboard simples conectado ao Supabase
-- [ ] 3 skills iniciais: `site-copy`, `instagram-carousel`, `lead-capture`
-- [ ] Primeiro cliente piloto onboardado
-
-### Fase 2 — Integrações (necessario a pergunta se de fato será utilizado alguns dos serviços aqui, pra cada cliente
-)
-- [ ] Typebot + Evolution API (WhatsApp)
-- [ ] Meta Ads API conectada
-- [ ] Analytics pipeline (evento → Supabase → dashboard)
-
-### Fase 3 — Memória Persistente
-- [ ] Logs de campanha por cliente
-- [ ] Feedback loop de métricas → refinamento de skills
-- [ ] Histórico de conteúdo gerado
-
-### Fase 4 — Orquestração
-- [ ] Workflows automáticos
-- [ ] Agentes especializados por função
-
-### Fase 5 — Escala Semi-Autônoma
-- [ ] Onboarding automatizado de cliente
-- [ ] Sistema rodando com mínima intervenção manual
-
----
-
-## 📋 Regras para o Cursor
-
-1. Sempre leia o `client.md` do cliente ativo antes de gerar qualquer conteúdo
-2. Nunca hardcode dados de cliente — use variáveis de ambiente ou Supabase
-3. Cada skill é um arquivo isolado com input, output e prompt documentados
-4. Antes de criar nova feature, verifique conexão com o fluxo operacional central
-5. Documente todo workflow em `/workflows/` antes de implementar
-6. Commits descritivos: `feat(skill): add instagram-carousel`
-7. Nunca commitar `.env` — usar `.env.example` com todas as chaves
-
----
-
-## 🔑 Variáveis de Ambiente (Por demanda )
-
-```env
-# Anthropic
-ANTHROPIC_API_KEY=
-
-# Supabase
-NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_ANON_KEY=
-SUPABASE_SERVICE_ROLE_KEY=
-
-# Meta Ads
-META_ACCESS_TOKEN=
-META_AD_ACCOUNT_ID=
-
-# WhatsApp / Evolution API
-EVOLUTION_API_URL=
-EVOLUTION_API_KEY=
-
-# Typebot
-TYPEBOT_API_KEY=
-TYPEBOT_WORKSPACE_ID=
-```
-
----
-
-*Mantenha este arquivo atualizado a cada mudança de fase ou decisão arquitetural relevante.*
+### Fase 3 - Memoria e Otimizacao
+- Consolidacao de aprendizados em `intelligence/`
+- Feedback de performance para evolucao de skills

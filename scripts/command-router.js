@@ -155,7 +155,7 @@ function printCommandHelp() {
   print('/cliente [slug]');
   print('/status');
   print('/atualizar');
-  print('/demo /carrossel /post /imagem /site /oferta /captacao /relatorio /funil /retencao /reativacao /salvar');
+  print('/demo /carrossel /post /imagem /branding /site /oferta /captacao /relatorio /funil /retencao /reativacao /salvar');
 }
 
 function routeMappedCommand(command) {
@@ -163,6 +163,7 @@ function routeMappedCommand(command) {
     '/demo': 'workflows/client-demo.md',
     '/post': 'skills/skill-post.md',
     '/imagem': 'skills/skill-image-generation.md',
+    '/branding': 'skills/skill-branding.md',
     '/site': 'skills/skill-site-builder.md',
     '/oferta': 'skills/skill-offer-positioning.md',
     '/captacao': 'skills/skill-lead-capture.md',

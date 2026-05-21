@@ -26,7 +26,20 @@ Se `activeClient` estiver vazio ou ausente: pare e peça ao usuário para execut
 
 ---
 
-### Passo 2 — Carregar arquivos de contexto
+### Passo 2 — Carregar inteligência global (ANTES do cliente)
+
+Leia na ordem abaixo antes de qualquer contexto específico do cliente.
+Padrões de intelligence têm prioridade sobre intuição do modelo:
+
+| Arquivo | O que carrega |
+|---|---|
+| `intelligence/patterns.md` | Padrões confirmados cross-client |
+| `intelligence/benchmarks.json` | Benchmarks de performance por canal e nicho |
+| `intelligence/experiments.md` | Experimentos ativos e resultados |
+
+---
+
+### Passo 3 — Carregar arquivos de contexto do cliente
 
 Leia na ordem abaixo. Se algum estiver ausente, sinalize mas continue com o que tiver:
 
@@ -40,7 +53,7 @@ Leia na ordem abaixo. Se algum estiver ausente, sinalize mas continue com o que 
 
 ---
 
-### Passo 3 — Verificar sinais de parada
+### Passo 4 — Verificar sinais de parada
 
 Antes de confirmar contexto, cheque:
 
@@ -53,7 +66,7 @@ Se qualquer item estiver incompleto, sinalize com `⚠️` mas não bloqueie —
 
 ---
 
-### Passo 4 — Confirmar contexto em voz alta
+### Passo 5 — Confirmar contexto em voz alta
 
 Após carregar, exiba exatamente neste formato:
 
@@ -65,7 +78,12 @@ Tom da marca: [tom extraído do client.md]
 Foco atual: [foco do estrategia.md — ou "Não definido ⚠️"]
 Última sessão: [data + resumo de 1 linha do runs.md — ou "Sem histórico"]
 
-Arquivos carregados:
+Intelligence carregada:
+  ✓ patterns.md    → [N padrões ativos | nenhum aplicável ao nicho]
+  ✓ benchmarks.json
+  ✓ experiments.md
+
+Arquivos do cliente carregados:
   ✓ client.md
   ✓ brand-kit.json
   ✓ estrategia.md
@@ -83,9 +101,11 @@ Pronto. Qual operação vamos executar?
 ## Regras
 
 1. Nunca pule este passo imaginando que o contexto já está carregado — leia os arquivos.
-2. Se `estrategia.md` não tiver foco definido, sugira que o usuário atualize antes de continuar.
-3. Sempre leia `runs.md` para evitar repetir trabalho já feito na sessão anterior.
-4. Se `brand-kit.json` estiver ausente, execute `/branding` antes de qualquer skill visual.
+2. Intelligence global é lida ANTES do contexto do cliente — sempre.
+3. Se `estrategia.md` não tiver foco definido, sugira que o usuário atualize antes de continuar.
+4. Sempre leia `runs.md` para evitar repetir trabalho já feito na sessão anterior.
+5. Se `brand-kit.json` estiver ausente, execute `/branding` antes de qualquer skill visual.
+6. Para protocolo completo de abertura, ver `workflows/open-client.md`.
 
 ---
 
@@ -103,5 +123,5 @@ Antes de continuar, execute /abrir para carregar o contexto do cliente.
 
 ---
 
-*Skill v1.0 — MarketingOS*
-*Inspirado no padrão /abrir do Mazyos — adaptado para estrutura multi-cliente.*
+*Skill v2.0 — MarketingOS*
+*v2.0: adicionado carregamento de intelligence/ antes do contexto do cliente.*

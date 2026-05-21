@@ -67,8 +67,9 @@
 
 | Comando | O que faz | Executa |
 |---|---|---|
-| `/abrir` | Carrega contexto completo do cliente ativo no início da sessão | `skills/skill-abrir.md` |
-| `/salvar` | Resume sessão, atualiza runs.md e faz commit git | `skills/skill-salvar.md` + `scripts/save.js` |
+| `/abrir [slug]` | Carrega intelligence global + contexto do cliente ativo | `workflows/open-client.md` → `skills/skill-abrir.md` |
+| `/fechar` | Extrai aprendizados, atualiza notes.md + estrategia.md + intelligence/, faz commit | `workflows/close-client.md` → `skills/skill-salvar.md` |
+| `/salvar` | Checkpoint intermediário — commit git + atualiza runs.md | `skills/skill-salvar.md` + `scripts/save.js` |
 | `/atualizar` | Varre arquivos do cliente ativo e lista pendencias | `scripts/command-router.js` |
 | `/status` | Mostra estado atual do cliente ativo | `scripts/command-router.js` |
 

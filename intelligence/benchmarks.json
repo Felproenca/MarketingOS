@@ -81,6 +81,35 @@
       "insights": []
     },
 
+    "estetica_epilacao": {
+      "note": "Decisão baseada em confiança + resultado visível. Dupla persona: cliente final (mulher 22-45) e profissional esteticista (20-40). Ticket serviço: baixo/médio. Ticket formação: médio (R$497–R$997).",
+      "clients_count": 1,
+      "meta_ads": {
+        "cpl_avg": { "value": 0, "range": "", "source": "interno" },
+        "roas_avg": { "value": 0, "source": "interno" },
+        "best_objective": "Mensagens / Leads",
+        "best_format": "Carrossel educativo / Vídeo depoimento"
+      },
+      "instagram_organic": {
+        "engagement_rate_avg": { "value": 0, "source": "interno" },
+        "best_content_type": "Carrossel de dor/solução + carrossel de autoridade profissional",
+        "best_posting_frequency": ""
+      },
+      "site": {
+        "conversion_rate_avg": { "value": 0, "source": "interno" },
+        "main_cta": "WhatsApp"
+      },
+      "whatsapp": {
+        "response_rate_avg": { "value": 0, "source": "interno" },
+        "avg_messages_to_close": 0
+      },
+      "insights": [
+        "Tom sem emojis mantém autoridade técnica neste nicho",
+        "Gancho de dor/consequência performa bem (ex: 'o que você faz depois muda tudo')",
+        "Dupla persona exige comunicação completamente separada — não misturar CTAs"
+      ]
+    },
+
     "_template": {
       "note": "Copie este bloco para adicionar um novo nicho.",
       "clients_count": 0,

@@ -48,8 +48,50 @@ Clientes beneficiados:
 
 ## Atualizações Aplicadas
 
-> Ainda sem entradas — sistema recém iniciado.
-> Primeira entrada esperada após primeiro ciclo de análise com clientes ativos.
+### U001 — skill-carousel.md v1.0 → v2.0
+
+Data:             maio/2026
+Origem:           Fran Santos — fluxo identificado como ineficiente (markdown → Python → HTML = 3 etapas)
+Padrão associado: —
+
+O que mudou:
+→ Output alterado de markdown com briefing visual para HTML completo funcional.
+→ Adicionado template HTML com brand-kit.json dinâmico, navegação por teclado/touch,
+  barra de progresso e legenda de publicação como comentário no final do arquivo.
+
+Por que mudou:
+→ O fluxo anterior gerava copy em .md e exigia conversão Python separada.
+→ Isso duplicava tokens, adicionava etapa manual e aumentava chance de erro.
+
+Impacto esperado:
+→ Um único comando entrega HTML funcional pronto para screenshot ou publicação.
+→ Zero etapas intermediárias, zero Python para carrosseis.
+
+Clientes beneficiados:
+→ Todos os novos clientes a partir de maio/2026.
+
+---
+
+### U002 — skill-abrir.md v1.0 → v2.0
+
+Data:             maio/2026
+Origem:           Diagnóstico sistêmico — intelligence não era carregada no início da sessão
+Padrão associado: —
+
+O que mudou:
+→ Adicionado Passo 2 obrigatório: carregar intelligence/patterns.md, benchmarks.json
+  e experiments.md ANTES de carregar o contexto do cliente.
+
+Por que mudou:
+→ Ao trocar de cliente, os padrões aprendidos com clientes anteriores não eram
+  transferidos para o novo contexto — cada sessão começava do zero.
+
+Impacto esperado:
+→ Padrões cross-client ativos sempre calibram o output desde o início da sessão,
+  independente do cliente ativo.
+
+Clientes beneficiados:
+→ Todos.
 
 ---
 
@@ -85,7 +127,8 @@ Clientes beneficiados:
 
 | Skill | Versão atual | Última atualização | Total de updates |
 |---|---|---|---|
-| `skill-carousel.md` | v1.0 | — | 0 |
+| `skill-carousel.md` | v2.0 | maio/2026 | 1 |
+| `skill-abrir.md` | v2.0 | maio/2026 | 1 |
 | `skill-post.md` | v1.0 | — | 0 |
 | `skill-site-builder.md` | v1.0 | — | 0 |
 | `skill-dashboard.md` | v1.0 | — | 0 |

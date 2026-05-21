@@ -42,22 +42,23 @@ Combina `skills` (capacidade isolada), `workflows` (sequencia operacional), cont
 
 ## Antes de Executar Qualquer Skill
 
-1. Executar `/abrir` se a sessao ainda nao foi iniciada (le state.json + 5 arquivos de contexto)
-2. Ler `client.md`
-3. Ler `notes.md`
-4. Ler `runs.md` — ultimas sessoes para evitar retrabalho
-5. Consultar `intelligence/patterns.md` relevante ao nicho
-6. Consultar `intelligence/benchmarks.json` do canal
-7. Verificar `intelligence/experiments.md` relacionados
+1. Executar `/abrir [slug]` se a sessao ainda nao foi iniciada
+2. Ler `intelligence/patterns.md` — padroes cross-client aplicaveis ao nicho
+3. Ler `intelligence/benchmarks.json` — benchmarks do canal
+4. Ler `client.md` do cliente ativo
+5. Ler `notes.md` — alertas e inteligencia acumulada
+6. Ler `runs.md` — ultimas sessoes para evitar retrabalho
+7. Ao final: executar `/fechar` — nunca fechar o chat sem salvar aprendizados
 
 ---
 
 ## Skills Disponiveis
 
-| Skill | Quando usar |
+| Skill / Workflow | Quando usar |
 |---|---|
-| `skill-abrir.md` | **SEMPRE PRIMEIRO** — carrega contexto completo da sessao |
-| `skill-salvar.md` | **SEMPRE AO FINAL** — resume sessao, atualiza runs.md, commit git |
+| `workflows/open-client.md` | **SEMPRE PRIMEIRO** — `/abrir [slug]` — carrega intelligence + contexto do cliente |
+| `workflows/close-client.md` | **SEMPRE AO FINAL** — `/fechar` — extrai aprendizados, atualiza intelligence, faz commit |
+| `skill-salvar.md` | Checkpoint intermediario — `/salvar` — commit sem encerrar sessao |
 | `skill-branding.md` | Direcao criativa e design system da marca |
 | `skill-site-builder.md` | Site ou landing page (rodar branding antes) |
 | `skill-offer-positioning.md` | Posicionamento e copy de oferta |
@@ -78,15 +79,16 @@ Combina `skills` (capacidade isolada), `workflows` (sequencia operacional), cont
 
 ## Regras de Implementacao
 
-1. Executar `/abrir` antes de qualquer operacao — sem contexto, sem output.
-2. Ler sempre `client.md` do cliente ativo antes de gerar output.
-3. Salvar todo output em `clients/[slug]/outputs/`.
-4. Nunca misturar contexto, metricas ou outputs entre clientes.
-5. Priorizar scripts para execucao e skills para decisao.
+1. Executar `/abrir [slug]` antes de qualquer operacao — sem contexto, sem output.
+2. Intelligence global sempre antes do contexto do cliente — `intelligence/` tem prioridade.
+3. Ler sempre `client.md` do cliente ativo antes de gerar output.
+4. Salvar todo output em `clients/[slug]/outputs/`.
+5. Nunca misturar contexto, metricas ou outputs entre clientes.
 6. Documentar novos comandos em `workflows/commands.md`.
 7. Para gerar site, executar branding antes (`/branding` → `/site`).
-8. Executar `/salvar` ao final de toda sessao com entregavel.
-9. Para workflows de mais de uma skill, usar `workflows/pipeline-runner.md`.
+8. Carrosseis: gerar HTML diretamente via `skill-carousel.md` v2.0 — sem .md intermediario, sem Python.
+9. Executar `/fechar` ao encerrar sessao — nunca apenas fechar o chat.
+10. Para workflows de mais de uma skill, usar `workflows/pipeline-runner.md`.
 
 ---
 

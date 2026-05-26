@@ -1,0 +1,588 @@
+<!--
+TEMPLATE PITCH DECK v2.0 — MarketingOS
+Localização: /templates/pitch-deck-template.html
+
+NOVIDADES v2.0:
+- Identidade visual dinâmica do cliente (CSS variables)
+- 3 slides novos para Instagram (feed atual vs proposto, carrossel navegável, calendário)
+- 11 slides totais
+
+INSTRUÇÕES:
+1. Substitua os placeholders marcados com [CLIENT_*] pelos valores do brand-kit.json
+2. Substitua [PROSPECTO_*] pelos dados específicos do prospecto
+3. Substitua [PROBLEMA_*], [METRICA_*], [FASE_*] pelos blocos repetidos
+4. Para o slide 7, cole o HTML do carrossel real gerado pela skill-carousel
+5. Salve em /clients/[slug]/outputs/demo/apresentacao-v2-[YYYYMMDD].html
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[PROSPECTO_NOME] — Diagnóstico e Próximos Passos</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fraunces:wght@400;500;600;700&family=[CLIENT_FONT_PRIMARY_GFONT]&family=[CLIENT_FONT_SECONDARY_GFONT]&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  /* Padrão MarketingOS */
+  --mos-bg:#0a0a0a;
+  --mos-bg-2:#111;
+  --mos-bg-3:#1a1a1a;
+  --mos-line:#222;
+  --mos-line-2:#2a2a2a;
+  --mos-text:#fafafa;
+  --mos-text-2:#a0a0a0;
+  --mos-text-3:#666;
+  --mos-red:#d85a30;
+  --mos-green:#1d9e75;
+
+  /* IDENTIDADE DO CLIENTE — injetada pelo sistema */
+  --client-primary:    [CLIENT_PRIMARY_HEX];
+  --client-secondary:  [CLIENT_SECONDARY_HEX];
+  --client-accent:     [CLIENT_ACCENT_HEX];
+  --client-neutral:    [CLIENT_NEUTRAL_HEX];
+  --client-background: [CLIENT_BACKGROUND_HEX];
+
+  --client-font-h: '[CLIENT_FONT_PRIMARY]', 'Fraunces', serif;
+  --client-font-b: '[CLIENT_FONT_SECONDARY]', 'Inter', sans-serif;
+}
+
+html{scroll-behavior:smooth}
+body{background:var(--mos-bg);color:var(--mos-text);font-family:var(--client-font-b);font-size:15px;line-height:1.6;overflow-x:hidden}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.85);backdrop-filter:blur(20px);border-bottom:0.5px solid var(--mos-line);padding:14px 0}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 32px;display:flex;justify-content:space-between;align-items:center}
+.nav-logo{font-family:var(--client-font-h);font-size:14px;font-weight:500;letter-spacing:0.04em}
+.nav-progress{font-family:var(--client-font-b);font-size:11px;color:var(--mos-text-3);letter-spacing:0.12em;text-transform:uppercase}
+
+/* SLIDES */
+.slide{min-height:100vh;padding:120px 32px 80px;display:flex;flex-direction:column;justify-content:center;border-bottom:0.5px solid var(--mos-line);position:relative}
+.slide-inner{max-width:980px;margin:0 auto;width:100%}
+.slide-label{font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--client-accent);margin-bottom:24px}
+.slide h1{font-family:var(--client-font-h);font-size:64px;font-weight:500;line-height:1.05;letter-spacing:-0.02em;margin-bottom:32px}
+.slide h1 em{font-style:italic;color:var(--client-accent)}
+.slide h2{font-family:var(--client-font-h);font-size:40px;font-weight:500;line-height:1.15;letter-spacing:-0.015em;margin-bottom:24px}
+.slide h3{font-family:var(--client-font-h);font-size:22px;font-weight:500;line-height:1.3;margin-bottom:12px}
+.slide-lead{font-size:19px;line-height:1.6;color:var(--mos-text-2);max-width:720px;margin-bottom:48px}
+.slide-text{font-size:16px;line-height:1.7;color:var(--mos-text-2);max-width:680px}
+.slide-text + .slide-text{margin-top:16px}
+
+/* COVER */
+.cover{background:radial-gradient(ellipse at top left, color-mix(in srgb, var(--client-accent) 12%, transparent), transparent 60%)}
+.cover .meta{font-size:12px;color:var(--mos-text-3);letter-spacing:0.12em;text-transform:uppercase;margin-top:64px}
+.cover .recipient{font-family:var(--client-font-h);font-size:24px;font-weight:400;font-style:italic;color:var(--client-accent);margin-top:8px}
+
+/* COMPARATIVO ANTES/DEPOIS */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:48px}
+.compare-col{border:0.5px solid var(--mos-line-2);border-radius:12px;padding:32px;background:var(--mos-bg-2)}
+.compare-col.bad{border-color:rgba(216,90,48,0.3);background:rgba(216,90,48,0.04)}
+.compare-col.good{border-color:rgba(29,158,117,0.3);background:rgba(29,158,117,0.04)}
+.compare-tag{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;margin-bottom:20px;display:inline-block;padding:4px 10px;border-radius:20px}
+.compare-tag.bad{color:var(--mos-red);background:rgba(216,90,48,0.12)}
+.compare-tag.good{color:var(--mos-green);background:rgba(29,158,117,0.12)}
+.compare-headline{font-family:var(--client-font-h);font-size:24px;font-weight:500;line-height:1.3;color:var(--mos-text);margin-bottom:16px}
+.compare-note{font-size:13px;color:var(--mos-text-2);line-height:1.6}
+
+/* PROBLEMAS */
+.problem-list{display:flex;flex-direction:column;gap:24px;margin-top:48px}
+.problem{display:grid;grid-template-columns:60px 1fr;gap:24px;padding-bottom:24px;border-bottom:0.5px solid var(--mos-line)}
+.problem:last-child{border-bottom:none}
+.problem-num{font-family:var(--client-font-h);font-size:32px;font-weight:300;color:var(--mos-text-3);font-style:italic;line-height:1}
+.problem-content h3{margin-bottom:8px}
+.problem-content p{font-size:15px;color:var(--mos-text-2);line-height:1.6}
+.problem-impact{margin-top:12px;font-size:13px;color:var(--client-accent);font-weight:500}
+
+/* MOCKUP DO SITE */
+.mockup-wrap{margin-top:48px;border-radius:12px;overflow:hidden;border:0.5px solid var(--mos-line-2)}
+.mockup-bar{background:var(--mos-bg-3);padding:12px 16px;display:flex;align-items:center;gap:8px;border-bottom:0.5px solid var(--mos-line)}
+.mockup-bar span{width:12px;height:12px;border-radius:50%;background:var(--mos-line-2)}
+.mockup-bar .url{margin-left:16px;font-size:11px;color:var(--mos-text-3);font-family:'SF Mono',monospace}
+.mockup-image{background:var(--client-background, #fff);padding:48px 32px;min-height:280px}
+.mockup-hero{font-family:var(--client-font-h);color:var(--client-primary);font-size:36px;font-weight:500;line-height:1.15;margin-bottom:12px}
+.mockup-hero em{font-style:italic;color:var(--client-accent)}
+.mockup-sub{color:var(--client-neutral);font-size:13px;max-width:480px;line-height:1.6}
+.mockup-cta{display:inline-block;margin-top:20px;background:var(--client-primary);color:#fff;padding:10px 20px;border-radius:30px;font-size:12px;font-weight:500}
+
+/* INSTAGRAM COMPARATIVO */
+.instagram-compare{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:48px}
+.ig-col{display:flex;flex-direction:column;gap:16px}
+.ig-label{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;padding:4px 10px;border-radius:20px;display:inline-block;align-self:flex-start}
+.ig-col.bad .ig-label{color:var(--mos-red);background:rgba(216,90,48,0.12)}
+.ig-col.good .ig-label{color:var(--mos-green);background:rgba(29,158,117,0.12)}
+.ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:var(--mos-bg-2);padding:12px;border-radius:8px}
+.ig-post{aspect-ratio:1;display:flex;align-items:center;justify-content:center;padding:8px;border-radius:2px;font-size:9px;text-align:center;color:#fff;font-weight:500;line-height:1.2;text-transform:uppercase;letter-spacing:0.06em;overflow:hidden}
+.ig-col.bad .ig-post{background:#3a3a3a;color:#888}
+
+/* posts do feed proposto — variações com as cores do cliente */
+.ig-col.good .ig-post.p1{background:var(--client-primary)}
+.ig-col.good .ig-post.p2{background:var(--client-secondary)}
+.ig-col.good .ig-post.p3{background:var(--client-accent);color:var(--client-primary)}
+.ig-col.good .ig-post.p4{background:var(--client-neutral);color:var(--client-primary)}
+.ig-col.good .ig-post.p5{background:var(--client-background);color:var(--client-primary);border:0.5px solid var(--client-primary)}
+.ig-col.good .ig-post.font{font-family:var(--client-font-h);font-style:italic;font-size:14px;text-transform:none;letter-spacing:0}
+
+.ig-note{font-size:13px;color:var(--mos-text-2);line-height:1.6;margin-top:8px}
+
+/* CARROSSEL NAVEGÁVEL DENTRO DO PITCH */
+.carousel-demo{margin-top:48px}
+.carousel-frame{position:relative;width:100%;max-width:540px;margin:0 auto;aspect-ratio:1;border-radius:12px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,0.6);background:var(--client-background)}
+.carousel-slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:48px;text-align:center;opacity:0;pointer-events:none;transition:opacity 0.35s ease}
+.carousel-slide.active{opacity:1;pointer-events:all}
+.carousel-slide.gancho{background:var(--client-primary);color:#fff}
+.carousel-slide.conteudo{background:var(--client-background);color:var(--client-primary)}
+.carousel-slide.cta{background:var(--client-accent);color:var(--client-primary)}
+.carousel-num{position:absolute;top:20px;right:24px;font-family:var(--client-font-b);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;opacity:0.5}
+.carousel-label{font-family:var(--client-font-b);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;opacity:0.6;margin-bottom:16px}
+.carousel-title{font-family:var(--client-font-h);font-size:32px;font-weight:600;line-height:1.15;margin-bottom:16px}
+.carousel-body{font-family:var(--client-font-b);font-size:16px;line-height:1.7;opacity:0.85;max-width:420px}
+.carousel-cta-text{font-family:var(--client-font-h);font-size:26px;font-weight:600;line-height:1.2;margin-bottom:20px}
+.carousel-cta-btn{display:inline-block;padding:14px 32px;border-radius:40px;font-family:var(--client-font-b);font-size:15px;font-weight:600;background:var(--client-primary);color:#fff}
+
+.carousel-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:24px}
+.carousel-nav button{background:var(--mos-bg-2);border:0.5px solid var(--mos-line-2);color:var(--mos-text);width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.carousel-nav button:hover{background:var(--mos-bg-3);border-color:var(--client-accent)}
+.carousel-dots{display:flex;gap:8px;align-items:center}
+.carousel-dots .dot{width:6px;height:6px;border-radius:50%;background:var(--mos-line-2);cursor:pointer;transition:all 0.2s}
+.carousel-dots .dot.active{background:var(--client-accent);width:20px;border-radius:3px}
+.carousel-caption{text-align:center;font-size:13px;color:var(--mos-text-2);margin-top:24px;font-style:italic}
+
+/* CALENDÁRIO EDITORIAL */
+.calendar{margin-top:48px;border-radius:12px;overflow:hidden;border:0.5px solid var(--mos-line-2)}
+.calendar-head{display:grid;grid-template-columns:80px repeat(5, 1fr);background:var(--mos-bg-2);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--mos-text-3);font-weight:500}
+.calendar-head > div{padding:14px;border-right:0.5px solid var(--mos-line)}
+.calendar-head > div:last-child{border-right:none}
+.calendar-row{display:grid;grid-template-columns:80px repeat(5, 1fr);border-top:0.5px solid var(--mos-line)}
+.calendar-week{padding:16px;font-family:var(--client-font-h);font-style:italic;font-size:13px;color:var(--mos-text-2);border-right:0.5px solid var(--mos-line);display:flex;align-items:center}
+.calendar-cell{padding:14px;border-right:0.5px solid var(--mos-line);min-height:80px;display:flex;flex-direction:column;gap:6px;justify-content:space-between}
+.calendar-cell:last-child{border-right:none}
+.calendar-format{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;padding:3px 6px;border-radius:10px;display:inline-block;align-self:flex-start}
+.calendar-format.carrossel{background:color-mix(in srgb, var(--client-primary) 20%, transparent);color:var(--client-accent)}
+.calendar-format.post{background:color-mix(in srgb, var(--client-secondary) 20%, transparent);color:var(--client-secondary)}
+.calendar-format.reels{background:color-mix(in srgb, var(--client-accent) 20%, transparent);color:var(--client-accent)}
+.calendar-format.story{background:color-mix(in srgb, var(--client-neutral) 20%, transparent);color:var(--mos-text-2)}
+.calendar-theme{font-size:12px;color:var(--mos-text);line-height:1.4}
+
+/* ROADMAP */
+.roadmap{margin-top:48px;display:flex;flex-direction:column;gap:0}
+.phase{display:grid;grid-template-columns:140px 1fr;gap:32px;padding:32px 0;border-top:0.5px solid var(--mos-line)}
+.phase:last-child{border-bottom:0.5px solid var(--mos-line)}
+.phase-period{font-family:var(--client-font-h);font-size:14px;font-weight:500;color:var(--client-accent);letter-spacing:0.04em}
+.phase-period .num{display:block;font-size:36px;font-weight:400;color:var(--mos-text);line-height:1;margin-bottom:4px}
+.phase-content h3{margin-bottom:8px}
+.phase-list{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:8px}
+.phase-list li{position:relative;padding-left:20px;font-size:14px;color:var(--mos-text-2);line-height:1.6}
+.phase-list li::before{content:'';position:absolute;left:0;top:10px;width:8px;height:1px;background:var(--client-accent)}
+
+/* MÉTRICAS */
+.metrics{display:grid;grid-template-columns:repeat(3, 1fr);gap:24px;margin-top:48px}
+.metric{border:0.5px solid var(--mos-line-2);border-radius:12px;padding:28px;background:var(--mos-bg-2)}
+.metric-label{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--mos-text-3);margin-bottom:12px}
+.metric-value{font-family:var(--client-font-h);font-size:42px;font-weight:400;line-height:1;color:var(--client-accent);margin-bottom:8px}
+.metric-note{font-size:12px;color:var(--mos-text-2);line-height:1.5}
+
+/* FINAL */
+.final{background:radial-gradient(ellipse at center, color-mix(in srgb, var(--client-accent) 12%, transparent), transparent 70%);text-align:center}
+.final h1{margin-bottom:24px}
+.final .slide-lead{margin:0 auto 48px}
+.final-cta{display:inline-block;background:var(--client-accent);color:var(--client-primary);padding:18px 36px;border-radius:40px;font-weight:600;font-size:14px;letter-spacing:0.04em;text-decoration:none;margin-top:8px}
+.final-signature{margin-top:80px;font-family:var(--client-font-h);font-style:italic;color:var(--mos-text-3);font-size:14px}
+
+/* MODO PRINT — feed atual via imagem real */
+.ig-real-grid{background:var(--mos-bg-2);padding:12px;border-radius:8px;overflow:hidden}
+.ig-real-grid img{width:100%;height:auto;display:block;border-radius:4px}
+
+@media (max-width:768px){
+  .slide{padding:100px 24px 60px}
+  .slide h1{font-size:42px}
+  .slide h2{font-size:30px}
+  .compare,.metrics,.instagram-compare{grid-template-columns:1fr}
+  .phase{grid-template-columns:1fr;gap:12px}
+  .calendar-head,.calendar-row{grid-template-columns:1fr}
+  .calendar-week{border-right:none;border-bottom:0.5px solid var(--mos-line)}
+  .calendar-cell{border-right:none;border-bottom:0.5px solid var(--mos-line)}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">MarketingOS</div>
+    <div class="nav-progress" id="progress">Diagnóstico [PROSPECTO_NOME]</div>
+  </div>
+</nav>
+
+<!-- SLIDE 1 — CAPA -->
+<section class="slide cover">
+  <div class="slide-inner">
+    <div class="slide-label">Documento confidencial</div>
+    <h1>[PROSPECTO_NOME] —<br><em>diagnóstico e próximos passos.</em></h1>
+    <p class="slide-lead">Análise completa da presença digital atual, oportunidades identificadas e proposta de operação para os próximos 90 dias.</p>
+    <div class="meta">Preparado para</div>
+    <div class="recipient">[PROSPECTO_NOME_FULL]</div>
+  </div>
+</section>
+
+<!-- SLIDE 2 — SITUAÇÃO ATUAL -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">01 · Onde vocês estão hoje</div>
+    <h2>[PROSPECTO_DIAGNOSTICO_HEADLINE]</h2>
+    <p class="slide-text">[PROSPECTO_DIAGNOSTICO_PARAGRAFO_1]</p>
+    <p class="slide-text">[PROSPECTO_DIAGNOSTICO_PARAGRAFO_2]</p>
+  </div>
+</section>
+
+<!-- SLIDE 3 — ANTES x DEPOIS -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">02 · A diferença começa no headline</div>
+    <h2>O mesmo negócio, comunicado de duas formas.</h2>
+    <p class="slide-text">[PROSPECTO_COMPARATIVO_INTRO]</p>
+    <div class="compare">
+      <div class="compare-col bad">
+        <span class="compare-tag bad">Site atual</span>
+        <div class="compare-headline">"[PROSPECTO_HEADLINE_ATUAL]"</div>
+        <p class="compare-note">[PROSPECTO_CRITICA_HEADLINE]</p>
+      </div>
+      <div class="compare-col good">
+        <span class="compare-tag good">Nova proposta</span>
+        <div class="compare-headline">"[PROSPECTO_HEADLINE_NOVA]"</div>
+        <p class="compare-note">[PROSPECTO_JUSTIFICATIVA_HEADLINE]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4 — PROBLEMAS -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">03 · O que está custando vendas</div>
+    <h2>[PROSPECTO_PROBLEMAS_HEADLINE]</h2>
+    <p class="slide-text">[PROSPECTO_PROBLEMAS_INTRO]</p>
+    <div class="problem-list">
+      <!-- REPETIR PARA CADA PROBLEMA — mínimo 3, máximo 5 -->
+      <div class="problem">
+        <div class="problem-num">01</div>
+        <div class="problem-content">
+          <h3>[PROBLEMA_1_TITULO]</h3>
+          <p>[PROBLEMA_1_DESCRICAO]</p>
+          <div class="problem-impact">Impacto: [PROBLEMA_1_IMPACTO]</div>
+        </div>
+      </div>
+      <div class="problem">
+        <div class="problem-num">02</div>
+        <div class="problem-content">
+          <h3>[PROBLEMA_2_TITULO]</h3>
+          <p>[PROBLEMA_2_DESCRICAO]</p>
+          <div class="problem-impact">Impacto: [PROBLEMA_2_IMPACTO]</div>
+        </div>
+      </div>
+      <div class="problem">
+        <div class="problem-num">03</div>
+        <div class="problem-content">
+          <h3>[PROBLEMA_3_TITULO]</h3>
+          <p>[PROBLEMA_3_DESCRICAO]</p>
+          <div class="problem-impact">Impacto: [PROBLEMA_3_IMPACTO]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5 — MOCKUP DO SITE -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">04 · O que já construímos</div>
+    <h2>A nova home está pronta para vocês verem.</h2>
+    <p class="slide-text">[PROSPECTO_MOCKUP_INTRO]</p>
+    <div class="mockup-wrap">
+      <div class="mockup-bar">
+        <span></span><span></span><span></span>
+        <span class="url">[PROSPECTO_PREVIEW_URL]</span>
+      </div>
+      <div class="mockup-image">
+        <div class="mockup-hero">[PROSPECTO_HEADLINE_NOVA_DESTAQUE]</div>
+        <p class="mockup-sub">[PROSPECTO_SUBHEADLINE_NOVA]</p>
+        <a class="mockup-cta">[PROSPECTO_CTA]</a>
+      </div>
+    </div>
+    <p class="slide-text" style="margin-top:32px">[PROSPECTO_MOCKUP_FECHAMENTO]</p>
+  </div>
+</section>
+
+<!-- SLIDE 6 — INSTAGRAM ATUAL VS PROPOSTO -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">05 · O Instagram que vende</div>
+    <h2>Do feed institucional ao feed que converte.</h2>
+    <p class="slide-text">[INSTAGRAM_INTRO]</p>
+
+    <div class="instagram-compare">
+      <!-- LADO ESQUERDO: Modo Mockup (padrão) ou Modo Print (com feed-atual.jpg) -->
+      <div class="ig-col bad">
+        <span class="ig-label">Feed atual</span>
+        <!-- MODO MOCKUP (remover se usar Modo Print) -->
+        <div class="ig-grid">
+          <div class="ig-post">[FEED_ATUAL_POST_1]</div>
+          <div class="ig-post">[FEED_ATUAL_POST_2]</div>
+          <div class="ig-post">[FEED_ATUAL_POST_3]</div>
+          <div class="ig-post">[FEED_ATUAL_POST_4]</div>
+          <div class="ig-post">[FEED_ATUAL_POST_5]</div>
+          <div class="ig-post">[FEED_ATUAL_POST_6]</div>
+          <div class="ig-post">[FEED_ATUAL_POST_7]</div>
+          <div class="ig-post">[FEED_ATUAL_POST_8]</div>
+          <div class="ig-post">[FEED_ATUAL_POST_9]</div>
+        </div>
+        <!-- MODO PRINT (descomentar se usar imagem real)
+        <div class="ig-real-grid">
+          <img src="../../assets/reference/feed-atual.jpg" alt="Feed atual" />
+        </div>
+        -->
+        <p class="ig-note">[CRITICA_FEED_ATUAL]</p>
+      </div>
+
+      <!-- LADO DIREITO: Feed proposto com identidade do cliente -->
+      <div class="ig-col good">
+        <span class="ig-label">Feed proposto</span>
+        <div class="ig-grid">
+          <div class="ig-post p1">[TEMA_POST_1]</div>
+          <div class="ig-post p2">[TEMA_POST_2]</div>
+          <div class="ig-post p3 font">"[CITACAO_1]"</div>
+          <div class="ig-post p4">[TEMA_POST_4]</div>
+          <div class="ig-post p1">[TEMA_POST_5]</div>
+          <div class="ig-post p5">[TEMA_POST_6]</div>
+          <div class="ig-post p3 font">"[CITACAO_2]"</div>
+          <div class="ig-post p2">[TEMA_POST_8]</div>
+          <div class="ig-post p1">[TEMA_POST_9]</div>
+        </div>
+        <p class="ig-note">[JUSTIFICATIVA_FEED_NOVO]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 7 — CARROSSEL NAVEGÁVEL -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">06 · Carrossel real em funcionamento</div>
+    <h2>Não é mockup. É o que vai ao ar.</h2>
+    <p class="slide-text">[CARROSSEL_INTRO]</p>
+
+    <div class="carousel-demo">
+      <div class="carousel-frame" id="carouselFrame">
+        <div class="carousel-slide gancho active" data-slide="1">
+          <span class="carousel-num">1 / 5</span>
+          <div class="carousel-title">[CARROSSEL_GANCHO]</div>
+        </div>
+        <div class="carousel-slide conteudo" data-slide="2">
+          <span class="carousel-num">2 / 5</span>
+          <span class="carousel-label">[LABEL_SLIDE_2]</span>
+          <div class="carousel-title">[TITULO_SLIDE_2]</div>
+          <p class="carousel-body">[CORPO_SLIDE_2]</p>
+        </div>
+        <div class="carousel-slide conteudo" data-slide="3">
+          <span class="carousel-num">3 / 5</span>
+          <span class="carousel-label">[LABEL_SLIDE_3]</span>
+          <div class="carousel-title">[TITULO_SLIDE_3]</div>
+          <p class="carousel-body">[CORPO_SLIDE_3]</p>
+        </div>
+        <div class="carousel-slide conteudo" data-slide="4">
+          <span class="carousel-num">4 / 5</span>
+          <span class="carousel-label">[LABEL_SLIDE_4]</span>
+          <div class="carousel-title">[TITULO_SLIDE_4]</div>
+          <p class="carousel-body">[CORPO_SLIDE_4]</p>
+        </div>
+        <div class="carousel-slide cta" data-slide="5">
+          <span class="carousel-num">5 / 5</span>
+          <div class="carousel-cta-text">[CTA_SLIDE_FINAL]</div>
+          <a class="carousel-cta-btn">[BOTAO_CTA]</a>
+        </div>
+      </div>
+
+      <div class="carousel-nav">
+        <button onclick="prevCarouselSlide()">←</button>
+        <div class="carousel-dots" id="carouselDots"></div>
+        <button onclick="nextCarouselSlide()">→</button>
+      </div>
+
+      <p class="carousel-caption">Esse carrossel foi gerado pelo MarketingOS com a identidade visual da [PROSPECTO_NOME] aplicada. É um exemplo real do que vai ao ar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 8 — CALENDÁRIO EDITORIAL -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">07 · Conteúdo planejado</div>
+    <h2>4 semanas de Instagram prontas para começar.</h2>
+    <p class="slide-text">[CALENDARIO_INTRO]</p>
+
+    <div class="calendar">
+      <div class="calendar-head">
+        <div></div>
+        <div>Segunda</div>
+        <div>Terça</div>
+        <div>Quarta</div>
+        <div>Quinta</div>
+        <div>Sexta</div>
+      </div>
+      <div class="calendar-row">
+        <div class="calendar-week">Semana 1</div>
+        <div class="calendar-cell"><span class="calendar-format carrossel">Carrossel</span><div class="calendar-theme">[S1_SEG]</div></div>
+        <div class="calendar-cell"><span class="calendar-format post">Post</span><div class="calendar-theme">[S1_TER]</div></div>
+        <div class="calendar-cell"><span class="calendar-format reels">Reels</span><div class="calendar-theme">[S1_QUA]</div></div>
+        <div class="calendar-cell"><span class="calendar-format carrossel">Carrossel</span><div class="calendar-theme">[S1_QUI]</div></div>
+        <div class="calendar-cell"><span class="calendar-format story">Story</span><div class="calendar-theme">[S1_SEX]</div></div>
+      </div>
+      <div class="calendar-row">
+        <div class="calendar-week">Semana 2</div>
+        <div class="calendar-cell"><span class="calendar-format post">Post</span><div class="calendar-theme">[S2_SEG]</div></div>
+        <div class="calendar-cell"><span class="calendar-format carrossel">Carrossel</span><div class="calendar-theme">[S2_TER]</div></div>
+        <div class="calendar-cell"><span class="calendar-format reels">Reels</span><div class="calendar-theme">[S2_QUA]</div></div>
+        <div class="calendar-cell"><span class="calendar-format post">Post</span><div class="calendar-theme">[S2_QUI]</div></div>
+        <div class="calendar-cell"><span class="calendar-format carrossel">Carrossel</span><div class="calendar-theme">[S2_SEX]</div></div>
+      </div>
+      <div class="calendar-row">
+        <div class="calendar-week">Semana 3</div>
+        <div class="calendar-cell"><span class="calendar-format carrossel">Carrossel</span><div class="calendar-theme">[S3_SEG]</div></div>
+        <div class="calendar-cell"><span class="calendar-format reels">Reels</span><div class="calendar-theme">[S3_TER]</div></div>
+        <div class="calendar-cell"><span class="calendar-format post">Post</span><div class="calendar-theme">[S3_QUA]</div></div>
+        <div class="calendar-cell"><span class="calendar-format story">Story</span><div class="calendar-theme">[S3_QUI]</div></div>
+        <div class="calendar-cell"><span class="calendar-format carrossel">Carrossel</span><div class="calendar-theme">[S3_SEX]</div></div>
+      </div>
+      <div class="calendar-row">
+        <div class="calendar-week">Semana 4</div>
+        <div class="calendar-cell"><span class="calendar-format post">Post</span><div class="calendar-theme">[S4_SEG]</div></div>
+        <div class="calendar-cell"><span class="calendar-format carrossel">Carrossel</span><div class="calendar-theme">[S4_TER]</div></div>
+        <div class="calendar-cell"><span class="calendar-format reels">Reels</span><div class="calendar-theme">[S4_QUA]</div></div>
+        <div class="calendar-cell"><span class="calendar-format carrossel">Carrossel</span><div class="calendar-theme">[S4_QUI]</div></div>
+        <div class="calendar-cell"><span class="calendar-format post">Post</span><div class="calendar-theme">[S4_SEX]</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 9 — ROADMAP 90 DIAS -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">08 · O plano dos próximos 90 dias</div>
+    <h2>Da operação atual ao sistema rodando.</h2>
+    <p class="slide-text">[PROSPECTO_ROADMAP_INTRO]</p>
+    <div class="roadmap">
+      <div class="phase">
+        <div class="phase-period"><span class="num">30</span>dias</div>
+        <div class="phase-content">
+          <h3>[FASE1_TITULO]</h3>
+          <p style="font-size:14px;color:var(--mos-text-2);line-height:1.6">[FASE1_DESCRICAO]</p>
+          <ul class="phase-list">
+            <li>[FASE1_ENTREGA_1]</li>
+            <li>[FASE1_ENTREGA_2]</li>
+            <li>[FASE1_ENTREGA_3]</li>
+            <li>[FASE1_ENTREGA_4]</li>
+            <li>[FASE1_ENTREGA_5]</li>
+          </ul>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-period"><span class="num">60</span>dias</div>
+        <div class="phase-content">
+          <h3>[FASE2_TITULO]</h3>
+          <p style="font-size:14px;color:var(--mos-text-2);line-height:1.6">[FASE2_DESCRICAO]</p>
+          <ul class="phase-list">
+            <li>[FASE2_ENTREGA_1]</li>
+            <li>[FASE2_ENTREGA_2]</li>
+            <li>[FASE2_ENTREGA_3]</li>
+            <li>[FASE2_ENTREGA_4]</li>
+            <li>[FASE2_ENTREGA_5]</li>
+          </ul>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-period"><span class="num">90</span>dias</div>
+        <div class="phase-content">
+          <h3>[FASE3_TITULO]</h3>
+          <p style="font-size:14px;color:var(--mos-text-2);line-height:1.6">[FASE3_DESCRICAO]</p>
+          <ul class="phase-list">
+            <li>[FASE3_ENTREGA_1]</li>
+            <li>[FASE3_ENTREGA_2]</li>
+            <li>[FASE3_ENTREGA_3]</li>
+            <li>[FASE3_ENTREGA_4]</li>
+            <li>[FASE3_ENTREGA_5]</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 10 — POTENCIAL -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">09 · O que isso pode gerar</div>
+    <h2>Estimativas conservadoras baseadas no nicho.</h2>
+    <p class="slide-text">[PROSPECTO_METRICAS_INTRO]</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-label">[METRICA_1_LABEL]</div>
+        <div class="metric-value">[METRICA_1_VALOR]</div>
+        <div class="metric-note">[METRICA_1_NOTA]</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">[METRICA_2_LABEL]</div>
+        <div class="metric-value">[METRICA_2_VALOR]</div>
+        <div class="metric-note">[METRICA_2_NOTA]</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">[METRICA_3_LABEL]</div>
+        <div class="metric-value">[METRICA_3_VALOR]</div>
+        <div class="metric-note">[METRICA_3_NOTA]</div>
+      </div>
+    </div>
+    <p class="slide-text" style="margin-top:40px;font-size:13px;color:var(--mos-text-3)">As estimativas servem como referência. Métricas reais serão rastreadas a partir da implantação no dashboard ao vivo.</p>
+  </div>
+</section>
+
+<!-- SLIDE 11 — FECHAMENTO -->
+<section class="slide final">
+  <div class="slide-inner">
+    <div class="slide-label">Próximo passo</div>
+    <h1>[FECHAMENTO_HEADLINE]</h1>
+    <p class="slide-lead">[FECHAMENTO_TEXTO]</p>
+    <a href="[PROSPECTO_WHATSAPP_LINK]" class="final-cta">Conversar pelo WhatsApp →</a>
+    <div class="final-signature">
+      [PROFISSIONAL_NOME] · MarketingOS<br>
+      <span style="color:var(--mos-text-3);font-style:normal;font-family:var(--client-font-b);font-size:12px;letter-spacing:0.08em;text-transform:uppercase;margin-top:8px;display:inline-block">Apresentação confidencial · [PROSPECTO_NOME]</span>
+    </div>
+  </div>
+</section>
+
+<script>
+// Nav progress
+const slides=document.querySelectorAll('.slide');
+const progress=document.getElementById('progress');
+const labels=['Capa','Diagnóstico · 1/8','Diagnóstico · 2/8','Diagnóstico · 3/8','Proposta · 4/8','Instagram · 5/8','Carrossel · 6/8','Calendário · 7/8','Roadmap · 8/8','Potencial','Próximo passo'];
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){const i=Array.from(slides).indexOf(e.target);progress.textContent=labels[i]||'';}});
+},{threshold:0.5});
+slides.forEach(s=>observer.observe(s));
+
+// Carrossel navegável
+let cur=0;
+const cSlides=document.querySelectorAll('.carousel-slide');
+const dotsEl=document.getElementById('carouselDots');
+cSlides.forEach((_,i)=>{const d=document.createElement('span');d.className='dot'+(i===0?' active':'');d.onclick=()=>goToCarouselSlide(i);dotsEl.appendChild(d);});
+function goToCarouselSlide(n){
+  const dots=dotsEl.querySelectorAll('.dot');
+  cSlides[cur].classList.remove('active');dots[cur].classList.remove('active');
+  cur=(n+cSlides.length)%cSlides.length;
+  cSlides[cur].classList.add('active');dots[cur].classList.add('active');
+}
+function nextCarouselSlide(){goToCarouselSlide(cur+1)}
+function prevCarouselSlide(){goToCarouselSlide(cur-1)}
+</script>
+
+</body>
+</html>

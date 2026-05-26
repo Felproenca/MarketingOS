@@ -22,15 +22,19 @@ Combina `skills` (capacidade isolada), `workflows` (sequencia operacional), cont
   /clients
     /_template
     /[slug]
-      client.md
-      notes.md
-      campaigns.md
-      metrics.json
-      brand-kit.json
-      estrategia.md
-      runs.md
+      client.md / notes.md / campaigns.md
+      metrics.json / brand-kit.json
+      estrategia.md / runs.md
       /outputs
   /skills
+    alma.md              ← lido uma vez por sessão, antes de tudo
+    skill-abrir.md       ← sistema
+    skill-salvar.md      ← sistema
+    /analise             ← /analisar
+    /criacao             ← /criar
+    /aquisicao           ← /prospectar
+    /venda               ← /vender
+    /relacionamento      ← /relacionar
   /workflows
   /scripts
   /intelligence
@@ -43,37 +47,86 @@ Combina `skills` (capacidade isolada), `workflows` (sequencia operacional), cont
 ## Antes de Executar Qualquer Skill
 
 1. Executar `/abrir [slug]` se a sessao ainda nao foi iniciada
-2. Ler `intelligence/patterns.md` — padroes cross-client aplicaveis ao nicho
-3. Ler `intelligence/benchmarks.json` — benchmarks do canal
-4. Ler `client.md` do cliente ativo
-5. Ler `notes.md` — alertas e inteligencia acumulada
-6. Ler `runs.md` — ultimas sessoes para evitar retrabalho
-7. Ao final: executar `/fechar` — nunca fechar o chat sem salvar aprendizados
+2. Ler `skills/alma.md` — o porque de tudo (uma vez por sessao)
+3. Ler `intelligence/patterns.md` — padroes cross-client aplicaveis ao nicho
+4. Ler `intelligence/benchmarks.json` — benchmarks do canal
+5. Ler `client.md` do cliente ativo
+6. Ler `notes.md` — alertas e inteligencia acumulada
+7. Ler `runs.md` — ultimas sessoes para evitar retrabalho
+8. Ao final: executar `/fechar` — nunca fechar o chat sem salvar aprendizados
 
 ---
 
-## Skills Disponiveis
+## Hierarquia de Skills
 
-| Skill / Workflow | Quando usar |
+### Sistema (sempre disponiveis, independentes de grupo)
+
+| Skill / Workflow | Comando | Quando usar |
+|---|---|---|
+| `workflows/open-client.md` | `/abrir [slug]` | **SEMPRE PRIMEIRO** — carrega intelligence + contexto |
+| `workflows/close-client.md` | `/fechar` | **SEMPRE AO FINAL** — extrai aprendizados, faz commit |
+| `skills/skill-salvar.md` | `/salvar` | Checkpoint intermediario — commit sem encerrar sessao |
+| `skills/alma.md` | — | Lido uma vez por sessao antes de qualquer criacao |
+
+### Grupo: Analise → `/analisar`
+> Leia `skills/analise/_admin.md` → escolha uma skill → carregue so ela.
+
+| Skill | Quando usar |
 |---|---|
-| `workflows/open-client.md` | **SEMPRE PRIMEIRO** — `/abrir [slug]` — carrega intelligence + contexto do cliente |
-| `workflows/close-client.md` | **SEMPRE AO FINAL** — `/fechar` — extrai aprendizados, atualiza intelligence, faz commit |
-| `skill-salvar.md` | Checkpoint intermediario — `/salvar` — commit sem encerrar sessao |
-| `skill-branding.md` | Direcao criativa e design system da marca |
-| `skill-site-builder.md` | Site ou landing page (rodar branding antes) |
-| `skill-offer-positioning.md` | Posicionamento e copy de oferta |
-| `skill-carousel.md` | Carrossel para Instagram |
-| `skill-post.md` | Post (Feed, Reels, Story) |
-| `skill-image-generation.md` | Prompts e imagens de apoio |
-| `skill-investigar.md` | Analise de concorrente ou referencia de mercado |
-| `skill-seo.md` | Estrategia e otimizacao SEO — 8 passos |
-| `skill-anuncio.md` | Campanha Google/Meta com copy, estrutura e CSV |
-| `skill-publicar.md` | Aprovacao e publicacao multi-plataforma com checklist |
-| `skill-dashboard.md` | Analise de metricas e relatorio |
-| `skill-funnel-analysis.md` | Diagnostico de funil |
-| `skill-lead-capture.md` | Captura e primeiro contato |
-| `skill-retention.md` | Retencao pos-venda |
-| `skill-reactivation.md` | Reativacao de inativos |
+| `analise/skill-dashboard.md` | Relatorio de performance e metricas |
+| `analise/skill-funnel-analysis.md` | Diagnostico de funil ponta a ponta |
+| `analise/skill-investigar.md` | Analise de concorrente ou referencia |
+| `analise/skill-seo.md` | Estrategia e auditoria SEO |
+| `analise/skill-estrategista.md` | Decisao estrategica e priorizacao |
+
+### Grupo: Criacao → `/criar`
+> Leia `skills/alma.md` + `skills/criacao/_admin.md` → escolha uma skill → carregue so ela.
+
+| Skill | Quando usar |
+|---|---|
+| `criacao/skill-criatividade.md` | Verdade humana + direcao criativa (obrigatoria antes de criar) |
+| `criacao/skill-carousel.md` | Carrossel para Instagram |
+| `criacao/skill-post.md` | Post (Feed, Reels, Story) |
+| `criacao/skill-branding.md` | Direcao criativa e design system |
+| `criacao/skill-site-builder.md` | Site ou landing page |
+| `criacao/skill-image-generation.md` | Prompts e imagens de apoio |
+| `criacao/skill-publicar.md` | Aprovacao e publicacao com checklist |
+
+### Grupo: Aquisicao → `/prospectar`
+> Leia `skills/aquisicao/_admin.md` → escolha uma skill → carregue so ela.
+
+| Skill | Quando usar |
+|---|---|
+| `aquisicao/skill-market-analyzer.md` | Analisa nichos com potencial (`/mercado`) |
+| `aquisicao/skill-prospector.md` | Qualifica e prioriza prospectos (`/prospector`) |
+| `aquisicao/skill-offer-positioning.md` | Posicionamento e copy de oferta |
+| `aquisicao/skill-pitch-deck.md` | Apresentacao comercial HTML (`/pitch`) |
+| `aquisicao/skill-lead-capture.md` | Estrutura de captura de leads |
+| `aquisicao/skill-anuncio.md` | Campanha Google/Meta com copy e CSV |
+
+### Grupo: Venda → `/vender`
+> Leia `skills/venda/_admin.md` → escolha uma skill → carregue so ela.
+
+| Skill | Quando usar |
+|---|---|
+| `venda/skill-venda.md` | Abordagem, argumento e fechamento |
+
+### Grupo: Relacionamento → `/relacionar`
+> Leia `skills/relacionamento/_admin.md` → escolha uma skill → carregue so ela.
+
+| Skill | Quando usar |
+|---|---|
+| `relacionamento/skill-retention.md` | Pos-venda e retencao |
+| `relacionamento/skill-reactivation.md` | Reativacao de inativos |
+| `relacionamento/skill-head-implantado.md` | Head de marketing implantado |
+
+### Workflows Head Implantado
+
+| Workflow | Comando | Quando usar |
+|---|---|---|
+| `workflows/onboarding-head.md` | `/onboarding` | Primeiro mes — diagnostico ao ritmo mensal |
+| `workflows/reuniao-estrategica.md` | `/reuniao` | Reuniao quinzenal/mensal com o cliente |
+| `workflows/relatorio-executivo.md` | `/relatorio` | Relatorio executivo mensal |
 
 ---
 

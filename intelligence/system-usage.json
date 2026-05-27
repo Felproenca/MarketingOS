@@ -1,9 +1,53 @@
 {
   "_meta": {
     "description": "Log de uso das skills por sessão. Atualizado automaticamente pelo /fechar.",
-    "updated_at": "",
-    "total_sessions": 0,
-    "total_operations": 0
+    "updated_at": "2026-05-27",
+    "total_sessions": 1,
+    "total_operations": 6
   },
-  "sessions": []
+  "sessions": [
+    {
+      "date": "2026-05-27",
+      "client": "felipe-proenca + toqueindiano",
+      "skills_used": [
+        {
+          "skill": "skill-offer-positioning",
+          "group": "aquisicao",
+          "output_generated": "clients/felipe-proenca/outputs/oferta/oferta-v1.md",
+          "outcome": "aprovado"
+        },
+        {
+          "skill": "skill-carousel",
+          "group": "criacao",
+          "output_generated": "clients/felipe-proenca/outputs/carousels/carousel-15/index.html",
+          "outcome": "aprovado"
+        },
+        {
+          "skill": "skill-carousel",
+          "group": "criacao",
+          "output_generated": "clients/felipe-proenca/outputs/carousels/carousel-17/index.html",
+          "outcome": "aprovado"
+        },
+        {
+          "skill": "skill-prospector",
+          "group": "aquisicao",
+          "output_generated": "clients/toqueindiano/outputs/demo/apresentacao-toqueindiano.html",
+          "outcome": "aprovado"
+        },
+        {
+          "skill": "skill-pitch-deck",
+          "group": "aquisicao",
+          "output_generated": "clients/toqueindiano/outputs/demo/apresentacao-toqueindiano-v2.html",
+          "outcome": "aprovado"
+        },
+        {
+          "skill": "skill-estrategista",
+          "group": "analise",
+          "output_generated": "sistema: contexto mínimo + telemetria + fundação",
+          "outcome": "aprovado"
+        }
+      ],
+      "notes": "Sessão mista: operação de cliente (felipe-proenca) + prospecção (toqueindiano) + atualização de arquitetura do sistema. Skills de sistema não catalogadas individualmente."
+    }
+  ]
 }

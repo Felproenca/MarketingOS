@@ -6,6 +6,28 @@ Combina `skills` (capacidade isolada), `workflows` (sequencia operacional), cont
 
 ---
 
+## Fundação — leia antes de tudo
+
+Antes de qualquer operação criativa ou de conteúdo, leia:
+1. manifesto.md — o porquê de tudo
+2. alma.md — missão, visão e critérios
+
+Se manifesto.md ou alma.md não existirem na raiz, sinalize antes de continuar.
+
+---
+
+## Filtros de criação (de alma.md)
+
+1. Isso é autêntico? Poderia ter sido dito só por essa marca?
+2. Isso serve ao cliente ou serve à métrica?
+3. Isso conversa com o límbico? Provoca algo?
+4. Isso tem substância para o racional?
+5. Está alinhado com o manifesto?
+
+Essa marca tem gravidade para arrastar — ou precisa construir a ponte?
+
+---
+
 ## Prioridades
 
 1. Conversao

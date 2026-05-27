@@ -1,0 +1,9 @@
+{
+  "_meta": {
+    "description": "Log de uso das skills por sessão. Atualizado automaticamente pelo /fechar.",
+    "updated_at": "",
+    "total_sessions": 0,
+    "total_operations": 0
+  },
+  "sessions": []
+}

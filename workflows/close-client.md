@@ -45,6 +45,12 @@ PASSO 4 — Avaliar se há padrão cross-client
   → Regra: só vai para intelligence/ o que foi observado em contexto real — não hipótese
 
 PASSO 5 — Executar /salvar
+  → Registrar sessão em /intelligence/system-usage.json:
+     - date: data de hoje
+     - client: slug do cliente ativo
+     - skills_used: todas as skills executadas nesta sessão
+     - output_generated: arquivos criados
+     - outcome: aprovado/revisado/descartado/pendente
   → Commit git de todos os outputs da sessão
   → Atualizar runs.md
 

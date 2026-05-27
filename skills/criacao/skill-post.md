@@ -5,6 +5,14 @@
 
 ---
 
+## Contexto mínimo necessário
+→ client.md — Blocos 2 e 4 (persona e tom da marca)
+→ brand-kit.json — palette, typography (para briefing visual)
+→ alma.md — filtros de criação (5 perguntas)
+→ NÃO carregar: metrics.json, campaigns.md, notes.md, estrategia.md, intelligence/
+
+---
+
 ## Objetivo da Skill
 
 Gerar um post completo para Instagram com:

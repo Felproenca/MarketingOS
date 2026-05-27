@@ -5,6 +5,14 @@
 
 ---
 
+## Contexto mínimo necessário
+→ client.md — Blocos 1 e 2 (negócio, ciclo de compra, perfil do cliente)
+→ notes.md — histórico de inativos e tentativas anteriores
+→ campaigns.md — fluxos de reativação já tentados
+→ NÃO carregar: brand-kit.json, intelligence/, alma.md, estrategia.md, metrics.json
+
+---
+
 ## Objetivo da Skill
 
 Estruturar e executar campanhas de reativação de clientes que pararam de comprar ou responder, cobrindo:

@@ -5,6 +5,14 @@
 
 ---
 
+## Contexto mínimo necessário
+→ client.md — Blocos 1, 2 e 4 (negócio, persona, tom)
+→ brand-kit.json — palette e tipografia (para briefing visual dos criativos)
+→ metrics.json — CPL e ROAS histórico como referência (se disponível)
+→ NÃO carregar: intelligence/, alma.md, notes.md, estrategia.md
+
+---
+
 ## Objetivo
 
 Criar campanhas de anúncios pagos prontas para subir — com copy, segmentação sugerida,

@@ -6,6 +6,14 @@
 
 ---
 
+## Contexto mínimo necessário
+→ client.md — Blocos 2, 3 e 4 (persona, posicionamento, tom)
+→ brand-kit.json — palette, typography
+→ alma.md — filtros de criação (5 perguntas)
+→ NÃO carregar: metrics.json, campaigns.md, notes.md, estrategia.md, intelligence/
+
+---
+
 ## Objetivo
 
 Gerar um carrossel completo para Instagram em **uma única operação**:

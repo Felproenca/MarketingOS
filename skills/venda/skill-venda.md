@@ -5,6 +5,14 @@
 
 ---
 
+## Contexto mínimo necessário
+→ client.md — Blocos 1, 2 e 4 (negócio, persona, tom)
+→ notes.md — histórico do lead: origem, objeções e estágio
+→ alma.md — autenticidade como postura de venda
+→ NÃO carregar: metrics.json, campaigns.md, brand-kit.json, estrategia.md, intelligence/
+
+---
+
 ## Propósito
 
 Marketing cria contexto e desejo.

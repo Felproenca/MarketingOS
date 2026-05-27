@@ -5,6 +5,13 @@
 
 ---
 
+## Contexto mínimo necessário
+→ client.md — Blocos 1, 2 e 3 (negócio, persona, concorrência e posicionamento)
+→ intelligence/benchmarks.json — benchmarks de tráfego orgânico do nicho (se disponível)
+→ NÃO carregar: metrics.json, campaigns.md, brand-kit.json, alma.md, notes.md, estrategia.md
+
+---
+
 ## Objetivo
 
 Desenvolver uma estratégia de SEO baseada no negócio real do cliente — não templates genéricos.

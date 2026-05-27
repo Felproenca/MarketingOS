@@ -5,6 +5,13 @@
 
 ---
 
+## Contexto mínimo necessário
+→ client.md — Blocos 1, 2 e 4 (negócio, persona, tom)
+→ campaigns.md — para registrar o fluxo criado
+→ NÃO carregar: metrics.json, brand-kit.json, intelligence/, alma.md, notes.md, estrategia.md
+
+---
+
 ## Objetivo da Skill
 
 Estruturar e gerar o sistema completo de captura de leads para um cliente, cobrindo:

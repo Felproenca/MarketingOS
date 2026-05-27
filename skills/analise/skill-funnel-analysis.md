@@ -5,6 +5,14 @@
 
 ---
 
+## Contexto mínimo necessário
+→ metrics.json — completo (tráfego, leads, conversões por canal)
+→ client.md — Bloco 1 (ticket médio, canais) + Bloco 7 (metas)
+→ campaigns.md — campanhas ativas e histórico recente
+→ NÃO carregar: brand-kit.json, alma.md, notes.md, estrategia.md, intelligence/
+
+---
+
 ## Objetivo da Skill
 
 Mapear e analisar o funil completo de aquisição do cliente, identificando:

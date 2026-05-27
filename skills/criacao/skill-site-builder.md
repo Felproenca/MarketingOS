@@ -5,6 +5,17 @@
 
 ---
 
+## Contexto mínimo necessário
+→ client.md — Blocos 1, 2, 3 e 4 (negócio, persona, posicionamento, tom)
+→ brand-kit.json — palette, typography, style
+→ outputs/branding/visual-direction.md — direção criativa aprovada
+→ outputs/branding/design-system.json — sistema de design
+→ outputs/branding/references.md — referências visuais
+→ alma.md — filtros de criação
+→ NÃO carregar: metrics.json, campaigns.md, notes.md, estrategia.md, intelligence/
+
+---
+
 ## Objetivo da Skill
 
 Gerar um site completo orientado a conversão com:

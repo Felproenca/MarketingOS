@@ -5,6 +5,14 @@
 
 ---
 
+## Contexto mínimo necessário
+→ client.md — completo (todos os blocos)
+→ estrategia.md — foco atual, prioridades e KPIs definidos
+→ metrics.json — estado atual da operação
+→ NÃO carregar: brand-kit.json, intelligence/, alma.md, notes.md, campaigns.md
+
+---
+
 ## Objetivo da Skill
 
 Definir o papel, as responsabilidades e o protocolo operacional do Head de Marketing Implantado — o modelo em que Felipe atua como o responsável pelo marketing do cliente, não como fornecedor de peças, mas como o profissional que toma as decisões e executa a operação.

@@ -5,6 +5,13 @@
 
 ---
 
+## Contexto mínimo necessário
+→ client.md — Blocos 1, 2, 3 e 4 (negócio, persona, concorrência, tom)
+→ alma.md — filtros de autenticidade (o que não é verdadeiro não sai)
+→ NÃO carregar: metrics.json, campaigns.md, brand-kit.json, notes.md, estrategia.md, intelligence/
+
+---
+
 ## Objetivo da Skill
 
 Estruturar e comunicar a oferta principal do cliente de forma que ela seja:

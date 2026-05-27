@@ -5,6 +5,13 @@
 
 ---
 
+## Contexto mínimo necessário
+→ runs.md — para registrar a sessão atual
+→ intelligence/system-usage.json — para registrar skills usadas
+→ NÃO carregar: client.md, brand-kit.json, metrics.json, campaigns.md, alma.md, intelligence/patterns.md
+
+---
+
 ## Objetivo
 
 Fechar a sessão com:

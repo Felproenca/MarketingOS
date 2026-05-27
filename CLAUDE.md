@@ -69,13 +69,15 @@ Essa marca tem gravidade para arrastar — ou precisa construir a ponte?
 ## Antes de Executar Qualquer Skill
 
 1. Executar `/abrir [slug]` se a sessao ainda nao foi iniciada
-2. Ler `skills/alma.md` — o porque de tudo (uma vez por sessao)
-3. Ler `intelligence/patterns.md` — padroes cross-client aplicaveis ao nicho
-4. Ler `intelligence/benchmarks.json` — benchmarks do canal
-5. Ler `client.md` do cliente ativo
-6. Ler `notes.md` — alertas e inteligencia acumulada
-7. Ler `runs.md` — ultimas sessoes para evitar retrabalho
-8. Ao final: executar `/fechar` — nunca fechar o chat sem salvar aprendizados
+2. Ler a secao `## Contexto mínimo necessário` da skill antes de carregar qualquer arquivo
+3. Carregar APENAS os arquivos listados nessa secao — nao carregar o que esta na lista `NAO carregar`
+4. Ler `skills/alma.md` — o porque de tudo (uma vez por sessao)
+5. Ler `intelligence/patterns.md` — padroes cross-client aplicaveis ao nicho
+6. Ler `intelligence/benchmarks.json` — benchmarks do canal
+7. Ler `client.md` do cliente ativo
+8. Ler `notes.md` — alertas e inteligencia acumulada
+9. Ler `runs.md` — ultimas sessoes para evitar retrabalho
+10. Ao final: executar `/fechar` — nunca fechar o chat sem salvar aprendizados
 
 ---
 

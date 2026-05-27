@@ -5,6 +5,14 @@
 
 ---
 
+## Contexto mínimo necessário
+→ client.md — Bloco 4 (tom e restrições da marca)
+→ campaigns.md — para registrar a publicação
+→ brand-kit.json — checklist visual de identidade
+→ NÃO carregar: metrics.json, intelligence/, alma.md, notes.md, estrategia.md
+
+---
+
 ## Objetivo
 
 Garantir que nenhum conteúdo vai ao ar sem:

@@ -6,6 +6,13 @@
 
 ---
 
+## Contexto mínimo necessário
+→ intelligence/market-opportunities.md — oportunidades já mapeadas
+→ intelligence/benchmarks.json — benchmarks por nicho
+→ NÃO carregar: client.md, metrics.json, campaigns.md, brand-kit.json, alma.md, notes.md, estrategia.md
+
+---
+
 ## Objetivo
 
 Identificar mercados e nichos com maior potencial para o MarketingOS,

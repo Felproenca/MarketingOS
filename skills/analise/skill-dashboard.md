@@ -5,6 +5,14 @@
 
 ---
 
+## Contexto mínimo necessário
+→ metrics.json — completo (canais ativos, goals, dados do período)
+→ client.md — Bloco 7 (metas) + canais ativos declarados
+→ campaigns.md — campanhas ativas apenas
+→ NÃO carregar: brand-kit.json, alma.md, notes.md, estrategia.md, intelligence/
+
+---
+
 ## Objetivo da Skill
 
 Gerar análise completa de performance com:

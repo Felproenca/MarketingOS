@@ -6,6 +6,13 @@
 
 ---
 
+## Contexto mínimo necessário
+→ client.md — Bloco 4 (tom, estilo visual, palavras proibidas)
+→ brand-kit.json — palette, typography, estilo visual
+→ NÃO carregar: metrics.json, campaigns.md, notes.md, estrategia.md, intelligence/, alma.md
+
+---
+
 ## Objetivo da Skill
 
 Gerar prompts de imagem precisos e alinhados à identidade visual do cliente, prontos para executar via Pollinations AI, cobrindo:

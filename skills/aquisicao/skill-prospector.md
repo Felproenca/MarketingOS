@@ -6,6 +6,14 @@
 
 ---
 
+## Contexto mínimo necessário
+→ client.md — Blocos 1, 2 e 3 (negócio, cliente ideal, posicionamento)
+→ intelligence/benchmarks.json — métricas de referência do nicho
+→ intelligence/market-opportunities.md — oportunidades mapeadas (se existir)
+→ NÃO carregar: metrics.json, campaigns.md, brand-kit.json, alma.md, notes.md, estrategia.md
+
+---
+
 ## Objetivo
 
 Encontrar, qualificar e priorizar potenciais clientes dentro de um nicho,

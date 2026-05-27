@@ -5,6 +5,18 @@
 
 ---
 
+## Contexto mínimo necessário
+→ .marketingos/state.json — cliente ativo
+→ intelligence/patterns.md — padrões cross-client
+→ intelligence/benchmarks.json — benchmarks do nicho
+→ client.md — completo
+→ notes.md — alertas e inteligência acumulada
+→ runs.md — últimas sessões
+→ estrategia.md — foco e prioridades atuais
+→ NÃO carregar: brand-kit.json, campaigns.md, metrics.json
+
+---
+
 ## Objetivo
 
 Carregar e confirmar o contexto completo do cliente ativo antes de qualquer trabalho.

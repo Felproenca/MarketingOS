@@ -6,6 +6,18 @@
 
 ---
 
+## Contexto mínimo necessário
+→ intelligence/patterns.md — padrões confirmados no sistema
+→ intelligence/benchmarks.json — referências do nicho do cliente
+→ client.md — completo (todos os blocos)
+→ estrategia.md — foco atual e prioridades declaradas
+→ metrics.json — performance real por canal
+→ campaigns.md — o que está rodando agora
+→ notes.md — histórico e inteligência acumulada
+→ NÃO carregar: brand-kit.json, alma.md
+
+---
+
 ## Objetivo
 
 Analisar o contexto completo do cliente e gerar um plano estratégico claro:

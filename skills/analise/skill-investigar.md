@@ -5,6 +5,13 @@
 
 ---
 
+## Contexto mínimo necessário
+→ client.md — Blocos 2 e 3 (persona, posicionamento, concorrência)
+→ intelligence/benchmarks.json — métricas de referência do nicho
+→ NÃO carregar: metrics.json, campaigns.md, brand-kit.json, alma.md, notes.md, estrategia.md
+
+---
+
 ## Objetivo
 
 Extrair padrões de conteúdo, posicionamento e estratégia de um perfil externo para:

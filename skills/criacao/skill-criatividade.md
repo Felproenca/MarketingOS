@@ -5,6 +5,15 @@
 
 ---
 
+## Contexto mínimo necessário
+→ manifesto.md — norte filosófico (obrigatório)
+→ alma.md — missão, visão e filtros de criação (obrigatório)
+→ client.md — Blocos 1, 2 e 4 (negócio, persona, tom)
+→ notes.md — inteligência acumulada e histórico criativo
+→ NÃO carregar: metrics.json, campaigns.md, brand-kit.json, estrategia.md, intelligence/
+
+---
+
 ## Propósito
 
 Antes de criar qualquer post, carrossel, site ou campanha —

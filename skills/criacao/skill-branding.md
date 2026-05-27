@@ -5,6 +5,16 @@
 
 ---
 
+## Contexto mínimo necessário
+→ client.md — completo (todos os blocos)
+→ notes.md — inteligência acumulada e histórico de decisões visuais
+→ brand-kit.json — estado atual da identidade
+→ intelligence/patterns.md — trechos relevantes ao nicho
+→ intelligence/benchmarks.json — referências de canal (site/landing)
+→ NÃO carregar: metrics.json, campaigns.md, alma.md, estrategia.md
+
+---
+
 ## Objetivo da Skill
 
 Criar a camada de direcao criativa que evita output generico e orienta todas as entregas visuais e de UX.

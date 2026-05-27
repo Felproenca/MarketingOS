@@ -6,6 +6,14 @@
 
 ---
 
+## Contexto mínimo necessário
+→ client.md — completo (todos os blocos)
+→ brand-kit.json — palette, typography, estilo visual
+→ alma.md — lógica 15%/85% para calibrar tom do deck
+→ NÃO carregar: metrics.json, campaigns.md, notes.md, estrategia.md, intelligence/
+
+---
+
 ## Objetivo
 
 Gerar uma apresentação HTML standalone com:

@@ -5,6 +5,14 @@
 
 ---
 
+## Contexto mínimo necessário
+→ client.md — Blocos 1 e 2 (negócio e ciclo de compra do cliente ideal)
+→ notes.md — histórico de relacionamento e sinais de churn
+→ campaigns.md — fluxos ativos de pós-venda
+→ NÃO carregar: brand-kit.json, intelligence/, alma.md, estrategia.md, metrics.json
+
+---
+
 ## Objetivo da Skill
 
 Estruturar e gerar o sistema de retenção de clientes ativos, cobrindo:

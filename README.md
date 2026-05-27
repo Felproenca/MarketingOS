@@ -1,60 +1,95 @@
 # MarketingOS
 
-Sistema operacional de marketing orientado por IA para operacao multi-cliente.
+Sistema operacional de marketing orientado por IA para operação multi-cliente.
+Combina skills isoladas, workflows operacionais e inteligência acumulada para gerar aquisição, posicionamento e conversão com alma.
+
+---
 
 ## Requisitos
+
 - Node.js 18+
 - Git
+- Claude Code (CLI) ou Cursor
 
-## Instalacao
+---
+
+## Instalação
+
 ```bash
 git clone https://github.com/Felproenca/MarketingOS.git
 cd MarketingOS
 npm install
 ```
 
-## Fluxo Basico
-1. Criar cliente:
+---
+
+## Fundação — leia antes de operar
+
+```
+manifesto.md   → o porquê de tudo — intocável
+alma.md        → missão, visão, filtros de criação
+AGENTS.md      → hierarquia de operação e grupos de skills
+CLAUDE.md      → instruções operacionais completas
+.cursorrules   → contexto para o Cursor
+```
+
+---
+
+## Fluxo básico
+
 ```bash
-npm run cmd -- /novo meu-cliente
+# 1. Criar novo cliente
+node scripts/create-client.js meu-cliente
+
+# 2. Abrir sessão (sempre primeiro)
+/abrir meu-cliente
+
+# 3. Executar skills por grupo
+/analisar      → relatório, funil, SEO, estratégia
+/criar         → carrossel, post, site, branding, imagem
+/prospectar    → mercado, prospector, oferta, pitch, anúncio
+/vender        → abordagem e fechamento de lead
+/relacionar    → retenção, reativação, head implantado
+
+# 4. Fechar sessão (sempre ao final)
+/fechar
 ```
 
-2. Definir cliente ativo:
-```bash
-npm run cmd -- /cliente meu-cliente
+---
+
+## Estrutura
+
+```
+/marketing-os
+  manifesto.md          → documento fundacional
+  alma.md               → constituição operacional
+  AGENTS.md             → hierarquia de operação
+  CLAUDE.md             → instruções para o sistema
+  .cursorrules          → contexto para o Cursor
+  /clients
+    /_template          → modelo base
+    /[slug]             → ambiente por cliente
+      client.md · notes.md · estrategia.md · runs.md
+      campaigns.md · metrics.json · brand-kit.json
+      /outputs          → posts, carousels, site, branding...
+  /skills
+    /analise            → /analisar
+    /criacao            → /criar
+    /aquisicao          → /prospectar
+    /venda              → /vender
+    /relacionamento     → /relacionar
+  /workflows            → open, close, pipeline, onboarding...
+  /intelligence         → patterns, benchmarks, system-usage
+  /templates            → pitch-deck-template.html
+  /scripts              → create-client.js, command-router.js
 ```
 
-3. Verificar estado:
-```bash
-npm run cmd -- /status
-```
+---
 
-4. Gerar carrossel (pipeline):
-```bash
-npm run cmd -- /carrossel --tema "Tema da campanha" --objetivo Autoridade --slides 7 --cta "Comente CARROSSEL" --ia true
-```
+## Regras operacionais
 
-5. Renderizar imagens do carrossel:
-```bash
-node clients/meu-cliente/outputs/carousels/[job]/render.js
-```
-
-6. Para criar site com qualidade consistente:
-```bash
-npm run cmd -- /branding
-npm run cmd -- /site
-```
-
-## Estrutura do Projeto
-```txt
-/clients
-/skills
-/workflows
-/scripts
-/intelligence
-```
-
-## Regras Operacionais
-- Nunca gerar output fora de `clients/[slug]/outputs/`
+- Nunca operar sem `/abrir` primeiro
+- Nunca fechar sem `/fechar` — aprendizado não salvo é perdido
+- Todo output vai para `clients/[slug]/outputs/`
 - Nunca misturar contexto entre clientes
-- Sempre ler `client.md` antes de executar skill ou workflow
+- O que não é verdadeiro não sai

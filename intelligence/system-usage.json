@@ -1,84 +1,109 @@
-{
-  "_meta": {
-    "description": "Log de uso das skills por sessão. Atualizado automaticamente pelo /fechar.",
-    "updated_at": "2026-05-28",
-    "total_sessions": 2,
-    "total_operations": 10
-  },
-  "sessions": [
-    {
-      "date": "2026-05-28",
-      "client": "felipe-proenca",
-      "skills_used": [
-        {
-          "skill": "skill-dashboard",
-          "group": "analise",
-          "output_generated": "dashboard/index.html + js/config.js + js/supabase-client.js + js/dashboard.js + js/simulator.js",
-          "outcome": "aprovado"
-        },
-        {
-          "skill": "skill-carousel",
-          "group": "criacao",
-          "output_generated": "clients/felipe-proenca/outputs/carousels/carousel-case-antes-depois.html + slides-antes-depois/slide-01..08.png",
-          "outcome": "aprovado"
-        },
-        {
-          "skill": "skill-criatividade",
-          "group": "criacao",
-          "output_generated": "legenda carrossel antes/depois (voz literal)",
-          "outcome": "aprovado"
-        },
-        {
-          "skill": "skill-branding",
-          "group": "criacao",
-          "output_generated": "clients/felipe-proenca/brand-kit.json (identidade Marketing/OS consolidada)",
-          "outcome": "aprovado"
-        }
-      ],
-      "notes": "Sessão de produção: dashboard web (Supabase/Netlify) + carrossel antes/depois case anônimo + consolidação de identidade. Aprendizado chave: copy na voz literal > copy estruturado. Render correto: viewport 540px + deviceScaleFactor 2."
-    },
-    {
-      "date": "2026-05-27",
-      "client": "felipe-proenca + toqueindiano",
-      "skills_used": [
-        {
-          "skill": "skill-offer-positioning",
-          "group": "aquisicao",
-          "output_generated": "clients/felipe-proenca/outputs/oferta/oferta-v1.md",
-          "outcome": "aprovado"
-        },
-        {
-          "skill": "skill-carousel",
-          "group": "criacao",
-          "output_generated": "clients/felipe-proenca/outputs/carousels/carousel-15/index.html",
-          "outcome": "aprovado"
-        },
-        {
-          "skill": "skill-carousel",
-          "group": "criacao",
-          "output_generated": "clients/felipe-proenca/outputs/carousels/carousel-17/index.html",
-          "outcome": "aprovado"
-        },
-        {
-          "skill": "skill-prospector",
-          "group": "aquisicao",
-          "output_generated": "clients/toqueindiano/outputs/demo/apresentacao-toqueindiano.html",
-          "outcome": "aprovado"
-        },
-        {
-          "skill": "skill-pitch-deck",
-          "group": "aquisicao",
-          "output_generated": "clients/toqueindiano/outputs/demo/apresentacao-toqueindiano-v2.html",
-          "outcome": "aprovado"
-        },
-        {
-          "skill": "skill-estrategista",
-          "group": "analise",
-          "output_generated": "sistema: contexto mínimo + telemetria + fundação",
-          "outcome": "aprovado"
-        }
-      ],
-      "notes": "Sessão mista: operação de cliente (felipe-proenca) + prospecção (toqueindiano) + atualização de arquitetura do sistema. Skills de sistema não catalogadas individualmente."
-    }
-  ]
+﻿{
+    "_meta":  {
+                  "description":  "Log de uso das skills por sessÃ£o. Atualizado automaticamente pelo /fechar.",
+                  "updated_at":  "2026-05-29",
+                  "total_sessions":  3,
+                  "total_operations":  13
+              },
+    "sessions":  [
+                     {
+                         "date":  "2026-05-29",
+                         "client":  "felipe-proenca",
+                         "skills_used":  [
+                                             {
+                                                 "skill":  "skill-site-builder",
+                                                 "group":  "criacao",
+                                                 "output_generated":  "clients/felipe-proenca/outputs/site/landing-page-v1.html (refino de copy, tipografia e hierarquia)",
+                                                 "outcome":  "aprovado"
+                                             },
+                                             {
+                                                 "skill":  "skill-branding",
+                                                 "group":  "criacao",
+                                                 "output_generated":  "Ajustes finos de identidade aplicados na landing (logo, destaque gold e consistencia visual)",
+                                                 "outcome":  "aprovado"
+                                             },
+                                             {
+                                                 "skill":  "skill-criatividade",
+                                                 "group":  "criacao",
+                                                 "output_generated":  "Refino de narrativa publica da secao Problema Real (sem framework interno)",
+                                                 "outcome":  "aprovado"
+                                             }
+                                         ],
+                         "notes":  "Sessão focada em acabamento de landing: melhoria de legibilidade, suavização tipográfica, correção de animação da logo e revisão de copy para linguagem externa."
+                     },
+                     {
+                         "date":  "2026-05-28",
+                         "client":  "felipe-proenca",
+                         "skills_used":  [
+                                             {
+                                                 "skill":  "skill-dashboard",
+                                                 "group":  "analise",
+                                                 "output_generated":  "dashboard/index.html + js/config.js + js/supabase-client.js + js/dashboard.js + js/simulator.js",
+                                                 "outcome":  "aprovado"
+                                             },
+                                             {
+                                                 "skill":  "skill-carousel",
+                                                 "group":  "criacao",
+                                                 "output_generated":  "clients/felipe-proenca/outputs/carousels/carousel-case-antes-depois.html + slides-antes-depois/slide-01..08.png",
+                                                 "outcome":  "aprovado"
+                                             },
+                                             {
+                                                 "skill":  "skill-criatividade",
+                                                 "group":  "criacao",
+                                                 "output_generated":  "legenda carrossel antes/depois (voz literal)",
+                                                 "outcome":  "aprovado"
+                                             },
+                                             {
+                                                 "skill":  "skill-branding",
+                                                 "group":  "criacao",
+                                                 "output_generated":  "clients/felipe-proenca/brand-kit.json (identidade Marketing/OS consolidada)",
+                                                 "outcome":  "aprovado"
+                                             }
+                                         ],
+                         "notes":  "SessÃ£o de produÃ§Ã£o: dashboard web (Supabase/Netlify) + carrossel antes/depois case anÃ´nimo + consolidaÃ§Ã£o de identidade. Aprendizado chave: copy na voz literal \u003e copy estruturado. Render correto: viewport 540px + deviceScaleFactor 2."
+                     },
+                     {
+                         "date":  "2026-05-27",
+                         "client":  "felipe-proenca + toqueindiano",
+                         "skills_used":  [
+                                             {
+                                                 "skill":  "skill-offer-positioning",
+                                                 "group":  "aquisicao",
+                                                 "output_generated":  "clients/felipe-proenca/outputs/oferta/oferta-v1.md",
+                                                 "outcome":  "aprovado"
+                                             },
+                                             {
+                                                 "skill":  "skill-carousel",
+                                                 "group":  "criacao",
+                                                 "output_generated":  "clients/felipe-proenca/outputs/carousels/carousel-15/index.html",
+                                                 "outcome":  "aprovado"
+                                             },
+                                             {
+                                                 "skill":  "skill-carousel",
+                                                 "group":  "criacao",
+                                                 "output_generated":  "clients/felipe-proenca/outputs/carousels/carousel-17/index.html",
+                                                 "outcome":  "aprovado"
+                                             },
+                                             {
+                                                 "skill":  "skill-prospector",
+                                                 "group":  "aquisicao",
+                                                 "output_generated":  "clients/toqueindiano/outputs/demo/apresentacao-toqueindiano.html",
+                                                 "outcome":  "aprovado"
+                                             },
+                                             {
+                                                 "skill":  "skill-pitch-deck",
+                                                 "group":  "aquisicao",
+                                                 "output_generated":  "clients/toqueindiano/outputs/demo/apresentacao-toqueindiano-v2.html",
+                                                 "outcome":  "aprovado"
+                                             },
+                                             {
+                                                 "skill":  "skill-estrategista",
+                                                 "group":  "analise",
+                                                 "output_generated":  "sistema: contexto mÃ­nimo + telemetria + fundaÃ§Ã£o",
+                                                 "outcome":  "aprovado"
+                                             }
+                                         ],
+                         "notes":  "SessÃ£o mista: operaÃ§Ã£o de cliente (felipe-proenca) + prospecÃ§Ã£o (toqueindiano) + atualizaÃ§Ã£o de arquitetura do sistema. Skills de sistema nÃ£o catalogadas individualmente."
+                     }
+                 ]
 }

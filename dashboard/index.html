@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Pontos Cardeais · MarketingOS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Syne:wght@400;500;600;700;800&family=Syne+Mono&display=swap" rel="stylesheet">
+<style>
+/* ── Variables ───────────────────────────────────────────────── */
+:root{
+  --bg:#f0ebe2;
+  --bg2:#e8e1d6;
+  --bg3:#dfd6c8;
+  --navy:#0c2137;
+  --navy2:#162d45;
+  --gold:#8a6833;
+  --gold2:#b8924d;
+  --goldl:#c9a55c;
+  --text:#1a1208;
+  --text2:#4a3f30;
+  --text3:#9a8d7a;
+  --line:#cfc4b4;
+  --green:#1a6b45;
+  --gbg:#e6f4ed;
+  --red:#8b2c1a;
+  --rbg:#faeae6;
+  --amber:#7a5c10;
+  --abg:#fdf3dc;
+  --fh:'Playfair Display',serif;
+  --fb:'Syne',sans-serif;
+  --fm:'Syne Mono',monospace;
+  --r:10px;
+  --shadow:0 2px 20px rgba(12,33,55,.08);
+}
+
+/* ── Reset ───────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+img{max-width:100%}
+
+/* ── Logo Marketing/OS ───────────────────────────────────────── */
+.mos-logo{display:flex;align-items:baseline;gap:1px;line-height:1}
+.mos-m{font-family:var(--fb);font-weight:800;letter-spacing:-0.03em}
+.mos-slash{font-family:var(--fb);font-weight:200;opacity:.4;margin:0 1px}
+.mos-os{font-family:var(--fh);font-style:italic;font-weight:400;color:var(--goldl)}
+
+/* ── Intro Animation ─────────────────────────────────────────── */
+#intro{
+  position:fixed;inset:0;z-index:9999;
+  background:#050e1a;
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity .6s ease;
+}
+#intro.fade-out{opacity:0;pointer-events:none}
+
+.intro-inner{
+  display:flex;align-items:center;justify-content:center;
+  padding-bottom:16px;
+  position:relative;
+}
+.intro-logo{
+  display:flex;align-items:baseline;
+  font-size:clamp(36px,6vw,64px);
+  color:#f0ebe2;
+  gap:2px;
+}
+#il-m{
+  font-family:var(--fb);font-weight:800;letter-spacing:-0.03em;
+  max-width:0;overflow:hidden;white-space:nowrap;
+  display:inline-block;opacity:0;
+  transition:max-width .7s cubic-bezier(.4,0,.2,1), opacity .3s ease;
+}
+#il-slash{
+  font-family:var(--fb);font-weight:200;opacity:0;
+  transition:opacity .3s ease, transform .5s cubic-bezier(.4,0,.2,1);
+  margin:0 1px;
+}
+#il-os{
+  font-family:var(--fh);font-style:italic;font-weight:400;
+  color:var(--goldl);opacity:0;
+  transition:opacity .3s ease, transform .5s cubic-bezier(.4,0,.2,1);
+}
+.intro-cursor{
+  display:inline-block;width:2px;height:.8em;
+  background:var(--goldl);margin-left:3px;
+  position:relative;bottom:-4px;
+  animation:blink .7s steps(1) infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ── App ─────────────────────────────────────────────────────── */
+#app{transition:opacity .6s ease}
+
+/* ── Nav ─────────────────────────────────────────────────────── */
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:var(--bg);border-bottom:1px solid var(--line);
+  padding:14px 24px;
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto}
+.nav .mos-logo{font-size:17px}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-client{font-family:var(--fb);font-size:13px;font-weight:600;color:var(--text2)}
+.nav-updated{font-family:var(--fm);font-size:11px;color:var(--text3)}
+
+/* ── Container ───────────────────────────────────────────────── */
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+
+/* ── Section spacing ─────────────────────────────────────────── */
+.s{padding:56px 0}
+.s-dark{background:var(--navy);color:#f0ebe2;padding:64px 0}
+.s-alt{background:var(--bg2);padding:56px 0}
+
+/* ── Section header ──────────────────────────────────────────── */
+.s-head{margin-bottom:32px}
+.s-head h2{font-family:var(--fh);font-size:clamp(22px,3vw,28px);font-weight:500;letter-spacing:-.02em}
+.s-head p{font-size:13px;color:var(--text3);margin-top:4px}
+.s-dark .s-head h2{color:#f0ebe2}
+.s-dark .s-head p{color:rgba(240,235,226,.5)}
+
+/* ── Hero ────────────────────────────────────────────────────── */
+.hero-tag{
+  font-family:var(--fm);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--goldl);margin-bottom:16px;display:block;
+}
+.hero-name{
+  font-family:var(--fh);font-size:clamp(28px,5vw,48px);font-weight:500;
+  color:#f0ebe2;letter-spacing:-.03em;line-height:1.1;margin-bottom:12px;
+}
+.hero-tema{
+  font-size:15px;color:rgba(240,235,226,.6);font-style:italic;
+  font-family:var(--fh);margin-bottom:32px;max-width:560px;
+}
+.period-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.pt{
+  font-family:var(--fm);font-size:12px;letter-spacing:.06em;
+  padding:7px 16px;border-radius:20px;border:1px solid rgba(240,235,226,.2);
+  color:rgba(240,235,226,.5);transition:all .2s;
+}
+.pt:hover{border-color:rgba(240,235,226,.4);color:rgba(240,235,226,.8)}
+.pt.on{background:var(--goldl);border-color:var(--goldl);color:var(--navy);font-weight:600}
+
+/* ── KPI Grid ────────────────────────────────────────────────── */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:768px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.kpi-grid{grid-template-columns:1fr}}
+
+.kpi-card{
+  background:#fff;border:1px solid var(--line);border-radius:var(--r);
+  padding:24px;box-shadow:var(--shadow);
+}
+.kpi-label{font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
+.kpi-val{font-family:var(--fm);font-size:clamp(28px,4vw,38px);font-weight:400;color:var(--navy);letter-spacing:-.02em;line-height:1}
+.kpi-delta{font-size:12px;margin-top:8px;font-family:var(--fb);font-weight:600}
+.kpi-delta.ok{color:var(--green)}
+.kpi-delta.no{color:var(--red)}
+
+/* ── PVAM ────────────────────────────────────────────────────── */
+.pvam-table{display:flex;flex-direction:column;gap:12px}
+.pvam-row{
+  background:#fff;border:1px solid var(--line);border-radius:var(--r);
+  padding:20px 24px;display:grid;gap:12px;
+  grid-template-columns:140px 1fr 1fr 1fr auto;
+  align-items:center;box-shadow:var(--shadow);
+}
+@media(max-width:768px){
+  .pvam-row{grid-template-columns:1fr 1fr;grid-template-rows:auto auto}
+}
+.pvam-label{font-family:var(--fb);font-size:13px;font-weight:600;color:var(--text2)}
+.pvam-cell{text-align:center}
+.pvam-cell-head{font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:4px}
+.pvam-alc{font-family:var(--fm);font-size:20px;color:var(--navy);font-weight:400}
+.pvam-proj,.pvam-meta{font-family:var(--fm);font-size:16px;color:var(--text3)}
+.pvam-badge{
+  font-family:var(--fb);font-size:12px;font-weight:700;
+  padding:5px 12px;border-radius:20px;white-space:nowrap;
+}
+.pvam-badge.ok{background:var(--gbg);color:var(--green)}
+.pvam-badge.no{background:var(--rbg);color:var(--red)}
+.pvam-header{
+  display:grid;grid-template-columns:140px 1fr 1fr 1fr auto;
+  gap:12px;padding:0 24px;margin-bottom:4px;
+}
+.pvam-header span{font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);text-align:center}
+.pvam-header span:first-child{text-align:left}
+@media(max-width:768px){.pvam-header{display:none}}
+
+/* ── Funil ───────────────────────────────────────────────────── */
+.funil-flow{
+  display:flex;align-items:center;gap:0;overflow-x:auto;
+  background:#fff;border:1px solid var(--line);border-radius:var(--r);
+  padding:8px;box-shadow:var(--shadow);
+}
+.funil-step{
+  flex:1;min-width:120px;text-align:center;padding:24px 16px;position:relative;
+}
+.funil-step-label{font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
+.funil-step-val{font-family:var(--fm);font-size:28px;color:var(--navy)}
+.funil-step-sub{font-size:11px;color:var(--text3);margin-top:4px}
+.funil-arrow{
+  display:flex;flex-direction:column;align-items:center;gap:4px;padding:0 8px;flex-shrink:0;
+}
+.funil-arrow-line{width:24px;height:1px;background:var(--line)}
+.funil-rate{font-family:var(--fm);font-size:10px;color:var(--goldl);white-space:nowrap}
+@media(max-width:600px){.funil-step-val{font-size:20px}}
+
+/* ── Channels ────────────────────────────────────────────────── */
+.ch-grid-wrap{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:8px;box-shadow:var(--shadow)}
+#channels-grid{display:flex;flex-direction:column;gap:4px}
+.ch-card{
+  display:grid;grid-template-columns:28px 100px 1fr 60px 36px;
+  align-items:center;gap:12px;padding:12px 16px;border-radius:8px;
+}
+.ch-card:hover{background:var(--bg)}
+.ch-icon{font-size:16px}
+.ch-name{font-family:var(--fb);font-size:13px;font-weight:500;color:var(--text2);text-transform:capitalize}
+.ch-val{font-family:var(--fm);font-size:18px;color:var(--navy);text-align:right}
+.ch-bar-wrap{height:4px;background:var(--bg3);border-radius:2px;overflow:hidden}
+.ch-bar{height:100%;background:var(--goldl);border-radius:2px;transition:width .8s cubic-bezier(.4,0,.2,1)}
+.ch-pct{font-family:var(--fm);font-size:11px;color:var(--text3);text-align:right}
+
+/* ── Instagram ───────────────────────────────────────────────── */
+.ig-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+@media(max-width:640px){.ig-grid{grid-template-columns:repeat(2,1fr)}}
+.ig-stat{background:rgba(255,255,255,.08);border:1px solid rgba(240,235,226,.12);border-radius:var(--r);padding:20px}
+.ig-stat-label{font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(240,235,226,.5);margin-bottom:6px}
+.ig-stat-val{font-family:var(--fm);font-size:26px;color:#f0ebe2}
+.ig-stat-sub{font-size:11px;color:rgba(240,235,226,.4);margin-top:4px}
+
+/* ── Top Content ─────────────────────────────────────────────── */
+#content-list{display:flex;flex-direction:column;gap:4px}
+.ct-item{
+  display:grid;grid-template-columns:28px 1fr auto;align-items:center;
+  gap:16px;padding:14px 20px;background:#fff;border:1px solid var(--line);
+  border-radius:8px;box-shadow:var(--shadow);
+}
+.ct-pos{font-family:var(--fm);font-size:13px;color:var(--text3)}
+.ct-info{display:flex;flex-direction:column;gap:2px}
+.ct-tipo{font-family:var(--fm);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--goldl)}
+.ct-titulo{font-size:14px;font-weight:500;color:var(--text)}
+.ct-alcance{font-family:var(--fm);font-size:12px;color:var(--text3);white-space:nowrap}
+
+/* ── Actions ─────────────────────────────────────────────────── */
+#actions-list{display:flex;flex-direction:column;gap:10px}
+.ac-item{
+  display:grid;grid-template-columns:80px 1fr;align-items:start;
+  gap:16px;padding:16px 20px;border-radius:var(--r);
+  border:1px solid var(--line);
+}
+.ac-item.ac-alta{background:var(--rbg);border-color:#d4a8a0}
+.ac-item.ac-media{background:var(--abg);border-color:#d4c49a}
+.ac-item.ac-baixa{background:var(--gbg);border-color:#a0c4b0}
+.ac-badge{
+  font-family:var(--fm);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  padding:4px 10px;border-radius:20px;text-align:center;font-weight:600;margin-top:2px;
+}
+.ac-alta .ac-badge{background:var(--red);color:#fff}
+.ac-media .ac-badge{background:var(--amber);color:#fff}
+.ac-baixa .ac-badge{background:var(--green);color:#fff}
+.ac-text strong{font-size:14px;font-weight:600;color:var(--text);display:block;margin-bottom:2px}
+.ac-text span{font-size:13px;color:var(--text2)}
+
+/* ── Simulator ───────────────────────────────────────────────── */
+.sim-layout{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+@media(max-width:768px){.sim-layout{grid-template-columns:1fr}}
+.sim-sliders{display:flex;flex-direction:column;gap:28px}
+.sim-slider-group label{
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--fb);font-size:13px;font-weight:500;color:var(--text2);margin-bottom:10px;
+}
+.sim-slider-group label span{font-family:var(--fm);font-size:15px;color:var(--navy);font-weight:400}
+input[type=range]{
+  -webkit-appearance:none;width:100%;height:4px;
+  background:var(--bg3);border-radius:2px;outline:none;cursor:pointer;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:18px;height:18px;border-radius:50%;
+  background:var(--navy);border:2px solid var(--goldl);cursor:pointer;
+}
+.sim-results{
+  background:var(--navy2);border-radius:var(--r);padding:32px;
+  display:flex;flex-direction:column;gap:20px;
+}
+.sim-result-row{display:flex;justify-content:space-between;align-items:center;padding-bottom:16px;border-bottom:1px solid rgba(240,235,226,.1)}
+.sim-result-row:last-of-type{border-bottom:none;padding-bottom:0}
+.sim-result-label{font-family:var(--fb);font-size:13px;color:rgba(240,235,226,.6)}
+.sim-result-val{font-family:var(--fm);font-size:22px;color:#f0ebe2}
+.sim-result-val.highlight{color:var(--goldl);font-size:26px}
+.sim-delta{font-size:12px;font-family:var(--fb);font-weight:600;margin-top:2px}
+.sim-delta.ok{color:var(--goldl)}
+.sim-cta{
+  margin-top:8px;display:block;text-align:center;
+  background:var(--goldl);color:var(--navy);
+  font-family:var(--fb);font-weight:700;font-size:13px;
+  padding:14px 24px;border-radius:8px;transition:background .2s;
+}
+.sim-cta:hover{background:#d4b06a}
+.sim-cta-desc{font-size:11px;display:block;margin-top:6px;opacity:.7;font-weight:400}
+
+/* ── Upgrade ─────────────────────────────────────────────────── */
+.upg-features{display:flex;flex-direction:column;gap:12px;margin-bottom:28px}
+.upg-item{
+  display:grid;grid-template-columns:28px 1fr;gap:14px;align-items:start;
+  padding:16px 20px;border-radius:var(--r);border:1px solid var(--line);
+  background:#fff;opacity:.55;
+}
+.upg-item.on{opacity:1}
+.upg-item.lock{opacity:.4}
+.upg-check{font-size:16px;margin-top:2px;color:var(--green)}
+.upg-item:not(.on) .upg-check{color:var(--text3)}
+.upg-desc strong{font-size:14px;font-weight:600;color:var(--text);display:block;margin-bottom:2px}
+.upg-desc span{font-size:13px;color:var(--text2)}
+.upg-cta{
+  display:inline-block;background:var(--navy);color:var(--goldl);
+  font-family:var(--fb);font-weight:700;font-size:14px;
+  padding:14px 32px;border-radius:8px;transition:background .2s;
+}
+.upg-cta:hover{background:var(--navy2)}
+.upg-active{padding:24px;background:var(--gbg);border-radius:var(--r);border:1px solid #a0c4b0}
+.upg-tag{font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--green);display:block;margin-bottom:8px}
+
+/* ── Footer ──────────────────────────────────────────────────── */
+.footer{background:var(--navy);padding:32px 24px;margin-top:0}
+.footer-inner{
+  max-width:1200px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
+}
+.footer .mos-logo{font-size:15px;color:#f0ebe2}
+.footer-text{font-family:var(--fm);font-size:11px;color:rgba(240,235,226,.35);letter-spacing:.06em}
+.footer .mos-os{color:var(--goldl)}
+
+/* ── Divider ─────────────────────────────────────────────────── */
+.divider{height:1px;background:var(--line);margin:0}
+</style>
+</head>
+<body>
+
+<!-- ── Intro Animation ──────────────────────────────────────────── -->
+<div id="intro">
+  <div class="intro-inner">
+    <div class="intro-logo">
+      <span id="il-m">Marketing</span><span id="il-slash">/</span><span id="il-os">OS</span>
+    </div>
+    <span class="intro-cursor" id="il-cursor"></span>
+  </div>
+</div>
+
+<!-- ── App ──────────────────────────────────────────────────────── -->
+<div id="app" style="opacity:0">
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="mos-logo">
+        <span class="mos-m">Marketing</span>
+        <span class="mos-slash">/</span>
+        <span class="mos-os">OS</span>
+      </div>
+      <div class="nav-right">
+        <span class="nav-client">Pontos Cardeais</span>
+        <span class="nav-updated" id="last-updated">Carregando…</span>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ── Hero ──────────────────────────────────────────────────── -->
+    <section class="s-dark">
+      <div class="container">
+        <span class="hero-tag">Mês <span id="hero-mes">1</span> de operação · Dashboard vivo</span>
+        <h1 class="hero-name">Pontos Cardeais Seguros</h1>
+        <p class="hero-tema" id="hero-tema">40 anos de história. O primeiro mês digital.</p>
+        <div class="period-tabs">
+          <button class="pt on" data-period="2026-05" onclick="setPeriod('2026-05')">Mai 2026</button>
+          <button class="pt" data-period="2026-04" onclick="setPeriod('2026-04')">Abr 2026</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── KPIs ──────────────────────────────────────────────────── -->
+    <section class="s">
+      <div class="container">
+        <div class="s-head">
+          <h2>Resultados do Período</h2>
+          <p>Dados acumulados · Atualização automática a cada 30 minutos</p>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-label">Leads captados</div>
+            <div class="kpi-val" id="kpi-leads">47</div>
+            <div class="kpi-delta ok" id="delta-leads">↑ +17%</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Cotações abertas</div>
+            <div class="kpi-val" id="kpi-cotacoes">31</div>
+            <div class="kpi-delta ok" id="delta-cotacoes">↑ +24%</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Conversões</div>
+            <div class="kpi-val" id="kpi-conv">8</div>
+            <div class="kpi-delta ok" id="delta-conv">↑ +33%</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Receita estimada</div>
+            <div class="kpi-val" id="kpi-receita">R$14k</div>
+            <div class="kpi-delta ok" id="delta-receita">↑ +18%</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── PVAM ──────────────────────────────────────────────────── -->
+    <section class="s s-alt">
+      <div class="container">
+        <div class="s-head">
+          <h2>Projetado · Alcançado · Meta</h2>
+          <p>Projetado = estimativa inicial do mês · Meta = objetivo de longo prazo</p>
+        </div>
+        <div class="pvam-header">
+          <span>Indicador</span>
+          <span>Projetado</span>
+          <span>Alcançado</span>
+          <span>Meta</span>
+          <span>Status</span>
+        </div>
+        <div class="pvam-table">
+          <div class="pvam-row" id="pvam-leads">
+            <span class="pvam-label">Leads</span>
+            <div class="pvam-cell"><div class="pvam-cell-head">Projetado</div><div class="pvam-proj">40</div></div>
+            <div class="pvam-cell"><div class="pvam-cell-head">Alcançado</div><div class="pvam-alc">47</div></div>
+            <div class="pvam-cell"><div class="pvam-cell-head">Meta</div><div class="pvam-meta">80</div></div>
+            <div class="pvam-badge ok">↑ +17% da projeção</div>
+          </div>
+          <div class="pvam-row" id="pvam-cot">
+            <span class="pvam-label">Cotações</span>
+            <div class="pvam-cell"><div class="pvam-cell-head">Projetado</div><div class="pvam-proj">25</div></div>
+            <div class="pvam-cell"><div class="pvam-cell-head">Alcançado</div><div class="pvam-alc">31</div></div>
+            <div class="pvam-cell"><div class="pvam-cell-head">Meta</div><div class="pvam-meta">50</div></div>
+            <div class="pvam-badge ok">↑ +24% da projeção</div>
+          </div>
+          <div class="pvam-row" id="pvam-conv">
+            <span class="pvam-label">Conversões</span>
+            <div class="pvam-cell"><div class="pvam-cell-head">Projetado</div><div class="pvam-proj">6</div></div>
+            <div class="pvam-cell"><div class="pvam-cell-head">Alcançado</div><div class="pvam-alc">8</div></div>
+            <div class="pvam-cell"><div class="pvam-cell-head">Meta</div><div class="pvam-meta">15</div></div>
+            <div class="pvam-badge ok">↑ +33% da projeção</div>
+          </div>
+          <div class="pvam-row" id="pvam-receita">
+            <span class="pvam-label">Receita</span>
+            <div class="pvam-cell"><div class="pvam-cell-head">Projetado</div><div class="pvam-proj">R$12k</div></div>
+            <div class="pvam-cell"><div class="pvam-cell-head">Alcançado</div><div class="pvam-alc">R$14.2k</div></div>
+            <div class="pvam-cell"><div class="pvam-cell-head">Meta</div><div class="pvam-meta">R$26k</div></div>
+            <div class="pvam-badge ok">↑ +18% da projeção</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── Funil ──────────────────────────────────────────────────── -->
+    <section class="s">
+      <div class="container">
+        <div class="s-head">
+          <h2>Funil de Conversão</h2>
+          <p>Do alcance orgânico à venda — taxa entre cada etapa</p>
+        </div>
+        <div class="funil-flow">
+          <div class="funil-step">
+            <div class="funil-step-label">Alcance</div>
+            <div class="funil-step-val" id="fn-alcance">12.400</div>
+            <div class="funil-step-sub">pessoas alcançadas</div>
+          </div>
+          <div class="funil-arrow">
+            <div class="funil-arrow-line"></div>
+            <div class="funil-rate" id="fn-rate-1">0,4%</div>
+          </div>
+          <div class="funil-step">
+            <div class="funil-step-label">Leads</div>
+            <div class="funil-step-val" id="fn-leads">47</div>
+            <div class="funil-step-sub">contatos qualificados</div>
+          </div>
+          <div class="funil-arrow">
+            <div class="funil-arrow-line"></div>
+            <div class="funil-rate" id="fn-rate-2">66%</div>
+          </div>
+          <div class="funil-step">
+            <div class="funil-step-label">Cotações</div>
+            <div class="funil-step-val" id="fn-cotacoes">31</div>
+            <div class="funil-step-sub">cotações abertas</div>
+          </div>
+          <div class="funil-arrow">
+            <div class="funil-arrow-line"></div>
+            <div class="funil-rate" id="fn-rate-3">26%</div>
+          </div>
+          <div class="funil-step">
+            <div class="funil-step-label">Conversões</div>
+            <div class="funil-step-val" id="fn-conv">8</div>
+            <div class="funil-step-sub">apólices fechadas</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── Channels ───────────────────────────────────────────────── -->
+    <section class="s s-alt">
+      <div class="container">
+        <div class="s-head">
+          <h2>Origem de Leads</h2>
+          <p>De onde vieram os contatos qualificados este mês</p>
+        </div>
+        <div class="ch-grid-wrap">
+          <div id="channels-grid">
+            <!-- fallback estático -->
+            <div class="ch-card"><span class="ch-icon">📷</span><span class="ch-name">Instagram</span><span class="ch-val">28</span><div class="ch-bar-wrap"><div class="ch-bar" style="width:60%"></div></div><span class="ch-pct">60%</span></div>
+            <div class="ch-card"><span class="ch-icon">🤝</span><span class="ch-name">Indicação</span><span class="ch-val">11</span><div class="ch-bar-wrap"><div class="ch-bar" style="width:23%"></div></div><span class="ch-pct">23%</span></div>
+            <div class="ch-card"><span class="ch-icon">🌐</span><span class="ch-name">Site</span><span class="ch-val">6</span><div class="ch-bar-wrap"><div class="ch-bar" style="width:13%"></div></div><span class="ch-pct">13%</span></div>
+            <div class="ch-card"><span class="ch-icon">💬</span><span class="ch-name">WhatsApp</span><span class="ch-val">2</span><div class="ch-bar-wrap"><div class="ch-bar" style="width:4%"></div></div><span class="ch-pct">4%</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── Instagram ──────────────────────────────────────────────── -->
+    <section class="s-dark">
+      <div class="container">
+        <div class="s-head">
+          <h2>Instagram @pontoscardeaisseguros</h2>
+          <p>Performance orgânica · Maio 2026</p>
+        </div>
+        <div class="ig-grid">
+          <div class="ig-stat">
+            <div class="ig-stat-label">Seguidores</div>
+            <div class="ig-stat-val" id="ig-seguidores">1.840</div>
+            <div class="ig-stat-sub" id="ig-gain">+124 no mês</div>
+          </div>
+          <div class="ig-stat">
+            <div class="ig-stat-label">Alcance mensal</div>
+            <div class="ig-stat-val" id="ig-alcance">12.400</div>
+            <div class="ig-stat-sub">contas únicas</div>
+          </div>
+          <div class="ig-stat">
+            <div class="ig-stat-label">Engajamento</div>
+            <div class="ig-stat-val" id="ig-eng">4,2%</div>
+            <div class="ig-stat-sub">média do mês</div>
+          </div>
+          <div class="ig-stat">
+            <div class="ig-stat-label">Posts publicados</div>
+            <div class="ig-stat-val" id="ig-posts">8</div>
+            <div class="ig-stat-sub">no período</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── Top Content ────────────────────────────────────────────── -->
+    <section class="s">
+      <div class="container">
+        <div class="s-head">
+          <h2>Top Conteúdos do Mês</h2>
+          <p>Publicações com maior alcance orgânico</p>
+        </div>
+        <div id="content-list">
+          <!-- fallback estático -->
+          <div class="ct-item"><span class="ct-pos">1</span><div class="ct-info"><span class="ct-tipo">carrossel</span><span class="ct-titulo">10 seguradoras, 1 cotação. Você escolhe o melhor preço.</span></div><span class="ct-alcance">4.200 alcance</span></div>
+          <div class="ct-item"><span class="ct-pos">2</span><div class="ct-info"><span class="ct-tipo">post</span><span class="ct-titulo">Seguro auto cobre enchente? A resposta que ninguém te dá.</span></div><span class="ct-alcance">2.800 alcance</span></div>
+          <div class="ct-item"><span class="ct-pos">3</span><div class="ct-info"><span class="ct-tipo">post</span><span class="ct-titulo">Renovação sem surpresa. Cotamos por você antes do vencimento.</span></div><span class="ct-alcance">1.940 alcance</span></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── Actions ────────────────────────────────────────────────── -->
+    <section class="s s-alt">
+      <div class="container">
+        <div class="s-head">
+          <h2>Próximas Ações</h2>
+          <p>Movimentos definidos para o próximo período</p>
+        </div>
+        <div id="actions-list">
+          <!-- fallback estático -->
+          <div class="ac-item ac-alta"><span class="ac-badge">alta</span><div class="ac-text"><strong>Ativar formulário de cotação segmentado no site</strong><span>Substituir formulário genérico por seletor de ramo. Meta: +40% de leads qualificados via site.</span></div></div>
+          <div class="ac-item ac-alta"><span class="ac-badge">alta</span><div class="ac-text"><strong>Publicar carrossel — Seguro Residencial</strong><span>Segundo ramo de maior interesse identificado. Capitalizar no alcance do mês 1.</span></div></div>
+          <div class="ac-item ac-media"><span class="ac-badge">média</span><div class="ac-text"><strong>Revisar script de atendimento WhatsApp</strong><span>Reduzir tempo de resposta e aumentar taxa de cotação aberta (atual: 66%).</span></div></div>
+          <div class="ac-item ac-media"><span class="ac-badge">média</span><div class="ac-text"><strong>Ativar Google Meu Negócio</strong><span>Negócio local com 40 anos — oportunidade de presença orgânica imediata no Google Maps.</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── Simulator ──────────────────────────────────────────────── -->
+    <section class="s">
+      <div class="container">
+        <div class="s-head">
+          <h2>Simulador de Crescimento</h2>
+          <p>Ajuste os parâmetros e veja o impacto na receita estimada</p>
+        </div>
+        <div class="sim-layout">
+          <div class="sim-sliders">
+            <div class="sim-slider-group">
+              <label>Investimento mensal em anúncios <span>R$ <span id="ads-display">0</span></span></label>
+              <input type="range" id="ads-range" min="0" max="5000" step="100" value="0">
+            </div>
+            <div class="sim-slider-group">
+              <label>Taxa de conversão (leads → vendas) <span><span id="conv-display">17</span>%</span></label>
+              <input type="range" id="conv-range" min="5" max="40" step="1" value="17">
+            </div>
+            <div class="sim-slider-group">
+              <label>Ticket médio <span>R$ <span id="ticket-display">1.750</span></span></label>
+              <input type="range" id="ticket-range" min="800" max="5000" step="50" value="1750">
+            </div>
+          </div>
+          <div class="sim-results">
+            <div class="sim-result-row">
+              <span class="sim-result-label">Leads totais</span>
+              <span class="sim-result-val" id="sim-leads">47</span>
+            </div>
+            <div class="sim-result-row">
+              <span class="sim-result-label">Conversões estimadas</span>
+              <span class="sim-result-val" id="sim-conv">8</span>
+            </div>
+            <div class="sim-result-row">
+              <span class="sim-result-label">Receita estimada</span>
+              <div>
+                <span class="sim-result-val highlight" id="sim-receita">R$14k</span>
+                <div class="sim-delta" id="sim-receita-delta">Base atual</div>
+              </div>
+            </div>
+            <div class="sim-result-row">
+              <span class="sim-result-label">ROI do investimento</span>
+              <span class="sim-result-val" id="sim-roi">—</span>
+            </div>
+            <div class="sim-result-row">
+              <span class="sim-result-label">CPL via anúncios</span>
+              <span class="sim-result-val" id="sim-cpl">—</span>
+            </div>
+            <a class="sim-cta" href="https://wa.me/5521965239011?text=Quero+entender+como+ativar+anúncios+para+a+Pontos+Cardeais" target="_blank">
+              Ativar tráfego pago
+              <span class="sim-cta-desc" id="sim-cta-text">Simule acima e veja o potencial de receita.</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── Upgrade ────────────────────────────────────────────────── -->
+    <section class="s s-alt">
+      <div class="container">
+        <div class="s-head">
+          <h2>Plano Head Implantado</h2>
+          <p>O que está ativo no seu plano — e o que pode ser adicionado</p>
+        </div>
+        <div id="upgrade-section">
+          <!-- Renderizado por dashboard.js via renderUpgrade() -->
+          <div class="upg-features">
+            <div class="upg-item on"><span class="upg-check">✓</span><div class="upg-desc"><strong>Gestão de conteúdo orgânico</strong><span>Feed Instagram com estratégia, copy e identidade visual.</span></div></div>
+            <div class="upg-item on"><span class="upg-check">✓</span><div class="upg-desc"><strong>Reunião estratégica quinzenal</strong><span>Revisão de resultados e próximos movimentos a cada 15 dias.</span></div></div>
+            <div class="upg-item on"><span class="upg-check">✓</span><div class="upg-desc"><strong>Dashboard vivo</strong><span>Acesso em tempo real aos dados da sua operação digital.</span></div></div>
+            <div class="upg-item lock"><span class="upg-check">🔒</span><div class="upg-desc"><strong>Inteligência cross-client</strong><span>Padrões validados de outras corretoras do ecossistema. Disponível no plano Performance.</span></div></div>
+            <div class="upg-item lock"><span class="upg-check">🔒</span><div class="upg-desc"><strong>Experimentos validados</strong><span>Testes A/B já rodados em clientes similares. Disponível no plano Performance.</span></div></div>
+          </div>
+          <a class="upg-cta" href="https://wa.me/5521965239011?text=Quero+evoluir+para+o+plano+Performance" target="_blank">Evoluir para Performance</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="mos-logo">
+        <span class="mos-m" style="color:#f0ebe2">Marketing</span>
+        <span class="mos-slash" style="color:#f0ebe2">/</span>
+        <span class="mos-os">OS</span>
+      </div>
+      <span class="footer-text">Relatório confidencial · Pontos Cardeais Seguros · 2026</span>
+    </div>
+  </footer>
+
+</div><!-- #app -->
+
+<!-- ── Scripts ──────────────────────────────────────────────────── -->
+<!-- Supabase UMD (funciona em file:// e Netlify) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<!-- Configuração do cliente (carregado primeiro) -->
+<script src="js/config.js"></script>
+<!-- Queries ao Supabase -->
+<script src="js/supabase-client.js"></script>
+<!-- Lógica de dashboard -->
+<script src="js/dashboard.js"></script>
+<!-- Simulador interativo -->
+<script src="js/simulator.js"></script>
+
+<!-- ── Intro Animation ──────────────────────────────────────────── -->
+<script>
+(function() {
+  const intro  = document.getElementById('intro');
+  const app    = document.getElementById('app');
+  const ilM    = document.getElementById('il-m');
+  const ilS    = document.getElementById('il-slash');
+  const ilOs   = document.getElementById('il-os');
+  const cursor = document.getElementById('il-cursor');
+
+  // Fase 1 (0.4s) — "/" e "OS" aparecem
+  setTimeout(function() {
+    ilS.style.opacity  = '1';
+    ilOs.style.opacity = '1';
+  }, 400);
+
+  // Fase 2 (1.0s) — "Marketing" expande
+  setTimeout(function() {
+    ilM.style.maxWidth = '560px';
+    ilM.style.opacity  = '1';
+  }, 1000);
+
+  // Fase 4 (2.2s) — cursor some
+  setTimeout(function() {
+    if (cursor) cursor.style.display = 'none';
+  }, 2200);
+
+  // Fase 5 (2.8s) — fade out intro, revela dashboard
+  setTimeout(function() {
+    intro.classList.add('fade-out');
+    app.style.opacity = '1';
+  }, 2800);
+
+  // Remove intro do DOM após fade
+  setTimeout(function() {
+    if (intro.parentNode) intro.parentNode.removeChild(intro);
+  }, 3500);
+})();
+</script>
+
+</body>
+</html>

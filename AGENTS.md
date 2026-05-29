@@ -16,6 +16,26 @@ Sem esses quatro lidos — nada é executado.
 
 ---
 
+## Regra de parada obrigatória — conteúdo para a marca do operador
+
+Antes de criar qualquer conteúdo de marca para o próprio Felipe Proença / MarketingOS:
+
+**PARAR.**
+
+Não executar. Não estruturar. Não sugerir formato.
+
+Perguntar:
+1. Para quem esse conteúdo fala — e o que essa pessoa sente antes de encontrar o Felipe?
+2. O que o Felipe quer dizer que ninguém mais tem coragem de dizer?
+3. Esse conteúdo serve para fechar cliente agora ou construir quem o Felipe é no mercado?
+4. O Felipe está disposto a aparecer nisso?
+
+Só avançar depois de ter essas respostas.
+
+Estrutura sem essas respostas é ruído com boa tipografia.
+
+---
+
 ## Objetivo
 
 Encontrar a verdade humana de cada negócio.

@@ -1,3 +1,14 @@
+---
+name: skill-carousel
+version: "2.0"
+group: criacao
+command: /criar carousel
+inputs:
+  required: [client.md, brand-kit.json]
+  optional: [alma.md]
+env: []
+---
+
 # skill-carousel.md — Gerador de Carrossel Instagram
 > Skill isolada do MarketingOS. Versão 2.0.
 > Leia este arquivo completo antes de executar.
@@ -376,6 +387,17 @@ goTo(0);
 === FIM DA LEGENDA ===
 -->
 ```
+
+---
+
+## Checkpoints
+
+⏸ **CP1 — Copy dos slides**
+Copy de todos os slides gerado → apresentar para aprovação antes de gerar o HTML.
+Não avançar sem confirmação explícita de cada slide.
+
+⏸ **CP2 — Entrega**
+HTML gerado → confirmar slug do cliente e número do carrossel antes de salvar.
 
 ---
 

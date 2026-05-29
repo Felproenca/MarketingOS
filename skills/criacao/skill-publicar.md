@@ -1,3 +1,14 @@
+---
+name: skill-publicar
+version: "1.0"
+group: criacao
+command: /publicar
+inputs:
+  required: [client.md, campaigns.md]
+  optional: [brand-kit.json]
+env: []
+---
+
 # skill-publicar.md — Aprovação e Publicação de Conteúdo
 > Skill isolada do MarketingOS.
 > Protocolo de revisão final e checklist de publicação multi-plataforma.
@@ -58,6 +69,17 @@ Antes de qualquer aprovação, verifique contra os critérios da marca:
 - [ ] Alinhado ao foco declarado em `estrategia.md`?
 - [ ] Hashtags relevantes e não genéricas?
 - [ ] Link de destino correto (se houver)?
+
+---
+
+## Checkpoints
+
+⏸ **CP1 — APROVAÇÃO OBRIGATÓRIA** (Passo 2)
+Revisão de qualidade concluída → apresentar resumo completo e aguardar [A], [E] ou [C].
+**Não avançar sem resposta. Esta skill não publica automaticamente.**
+
+⏸ **CP2 — Registro confirmado**
+Após publicação: confirmar que entrada foi criada em campaigns.md.
 
 ---
 

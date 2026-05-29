@@ -1,3 +1,14 @@
+---
+name: skill-abrir
+version: "1.0"
+group: sistema
+command: /abrir [slug]
+inputs:
+  required: [.marketingos/state.json, intelligence/patterns.md]
+  optional: []
+env: []
+---
+
 # skill-abrir.md — Carregador de Sessão
 > Skill isolada do MarketingOS.
 > Execute SEMPRE no início de cada sessão antes de qualquer operação.

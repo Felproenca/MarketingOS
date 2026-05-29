@@ -1,3 +1,14 @@
+---
+name: skill-venda
+version: "1.0"
+group: venda
+command: /vender
+inputs:
+  required: [client.md, notes.md]
+  optional: []
+env: []
+---
+
 # skill-venda.md — Venda
 > Skill do grupo: Venda
 > Carregada quando o lead está na mão e precisa virar cliente.
@@ -181,6 +192,14 @@ Proposta sem diagnóstico é tiro no escuro.
 4. **Objeção é sinal de interesse** — quem não quer, some. Quem objeta, considera.
 5. **Uma pergunta por vez** — não ametralhar o lead com perguntas
 6. **Próximo passo sempre definido** — toda conversa termina com uma ação clara
+
+---
+
+## Checkpoints
+
+⏸ **CP1 — Abordagem confirmada**
+Diagnóstico do lead + estratégia de fechamento definidos → confirmar abordagem antes de gerar script de venda.
+Canal, tom e objeção principal precisam estar alinhados com o operador.
 
 ---
 

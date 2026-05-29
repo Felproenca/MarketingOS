@@ -1,3 +1,14 @@
+---
+name: skill-image-generation
+version: "1.0"
+group: criacao
+command: /criar imagem
+inputs:
+  required: [client.md, brand-kit.json]
+  optional: []
+env: []
+---
+
 # skill-image-generation.md — Geração de Imagens
 > Skill isolada do MarketingOS.
 > Leia este arquivo completo antes de executar qualquer operação.
@@ -286,6 +297,13 @@ node scripts/generate-image.js \
 5. **Uma imagem por objetivo** — não tentar resolver dois contextos no mesmo prompt
 6. **Salvar sempre com nome descritivo** — `carousel-slide3-gancho-4521.jpg` e não `image1.jpg`
 7. **Mover para `/approved` apenas após validação do cliente**
+
+---
+
+## Checkpoints
+
+⏸ **CP1 — Prompts aprovados**
+Prompts gerados (em inglês + negative prompt + URL) → apresentar para aprovação antes de executar download ou gerar imagens.
 
 ---
 

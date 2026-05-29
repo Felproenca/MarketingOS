@@ -1,3 +1,14 @@
+---
+name: skill-estrategista
+version: "1.0"
+group: analise
+command: /analisar estrategia
+inputs:
+  required: [intelligence/patterns.md, intelligence/benchmarks.json, client.md, metrics.json, estrategia.md]
+  optional: [notes.md]
+env: []
+---
+
 # skill-estrategista.md — Estrategista de Marketing
 > Skill isolada do MarketingOS.
 > Leia este arquivo completo antes de executar.
@@ -226,6 +237,14 @@ Se sim — atualizar as seções:
 5. **Plano executável** — cada item do plano termina com skill e output concreto
 6. **Nunca recomendar escalar o que não está funcionando** — volume de erro é erro maior
 7. **Cruzar sempre com intelligence/** — não reinventar o que já foi aprendido
+
+---
+
+## Checkpoints
+
+⏸ **CP1 — Prioridades aprovadas**
+Diagnóstico + ranking de prioridades gerado → apresentar para decisão do operador antes de detalhar plano de ação.
+Esta skill gera a instrução — o operador decide o que executar primeiro.
 
 ---
 

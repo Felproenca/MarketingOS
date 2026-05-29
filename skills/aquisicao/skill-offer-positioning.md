@@ -1,3 +1,14 @@
+---
+name: skill-offer-positioning
+version: "1.0"
+group: aquisicao
+command: /prospectar oferta
+inputs:
+  required: [client.md, alma.md]
+  optional: []
+env: []
+---
+
 # skill-offer-positioning.md — Posicionamento de Oferta
 > Skill isolada do MarketingOS.
 > Leia este arquivo completo antes de executar qualquer operação.
@@ -241,6 +252,14 @@ Registrar resultado em: campaigns.md → Testes A/B
 4. **Menos é mais no CTA** — um próximo passo claro converte mais que múltiplas opções
 5. **Redução de risco sempre que o ticket for alto** — garantia, trial ou resultado parcial antes do pagamento
 6. **Testar pelo menos 2 variações** — nunca lançar com uma única versão de headline
+
+---
+
+## Checkpoints
+
+⏸ **CP1 — Posicionamento aprovado**
+Posicionamento de oferta gerado → aprovar antes de gerar copy de abordagem.
+Mudança de posicionamento aqui requer reescrita do copy.
 
 ---
 

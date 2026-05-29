@@ -1,3 +1,14 @@
+---
+name: skill-investigar
+version: "1.0"
+group: analise
+command: /analisar investigar
+inputs:
+  required: [client.md]
+  optional: [intelligence/benchmarks.json]
+env: []
+---
+
 # skill-investigar.md — Investigação de Referência ou Concorrente
 > Skill isolada do MarketingOS.
 > Analisa um perfil (concorrente, referência de mercado ou inspiração) e extrai padrões acionáveis.
@@ -144,6 +155,14 @@ Objetivo: [concorrente / referência / inspiração]
 - [ação concreta 1 para o cliente]
 - [ação concreta 2]
 ```
+
+---
+
+## Checkpoints
+
+⏸ **CP1 — Padrões validados**
+Investigação concluída + padrões identificados → confirmar quais padrões são relevantes antes de salvar em intelligence/.
+Padrão salvo sem validação pode contaminar outras operações.
 
 ---
 

@@ -1,3 +1,14 @@
+---
+name: skill-retention
+version: "1.0"
+group: relacionamento
+command: /relacionar retention
+inputs:
+  required: [client.md, notes.md]
+  optional: []
+env: []
+---
+
 # skill-retention.md — Retenção de Clientes
 > Skill isolada do MarketingOS.
 > Leia este arquivo completo antes de executar qualquer operação.
@@ -181,6 +192,13 @@ Tempo médio de retenção:    [ ] meses
 4. **Churn é mais barato de prevenir do que reverter** — monitorar sinais antes de perder
 5. **Indicação é o canal de menor CPL** — estruturar antes de escalar tráfego pago
 6. **Nunca automatizar o contato de alerta de churn** — deve ser humano e personalizado
+
+---
+
+## Checkpoints
+
+⏸ **CP1 — Plano aprovado**
+Plano de retenção com ações e fluxos definidos → aprovar antes de ativar qualquer comunicação.
 
 ---
 

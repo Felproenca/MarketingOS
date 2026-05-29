@@ -1,3 +1,14 @@
+---
+name: skill-pitch-deck
+version: "2.1"
+group: aquisicao
+command: /pitch
+inputs:
+  required: [client.md, brand-kit.json]
+  optional: [notes.md]
+env: []
+---
+
 # skill-pitch-deck.md — Apresentação Comercial em HTML (v2.1)
 > Skill isolada do MarketingOS.
 > Leia este arquivo completo antes de executar.
@@ -226,6 +237,16 @@ PROSPECCTAR EM BATCH (vários prospectos no mesmo nicho)
 1. /pitch prospecto: pontos-cardeais
    (sistema usa Modo Mockup automaticamente)
 ```
+
+---
+
+## Checkpoints
+
+⏸ **CP1 — Estrutura do deck aprovada**
+Slides definidos + copy de cada slide → aprovar narrativa antes de gerar HTML.
+
+⏸ **CP2 — HTML aprovado**
+Pitch deck gerado → confirmar antes de salvar e compartilhar com prospect.
 
 ---
 

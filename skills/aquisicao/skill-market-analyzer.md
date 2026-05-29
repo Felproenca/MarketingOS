@@ -1,3 +1,14 @@
+---
+name: skill-market-analyzer
+version: "1.0"
+group: aquisicao
+command: /mercado
+inputs:
+  required: []
+  optional: [intelligence/market-opportunities.md]
+env: []
+---
+
 # skill-market-analyzer.md — Analisador de Mercado
 > Skill isolada do MarketingOS.
 > Leia este arquivo completo antes de executar.
@@ -217,6 +228,13 @@ Se não:
 4. **Subniche é mais acionável que nicho amplo** — sempre detalhar
 5. **Sempre terminar com passagem para o prospector** — análise sem ação é desperdício
 6. **Salvar em intelligence/** — cada análise melhora o sistema
+
+---
+
+## Checkpoints
+
+⏸ **CP1 — Nichos confirmados**
+Análise de mercado concluída → confirmar nichos prioritários antes de salvar em intelligence/ e antes de ativar skill-prospector.
 
 ---
 

@@ -1,3 +1,14 @@
+---
+name: skill-salvar
+version: "1.0"
+group: sistema
+command: /salvar
+inputs:
+  required: [runs.md]
+  optional: [intelligence/system-usage.json]
+env: []
+---
+
 # skill-salvar.md — Salvar Sessão
 > Skill isolada do MarketingOS.
 > Execute ao final de cada sessão ou após completar uma entrega significativa.

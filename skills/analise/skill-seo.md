@@ -1,3 +1,14 @@
+---
+name: skill-seo
+version: "1.0"
+group: analise
+command: /analisar seo
+inputs:
+  required: [client.md]
+  optional: [intelligence/benchmarks.json]
+env: []
+---
+
 # skill-seo.md — Estratégia e Otimização SEO
 > Skill isolada do MarketingOS.
 > Workflow completo de 8 passos: pesquisa de palavras-chave até plano de ação.
@@ -193,6 +204,17 @@ Objetivo: [definido no input]
 ## Acompanhamento
 [Passo 8]
 ```
+
+---
+
+## Checkpoints
+
+⏸ **CP1 — Palavras-chave aprovadas**
+Pesquisa de palavras-chave concluída → aprovar lista de termos alvo antes de gerar plano de ação.
+Palavras-chave erradas aqui contaminam toda a estratégia de conteúdo.
+
+⏸ **CP2 — Plano de ação aprovado**
+Estratégia SEO completa gerada → confirmar prioridades antes de salvar e iniciar execução.
 
 ---
 

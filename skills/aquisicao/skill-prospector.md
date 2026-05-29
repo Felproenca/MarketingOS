@@ -1,3 +1,14 @@
+---
+name: skill-prospector
+version: "1.0"
+group: aquisicao
+command: /prospectar | /prospector
+inputs:
+  required: [client.md]
+  optional: [intelligence/benchmarks.json, intelligence/market-opportunities.md]
+env: []
+---
+
 # skill-prospector.md — Prospector de Clientes
 > Skill isolada do MarketingOS.
 > Leia este arquivo completo antes de executar.
@@ -240,6 +251,17 @@ Se não:
 5. **Quente só com sinal real** — não classificar como quente por feeling
 6. **Salvar em intelligence/** — padrões de prospecção são ativos do sistema
 7. **Máximo 10 prospectos por rodada** — qualidade supera volume
+
+---
+
+## Checkpoints
+
+⏸ **CP1 — Lista qualificada aprovada**
+Lista de prospectos com scores gerada → apresentar ranking de quentes/mornos/frios antes de gerar mensagens de abertura.
+Não gerar mensagens para prospectos que o operador decidir não abordar.
+
+⏸ **CP2 — Semana definida**
+Antes de encerrar: confirmar quais prospectos serão abordados esta semana e por qual canal.
 
 ---
 

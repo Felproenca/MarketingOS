@@ -1,3 +1,14 @@
+---
+name: skill-site-builder
+version: "2.0"
+group: criacao
+command: /criar site
+inputs:
+  required: [client.md, brand-kit.json, outputs/branding/visual-direction.md, outputs/branding/design-system.json]
+  optional: [alma.md, outputs/branding/references.md]
+env: []
+---
+
 # skill-site-builder.md — Desenvolvedor de Sites
 > Skill isolada do MarketingOS.
 > Leia este arquivo completo antes de executar qualquer geração.
@@ -473,6 +484,20 @@ Briefing visual:
 12. **Easing premium em todas as transições** — nenhum `linear` ou `ease` padrão
 13. **Hero nunca no formato texto-esquerda/imagem-direita padrão** — usar composição editorial
 14. **Copy sem clichês de IA** — "Eleve", "Sofisticação", "Timeless", "Seamless" são proibidos
+
+---
+
+## Checkpoints
+
+⏸ **CP1 — Estrutura aprovada**
+SEO + lista de seções + objetivos definidos → apresentar estrutura antes de gerar copy de cada seção.
+Mudança de estrutura após copy gerado requer reescrita completa.
+
+⏸ **CP2 — Copy aprovado**
+Copy completo de todas as seções gerado → aprovação obrigatória antes de gerar código HTML (se Modo 2).
+
+⏸ **CP3 — Anti-padrões limpos**
+Rodar mentalmente o checklist de anti-padrões antes de entregar → sinalizar qualquer item reprovado antes de prosseguir.
 
 ---
 

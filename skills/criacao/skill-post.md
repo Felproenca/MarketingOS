@@ -1,3 +1,14 @@
+---
+name: skill-post
+version: "1.0"
+group: criacao
+command: /criar post
+inputs:
+  required: [client.md]
+  optional: [brand-kit.json, alma.md]
+env: []
+---
+
 # skill-post.md — Gerador de Post Instagram
 > Skill isolada do MarketingOS.
 > Leia este arquivo completo antes de executar qualquer geração.
@@ -214,6 +225,16 @@ Interação sugerida: [ ex: responder comentários nas primeiras 2h ]
 5. **Para Story: menos texto, mais ação** — o usuário passa rápido, o elemento interativo é o que engaja
 6. **Tom da marca acima de tendência** — não adianta usar o som do momento se destoa da marca
 7. **Hashtags: mix de nicho (alto volume) + específicas (baixo volume)** — nunca só genéricas
+
+---
+
+## Checkpoints
+
+⏸ **CP1 — Copy aprovada**
+Copy completo gerado (visual + legenda) → apresentar para aprovação antes de gerar briefing visual.
+
+⏸ **CP2 — Formato confirmado**
+Se formato não foi especificado no comando (Feed / Reels / Story), perguntar antes de estruturar o output.
 
 ---
 

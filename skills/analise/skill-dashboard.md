@@ -1,3 +1,14 @@
+---
+name: skill-dashboard
+version: "1.0"
+group: analise
+command: /analisar dashboard
+inputs:
+  required: [metrics.json, client.md]
+  optional: [campaigns.md]
+env: []
+---
+
 # skill-dashboard.md — Análise de Métricas e Dashboard
 > Skill isolada do MarketingOS.
 > Leia este arquivo completo antes de executar qualquer análise.
@@ -265,6 +276,17 @@ Ação recomendada: [ ]
 5. **Relatório executivo em linguagem do cliente** — sem jargão técnico, sem siglas sem explicação
 6. **Priorizar ações de impacto imediato** — o cliente precisa saber o que fazer amanhã, não só no trimestre
 7. **Registrar no log de alterações do `campaigns.md`** toda decisão tomada com base neste relatório
+
+---
+
+## Checkpoints
+
+⏸ **CP1 — Tipo de relatório**
+Antes de formatar output: confirmar se o relatório deve ser Executivo, Técnico ou Completo.
+Se não informado no comando, perguntar antes de continuar.
+
+⏸ **CP2 — Entrega**
+Relatório gerado → confirmar antes de registrar decisões em campaigns.md.
 
 ---
 

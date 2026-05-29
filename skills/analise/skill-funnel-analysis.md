@@ -1,3 +1,14 @@
+---
+name: skill-funnel-analysis
+version: "1.0"
+group: analise
+command: /analisar funil
+inputs:
+  required: [metrics.json, client.md, campaigns.md]
+  optional: []
+env: []
+---
+
 # skill-funnel-analysis.md — Análise de Funil
 > Skill isolada do MarketingOS.
 > Leia este arquivo completo antes de executar qualquer operação.
@@ -205,6 +216,14 @@ Prioridade 3 — otimização contínua:
 3. **CPL isolado não decide nada** — cruzar sempre com ticket médio e taxa de fechamento
 4. **Identificar o gargalo principal antes de sugerir ações** — atacar o maior problema primeiro
 5. **Taxa de conversão abaixo de 1% no site é sinal crítico** — priorizar antes de escalar tráfego
+
+---
+
+## Checkpoints
+
+⏸ **CP1 — Diagnóstico aprovado**
+Mapa do funil com gargalos identificados → apresentar diagnóstico antes de gerar recomendações.
+Permite ao operador corrigir dados ou prioridades antes de receber o plano de ação.
 
 ---
 

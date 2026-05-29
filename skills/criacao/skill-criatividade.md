@@ -1,3 +1,14 @@
+---
+name: skill-criatividade
+version: "1.0"
+group: criacao
+command: /criar (obrigatória antes de qualquer criação sem mapa)
+inputs:
+  required: [manifesto.md, alma.md, client.md]
+  optional: [notes.md]
+env: []
+---
+
 # skill-criatividade.md — Criatividade
 > Skill do grupo: Criação
 > Lida antes de qualquer execução de conteúdo.
@@ -187,6 +198,14 @@ Faça a mesma pergunta para cada cliente.
 3. **O protagonista nunca é a empresa** — sempre o cliente dela
 4. **Autenticidade supera perfeição** — imperfeição real conecta mais que polimento genérico
 5. **O mapa é vivo** — atualizar no notes.md sempre que uma nova verdade emergir
+
+---
+
+## Checkpoints
+
+⏸ **CP1 — Mapa criativo aprovado**
+Mapa completo gerado → apresentar para aprovação antes de passar contexto para qualquer skill de execução.
+Este é o ponto de maior impacto: um mapa errado contamina tudo que vem depois.
 
 ---
 

@@ -1,3 +1,14 @@
+---
+name: skill-branding
+version: "1.0"
+group: criacao
+command: /branding
+inputs:
+  required: [client.md, notes.md, brand-kit.json]
+  optional: [intelligence/patterns.md, intelligence/benchmarks.json]
+env: []
+---
+
 # skill-branding.md - Direcao Criativa e Branding
 > Skill isolada do MarketingOS.
 > Leia este arquivo completo antes de executar qualquer operacao.
@@ -170,6 +181,17 @@ Antes de qualquer geracao de homepage, a skill de site deve ler:
 5. `outputs/branding/references.md`
 
 Sem esses arquivos, o site builder deve interromper e solicitar execucao da `skill-branding.md`.
+
+---
+
+## Checkpoints
+
+⏸ **CP1 — Posicionamento aprovado**
+positioning.md + brand-strategy.md gerados → apresentar para aprovação antes de definir direção visual.
+Mudança de posicionamento após este ponto invalida o design-system.
+
+⏸ **CP2 — Design system aprovado**
+design-system.json gerado → confirmar paleta, tipografia e regras antes de salvar e liberar para skill-site-builder.
 
 ---
 

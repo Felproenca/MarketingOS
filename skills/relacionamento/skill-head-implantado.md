@@ -1,3 +1,14 @@
+---
+name: skill-head-implantado
+version: "1.0"
+group: relacionamento
+command: /relacionar head
+inputs:
+  required: [client.md, estrategia.md, metrics.json]
+  optional: [notes.md]
+env: []
+---
+
 # skill-head-implantado.md — Head de Marketing Implantado
 > Skill isolada do MarketingOS.
 > Leia este arquivo completo antes de executar qualquer operação com cliente em regime de Head.
@@ -196,6 +207,16 @@ EMERGENCIAL — WhatsApp direto
 4. **Uma reunião, um dono de pauta** — o Head define a pauta, o cliente decide sobre ela
 5. **Crise não se improvisa** — todo cliente deve ter um protocolo de resposta mapeado antes que ela aconteça
 6. **Métricas sem narrativa não servem** — número sem contexto é ruído, não inteligência
+
+---
+
+## Checkpoints
+
+⏸ **CP1 — Diagnóstico do mês aprovado**
+Diagnóstico de performance + prioridades do período → confirmar foco antes de ativar operações.
+
+⏸ **CP2 — Entregáveis do mês confirmados**
+Lista de o que será executado no mês → aprovação antes de iniciar qualquer skill de execução.
 
 ---
 

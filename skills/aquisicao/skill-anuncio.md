@@ -1,3 +1,14 @@
+---
+name: skill-anuncio
+version: "1.0"
+group: aquisicao
+command: /prospectar anuncio
+inputs:
+  required: [client.md, brand-kit.json]
+  optional: []
+env: []
+---
+
 # skill-anuncio.md — Criação de Campanha de Anúncios
 > Skill isolada do MarketingOS.
 > Estrutura campanhas completas para Google Ads e/ou Meta Ads.
@@ -210,6 +221,17 @@ Oferta: Anel solitário em ouro 18k — R$ 890
 Orçamento: R$ 50/dia
 Destino: link do produto no site
 ```
+
+---
+
+## Checkpoints
+
+⏸ **CP1 — Estrutura de campanha aprovada**
+Objetivo, público, orçamento e canais definidos → aprovar estrutura antes de gerar copies.
+
+⏸ **CP2 — Copies e CSV aprovados**
+Copies gerados + CSV montado → aprovação obrigatória antes de entregar para importação.
+Nunca subir campanha sem confirmação explícita.
 
 ---
 

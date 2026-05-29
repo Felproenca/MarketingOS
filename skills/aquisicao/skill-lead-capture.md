@@ -1,3 +1,14 @@
+---
+name: skill-lead-capture
+version: "1.0"
+group: aquisicao
+command: /prospectar leads
+inputs:
+  required: [client.md, campaigns.md]
+  optional: []
+env: []
+---
+
 # skill-lead-capture.md — Captura de Leads
 > Skill isolada do MarketingOS.
 > Leia este arquivo completo antes de executar qualquer operação.
@@ -145,6 +156,13 @@ Status:            Ativo
 3. **Primeiro contato em até 5 minutos** — leads esfriam rápido
 4. **Nunca usar "preencha o formulário" como CTA** — diga o benefício, não a ação
 5. **Mensagem de confirmação não é agradecimento genérico** — reforce o que o lead vai receber e quando
+
+---
+
+## Checkpoints
+
+⏸ **CP1 — Fluxo aprovado**
+Estrutura do fluxo de captura definida → aprovar lógica de qualificação e mensagens antes de gerar assets.
 
 ---
 

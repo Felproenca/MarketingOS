@@ -1,3 +1,14 @@
+---
+name: skill-reactivation
+version: "1.0"
+group: relacionamento
+command: /relacionar reactivation
+inputs:
+  required: [client.md, notes.md]
+  optional: []
+env: []
+---
+
 # skill-reactivation.md — Reativação de Clientes Inativos
 > Skill isolada do MarketingOS.
 > Leia este arquivo completo antes de executar qualquer operação.
@@ -230,6 +241,14 @@ ROI da reativação:              [ ]x
 4. **Oferta só na mensagem 3** — entregar valor antes de pedir
 5. **Inativo longo = 1 tentativa com oferta forte** — não gastar sequência em quem sumiu há muito tempo
 6. **Registrar tudo no campaigns.md** — reativação bem documentada vira aprendizado para o sistema
+
+---
+
+## Checkpoints
+
+⏸ **CP1 — Mensagens aprovadas**
+Mensagens de reativação geradas → aprovação obrigatória antes de qualquer envio.
+Nunca enviar para inativos sem confirmação explícita de quem recebe e quando.
 
 ---
 

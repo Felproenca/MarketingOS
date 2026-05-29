@@ -1,0 +1,18 @@
+{
+  "email": {
+    "host": "smtp.gmail.com",
+    "port": 587,
+    "user": "",
+    "pass": "",
+    "from": "Seu Nome <seuemail@gmail.com>"
+  },
+  "limits": {
+    "whatsappPerDay": 50,
+    "emailsPerDay": 100
+  },
+  "templates": {
+    "whatsapp": "Olá, {{nome}}! 👋\n\nVi que vocês estão em {{cidade}} e quero compartilhar algumas ideias de marketing que podem fazer diferença para o negócio de vocês.\n\nPosso te enviar um diagnóstico gratuito?\n\nAbraços!",
+    "emailSubject": "Uma ideia para {{nome}}",
+    "emailBody": "<p>Olá, <strong>{{nome}}</strong>!</p><p>Encontrei o negócio de vocês e gostaria de compartilhar algumas estratégias de marketing digital que funcionam bem para empresas como a de vocês em {{cidade}}.</p><p>Posso enviar um diagnóstico gratuito, sem compromisso?</p><p>Aguardo seu retorno!</p>"
+  }
+}

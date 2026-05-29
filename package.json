@@ -9,13 +9,17 @@
     "cmd": "node scripts/command-router.js",
     "salvar": "node scripts/save.js",
     "carousel:generate": "node scripts/generate-carousel.js",
-    "carousel:render": "node scripts/render-carousel.js"
+    "carousel:render": "node scripts/render-carousel.js",
+    "prospector": "node scripts/prospector/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^17.4.2"
+    "dotenv": "^17.4.2",
+    "nodemailer": "^8.0.10",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.34.7"
   },
   "devDependencies": {
     "playwright": "^1.60.0"

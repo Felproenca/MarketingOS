@@ -206,6 +206,35 @@ Todo output vai para `clients/[slug]/outputs/`:
 
 ---
 
+## Reflexos Adaptativos
+
+Esses gatilhos operam em segundo plano — sem interromper o fluxo, apenas ao final da resposta.
+
+### 1. Gatilho de skill
+Se uma tarefa foi executada manualmente, sem skill dedicada, e tem potencial de repetição:
+> "Isso pode virar uma skill para a próxima vez. Quer que eu crie?"
+
+Só propor se a tarefa for estruturada o suficiente para virar skill (não para tarefas pontuais únicas).
+
+### 2. Gatilho de instrucao permanente
+Se o usuario corrigiu um comportamento ou deu uma diretriz que deve valer para sempre:
+> "Isso deve valer sempre? Posso salvar para não precisar repetir."
+
+Se confirmado, salvar em `notes.md` do cliente ativo ou em `CLAUDE.md` conforme escopo.
+
+### 3. Gatilho de contexto desatualizado
+Se a sessao produziu mudancas significativas (nova estrategia, nova campanha, novo posicionamento):
+> "Isso mudou o contexto do cliente. Quer que eu atualize o arquivo correspondente?"
+
+Identificar o arquivo correto: `estrategia.md`, `notes.md`, `campaigns.md` ou `client.md`.
+
+### Regra geral
+- Propor no final da resposta, nunca no meio
+- Uma proposta por vez — nao acumular os tres gatilhos na mesma mensagem
+- Se o usuario ignorar, nao repetir na proxima mensagem
+
+---
+
 ## Sinais de Parada
 
 Interrompa antes de continuar se:

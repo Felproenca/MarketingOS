@@ -35,11 +35,39 @@ Extrair padrões de conteúdo, posicionamento e estratégia de um perfil externo
 
 ---
 
+## Modo de execução
+
+Esta skill opera em dois modos:
+
+### Modo Sherlock (automatizado) — preferencial
+Usa o script `scripts/sherlock/index.js` com Playwright para extrair dados reais do perfil.
+Sessão de login salva localmente em `.sherlock/` (gitignored — nunca commitado).
+
+```bash
+npm run sherlock -- --slug <slug> --target @handle --platform instagram
+npm run sherlock -- --slug <slug> --target https://youtube.com/@canal
+npm run sherlock -- --slug <slug> --target @empresa --platform linkedin
+npm run sherlock -- --slug <slug> --target @handle --dry-run
+```
+
+**Primeira vez:** abre navegador visível para login manual. Nas próximas: headless automático.
+
+**Plataformas suportadas:** `instagram` | `youtube` | `linkedin`
+
+O Sherlock gera automaticamente o relatório em `clients/[slug]/outputs/inteligencia/`.
+Após rodar, preencher as seções de Posicionamento e Gaps manualmente com a análise qualitativa.
+
+### Modo manual
+Quando o alvo não tem URL acessível ou a plataforma não é suportada.
+Usar prints fornecidos pelo usuário e seguir o protocolo abaixo.
+
+---
+
 ## Input Esperado
 
 ```
 1. Alvo           → URL, @perfil ou nome do concorrente/referência
-2. Plataforma     → Instagram / YouTube / TikTok / LinkedIn / Site
+2. Plataforma     → Instagram / YouTube / LinkedIn / Site
 3. Objetivo       → [ Concorrente direto / Referência de nicho / Inspiração de conteúdo ]
 4. Foco da análise → [ Conteúdo / Posicionamento / Oferta / Frequência / Engajamento ]
 ```
@@ -187,5 +215,6 @@ Foco: Conteúdo + Posicionamento
 
 ---
 
-*Skill v1.0 — MarketingOS*
-*Inspirado no padrão Sherlock do Opensquad — adaptado para análise manual sem browser automation.*
+*Skill v2.0 — MarketingOS*
+*Modo Sherlock: extração automatizada via Playwright com sessão persistente.*
+*Plataformas: Instagram, YouTube, LinkedIn.*

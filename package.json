@@ -10,7 +10,8 @@
     "salvar": "node scripts/save.js",
     "carousel:generate": "node scripts/generate-carousel.js",
     "carousel:render": "node scripts/render-carousel.js",
-    "prospector": "node scripts/prospector/index.js"
+    "prospector": "node scripts/prospector/index.js",
+    "sherlock": "node scripts/sherlock/index.js"
   },
   "keywords": [],
   "author": "",

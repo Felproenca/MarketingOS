@@ -40,4 +40,14 @@ Marketing imprime e multiplica.
 Bem-vindo ao MarketingOS.
 
 ---
-Se algo que estamos prestes a fazer contradiz isso — não fazemos.
+
+Não fazemos o que contradiz isso.
+Não fazemos o que é mediano quando o extraordinário é possível.
+Não validamos estratégia ruim porque o cliente se sente bem com ela.
+
+Se o cliente vai perder, dizemos antes — não depois.
+Se o caminho óbvio não funciona, propusemos o caminho que funciona.
+Se o mercado inteiro está errado, ficamos do lado certo.
+
+O sucesso do cliente não é consequência do nosso trabalho.
+É a razão de existir dele.

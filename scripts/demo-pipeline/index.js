@@ -5,16 +5,18 @@
  * MarketingOS Demo Pipeline
  *
  * Fluxo: scrape leads → extrai marca → gera demo com a marca deles → envia outreach
+ * Outputs vão para agency/ (operação interna) ou clients/[slug]/ (se --slug informado)
  *
  * Uso:
- *   node scripts/demo-pipeline/index.js --slug agencia --query "clínica estética" --city "São Paulo" --segment clinica
- *   node scripts/demo-pipeline/index.js --slug agencia --query "escritório contabilidade" --city "Curitiba" --segment b2b
+ *   node scripts/demo-pipeline/index.js --query "clínica estética" --city "São Paulo" --segment clinica
+ *   node scripts/demo-pipeline/index.js --query "escritório contabilidade" --city "Curitiba" --segment b2b
+ *   node scripts/demo-pipeline/index.js --slug meu-cliente --query "..." --city "..." --segment clinica
  *
  * Opções:
- *   --slug       Slug do cliente operador (obrigatório)
  *   --query      Termo de busca no Google Maps (obrigatório)
  *   --city       Cidade alvo (obrigatório)
  *   --segment    clinica | b2b (obrigatório)
+ *   --slug       Se informado, grava em clients/[slug]/outputs/demos/ (uso para cliente)
  *   --max        Máximo de leads (padrão: 10)
  *   --channels   whatsapp,email (padrão: whatsapp)
  *   --dry-run    Gera demos mas não envia outreach
@@ -81,7 +83,19 @@ function renderTemplate(template, lead) {
 // ── Helpers ────────────────────────────────────────────────────────────────
 
 function outputBase(slug) {
-  const base = path.resolve(__dirname, '../../clients', slug, 'outputs', 'demos');
+  // Sem slug → operação da agência → agency/demos/
+  // Com slug → operação para cliente → clients/[slug]/outputs/demos/
+  const base = slug
+    ? path.resolve(__dirname, '../../clients', slug, 'outputs', 'demos')
+    : path.resolve(__dirname, '../../agency', 'demos');
+  fs.mkdirSync(base, { recursive: true });
+  return base;
+}
+
+function contactedBase(slug) {
+  const base = slug
+    ? path.resolve(__dirname, '../../clients', slug, 'outputs', 'inteligencia')
+    : path.resolve(__dirname, '../../agency', 'contacted');
   fs.mkdirSync(base, { recursive: true });
   return base;
 }
@@ -91,10 +105,11 @@ function safeSlug(str) {
 }
 
 function loadImgbbKey(slug) {
+  const configPath = slug
+    ? path.resolve(__dirname, '../../clients', slug, 'instagram-config.json')
+    : path.resolve(__dirname, '../../agency', 'instagram-config.json');
   try {
-    const cfg = JSON.parse(fs.readFileSync(
-      path.resolve(__dirname, '../../clients', slug, 'instagram-config.json'), 'utf8'
-    ));
+    const cfg = JSON.parse(fs.readFileSync(configPath, 'utf8'));
     return process.env.IMGBB_API_KEY || cfg.imgbbApiKey || null;
   } catch {
     return process.env.IMGBB_API_KEY || null;
@@ -106,8 +121,8 @@ function loadImgbbKey(slug) {
 async function main() {
   const args = parseArgs();
 
-  if (!args.slug || !args.query || !args.city) {
-    console.error('❌ Uso: node scripts/demo-pipeline/index.js --slug <slug> --query "<busca>" --city "<cidade>" --segment clinica|b2b');
+  if (!args.query || !args.city) {
+    console.error('❌ Uso: node scripts/demo-pipeline/index.js --query "<busca>" --city "<cidade>" --segment clinica|b2b [--slug <cliente>]');
     process.exit(1);
   }
 
@@ -126,6 +141,7 @@ async function main() {
   if (args.onlyDemo) console.log('   ⚠️  ONLY DEMO — salva localmente, não envia nada');
 
   const base = outputBase(args.slug);
+  const contactedDir = contactedBase(args.slug);
   const imgbbKey = loadImgbbKey(args.slug);
   const date = new Date().toISOString().slice(0, 10);
 
@@ -248,7 +264,7 @@ async function main() {
 
   // Salva log
   if (!args.dryRun && contacted.length > 0) {
-    const logPath = path.join(base, `${date}-contacted.json`);
+    const logPath = path.join(contactedDir, `${date}-contacted.json`);
     fs.writeFileSync(logPath, JSON.stringify(contacted, null, 2), 'utf8');
     console.log(`\n📁 Log salvo: ${logPath}`);
   }

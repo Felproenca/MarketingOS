@@ -24,3 +24,9 @@ _tmp_*.html
 
 # WhatsApp session
 .whatsapp-session/
+
+# Agency — dados operacionais (leads, demos, contatos são privados)
+agency/leads/
+agency/demos/
+agency/contacted/
+agency/instagram-config.json

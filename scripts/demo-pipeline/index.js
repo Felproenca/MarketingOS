@@ -220,6 +220,27 @@ async function main() {
   const whatsappChannel = args.channels.includes('whatsapp');
   const emailChannel = args.channels.includes('email');
 
+  // dry-run: apenas exibe o que seria enviado, sem iniciar conexões
+  if (args.dryRun) {
+    for (const { lead, slide1Url } of results) {
+      if (whatsappChannel && lead.phone) {
+        const msg = renderTemplate(WHATSAPP_TEMPLATE[args.segment](lead.name), lead)
+          + (slide1Url ? `\n\n🖼 Preview: ${slide1Url}` : '');
+        console.log(`   [DRY-RUN] WhatsApp → ${lead.phone}`);
+        console.log(`             ${msg.slice(0, 100)}...`);
+      }
+      if (emailChannel && lead.email) {
+        const subject = renderTemplate(EMAIL_SUBJECT[args.segment], lead);
+        console.log(`   [DRY-RUN] Email → ${lead.email}: ${subject}`);
+      }
+      if (!lead.phone && !lead.email) {
+        console.log(`   [DRY-RUN] ${lead.name}: sem contato extraído`);
+      }
+    }
+    console.log('\n✅ Dry-run concluído. Nenhuma mensagem enviada.');
+    return;
+  }
+
   if (whatsappChannel) {
     const { initWhatsApp, sendWhatsApp, destroyWhatsApp } = require('../prospector/outreach-whatsapp');
     const sessionPath = path.resolve(__dirname, '../../.whatsapp-session');
@@ -229,14 +250,9 @@ async function main() {
       if (!lead.phone) { console.log(`   ⚠️  ${lead.name}: sem telefone`); continue; }
       const msg = renderTemplate(WHATSAPP_TEMPLATE[args.segment](lead.name), lead)
         + (slide1Url ? `\n\n🖼 Preview: ${slide1Url}` : '');
-
-      if (args.dryRun) {
-        console.log(`   [DRY-RUN] WhatsApp → ${lead.phone}: ${msg.slice(0, 80)}...`);
-      } else {
-        await sendWhatsApp(lead.phone, msg, 8000);
-        console.log(`   ✓ WhatsApp → ${lead.phone}`);
-        contacted.push({ ...lead, channel: 'whatsapp', sentAt: new Date().toISOString() });
-      }
+      await sendWhatsApp(lead.phone, msg, 8000);
+      console.log(`   ✓ WhatsApp → ${lead.phone}`);
+      contacted.push({ ...lead, channel: 'whatsapp', sentAt: new Date().toISOString() });
     }
 
     await destroyWhatsApp();
@@ -251,14 +267,9 @@ async function main() {
       const subject = renderTemplate(EMAIL_SUBJECT[args.segment], lead);
       const body = renderTemplate(EMAIL_HTML[args.segment], lead)
         + (slide1Url ? `<br><br><img src="${slide1Url}" style="max-width:600px" alt="Demo" />` : '');
-
-      if (args.dryRun) {
-        console.log(`   [DRY-RUN] Email → ${lead.email}: ${subject}`);
-      } else {
-        await sendEmail(lead.email, subject, body, 5000);
-        console.log(`   ✓ Email → ${lead.email}`);
-        contacted.push({ ...lead, channel: 'email', sentAt: new Date().toISOString() });
-      }
+      await sendEmail(lead.email, subject, body, 5000);
+      console.log(`   ✓ Email → ${lead.email}`);
+      contacted.push({ ...lead, channel: 'email', sentAt: new Date().toISOString() });
     }
   }
 

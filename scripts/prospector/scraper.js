@@ -16,9 +16,10 @@ async function scrapeGoogleMaps(query, city, maxResults = 30) {
   console.log(`\n🗺️  Google Maps: "${term}"`);
 
   await page.goto(`https://www.google.com/maps/search/${encodeURIComponent(term)}`, {
-    waitUntil: 'networkidle',
-    timeout: 30000,
+    waitUntil: 'domcontentloaded',
+    timeout: 60000,
   });
+  await delay(3000);
 
   // Aceita cookies se aparecer
   const cookieBtn = page.locator('button[aria-label*="Aceitar"], button[aria-label*="Accept"]');

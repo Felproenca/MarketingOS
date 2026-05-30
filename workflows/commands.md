@@ -1,135 +1,236 @@
-# commands.md — Interface de Comandos do MarketingOS
-> Localização: /workflows/commands.md
-> Mapa de comandos curtos para skills e workflows.
-> O operador digita o comando e o sistema resolve qual skill ou workflow executar.
+# commands.md — Referência de Comandos do MarketingOS
+> Todos os comandos do sistema em um lugar só.
+> Atualizado em: 2026-05-30
 
 ---
 
-## Comandos de Grupo (nova hierarquia)
+## Índice
 
-Comandos de grupo carregam o `_admin.md` correspondente, que escolhe a skill certa.
-Reduzem contexto: em vez de carregar 16 skills, o sistema carrega 30 linhas e escolhe 1.
+1. [Comandos de Sessão](#1-sessão)
+2. [Slash Commands — Grupos](#2-grupos)
+3. [Slash Commands — Conteúdo](#3-conteúdo)
+4. [Slash Commands — Análise](#4-análise)
+5. [Slash Commands — Aquisição](#5-aquisição)
+6. [Slash Commands — Relacionamento](#6-relacionamento)
+7. [Slash Commands — Head Implantado](#7-head-implantado)
+8. [CLI — Scripts npm](#8-cli-npm)
+9. [Pipelines](#9-pipelines)
 
-| Comando | O que faz | Executa |
+---
+
+## 1. Sessão
+
+> Executar sempre em ordem: `/abrir` → trabalho → `/fechar`
+
+| Comando | O que faz |
+|---|---|
+| `/abrir [slug]` | Abre sessão do cliente — carrega intelligence + contexto |
+| `/fechar` | Encerra sessão — extrai aprendizados e faz commit |
+| `/salvar` | Checkpoint intermediário — commit sem encerrar sessão |
+
+---
+
+## 2. Grupos
+
+> Carregam o `_admin.md` do grupo → escolhem a skill certa → carregam só ela.
+
+| Comando | O que faz |
+|---|---|
+| `/analisar` | Diagnóstico, performance, concorrente, SEO, estratégia |
+| `/criar` | Conteúdo, visual, site — carrega alma.md + criatividade |
+| `/prospectar` | Mercado, prospectos, oferta, pitch, captura, anúncio |
+| `/vender` | Abordagem de lead qualificado e fechamento |
+| `/relacionar` | Retenção, reativação, head implantado |
+
+---
+
+## 3. Conteúdo
+
+| Comando | O que faz | Skill |
 |---|---|---|
-| `/analisar` | Diagnóstico, performance, concorrente, SEO, estratégia | `skills/analise/_admin.md` |
-| `/criar` | Conteúdo, visual, site — precedido de alma.md + criatividade | `skills/criacao/_admin.md` |
-| `/prospectar` | Mercado, prospectos, oferta, pitch, captura, anúncio | `skills/aquisicao/_admin.md` |
-| `/vender` | Abordagem de lead qualificado e fechamento | `skills/venda/_admin.md` |
-| `/relacionar` | Retenção, reativação, head implantado | `skills/relacionamento/_admin.md` |
+| `/criar carousel` | Carrossel para Instagram (HTML direto) | `criacao/skill-carousel.md` |
+| `/criar post` | Post — Feed, Reels ou Story | `criacao/skill-post.md` |
+| `/criar imagem` | Prompts e imagens de apoio | `criacao/skill-image-generation.md` |
+| `/criar branding` | Direção criativa e design system | `criacao/skill-branding.md` |
+| `/criar site` | Site ou landing page | `criacao/skill-site-builder.md` |
+| `/publicar` | Revisão + checklist + publicação via Meta Graph API | `criacao/skill-publicar.md` |
 
 ---
 
-## Comandos Diretos — Sistema
+## 4. Análise
 
-| Comando | O que faz | Executa |
+| Comando | O que faz | Skill |
 |---|---|---|
-| `/abrir [slug]` | Carrega alma.md + intelligence global + contexto do cliente | `workflows/open-client.md` → `skills/skill-abrir.md` |
-| `/fechar` | Extrai aprendizados, atualiza intelligence/, faz commit | `workflows/close-client.md` → `skills/skill-salvar.md` |
-| `/salvar` | Checkpoint intermediário — commit git + atualiza runs.md | `skills/skill-salvar.md` |
-| `/novo [slug]` | Instala ambiente de novo cliente | `scripts/create-client.js` |
-| `/atualizar` | Varre arquivos do cliente ativo e lista pendências | `scripts/command-router.js` |
-| `/status` | Mostra estado atual do cliente ativo | `scripts/command-router.js` |
+| `/analisar dashboard` | Relatório de performance e métricas | `analise/skill-dashboard.md` |
+| `/analisar funil` | Diagnóstico de funil ponta a ponta | `analise/skill-funnel-analysis.md` |
+| `/analisar investigar [@perfil\|URL]` | Concorrente ou referência de mercado | `analise/skill-investigar.md` |
+| `/analisar seo` | Auditoria e estratégia SEO | `analise/skill-seo.md` |
+| `/analisar estrategia` | Decisão estratégica e priorização | `analise/skill-estrategista.md` |
 
 ---
 
-## Comandos Diretos — Conteúdo
+## 5. Aquisição
 
-Atalhos para skills do grupo `/criar` sem passar pelo _admin.
-
-| Comando | O que faz | Executa |
+| Comando | O que faz | Skill |
 |---|---|---|
-| `/carrossel --tema [tema]` | Gera carrossel completo para Instagram | `skills/criacao/skill-carousel.md` |
-| `/post` | Gera post (Feed, Reels ou Story) | `skills/criacao/skill-post.md` |
-| `/imagem` | Gera prompts e imagens de apoio | `skills/criacao/skill-image-generation.md` |
-| `/branding` | Direção criativa e design system | `skills/criacao/skill-branding.md` |
-| `/site` | Desenvolve site ou landing page | `skills/criacao/skill-site-builder.md` |
-| `/publicar` | Revisão final + checklist + registro em campaigns.md | `skills/criacao/skill-publicar.md` |
+| `/prospectar mercado` | Analisa nichos com potencial | `aquisicao/skill-market-analyzer.md` |
+| `/prospectar prospector` | Qualifica e prioriza prospectos | `aquisicao/skill-prospector.md` |
+| `/prospectar oferta` | Posicionamento e copy de oferta | `aquisicao/skill-offer-positioning.md` |
+| `/prospectar pitch` | Apresentação comercial HTML | `aquisicao/skill-pitch-deck.md` |
+| `/prospectar captacao` | Estrutura de captura de leads | `aquisicao/skill-lead-capture.md` |
+| `/prospectar anuncio` | Campanha Google/Meta com copy e CSV | `aquisicao/skill-anuncio.md` |
 
 ---
 
-## Comandos Diretos — Aquisição
+## 6. Relacionamento
 
-Atalhos para skills do grupo `/prospectar` sem passar pelo _admin.
-
-| Comando | O que faz | Executa |
+| Comando | O que faz | Skill |
 |---|---|---|
-| `/mercado` | Analisa nichos em crescimento e rankeia por oportunidade | `skills/aquisicao/skill-market-analyzer.md` |
-| `/mercado nicho: [nicho]` | Analisa profundamente um nicho específico | `skills/aquisicao/skill-market-analyzer.md` |
-| `/mercado nicho: [nicho] região: [local]` | Análise regional de nicho | `skills/aquisicao/skill-market-analyzer.md` |
-| `/prospector` | Qualifica e prioriza prospectos com mensagem de abertura | `skills/aquisicao/skill-prospector.md` |
-| `/prospector nicho: [nicho]` | Prospecta num nicho específico | `skills/aquisicao/skill-prospector.md` |
-| `/prospector lista: [perfis]` | Qualifica lista manual de prospectos | `skills/aquisicao/skill-prospector.md` |
-| `/oferta` | Posiciona e adapta oferta por canal | `skills/aquisicao/skill-offer-positioning.md` |
-| `/captacao` | Estrutura fluxo de captura de leads | `skills/aquisicao/skill-lead-capture.md` |
-| `/pitch [slug]` | Gera apresentação comercial HTML personalizada | `skills/aquisicao/skill-pitch-deck.md` |
-| `/anuncio` | Campanha Google/Meta com copy + estrutura + CSV | `skills/aquisicao/skill-anuncio.md` |
+| `/relacionar retencao` | Plano de retenção pós-venda | `relacionamento/skill-retention.md` |
+| `/relacionar reativacao` | Sequência de reativação de inativos | `relacionamento/skill-reactivation.md` |
+| `/relacionar head` | Operação de head de marketing implantado | `relacionamento/skill-head-implantado.md` |
 
 ---
 
-## Comandos Diretos — Análise
+## 7. Head Implantado
 
-Atalhos para skills do grupo `/analisar` sem passar pelo _admin.
-
-| Comando | O que faz | Executa |
+| Comando | O que faz | Workflow |
 |---|---|---|
-| `/relatorio` | Gera relatório de performance | `skills/analise/skill-dashboard.md` |
-| `/funil` | Diagnóstico de funil ponta a ponta | `skills/analise/skill-funnel-analysis.md` |
-| `/investigar [@perfil ou URL]` | Analisa concorrente ou referência | `skills/analise/skill-investigar.md` |
-| `/seo` | Workflow SEO completo — pesquisa, auditoria e plano | `skills/analise/skill-seo.md` |
+| `/onboarding` | Primeiro mês — diagnóstico ao ritmo mensal | `workflows/onboarding-head.md` |
+| `/reuniao` | Reunião quinzenal/mensal — pauta, métricas, decisões | `workflows/reuniao-estrategica.md` |
+| `/relatorio [MM/AAAA]` | Relatório executivo mensal | `workflows/relatorio-executivo.md` |
 
 ---
 
-## Comandos Diretos — Relacionamento
+## 8. CLI — Scripts npm
 
-| Comando | O que faz | Executa |
-|---|---|---|
-| `/retencao` | Plano de retenção pós-venda | `skills/relacionamento/skill-retention.md` |
-| `/reativacao` | Sequência de reativação de inativos | `skills/relacionamento/skill-reactivation.md` |
+> Executados no terminal. Independentes do contexto de sessão Claude.
+
+### Clientes
+
+```bash
+npm run novo -- [slug]          # Cria estrutura de novo cliente
+```
+
+### Prospecção
+
+```bash
+npm run prospector -- \
+  --slug <slug> \               # Cliente alvo
+  --query "clínica estética" \  # Busca Google Maps
+  --city "São Paulo" \
+  --max 20 \                    # Máximo de leads (padrão: 10)
+  --channels whatsapp,email \   # Canais de outreach
+  --sources maps,search \       # Fontes de scraping
+  --dry-run                     # Testa sem enviar
+```
+
+### Demo Pipeline (agency → leads → demo personalizado → outreach)
+
+```bash
+# Operação da agência (escreve em agency/)
+npm run demo -- \
+  --query "clínica estética" \
+  --city "São Paulo" \
+  --segment clinica \           # clinica | b2b
+  --max 10 \
+  --channels whatsapp \
+  --dry-run                     # Gera demos, não envia
+  --only-demo                   # Só salva localmente
+
+# Para um cliente específico (escreve em clients/[slug]/)
+npm run demo -- --slug <slug> --query "..." --city "..." --segment clinica
+```
+
+**Segmentos disponíveis:** `clinica` | `b2b`
+
+### Sherlock — Investigação de Perfis
+
+```bash
+# Instagram (login persistente — primeira vez abre navegador)
+npm run sherlock -- --slug <slug> --target @handle --platform instagram
+
+# YouTube (sem login)
+npm run sherlock -- --slug <slug> --target https://youtube.com/@canal
+
+# LinkedIn (login persistente)
+npm run sherlock -- --slug <slug> --target @empresa --platform linkedin
+
+# Testar sem salvar
+npm run sherlock -- --slug <slug> --target @handle --dry-run
+```
+
+**Plataformas:** `instagram` | `youtube` | `linkedin`
+**Output:** `clients/[slug]/outputs/inteligencia/YYYY-MM-DD-sherlock-[alvo].md`
+
+### Publisher — Publicação Instagram via Meta Graph API
+
+```bash
+# Feed (imagem única)
+npm run publicar -- \
+  --slug <slug> \
+  --file "url_ou_path" \
+  --caption "legenda"
+
+# Carrossel (múltiplos --file)
+npm run publicar -- \
+  --slug <slug> \
+  --file slide1.png \
+  --file slide2.png \
+  --file slide3.png \
+  --caption "legenda" \
+  --format carousel
+
+# Reel
+npm run publicar -- --slug <slug> --file video.mp4 --caption "legenda" --format reel
+
+# Testar sem publicar
+npm run publicar -- --slug <slug> --file img.png --caption "teste" --dry-run
+```
+
+**Pré-requisito:** `clients/[slug]/instagram-config.json` com `accessToken` e `igUserId`
+
+### Carrossel — Geração e Renderização
+
+```bash
+npm run carousel:generate       # Gera HTML do carrossel
+npm run carousel:render         # Renderiza HTML → PNG
+```
 
 ---
 
-## Comandos — Head Implantado
+## 9. Pipelines
 
-| Comando | O que faz | Executa |
-|---|---|---|
-| `/onboarding` | Primeiro mês do head — diagnóstico ao ritmo mensal | `workflows/onboarding-head.md` |
-| `/reuniao` | Conduz reunião quinzenal ou mensal — pauta, métricas, decisões | `workflows/reuniao-estrategica.md` |
-| `/relatorio [MM/AAAA]` | Relatório executivo mensal — narrativa, KPIs, causas, próximo mês | `workflows/relatorio-executivo.md` |
-
----
-
-## Comandos — Pipeline
-
-| Comando | O que faz | Executa |
-|---|---|---|
-| `/pipeline [nome]` | Executa pipeline pré-definido com checkpoints | `workflows/pipeline-runner.md` |
-| `/pipeline custom` | Declara e executa pipeline ad hoc | `workflows/pipeline-runner.md` |
-| `/pipeline retomar [run-id]` | Retoma pipeline pausado num checkpoint | `workflows/pipeline-runner.md` |
-
-Pipelines disponíveis: `branding-completo` · `lancamento-conteudo` · `diagnostico` · `seo-completo` · `campanha-paga`
+```bash
+/pipeline branding-completo     # branding → brand-kit → site
+/pipeline lancamento-conteudo   # oferta → carrossel → post → imagem
+/pipeline diagnostico           # relatorio → funil → oferta
+/pipeline seo-completo          # investigar → seo → post
+/pipeline campanha-paga         # oferta → anuncio → imagem
+```
 
 ---
 
-## Comportamento padrão
+## Configurações por Cliente
 
-1. Identificar comando digitado
-2. Se sessão não foi aberta: executar `/abrir` primeiro
-3. Verificar se cliente ativo está definido
-4. Se comando de grupo (`/analisar`, `/criar`, `/prospectar`, `/vender`, `/relacionar`):
-   → Carregar `_admin.md` do grupo → escolher skill → carregar só ela
-5. Se comando direto: carregar a skill correspondente
-6. Ler `client.md` do cliente ativo antes de qualquer output
-7. Ao final, oferecer registrar aprendizado e executar `/salvar`
+| Arquivo | Função |
+|---|---|
+| `clients/[slug]/client.md` | Identidade, tom, ICP, metas |
+| `clients/[slug]/estrategia.md` | Foco atual e próximas ações |
+| `clients/[slug]/campaigns.md` | Histórico de campanhas e publicações |
+| `clients/[slug]/notes.md` | Alertas e inteligência acumulada |
+| `clients/[slug]/runs.md` | Histórico de sessões |
+| `clients/[slug]/metrics.json` | Performance por canal |
+| `clients/[slug]/brand-kit.json` | Identidade visual |
+| `clients/[slug]/instagram-config.json` | Token Meta Graph API + imgbb |
 
----
+## Configurações da Agência
 
-## Pipelines recomendados
-
-| Pipeline | Sequência | Quando usar |
-|---|---|---|
-| `/pipeline branding-completo` | branding → brand-kit → site | Novo cliente ou rebrand |
-| `/pipeline lancamento-conteudo` | oferta → carrossel → post → imagem | Lançamento de produto/promoção |
-| `/pipeline diagnostico` | relatorio → funil → oferta | Queda de resultado ou revisão mensal |
-| `/pipeline seo-completo` | investigar → seo → post | Crescimento orgânico |
-| `/pipeline campanha-paga` | oferta → anuncio → imagem | Campanha Google/Meta |
+| Arquivo | Função |
+|---|---|
+| `agency/icp.md` | ICP da agência — segmentos e posicionamento |
+| `agency/strategy.md` | Estratégia e metas da agência |
+| `agency/instagram-config.json` | Token para publisher e imgbb da agência |
+| `agency/leads/` | Leads prospectados (gitignored) |
+| `agency/demos/` | Demos gerados (gitignored) |
+| `agency/contacted/` | Log de outreach (gitignored) |

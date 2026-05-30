@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 3240px; height: 1080px; display: flex; font-family: 'Inter', system-ui, sans-serif; background: #0a0a0a; overflow: hidden; }
+
+  .slide {
+    width: 1080px;
+    height: 1080px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 64px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Slide 1 — Dor */
+  .slide-1 {
+    background: #0a0a0a;
+    border-right: 1px solid #1a1a1a;
+  }
+  .slide-1 .accent-line {
+    width: 48px;
+    height: 4px;
+    background: {{COLOR}};
+    margin-bottom: 32px;
+  }
+  .slide-1 .tag {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: {{COLOR}};
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .slide-1 h1 {
+    font-size: 52px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.1;
+    max-width: 820px;
+  }
+  .slide-1 h1 span { color: {{COLOR}}; }
+  .slide-1 .sub {
+    font-size: 22px;
+    color: #888;
+    margin-top: 24px;
+    max-width: 680px;
+    line-height: 1.5;
+  }
+  .slide-1 .bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .slide-1 .brand-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #444;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .slide-1 .num { font-size: 120px; font-weight: 900; color: #111; position: absolute; right: 48px; bottom: 48px; line-height: 1; }
+
+  /* Slide 2 — Prova */
+  .slide-2 {
+    background: {{COLOR}};
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+  .slide-2 .big-stat {
+    font-size: 130px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+  }
+  .slide-2 .stat-label {
+    font-size: 28px;
+    color: rgba(255,255,255,0.85);
+    margin-top: 16px;
+    max-width: 700px;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+  .slide-2 .bottom-text {
+    font-size: 16px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 500;
+  }
+  .slide-2 .brand-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .slide-2 .bottom { display: flex; justify-content: space-between; align-items: flex-end; }
+
+  /* Slide 3 — CTA */
+  .slide-3 {
+    background: #0a0a0a;
+  }
+  .slide-3 .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .slide-3 .logo-area img {
+    max-height: 60px;
+    max-width: 200px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+  }
+  .slide-3 .logo-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.02em;
+  }
+  .slide-3 .center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .slide-3 h2 {
+    font-size: 56px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+    max-width: 820px;
+  }
+  .slide-3 h2 span { color: {{COLOR}}; }
+  .slide-3 .cta-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: {{COLOR}};
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 18px 36px;
+    margin-top: 40px;
+    width: fit-content;
+    letter-spacing: 0.02em;
+  }
+  .slide-3 .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .slide-3 .made-by {
+    font-size: 13px;
+    color: #333;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .slide-3 .accent-dots {
+    display: flex;
+    gap: 8px;
+  }
+  .slide-3 .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #222;
+  }
+  .slide-3 .dot.active { background: {{COLOR}}; }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1 — DOR -->
+<div class="slide slide-1">
+  <div>
+    <div class="accent-line"></div>
+    <div class="tag">Para clínicas que querem crescer</div>
+    <h1>Sua clínica aparece quando o paciente <span>está procurando?</span></h1>
+    <p class="sub">A maioria das clínicas perde pacientes todos os dias — para concorrentes que aparecem primeiro no digital.</p>
+  </div>
+  <div class="bottom">
+    <span class="brand-name">{{NAME}}</span>
+  </div>
+  <div class="num">01</div>
+</div>
+
+<!-- SLIDE 2 — PROVA -->
+<div class="slide slide-2">
+  <div>
+    <div class="big-stat">78%</div>
+    <p class="stat-label">dos pacientes pesquisam online antes de escolher uma clínica — mesmo quando recebem indicação.</p>
+  </div>
+  <div class="bottom">
+    <p class="bottom-text">Se você não aparece, o concorrente aparece.</p>
+    <span class="brand-name">{{NAME}}</span>
+  </div>
+</div>
+
+<!-- SLIDE 3 — CTA -->
+<div class="slide slide-3">
+  <div class="logo-area">
+    {{LOGO_TAG}}
+    <span class="logo-name">{{NAME}}</span>
+  </div>
+  <div class="center">
+    <h2>Pronto para <span>lotar a agenda</span> com captação própria?</h2>
+    <div class="cta-box">→ Veja como funciona</div>
+  </div>
+  <div class="footer">
+    <span class="made-by">Demo criado por MarketingOS</span>
+    <div class="accent-dots">
+      <div class="dot"></div><div class="dot"></div><div class="dot active"></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -21,3 +21,6 @@ _tmp_*.html
 
 # Sherlock — sessões de navegador (cookies/login, nunca commitar)
 .sherlock/
+
+# WhatsApp session
+.whatsapp-session/

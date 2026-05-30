@@ -12,7 +12,8 @@
     "carousel:render": "node scripts/render-carousel.js",
     "prospector": "node scripts/prospector/index.js",
     "sherlock": "node scripts/sherlock/index.js",
-    "publicar": "node scripts/publisher/index.js"
+    "publicar": "node scripts/publisher/index.js",
+    "demo": "node scripts/demo-pipeline/index.js"
   },
   "keywords": [],
   "author": "",

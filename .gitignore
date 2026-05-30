@@ -22,8 +22,10 @@ _tmp_*.html
 # Sherlock — sessões de navegador (cookies/login, nunca commitar)
 .sherlock/
 
-# WhatsApp session
+# WhatsApp session e cache
 .whatsapp-session/
+.wwebjs_cache/
+.wwebjs_auth/
 
 # Agency — dados operacionais (leads, demos, contatos são privados)
 agency/leads/

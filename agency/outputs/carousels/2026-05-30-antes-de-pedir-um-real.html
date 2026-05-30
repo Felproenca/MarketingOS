@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 5400px;
+    height: 1080px;
+    display: flex;
+    font-family: 'Inter', system-ui, sans-serif;
+    background: #09090b;
+    overflow: hidden;
+  }
+
+  /* ── VARIÁVEIS ── */
+  :root {
+    --bg: #09090b;
+    --bg2: #111113;
+    --border: #1f1f23;
+    --text: #fafafa;
+    --muted: #71717a;
+    --accent: #8b5cf6;
+    --accent-dim: rgba(139, 92, 246, 0.15);
+    --accent-border: rgba(139, 92, 246, 0.3);
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  .slide {
+    width: 1080px;
+    height: 1080px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 72px;
+    position: relative;
+    overflow: hidden;
+    border-right: 1px solid var(--border);
+  }
+
+  /* ── COMPONENTES COMUNS ── */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 32px;
+  }
+  .tag::before {
+    content: '';
+    width: 20px;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  .slide-num {
+    position: absolute;
+    bottom: 72px;
+    right: 72px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .logo-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: auto;
+  }
+  .logo-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .logo-text {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* ── SLIDE 1 — GANCHO ── */
+  .s1 { background: var(--bg); justify-content: space-between; }
+
+  .s1 .content { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+
+  .s1 h1 {
+    font-size: 72px;
+    font-weight: 900;
+    color: var(--text);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    max-width: 860px;
+  }
+  .s1 h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .s1 .sub {
+    font-size: 20px;
+    color: var(--muted);
+    margin-top: 28px;
+    max-width: 620px;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  .s1 .bg-num {
+    position: absolute;
+    right: -20px;
+    bottom: -40px;
+    font-size: 320px;
+    font-weight: 900;
+    color: var(--border);
+    line-height: 1;
+    user-select: none;
+    letter-spacing: -0.05em;
+  }
+
+  /* ── SLIDE 2 — O QUE ACONTECEU ── */
+  .s2 { background: var(--bg); justify-content: space-between; }
+
+  .s2 .terminal {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px 36px;
+    flex: 1;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    font-family: var(--mono);
+    font-size: 15px;
+    line-height: 1.9;
+    overflow: hidden;
+  }
+  .s2 .t-header {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .t-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .t-dot.r { background: #ef4444; }
+  .t-dot.y { background: #eab308; }
+  .t-dot.g { background: #22c55e; }
+
+  .t-line { color: var(--muted); }
+  .t-line .ok { color: #22c55e; }
+  .t-line .val { color: var(--text); font-weight: 600; }
+  .t-line .dim { color: #3f3f46; }
+  .t-line .acc { color: var(--accent); }
+  .t-section { margin-top: 12px; color: #a1a1aa; font-size: 13px; }
+
+  .s2 .summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .s2 .stat-box {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 16px;
+    text-align: center;
+  }
+  .s2 .stat-box .n {
+    font-size: 40px;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+    font-family: var(--mono);
+  }
+  .s2 .stat-box .l {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 6px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ── SLIDE 3 — PROVA VISUAL ── */
+  .s3 { background: var(--bg); justify-content: space-between; }
+
+  .s3 .leads-grid {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+
+  .s3 .lead-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    flex: 1;
+  }
+  .s3 .color-chip {
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+  .s3 .lead-info { flex: 1; }
+  .s3 .lead-name {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .s3 .lead-meta {
+    font-size: 13px;
+    color: var(--muted);
+    font-family: var(--mono);
+  }
+  .s3 .lead-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 4px;
+    border: 1px solid var(--accent-border);
+    color: var(--accent);
+    background: var(--accent-dim);
+  }
+
+  /* ── SLIDE 4 — INSIGHT ── */
+  .s4 { background: var(--accent); justify-content: space-between; }
+
+  .s4 .tag { color: rgba(255,255,255,0.6); }
+  .s4 .tag::before { background: rgba(255,255,255,0.4); }
+
+  .s4 .content { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+
+  .s4 blockquote {
+    font-size: 52px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    max-width: 880px;
+  }
+  .s4 blockquote em {
+    font-style: normal;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .s4 .divider {
+    width: 48px;
+    height: 3px;
+    background: rgba(255,255,255,0.3);
+    margin: 36px 0;
+  }
+
+  .s4 .insight-list { display: flex; flex-direction: column; gap: 16px; }
+  .s4 .insight-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    font-size: 18px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.4;
+  }
+  .s4 .insight-item::before {
+    content: '→';
+    color: rgba(255,255,255,0.4);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .s4 .slide-num { color: rgba(255,255,255,0.3); }
+
+  /* ── SLIDE 5 — CTA ── */
+  .s5 { background: var(--bg); justify-content: space-between; }
+
+  .s5 .content { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+
+  .s5 h2 {
+    font-size: 62px;
+    font-weight: 900;
+    color: var(--text);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    max-width: 840px;
+    margin-bottom: 36px;
+  }
+  .s5 h2 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .s5 .cta-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 16px 32px;
+    border-radius: 6px;
+    width: fit-content;
+    letter-spacing: 0.02em;
+    margin-bottom: 48px;
+  }
+
+  .s5 .footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .s5 .handle {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+  .s5 .progress {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .s5 .prog-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+  .s5 .prog-dot.active { background: var(--accent); width: 20px; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1 — GANCHO -->
+<div class="slide s1">
+  <div class="logo-bar">
+    <div class="logo-dot"></div>
+    <span class="logo-text">MarketingOS</span>
+  </div>
+  <div class="content">
+    <div class="tag">Bastidores</div>
+    <h1>Antes de pedir<br><em>R$ 1</em> ao cliente,<br>já entregamos<br>o trabalho.</h1>
+    <p class="sub">O sistema que prospecta, personaliza e envia — antes do primeiro contato.</p>
+  </div>
+  <div class="bg-num">01</div>
+  <div class="slide-num">01 / 05</div>
+</div>
+
+<!-- SLIDE 2 — O QUE ACONTECEU -->
+<div class="slide s2">
+  <div class="logo-bar">
+    <div class="logo-dot"></div>
+    <span class="logo-text">MarketingOS</span>
+  </div>
+  <div class="tag">O que rodamos hoje</div>
+  <div class="terminal">
+    <div class="t-header">
+      <div class="t-dot r"></div>
+      <div class="t-dot y"></div>
+      <div class="t-dot g"></div>
+    </div>
+    <div class="t-line"><span class="dim">$</span> npm run demo -- --query <span class="val">"clínica estética"</span> --city <span class="val">"São Paulo"</span></div>
+    <div class="t-line t-section">🔍 Buscando leads no Google Maps...</div>
+    <div class="t-line"><span class="ok">  ✓</span> <span class="val">Em Foco Estética e Saúde</span> <span class="dim">📞🌐</span></div>
+    <div class="t-line"><span class="ok">  ✓</span> <span class="val">Royal Face Clínica de Estética</span> <span class="dim">📞🌐</span></div>
+    <div class="t-line"><span class="ok">  ✓</span> <span class="val">Emporium da Beleza</span> <span class="dim">📞🌐</span></div>
+    <div class="t-line t-section">🎨 Extraindo marca e gerando demos...</div>
+    <div class="t-line"><span class="ok">  ✓</span> cor: <span class="acc">#cc3366</span> → 3 slides renderizados</div>
+    <div class="t-line"><span class="ok">  ✓</span> cor: <span class="acc">#226154</span> → 3 slides renderizados</div>
+    <div class="t-line"><span class="ok">  ✓</span> cor: <span class="acc">#ee2277</span> → 3 slides renderizados</div>
+    <div class="t-line t-section">✅ <span class="val">3 demos gerados</span> <span class="dim">— prontos para enviar</span></div>
+  </div>
+  <div class="summary">
+    <div class="stat-box"><div class="n">4<span style="font-size:22px">min</span></div><div class="l">Tempo total</div></div>
+    <div class="stat-box"><div class="n">3</div><div class="l">Leads reais</div></div>
+    <div class="stat-box"><div class="n">9</div><div class="l">Slides gerados</div></div>
+    <div class="stat-box"><div class="n">3</div><div class="l">Msg prontas</div></div>
+  </div>
+  <div class="slide-num">02 / 05</div>
+</div>
+
+<!-- SLIDE 3 — PROVA VISUAL -->
+<div class="slide s3">
+  <div class="logo-bar">
+    <div class="logo-dot"></div>
+    <span class="logo-text">MarketingOS</span>
+  </div>
+  <div class="tag">Cada demo com a identidade deles</div>
+  <div class="leads-grid">
+    <div class="lead-row">
+      <div class="color-chip" style="background:#cc3366;"></div>
+      <div class="lead-info">
+        <div class="lead-name">Em Foco Estética e Saúde</div>
+        <div class="lead-meta">cor extraída automaticamente · #cc3366 · 3 slides</div>
+      </div>
+      <div class="lead-tag">Demo pronto</div>
+    </div>
+    <div class="lead-row">
+      <div class="color-chip" style="background:#226154;"></div>
+      <div class="lead-info">
+        <div class="lead-name">Royal Face Clínica de Estética</div>
+        <div class="lead-meta">cor extraída automaticamente · #226154 · 3 slides</div>
+      </div>
+      <div class="lead-tag">Demo pronto</div>
+    </div>
+    <div class="lead-row">
+      <div class="color-chip" style="background:#ee2277;"></div>
+      <div class="lead-info">
+        <div class="lead-name">Emporium da Beleza</div>
+        <div class="lead-meta">cor extraída automaticamente · #ee2277 · 3 slides</div>
+      </div>
+      <div class="lead-tag">Demo pronto</div>
+    </div>
+  </div>
+  <div class="slide-num">03 / 05</div>
+</div>
+
+<!-- SLIDE 4 — INSIGHT -->
+<div class="slide s4">
+  <div class="logo-bar">
+    <div class="logo-dot" style="background:rgba(255,255,255,0.4);"></div>
+    <span class="logo-text" style="color:rgba(255,255,255,0.4);">MarketingOS</span>
+  </div>
+  <div class="content">
+    <div class="tag">O princípio</div>
+    <blockquote>
+      A demo abre a porta<br>
+      <em>que o pitch fecha.</em>
+    </blockquote>
+    <div class="divider"></div>
+    <div class="insight-list">
+      <div class="insight-item">Ninguém rejeita algo feito com a própria marca.</div>
+      <div class="insight-item">Chegamos antes de qualquer concorrente — já com o trabalho pronto.</div>
+      <div class="insight-item">Curiosidade primeiro. Oferta depois. Sempre.</div>
+    </div>
+  </div>
+  <div class="slide-num">04 / 05</div>
+</div>
+
+<!-- SLIDE 5 — CTA -->
+<div class="slide s5">
+  <div class="logo-bar">
+    <div class="logo-dot"></div>
+    <span class="logo-text">MarketingOS</span>
+  </div>
+  <div class="content">
+    <div class="tag">O sistema</div>
+    <h2>Isso roda antes de você<br>falar com o <em>cliente.</em></h2>
+    <div class="cta-pill">→ Comenta DEMO</div>
+  </div>
+  <div class="footer-row">
+    <span class="handle">@felipeproenca</span>
+    <div class="progress">
+      <div class="prog-dot"></div>
+      <div class="prog-dot"></div>
+      <div class="prog-dot"></div>
+      <div class="prog-dot"></div>
+      <div class="prog-dot active"></div>
+    </div>
+  </div>
+  <div class="slide-num">05 / 05</div>
+</div>
+
+</body>
+</html>

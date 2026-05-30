@@ -1,0 +1,49 @@
+{
+  "name": "MarketingOS Agency",
+  "version": "1.0",
+  "validatedAt": "2026-05-30",
+
+  "colors": {
+    "background": "#09090b",
+    "background2": "#111113",
+    "border": "#1f1f23",
+    "text": "#fafafa",
+    "muted": "#71717a",
+    "accent": "#8b5cf6",
+    "accentDim": "rgba(139, 92, 246, 0.15)",
+    "accentBorder": "rgba(139, 92, 246, 0.3)",
+    "success": "#22c55e"
+  },
+
+  "typography": {
+    "primary": "Inter",
+    "mono": "JetBrains Mono",
+    "weights": {
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700,
+      "black": 900
+    }
+  },
+
+  "style": {
+    "direction": "dark minimal — terminal como elemento de prova",
+    "feel": "premium tech, confiante, sem floreios",
+    "never": "cores claras, gradientes chamativos, ícones decorativos, bordas arredondadas excessivas"
+  },
+
+  "carousel": {
+    "width": 1080,
+    "height": 1080,
+    "padding": 72,
+    "slides": 5,
+    "structure": [
+      "Slide 1: Gancho — headline bold, número de fundo, tag de contexto",
+      "Slide 2: Prova — terminal/dados reais, grid de stats",
+      "Slide 3: Detalhe — grid de resultados com color chips",
+      "Slide 4: Insight — acento sólido, blockquote, lista de princípios",
+      "Slide 5: CTA — pill de ação, handle, progress dots"
+    ]
+  }
+}

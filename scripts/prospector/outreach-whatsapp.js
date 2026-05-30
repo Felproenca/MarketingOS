@@ -69,6 +69,33 @@ async function sendWhatsApp(phone, message, delayMs = 3000) {
   }
 }
 
+async function sendWhatsAppWithMedia(phone, message, imagePaths = [], delayMs = 3000) {
+  if (!client) throw new Error('WhatsApp não inicializado. Chame initWhatsApp() primeiro.');
+
+  const chatId = normalizePhone(phone);
+  if (!chatId) return { success: false, error: 'Número inválido', phone };
+
+  await new Promise(r => setTimeout(r, delayMs));
+
+  try {
+    const { MessageMedia } = require('whatsapp-web.js');
+
+    // Manda texto primeiro
+    if (message) await client.sendMessage(chatId, message);
+
+    // Manda cada imagem
+    for (const imgPath of imagePaths) {
+      const media = MessageMedia.fromFilePath(imgPath);
+      await client.sendMessage(chatId, media);
+      await new Promise(r => setTimeout(r, 1200));
+    }
+
+    return { success: true, chatId, phone };
+  } catch (err) {
+    return { success: false, error: err.message, phone };
+  }
+}
+
 async function destroyWhatsApp() {
   if (client) {
     await client.destroy().catch(() => {});
@@ -76,4 +103,4 @@ async function destroyWhatsApp() {
   }
 }
 
-module.exports = { initWhatsApp, sendWhatsApp, destroyWhatsApp };
+module.exports = { initWhatsApp, sendWhatsApp, sendWhatsAppWithMedia, destroyWhatsApp };

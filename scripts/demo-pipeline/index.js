@@ -53,11 +53,20 @@ function parseArgs() {
 
 // ── Outreach message templates ─────────────────────────────────────────────
 
+// Extrai nome curto — só até a primeira vírgula, traço ou parêntese
+function shortName(fullName) {
+  if (!fullName) return 'vocês';
+  return fullName.split(/[,\-\|(\[]/)[0].trim().slice(0, 40);
+}
+
 const WHATSAPP_TEMPLATE = {
-  clinica: (name) =>
-    `Olá! Vi a {{nome}} e fiz uma demonstração de como sua presença digital poderia parecer com IA aplicada.\n\nCriei 3 slides com a identidade da {{nome}} — sem compromisso, só pra você ver o potencial.\n\nPosso te enviar agora?`,
-  b2b: (name) =>
-    `Olá! Analisei a {{nome}} e montei uma demonstração de posicionamento digital com IA.\n\nCriei 3 slides com a identidade do escritório — mostra como ficaria com presença profissional no digital.\n\nPosso te enviar?`,
+  clinica: `Fiz isso com a marca de vocês 👇`,
+  b2b:     `Fiz isso com a identidade do escritório 👇`,
+};
+
+const WHATSAPP_FOLLOWUP = {
+  clinica: `Posso mostrar como funciona em 15 minutos?`,
+  b2b:     `Posso mostrar como funciona em 15 minutos?`,
 };
 
 const EMAIL_SUBJECT = {
@@ -66,18 +75,16 @@ const EMAIL_SUBJECT = {
 };
 
 const EMAIL_HTML = {
-  clinica: `<p>Olá,</p>
-<p>Vi a <strong>{{nome}}</strong> e fiz uma demonstração gratuita de como sua presença digital poderia parecer com inteligência artificial aplicada.</p>
-<p>Criei 3 slides com a identidade visual da clínica — sem compromisso, só para mostrar o potencial.</p>
-<p>Posso agendar 15 minutos para apresentar?</p>`,
-  b2b: `<p>Olá,</p>
-<p>Analisei a <strong>{{nome}}</strong> e montei uma demonstração de posicionamento digital com IA aplicada.</p>
-<p>Criei 3 slides com a identidade do escritório mostrando como ficaria com presença profissional e captação própria.</p>
-<p>Posso agendar 15 minutos para apresentar?</p>`,
+  clinica: `<p>Oi,</p>
+<p>Fiz uma demonstração com a identidade da <strong>{{nome}}</strong>.</p>
+<p>Posso mostrar como funciona em 15 minutos?</p>`,
+  b2b: `<p>Oi,</p>
+<p>Fiz uma demonstração com a identidade do <strong>{{nome}}</strong>.</p>
+<p>Posso mostrar como funciona em 15 minutos?</p>`,
 };
 
 function renderTemplate(template, lead) {
-  return template.replace(/\{\{nome\}\}/g, lead.name || 'vocês');
+  return template.replace(/\{\{nome\}\}/g, shortName(lead.name));
 }
 
 // ── Helpers ────────────────────────────────────────────────────────────────
@@ -222,12 +229,10 @@ async function main() {
 
   // dry-run: apenas exibe o que seria enviado, sem iniciar conexões
   if (args.dryRun) {
-    for (const { lead, slide1Url } of results) {
+    for (const { lead, slideFiles } of results) {
       if (whatsappChannel && lead.phone) {
-        const msg = renderTemplate(WHATSAPP_TEMPLATE[args.segment](lead.name), lead)
-          + (slide1Url ? `\n\n🖼 Preview: ${slide1Url}` : '');
-        console.log(`   [DRY-RUN] WhatsApp → ${lead.phone}`);
-        console.log(`             ${msg.slice(0, 100)}...`);
+        console.log(`   [DRY-RUN] WhatsApp → ${lead.phone} (${shortName(lead.name)})`);
+        console.log(`             "${WHATSAPP_TEMPLATE[args.segment]}" + ${slideFiles.length} slides`);
       }
       if (emailChannel && lead.email) {
         const subject = renderTemplate(EMAIL_SUBJECT[args.segment], lead);
@@ -242,17 +247,23 @@ async function main() {
   }
 
   if (whatsappChannel) {
-    const { initWhatsApp, sendWhatsApp, destroyWhatsApp } = require('../prospector/outreach-whatsapp');
+    const { initWhatsApp, sendWhatsAppWithMedia, destroyWhatsApp } = require('../prospector/outreach-whatsapp');
     const sessionPath = path.resolve(__dirname, '../../.whatsapp-session');
     await initWhatsApp(sessionPath);
 
-    for (const { lead, slide1Url } of results) {
+    for (const { lead, slideFiles } of results) {
       if (!lead.phone) { console.log(`   ⚠️  ${lead.name}: sem telefone`); continue; }
-      const msg = renderTemplate(WHATSAPP_TEMPLATE[args.segment](lead.name), lead)
-        + (slide1Url ? `\n\n🖼 Preview: ${slide1Url}` : '');
-      const result = await sendWhatsApp(lead.phone, msg, 8000);
+
+      const msg = WHATSAPP_TEMPLATE[args.segment];
+      const followup = WHATSAPP_FOLLOWUP[args.segment];
+
+      // Envia texto + 3 slides + mensagem de follow-up
+      const result = await sendWhatsAppWithMedia(lead.phone, msg, slideFiles, 6000);
+
       if (result.success) {
-        console.log(`   ✓ WhatsApp → ${result.chatId}`);
+        // Follow-up após os slides
+        await sendWhatsAppWithMedia(lead.phone, followup, [], 2000);
+        console.log(`   ✓ WhatsApp → ${result.chatId} (${slideFiles.length} slides)`);
         contacted.push({ ...lead, channel: 'whatsapp', sentAt: new Date().toISOString() });
       } else {
         console.log(`   ✗ WhatsApp → ${lead.phone}: ${result.error}`);

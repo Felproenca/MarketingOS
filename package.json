@@ -11,7 +11,8 @@
     "carousel:generate": "node scripts/generate-carousel.js",
     "carousel:render": "node scripts/render-carousel.js",
     "prospector": "node scripts/prospector/index.js",
-    "sherlock": "node scripts/sherlock/index.js"
+    "sherlock": "node scripts/sherlock/index.js",
+    "publicar": "node scripts/publisher/index.js"
   },
   "keywords": [],
   "author": "",

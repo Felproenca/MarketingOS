@@ -1,0 +1,18 @@
+{
+  "_instrucoes": [
+    "1. Acesse https://developers.facebook.com/tools/explorer/",
+    "2. Selecione seu App → gere token com permissões: instagram_basic, instagram_content_publish, pages_read_engagement",
+    "3. Troque por long-lived token (~60 dias): GET /oauth/access_token?grant_type=fb_exchange_token&...",
+    "4. Obtenha igUserId: GET /me/accounts → encontre a Page → GET /{page-id}?fields=instagram_business_account",
+    "5. imgbbApiKey (opcional): obtenha em https://api.imgbb.com/ — necessário apenas para arquivos locais"
+  ],
+  "accessToken": "",
+  "igUserId": "",
+  "imgbbApiKey": "",
+  "_links": {
+    "graph_explorer": "https://developers.facebook.com/tools/explorer/",
+    "token_debugger": "https://developers.facebook.com/tools/debug/accesstoken/",
+    "imgbb": "https://api.imgbb.com/",
+    "permissions_docs": "https://developers.facebook.com/docs/instagram-api/reference/ig-user/media"
+  }
+}

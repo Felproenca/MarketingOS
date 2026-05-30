@@ -114,7 +114,7 @@ Essa marca tem gravidade para arrastar — ou precisa construir a ponte?
 | `criacao/skill-branding.md` | Direcao criativa e design system |
 | `criacao/skill-site-builder.md` | Site ou landing page |
 | `criacao/skill-image-generation.md` | Prompts e imagens de apoio |
-| `criacao/skill-publicar.md` | Aprovacao e publicacao com checklist |
+| `criacao/skill-publicar.md` | Aprovacao, checklist e publicacao real via Meta Graph API (`npm run publicar`) |
 
 ### Grupo: Aquisicao → `/prospectar`
 > Leia `skills/aquisicao/_admin.md` → escolha uma skill → carregue so ela.

@@ -1,12 +1,13 @@
 ---
 name: skill-publicar
-version: "1.0"
+version: "2.0"
 group: criacao
 command: /publicar
 inputs:
   required: [client.md, campaigns.md]
-  optional: [brand-kit.json]
-env: []
+  optional: [brand-kit.json, instagram-config.json]
+env:
+  optional: [INSTAGRAM_ACCESS_TOKEN, INSTAGRAM_USER_ID, IMGBB_API_KEY]
 ---
 
 # skill-publicar.md — Aprovação e Publicação de Conteúdo
@@ -117,7 +118,34 @@ APROVAÇÃO NECESSÁRIA:
 
 ---
 
-### Passo 3 — Checklist técnico por plataforma
+### Passo 3 — Publicar via Publisher (Instagram)
+
+Se aprovado para Instagram, o publisher automatiza a publicação real via Meta Graph API:
+
+```bash
+# Feed (imagem única)
+npm run publicar -- --slug <slug> --file <url_ou_path> --caption "legenda" --format feed
+
+# Carrossel (múltiplas imagens)
+npm run publicar -- --slug <slug> \
+  --file slide1.png --file slide2.png --file slide3.png \
+  --caption "legenda" --format carousel
+
+# Reel (vídeo)
+npm run publicar -- --slug <slug> --file video.mp4 --caption "legenda" --format reel
+
+# Testar sem publicar
+npm run publicar -- --slug <slug> --file <arquivo> --caption "legenda" --dry-run
+```
+
+**Pré-requisito:** `clients/[slug]/instagram-config.json` com `accessToken` e `igUserId`.
+Copiar template de `clients/_template/instagram-config.json`.
+
+Para outras plataformas (LinkedIn, TikTok, Facebook), usar o checklist manual abaixo.
+
+---
+
+### Passo 4 — Checklist técnico por plataforma
 
 Após aprovação, confirme os requisitos técnicos:
 
@@ -175,7 +203,7 @@ Após aprovação, confirme os requisitos técnicos:
 
 ---
 
-### Passo 4 — Registrar publicação em campaigns.md
+### Passo 5 — Registrar publicação em campaigns.md
 
 Adicione entrada em `clients/[slug]/campaigns.md`:
 
@@ -192,7 +220,7 @@ Adicione entrada em `clients/[slug]/campaigns.md`:
 
 ---
 
-### Passo 5 — Confirmar publicação
+### Passo 6 — Confirmar publicação
 
 ```
 ✅ Conteúdo [publicado / agendado]
@@ -230,5 +258,5 @@ Objetivo: Educação + Autoridade
 
 ---
 
-*Skill v1.0 — MarketingOS*
-*Inspirado no padrão /aprovar-post do Mazyos — expandido com checklist multi-plataforma e registro obrigatório.*
+*Skill v2.0 — MarketingOS*
+*Publisher real via Meta Graph API (Instagram feed, carrossel, reels). Checklist multi-plataforma para canais sem API.*

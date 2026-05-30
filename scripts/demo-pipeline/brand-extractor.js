@@ -47,6 +47,23 @@ function rgbToHex(rgb) {
   return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
 }
 
+// Rejeita cores muito claras (luminância > 0.55) ou muito neutras (quase preto/branco)
+function isColorUnusable(hex) {
+  if (!hex || hex.length < 7) return true;
+  const r = parseInt(hex.slice(1, 3), 16) / 255;
+  const g = parseInt(hex.slice(3, 5), 16) / 255;
+  const b = parseInt(hex.slice(5, 7), 16) / 255;
+  const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  // Muito claro (branco, off-white, bege) ou muito escuro (quase preto)
+  if (lum > 0.55 || lum < 0.08) return true;
+  // Muito dessaturada (cinza)
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  const saturation = max === 0 ? 0 : (max - min) / max;
+  if (saturation < 0.2) return true;
+  return false;
+}
+
 // Tenta encontrar URL do logo
 async function extractLogoUrl(page, baseUrl) {
   return page.evaluate((base) => {
@@ -110,7 +127,8 @@ async function extractBrand(websiteUrl) {
       extractLogoUrl(page, websiteUrl),
     ]);
 
-    const color = rgbToHex(rawColor) || '#2563eb';
+    const hexColor = rgbToHex(rawColor);
+    const color = (!hexColor || isColorUnusable(hexColor)) ? '#2563eb' : hexColor;
 
     return { name, color, logoUrl, extracted: true };
   } catch (err) {

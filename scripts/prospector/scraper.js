@@ -31,15 +31,20 @@ async function scrapeGoogleMaps(query, city, maxResults = 30) {
   const seen = new Set();
 
   for (let round = 0; round < 25 && leads.length < maxResults; round++) {
-    const links = await page.$$('[role="feed"] a[href*="/maps/place/"]');
+    // Collect hrefs first — don't hold element references across navigation
+    const hrefs = await page.$$eval(
+      '[role="feed"] a[href*="/maps/place/"]',
+      els => els.map(el => el.getAttribute('href')).filter(Boolean)
+    );
 
-    for (const link of links) {
+    for (const href of hrefs) {
       if (leads.length >= maxResults) break;
-      const href = await link.getAttribute('href').catch(() => null);
-      if (!href || seen.has(href)) continue;
+      if (seen.has(href)) continue;
       seen.add(href);
 
-      await link.click();
+      // Navigate to the place URL directly instead of clicking stale element
+      const fullUrl = href.startsWith('http') ? href : `https://www.google.com${href}`;
+      await page.goto(fullUrl, { waitUntil: 'domcontentloaded', timeout: 20000 }).catch(() => {});
       await delay(1800);
 
       const lead = await page.evaluate(() => {
@@ -74,6 +79,12 @@ async function scrapeGoogleMaps(query, city, maxResults = 30) {
         const flags = [lead.phone ? '📞' : '', lead.website ? '🌐' : ''].filter(Boolean).join('');
         console.log(`  ✓ ${lead.name} ${flags}`);
       }
+
+      // Voltar ao feed de resultados
+      await page.goto(`https://www.google.com/maps/search/${encodeURIComponent(term)}`, {
+        waitUntil: 'domcontentloaded', timeout: 20000,
+      }).catch(() => {});
+      await delay(2000);
     }
 
     // Scroll do painel de resultados

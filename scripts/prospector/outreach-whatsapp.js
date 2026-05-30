@@ -43,8 +43,12 @@ async function initWhatsApp(sessionPath) {
 }
 
 function normalizePhone(phone) {
-  const digits = String(phone).replace(/\D/g, '');
+  let digits = String(phone).replace(/\D/g, '');
+  // Remove zero de discagem nacional (ex: 011... → 11...)
+  if (digits.startsWith('0') && !digits.startsWith('00')) digits = digits.slice(1);
+  // Já tem código do país
   if (digits.startsWith('55') && digits.length >= 12) return `${digits}@c.us`;
+  // DDD + número (11 dígitos celular ou 10 fixo)
   if (digits.length === 11 || digits.length === 10) return `55${digits}@c.us`;
   return null;
 }

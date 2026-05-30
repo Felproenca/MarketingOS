@@ -250,9 +250,13 @@ async function main() {
       if (!lead.phone) { console.log(`   ⚠️  ${lead.name}: sem telefone`); continue; }
       const msg = renderTemplate(WHATSAPP_TEMPLATE[args.segment](lead.name), lead)
         + (slide1Url ? `\n\n🖼 Preview: ${slide1Url}` : '');
-      await sendWhatsApp(lead.phone, msg, 8000);
-      console.log(`   ✓ WhatsApp → ${lead.phone}`);
-      contacted.push({ ...lead, channel: 'whatsapp', sentAt: new Date().toISOString() });
+      const result = await sendWhatsApp(lead.phone, msg, 8000);
+      if (result.success) {
+        console.log(`   ✓ WhatsApp → ${result.chatId}`);
+        contacted.push({ ...lead, channel: 'whatsapp', sentAt: new Date().toISOString() });
+      } else {
+        console.log(`   ✗ WhatsApp → ${lead.phone}: ${result.error}`);
+      }
     }
 
     await destroyWhatsApp();

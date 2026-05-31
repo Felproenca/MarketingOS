@@ -130,4 +130,24 @@ quando o esperado já provou que não funciona.
 
 ---
 
+## O que vendemos de verdade
+
+Não vendemos marketing.
+Não vendemos site.
+Não vendemos posts.
+
+Vendemos inteligência artificial aplicada
+que gera leads, opera canais e entrega
+controle em tempo real.
+
+O cliente não compra o que precisa.
+Compra o que deseja.
+Desejo de crescer. De dominar. De não ficar pra trás.
+
+Gucci não vende bolsa. Vende status.
+Nós não vendemos sistema. Vendemos o futuro
+que o cliente quer ter.
+
+---
+
 Leia isso. Sinta isso. Depois execute com convicção.

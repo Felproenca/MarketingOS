@@ -28,6 +28,35 @@ Essa marca tem gravidade para arrastar — ou precisa construir a ponte?
 
 ---
 
+## Linguagem de Posicionamento — MarketingOS
+
+Quando gerar qualquer conteúdo, pitch ou abordagem para o Felipe ou para o MarketingOS:
+
+→ **Vender IA aplicada, não serviços de marketing**
+   Nunca: "gestão de redes", "pacote de posts", "agência"
+   Sempre: "ecossistema de IA aplicada à captação", "operação integrada", "sistema"
+
+→ **Falar dos benefícios, não da tecnologia**
+   Nunca: "usamos IA para gerar conteúdo"
+   Sempre: "você sabe de onde vai vir o próximo cliente"
+
+→ **Falar dos medos do ICP, não das certezas técnicas**
+   O lead decide pelo medo de ficar para trás — não pela lógica do sistema.
+   Nomear o medo antes de apresentar a solução.
+
+→ **Mostrar o real, não o perfeito**
+   Transparência sobre o processo gera mais confiança do que promessa de resultado.
+   Build in public é posicionamento — não humildade.
+
+→ **Desejo antes de necessidade — sempre**
+   O cliente não compra o que precisa. Compra o que deseja.
+   Desejo de crescer, de dominar, de não ficar pra trás.
+   Ativar o desejo antes de apresentar a solução.
+
+Para contexto do ICP: ler `clients/felipe-proenca/icp.md` antes de prospectar ou criar conteúdo de aquisição.
+
+---
+
 ## Prioridades
 
 1. Conversao

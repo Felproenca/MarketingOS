@@ -14,6 +14,7 @@
     "sherlock": "node scripts/sherlock/index.js",
     "publicar": "node scripts/publisher/index.js",
     "insights": "node scripts/insights/index.js",
+    "backfill": "node scripts/insights/backfill.js",
     "aggregate": "node scripts/intelligence/aggregate.js",
     "demo": "node scripts/demo-pipeline/index.js",
     "bot": "node scripts/whatsapp-bot/index.js"

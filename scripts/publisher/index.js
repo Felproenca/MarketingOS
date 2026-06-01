@@ -266,6 +266,7 @@ async function main() {
   }
 
   console.log(`\n📒 Registrado em clients/${args.slug}/published.json — rode "npm run insights -- --slug ${args.slug}" depois de ~48h.`);
+  try { const { updateStats } = require('../update-stats'); updateStats({ posts: 1 }); } catch {}
   console.log('💡 Registre também a decisão em campaigns.md.');
 }
 

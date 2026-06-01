@@ -300,6 +300,12 @@ async function main() {
     console.log(`\n📁 Log salvo: ${logPath}`);
   }
 
+  // Atualiza stats do site
+  try {
+    const { updateStats } = require('../update-stats');
+    updateStats({ leads: leads.length, demos: results.length, whatsapp: contacted.filter(c => c.channel === 'whatsapp').length });
+  } catch {}
+
   console.log('\n✅ Pipeline concluído!');
   console.log(`   Demos: ${results.length} | Enviados: ${contacted.length}`);
   console.log(`\n💡 Próximo passo: aguarde respostas e marque calls.`);

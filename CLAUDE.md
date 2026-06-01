@@ -57,6 +57,22 @@ Para contexto do ICP: ler `clients/felipe-proenca/icp.md` antes de prospectar ou
 
 ---
 
+## Regra de parada obrigatória — conteúdo para a marca do operador
+
+Antes de criar qualquer conteúdo de marca para o próprio Felipe Proença / MarketingOS:
+
+**PARAR.** Não executar. Não estruturar. Não sugerir formato.
+
+Perguntar primeiro:
+1. Para quem esse conteúdo fala — e o que essa pessoa sente antes de encontrar o Felipe?
+2. O que o Felipe quer dizer que ninguém mais tem coragem de dizer?
+3. Esse conteúdo serve para fechar cliente agora ou construir quem o Felipe é no mercado?
+4. O Felipe está disposto a aparecer nisso?
+
+Só avançar depois de ter essas respostas. Estrutura sem essas respostas é ruído com boa tipografia.
+
+---
+
 ## Prioridades
 
 1. Conversao
@@ -70,6 +86,9 @@ Para contexto do ICP: ler `clients/felipe-proenca/icp.md` antes de prospectar ou
 
 ```
 /marketing-os
+  manifesto.md           ← fundação, lido antes de tudo (raiz)
+  alma.md                ← fundação, lido uma vez por sessão (raiz)
+  CLAUDE.md              ← fonte única de instrução do sistema
   /clients
     /_template
     /[slug]
@@ -78,7 +97,6 @@ Para contexto do ICP: ler `clients/felipe-proenca/icp.md` antes de prospectar ou
       estrategia.md / runs.md
       /outputs
   /skills
-    alma.md              ← lido uma vez por sessão, antes de tudo
     skill-abrir.md       ← sistema
     skill-salvar.md      ← sistema
     /analise             ← /analisar
@@ -100,7 +118,7 @@ Para contexto do ICP: ler `clients/felipe-proenca/icp.md` antes de prospectar ou
 1. Executar `/abrir [slug]` se a sessao ainda nao foi iniciada
 2. Ler a secao `## Contexto mínimo necessário` da skill antes de carregar qualquer arquivo
 3. Carregar APENAS os arquivos listados nessa secao — nao carregar o que esta na lista `NAO carregar`
-4. Ler `skills/alma.md` — o porque de tudo (uma vez por sessao)
+4. Ler `alma.md` (raiz) — o porque de tudo (uma vez por sessao)
 5. Ler `intelligence/patterns.md` — padroes cross-client aplicaveis ao nicho
 6. Ler `intelligence/benchmarks.json` — benchmarks do canal
 7. Ler `client.md` do cliente ativo
@@ -119,7 +137,7 @@ Para contexto do ICP: ler `clients/felipe-proenca/icp.md` antes de prospectar ou
 | `workflows/open-client.md` | `/abrir [slug]` | **SEMPRE PRIMEIRO** — carrega intelligence + contexto |
 | `workflows/close-client.md` | `/fechar` | **SEMPRE AO FINAL** — extrai aprendizados, faz commit |
 | `skills/skill-salvar.md` | `/salvar` | Checkpoint intermediario — commit sem encerrar sessao |
-| `skills/alma.md` | — | Lido uma vez por sessao antes de qualquer criacao |
+| `alma.md` (raiz) | — | Lido uma vez por sessao antes de qualquer criacao |
 
 ### Grupo: Analise → `/analisar`
 > Leia `skills/analise/_admin.md` → escolha uma skill → carregue so ela.
@@ -133,7 +151,7 @@ Para contexto do ICP: ler `clients/felipe-proenca/icp.md` antes de prospectar ou
 | `analise/skill-estrategista.md` | Decisao estrategica e priorizacao |
 
 ### Grupo: Criacao → `/criar`
-> Leia `skills/alma.md` + `skills/criacao/_admin.md` → escolha uma skill → carregue so ela.
+> Leia `alma.md` (raiz) + `skills/criacao/_admin.md` → escolha uma skill → carregue so ela.
 
 | Skill | Quando usar |
 |---|---|

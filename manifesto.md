@@ -1,6 +1,7 @@
 # manifesto.md — MarketingOS
 > Documento fundacional. Intocável.
 > Lido antes de qualquer decisão criativa, estratégica ou comercial.
+> Este é o norte. Tudo parte daqui.
 
 ---
 
@@ -32,7 +33,8 @@ e a multiplica até ela alcançar as pessoas
 que precisam ouvi-la.
 
 Nossos clientes olham para trás daqui a cinco anos e dizem:
-"Parecia loucura. E foi a melhor decisão que tomei."
+
+*"Parecia loucura. E foi a melhor decisão que tomei."*
 
 Vida cria vida.
 Marketing imprime e multiplica.
@@ -51,3 +53,9 @@ Se o mercado inteiro está errado, ficamos do lado certo.
 
 O sucesso do cliente não é consequência do nosso trabalho.
 É a razão de existir dele.
+
+---
+
+*Documento fundacional — MarketingOS*
+*Não editar. Não resumir. Não adaptar.*
+*Se algo que estamos prestes a fazer contradiz isso — não fazemos.*

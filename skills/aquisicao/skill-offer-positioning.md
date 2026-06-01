@@ -19,7 +19,12 @@ env: []
 ## Contexto mínimo necessário
 → client.md — Blocos 1, 2, 3 e 4 (negócio, persona, concorrência, tom)
 → alma.md — filtros de autenticidade (o que não é verdadeiro não sai)
-→ NÃO carregar: metrics.json, campaigns.md, brand-kit.json, notes.md, estrategia.md, intelligence/
+→ intelligence/benchmarks.json — APENAS `offer_benchmarks` (cta_performance, discount_vs_value) para escolher CTA e ângulo de oferta com o que já converteu
+→ NÃO carregar: metrics.json, campaigns.md, brand-kit.json, notes.md, estrategia.md, system-usage.json, experiments.md
+
+> Se `offer_benchmarks` tiver dados reais (≠ 0/vazio), deixar o CTA e o tipo de
+> oferta (desconto vs. valor) seguirem o que converteu. Se zerado, decidir pela
+> lógica da oferta — não fabricar número.
 
 ---
 

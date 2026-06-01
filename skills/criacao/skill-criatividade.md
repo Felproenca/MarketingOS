@@ -21,7 +21,12 @@ env: []
 → alma.md — missão, visão e filtros de criação (obrigatório)
 → client.md — Blocos 1, 2 e 4 (negócio, persona, tom)
 → notes.md — inteligência acumulada e histórico criativo
-→ NÃO carregar: metrics.json, campaigns.md, brand-kit.json, estrategia.md, intelligence/
+→ intelligence/patterns.md — padrões cross-client já validados (calibra a verdade humana com o que conecta)
+→ intelligence/benchmarks.json — APENAS a seção do nicho ativo (insights e ângulos que já funcionaram nesse nicho)
+→ NÃO carregar: metrics.json, campaigns.md, brand-kit.json, estrategia.md, system-usage.json, experiments.md
+
+> A skill consulta o que já foi aprendido — mas não copia. Insight passado calibra
+> a escavação; nunca substitui a busca pela verdade humana deste cliente.
 
 ---
 
@@ -198,6 +203,7 @@ Faça a mesma pergunta para cada cliente.
 3. **O protagonista nunca é a empresa** — sempre o cliente dela
 4. **Autenticidade supera perfeição** — imperfeição real conecta mais que polimento genérico
 5. **O mapa é vivo** — atualizar no notes.md sempre que uma nova verdade emergir
+6. **Partir do que já se provou** — antes de escavar, revisar `patterns.md` e os insights do nicho em `benchmarks.json`. Não redescobrir o que o sistema já sabe; usar isso para mirar o ângulo que ninguém ainda explorou (pergunta 6).
 
 ---
 

@@ -13,6 +13,7 @@
     "prospector": "node scripts/prospector/index.js",
     "sherlock": "node scripts/sherlock/index.js",
     "publicar": "node scripts/publisher/index.js",
+    "insights": "node scripts/insights/index.js",
     "demo": "node scripts/demo-pipeline/index.js",
     "bot": "node scripts/whatsapp-bot/index.js"
   },

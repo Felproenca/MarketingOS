@@ -62,7 +62,7 @@ function resolveTemplateFile(fileName) {
 
 function copyTemplateFiles(clientDir) {
   const copied = [];
-  const templateFiles = ['metrics.json', 'campaigns.md', 'notes.md', 'client.md', 'brand-kit.json', 'estrategia.md'];
+  const templateFiles = ['metrics.json', 'campaigns.md', 'notes.md', 'client.md', 'brand-kit.json', 'estrategia.md', 'published.json'];
 
   for (const fileName of templateFiles) {
     const source = resolveTemplateFile(fileName);

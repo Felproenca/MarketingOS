@@ -1,0 +1,9 @@
+{
+  "_meta": {
+    "slug": "",
+    "updated_at": "",
+    "count": 0,
+    "description": "Ledger de publicações. Gravado pelo publisher (npm run publicar), lido pelo npm run insights para preencher a performance real. Não editar à mão."
+  },
+  "posts": []
+}

@@ -21,7 +21,12 @@ env: []
 → client.md — Blocos 2, 3 e 4 (persona, posicionamento, tom)
 → brand-kit.json — palette, typography
 → alma.md — filtros de criação (5 perguntas)
-→ NÃO carregar: metrics.json, campaigns.md, notes.md, estrategia.md, intelligence/
+→ intelligence/benchmarks.json — APENAS `content_performance.carousel` (best_hook_type, best_slide_count, avg_saves_rate) para calibrar gancho e nº de slides com o que já performou
+→ NÃO carregar: metrics.json, campaigns.md, notes.md, estrategia.md, system-usage.json, experiments.md, patterns.md
+
+> Se `content_performance.carousel` tiver dados reais (≠ 0/vazio), usar como
+> default de gancho e contagem de slides. Se estiver zerado, seguir o julgamento
+> da skill normalmente — não inventar número.
 
 ---
 

@@ -106,6 +106,38 @@ async function getPermalink(mediaId, accessToken) {
   }
 }
 
+// Metadados do post (sempre disponíveis): tipo, data, likes e comentários.
+async function getMediaInfo(mediaId, accessToken) {
+  return apiGet(`/${mediaId}`, {
+    fields: 'media_type,media_product_type,timestamp,permalink,like_count,comments_count',
+    access_token: accessToken,
+  });
+}
+
+// Insights de performance. Métricas variam por tipo de mídia — tenta um conjunto
+// e degrada graciosamente se a API recusar alguma métrica para aquele tipo.
+async function getMediaInsights(mediaId, accessToken) {
+  const metricSets = [
+    'reach,saved,total_interactions,shares',
+    'reach,saved,total_interactions',
+    'reach',
+  ];
+  let lastErr = null;
+  for (const metric of metricSets) {
+    try {
+      const data = await apiGet(`/${mediaId}/insights`, { metric, access_token: accessToken });
+      const out = {};
+      for (const m of data.data || []) {
+        out[m.name] = m.values?.[0]?.value ?? null;
+      }
+      return out;
+    } catch (e) {
+      lastErr = e;
+    }
+  }
+  throw lastErr || new Error('Falha ao obter insights');
+}
+
 module.exports = {
   validateToken,
   createFeedContainer,
@@ -116,4 +148,6 @@ module.exports = {
   publishContainer,
   waitForContainer,
   getPermalink,
+  getMediaInfo,
+  getMediaInsights,
 };

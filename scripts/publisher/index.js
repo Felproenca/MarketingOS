@@ -14,9 +14,12 @@
  *   --caption   Legenda do post (obrigatório, exceto dry-run)
  *   --format    feed | carousel | reel  (auto-detectado se --file repetido)
  *   --channel   instagram | facebook | all  (padrão: instagram)
+ *   --hook      Tipo de gancho usado (opcional — alimenta o ledger de aprendizado)
+ *   --theme     Tema do post (opcional — alimenta o ledger de aprendizado)
  *   --dry-run   Valida config e arquivos sem publicar
  *
  * Config: clients/[slug]/instagram-config.json
+ * Ledger: clients/[slug]/published.json (registro do que foi publicado, lido pelo `npm run insights`)
  */
 
 require('dotenv').config();
@@ -40,13 +43,15 @@ const {
   publishAlbumPost,
   getPermalink: getFbPermalink,
 } = require('./facebook');
+const { recordPublication } = require('./ledger');
+const { loadConfig } = require('./config');
 
 // ── Args ───────────────────────────────────────────────────────────────────
 
 function parseArgs() {
   const args = process.argv.slice(2);
   const files = [];
-  const result = { slug: null, caption: '', format: null, channel: 'instagram', dryRun: false };
+  const result = { slug: null, caption: '', format: null, channel: 'instagram', hook: null, theme: null, dryRun: false };
 
   for (let i = 0; i < args.length; i++) {
     const a = args[i];
@@ -55,6 +60,8 @@ function parseArgs() {
     else if (a === '--file')    files.push(args[++i]);
     else if (a === '--caption') result.caption = args[++i];
     else if (a === '--format')  result.format = args[++i];
+    else if (a === '--hook')    result.hook = args[++i];
+    else if (a === '--theme')   result.theme = args[++i];
     else if (a === '--dry-run') result.dryRun = true;
   }
 
@@ -68,32 +75,6 @@ function parseArgs() {
   }
 
   return result;
-}
-
-// ── Config ─────────────────────────────────────────────────────────────────
-
-function loadConfig(slug) {
-  const configPath = path.resolve(__dirname, '../../clients', slug, 'instagram-config.json');
-
-  if (!fs.existsSync(configPath)) {
-    throw new Error(
-      `Config não encontrado: clients/${slug}/instagram-config.json\n\n` +
-      `Copie o template:\n` +
-      `  cp clients/_template/instagram-config.json clients/${slug}/instagram-config.json\n` +
-      `\nPreencha com:\n` +
-      `  accessToken — Graph API Explorer com permissões instagram_content_publish\n` +
-      `  igUserId    — ID numérico da conta Instagram Business`
-    );
-  }
-
-  const raw = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-
-  return {
-    accessToken: process.env.INSTAGRAM_ACCESS_TOKEN || raw.accessToken,
-    igUserId:    process.env.INSTAGRAM_USER_ID      || raw.igUserId,
-    pageId:      process.env.FACEBOOK_PAGE_ID       || raw.pageId      || null,
-    imgbbApiKey: process.env.IMGBB_API_KEY          || raw.imgbbApiKey || null,
-  };
 }
 
 // ── Publish flows ──────────────────────────────────────────────────────────
@@ -231,6 +212,11 @@ async function main() {
     console.log(`   Formato : ${args.format}`);
     urls.forEach((u, i) => console.log(`   Arquivo ${i + 1}: ${u}`));
     console.log(`   Caption : ${args.caption}`);
+
+    // Registra a intenção no ledger (mediaId null, dryRun true) para validar o fluxo
+    if (doInstagram) recordPublication(args.slug, { channel: 'instagram', format: args.format, hook_type: args.hook, theme: args.theme, caption: args.caption, dryRun: true });
+    if (doFacebook)  recordPublication(args.slug, { channel: 'facebook',  format: args.format, hook_type: args.hook, theme: args.theme, caption: args.caption, dryRun: true });
+    console.log(`   Ledger  : registrado em clients/${args.slug}/published.json (dryRun)`);
     return;
   }
 
@@ -251,6 +237,10 @@ async function main() {
     console.log(`\n  ✅ Instagram publicado!`);
     if (igLink) console.log(`     Link : ${igLink}`);
     console.log(`     ID   : ${igMediaId}`);
+    recordPublication(args.slug, {
+      channel: 'instagram', format: args.format, hook_type: args.hook, theme: args.theme,
+      caption: args.caption, mediaId: igMediaId, permalink: igLink,
+    });
   }
 
   // ── Facebook ───────────────────────────────────────────────────────────────
@@ -264,13 +254,19 @@ async function main() {
     } else {
       throw new Error('Nenhum arquivo para publicar no Facebook');
     }
-    const fbLink = await getFbPermalink(fbPost.id || fbPost.post_id, cfg.pageToken);
+    const fbId = fbPost.id || fbPost.post_id;
+    const fbLink = await getFbPermalink(fbId, cfg.pageToken);
     console.log(`\n  ✅ Facebook publicado!`);
     if (fbLink) console.log(`     Link : ${fbLink}`);
-    console.log(`     ID   : ${fbPost.id || fbPost.post_id}`);
+    console.log(`     ID   : ${fbId}`);
+    recordPublication(args.slug, {
+      channel: 'facebook', format: args.format, hook_type: args.hook, theme: args.theme,
+      caption: args.caption, mediaId: fbId, permalink: fbLink,
+    });
   }
 
-  console.log('\n💡 Registre em campaigns.md.');
+  console.log(`\n📒 Registrado em clients/${args.slug}/published.json — rode "npm run insights -- --slug ${args.slug}" depois de ~48h.`);
+  console.log('💡 Registre também a decisão em campaigns.md.');
 }
 
 main().catch(err => {

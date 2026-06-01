@@ -20,7 +20,11 @@ env: []
 → client.md — Blocos 2 e 4 (persona e tom da marca)
 → brand-kit.json — palette, typography (para briefing visual)
 → alma.md — filtros de criação (5 perguntas)
-→ NÃO carregar: metrics.json, campaigns.md, notes.md, estrategia.md, intelligence/
+→ intelligence/benchmarks.json — APENAS `content_performance` do formato em jogo (feed_image / reels / stories): best_hook_type e métricas para calibrar gancho e formato
+→ NÃO carregar: metrics.json, campaigns.md, notes.md, estrategia.md, system-usage.json, experiments.md, patterns.md
+
+> Se o bloco do formato tiver dados reais (≠ 0/vazio), usar como default de
+> gancho. Se estiver zerado, seguir o julgamento da skill — não inventar número.
 
 ---
 

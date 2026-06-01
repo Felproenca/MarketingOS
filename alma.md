@@ -42,6 +42,30 @@ e constrói a linguagem para ela existir no mundo.
 
 ---
 
+## O que vendemos de verdade
+
+Não vendemos marketing.
+Não vendemos site.
+Não vendemos posts.
+
+Vendemos inteligência artificial aplicada
+que gera leads, opera canais e entrega
+controle em tempo real.
+
+O cliente não compra o que precisa.
+Compra o que deseja.
+Desejo de crescer, de dominar o mercado,
+de não ficar para trás enquanto o concorrente avança.
+
+A linguagem de tudo que sai deste sistema:
+→ Falar dos benefícios, nunca da tecnologia
+→ Falar dos medos do cliente, não das certezas técnicas
+→ Mostrar o real, não o perfeito
+→ Desejo antes de necessidade — sempre
+→ "IA aplicada ao seu negócio" — não "gestão de marketing"
+
+---
+
 ## A lógica dos 15% e dos 85%
 
 15% — Sistema límbico
@@ -127,26 +151,6 @@ quando o esperado já provou que não funciona.
 - Métricas de vaidade no lugar de métricas de negócio
 - Conforto do cliente acima do crescimento do cliente
 - O mediano quando o extraordinário é possível
-
----
-
-## O que vendemos de verdade
-
-Não vendemos marketing.
-Não vendemos site.
-Não vendemos posts.
-
-Vendemos inteligência artificial aplicada
-que gera leads, opera canais e entrega
-controle em tempo real.
-
-O cliente não compra o que precisa.
-Compra o que deseja.
-Desejo de crescer. De dominar. De não ficar pra trás.
-
-Gucci não vende bolsa. Vende status.
-Nós não vendemos sistema. Vendemos o futuro
-que o cliente quer ter.
 
 ---
 

@@ -106,9 +106,58 @@ async function extractName(page) {
   });
 }
 
+// Extrai conteúdo textual do site para alimentar o gerador de copy
+async function extractContent(page) {
+  return page.evaluate(() => {
+    const metaEl = document.querySelector('meta[name="description"], meta[property="og:description"]');
+    const metaDescription = metaEl?.content?.trim()?.slice(0, 300) || null;
+
+    const h1 = document.querySelector('h1')?.textContent?.trim()?.slice(0, 100) || null;
+
+    const heroText = [...document.querySelectorAll('p')]
+      .map(p => p.textContent?.trim())
+      .filter(t => t && t.length > 40 && t.length < 400)
+      .slice(0, 2)
+      .join(' ') || null;
+
+    const services = [...document.querySelectorAll('h2, h3')]
+      .map(h => h.textContent?.trim())
+      .filter(t => t && t.length > 2 && t.length < 60)
+      .slice(0, 8);
+
+    return { metaDescription, h1, heroText, services };
+  });
+}
+
+// Extrai sinais de presença digital do site
+async function extractSignals(page) {
+  return page.evaluate(() => {
+    const html = document.body?.innerHTML?.toLowerCase() || '';
+    const links = [...document.querySelectorAll('a[href]')].map(a => a.href.toLowerCase());
+
+    const hasInstagram = links.some(h => h.includes('instagram.com')) ||
+      html.includes('instagram.com');
+
+    const hasWhatsapp = links.some(h => h.includes('wa.me') || h.includes('whatsapp.com/send') || h.includes('api.whatsapp')) ||
+      html.includes('wa.me') || html.includes('whatsapp');
+
+    const hasBlog = links.some(h => /\/(blog|noticias|artigos|conteudo|dicas)/.test(h)) ||
+      !!document.querySelector('article, .blog, .post, [class*="blog"], [class*="artigo"]');
+
+    const hasContactForm = !!document.querySelector('form input[type="email"], form input[name*="email"], form input[name*="nome"]');
+
+    const pageLinks = links.filter(h => {
+      try { return new URL(h).hostname === window.location.hostname; } catch { return false; }
+    });
+    const isMultipage = new Set(pageLinks.map(h => { try { return new URL(h).pathname; } catch { return ''; } })).size > 3;
+
+    return { hasInstagram, hasWhatsapp, hasBlog, hasContactForm, isMultipage };
+  });
+}
+
 async function extractBrand(websiteUrl) {
   if (!websiteUrl || !/^https?:\/\//i.test(websiteUrl)) {
-    return { name: null, color: '#2563eb', logoUrl: null, extracted: false };
+    return { name: null, color: '#2563eb', logoUrl: null, extracted: false, signals: {} };
   }
 
   const browser = await chromium.launch({ headless: true });
@@ -121,18 +170,20 @@ async function extractBrand(websiteUrl) {
     await page.goto(websiteUrl, { waitUntil: 'domcontentloaded', timeout: 15000 });
     await page.waitForTimeout(2000);
 
-    const [name, rawColor, logoUrl] = await Promise.all([
+    const [name, rawColor, logoUrl, signals, content] = await Promise.all([
       extractName(page),
       extractPrimaryColor(page),
       extractLogoUrl(page, websiteUrl),
+      extractSignals(page),
+      extractContent(page),
     ]);
 
     const hexColor = rgbToHex(rawColor);
     const color = (!hexColor || isColorUnusable(hexColor)) ? '#2563eb' : hexColor;
 
-    return { name, color, logoUrl, extracted: true };
+    return { name, color, logoUrl, extracted: true, signals, content };
   } catch (err) {
-    return { name: null, color: '#2563eb', logoUrl: null, extracted: false, error: err.message };
+    return { name: null, color: '#2563eb', logoUrl: null, extracted: false, signals: {}, error: err.message };
   } finally {
     await browser.close();
   }

@@ -60,13 +60,8 @@ function shortName(fullName) {
 }
 
 const WHATSAPP_TEMPLATE = {
-  clinica: `Fiz isso com a marca de vocês 👇`,
-  b2b:     `Fiz isso com a identidade do escritório 👇`,
-};
-
-const WHATSAPP_FOLLOWUP = {
-  clinica: `Posso mostrar como funciona em 15 minutos?`,
-  b2b:     `Posso mostrar como funciona em 15 minutos?`,
+  clinica: `Fiz isso com a identidade de vocês 👇\n\nPosso mostrar como funciona em 15 minutos?`,
+  b2b:     `Fiz isso com a identidade de vocês 👇\n\nPosso mostrar como funciona em 15 minutos?`,
 };
 
 const EMAIL_SUBJECT = {
@@ -191,7 +186,7 @@ async function main() {
     let slideFiles;
     try {
       process.stdout.write(`     Renderizando demo...`);
-      slideFiles = await generateDemo(args.segment, brand, demoDir, prefix);
+      slideFiles = await generateDemo(args.segment, brand, demoDir, prefix, lead);
       console.log(` ✓ ${slideFiles.length} slides`);
     } catch (err) {
       console.log(` ✗ Erro: ${err.message}`);
@@ -255,15 +250,11 @@ async function main() {
       if (!lead.phone) { console.log(`   ⚠️  ${lead.name}: sem telefone`); continue; }
 
       const msg = WHATSAPP_TEMPLATE[args.segment];
-      const followup = WHATSAPP_FOLLOWUP[args.segment];
 
-      // Envia texto + 3 slides + mensagem de follow-up
-      const result = await sendWhatsAppWithMedia(lead.phone, msg, slideFiles, 6000);
+      const result = await sendWhatsAppWithMedia(lead.phone, msg, slideFiles, 4000);
 
       if (result.success) {
-        // Follow-up após os slides
-        await sendWhatsAppWithMedia(lead.phone, followup, [], 2000);
-        console.log(`   ✓ WhatsApp → ${result.chatId} (${slideFiles.length} slides)`);
+        console.log(`   ✓ WhatsApp → ${result.chatId}`);
         contacted.push({ ...lead, channel: 'whatsapp', sentAt: new Date().toISOString() });
       } else {
         console.log(`   ✗ WhatsApp → ${lead.phone}: ${result.error}`);

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800;900&family=Playfair+Display:ital,wght@1,400&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1080px;
+    height: 1080px;
+    font-family: 'Syne', sans-serif;
+    background: #080808;
+    overflow: hidden;
+    position: relative;
+  }
+
+  :root {
+    --brand:  {{COLOR}};
+    --bg:     #080808;
+    --text:   #fafafa;
+    --muted:  #888;
+    --gold:   #c9a55c;
+    --mono:   'JetBrains Mono', monospace;
+    --serif:  'Playfair Display', serif;
+  }
+
+  .grain {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .ghost {
+    position: absolute;
+    right: -20px;
+    bottom: -40px;
+    font-family: 'Syne', sans-serif;
+    font-size: 420px;
+    font-weight: 900;
+    color: var(--brand);
+    opacity: 0.05;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .accent-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--brand);
+    opacity: 0.6;
+    z-index: 2;
+  }
+
+  .inner {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto auto auto auto;
+    padding: 64px 80px;
+    row-gap: 0;
+  }
+
+  /* Top */
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .brand-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--brand);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .logo {
+    display: flex;
+    align-items: baseline;
+  }
+  .logo-m  { font-size: 11px; font-weight: 800; color: var(--text); opacity: 0.35; }
+  .logo-sl { font-size: 11px; font-weight: 200; color: var(--text); opacity: 0.2; margin: 0 1px; }
+  .logo-os { font-family: 'Playfair Display', serif; font-style: italic; font-size: 11px; color: var(--gold); opacity: 0.5; }
+
+  .spacer { /* 1fr row — breathing space */ }
+
+  h1 { padding-bottom: 24px; }
+
+  .sub { padding-bottom: 32px; }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--brand);
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  h1 {
+    font-size: 64px;
+    font-weight: 900;
+    color: var(--text);
+    line-height: 1.0;
+    letter-spacing: -0.04em;
+    max-width: 820px;
+  }
+
+  h1 em {
+    font-style: normal;
+    color: var(--brand);
+  }
+
+  h1 i {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--gold);
+    display: block;
+    font-size: 62px;
+    margin-top: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  .sub {
+    font-size: 18px;
+    color: var(--muted);
+    font-weight: 400;
+    line-height: 1.65;
+    max-width: 580px;
+    letter-spacing: -0.01em;
+  }
+
+  .sub strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* Preview cards */
+  .preview-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 28px;
+    border-top: 1px solid #1e1e1e;
+  }
+
+  .preview-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .preview-cards {
+    display: flex;
+    gap: 12px;
+  }
+
+  .preview-card {
+    flex: 1;
+    background: #111;
+    border: 1px solid #1e1e1e;
+    border-top: 2px solid var(--brand);
+    border-radius: 4px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .pc-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--brand);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  .pc-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+  }
+
+  .pc-format {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: auto;
+  }
+
+  /* Bottom */
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+  }
+
+  .handle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  .cta {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brand);
+    border: 1px solid var(--brand);
+    padding: 7px 16px;
+    border-radius: 3px;
+    opacity: 0.8;
+  }
+</style>
+</head>
+<body>
+
+<svg class="grain" xmlns="http://www.w3.org/2000/svg">
+  <filter id="g"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+  <rect width="100%" height="100%" filter="url(#g)" opacity="0.04"/>
+</svg>
+
+<div class="accent-bar"></div>
+<div class="ghost">◆</div>
+
+<div class="inner">
+  <div class="top">
+    <span class="brand-name">{{NAME}}</span>
+    <div class="logo">
+      <span class="logo-m">Marketing</span>
+      <span class="logo-sl">/</span>
+      <span class="logo-os">OS</span>
+    </div>
+  </div>
+
+  <span class="eyebrow" style="margin-top: 28px;">{{EYEBROW}}</span>
+
+  <div class="spacer"></div>
+
+  <h1>{{HEADLINE}}</h1>
+
+  <p class="sub">{{SUB}}</p>
+
+  <div class="preview-section">
+    <span class="preview-label">Próximas publicações geradas pelo sistema</span>
+    <div class="preview-cards">
+      <div class="preview-card">
+        <span class="pc-tag">Post 01</span>
+        <span class="pc-title">{{CARD_1}}</span>
+        <span class="pc-format">Reels · Feed</span>
+      </div>
+      <div class="preview-card">
+        <span class="pc-tag">Post 02</span>
+        <span class="pc-title">{{CARD_2}}</span>
+        <span class="pc-format">Carrossel</span>
+      </div>
+      <div class="preview-card">
+        <span class="pc-tag">Post 03</span>
+        <span class="pc-title">{{CARD_3}}</span>
+        <span class="pc-format">Story · Feed</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <span class="handle">{{HANDLE}}</span>
+    <span class="cta">Ver como funciona</span>
+  </div>
+</div>
+
+</body>
+</html>

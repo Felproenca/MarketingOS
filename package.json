@@ -13,12 +13,14 @@
     "prospector": "node scripts/prospector/index.js",
     "sherlock": "node scripts/sherlock/index.js",
     "publicar": "node scripts/publisher/index.js",
-    "demo": "node scripts/demo-pipeline/index.js"
+    "demo": "node scripts/demo-pipeline/index.js",
+    "bot": "node scripts/whatsapp-bot/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.100.1",
     "dotenv": "^17.4.2",
     "nodemailer": "^8.0.10",
     "qrcode-terminal": "^0.12.0",

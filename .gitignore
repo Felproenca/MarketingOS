@@ -32,3 +32,8 @@ agency/leads/
 agency/demos/
 agency/contacted/
 agency/instagram-config.json
+agency/bot-state.json
+agency/outputs/
+
+# Editor
+.vscode/

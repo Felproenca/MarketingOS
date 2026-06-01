@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
+const { analyze } = require('./diagnostic-analyzer');
 
 const TEMPLATE_DIR = path.join(__dirname, 'templates');
 
@@ -56,19 +57,51 @@ function buildHtml(segment, brand, lead) {
   return html;
 }
 
+function buildDiagnosticHtml(lead) {
+  const templateFile = path.join(TEMPLATE_DIR, 'diagnostico.html');
+  if (!fs.existsSync(templateFile)) throw new Error('Template diagnostico.html não encontrado');
+
+  const findings = analyze(lead);
+  const niche = require('./diagnostic-analyzer').detectNiche(lead.category);
+  const NICHE_COPY = {
+    clinica: 'paciente', estetica: 'cliente', odonto: 'paciente',
+    advogado: 'cliente', contabil: 'cliente', seguro: 'cliente',
+    pet: 'tutor', default: 'cliente',
+  };
+  const paciente = NICHE_COPY[niche] || 'cliente';
+  const nomeShort = (lead.name || 'empresa').split(/[,\-\|(\[]/)[0].trim().slice(0, 30);
+
+  let html = fs.readFileSync(templateFile, 'utf8');
+  html = html.replace(/\{\{FINDING_COUNT\}\}/g, String(findings.length));
+  html = html.replace(/\{\{PACIENTE\}\}/g, paciente);
+  html = html.replace(/\{\{NOME_SHORT\}\}/g, nomeShort);
+
+  findings.forEach((f, i) => {
+    const n = i + 1;
+    html = html.replace(new RegExp(`\\{\\{F${n}_SEVERITY\\}\\}`, 'g'), f.severity);
+    html = html.replace(new RegExp(`\\{\\{F${n}_ICON\\}\\}`, 'g'), f.icon);
+    html = html.replace(new RegExp(`\\{\\{F${n}_TITLE\\}\\}`, 'g'), f.title);
+    html = html.replace(new RegExp(`\\{\\{F${n}_DETAIL\\}\\}`, 'g'), f.detail);
+  });
+
+  return html;
+}
+
 async function generateDemo(segment, brand, outputDir, prefix, lead = {}) {
   fs.mkdirSync(outputDir, { recursive: true });
 
-  const html = buildHtml(segment, brand, lead);
+  const isDiagnostico = segment === 'diagnostico';
+  const html = isDiagnostico ? buildDiagnosticHtml(lead) : buildHtml(segment, brand, lead);
 
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage();
 
   await page.setViewportSize({ width: 1080, height: 1080 });
   await page.setContent(html, { waitUntil: 'networkidle' });
-  await page.waitForTimeout(500);
+  await page.waitForTimeout(600);
 
-  const outPath = path.join(outputDir, `${prefix}-post.png`);
+  const suffix = isDiagnostico ? 'diagnostico' : 'post';
+  const outPath = path.join(outputDir, `${prefix}-${suffix}.png`);
   await page.screenshot({ path: outPath });
   await browser.close();
 

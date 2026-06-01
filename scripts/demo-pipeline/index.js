@@ -32,6 +32,7 @@ const { enrichLeads }      = require('../prospector/enricher');
 const { extractBrand }     = require('./brand-extractor');
 const { generateDemo }     = require('./demo-generator');
 const { resolveUrl }       = require('../publisher/uploader');
+const { whatsappMessage }  = require('./diagnostic-analyzer');
 
 // ── Args ───────────────────────────────────────────────────────────────────
 
@@ -60,8 +61,9 @@ function shortName(fullName) {
 }
 
 const WHATSAPP_TEMPLATE = {
-  clinica: `Fiz isso com a identidade de vocês 👇\n\nPosso mostrar como funciona em 15 minutos?`,
-  b2b:     `Fiz isso com a identidade de vocês 👇\n\nPosso mostrar como funciona em 15 minutos?`,
+  clinica:     `Fiz isso com a identidade de vocês 👇\n\nPosso mostrar como funciona em 15 minutos?`,
+  b2b:         `Fiz isso com a identidade de vocês 👇\n\nPosso mostrar como funciona em 15 minutos?`,
+  // diagnostico: mensagem gerada dinamicamente por diagnostic-analyzer.whatsappMessage(lead)
 };
 
 const EMAIL_SUBJECT = {
@@ -128,7 +130,7 @@ async function main() {
     process.exit(1);
   }
 
-  const validSegments = ['clinica', 'b2b'];
+  const validSegments = ['clinica', 'b2b', 'diagnostico'];
   if (!validSegments.includes(args.segment)) {
     console.error(`❌ --segment deve ser: ${validSegments.join(' | ')}`);
     process.exit(1);
@@ -170,13 +172,17 @@ async function main() {
     const lead = leads[i];
     console.log(`\n   [${i + 1}/${leads.length}] ${lead.name || 'Lead'}`);
 
-    // Extrai marca do site
+    // Extrai marca do site (pulada no modo diagnostico — o foco é o achado, não a marca)
     let brand = { name: lead.name, color: '#2563eb', logoUrl: null, extracted: false };
-    if (lead.website) {
+    if (lead.website && args.segment !== 'diagnostico') {
       process.stdout.write(`     Extraindo marca de ${lead.website}...`);
       brand = await extractBrand(lead.website);
       brand.name = brand.name || lead.name;
       console.log(brand.extracted ? ` ✓ cor: ${brand.color}` : ' (fallback padrão)');
+    } else if (args.segment === 'diagnostico') {
+      const igInfo = lead.instagram ? ` · Instagram: ${lead.instagram}` : ' · sem Instagram detectado';
+      const waInfo = lead.hasWhatsappCta ? ' · WhatsApp no site: sim' : ' · WhatsApp no site: não';
+      console.log(`     Sinais detectados:${igInfo}${waInfo}`);
     }
 
     // Gera demo
@@ -226,8 +232,14 @@ async function main() {
   if (args.dryRun) {
     for (const { lead, slideFiles } of results) {
       if (whatsappChannel && lead.phone) {
+        const dryMsg = args.segment === 'diagnostico'
+          ? whatsappMessage(lead)
+          : WHATSAPP_TEMPLATE[args.segment];
         console.log(`   [DRY-RUN] WhatsApp → ${lead.phone} (${shortName(lead.name)})`);
-        console.log(`             "${WHATSAPP_TEMPLATE[args.segment]}" + ${slideFiles.length} slides`);
+        console.log(`             "${dryMsg}" + ${slideFiles.length} slides`);
+        if (args.segment === 'diagnostico') {
+          console.log(`             Instagram detectado: ${lead.instagram || '(nenhum)'} | WhatsApp CTA: ${lead.hasWhatsappCta ? 'sim' : 'não'}`);
+        }
       }
       if (emailChannel && lead.email) {
         const subject = renderTemplate(EMAIL_SUBJECT[args.segment], lead);
@@ -249,7 +261,9 @@ async function main() {
     for (const { lead, slideFiles } of results) {
       if (!lead.phone) { console.log(`   ⚠️  ${lead.name}: sem telefone`); continue; }
 
-      const msg = WHATSAPP_TEMPLATE[args.segment];
+      const msg = args.segment === 'diagnostico'
+        ? whatsappMessage(lead)
+        : WHATSAPP_TEMPLATE[args.segment];
 
       const result = await sendWhatsAppWithMedia(lead.phone, msg, slideFiles, 4000);
 

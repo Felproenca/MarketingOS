@@ -11,6 +11,25 @@ function cleanPhone(raw) {
   return digits;
 }
 
+const IG_RE = /instagram\.com\/(?!p\/|reel\/|tv\/|stories\/|explore\/)([a-zA-Z0-9._]{2,30})\/?(?:["'\s?#/]|$)/g;
+
+function extractInstagram(html) {
+  IG_RE.lastIndex = 0;
+  const matches = [];
+  let m;
+  while ((m = IG_RE.exec(html)) !== null) {
+    const handle = m[1];
+    // Skip generic/placeholder handles
+    if (/^(instagram|accounts|reels?|explore|p|tv|stories|shoppingbag|marketingforbusiness|business)$/i.test(handle)) continue;
+    matches.push('@' + handle);
+  }
+  return matches.length ? matches[0] : null;
+}
+
+function hasWhatsappCta(html) {
+  return /wa\.me\/|api\.whatsapp\.com\/send|whatsapp\.com\/send|href="whatsapp:/i.test(html);
+}
+
 async function extractContacts(page) {
   const text = await page.evaluate(() => document.body.innerText).catch(() => '');
   const html = await page.content().catch(() => '');
@@ -23,7 +42,12 @@ async function extractContacts(page) {
   const rawPhones = [...new Set([...(text.match(PHONE_RE) || [])])];
   const phones = rawPhones.map(cleanPhone).filter(Boolean);
 
-  return { email: emails[0] || null, phones };
+  return {
+    email: emails[0] || null,
+    phones,
+    instagram: extractInstagram(html),
+    hasWhatsappCta: hasWhatsappCta(html),
+  };
 }
 
 async function enrichLead(lead, browser) {
@@ -45,9 +69,9 @@ async function enrichLead(lead, browser) {
       await page.goto(contactHref, { waitUntil: 'domcontentloaded', timeout: 8000 }).catch(() => {});
     }
 
-    const { email, phones } = await extractContacts(page);
+    const { email, phones, instagram, hasWhatsappCta } = await extractContacts(page);
     await page.close();
-    return { ...lead, email, phones };
+    return { ...lead, email, phones, instagram, hasWhatsappCta };
   } catch {
     await page.close().catch(() => {});
     return lead;

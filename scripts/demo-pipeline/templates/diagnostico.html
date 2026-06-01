@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 1080px; height: 1080px; overflow: hidden;
+    background: #0a0a0a;
+    font-family: 'Syne', system-ui, sans-serif;
+    color: #f0ede8;
+  }
+
+  .wrap {
+    width: 1080px; height: 1080px;
+    display: flex; flex-direction: column;
+    padding: 60px 64px 52px;
+    gap: 0;
+  }
+
+  /* ── HEADER ── */
+  .header { flex-shrink: 0; margin-bottom: 40px; }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 700; letter-spacing: .18em;
+    text-transform: uppercase; color: #c9a55c;
+    margin-bottom: 20px;
+  }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #c9a55c; }
+
+  .eyebrow {
+    font-size: 12px; font-weight: 400; letter-spacing: .1em;
+    color: #4a4540; text-transform: uppercase; margin-bottom: 12px;
+  }
+
+  .headline {
+    font-size: 40px; font-weight: 800; line-height: 1.12;
+    letter-spacing: -.02em; color: #f0ede8;
+  }
+  .headline em { font-style: normal; color: #c9a55c; }
+
+  /* ── FINDINGS — grow to fill remaining height ── */
+  .findings {
+    flex: 1;
+    display: flex; flex-direction: column;
+    gap: 16px;
+    min-height: 0;
+  }
+
+  .finding {
+    flex: 1;
+    background: #0f0f0f;
+    border: 1px solid #1a1a1a;
+    border-left: 4px solid #e05555;
+    border-radius: 6px;
+    padding: 28px 32px;
+    display: flex; gap: 20px; align-items: center;
+  }
+  .finding.severity-alta  { border-left-color: #e05555; }
+  .finding.severity-media { border-left-color: #c9a55c; }
+  .finding.severity-baixa { border-left-color: #4a9a6a; }
+
+  .finding-icon { font-size: 24px; flex-shrink: 0; width: 32px; text-align: center; margin-top: 2px; }
+
+  .finding-body { flex: 1; }
+  .finding-num {
+    font-size: 10px; font-weight: 700; letter-spacing: .18em;
+    color: #2e2b27; text-transform: uppercase; margin-bottom: 8px;
+  }
+  .finding-title {
+    font-size: 18px; font-weight: 700; line-height: 1.2;
+    color: #f0ede8; margin-bottom: 10px;
+  }
+  .finding-detail {
+    font-size: 14px; font-weight: 400; line-height: 1.6;
+    color: #6a6560;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    flex-shrink: 0;
+    margin-top: 32px;
+    display: flex; align-items: flex-end; justify-content: space-between;
+  }
+
+  .cta { font-size: 15px; font-weight: 600; color: #f0ede8; line-height: 1.45; }
+  .cta span { color: #c9a55c; }
+
+  .logo-mark {
+    font-size: 11px; font-weight: 700; letter-spacing: .14em;
+    text-transform: uppercase; color: #2a2724;
+    text-align: right; line-height: 1.6;
+  }
+  .logo-mark strong { color: #3a3733; font-weight: 800; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <div class="badge"><div class="badge-dot"></div>MarketingOS · Diagnóstico</div>
+    <div class="eyebrow">Análise do digital — {{NOME_SHORT}}</div>
+    <div class="headline">
+      Encontrei <em>{{FINDING_COUNT}} pontos</em> que estão<br>
+      impedindo novos <em>{{PACIENTE}}s</em> de chegar.
+    </div>
+  </div>
+
+  <div class="findings">
+    <div class="finding severity-{{F1_SEVERITY}}">
+      <div class="finding-icon">{{F1_ICON}}</div>
+      <div class="finding-body">
+        <div class="finding-num">ponto 01</div>
+        <div class="finding-title">{{F1_TITLE}}</div>
+        <div class="finding-detail">{{F1_DETAIL}}</div>
+      </div>
+    </div>
+
+    <div class="finding severity-{{F2_SEVERITY}}">
+      <div class="finding-icon">{{F2_ICON}}</div>
+      <div class="finding-body">
+        <div class="finding-num">ponto 02</div>
+        <div class="finding-title">{{F2_TITLE}}</div>
+        <div class="finding-detail">{{F2_DETAIL}}</div>
+      </div>
+    </div>
+
+    <div class="finding severity-{{F3_SEVERITY}}">
+      <div class="finding-icon">{{F3_ICON}}</div>
+      <div class="finding-body">
+        <div class="finding-num">ponto 03</div>
+        <div class="finding-title">{{F3_TITLE}}</div>
+        <div class="finding-detail">{{F3_DETAIL}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="cta">Posso mostrar como resolver isso<br><span>em 15 minutos.</span></div>
+    <div class="logo-mark"><strong>Marketing/OS</strong><br>IA aplicada ao seu negócio</div>
+  </div>
+
+</div>
+</body>
+</html>

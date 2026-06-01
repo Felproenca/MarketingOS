@@ -37,12 +37,16 @@ PASSO 3 — Atualizar estrategia.md do cliente
   → Atualizar "Prioridade da semana" se mudou
   → Registrar contexto da sessão em "Contexto da última reunião"
 
-PASSO 4 — Avaliar se há padrão cross-client
-  → Este aprendizado se aplica a outros clientes?
-  → Se sim: adicionar entrada em intelligence/patterns.md
-  → Se for dado de performance: atualizar intelligence/benchmarks.json
-  → Se for melhoria de skill: registrar em intelligence/skill-updates.md
-  → Regra: só vai para intelligence/ o que foi observado em contexto real — não hipótese
+PASSO 4 — Fechar o loop de aprendizado com dados reais
+  → Rodar: npm run insights -- --slug [cliente]
+     Puxa a performance real dos posts publicados (reach, saves, engajamento).
+     Se posts ainda tiverem menos de 48h, pular e rodar na próxima sessão.
+  → Rodar: npm run aggregate
+     Recalcula intelligence/benchmarks.json com os dados de todos os clientes.
+     As skills leem esse arquivo no próximo /abrir — sem ação manual.
+  → Se o insights retornar dados acima da média do nicho: registrar em intelligence/patterns.md
+  → Se algum hook_type performou consistentemente melhor: registrar em intelligence/skill-updates.md
+  → Regra: só vai para intelligence/ o que foi medido — não o que pareceu funcionar
 
 PASSO 5 — Executar /salvar
   → Registrar sessão em /intelligence/system-usage.json:

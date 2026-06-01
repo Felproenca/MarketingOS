@@ -65,6 +65,14 @@ async function createReelContainer(igUserId, videoUrl, caption, accessToken) {
   }, accessToken);
 }
 
+// Story (image)
+async function createStoryContainer(igUserId, imageUrl, accessToken) {
+  return createMediaContainer(igUserId, {
+    media_type: 'STORIES',
+    image_url: imageUrl,
+  }, accessToken);
+}
+
 // Publish a ready container
 async function publishContainer(igUserId, containerId, accessToken) {
   return apiPost(`/${igUserId}/media_publish`, {
@@ -104,6 +112,7 @@ module.exports = {
   createCarouselItem,
   createCarouselContainer,
   createReelContainer,
+  createStoryContainer,
   publishContainer,
   waitForContainer,
   getPermalink,

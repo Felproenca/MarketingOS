@@ -1,49 +1,54 @@
 {
-  "name": "MarketingOS Agency",
-  "version": "1.0",
-  "validatedAt": "2026-05-30",
+  "_meta": {
+    "source":     "clients/felipe-proenca/brand-kit.json — identidade unificada v2",
+    "version":    "2.0",
+    "updated_at": "2026-05-30",
+    "note": "Agency e Instagram pessoal compartilham a mesma identidade. Sempre ler felipe-proenca/brand-kit.json como fonte canônica."
+  },
 
-  "colors": {
-    "background": "#09090b",
-    "background2": "#111113",
-    "border": "#1f1f23",
-    "text": "#fafafa",
-    "muted": "#71717a",
-    "accent": "#8b5cf6",
-    "accentDim": "rgba(139, 92, 246, 0.15)",
-    "accentBorder": "rgba(139, 92, 246, 0.3)",
-    "success": "#22c55e"
+  "palette": {
+    "background":   "#080808",
+    "surface":      "#111111",
+    "surface_2":    "#1a1a1a",
+    "border":       "rgba(255,255,255,0.07)",
+    "border_solid": "#1e1e1e",
+    "text":         "#fafafa",
+    "muted":        "#888888",
+    "gold":         "#c9a55c",
+    "gold_dim":     "rgba(201,165,92,0.14)",
+    "gold_border":  "rgba(201,165,92,0.28)"
   },
 
   "typography": {
-    "primary": "Inter",
-    "mono": "JetBrains Mono",
-    "weights": {
-      "regular": 400,
-      "medium": 500,
-      "semibold": 600,
-      "bold": 700,
-      "black": 900
-    }
+    "headline": "Syne 800",
+    "body":     "Syne 400",
+    "eyebrow":  "Syne 500 uppercase gold letter-spacing 0.2em",
+    "editorial":"Playfair Display italic — uma frase de impacto por peça",
+    "mono":     "JetBrains Mono — terminal, dados, numeração"
   },
 
-  "style": {
-    "direction": "dark minimal — terminal como elemento de prova",
-    "feel": "premium tech, confiante, sem floreios",
-    "never": "cores claras, gradientes chamativos, ícones decorativos, bordas arredondadas excessivas"
+  "logo": {
+    "mark":         "Marketing/OS",
+    "construction": "Marketing (Syne 800 #fafafa) + / (Syne 200 op.0.28) + OS (Playfair Display italic #c9a55c)",
+    "bar_compact":  "dot 8px gold + 'MARKETINGOS' Syne 700 uppercase muted"
   },
 
   "carousel": {
-    "width": 1080,
-    "height": 1080,
+    "width":   1080,
+    "height":  1080,
     "padding": 72,
-    "slides": 5,
-    "structure": [
-      "Slide 1: Gancho — headline bold, número de fundo, tag de contexto",
-      "Slide 2: Prova — terminal/dados reais, grid de stats",
-      "Slide 3: Detalhe — grid de resultados com color chips",
-      "Slide 4: Insight — acento sólido, blockquote, lista de princípios",
-      "Slide 5: CTA — pill de ação, handle, progress dots"
+    "render":  "viewport 540px + deviceScaleFactor 2",
+    "slides": [
+      "01 — Gancho: headline + ghost number (Syne 900, gold op.0.05) + eyebrow",
+      "02 — Prova: terminal block (JetBrains Mono, surface_2, 3 dots)",
+      "03 — Detalhe: stat boxes ou color chips",
+      "04 — Insight: color flip gold bg (#c9a55c) + Playfair italic + texto escuro",
+      "05 — CTA: headline + cta-pill gold + handle + progress dots"
     ]
+  },
+
+  "style": {
+    "direction": "Editorial técnico com prova operacional. Dark + grain. Gold como único acento.",
+    "never":     ["violet", "gradientes coloridos", "Inter", "emojis em feed", "border-radius > 12px"]
   }
 }

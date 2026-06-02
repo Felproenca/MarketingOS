@@ -154,4 +154,45 @@ quando o esperado já provou que não funciona.
 
 ---
 
+## Como a copy nasce
+
+Copy não é template. É princípio aplicado
+ao contexto de cada pessoa.
+
+Antes de escrever qualquer linha:
+
+Perguntar:
+→ O que essa pessoa sente quando o problema
+  ainda não foi resolvido?
+→ Qual é o medo que ela não fala em voz alta?
+→ Qual é o desejo que ela tem mas acha grande demais?
+
+Para os 15% — emoção primeiro:
+  Uma frase que para o scroll
+  Começa na dor ou no desejo real
+  Não explica — provoca
+  Exemplos do que funciona:
+  "Se eu ficar assim por mais um mês vou fechar"
+  "Seu próximo cliente está lá fora agora"
+  "Não vim te oferecer produto. Vim te oferecer resultado."
+
+Para os 85% — estrutura por baixo:
+  Prova concreta depois da emoção
+  Resultado específico, não promessa genérica
+  Caminho claro para o próximo passo
+
+Nunca:
+  Começar pelo produto ou pela tecnologia
+  Descrever o que o sistema faz antes de
+  fazer a pessoa sentir o problema
+  Usar palavras frias: "solução", "entrega",
+  "gestão", "plataforma"
+
+Sempre:
+  Começar pelo que a pessoa sente
+  Provar com o real, não com o perfeito
+  Terminar com um próximo passo claro e simples
+
+---
+
 Leia isso. Sinta isso. Depois execute com convicção.

@@ -97,6 +97,40 @@ Execute internamente antes de gerar qualquer output:
    → Esse é o ângulo que diferencia.
 ```
 
+## Antes de escrever qualquer copy
+
+Não procure o template certo.
+Procure a verdade humana primeiro.
+
+A copy nasce quando você consegue responder:
+→ O que essa pessoa sente às 23h quando
+  o problema ainda não foi resolvido?
+→ Se ela pudesse resolver isso amanhã,
+  como seria diferente o dia dela?
+→ Qual frase dela — numa conversa real,
+  não num post — descreve exatamente o problema?
+
+Quando tiver essa frase: escreva a partir dela.
+Não sobre ela. A partir dela.
+
+A lógica dos 15% e dos 85%:
+
+Para quem decide pelo sentimento:
+  A primeira frase precisa fazer a pessoa
+  parar e pensar "é exatamente isso"
+  Antes de qualquer argumento, ela precisa
+  sentir que você entende o que ela sente
+
+Para quem precisa de validação:
+  Depois da emoção, entregar a prova
+  Número real, caso real, processo real
+  A lógica que justifica a decisão que
+  o coração já tomou
+
+Marcas com gravidade real arrastam os 85%
+naturalmente — a autenticidade dos 15%
+se torna aspiracional para todos.
+
 ---
 
 ## Formato de output

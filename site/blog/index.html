@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — MarketingOS | Automação de Marketing e Captação de Clientes</title>
+<meta name="description" content="Insights reais sobre automação de marketing, captação de clientes e inteligência artificial aplicada a negócios. Construído em público.">
+<link rel="canonical" href="https://marketing-os-black.vercel.app/blog/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Blog — MarketingOS">
+<meta property="og:description" content="Insights reais sobre automação de marketing, captação de clientes e IA aplicada a negócios.">
+<meta property="og:url" content="https://marketing-os-black.vercel.app/blog/">
+<meta property="og:site_name" content="MarketingOS">
+
+<!-- JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "MarketingOS Blog",
+  "description": "Insights sobre automação de marketing, captação de clientes e IA aplicada a negócios",
+  "url": "https://marketing-os-black.vercel.app/blog/",
+  "author": {
+    "@type": "Person",
+    "name": "Felipe Proença",
+    "url": "https://marketing-os-black.vercel.app"
+  }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=Playfair+Display:ital,wght@1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #080808; --bg2: #0f0f0f; --bg3: #161616;
+  --border: #1e1e1e; --text: #fafafa; --muted: #555; --dim: #2a2a2a;
+  --gold: #c9a55c; --gold-d: rgba(201,165,92,0.08); --gold-b: rgba(201,165,92,0.20);
+  --mono: 'JetBrains Mono', monospace; --serif: 'Playfair Display', serif;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: 'Syne', sans-serif; line-height: 1.6; }
+
+nav {
+  padding: 28px 60px; display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+.logo { display: flex; align-items: baseline; text-decoration: none; }
+.logo-m  { font-size: 15px; font-weight: 800; color: var(--text); letter-spacing: -0.01em; }
+.logo-sl { font-size: 15px; font-weight: 200; color: var(--text); opacity: 0.28; margin: 0 1px; }
+.logo-os { font-family: var(--serif); font-style: italic; font-size: 15px; color: var(--gold); }
+.nav-back { font-family: var(--mono); font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.06em; transition: color 0.2s; }
+.nav-back:hover { color: var(--gold); }
+
+header {
+  max-width: 800px; margin: 0 auto; padding: 80px 60px 48px;
+}
+.blog-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 20px; }
+h1 { font-size: clamp(36px, 5vw, 56px); font-weight: 900; letter-spacing: -0.03em; line-height: 1.0; }
+h1 em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--gold); }
+.blog-desc { font-size: 17px; color: rgba(250,250,250,0.45); margin-top: 16px; max-width: 520px; line-height: 1.65; }
+
+.posts { max-width: 800px; margin: 0 auto; padding: 0 60px 120px; display: flex; flex-direction: column; gap: 0; }
+
+.post-card {
+  display: block; text-decoration: none;
+  padding: 36px 0; border-bottom: 1px solid var(--border);
+  transition: opacity 0.2s;
+}
+.post-card:first-child { border-top: 1px solid var(--border); }
+.post-card:hover { opacity: 0.75; }
+
+.pc-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 14px; }
+.pc-tag { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); background: var(--gold-d); border: 1px solid var(--gold-b); padding: 5px 10px; border-radius: 3px; }
+.pc-date { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.05em; }
+.pc-read { font-family: var(--mono); font-size: 11px; color: var(--dim); letter-spacing: 0.05em; }
+
+.pc-title { font-size: clamp(20px, 2.5vw, 26px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; color: var(--text); margin-bottom: 10px; }
+.pc-title em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--gold); }
+.pc-sub { font-size: 15px; color: rgba(250,250,250,0.4); line-height: 1.6; max-width: 560px; }
+
+.pc-arrow { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-family: var(--mono); font-size: 12px; color: var(--gold); letter-spacing: 0.06em; }
+
+footer { border-top: 1px solid var(--border); padding: 28px 60px; display: flex; align-items: center; justify-content: space-between; }
+.fc { font-family: var(--mono); font-size: 11px; color: var(--dim); letter-spacing: 0.05em; }
+.fh { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.05em; text-decoration: none; transition: color 0.2s; }
+.fh:hover { color: var(--gold); }
+
+@media (max-width: 768px) {
+  nav, header, .posts, footer { padding-left: 24px; padding-right: 24px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">
+    <span class="logo-m">Marketing</span><span class="logo-sl">/</span><span class="logo-os">OS</span>
+  </a>
+  <a href="/" class="nav-back">← voltar ao sistema</a>
+</nav>
+
+<header>
+  <span class="blog-eyebrow">Build in public</span>
+  <h1>O que estamos<br>aprendendo <em>de verdade.</em></h1>
+  <p class="blog-desc">Não posts sobre marketing. Registros reais de um sistema sendo construído — com os números, os erros e o que funcionou.</p>
+</header>
+
+<main class="posts">
+
+  <a href="/blog/insights-instagram-captacao.html" class="post-card">
+    <div class="pc-meta">
+      <span class="pc-tag">Instagram · Captação</span>
+      <span class="pc-date">01 Jun 2026</span>
+      <span class="pc-read">7 min de leitura</span>
+    </div>
+    <h2 class="pc-title">Automatizei meu Instagram por 1 semana.<br><em>Aqui está o que aprendi sobre captação.</em></h2>
+    <p class="pc-sub">6 posts publicados sem abrir o app. 13 demos enviados por WhatsApp sem pressionar um botão. O que os dados disseram — e o que me surpreendeu.</p>
+    <div class="pc-arrow">Ler artigo →</div>
+  </a>
+
+</main>
+
+<footer>
+  <span class="fc">© 2026 MarketingOS · sistema de captação com IA</span>
+  <a href="https://instagram.com/felipeproenca_marketingos" class="fh" target="_blank">@felipeproenca_marketingos</a>
+</footer>
+
+</body>
+</html>

@@ -158,8 +158,7 @@ npm run criar-conteudo -- <slug> \
 npm run upload-image -- \
   --content <content_id> \
   --slide 1 \
-  --file caminho/da/imagem.png \
-  --slug <slug>
+  --file caminho/da/imagem.png
 
 # Depois de rodar insights e ter métricas no published.json
 npm run aprender -- --slug <slug> --min-age-hours 48

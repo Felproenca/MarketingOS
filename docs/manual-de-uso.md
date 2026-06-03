@@ -668,6 +668,20 @@ Use:
 
 Esta integracao conecta o MarketingOS ao motor `social-content-agents` via HTTP.
 
+Setup inicial, uma vez:
+
+```bash
+# Terminal 1 - social-content-agents
+cd social-content-agents
+pip install -e ".[dev]"
+python -m src.main
+# Servico em http://localhost:8000
+
+# Terminal 2 - MarketingOS
+cd MarketingOS
+echo "SOCIAL_AGENT_URL=http://localhost:8000" >> .env
+```
+
 Fluxo:
 
 ```text
@@ -688,7 +702,7 @@ SOCIAL_AGENT_KEY=
 Criar conteudo:
 
 ```bash
-npm run criar-conteudo -- toqueindiano --objetivo=autoridade --plataforma=instagram --tema="o que o cliente precisa sentir antes de comprar" --format=1:1
+npm run criar-conteudo pontos-cardeais --objetivo autoridade --plataforma instagram --tema "o que sua apolice nao cobre"
 ```
 
 Testar sem chamar o motor externo:
@@ -708,14 +722,62 @@ O comando:
 Se o motor pedir imagens:
 
 ```bash
-npm run upload-image -- --content <content_id> --slide 1 --file caminho/da/imagem.png --slug toqueindiano
+npm run upload-image -- --content pc-xxxxxxxx --slide 1 --file ~/Downloads/imagem.jpg
+```
+
+O `upload-image` lembra o cliente quando o `content_id` foi criado por `npm run criar-conteudo` na mesma maquina. Se estiver usando um `content_id` externo, informe `--slug toqueindiano`.
+
+Revisar slides:
+
+```text
+clients/pontos-cardeais/outputs/posts/YYYY-MM-DD/
+```
+
+Publicar:
+
+```bash
+npm run publicar
 ```
 
 Enviar aprendizado depois de publicar e rodar insights:
 
 ```bash
-npm run insights -- --slug toqueindiano --min-age-hours 48
-npm run aprender -- --slug toqueindiano --min-age-hours 48
+npm run insights -- --slug pontos-cardeais --min-age-hours 48
+npm run aprender -- pontos-cardeais
+```
+
+Loop completo:
+
+```text
+MarketingOS le client.md + alma.md
+  -> buildBrief() monta contexto completo
+  -> POST /api/brief
+        |
+        v
+social-content-agents
+  -> NicheIntelligenceAgent aplica contexto de nicho
+  -> CopyAgent gera copy com alma
+  -> VisualSpecAgent define especificacao visual
+  -> HTMLRenderer monta HTML por slide
+  -> PuppeteerExporter exporta PNG
+  -> retorna status
+        |
+        v
+MarketingOS
+  -> baixa PNGs
+  -> salva em clients/[slug]/outputs/
+  -> publica
+  -> mede depois de 48h
+  -> POST /api/learn com metricas
+        |
+        v
+social-content-agents
+  -> atualiza inteligencia de nicho
+  -> proximo conteudo sai mais inteligente
+        |
+        v
+MarketingOS
+  -> intelligence/benchmarks.json segue como referencia operacional
 ```
 
 Arquivos da integracao:

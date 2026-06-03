@@ -7,6 +7,7 @@ const fs = require('fs');
 const path = require('path');
 const { buildBrief } = require('./brief-builder');
 const { requestContent, downloadPNGs } = require('./content-client');
+const { rememberContent } = require('./state');
 
 const args = process.argv.slice(2);
 const slug = args.find(arg => !arg.startsWith('--'));
@@ -39,6 +40,17 @@ async function run() {
 
   const result = await requestContent(brief);
   fs.writeFileSync(path.join(outputDir, 'content-response.json'), JSON.stringify(result, null, 2) + '\n', 'utf8');
+
+  if (result.content_id) {
+    rememberContent(result.content_id, {
+      slug,
+      outputDir,
+      tema: opts.tema,
+      objetivo: opts.objetivo,
+      plataforma: opts.plataforma,
+      format: opts.format,
+    });
+  }
 
   if (result.status === 'pronto_para_publicar') {
     const pngs = await downloadPNGs(result.content_id, outputDir);

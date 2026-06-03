@@ -664,6 +664,79 @@ Use:
 
 ---
 
+## 20.1. Integracao social-content-agents
+
+Esta integracao conecta o MarketingOS ao motor `social-content-agents` via HTTP.
+
+Fluxo:
+
+```text
+MarketingOS -> monta brief do cliente
+MarketingOS -> envia brief para social-content-agents
+social-content-agents -> retorna conteudo/render/status
+MarketingOS -> baixa PNGs, publica e mede
+MarketingOS -> envia metricas de volta para aprendizado
+```
+
+Variaveis:
+
+```env
+SOCIAL_AGENT_URL=http://localhost:8000
+SOCIAL_AGENT_KEY=
+```
+
+Criar conteudo:
+
+```bash
+npm run criar-conteudo -- toqueindiano --objetivo=autoridade --plataforma=instagram --tema="o que o cliente precisa sentir antes de comprar" --format=1:1
+```
+
+Testar sem chamar o motor externo:
+
+```bash
+npm run criar-conteudo -- toqueindiano --tema="teste de brief" --dry-run
+```
+
+O comando:
+
+- le `client.md`, `brand-kit.json`, `estrategia.md`, `alma.md`, `manifesto.md` e `benchmarks.json`;
+- monta um brief JSON;
+- envia para `/api/brief`;
+- salva `brief.json` e `content-response.json` em `clients/[slug]/outputs/posts/YYYY-MM-DD/`;
+- baixa PNGs se o status voltar como `pronto_para_publicar`.
+
+Se o motor pedir imagens:
+
+```bash
+npm run upload-image -- --content <content_id> --slide 1 --file caminho/da/imagem.png --slug toqueindiano
+```
+
+Enviar aprendizado depois de publicar e rodar insights:
+
+```bash
+npm run insights -- --slug toqueindiano --min-age-hours 48
+npm run aprender -- --slug toqueindiano --min-age-hours 48
+```
+
+Arquivos da integracao:
+
+| Arquivo | Funcao |
+|---|---|
+| `scripts/integration/brief-builder.js` | Monta o brief JSON do cliente. |
+| `scripts/integration/content-client.js` | Cliente HTTP para o motor externo. |
+| `scripts/integration/learn-sender.js` | Envia metricas de volta para aprendizado. |
+| `scripts/integration/criar-conteudo.js` | CLI principal de criacao. |
+| `scripts/integration/upload-image.js` | CLI para anexar imagem ao conteudo pausado. |
+| `scripts/integration/aprender.js` | CLI para fechar loop de aprendizado. |
+
+Regra:
+
+- `MarketingOS` continua sendo o cerebro: contexto, alma, estrategia e metricas.
+- `social-content-agents` e o motor: geracao visual e escala.
+- Nada deve ser publicado automaticamente sem aprovacao.
+
+---
+
 ## 21. Sherlock
 
 Script:

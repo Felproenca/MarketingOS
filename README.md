@@ -118,6 +118,9 @@ npm run carousel:render
 npm run prospector -- --slug [slug] --query "busca" --city "cidade" --dry-run
 npm run scraper -- "busca cidade" --dry-run
 npm run scraper:dry -- "busca cidade"
+npm run criar-conteudo -- [slug] --tema "tema"
+npm run upload-image -- --content [id] --slide 1 --file imagem.png --slug [slug]
+npm run aprender -- --slug [slug]
 npm run demo -- --query "busca" --city "cidade" --segment clinica --dry-run
 npm run publicar -- --slug [slug] --file img.png --caption "legenda" --dry-run
 ```

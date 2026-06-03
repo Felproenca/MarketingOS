@@ -143,6 +143,31 @@ npm run scraper -- \
 **Pipeline:** Discovery → Analysis → Qualification → Message → Outreach  
 **Output:** `scripts/scraper/leads.json`
 
+### Integração social-content-agents
+
+```bash
+# Envia brief do MarketingOS para o motor de conteúdo
+npm run criar-conteudo -- <slug> \
+  --objetivo=autoridade \
+  --plataforma=instagram \
+  --tema="o que o cliente precisa sentir antes de comprar" \
+  --format=1:1 \
+  --dry-run
+
+# Quando o motor pedir imagens externas
+npm run upload-image -- \
+  --content <content_id> \
+  --slide 1 \
+  --file caminho/da/imagem.png \
+  --slug <slug>
+
+# Depois de rodar insights e ter métricas no published.json
+npm run aprender -- --slug <slug> --min-age-hours 48
+```
+
+**Fluxo:** MarketingOS monta brief → social-content-agents gera conteúdo → MarketingOS publica e mede → MarketingOS envia métricas de volta.  
+**Módulos:** `scripts/integration/brief-builder.js`, `content-client.js`, `learn-sender.js`.
+
 ### Demo Pipeline (agency → leads → demo personalizado → outreach)
 
 ```bash

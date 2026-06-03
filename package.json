@@ -17,7 +17,9 @@
     "backfill": "node scripts/insights/backfill.js",
     "aggregate": "node scripts/intelligence/aggregate.js",
     "demo": "node scripts/demo-pipeline/index.js",
-    "bot": "node scripts/whatsapp-bot/index.js"
+    "bot": "node scripts/whatsapp-bot/index.js",
+    "scraper": "node scripts/scraper/index.js",
+    "scraper:dry": "node scripts/scraper/index.js --dry-run"
   },
   "keywords": [],
   "author": "",

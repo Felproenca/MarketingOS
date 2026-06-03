@@ -1,6 +1,6 @@
 # commands.md — Referência de Comandos do MarketingOS
 > Todos os comandos do sistema em um lugar só.
-> Atualizado em: 2026-05-30
+> Atualizado em: 2026-06-02
 
 ---
 
@@ -124,6 +124,24 @@ npm run prospector -- \
   --sources maps,search \       # Fontes de scraping
   --dry-run                     # Testa sem enviar
 ```
+
+### Scraper Inteligente v2
+
+```bash
+# Diagnóstico + score + mensagem personalizada, sem enviar
+npm run scraper:dry -- "clínica estética Rio de Janeiro" --max=10 --score=6
+
+# Rodar com opções explícitas
+npm run scraper -- \
+  "clínica estética Rio de Janeiro" \
+  --max=10 \                    # Máximo de leads qualificados
+  --score=6 \                   # Score mínimo para abordar
+  --channel=email \             # email | whatsapp | both
+  --dry-run                     # Gera mensagem sem enviar
+```
+
+**Pipeline:** Discovery → Analysis → Qualification → Message → Outreach  
+**Output:** `scripts/scraper/leads.json`
 
 ### Demo Pipeline (agency → leads → demo personalizado → outreach)
 

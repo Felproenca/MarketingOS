@@ -21,6 +21,18 @@ cd MarketingOS
 npm install
 ```
 
+Manual completo:
+
+```text
+docs/manual-de-uso.md
+```
+
+Referência rápida de comandos:
+
+```text
+workflows/commands.md
+```
+
 ---
 
 ## Fundação — leia antes de operar
@@ -93,3 +105,19 @@ node scripts/create-client.js meu-cliente
 - Todo output vai para `clients/[slug]/outputs/`
 - Nunca misturar contexto entre clientes
 - O que não é verdadeiro não sai
+
+---
+
+## Scripts principais
+
+```bash
+npm run novo -- [slug]
+npm run cmd -- /status
+npm run carousel:generate -- --slug [slug] --tema "tema"
+npm run carousel:render
+npm run prospector -- --slug [slug] --query "busca" --city "cidade" --dry-run
+npm run scraper -- "busca cidade" --dry-run
+npm run scraper:dry -- "busca cidade"
+npm run demo -- --query "busca" --city "cidade" --segment clinica --dry-run
+npm run publicar -- --slug [slug] --file img.png --caption "legenda" --dry-run
+```

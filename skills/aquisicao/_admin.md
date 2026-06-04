@@ -34,6 +34,9 @@ Comando: `/prospectar`
 "Quem são os clientes ideais nesse nicho?"
 → skill-prospector.md
 
+"Quero usar o ProspectingAgent / qualificar sinais de compra"
+→ skill-prospecting-agent.md
+
 "Como estruturo a captura de leads?"
 → skill-lead-capture.md
 
@@ -53,6 +56,8 @@ skill-market-analyzer
   → identifica o nicho
 skill-prospector
   → encontra os clientes
+skill-prospecting-agent
+  → qualifica sinais de compra e prioriza abordagem
 skill-offer-positioning
   → define a mensagem
 skill-pitch-deck

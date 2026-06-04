@@ -49,6 +49,18 @@ a skill-criatividade é obrigatória antes de tudo.
 → PRIMEIRO: skill-niche-intelligence.md (se não há mapa)
 → DEPOIS:   skill-carousel.md / skill-post.md / skill-site-builder.md
 
+"Quero usar o motor automatizado / agents"
+→ skill-content-engine.md
+
+"Preciso de copy por plataforma"
+→ skill-social-copy.md
+
+"Preciso transformar copy em direção visual por slide"
+→ skill-visual-spec.md
+
+"O pipeline pediu imagem externa / preciso decidir HTML vs imagem"
+→ skill-prompt-engineer.md
+
 "Qual o melhor ângulo para este tema?"
 → skill-niche-intelligence.md
 

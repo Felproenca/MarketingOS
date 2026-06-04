@@ -43,6 +43,12 @@ Comando: `/analisar`
 
 "Preciso de decisão estratégica — o que priorizar agora?"
 → skill-estrategista.md
+
+"Quero entender tendências, saturação ou oportunidade editorial"
+→ skill-trend-research.md
+
+"Quero transformar métricas em aprendizado reutilizável"
+→ skill-performance-learning.md
 ```
 
 ---

@@ -53,6 +53,10 @@
 | `/criar imagem` | Prompts e imagens de apoio | `criacao/skill-image-generation.md` |
 | `/criar branding` | Direção criativa e design system | `criacao/skill-branding.md` |
 | `/criar site` | Site ou landing page | `criacao/skill-site-builder.md` |
+| `/criar com-motor` | Conteúdo via motor social/API local | `criacao/skill-content-engine.md` |
+| `/criar copy-agent` | Copy por plataforma com contrato de agent | `criacao/skill-social-copy.md` |
+| `/criar visual-spec` | Direção visual por slide/frame | `criacao/skill-visual-spec.md` |
+| `/criar prompt-engineer` | Decide HTML puro vs imagem externa | `criacao/skill-prompt-engineer.md` |
 | `/publicar` | Revisão + checklist + publicação via Meta Graph API | `criacao/skill-publicar.md` |
 
 ---
@@ -66,6 +70,8 @@
 | `/analisar investigar [@perfil\|URL]` | Concorrente ou referência de mercado | `analise/skill-investigar.md` |
 | `/analisar seo` | Auditoria e estratégia SEO | `analise/skill-seo.md` |
 | `/analisar estrategia` | Decisão estratégica e priorização | `analise/skill-estrategista.md` |
+| `/analisar tendencias` | Tendências, saturação e oportunidades editoriais | `analise/skill-trend-research.md` |
+| `/analisar aprendizado` | Transforma métricas em aprendizado reutilizável | `analise/skill-performance-learning.md` |
 
 ---
 
@@ -75,6 +81,7 @@
 |---|---|---|
 | `/prospectar mercado` | Analisa nichos com potencial | `aquisicao/skill-market-analyzer.md` |
 | `/prospectar prospector` | Qualifica e prioriza prospectos | `aquisicao/skill-prospector.md` |
+| `/prospectar agent` | Sinais de compra e abordagem via contrato de agent | `aquisicao/skill-prospecting-agent.md` |
 | `/prospectar oferta` | Posicionamento e copy de oferta | `aquisicao/skill-offer-positioning.md` |
 | `/prospectar pitch` | Apresentação comercial HTML | `aquisicao/skill-pitch-deck.md` |
 | `/prospectar captacao` | Estrutura de captura de leads | `aquisicao/skill-lead-capture.md` |
@@ -186,6 +193,34 @@ npm run demo -- --slug <slug> --query "..." --city "..." --segment clinica
 
 **Segmentos disponíveis:** `clinica` | `b2b`
 
+### Site Prospect (URL direta → demo personalizado → outreach)
+
+```bash
+# Prospecção cirúrgica: entra com URL de um site específico
+npm run site-prospect -- \
+  --url https://clinica.com.br \
+  --segment clinica \           # clinica | b2b | diagnostico
+  --channels whatsapp \         # whatsapp | email | whatsapp,email
+  --dry-run                     # Visualiza sem enviar
+
+# Forçar contato se não foi detectado automaticamente
+npm run site-prospect -- \
+  --url https://exemplo.com.br \
+  --segment b2b \
+  --phone 5511999999999 \
+  --email contato@exemplo.com.br \
+  --channels whatsapp,email
+
+# Apenas gerar o demo, sem enviar
+npm run site-prospect -- --url https://exemplo.com.br --only-demo
+
+# Dry-run (atalho)
+npm run site-prospect:dry -- --url https://exemplo.com.br --segment clinica
+```
+
+**Pipeline:** URL → extrai marca (cor, logo, nome) → extrai contatos (WhatsApp, email, Instagram) → gera demo PNG personalizado → envia outreach  
+**Output:** `agency/demos/[slug]/` ou `clients/[slug]/outputs/demos/` se `--slug` informado
+
 ### Sherlock — Investigação de Perfis
 
 ```bash
@@ -242,6 +277,16 @@ npm run carousel:render         # Renderiza HTML → PNG
 ---
 
 ## 9. Pipelines
+
+### Economia de Tokens
+
+```bash
+# Regra operacional
+workflows/token-economy.md
+```
+
+**Fluxo:** fundacao minima → `_admin.md` do grupo → uma skill → contexto minimo da skill.  
+**Regra:** agents executam, skills decidem, MarketingOS governa.
 
 ```bash
 /pipeline branding-completo     # branding → brand-kit → site

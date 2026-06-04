@@ -119,12 +119,19 @@ Só avançar depois de ter essas respostas. Estrutura sem essas respostas é ru�
 2. Ler a secao `## Contexto mínimo necessário` da skill antes de carregar qualquer arquivo
 3. Carregar APENAS os arquivos listados nessa secao — nao carregar o que esta na lista `NAO carregar`
 4. Ler `alma.md` (raiz) — o porque de tudo (uma vez por sessao)
-5. Ler `intelligence/patterns.md` — padroes cross-client aplicaveis ao nicho
-6. Ler `intelligence/benchmarks.json` — benchmarks do canal
-7. Ler `client.md` do cliente ativo
-8. Ler `notes.md` — alertas e inteligencia acumulada
-9. Ler `runs.md` — ultimas sessoes para evitar retrabalho
-10. Ao final: executar `/fechar` — nunca fechar o chat sem salvar aprendizados
+5. Ler `intelligence/`, `client.md`, `notes.md`, `runs.md` e `metrics.json` somente quando a skill escolhida pedir
+6. Ao final: executar `/fechar` — nunca fechar o chat sem salvar aprendizados
+
+### Modo Economico de Tokens
+
+Use `workflows/token-economy.md` como regra operacional para reduzir contexto.
+
+- Fundacao primeiro: `manifesto.md`, `alma.md`, `CLAUDE.md`.
+- Depois, carregar apenas o `_admin.md` do grupo.
+- Escolher uma unica skill.
+- Ler apenas a skill escolhida e seu contexto minimo.
+- Agents executam. Skills decidem. MarketingOS governa.
+- Nao carregar codigo de agents ou README de frameworks externos para operar comando/API ja existente.
 
 ---
 
@@ -149,6 +156,8 @@ Só avançar depois de ter essas respostas. Estrutura sem essas respostas é ru�
 | `analise/skill-investigar.md` | Analise de concorrente ou referencia |
 | `analise/skill-seo.md` | Estrategia e auditoria SEO |
 | `analise/skill-estrategista.md` | Decisao estrategica e priorizacao |
+| `analise/skill-trend-research.md` | Tendencias, maturidade e oportunidade editorial |
+| `analise/skill-performance-learning.md` | Aprendizado por metricas e feedback para o motor |
 
 ### Grupo: Criacao → `/criar`
 > Leia `alma.md` (raiz) + `skills/criacao/_admin.md` → escolha uma skill → carregue so ela.
@@ -156,12 +165,17 @@ Só avançar depois de ter essas respostas. Estrutura sem essas respostas é ru�
 | Skill | Quando usar |
 |---|---|
 | `criacao/skill-criatividade.md` | Verdade humana + direcao criativa (obrigatoria antes de criar) |
+| `criacao/skill-niche-intelligence.md` | Mapa de nicho, angulos e oportunidade editorial (obrigatoria sem mapa) |
 | `criacao/skill-carousel.md` | Carrossel para Instagram |
 | `criacao/skill-post.md` | Post (Feed, Reels, Story) |
 | `criacao/skill-branding.md` | Direcao criativa e design system |
 | `criacao/skill-site-builder.md` | Site ou landing page |
 | `criacao/skill-image-generation.md` | Prompts e imagens de apoio |
 | `criacao/skill-publicar.md` | Aprovacao, checklist e publicacao real via Meta Graph API (`npm run publicar`) |
+| `criacao/skill-content-engine.md` | Motor social automatizado (`social-content-agents`) |
+| `criacao/skill-social-copy.md` | Copy agent como skill |
+| `criacao/skill-visual-spec.md` | Direcao visual por slide/frame |
+| `criacao/skill-prompt-engineer.md` | Decisao HTML puro vs imagem externa |
 
 ### Grupo: Aquisicao → `/prospectar`
 > Leia `skills/aquisicao/_admin.md` → escolha uma skill → carregue so ela.
@@ -170,6 +184,7 @@ Só avançar depois de ter essas respostas. Estrutura sem essas respostas é ru�
 |---|---|
 | `aquisicao/skill-market-analyzer.md` | Analisa nichos com potencial (`/mercado`) |
 | `aquisicao/skill-prospector.md` | Qualifica e prioriza prospectos (`/prospector`) |
+| `aquisicao/skill-prospecting-agent.md` | ProspectingAgent como skill de sinais e abordagem |
 | `aquisicao/skill-offer-positioning.md` | Posicionamento e copy de oferta |
 | `aquisicao/skill-pitch-deck.md` | Apresentacao comercial HTML (`/pitch`) |
 | `aquisicao/skill-lead-capture.md` | Estrutura de captura de leads |
@@ -210,7 +225,7 @@ Só avançar depois de ter essas respostas. Estrutura sem essas respostas é ru�
 5. Nunca misturar contexto, metricas ou outputs entre clientes.
 6. Documentar novos comandos em `workflows/commands.md`.
 7. Para gerar site, executar branding antes (`/branding` → `/site`).
-8. Carrosseis: gerar HTML diretamente via `skill-carousel.md` v2.0 — sem .md intermediario, sem Python.
+8. Carrosseis: gerar HTML diretamente via `skill-carousel.md` v2.0; Python so pode ser motor interno quando chamado por `skill-content-engine.md`, nunca etapa manual intermediaria.
 9. Executar `/fechar` ao encerrar sessao — nunca apenas fechar o chat.
 10. Para workflows de mais de uma skill, usar `workflows/pipeline-runner.md`.
 

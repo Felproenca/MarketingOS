@@ -91,6 +91,16 @@ Estrutura:
   → 55–60s  CTA: ação clara
 
 Legenda:
+  → Gancho: Linha 1-2, replicando ou complementando o visual/fala inicial do Reels.
+  → Desenvolvimento: 3-5 linhas, aprofundando o valor ou a dor.
+  → CTA: Direto e específico para a ação do Reels.
+  → Emojis: Uso estratégico para guiar a leitura.
+```
+
+**Opções de Execução (Sem Câmera):**
+  → Estética Codex: Simulação de IDE/VSCode com código real do MarketingOS subindo.
+  → Tipografia Cinética: Foco em fontes premium e ritmo.
+  → Screencast Técnico: Gravação de tela do terminal ou arquivos .md.
   → Igual ao Feed, adaptada para vídeo
 ```
 
@@ -140,6 +150,7 @@ Briefing visual:
 - Tipografia: [tamanho, peso, fonte sugerida]
 - Elemento de destaque: [ícone / número / citação]
 - Paleta: [cores principais]
+- Estilo: [minimalista / vibrante / corporativo / orgânico]
 - Composição: [texto centralizado / à esquerda / sobreposto à foto]
 ```
 

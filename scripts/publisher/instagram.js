@@ -38,6 +38,7 @@ async function createCarouselItem(igUserId, imageUrl, accessToken) {
   return createMediaContainer(igUserId, {
     image_url: imageUrl,
     is_carousel_item: true,
+    media_type: 'IMAGE',
   }, accessToken);
 }
 

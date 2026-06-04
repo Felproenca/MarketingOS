@@ -30,7 +30,8 @@ Comando: `/criar`
 ```
 1. Ler alma.md
 2. Ler skill-criatividade.md
-3. Só então executar a skill de conteúdo
+3. Ler skill-niche-intelligence.md quando não houver mapa de nicho/ângulo
+4. Só então executar a skill de conteúdo
 ```
 
 Se o cliente não tem verdade humana identificada ainda,
@@ -44,14 +45,12 @@ a skill-criatividade é obrigatória antes de tudo.
 "Qual a verdade humana desse negócio?"
 → skill-criatividade.md
 
-"Preciso de um carrossel para o Instagram"
-→ skill-carousel.md
+"Preciso de um carrossel / post / site"
+→ PRIMEIRO: skill-niche-intelligence.md (se não há mapa)
+→ DEPOIS:   skill-carousel.md / skill-post.md / skill-site-builder.md
 
-"Preciso de um post (feed, reels ou story)"
-→ skill-post.md
-
-"Preciso de um site ou landing page"
-→ skill-site-builder.md
+"Qual o melhor ângulo para este tema?"
+→ skill-niche-intelligence.md
 
 "Preciso de imagens"
 → skill-image-generation.md

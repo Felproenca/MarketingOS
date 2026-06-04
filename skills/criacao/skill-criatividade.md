@@ -16,6 +16,23 @@ env: []
 
 ---
 
+## Gatilho de ativação
+
+```
+CONTEXTO 1 — Sem mapa criativo
+  Condição: notes.md não tem mapa criativo aprovado para este cliente
+  Ação: executar skill-criatividade antes de qualquer skill de conteúdo
+
+CONTEXTO 1B — Nicho identificado mas sem profundidade
+  Condição: client.md tem nicho preenchido mas
+  não há análise de ângulo ou maturidade de tema
+  Ação: executar skill-niche-intelligence ANTES
+  de executar o mapa criativo completo
+  O mapa de nicho alimenta as perguntas centrais
+```
+
+---
+
 ## Contexto mínimo necessário
 → manifesto.md — norte filosófico (obrigatório)
 → alma.md — missão, visão e filtros de criação (obrigatório)
@@ -256,6 +273,10 @@ Este é o ponto de maior impacto: um mapa errado contamina tudo que vem depois.
 - [ ] A voz tem exemplo concreto, não só adjetivos?
 - [ ] O ângulo diferenciador é impossível de copiar?
 - [ ] O mapa foi salvo no notes.md do cliente?
+- [ ] skill-niche-intelligence foi executada?
+- [ ] O ângulo gerado é específico ao nicho?
+- [ ] O gancho não poderia ser de outro nicho?
+- [ ] A posição editorial está definida?
 
 ---
 

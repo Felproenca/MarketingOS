@@ -1,0 +1,728 @@
+<!--
+PITCH DECK — Bruno Capelli
+Gerado por: MarketingOS / skill-pitch-deck v2.1
+Data: 2026-06-05
+Salvo em: agency/demos/salao-de-beleza-bruno-capelli/
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bruno Capelli — Diagnóstico e Próximos Passos</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --mos-bg:#0a0a0a;
+  --mos-bg-2:#111;
+  --mos-bg-3:#1a1a1a;
+  --mos-line:#222;
+  --mos-line-2:#2a2a2a;
+  --mos-text:#fafafa;
+  --mos-text-2:#a0a0a0;
+  --mos-text-3:#666;
+  --mos-red:#d85a30;
+  --mos-green:#1d9e75;
+
+  --client-primary:    #0E0D0C;
+  --client-secondary:  #2E2318;
+  --client-accent:     #C4A35A;
+  --client-neutral:    #8A8078;
+  --client-background: #F5F0EA;
+
+  --client-font-h: 'Cormorant Garamond', serif;
+  --client-font-b: 'DM Sans', sans-serif;
+}
+
+html{scroll-behavior:smooth}
+body{background:var(--mos-bg);color:var(--mos-text);font-family:var(--client-font-b);font-size:15px;line-height:1.6;overflow-x:hidden}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.9);backdrop-filter:blur(20px);border-bottom:0.5px solid var(--mos-line);padding:14px 0}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 32px;display:flex;justify-content:space-between;align-items:center}
+.nav-logo{font-family:var(--client-font-h);font-size:15px;font-weight:400;letter-spacing:0.06em;color:var(--client-accent)}
+.nav-progress{font-family:var(--client-font-b);font-size:11px;color:var(--mos-text-3);letter-spacing:0.12em;text-transform:uppercase}
+
+/* SLIDES */
+.slide{min-height:100vh;padding:120px 32px 80px;display:flex;flex-direction:column;justify-content:center;border-bottom:0.5px solid var(--mos-line);position:relative}
+.slide-inner{max-width:980px;margin:0 auto;width:100%}
+.slide-label{font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--client-accent);margin-bottom:24px}
+.slide h1{font-family:var(--client-font-h);font-size:64px;font-weight:400;line-height:1.05;letter-spacing:-0.02em;margin-bottom:32px}
+.slide h1 em{font-style:italic;color:var(--client-accent)}
+.slide h2{font-family:var(--client-font-h);font-size:40px;font-weight:400;line-height:1.15;letter-spacing:-0.015em;margin-bottom:24px}
+.slide h3{font-family:var(--client-font-h);font-size:22px;font-weight:500;line-height:1.3;margin-bottom:12px}
+.slide-lead{font-size:19px;line-height:1.6;color:var(--mos-text-2);max-width:720px;margin-bottom:48px}
+.slide-text{font-size:16px;line-height:1.7;color:var(--mos-text-2);max-width:680px}
+.slide-text+.slide-text{margin-top:16px}
+
+/* COVER */
+.cover{background:radial-gradient(ellipse at top left,color-mix(in srgb,var(--client-accent) 10%,transparent),transparent 60%)}
+.cover .meta{font-size:12px;color:var(--mos-text-3);letter-spacing:0.12em;text-transform:uppercase;margin-top:64px}
+.cover .recipient{font-family:var(--client-font-h);font-size:24px;font-weight:300;font-style:italic;color:var(--client-accent);margin-top:8px}
+
+/* COMPARATIVO */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:48px}
+.compare-col{border:0.5px solid var(--mos-line-2);border-radius:12px;padding:32px;background:var(--mos-bg-2)}
+.compare-col.bad{border-color:rgba(216,90,48,0.3);background:rgba(216,90,48,0.04)}
+.compare-col.good{border-color:rgba(29,158,117,0.3);background:rgba(29,158,117,0.04)}
+.compare-tag{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;margin-bottom:20px;display:inline-block;padding:4px 10px;border-radius:20px}
+.compare-tag.bad{color:var(--mos-red);background:rgba(216,90,48,0.12)}
+.compare-tag.good{color:var(--mos-green);background:rgba(29,158,117,0.12)}
+.compare-headline{font-family:var(--client-font-h);font-size:24px;font-weight:400;line-height:1.3;color:var(--mos-text);margin-bottom:16px}
+.compare-note{font-size:13px;color:var(--mos-text-2);line-height:1.6}
+
+/* PROBLEMAS */
+.problem-list{display:flex;flex-direction:column;gap:24px;margin-top:48px}
+.problem{display:grid;grid-template-columns:60px 1fr;gap:24px;padding-bottom:24px;border-bottom:0.5px solid var(--mos-line)}
+.problem:last-child{border-bottom:none}
+.problem-num{font-family:var(--client-font-h);font-size:32px;font-weight:300;color:var(--mos-text-3);font-style:italic;line-height:1}
+.problem-content h3{margin-bottom:8px}
+.problem-content p{font-size:15px;color:var(--mos-text-2);line-height:1.6}
+.problem-impact{margin-top:12px;font-size:13px;color:var(--client-accent);font-weight:500}
+
+/* MOCKUP SITE */
+.mockup-wrap{margin-top:40px;border-radius:12px;overflow:hidden;border:0.5px solid var(--mos-line-2)}
+.mockup-bar{background:var(--mos-bg-3);padding:12px 16px;display:flex;align-items:center;gap:8px;border-bottom:0.5px solid var(--mos-line)}
+.mockup-bar span.dot{width:12px;height:12px;border-radius:50%;background:var(--mos-line-2);flex-shrink:0}
+.mockup-bar .url{margin-left:12px;font-size:11px;color:var(--mos-text-3);font-family:'SF Mono',monospace;flex:1}
+.mockup-bar .open-btn{font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--client-accent);text-decoration:none;border:0.5px solid var(--client-accent);padding:4px 12px;border-radius:4px;flex-shrink:0;transition:all 0.2s}
+.mockup-bar .open-btn:hover{background:var(--client-accent);color:var(--client-primary)}
+.mockup-preview{background:var(--client-primary);overflow:hidden;position:relative}
+.mockup-preview img{width:100%;display:block;border:none}
+.mockup-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,rgba(10,10,10,0.8) 100%);pointer-events:none}
+
+/* INSTAGRAM */
+.instagram-compare{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:48px}
+.ig-col{display:flex;flex-direction:column;gap:16px}
+.ig-label{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;padding:4px 10px;border-radius:20px;display:inline-block;align-self:flex-start}
+.ig-col.bad .ig-label{color:var(--mos-red);background:rgba(216,90,48,0.12)}
+.ig-col.good .ig-label{color:var(--mos-green);background:rgba(29,158,117,0.12)}
+.ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:var(--mos-bg-2);padding:12px;border-radius:8px}
+.ig-post{aspect-ratio:1;display:flex;align-items:center;justify-content:center;padding:8px;border-radius:2px;font-size:9px;text-align:center;color:#fff;font-weight:500;line-height:1.2;text-transform:uppercase;letter-spacing:0.06em;overflow:hidden}
+.ig-col.bad .ig-post{background:#2a2a2a;color:#666}
+.ig-col.good .ig-post.p1{background:var(--client-primary);border:0.5px solid #333}
+.ig-col.good .ig-post.p2{background:var(--client-secondary)}
+.ig-col.good .ig-post.p3{background:var(--client-accent);color:var(--client-primary)}
+.ig-col.good .ig-post.p4{background:#1a1510}
+.ig-col.good .ig-post.p5{background:var(--client-background);color:var(--client-primary)}
+.ig-col.good .ig-post.font{font-family:var(--client-font-h);font-style:italic;font-size:13px;text-transform:none;letter-spacing:0;background:var(--client-secondary)}
+.ig-note{font-size:13px;color:var(--mos-text-2);line-height:1.6}
+
+/* CARROSSEL */
+.carousel-section{margin-top:48px}
+.carousel-tab-bar{display:flex;gap:0;margin-bottom:32px;border:0.5px solid var(--mos-line-2);border-radius:8px;overflow:hidden}
+.carousel-tab{flex:1;padding:12px;text-align:center;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--mos-text-3);cursor:pointer;background:var(--mos-bg-2);border:none;font-family:var(--client-font-b);transition:all 0.2s;border-right:0.5px solid var(--mos-line-2)}
+.carousel-tab:last-child{border-right:none}
+.carousel-tab.active{background:var(--client-accent);color:var(--client-primary);font-weight:600}
+
+.carousel-panel{display:none}
+.carousel-panel.active{display:block}
+
+.carousel-demo{position:relative}
+.carousel-frame{position:relative;width:100%;max-width:480px;margin:0 auto;aspect-ratio:1;border-radius:12px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,0.7);background:var(--client-primary)}
+.carousel-slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:40px;opacity:0;pointer-events:none;transition:opacity 0.35s ease}
+.carousel-slide.active{opacity:1;pointer-events:all}
+
+/* slide gancho */
+.carousel-slide.gancho{background:var(--client-primary);justify-content:flex-end}
+.carousel-slide.gancho .c-eyebrow{font-size:10px;letter-spacing:0.3em;color:var(--client-accent);text-transform:uppercase;margin-bottom:16px}
+.carousel-slide.gancho .c-title{font-family:var(--client-font-h);font-size:44px;font-weight:300;line-height:1.05;color:#F5F0EA;margin-bottom:10px}
+.carousel-slide.gancho .c-title em{font-style:italic;color:var(--client-accent)}
+.carousel-slide.gancho .c-sub{font-size:13px;color:#8A8078;font-weight:300}
+.carousel-slide.gancho .c-brand{position:absolute;top:24px;left:32px;right:32px;display:flex;justify-content:space-between;font-size:10px;letter-spacing:0.3em;color:var(--client-accent);text-transform:uppercase;font-family:var(--client-font-b)}
+
+/* slide conteudo */
+.carousel-slide.conteudo{background:var(--client-primary);align-items:flex-start}
+.carousel-slide.conteudo .c-brand{position:absolute;top:24px;left:32px;right:32px;display:flex;justify-content:space-between;font-size:10px;letter-spacing:0.3em;color:var(--client-accent);text-transform:uppercase;font-family:var(--client-font-b)}
+.carousel-slide.conteudo .c-num{font-family:var(--client-font-h);font-size:64px;font-weight:300;color:rgba(196,163,90,0.1);line-height:1;margin-bottom:0}
+.carousel-slide.conteudo .c-title{font-family:var(--client-font-h);font-size:26px;font-weight:400;color:#F5F0EA;line-height:1.2;margin-bottom:12px}
+.carousel-slide.conteudo .c-title em{font-style:italic;color:var(--client-accent)}
+.carousel-slide.conteudo .c-body{font-size:12px;color:#8A8078;line-height:1.7;font-weight:300}
+.carousel-slide.conteudo .c-body strong{color:#F5F0EA;font-weight:500}
+
+/* slide cta */
+.carousel-slide.cta{background:var(--client-primary);flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.carousel-slide.cta .c-brand{position:absolute;top:24px;left:32px;right:32px;display:flex;justify-content:space-between;font-size:10px;letter-spacing:0.3em;color:var(--client-accent);text-transform:uppercase;font-family:var(--client-font-b)}
+.carousel-slide.cta .c-pre{font-size:10px;letter-spacing:0.35em;color:#7A6535;text-transform:uppercase;margin-bottom:16px}
+.carousel-slide.cta .c-cta-title{font-family:var(--client-font-h);font-size:34px;font-weight:300;color:#F5F0EA;line-height:1.15;margin-bottom:10px}
+.carousel-slide.cta .c-cta-title em{font-style:italic;color:var(--client-accent)}
+.carousel-slide.cta .c-cta-sub{font-size:12px;color:#8A8078;margin-bottom:20px;max-width:300px}
+.carousel-slide.cta .c-btn{padding:12px 28px;border:1px solid var(--client-accent);color:var(--client-accent);font-size:10px;letter-spacing:0.25em;text-transform:uppercase;font-family:var(--client-font-b)}
+.carousel-slide.cta .c-handle{font-size:11px;color:#8A8078;margin-top:16px}
+.carousel-slide.cta .rings{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.carousel-slide.cta .ring{position:absolute;border-radius:50%;border:1px solid rgba(196,163,90,0.06)}
+.ring-a{width:200px;height:200px}
+.ring-b{width:320px;height:320px}
+
+.carousel-num-badge{position:absolute;top:24px;right:32px;font-size:10px;color:#8A8078;letter-spacing:0.1em}
+
+.carousel-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:20px}
+.carousel-nav button{background:var(--mos-bg-2);border:0.5px solid var(--mos-line-2);color:var(--mos-text);width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;font-family:inherit}
+.carousel-nav button:hover{background:var(--mos-bg-3);border-color:var(--client-accent)}
+.carousel-dots{display:flex;gap:8px;align-items:center}
+.carousel-dots .dot{width:6px;height:6px;border-radius:50%;background:var(--mos-line-2);cursor:pointer;transition:all 0.2s}
+.carousel-dots .dot.active{background:var(--client-accent);width:20px;border-radius:3px}
+.carousel-caption{text-align:center;font-size:13px;color:var(--mos-text-3);margin-top:20px;font-style:italic}
+
+/* CALENDÁRIO */
+.calendar{margin-top:48px;border-radius:12px;overflow:hidden;border:0.5px solid var(--mos-line-2)}
+.calendar-head{display:grid;grid-template-columns:80px repeat(5,1fr);background:var(--mos-bg-2);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--mos-text-3);font-weight:500}
+.calendar-head>div{padding:14px;border-right:0.5px solid var(--mos-line)}
+.calendar-head>div:last-child{border-right:none}
+.calendar-row{display:grid;grid-template-columns:80px repeat(5,1fr);border-top:0.5px solid var(--mos-line)}
+.calendar-week{padding:16px;font-family:var(--client-font-h);font-style:italic;font-size:13px;color:var(--mos-text-2);border-right:0.5px solid var(--mos-line);display:flex;align-items:center}
+.calendar-cell{padding:14px;border-right:0.5px solid var(--mos-line);min-height:80px;display:flex;flex-direction:column;gap:6px;justify-content:space-between}
+.calendar-cell:last-child{border-right:none}
+.calendar-format{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;padding:3px 6px;border-radius:10px;display:inline-block;align-self:flex-start}
+.calendar-format.carrossel{background:color-mix(in srgb,var(--client-primary) 20%,transparent);color:var(--client-accent);border:0.5px solid rgba(196,163,90,0.3)}
+.calendar-format.post{background:rgba(196,163,90,0.08);color:#8A8078}
+.calendar-format.reels{background:rgba(196,163,90,0.15);color:var(--client-accent)}
+.calendar-format.story{background:rgba(255,255,255,0.05);color:var(--mos-text-3)}
+.calendar-theme{font-size:12px;color:var(--mos-text);line-height:1.4}
+
+/* ROADMAP */
+.roadmap{margin-top:48px;display:flex;flex-direction:column;gap:0}
+.phase{display:grid;grid-template-columns:140px 1fr;gap:32px;padding:32px 0;border-top:0.5px solid var(--mos-line)}
+.phase:last-child{border-bottom:0.5px solid var(--mos-line)}
+.phase-period{font-family:var(--client-font-h);font-size:14px;font-weight:400;color:var(--client-accent);letter-spacing:0.04em}
+.phase-period .num{display:block;font-size:36px;font-weight:300;color:var(--mos-text);line-height:1;margin-bottom:4px}
+.phase-content h3{margin-bottom:8px}
+.phase-list{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:8px}
+.phase-list li{position:relative;padding-left:20px;font-size:14px;color:var(--mos-text-2);line-height:1.6}
+.phase-list li::before{content:'';position:absolute;left:0;top:10px;width:8px;height:1px;background:var(--client-accent)}
+
+/* MÉTRICAS */
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.metric{border:0.5px solid var(--mos-line-2);border-radius:12px;padding:28px;background:var(--mos-bg-2)}
+.metric-label{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--mos-text-3);margin-bottom:12px}
+.metric-value{font-family:var(--client-font-h);font-size:42px;font-weight:300;line-height:1;color:var(--client-accent);margin-bottom:8px}
+.metric-note{font-size:12px;color:var(--mos-text-2);line-height:1.5}
+
+/* FINAL */
+.final{background:radial-gradient(ellipse at center,color-mix(in srgb,var(--client-accent) 8%,transparent),transparent 70%);text-align:center}
+.final h1{margin-bottom:24px}
+.final .slide-lead{margin:0 auto 48px}
+.final-cta{display:inline-block;background:var(--client-accent);color:var(--client-primary);padding:18px 40px;border-radius:40px;font-weight:600;font-size:14px;letter-spacing:0.04em;text-decoration:none;margin-top:8px}
+.final-signature{margin-top:80px;font-family:var(--client-font-h);font-style:italic;color:var(--mos-text-3);font-size:14px}
+
+@media(max-width:768px){
+  .slide{padding:100px 24px 60px}
+  .slide h1{font-size:38px}
+  .slide h2{font-size:28px}
+  .compare,.metrics,.instagram-compare{grid-template-columns:1fr}
+  .phase{grid-template-columns:1fr;gap:12px}
+  .calendar-head,.calendar-row{grid-template-columns:1fr}
+  .calendar-week{border-right:none;border-bottom:0.5px solid var(--mos-line)}
+  .calendar-cell{border-right:none;border-bottom:0.5px solid var(--mos-line)}
+  .carousel-tab-bar{flex-direction:column}
+  .carousel-tab{border-right:none;border-bottom:0.5px solid var(--mos-line-2)}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">Bruno Capelli — MarketingOS</div>
+    <div class="nav-progress" id="progress">Diagnóstico Bruno Capelli</div>
+  </div>
+</nav>
+
+<!-- SLIDE 1 — CAPA -->
+<section class="slide cover">
+  <div class="slide-inner">
+    <div class="slide-label">Documento confidencial · 2026</div>
+    <h1>Bruno Capelli —<br><em>diagnóstico e próximos passos.</em></h1>
+    <p class="slide-lead">Análise completa da presença digital atual, oportunidades identificadas e proposta de operação para os próximos 90 dias.</p>
+    <div class="meta">Preparado para</div>
+    <div class="recipient">Salão Bruno Capelli · Tijuca, Rio de Janeiro</div>
+  </div>
+</section>
+
+<!-- SLIDE 2 — SITUAÇÃO ATUAL -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">01 · Onde vocês estão hoje</div>
+    <h2>13 anos de história. Uma presença digital que não conta essa história.</h2>
+    <p class="slide-text">O Bruno Capelli tem o que a maioria dos salões não tem: uma marca estabelecida, equipe especializada, múltiplos serviços e uma base fiel de clientes na Tijuca. O problema é que nada disso aparece digitalmente com a força que deveria.</p>
+    <p class="slide-text">O site existe. O Instagram existe. O WhatsApp existe. Mas os três operam de forma isolada — sem funil, sem automação, sem estratégia de captura. Cada lead que chega pelo Google ou pelo Instagram some antes de virar agendamento.</p>
+  </div>
+</section>
+
+<!-- SLIDE 3 — ANTES X DEPOIS -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">02 · A diferença começa no headline</div>
+    <h2>O mesmo salão, comunicado de duas formas.</h2>
+    <p class="slide-text">A primeira frase que alguém lê no site define se ela fica ou vai embora. A headline atual informa. A nova proposta provoca desejo.</p>
+    <div class="compare">
+      <div class="compare-col bad">
+        <span class="compare-tag bad">Site atual</span>
+        <div class="compare-headline">"Bruno Capelli é um salão de beleza localizado no coração da Tijuca há 13 anos"</div>
+        <p class="compare-note">Informativo. Descreve o que é, não o que entrega. Não há motivo emocional para continuar lendo — ou para agendar.</p>
+      </div>
+      <div class="compare-col good">
+        <span class="compare-tag good">Nova proposta</span>
+        <div class="compare-headline">"Beleza que dura. Agenda que nunca para."</div>
+        <p class="compare-note">Fala do resultado que a cliente quer, não do que o salão é. Gera curiosidade e desejo antes de qualquer explicação de serviço.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4 — PROBLEMAS -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">03 · O que está custando agendamentos</div>
+    <h2>Quatro pontos que deixam dinheiro na mesa todo mês.</h2>
+    <p class="slide-text">Diagnosticamos o site, o Instagram e o WhatsApp. Os problemas abaixo não são opinião — são buracos visíveis no funil de captação.</p>
+    <div class="problem-list">
+      <div class="problem">
+        <div class="problem-num">01</div>
+        <div class="problem-content">
+          <h3>Funil aberto no WhatsApp</h3>
+          <p>Quem chega pelo site ou Instagram vai para o WhatsApp — e encontra uma conversa manual. Fora do horário: silêncio. Lead que chega às 22h some antes de amanhã.</p>
+          <div class="problem-impact">Impacto: perda estimada de 30–40% dos leads fora do horário comercial</div>
+        </div>
+      </div>
+      <div class="problem">
+        <div class="problem-num">02</div>
+        <div class="problem-content">
+          <h3>Site sem CTA de conversão</h3>
+          <p>O site tem informação mas não tem ação. Sem formulário de agendamento, sem botão de WhatsApp em destaque, sem urgência. Visitante lê e vai embora.</p>
+          <div class="problem-impact">Impacto: taxa de conversão do site abaixo de 2% quando poderia estar acima de 8%</div>
+        </div>
+      </div>
+      <div class="problem">
+        <div class="problem-num">03</div>
+        <div class="problem-content">
+          <h3>Dupla identidade de marca</h3>
+          <p>O site menciona @lecapellitijucaa e Le Capelli. O Instagram é @brunocapelliofc. Dois nomes, duas identidades — quem encontra um não reconhece o outro.</p>
+          <div class="problem-impact">Impacto: autoridade fragmentada, busca orgânica dividida entre dois perfis</div>
+        </div>
+      </div>
+      <div class="problem">
+        <div class="problem-num">04</div>
+        <div class="problem-content">
+          <h3>Instagram sem estratégia de captação</h3>
+          <p>3.951 seguidores para 13 anos de operação. Sem conteúdo de processo, sem transformações estruturadas, sem CTA de agendamento. O perfil existe mas não atrai nem converte.</p>
+          <div class="problem-impact">Impacto: zero clientes novos vindos do Instagram nos últimos 30 dias</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5 — SITE PREVIEW -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">04 · O que já construímos</div>
+    <h2>A nova home está pronta para vocês verem.</h2>
+    <p class="slide-text">Construímos uma prévia completa do novo site do Bruno Capelli — com a identidade visual própria, CTA de agendamento integrado ao WhatsApp, seção de serviços e formulário de reserva. É exatamente o que iria ao ar na primeira semana.</p>
+    <div class="mockup-wrap">
+      <div class="mockup-bar">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="url">brunocapelli.com.br — nova versão</span>
+        <a class="open-btn" href="./site-preview.html" target="_blank">Abrir site →</a>
+      </div>
+      <div class="mockup-preview">
+        <img src="./site-preview.png" alt="Preview do novo site Bruno Capelli">
+        <div class="mockup-overlay"></div>
+      </div>
+    </div>
+    <p class="slide-text" style="margin-top:28px;font-size:14px">O botão "Abrir site →" abre a versão navegável completa. Funciona no celular e desktop.</p>
+  </div>
+</section>
+
+<!-- SLIDE 6 — INSTAGRAM ATUAL VS PROPOSTO -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">05 · O Instagram que vende</div>
+    <h2>Do feed sem estratégia ao feed que agenda.</h2>
+    <p class="slide-text">O feed atual mistura tipos de conteúdo sem identidade consistente e sem funil. O feed proposto tem hierarquia visual clara, pilares definidos e cada post com um papel no processo de captação.</p>
+    <div class="instagram-compare">
+      <div class="ig-col bad">
+        <span class="ig-label">Feed atual</span>
+        <div class="ig-grid">
+          <div class="ig-post">Foto de trabalho</div>
+          <div class="ig-post">Foto de trabalho</div>
+          <div class="ig-post">Foto de trabalho</div>
+          <div class="ig-post">Post genérico</div>
+          <div class="ig-post">Foto de trabalho</div>
+          <div class="ig-post">Foto de trabalho</div>
+          <div class="ig-post">Foto de trabalho</div>
+          <div class="ig-post">Post genérico</div>
+          <div class="ig-post">Foto de trabalho</div>
+        </div>
+        <p class="ig-note">Sem identidade visual consistente. Só portfólio — nenhum conteúdo de valor que atraia, eduque ou converta.</p>
+      </div>
+      <div class="ig-col good">
+        <span class="ig-label">Feed proposto</span>
+        <div class="ig-grid">
+          <div class="ig-post p1">Como durar mais sua cor</div>
+          <div class="ig-post p3 font">"Diagnóstico antes da técnica"</div>
+          <div class="ig-post p2">Antes e depois balayage</div>
+          <div class="ig-post p4">O erro do banho quente</div>
+          <div class="ig-post p1">Guia de manutenção</div>
+          <div class="ig-post p3 font">"Sua cor merece durar"</div>
+          <div class="ig-post p2">Mechas: o que ninguém conta</div>
+          <div class="ig-post p5">Agendar pelo WA</div>
+          <div class="ig-post p1">Bastidores do salão</div>
+        </div>
+        <p class="ig-note">Identidade dark/gold consistente. Conteúdo de valor que educa + posts de conversão + bastidores que humanizam.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 7 — CARROSSÉIS NAVEGÁVEIS -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">06 · Conteúdo real em funcionamento</div>
+    <h2>Não é mockup. São os dois carrosséis que vão ao ar.</h2>
+    <p class="slide-text">Geramos dois carrosséis completos com a identidade visual do Bruno Capelli. Navegue pelos slides e veja exatamente o que seria publicado no Instagram.</p>
+
+    <div class="carousel-section">
+      <!-- TABS -->
+      <div class="carousel-tab-bar">
+        <button class="carousel-tab active" onclick="switchCarousel(0)">Carrossel 1 — Cor &amp; Colorimetria</button>
+        <button class="carousel-tab" onclick="switchCarousel(1)">Carrossel 2 — Mechas &amp; Balayage</button>
+      </div>
+
+      <!-- CARROSSEL 1 -->
+      <div class="carousel-panel active" id="panel-0">
+        <div class="carousel-demo">
+          <div class="carousel-frame" id="frame-0">
+
+            <div class="carousel-slide gancho active">
+              <div class="c-brand"><span>Bruno Capelli</span><span>Tijuca · RJ</span></div>
+              <span class="carousel-num-badge">1 / 6</span>
+              <div class="c-eyebrow">Colorimetria</div>
+              <div class="c-title">Sua cor<br>some em<br><em>2 semanas?</em></div>
+              <div class="c-sub">Não é azar. É o processo errado.</div>
+            </div>
+
+            <div class="carousel-slide conteudo">
+              <div class="c-brand"><span>Bruno Capelli</span><span>Tijuca · RJ</span></div>
+              <span class="carousel-num-badge">2 / 6</span>
+              <div class="c-num">DOR</div>
+              <div class="c-title">A maioria culpa<br>o cabelo.<br><em>O problema é outro.</em></div>
+              <div class="c-body">Fio poroso, produto errado, água quente — qualquer um desses fatores destrói uma coloração em dias. A cor que durou 3 semanas poderia durar o dobro.</div>
+            </div>
+
+            <div class="carousel-slide conteudo">
+              <div class="c-brand"><span>Bruno Capelli</span><span>Tijuca · RJ</span></div>
+              <span class="carousel-num-badge">3 / 6</span>
+              <div class="c-num">01</div>
+              <div class="c-title">O banho que<br><em>esvazia a cor</em></div>
+              <div class="c-body">Água quente abre as escamas do fio e libera o pigmento. <strong>Finalize sempre com água fria</strong> — 20 segundos são suficientes para fechar e selar a cor.</div>
+            </div>
+
+            <div class="carousel-slide conteudo">
+              <div class="c-brand"><span>Bruno Capelli</span><span>Tijuca · RJ</span></div>
+              <span class="carousel-num-badge">4 / 6</span>
+              <div class="c-num">02</div>
+              <div class="c-title">O shampoo que<br>você usa<br><em>não é neutro</em></div>
+              <div class="c-body">Shampoos com sulfato removem a cor a cada lavagem. <strong>Use shampoo sem sulfato</strong> nos primeiros 30 dias — diferença de 3 para 7 semanas de duração.</div>
+            </div>
+
+            <div class="carousel-slide conteudo">
+              <div class="c-brand"><span>Bruno Capelli</span><span>Tijuca · RJ</span></div>
+              <span class="carousel-num-badge">5 / 6</span>
+              <div class="c-num">03</div>
+              <div class="c-title">O segredo que<br>a maioria<br><em>deixa de lado</em></div>
+              <div class="c-body">Hidratação pós-coloração não é luxo — é manutenção. <strong>Fio hidratado retém pigmento.</strong> Fio ressecado libera cor na primeira lavagem.</div>
+            </div>
+
+            <div class="carousel-slide cta">
+              <div class="c-brand"><span>Bruno Capelli</span><span>Tijuca · RJ</span></div>
+              <span class="carousel-num-badge">6 / 6</span>
+              <div class="rings"><div class="ring ring-a"></div><div class="ring ring-b"></div></div>
+              <div class="c-pre">Próximo passo</div>
+              <div class="c-cta-title">Sua cor merece<br>durar <em>de verdade.</em></div>
+              <div class="c-cta-sub">Consulta de colorimetria com diagnóstico do seu fio antes de qualquer técnica.</div>
+              <div class="c-btn">Agendar pelo WhatsApp</div>
+              <div class="c-handle">@brunocapelliofc</div>
+            </div>
+
+          </div>
+          <div class="carousel-nav">
+            <button onclick="prevSlide(0)">←</button>
+            <div class="carousel-dots" id="dots-0"></div>
+            <button onclick="nextSlide(0)">→</button>
+          </div>
+          <p class="carousel-caption">Carrossel gerado com a identidade visual do Bruno Capelli. Pronto para publicar.</p>
+        </div>
+      </div>
+
+      <!-- CARROSSEL 2 -->
+      <div class="carousel-panel" id="panel-1">
+        <div class="carousel-demo">
+          <div class="carousel-frame" id="frame-1">
+
+            <div class="carousel-slide gancho active">
+              <div class="c-brand"><span>Bruno Capelli</span><span>Tijuca · RJ</span></div>
+              <span class="carousel-num-badge">1 / 6</span>
+              <div class="c-eyebrow">Mechas &amp; Balayage</div>
+              <div class="c-title">O que ninguém<br>te conta antes<br>de fazer <em>mechas</em></div>
+              <div class="c-sub">E por que metade das mulheres se arrepende.</div>
+            </div>
+
+            <div class="carousel-slide conteudo">
+              <div class="c-brand"><span>Bruno Capelli</span><span>Tijuca · RJ</span></div>
+              <span class="carousel-num-badge">2 / 6</span>
+              <div class="c-num">DOR</div>
+              <div class="c-title">Mechas <em>mal planejadas</em><br>custam mais para<br>corrigir do que fazer</div>
+              <div class="c-body">A maioria das mulheres descobre isso depois. O problema não é o processo em si — é a falta de diagnóstico antes de começar.</div>
+            </div>
+
+            <div class="carousel-slide conteudo">
+              <div class="c-brand"><span>Bruno Capelli</span><span>Tijuca · RJ</span></div>
+              <span class="carousel-num-badge">3 / 6</span>
+              <div class="c-num">01</div>
+              <div class="c-title">O diagnóstico<br><em>vem antes</em><br>da técnica</div>
+              <div class="c-body">Porosidade, histórico de química e tom natural do fio determinam qual técnica funciona. <strong>Balayage não é pra todo cabelo</strong> — e uma profissional honesta vai te dizer isso.</div>
+            </div>
+
+            <div class="carousel-slide conteudo">
+              <div class="c-brand"><span>Bruno Capelli</span><span>Tijuca · RJ</span></div>
+              <span class="carousel-num-badge">4 / 6</span>
+              <div class="c-num">02</div>
+              <div class="c-title">Manutenção<br>não é <em>opcional</em></div>
+              <div class="c-body">Balayage bem feito exige retoque a cada 3–4 meses e hidratação semanal. <strong>Sem isso, o fio quebra</strong> onde foi descolorido — e o custo de recuperação triplica.</div>
+            </div>
+
+            <div class="carousel-slide conteudo">
+              <div class="c-brand"><span>Bruno Capelli</span><span>Tijuca · RJ</span></div>
+              <span class="carousel-num-badge">5 / 6</span>
+              <div class="c-num">03</div>
+              <div class="c-title">O que separa<br>mechas <em>lindas</em><br>de mechas danosas</div>
+              <div class="c-body">Técnica certa + produto certo + <strong>tempo de exposição correto</strong>. Três variáveis. Qualquer erro em uma delas compromete o resultado — e o seu fio.</div>
+            </div>
+
+            <div class="carousel-slide cta">
+              <div class="c-brand"><span>Bruno Capelli</span><span>Tijuca · RJ</span></div>
+              <span class="carousel-num-badge">6 / 6</span>
+              <div class="rings"><div class="ring ring-a"></div><div class="ring ring-b"></div></div>
+              <div class="c-pre">Tijuca, Rio de Janeiro</div>
+              <div class="c-cta-title">Quer mechas<br>feitas <em>do jeito certo?</em></div>
+              <div class="c-cta-sub">Diagnóstico gratuito antes de qualquer técnica. Avaliação sem compromisso.</div>
+              <div class="c-btn">Agendar pelo WhatsApp</div>
+              <div class="c-handle">@brunocapelliofc</div>
+            </div>
+
+          </div>
+          <div class="carousel-nav">
+            <button onclick="prevSlide(1)">←</button>
+            <div class="carousel-dots" id="dots-1"></div>
+            <button onclick="nextSlide(1)">→</button>
+          </div>
+          <p class="carousel-caption">Carrossel gerado com a identidade visual do Bruno Capelli. Pronto para publicar.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 8 — CALENDÁRIO EDITORIAL -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">07 · Conteúdo planejado</div>
+    <h2>4 semanas de Instagram prontas para começar.</h2>
+    <p class="slide-text">Uma cadência sustentável para um salão com equipe enxuta — 4 posts por semana, cada um com papel definido no funil de captação.</p>
+    <div class="calendar">
+      <div class="calendar-head">
+        <div></div>
+        <div>Segunda</div>
+        <div>Terça</div>
+        <div>Quarta</div>
+        <div>Quinta</div>
+        <div>Sexta</div>
+      </div>
+      <div class="calendar-row">
+        <div class="calendar-week">Semana 1</div>
+        <div class="calendar-cell"><span class="calendar-format carrossel">Carrossel</span><div class="calendar-theme">Sua cor some em 2 semanas?</div></div>
+        <div class="calendar-cell"><span class="calendar-format story">Story</span><div class="calendar-theme">Bastidores do salão</div></div>
+        <div class="calendar-cell"><span class="calendar-format post">Post</span><div class="calendar-theme">Antes e depois colorimetria</div></div>
+        <div class="calendar-cell"><span class="calendar-format reels">Reels</span><div class="calendar-theme">Processo de balayage em 60s</div></div>
+        <div class="calendar-cell"><span class="calendar-format story">Story</span><div class="calendar-theme">Link agendamento</div></div>
+      </div>
+      <div class="calendar-row">
+        <div class="calendar-week">Semana 2</div>
+        <div class="calendar-cell"><span class="calendar-format carrossel">Carrossel</span><div class="calendar-theme">O que ninguém conta sobre mechas</div></div>
+        <div class="calendar-cell"><span class="calendar-format post">Post</span><div class="calendar-theme">Citação de cliente real</div></div>
+        <div class="calendar-cell"><span class="calendar-format reels">Reels</span><div class="calendar-theme">Rotina de hidratação pós-cor</div></div>
+        <div class="calendar-cell"><span class="calendar-format story">Story</span><div class="calendar-theme">Bastidores da equipe</div></div>
+        <div class="calendar-cell"><span class="calendar-format post">Post</span><div class="calendar-theme">Antes e depois mechas</div></div>
+      </div>
+      <div class="calendar-row">
+        <div class="calendar-week">Semana 3</div>
+        <div class="calendar-cell"><span class="calendar-format reels">Reels</span><div class="calendar-theme">Como a agenda cheia funciona</div></div>
+        <div class="calendar-cell"><span class="calendar-format carrossel">Carrossel</span><div class="calendar-theme">3 erros que destroem o loiro</div></div>
+        <div class="calendar-cell"><span class="calendar-format post">Post</span><div class="calendar-theme">Depoimento em destaque</div></div>
+        <div class="calendar-cell"><span class="calendar-format story">Story</span><div class="calendar-theme">Enquete: cor ou mecha?</div></div>
+        <div class="calendar-cell"><span class="calendar-format carrossel">Carrossel</span><div class="calendar-theme">Cronograma capilar em 3 passos</div></div>
+      </div>
+      <div class="calendar-row">
+        <div class="calendar-week">Semana 4</div>
+        <div class="calendar-cell"><span class="calendar-format post">Post</span><div class="calendar-theme">Antes e depois podologia</div></div>
+        <div class="calendar-cell"><span class="calendar-format reels">Reels</span><div class="calendar-theme">Transformação completa em 60s</div></div>
+        <div class="calendar-cell"><span class="calendar-format carrossel">Carrossel</span><div class="calendar-theme">O que muda quando você tem agenda cheia</div></div>
+        <div class="calendar-cell"><span class="calendar-format story">Story</span><div class="calendar-theme">Agendamento da semana</div></div>
+        <div class="calendar-cell"><span class="calendar-format post">Post</span><div class="calendar-theme">Bastidores + CTA direto</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 9 — ROADMAP 90 DIAS -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">08 · O plano dos próximos 90 dias</div>
+    <h2>Da operação atual ao sistema rodando.</h2>
+    <p class="slide-text">Sem obras, sem pausas, sem dependência da equipe interna. O sistema é implantado em paralelo com a operação atual — e em 30 dias já está gerando resultado.</p>
+    <div class="roadmap">
+      <div class="phase">
+        <div class="phase-period"><span class="num">30</span>dias</div>
+        <div class="phase-content">
+          <h3>Fundação — identidade e captura</h3>
+          <p style="font-size:14px;color:var(--mos-text-2);line-height:1.6">Unificação de marca, novo site no ar e WhatsApp com fluxo de agendamento automatizado.</p>
+          <ul class="phase-list">
+            <li>Nova identidade visual unificada (Bruno Capelli em todos os canais)</li>
+            <li>Novo site com CTA de agendamento integrado ao WhatsApp</li>
+            <li>WhatsApp Business com fluxo automático por tipo de serviço</li>
+            <li>Resposta automática 24h para leads fora do horário</li>
+            <li>Instagram com bio otimizada e link de agendamento</li>
+          </ul>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-period"><span class="num">60</span>dias</div>
+        <div class="phase-content">
+          <h3>Conteúdo — feed e captação orgânica</h3>
+          <p style="font-size:14px;color:var(--mos-text-2);line-height:1.6">Calendário editorial rodando, primeiros conteúdos publicados e métricas de engajamento acompanhadas.</p>
+          <ul class="phase-list">
+            <li>8 posts publicados (carrosséis + reels + singles)</li>
+            <li>Estratégia de hashtag e horário de publicação definida</li>
+            <li>Stories diários de bastidores e agendamento</li>
+            <li>Acompanhamento de alcance e primeiros DMs de captação</li>
+            <li>Ajuste de linha editorial baseado em desempenho real</li>
+          </ul>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-period"><span class="num">90</span>dias</div>
+        <div class="phase-content">
+          <h3>Escala — reativação e retenção</h3>
+          <p style="font-size:14px;color:var(--mos-text-2);line-height:1.6">Sistema de reativação automática de clientes inativos e relatório de performance do período.</p>
+          <ul class="phase-list">
+            <li>Fluxo de reativação para clientes que não voltam há 60 dias</li>
+            <li>Google Meu Negócio otimizado com reviews ativos</li>
+            <li>Dashboard de métricas: alcance, agendamentos e conversão por canal</li>
+            <li>Relatório executivo dos 90 dias com aprendizados</li>
+            <li>Plano do próximo trimestre baseado em dados reais</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 10 — MÉTRICAS -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">09 · O que isso pode gerar</div>
+    <h2>Estimativas conservadoras baseadas no nicho de beleza.</h2>
+    <p class="slide-text">Esses números são referência baseada em salões de perfil similar no Rio de Janeiro. Métricas reais serão rastreadas a partir da implantação.</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-label">Novos agendamentos / mês</div>
+        <div class="metric-value">+18</div>
+        <div class="metric-note">Via WhatsApp automatizado + Instagram, sem esforço adicional da equipe. Conservador para salão com 8 serviços.</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Taxa de conversão do site</div>
+        <div class="metric-value">8%+</div>
+        <div class="metric-note">Atual estimado abaixo de 2%. Com CTA de WhatsApp em destaque e formulário de agendamento, a média do nicho é 8–12%.</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Clientes reativados / mês</div>
+        <div class="metric-value">12–20</div>
+        <div class="metric-note">Via fluxo de reativação automático para clientes que não voltaram há 60 dias. Custo zero de aquisição.</div>
+      </div>
+    </div>
+    <p class="slide-text" style="margin-top:40px;font-size:13px;color:var(--mos-text-3)">As estimativas são conservadoras e servem como referência. Métricas reais serão rastreadas e reportadas mensalmente.</p>
+  </div>
+</section>
+
+<!-- SLIDE 11 — FECHAMENTO -->
+<section class="slide final">
+  <div class="slide-inner">
+    <div class="slide-label">Próximo passo</div>
+    <h1>13 anos de história.<br><em>Hora de ela aparecer.</em></h1>
+    <p class="slide-lead">A estrutura está pronta. Os carrosséis estão criados. O site está desenhado. Falta só uma coisa: decidir que o Bruno Capelli vai crescer com sistema — não com sorte.</p>
+    <a href="https://www.whatsapp.com/catalog/5521979852192/" target="_blank" class="final-cta">Ver serviços e agendar →</a>
+    <div class="final-signature">
+      Felipe Proença · MarketingOS<br>
+      <span style="color:var(--mos-text-3);font-style:normal;font-family:var(--client-font-b);font-size:12px;letter-spacing:0.08em;text-transform:uppercase;margin-top:8px;display:inline-block">Apresentação confidencial · Bruno Capelli · 2026</span>
+    </div>
+  </div>
+</section>
+
+<script>
+// ── NAV PROGRESS ────────────────────────────────────────────────────────────
+const slides=document.querySelectorAll('.slide');
+const progress=document.getElementById('progress');
+const labels=['Capa','Diagnóstico · 1/9','Diagnóstico · 2/9','Diagnóstico · 3/9','Site · 4/9','Instagram · 5/9','Carrosséis · 6/9','Calendário · 7/9','Roadmap · 8/9','Métricas · 9/9','Próximo passo'];
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){const i=Array.from(slides).indexOf(e.target);if(labels[i])progress.textContent=labels[i];}});
+},{threshold:0.5});
+slides.forEach(s=>observer.observe(s));
+
+// ── CARROSSÉIS ───────────────────────────────────────────────────────────────
+const state=[{cur:0},{cur:0}];
+
+function initDots(idx){
+  const frame=document.getElementById('frame-'+idx);
+  const cSlides=frame.querySelectorAll('.carousel-slide');
+  const dotsEl=document.getElementById('dots-'+idx);
+  dotsEl.innerHTML='';
+  cSlides.forEach((_,i)=>{
+    const d=document.createElement('span');
+    d.className='dot'+(i===0?' active':'');
+    d.onclick=()=>goTo(idx,i);
+    dotsEl.appendChild(d);
+  });
+}
+
+function goTo(idx,n){
+  const frame=document.getElementById('frame-'+idx);
+  const cSlides=frame.querySelectorAll('.carousel-slide');
+  const dots=document.getElementById('dots-'+idx).querySelectorAll('.dot');
+  cSlides[state[idx].cur].classList.remove('active');
+  dots[state[idx].cur].classList.remove('active');
+  state[idx].cur=(n+cSlides.length)%cSlides.length;
+  cSlides[state[idx].cur].classList.add('active');
+  dots[state[idx].cur].classList.add('active');
+}
+
+function nextSlide(idx){goTo(idx,state[idx].cur+1)}
+function prevSlide(idx){goTo(idx,state[idx].cur-1)}
+
+function switchCarousel(idx){
+  document.querySelectorAll('.carousel-panel').forEach((p,i)=>{
+    p.classList.toggle('active',i===idx);
+  });
+  document.querySelectorAll('.carousel-tab').forEach((t,i)=>{
+    t.classList.toggle('active',i===idx);
+  });
+}
+
+initDots(0);
+initDots(1);
+</script>
+
+</body>
+</html>

@@ -4,33 +4,36 @@ const { initWhatsApp, sendWhatsApp, destroyWhatsApp } = require('./outreach-what
 
 const SESSION = path.resolve(__dirname, '../../.whatsapp-session');
 
+// Rodada: Pet Shops — RJ + SP | 2026-06-05
+// Protocolo: Etapa 2 — 1 mensagem, sem PNG, sem pitch, termina com pergunta
+// Etapa 3 (diagnóstico completo) só após resposta positiva do lead
 const PROSPECTS = [
   {
-    name: 'Yapal Auto Peças',
-    phone: '11930498545',
-    message: `Boa tarde! Vi o site da Yapal — 40 anos no mercado, catálogo grande, operação séria. Só que quando um comprador busca "autopeças Diadema" no Google ou tenta encontrar a Yapal no LinkedIn antes de ligar, vocês praticamente não aparecem.
-
-Desenvolvo um sistema de captação digital para empresas do setor automotivo — antes de qualquer proposta, faço uma análise gratuita da presença de vocês e mostro o gap real.
-
-Vale 15 minutos?`,
+    name: 'Dom Peludo',
+    phone: '11971707434',
+    message: `Oi! Vi o perfil do Dom Peludo no Instagram.
+Vocês têm o WhatsApp na bio, mas quem manda mensagem fora do horário não recebe nem uma confirmação de que foi recebido. Aí perde agendamento sem saber.
+Isso está acontecendo?`,
   },
   {
-    name: 'Advocacia WR',
-    phone: '11984577747',
-    message: `Boa tarde! Pesquisei escritórios de advocacia empresarial em Pinheiros e encontrei o WR. Trabalho sólido — mas o site não tem bio dos advogados, não tem conteúdo publicado e o LinkedIn do escritório não tem atividade.
-
-Enquanto isso, concorrentes estão publicando semanalmente e virando referência no segmento.
-
-Desenvolvo um sistema de geração de lead B2B para escritórios via LinkedIn — sem precisar de time de marketing. Posso mostrar o que seria feito no WR, sem compromisso. Faz sentido conversar?`,
+    name: 'Pet Hero',
+    phone: '11992446885',
+    message: `Oi! Vi o Pet Hero lá no Instagram.
+Vocês têm um bom número de avaliações para o tamanho, mas o WhatsApp tá operando na mão — cada mensagem respondida individualmente. Isso tá segurando o volume de agendamentos de vocês?`,
   },
   {
-    name: 'Máximo Consultoria — Fernanda',
-    phone: '11989121102',
-    message: `Fernanda, bom dia! Acessei o site da Máximo — vi que a seção de blog ainda está com texto de rascunho e a área de vídeos está vazia.
-
-Com 20+ anos de mercado e uma operação séria de recrutamento executivo, isso é basicamente deixar a prova social fora do ar.
-
-Desenvolvo um sistema que transforma a autoridade de consultoras como você em geração de lead B2B no automático — sem depender de post manual ou agência. Posso mostrar o que seria feito na Máximo em 15 minutos?`,
+    name: 'Toca da Raposa',
+    phone: '21969776945',
+    message: `Oi! Vi a Toca da Raposa na Zona Norte.
+Vocês têm um bom volume de avaliações, mas o perfil do Instagram não tá capturando quem passa por lá — sem link de WhatsApp visível, sem chamada para agendamento.
+Isso é proposital ou ainda não chegaram nisso?`,
+  },
+  {
+    name: 'Petshop Mania',
+    phone: '21964168522',
+    message: `Oi! Vi o perfil da Petshop Mania.
+Vocês têm uma linha completa de serviços, mas quem chega pelo Instagram não tem um caminho claro — ração, vet e banho misturados sem direcionamento.
+Vocês percebem que as pessoas chegam mas não continuam o contato?`,
   },
 ];
 

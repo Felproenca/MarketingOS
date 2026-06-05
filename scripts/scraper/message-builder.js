@@ -14,27 +14,27 @@ const client = new Anthropic();
 
 const SYSTEM_PROMPT = `Você é Felipe Proença — especialista em marketing digital com IA.
 
-Princípio central:
-Não entre pela porta para oferecer produto.
-Entre para entregar resultado.
-A mensagem deve provar que você analisou o negócio antes de dizer qualquer coisa.
+PROTOCOLO DE PRIMEIRO CONTATO — ETAPA 2:
+Esta mensagem é o primeiro contato. Nunca pitch, nunca diagnóstico, nunca link, nunca imagem.
+O objetivo é uma única coisa: fazer o lead responder com "sim, isso acontece aqui".
 
-Tom: direto, humano, sem pressão de venda.
-Nunca: genérico, corporativo, parecer automático ou spam.
-Sempre: específico ao problema daquele negócio.
+Tom: direto, humano, casual — como alguém que realmente viu o perfil deles.
+Nunca: genérico, corporativo, parecer bot, mencionar o produto ou serviço.
+Sempre: nomeie UM problema específico que você observou. Termine com pergunta.
 
-Estrutura da mensagem:
-1. Primeira linha: problema específico encontrado (NÃO começa com "Olá" ou apresentação)
-2. O que esse problema está custando para o negócio deles
-3. O que você já preparou ou pode mostrar
-4. CTA: 10 minutos, sem compromisso
+Estrutura obrigatória:
+1. "Oi!" — sem nome de empresa na primeira palavra
+2. Uma observação específica sobre o que foi visto (Instagram, Maps, site, bio)
+3. Uma frase que nomeia o problema sem julgamento e sem solução
+4. Uma pergunta fechada sobre se isso está acontecendo com eles
 
 Critério de qualidade:
-✓ Primeira linha menciona problema específico
-✓ Tem menos de 120 palavras
-✓ CTA é específico — 10 minutos, sem compromisso
+✓ Máximo 4 linhas no total
+✓ Zero menção ao MarketingOS, ao Felipe, ao produto ou ao serviço
+✓ Zero CTA de venda, zero link, zero imagem
+✓ Termina com pergunta — não com proposta
 ✓ Não poderia ser enviada para outro negócio sem mudar
-✓ Soa como pessoa real que acessou o site
+✓ Soa como pessoa real que passou pelo perfil deles
 
 Retorne APENAS JSON válido, sem markdown, sem explicações.`;
 
@@ -77,29 +77,23 @@ async function build(lead) {
 
 function buildLeadContext(lead, site, qualification) {
   return `NEGÓCIO ANALISADO:
-  Domínio: ${lead.domain}
   Nome: ${lead.name || 'não identificado'}
+  Instagram: ${lead.instagram ? '@' + lead.instagram : 'não encontrado'}
+  WhatsApp: ${lead.whatsapp || 'não encontrado'}
   Site carrega: ${site?.loads ? 'sim' : 'não'}
   Headline atual: "${site?.headline || 'não encontrada'}"
 
-PROBLEMAS IDENTIFICADOS:
-${qualification.problems.map((p, i) => `  ${i + 1}. ${p}`).join('\n')}
+PROBLEMA PRINCIPAL OBSERVADO: ${qualification.main_problem}
+OUTROS PROBLEMAS: ${qualification.problems.slice(1).join(' | ') || 'nenhum adicional'}
 
-PROBLEMA PRINCIPAL: ${qualification.main_problem}
-SCORE DE OPORTUNIDADE: ${qualification.score}/10
-
-CONTATOS:
-  Email:     ${lead.email     || 'não encontrado'}
-  WhatsApp:  ${lead.whatsapp  || 'não encontrado'}
-  Instagram: ${lead.instagram ? '@' + lead.instagram : 'não encontrado'}
-
-Gere uma mensagem de abordagem por EMAIL para este lead.
+Gere a mensagem de PRIMEIRO CONTATO seguindo o protocolo Etapa 2.
+A mensagem vai por WhatsApp — deve soar humana e casual.
 
 Retorne APENAS este JSON:
 {
-  "subject": "assunto — específico ao problema encontrado, não genérico",
-  "body": "corpo completo — máximo 120 palavras, começa no problema",
-  "whatsapp_version": "versão curta para WhatsApp — máximo 3 linhas"
+  "subject": "não usado — manter campo vazio",
+  "body": "versão para email — mesmo conteúdo do whatsapp_version",
+  "whatsapp_version": "mensagem de primeiro contato — máximo 4 linhas, termina com pergunta"
 }`;
 }
 

@@ -130,6 +130,48 @@ FIT COM O MARKETINGOS
 
 ---
 
+## Protocolo de abordagem — 3 etapas obrigatórias
+
+### Etapa 1 — Observação (interna, não vai para o lead)
+O sistema mapeia o problema específico do negócio com base no que é público:
+- Instagram: qualidade do conteúdo, bio, link, frequência
+- Google Maps: avaliações, respostas, fotos, WhatsApp Business ativo
+- Site (se existir): CTA, formulário, velocidade, mobile
+
+O diagnóstico completo fica aqui. Não é enviado no primeiro contato.
+
+### Etapa 2 — Primeiro contato (WhatsApp — sem PNG, sem link, sem diagnóstico)
+Uma mensagem. Máximo 4 linhas. Estrutura fixa:
+
+```
+[Nome do dono ou empresa],
+
+vi [algo específico observado no Instagram ou Google Maps deles].
+
+[Uma frase que nomeia o problema — sem julgamento, sem solução proposta].
+
+Isso está acontecendo com vocês?
+```
+
+Exemplos válidos:
+
+> "João, vi o perfil da [Empresa] no Instagram. Vocês têm produto bom mas o bio não captura ninguém — quem chega pelo feed não tem como continuar o contato. Isso está acontecendo?"
+
+> "Vi a [Empresa] no Maps — 4,8 estrelas, reviews ativos. Mas o WhatsApp Business não tem nenhum fluxo fora do horário. Vocês perdem lead às 22h sem saber. Faz sentido?"
+
+Regras do primeiro contato:
+- Nunca enviar PNG, PDF ou link na primeira mensagem
+- Nunca apresentar o MarketingOS na primeira mensagem
+- Nunca fazer pitch ou CTA na primeira mensagem
+- A pergunta final é sempre sobre o problema deles — não sobre a solução
+
+### Etapa 3 — Diagnóstico (só quando eles respondem)
+Se o lead responder afirmativamente ou com curiosidade:
+→ Aí envia o diagnóstico. Pode ser PNG, texto, loom, qualquer formato.
+→ Somente agora apresenta o MarketingOS como sistema que resolve.
+
+---
+
 ## Formato de output
 
 ---
@@ -153,7 +195,7 @@ CONTATO
   WhatsApp:       [ número público ou "não encontrado" ]
   Localização:    [ cidade ]
 
-DIAGNÓSTICO RÁPIDO
+DIAGNÓSTICO RÁPIDO (interno — não enviar no primeiro contato)
   Presença digital:  [ descrição em 1 linha ]
   Maior problema:    [ o que está claramente faltando ]
   Oportunidade:      [ o que o MarketingOS resolveria ]
@@ -162,12 +204,16 @@ SINAL DE ABERTURA
   → [ por que esse prospecto está quente agora ]
 
 ABORDAGEM RECOMENDADA
-  Canal:    [ Instagram DM / WhatsApp / E-mail ]
-  Gancho:   [ o que usar para abrir a conversa ]
+  Canal:    WhatsApp (padrão) | Instagram DM (se não encontrou WhatsApp)
+  Gancho:   [ observação específica para usar na Etapa 2 ]
   Tom:      [ baseado no perfil do decisor ]
 
-MENSAGEM DE ABERTURA
-→ [TEXTO PRONTO PARA ENVIAR — personalizado, não genérico]
+MENSAGEM DE ABERTURA — ETAPA 2
+→ [TEXTO PRONTO — máximo 4 linhas, sem PNG, sem link, sem pitch]
+→ Termina com pergunta sobre o problema deles
+
+MENSAGEM DE DIAGNÓSTICO — ETAPA 3 (enviar só se houver resposta)
+→ [TEXTO + indicação do que anexar: PNG do diagnóstico, Loom, etc.]
 ```
 
 ---
@@ -251,6 +297,8 @@ Se não:
 5. **Quente só com sinal real** — não classificar como quente por feeling
 6. **Salvar em intelligence/** — padrões de prospecção são ativos do sistema
 7. **Máximo 10 prospectos por rodada** — qualidade supera volume
+8. **Nunca PNG/link/pitch no primeiro contato** — protocolo de 3 etapas é obrigatório
+9. **Diagnóstico só na Etapa 3** — e só quando o lead responder com abertura
 
 ---
 

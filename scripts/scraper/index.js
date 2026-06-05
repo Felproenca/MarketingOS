@@ -117,6 +117,7 @@ async function run(searchQuery, options = {}) {
   }
 
   printReport(results, dryRun);
+  await Outreach.cleanup?.();
   return results;
 }
 
@@ -175,7 +176,7 @@ const opts = {
   maxLeads: parseInt(getArg('--max=')    || process.env.SCRAPER_MAX_LEADS || '10', 10),
   minScore: parseInt(getArg('--score=')  || '6',     10),
   dryRun:   args.includes('--dry-run'),
-  channel:  getArg('--channel=')         || 'email',
+  channel:  getArg('--channel=')         || 'whatsapp',
 };
 
 run(query, opts).catch(err => {

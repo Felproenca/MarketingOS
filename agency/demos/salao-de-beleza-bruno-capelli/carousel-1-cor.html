@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=540, initial-scale=1">
+<title>Carousel 1 — Cor</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 540px;
+    background: #0E0D0C;
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* nav — visível na revisão, fora do frame 540x540 do PNG */
+  .carousel-nav-bar {
+    width: 540px;
+    background: #111;
+    border-top: 1px solid #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 14px 0;
+  }
+  .carousel-nav-bar button {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    color: #C4A35A;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    font-family: inherit;
+  }
+  .carousel-nav-bar button:hover { background: #2a2a2a; }
+  .carousel-nav-bar .dots { display: flex; gap: 7px; align-items: center; }
+  .carousel-nav-bar .dot { width: 7px; height: 7px; border-radius: 50%; background: #333; cursor: pointer; transition: all 0.2s; }
+  .carousel-nav-bar .dot.active { background: #C4A35A; width: 20px; border-radius: 3px; }
+  .carousel-nav-bar .slide-count { font-size: 11px; color: #555; letter-spacing: 0.1em; min-width: 40px; text-align: center; }
+
+  .slide {
+    display: none;
+    width: 540px;
+    height: 540px;
+    position: relative;
+    overflow: hidden;
+  }
+  .slide.active { display: flex; }
+
+  /* ── PALETA ── */
+  :root {
+    --preto: #0E0D0C;
+    --creme: #F5F0EA;
+    --gold: #C4A35A;
+    --gold-dim: #7A6535;
+    --marrom: #2E2318;
+    --cinza: #8A8078;
+    --border: rgba(196,163,90,0.2);
+  }
+
+  /* ── NOISE ── */
+  .slide::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0.6;
+  }
+
+  /* ── HEADER MARCA ── */
+  .brand {
+    position: absolute;
+    top: 28px;
+    left: 32px;
+    right: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 5;
+  }
+  .brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .brand-tag {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: var(--cinza);
+    text-transform: uppercase;
+  }
+
+  /* ── SLIDE 1 — GANCHO ── */
+  #s1 {
+    background: var(--preto);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 32px;
+  }
+  #s1 .line-top {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  #s1 h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 54px;
+    font-weight: 300;
+    line-height: 1.0;
+    color: var(--creme);
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+  #s1 h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  #s1 .sub {
+    font-size: 13px;
+    color: var(--cinza);
+    font-weight: 300;
+    line-height: 1.5;
+    margin-bottom: 32px;
+  }
+  #s1 .deco-line {
+    width: 48px;
+    height: 1px;
+    background: var(--gold);
+  }
+  #s1 .corner-deco {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle at top right, rgba(196,163,90,0.08) 0%, transparent 70%);
+  }
+
+  /* ── SLIDE 2 — DOR ── */
+  #s2 {
+    background: var(--marrom);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 32px;
+  }
+  #s2 .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  #s2 h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--creme);
+    margin-bottom: 20px;
+  }
+  #s2 h2 em { font-style: italic; color: var(--gold); }
+  #s2 p {
+    font-size: 13px;
+    color: var(--cinza);
+    line-height: 1.7;
+    font-weight: 300;
+    max-width: 400px;
+  }
+  #s2 .bar {
+    width: 1px;
+    height: 60px;
+    background: var(--gold-dim);
+    position: absolute;
+    right: 32px;
+    bottom: 80px;
+  }
+
+  /* ── SLIDE 3, 4, 5 — CONTEÚDO ── */
+  .slide-content {
+    background: var(--preto);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 32px;
+  }
+  .slide-content .num {
+    font-size: 72px;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    color: rgba(196,163,90,0.12);
+    line-height: 1;
+    margin-bottom: 4px;
+    letter-spacing: -0.04em;
+  }
+  .slide-content h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 400;
+    color: var(--creme);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .slide-content h3 em { font-style: italic; color: var(--gold); }
+  .slide-content p {
+    font-size: 13px;
+    color: var(--cinza);
+    line-height: 1.75;
+    font-weight: 300;
+    max-width: 420px;
+  }
+  .slide-content p strong { color: var(--creme); font-weight: 500; }
+  .slide-content .rule {
+    margin-top: 20px;
+    padding: 16px 20px;
+    border-left: 2px solid var(--gold);
+    background: rgba(196,163,90,0.05);
+    font-size: 12px;
+    color: var(--creme);
+    line-height: 1.6;
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 300;
+  }
+
+  /* ── SLIDE 6 — CTA ── */
+  #s6 {
+    background: var(--preto);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    text-align: center;
+  }
+  #s6 .pre {
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  #s6 h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 300;
+    color: var(--creme);
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  #s6 h2 em { font-style: italic; color: var(--gold); }
+  #s6 p {
+    font-size: 12px;
+    color: var(--cinza);
+    line-height: 1.6;
+    margin-bottom: 28px;
+    max-width: 340px;
+  }
+  #s6 .cta-btn {
+    padding: 14px 32px;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-family: 'DM Sans', sans-serif;
+    margin-bottom: 28px;
+  }
+  #s6 .handle {
+    font-size: 11px;
+    color: var(--cinza);
+    letter-spacing: 0.1em;
+  }
+  #s6 .circle-deco {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 1px solid rgba(196,163,90,0.08);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+  }
+  #s6 > * { position: relative; z-index: 1; }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1 — GANCHO -->
+<div class="slide active" id="s1">
+  <div class="corner-deco"></div>
+  <div class="brand">
+    <span class="brand-name">Bruno Capelli</span>
+    <span class="brand-tag">Tijuca · RJ</span>
+  </div>
+  <div class="line-top">Colorimetria</div>
+  <h1>Sua cor<br>some em<br><em>2 semanas?</em></h1>
+  <p class="sub">Não é azar. É o processo errado.</p>
+  <div class="deco-line"></div>
+</div>
+
+<!-- SLIDE 2 — DOR -->
+<div class="slide" id="s2">
+  <div class="brand">
+    <span class="brand-name">Bruno Capelli</span>
+    <span class="brand-tag">Tijuca · RJ</span>
+  </div>
+  <div class="eyebrow">O problema</div>
+  <h2>A maioria das mulheres<br>culpa o cabelo.<br>O problema é <em>outro.</em></h2>
+  <p>Fio poroso, produto errado, água quente — qualquer um desses fatores destrói uma coloração em dias. E a cor que durou 3 semanas poderia durar o dobro.</p>
+  <div class="bar"></div>
+</div>
+
+<!-- SLIDE 3 — CONTEÚDO 1 -->
+<div class="slide slide-content" id="s3">
+  <div class="brand">
+    <span class="brand-name">Bruno Capelli</span>
+    <span class="brand-tag">Tijuca · RJ</span>
+  </div>
+  <div class="num">01</div>
+  <h3>O banho que<br><em>esvazia a cor</em></h3>
+  <p>Água quente abre as escamas do fio e libera o pigmento. <strong>Finalize sempre com água fria</strong> — 20 segundos são suficientes para fechar e selar a cor.</p>
+</div>
+
+<!-- SLIDE 4 — CONTEÚDO 2 -->
+<div class="slide slide-content" id="s4">
+  <div class="brand">
+    <span class="brand-name">Bruno Capelli</span>
+    <span class="brand-tag">Tijuca · RJ</span>
+  </div>
+  <div class="num">02</div>
+  <h3>O shampoo<br>que você usa<br><em>não é neutro</em></h3>
+  <p>Shampoos com sulfato removem a cor a cada lavagem. <strong>Use shampoo sem sulfato</strong> nos primeiros 30 dias após a coloração — é a diferença entre 3 e 7 semanas de duração.</p>
+</div>
+
+<!-- SLIDE 5 — CONTEÚDO 3 / VIRADA -->
+<div class="slide slide-content" id="s5">
+  <div class="brand">
+    <span class="brand-name">Bruno Capelli</span>
+    <span class="brand-tag">Tijuca · RJ</span>
+  </div>
+  <div class="num">03</div>
+  <h3>O segredo<br>que a maioria<br><em>deixa de lado</em></h3>
+  <p>Hidratação pós-coloração não é luxo — é manutenção. <strong>Fio hidratado retém pigmento.</strong> Fio ressecado libera cor na primeira lavagem.</p>
+  <div class="rule">"A cor que dura é a que foi preparada antes de entrar no salão."</div>
+</div>
+
+<!-- SLIDE 6 — CTA -->
+<div class="slide" id="s6">
+  <div class="brand">
+    <span class="brand-name">Bruno Capelli</span>
+    <span class="brand-tag">Tijuca · RJ</span>
+  </div>
+  <div class="circle-deco"></div>
+  <div class="pre">Próximo passo</div>
+  <h2>Sua cor merece<br>durar <em>de verdade.</em></h2>
+  <p>Agende uma consulta de colorimetria e saiba exatamente o que o seu fio precisa antes de colorir.</p>
+  <div class="cta-btn">Agendar pelo WhatsApp</div>
+  <div class="handle">@brunocapelliofc</div>
+</div>
+
+
+<!-- BARRA DE NAVEGAÇÃO — aprovação antes do PNG -->
+<div class="carousel-nav-bar" id="navBar">
+  <button onclick="nav(-1)">←</button>
+  <div class="dots" id="dots"></div>
+  <button onclick="nav(1)">→</button>
+  <span class="slide-count" id="count"></span>
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+let cur = 0;
+const dotsEl = document.getElementById('dots');
+const countEl = document.getElementById('count');
+
+slides.forEach((_,i)=>{
+  const d = document.createElement('span');
+  d.className = 'dot' + (i===0?' active':'');
+  d.onclick = () => goTo(i);
+  dotsEl.appendChild(d);
+});
+
+function update(){
+  slides.forEach((s,i)=>s.classList.toggle('active',i===cur));
+  dotsEl.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===cur));
+  countEl.textContent = (cur+1)+' / '+slides.length;
+}
+
+function nav(dir){ goTo((cur+dir+slides.length)%slides.length); }
+function goTo(n){ cur=n; update(); }
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown') nav(1);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp') nav(-1);
+});
+
+update();
+</script>
+</body>
+</html>

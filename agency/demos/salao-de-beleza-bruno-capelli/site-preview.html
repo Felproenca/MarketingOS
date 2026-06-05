@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200, initial-scale=1">
+<title>Bruno Capelli — Site Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --preto: #0C0B0A;
+    --creme: #F8F4EF;
+    --creme-dim: #EDE5D8;
+    --gold: #C4A35A;
+    --gold-light: #D4B878;
+    --gold-dim: #6B5928;
+    --cinza: #7A7268;
+    --cinza-light: #B0A898;
+    --surface: #151310;
+    --surface2: #1C1A17;
+    --border: rgba(196,163,90,0.15);
+  }
+
+  html { background: var(--preto); }
+  body {
+    background: var(--preto);
+    color: var(--creme);
+    font-family: 'DM Sans', sans-serif;
+    width: 100%;
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 64px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  nav::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 64px;
+    width: 80px;
+    height: 1px;
+    background: var(--gold);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: var(--creme);
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    align-items: center;
+  }
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cinza);
+    text-decoration: none;
+  }
+  .nav-cta {
+    padding: 10px 24px;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 480px;
+    min-height: 560px;
+    overflow: hidden;
+  }
+  .hero-left {
+    padding: 80px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .hero-eyebrow-line { width: 32px; height: 1px; background: var(--gold); }
+  .hero-eyebrow-text {
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px;
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    color: var(--creme);
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+    display: block;
+  }
+  .hero p {
+    font-size: 15px;
+    color: var(--cinza);
+    line-height: 1.7;
+    max-width: 400px;
+    margin-bottom: 40px;
+    font-weight: 300;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .btn-primary {
+    padding: 16px 36px;
+    background: var(--gold);
+    color: var(--preto);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .btn-ghost {
+    padding: 16px 36px;
+    border: 1px solid var(--border);
+    color: var(--cinza-light);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .hero-right {
+    background: var(--surface);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(135deg, rgba(196,163,90,0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 30% 70%, rgba(196,163,90,0.06) 0%, transparent 60%);
+  }
+  .hero-image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+  .hero-stat {
+    text-align: center;
+    padding: 32px;
+    border: 1px solid var(--border);
+    margin: 40px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .hero-stat-label {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--cinza);
+    text-transform: uppercase;
+  }
+  .hero-badge {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    right: 40px;
+    background: rgba(196,163,90,0.06);
+    border: 1px solid var(--border);
+    padding: 16px 20px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    z-index: 1;
+  }
+  .hero-badge-dot { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
+  .hero-badge-text { font-size: 12px; color: var(--cinza-light); line-height: 1.4; }
+  .hero-badge-text strong { color: var(--creme); font-weight: 500; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow: hidden;
+  }
+  .divider-item {
+    flex: 1;
+    padding: 28px 0;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .divider-item:first-child { border-left: 1px solid var(--border); }
+  .divider-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--gold);
+  }
+  .divider-label { font-size: 11px; color: var(--cinza); letter-spacing: 0.1em; }
+
+  /* ── SERVIÇOS ── */
+  .services {
+    padding: 80px 64px;
+  }
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 48px;
+  }
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 44px;
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--creme);
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .section-link {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--cinza);
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .service-card {
+    background: var(--surface);
+    padding: 36px 32px;
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .service-num {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--gold-dim);
+    margin-bottom: 20px;
+  }
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--gold-light);
+    margin-bottom: 10px;
+  }
+  .service-desc {
+    font-size: 13px;
+    color: var(--cinza);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  /* ── SOBRE ── */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .about-left {
+    padding: 80px 64px;
+    border-right: 1px solid var(--border);
+  }
+  .about-right {
+    padding: 80px 64px;
+    background: var(--surface);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .about h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--creme);
+    margin-bottom: 24px;
+  }
+  .about h2 em { font-style: italic; color: var(--gold); }
+  .about p {
+    font-size: 14px;
+    color: var(--cinza);
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 16px;
+  }
+  .about p:last-child { margin-bottom: 0; }
+  .about-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--creme);
+    line-height: 1.4;
+    margin-bottom: 32px;
+    opacity: 0.9;
+  }
+  .about-sig {
+    font-size: 12px;
+    color: var(--cinza);
+    letter-spacing: 0.1em;
+  }
+  .about-sig strong { color: var(--gold); font-weight: 500; }
+
+  /* ── AGENDAMENTO ── */
+  .booking {
+    padding: 80px 64px;
+    display: grid;
+    grid-template-columns: 1fr 440px;
+    gap: 80px;
+    align-items: center;
+  }
+  .booking h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--creme);
+    margin-bottom: 16px;
+  }
+  .booking h2 em { font-style: italic; color: var(--gold); }
+  .booking > div:first-child p {
+    font-size: 14px;
+    color: var(--cinza);
+    line-height: 1.7;
+    font-weight: 300;
+    max-width: 400px;
+  }
+  .booking-form {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 40px;
+  }
+  .form-title {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .form-field {
+    margin-bottom: 16px;
+  }
+  .form-field label {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--cinza);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .form-field input,
+  .form-field select {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: 12px 16px;
+    color: var(--creme);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    outline: none;
+  }
+  .form-field select option { background: var(--surface2); }
+  .form-submit {
+    width: 100%;
+    padding: 14px;
+    background: var(--gold);
+    color: var(--preto);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-top: 8px;
+    cursor: pointer;
+    border: none;
+  }
+  .form-note {
+    font-size: 11px;
+    color: var(--cinza);
+    text-align: center;
+    margin-top: 14px;
+    line-height: 1.5;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--creme);
+  }
+  .footer-brand span { color: var(--gold); }
+  .footer-info {
+    font-size: 12px;
+    color: var(--cinza);
+    text-align: center;
+    line-height: 1.6;
+  }
+  .footer-cta {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  /* ── NOISE GLOBAL ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Bruno <span>Capelli</span></div>
+  <div class="nav-links">
+    <a href="#">Serviços</a>
+    <a href="#">Sobre</a>
+    <a href="#">Galeria</a>
+    <a href="#">Contato</a>
+    <button class="nav-cta">Agendar</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <div class="hero-eyebrow-text">Tijuca · Rio de Janeiro · Desde 2011</div>
+    </div>
+    <h1>
+      Beleza que dura.
+      <em>Agenda que nunca para.</em>
+    </h1>
+    <p>Corte, colorimetria e tratamento com profissionais que entendem do seu fio — e da sua rotina. 13 anos cuidando de quem mora e trabalha na Tijuca.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="https://www.whatsapp.com/catalog/5521979852192/" target="_blank" style="text-decoration:none">Agendar pelo WhatsApp</a>
+      <button class="btn-ghost">Ver serviços</button>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-image-placeholder">
+      <div class="hero-stat">
+        <span class="hero-stat-num">13</span>
+        <span class="hero-stat-label">Anos de história na Tijuca</span>
+      </div>
+    </div>
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      <div class="hero-badge-text">
+        <strong>Disponível agora.</strong> Resposta em minutos pelo WhatsApp — inclusive fora do horário.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER STATS -->
+<div class="divider">
+  <div class="divider-item">
+    <span class="divider-num">500+</span>
+    <span class="divider-label">Clientes ativos</span>
+  </div>
+  <div class="divider-item">
+    <span class="divider-num">8</span>
+    <span class="divider-label">Especialidades</span>
+  </div>
+  <div class="divider-item">
+    <span class="divider-num">4.9★</span>
+    <span class="divider-label">Avaliação Google</span>
+  </div>
+  <div class="divider-item">
+    <span class="divider-num">24h</span>
+    <span class="divider-label">Agendamento online</span>
+  </div>
+</div>
+
+<!-- SERVIÇOS -->
+<section class="services">
+  <div class="section-header">
+    <div>
+      <div class="section-label">O que fazemos</div>
+      <div class="section-title">Cuidado completo,<br><em>do fio à pele.</em></div>
+    </div>
+    <a class="section-link" href="#">Ver todos os serviços →</a>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-name">Colorimetria</div>
+      <div class="service-desc">Mechas, balayage, coloração e correção de cor com diagnóstico de fio antes de qualquer técnica.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-name">Corte & Estilo</div>
+      <div class="service-desc">Corte unissex e infantil com análise de rosto e rotina. O corte que combina com quem você é.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-name">Tratamentos</div>
+      <div class="service-desc">Hidratação, reconstrução e cronograma capilar para fios quimicamente tratados ou danificados.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-name">Manicure & Pedicure</div>
+      <div class="service-desc">Tradicional, acrigel e fibra. Unhas que duram — com acabamento de salão de alta perfomance.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <div class="service-name">Depilação & Estética</div>
+      <div class="service-desc">Salas individuais para depilação e estética facial com esteticistas especializadas.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <div class="service-name">Penteados & Eventos</div>
+      <div class="service-desc">Penteados e maquiagem para casamentos, formaturas e eventos. Agendamento com antecedência.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section class="about">
+  <div class="about-left">
+    <div class="section-label">Nossa história</div>
+    <h2>13 anos cuidando<br>de <em>gente de verdade</em></h2>
+    <p>O Bruno Capelli nasceu no coração da Tijuca com uma certeza: beleza não é luxo, é cuidado. Desde 2011, atendemos famílias inteiras — das crianças às avós — com profissionais que entendem que cada fio tem uma história.</p>
+    <p>Não somos uma franquia. Somos um salão com rosto, nome e 13 anos de relação construída cliente a cliente.</p>
+  </div>
+  <div class="about-right">
+    <div class="about-quote">"Cada cliente que entra aqui sai sabendo o que o fio dela precisa — não só o que ela pediu."</div>
+    <div class="about-sig">Equipe <strong>Bruno Capelli</strong> · Tijuca, Rio de Janeiro</div>
+  </div>
+</section>
+
+<!-- AGENDAMENTO -->
+<section class="booking">
+  <div>
+    <div class="section-label">Agendar</div>
+    <h2>Reserve seu<br>horário <em>agora.</em></h2>
+    <p>Escolha o serviço, informe seu contato e nossa equipe confirma em minutos — inclusive fora do horário de atendimento. Sem filas, sem espera.</p>
+  </div>
+  <div class="booking-form">
+    <div class="form-title">Novo agendamento</div>
+    <div class="form-field">
+      <label>Seu nome</label>
+      <input type="text" placeholder="Nome completo">
+    </div>
+    <div class="form-field">
+      <label>WhatsApp</label>
+      <input type="text" placeholder="(21) 00000-0000">
+    </div>
+    <div class="form-field">
+      <label>Serviço</label>
+      <select>
+        <option>Colorimetria / Mechas</option>
+        <option>Corte</option>
+        <option>Tratamento capilar</option>
+        <option>Manicure / Pedicure</option>
+        <option>Depilação / Estética</option>
+        <option>Penteado / Evento</option>
+      </select>
+    </div>
+    <a class="form-submit" href="https://www.whatsapp.com/catalog/5521979852192/" target="_blank" style="text-decoration:none;display:block;text-align:center">Solicitar Agendamento</a>
+    <div class="form-note">Confirmação via WhatsApp em até 15 minutos.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Bruno <span>Capelli</span></div>
+  <div class="footer-info">
+    Rua do Coração da Tijuca · Rio de Janeiro, RJ<br>
+    (21) 99763-3682 · @brunocapelliofc
+  </div>
+  <a class="footer-cta" href="https://www.whatsapp.com/catalog/5521979852192/" target="_blank" style="text-decoration:none">Agendar agora →</a>
+</footer>
+
+</body>
+</html>

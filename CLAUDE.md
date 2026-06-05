@@ -166,6 +166,7 @@ Use `workflows/token-economy.md` como regra operacional para reduzir contexto.
 |---|---|
 | `criacao/skill-criatividade.md` | Verdade humana + direcao criativa (obrigatoria antes de criar) |
 | `criacao/skill-niche-intelligence.md` | Mapa de nicho, angulos e oportunidade editorial (obrigatoria sem mapa) |
+| `criacao/skill-lancamento.md` | Sequencia de 5–10 conteudos de lancamento para perfil zero — delega execucao |
 | `criacao/skill-carousel.md` | Carrossel para Instagram |
 | `criacao/skill-post.md` | Post (Feed, Reels, Story) |
 | `criacao/skill-branding.md` | Direcao criativa e design system |

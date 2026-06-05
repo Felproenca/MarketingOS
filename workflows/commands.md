@@ -57,6 +57,7 @@
 | `/criar copy-agent` | Copy por plataforma com contrato de agent | `criacao/skill-social-copy.md` |
 | `/criar visual-spec` | Direção visual por slide/frame | `criacao/skill-visual-spec.md` |
 | `/criar prompt-engineer` | Decide HTML puro vs imagem externa | `criacao/skill-prompt-engineer.md` |
+| `/criar lancamento` | Sequência de lançamento para perfil zero — objetivos algorítmicos por peça | `criacao/skill-lancamento.md` |
 | `/publicar` | Revisão + checklist + publicação via Meta Graph API | `criacao/skill-publicar.md` |
 
 ---

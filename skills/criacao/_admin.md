@@ -64,6 +64,9 @@ a skill-criatividade é obrigatória antes de tudo.
 "Qual o melhor ângulo para este tema?"
 → skill-niche-intelligence.md
 
+"Perfil novo ou zero seguidores — por onde começar?"
+→ skill-lancamento.md
+
 "Preciso de imagens"
 → skill-image-generation.md
 ```

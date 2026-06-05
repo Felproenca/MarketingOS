@@ -15,9 +15,21 @@ async function initWhatsApp(sessionPath) {
   loadDeps();
   client = new Client({
     authStrategy: new LocalAuth({ dataPath: sessionPath }),
+    webVersionCache: {
+      type: 'remote',
+      remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2412.54.html',
+    },
     puppeteer: {
       headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu'],
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-gpu',
+        '--disable-dev-shm-usage',
+        '--disable-accelerated-2d-canvas',
+        '--no-first-run',
+        '--disable-features=site-per-process',
+      ],
     },
   });
 

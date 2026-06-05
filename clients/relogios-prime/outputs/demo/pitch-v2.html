@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relógios Prime — Diagnóstico Operacional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+/* ─── TOKENS ─────────────────────────────────────────── */
+:root {
+  --bg:        #090909;
+  --surf:      #101008;
+  --card:      #131310;
+  --border:    #1f1f1a;
+  --border2:   #2a2a22;
+  --gold:      #C9A55C;
+  --gold-d:    #7A6132;
+  --gold-glow: rgba(201,165,92,.10);
+  --gold-faint: rgba(201,165,92,.04);
+  --text:      #EDE8DE;
+  --text2:     #A09880;
+  --muted:     #5A5448;
+  --red:       #B85555;
+  --green:     #5A9A72;
+}
+
+/* ─── RESET / BASE ───────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Grain overlay */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999; opacity: .6;
+}
+
+/* ─── PROGRESS BAR ───────────────────────────────────── */
+#progress {
+  position: fixed; top: 0; left: 0;
+  height: 1px; background: var(--gold);
+  width: 0%; transition: width .5s cubic-bezier(.16,1,.3,1);
+  z-index: 200;
+}
+
+/* ─── CHROME ─────────────────────────────────────────── */
+.chrome-logo {
+  position: fixed; top: 28px; left: 36px;
+  font-size: 10px; letter-spacing: .28em;
+  text-transform: uppercase; color: var(--gold-d);
+  z-index: 100; font-family: 'Inter', sans-serif; font-weight: 400;
+}
+.chrome-counter {
+  position: fixed; top: 28px; right: 36px;
+  font-family: 'DM Mono', monospace; font-size: 11px;
+  color: var(--muted); z-index: 100;
+  letter-spacing: .05em;
+}
+
+/* ─── DECK / SLIDES ──────────────────────────────────── */
+.deck { width: 100%; height: 100%; position: relative; }
+
+.slide {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  padding: 80px 100px;
+  opacity: 0; pointer-events: none;
+  transition: opacity .5s ease, transform .5s cubic-bezier(.16,1,.3,1);
+  transform: translateY(24px);
+}
+.slide.active  { opacity: 1; pointer-events: all; transform: translateY(0); }
+.slide.exiting { opacity: 0; transform: translateY(-20px); transition-duration: .35s; }
+
+/* stagger children when slide activates */
+.slide.active > *,
+.slide.active .stagger > * {
+  animation: fadeUp .55s cubic-bezier(.16,1,.3,1) both;
+}
+.slide.active > *:nth-child(1) { animation-delay: .05s; }
+.slide.active > *:nth-child(2) { animation-delay: .12s; }
+.slide.active > *:nth-child(3) { animation-delay: .18s; }
+.slide.active > *:nth-child(4) { animation-delay: .24s; }
+.slide.active > *:nth-child(5) { animation-delay: .30s; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── TYPOGRAPHY SYSTEM ──────────────────────────────── */
+.eyebrow {
+  font-size: 9.5px; letter-spacing: .32em;
+  text-transform: uppercase; color: var(--gold);
+  font-weight: 400; font-family: 'Inter', sans-serif;
+}
+.display {
+  font-family: 'Cormorant Garamond', serif; font-weight: 300;
+  font-size: clamp(38px, 5.2vw, 66px); line-height: 1.04;
+  color: var(--text);
+}
+.display em { font-style: italic; color: var(--gold); }
+.display-sm {
+  font-family: 'Cormorant Garamond', serif; font-weight: 300;
+  font-size: clamp(24px, 3vw, 40px); line-height: 1.15;
+  color: var(--text);
+}
+.display-sm em { font-style: italic; color: var(--gold); }
+.rule {
+  width: 36px; height: 1px; background: var(--gold);
+  flex-shrink: 0; margin: 20px 0;
+}
+.body { font-size: 14px; font-weight: 300; line-height: 1.72; color: var(--text2); }
+.mono { font-family: 'DM Mono', monospace; font-weight: 300; }
+
+/* ─── SLIDE 1 — COVER ────────────────────────────────── */
+.s1 { text-align: center; gap: 0; }
+
+/* Watch face background */
+.watch-face {
+  position: absolute;
+  width: min(55vw, 55vh); height: min(55vw, 55vh);
+  border-radius: 50%;
+  border: 1px solid rgba(201,165,92,.06);
+  pointer-events: none;
+}
+.watch-face::before, .watch-face::after {
+  content: '';
+  position: absolute; top: 50%; left: 50%;
+  border-radius: 2px;
+  transform-origin: bottom center;
+  background: var(--gold);
+}
+/* minute hand */
+.watch-face::before {
+  width: 1px; height: 36%;
+  margin-left: -.5px; margin-top: -36%;
+  opacity: .15;
+}
+/* hour hand */
+.watch-face::after {
+  width: 1.5px; height: 26%;
+  margin-left: -.75px; margin-top: -26%;
+  opacity: .12;
+}
+.watch-indices {
+  position: absolute; inset: 0;
+  border-radius: 50%;
+}
+.watch-indices span {
+  position: absolute;
+  width: 100%; height: 100%;
+  display: flex; justify-content: center;
+  top: 0; left: 0;
+}
+.watch-indices span::after {
+  content: '';
+  width: 1px; height: 8%;
+  background: rgba(201,165,92,.12);
+  margin-top: 4%;
+}
+
+.s1-brand {
+  font-size: 10px; letter-spacing: .4em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 48px;
+}
+.s1-title {
+  font-family: 'Cormorant Garamond', serif; font-weight: 300;
+  font-size: clamp(34px, 5.8vw, 72px);
+  line-height: 1.05; max-width: 760px;
+  position: relative; z-index: 1;
+}
+.s1-title .line2 {
+  font-style: italic; color: var(--gold);
+  display: block;
+}
+.s1-sub {
+  font-size: 12px; color: var(--muted);
+  letter-spacing: .05em; font-weight: 300;
+  margin-top: 36px; position: relative; z-index: 1;
+}
+.s1-badge {
+  margin-top: 52px;
+  border: 1px solid var(--border2);
+  padding: 9px 22px; border-radius: 40px;
+  font-size: 10px; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--muted);
+  position: relative; z-index: 1;
+}
+
+/* ─── SLIDE 2 — DIAGNÓSTICO ──────────────────────────── */
+.s2-header { width: 100%; max-width: 920px; }
+.pain-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 14px; width: 100%; max-width: 920px; margin-top: 28px;
+}
+.pain-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-top: 2px solid var(--red);
+  border-radius: 8px; padding: 22px 24px;
+  animation: fadeUp .55s cubic-bezier(.16,1,.3,1) both;
+}
+.pain-card:nth-child(1) { animation-delay: .20s; }
+.pain-card:nth-child(2) { animation-delay: .27s; }
+.pain-card:nth-child(3) { animation-delay: .34s; }
+.pain-card:nth-child(4) { animation-delay: .41s; }
+.pain-label {
+  font-size: 9px; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--red);
+  margin-bottom: 8px; font-family: 'DM Mono', monospace;
+}
+.pain-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px; font-weight: 400; color: var(--text);
+  margin-bottom: 6px;
+}
+.pain-body { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+/* ─── SLIDE 3 — PERDA ────────────────────────────────── */
+.stat-row {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 18px; width: 100%; max-width: 860px; margin-top: 28px;
+}
+.stat-col {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 32px 24px; text-align: center;
+}
+.stat-num {
+  font-family: 'Cormorant Garamond', serif; font-weight: 300;
+  font-size: 56px; line-height: 1; color: var(--gold);
+  margin-bottom: 10px;
+}
+.stat-label { font-size: 12px; color: var(--muted); line-height: 1.55; }
+.s3-insight {
+  max-width: 660px; text-align: center; margin-top: 30px;
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 18px; font-weight: 300; color: var(--muted); line-height: 1.5;
+}
+.s3-insight strong { color: var(--text); font-weight: 400; font-style: normal; }
+
+/* ─── SLIDE 4 — ARQUITETURA ──────────────────────────── */
+.flow-wrap { width: 100%; max-width: 1000px; margin-top: 28px; }
+.flow-nodes {
+  display: flex; align-items: stretch; gap: 0;
+}
+.flow-node {
+  flex: 1; background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 24px 20px; text-align: center;
+  position: relative;
+  animation: fadeUp .55s cubic-bezier(.16,1,.3,1) both;
+}
+.flow-node.lit {
+  border-color: var(--gold-d);
+  background: linear-gradient(160deg, var(--card) 0%, var(--gold-faint) 100%);
+}
+.flow-node:nth-child(1) { animation-delay: .12s; }
+.flow-node:nth-child(3) { animation-delay: .22s; }
+.flow-node:nth-child(5) { animation-delay: .32s; }
+.flow-node:nth-child(7) { animation-delay: .42s; }
+
+.fn-tag {
+  font-size: 9px; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 10px; font-family: 'DM Mono', monospace;
+}
+.fn-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px; font-weight: 400; color: var(--text);
+  line-height: 1.25; margin-bottom: 8px;
+}
+.fn-body { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+.flow-arrow {
+  flex: 0 0 40px; display: flex;
+  align-items: center; justify-content: center;
+  color: var(--gold-d); font-size: 20px; flex-shrink: 0;
+}
+
+.flow-caption {
+  text-align: center; margin-top: 22px;
+  font-size: 12px; color: var(--muted);
+}
+.flow-caption span { color: var(--gold); }
+
+/* ─── SLIDE 5 — DASHBOARD ────────────────────────────── */
+.dash { width: 100%; max-width: 1040px; margin-top: 18px; }
+.dash-kpis {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 10px; margin-bottom: 12px;
+}
+.kpi {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 14px 16px;
+}
+.kpi-label {
+  font-size: 9px; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 7px; font-family: 'DM Mono', monospace;
+}
+.kpi-val {
+  font-family: 'Cormorant Garamond', serif; font-weight: 300;
+  font-size: 30px; color: var(--text); line-height: 1;
+}
+.kpi-delta { font-size: 10px; margin-top: 5px; font-family: 'DM Mono', monospace; }
+.kpi-delta.up   { color: var(--green); }
+.kpi-delta.down { color: var(--red); }
+
+.dash-row {
+  display: grid; grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 10px;
+}
+.dash-panel {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 16px 18px;
+}
+.panel-title {
+  font-size: 9px; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 14px; font-family: 'DM Mono', monospace;
+}
+
+/* bars */
+.bar-list { display: flex; flex-direction: column; gap: 11px; }
+.bar-meta {
+  display: flex; justify-content: space-between;
+  font-size: 11px; color: var(--muted); margin-bottom: 4px;
+}
+.bar-meta b { color: var(--text2); font-weight: 400; }
+.bar-track {
+  height: 4px; background: var(--border2);
+  border-radius: 3px; overflow: hidden;
+}
+.bar-fill {
+  height: 100%; border-radius: 3px;
+  background: var(--gold); width: 0;
+  transition: width 1.1s cubic-bezier(.16,1,.3,1);
+}
+.bar-fill.dim { opacity: .55; }
+.bar-fill.dimmer { opacity: .3; }
+
+/* funnel */
+.funnel { display: flex; flex-direction: column; gap: 5px; }
+.f-step { display: flex; align-items: center; gap: 8px; }
+.f-bar {
+  height: 20px; border-radius: 3px;
+  background: linear-gradient(90deg, var(--gold-d), transparent);
+  display: flex; align-items: center; padding: 0 8px;
+  font-size: 10px; color: var(--text2); font-family: 'DM Mono', monospace;
+  white-space: nowrap; overflow: hidden;
+  width: 0; transition: width 1.1s cubic-bezier(.16,1,.3,1);
+}
+
+/* origin */
+.origin-list { display: flex; flex-direction: column; gap: 9px; }
+.ori {
+  display: flex; align-items: center; gap: 9px; font-size: 11px;
+}
+.ori-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.ori-name { color: var(--muted); flex: 1; }
+.ori-track {
+  flex: 1.5; height: 3px; background: var(--border2);
+  border-radius: 2px; overflow: hidden;
+}
+.ori-fill {
+  height: 100%; border-radius: 2px; width: 0;
+  transition: width 1.1s cubic-bezier(.16,1,.3,1);
+}
+.ori-pct { color: var(--text2); min-width: 28px; text-align: right; font-family: 'DM Mono', monospace; }
+
+/* ─── SLIDE 6 — ANTES/DEPOIS ──────────────────────────── */
+.compare {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 20px; width: 100%; max-width: 900px; margin-top: 28px;
+}
+.cmp-col {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 28px 26px;
+}
+.cmp-col.after { border-color: var(--gold-d); }
+.cmp-tag {
+  font-size: 9px; letter-spacing: .24em;
+  text-transform: uppercase; margin-bottom: 20px;
+  font-family: 'DM Mono', monospace;
+}
+.cmp-tag.bad  { color: var(--red); }
+.cmp-tag.good { color: var(--green); }
+.cmp-list { display: flex; flex-direction: column; gap: 11px; }
+.cmp-row {
+  display: flex; gap: 10px; font-size: 13px;
+  color: var(--muted); line-height: 1.45;
+}
+.cmp-row::before { content: '—'; color: var(--border2); flex-shrink: 0; }
+.cmp-col.after .cmp-row::before { content: '✓'; color: var(--gold); }
+.cmp-col.after .cmp-row { color: var(--text2); }
+
+/* ─── SLIDE 7 — PLANO ────────────────────────────────── */
+.plan-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 18px; width: 100%; max-width: 980px; margin-top: 28px;
+}
+.plan-col {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 28px 22px;
+  position: relative; overflow: hidden;
+}
+.plan-col::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px; background: var(--gold);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .5s cubic-bezier(.16,1,.3,1);
+}
+.plan-col:hover::after { transform: scaleX(1); }
+.plan-month {
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 10px;
+}
+.plan-title {
+  font-family: 'Cormorant Garamond', serif; font-weight: 300;
+  font-size: 22px; color: var(--text);
+  margin-bottom: 18px; line-height: 1.2;
+}
+.plan-items { display: flex; flex-direction: column; gap: 9px; }
+.plan-item {
+  display: flex; gap: 9px; font-size: 12px;
+  color: var(--muted); line-height: 1.45;
+}
+.plan-item::before { content: '·'; color: var(--gold-d); flex-shrink: 0; }
+
+/* ─── SLIDE 8 — CTA ──────────────────────────────────── */
+.s8 { text-align: center; gap: 0; }
+.s8-quote {
+  font-family: 'Cormorant Garamond', serif; font-weight: 300;
+  font-size: clamp(28px, 4.2vw, 52px); line-height: 1.15;
+  color: var(--text); max-width: 640px;
+}
+.s8-quote em { font-style: italic; color: var(--gold); display: block; }
+.s8-body {
+  font-size: 13px; font-weight: 300; color: var(--muted);
+  line-height: 1.7; max-width: 480px; margin-top: 28px;
+}
+.s8-btn {
+  margin-top: 44px;
+  padding: 13px 38px;
+  background: transparent; border: 1px solid var(--gold);
+  border-radius: 3px; color: var(--gold);
+  font-family: 'Inter', sans-serif; font-size: 11px;
+  letter-spacing: .2em; text-transform: uppercase;
+  cursor: pointer;
+  transition: background .22s, color .22s;
+}
+.s8-btn:hover { background: var(--gold); color: var(--bg); }
+.s8-brand {
+  margin-top: 52px; font-size: 9px; letter-spacing: .3em;
+  text-transform: uppercase; color: var(--muted);
+}
+
+/* ─── NAV ────────────────────────────────────────────── */
+.nav {
+  position: fixed; bottom: 32px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; align-items: center; gap: 20px; z-index: 100;
+}
+.nav-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--card); border: 1px solid var(--border);
+  color: var(--muted); display: flex; align-items: center;
+  justify-content: center; cursor: pointer; font-size: 14px;
+  transition: border-color .2s, color .2s;
+}
+.nav-btn:hover { border-color: var(--gold); color: var(--gold); }
+.dots { display: flex; gap: 7px; }
+.dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--border2); cursor: pointer;
+  transition: background .2s, transform .2s;
+}
+.dot.on { background: var(--gold); transform: scale(1.5); }
+
+/* Keyboard hint */
+.hint {
+  position: fixed; bottom: 84px; left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px; letter-spacing: .15em;
+  color: var(--muted); opacity: 1;
+  transition: opacity 1s ease; z-index: 99;
+  font-family: 'DM Mono', monospace;
+}
+.hint.gone { opacity: 0; }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div class="chrome-logo">MarketingOS</div>
+<div class="chrome-counter" id="counter">01 / 08</div>
+<div class="hint" id="hint">← → navegar</div>
+
+<div class="deck">
+
+  <!-- ─── S1: COVER ─────────────────────────────────── -->
+  <div class="slide s1 active" data-i="0">
+
+    <!-- Watch face bg -->
+    <div class="watch-face" id="watchFace">
+      <div class="watch-indices" id="indices"></div>
+    </div>
+
+    <p class="s1-brand">Relógios Prime · Diagnóstico Operacional</p>
+    <h1 class="s1-title">
+      Você vende relógio
+      <span class="line2">ou alimenta algoritmo?</span>
+    </h1>
+    <p class="s1-sub">Uma análise da sua operação atual — e onde ela pode chegar.</p>
+    <div class="s1-badge">Confidencial · MarketingOS · 2026</div>
+  </div>
+
+  <!-- ─── S2: DIAGNÓSTICO ───────────────────────────── -->
+  <div class="slide" data-i="1">
+    <div class="s2-header">
+      <p class="eyebrow">Diagnóstico atual</p>
+      <div class="rule"></div>
+      <h2 class="display-sm">A operação que você construiu<br><em>tem um problema estrutural.</em></h2>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <p class="pain-label">Dependência</p>
+        <p class="pain-title">Plataformas controlam tudo</p>
+        <p class="pain-body">ML e Shopee definem sua visibilidade e suas regras. Amanhã elas podem mudar — e você não tem controle.</p>
+      </div>
+      <div class="pain-card">
+        <p class="pain-label">Dado zero</p>
+        <p class="pain-title">Seu cliente não é seu</p>
+        <p class="pain-body">Cada comprador pertence à plataforma. Você vende, entrega e paga comissão — mas não sabe quem comprou.</p>
+      </div>
+      <div class="pain-card">
+        <p class="pain-label">Margem</p>
+        <p class="pain-title">Comissão + frete + guerra de preço</p>
+        <p class="pain-body">10–20% de comissão em cada venda. Frete absorvido. Concorrente com preço menor a um scroll de distância.</p>
+      </div>
+      <div class="pain-card">
+        <p class="pain-label">Marca</p>
+        <p class="pain-title">Produto sem narrativa</p>
+        <p class="pain-body">Na vitrine da plataforma, você é mais um. Sem identidade, sem percepção de valor — só preço e avaliação.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── S3: PERDA ─────────────────────────────────── -->
+  <div class="slide" data-i="2">
+    <p class="eyebrow">O que está em jogo</p>
+    <div class="rule"></div>
+    <h2 class="display-sm">Cada venda sem base própria<br>é uma <em>oportunidade perdida.</em></h2>
+    <div class="stat-row">
+      <div class="stat-col">
+        <p class="stat-num">0%</p>
+        <p class="stat-label">de recompra ativada<br>sem CRM ou base de contato</p>
+      </div>
+      <div class="stat-col">
+        <p class="stat-num">3–5×</p>
+        <p class="stat-label">mais barato vender<br>para quem já comprou</p>
+      </div>
+      <div class="stat-col">
+        <p class="stat-num">100%</p>
+        <p class="stat-label">dos dados do comprador<br>ficam com a plataforma</p>
+      </div>
+    </div>
+    <p class="s3-insight">
+      <strong>A operação está funcionando —</strong> mas está deixando dinheiro<br>
+      na mesa em cada venda que não vira relacionamento.
+    </p>
+  </div>
+
+  <!-- ─── S4: ARQUITETURA ───────────────────────────── -->
+  <div class="slide" data-i="3">
+    <p class="eyebrow">A operação transformada</p>
+    <div class="rule"></div>
+    <h2 class="display-sm">ML e Shopee viram <em>topo de funil.</em><br>Não o negócio todo.</h2>
+    <div class="flow-wrap">
+      <div class="flow-nodes">
+        <div class="flow-node">
+          <p class="fn-tag">Entrada</p>
+          <p class="fn-title">ML · Shopee<br>Instagram · Ads</p>
+          <p class="fn-body">Canais de descoberta — não de dependência</p>
+        </div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-node lit">
+          <p class="fn-tag">Captura</p>
+          <p class="fn-title">Landing própria<br>WhatsApp · Lead</p>
+          <p class="fn-body">O dado do comprador fica com você</p>
+        </div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-node lit">
+          <p class="fn-tag">Relacionamento</p>
+          <p class="fn-title">CRM · Histórico<br>Segmentação</p>
+          <p class="fn-body">Você conhece quem comprou — e quando voltar</p>
+        </div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-node lit">
+          <p class="fn-tag">Receita</p>
+          <p class="fn-title">Recompra<br>Upsell · LTV</p>
+          <p class="fn-body">Venda para quem já confia na marca</p>
+        </div>
+      </div>
+      <p class="flow-caption">
+        <span>Dashboard em tempo real</span> — você enxerga cada etapa, cada número, cada canal.
+      </p>
+    </div>
+  </div>
+
+  <!-- ─── S5: DASHBOARD ─────────────────────────────── -->
+  <div class="slide" data-i="4">
+    <p class="eyebrow">Controle operacional</p>
+    <div class="rule"></div>
+    <h2 class="display-sm" style="margin-bottom:16px">Você vai <em>enxergar tudo</em> em tempo real.</h2>
+    <div class="dash" id="dash">
+      <div class="dash-kpis">
+        <div class="kpi">
+          <p class="kpi-label">Receita / mês</p>
+          <p class="kpi-val">R$&nbsp;48.200</p>
+          <p class="kpi-delta up">↑ 23% vs anterior</p>
+        </div>
+        <div class="kpi">
+          <p class="kpi-label">Ticket médio</p>
+          <p class="kpi-val">R$&nbsp;380</p>
+          <p class="kpi-delta up">↑ 14% canal direto</p>
+        </div>
+        <div class="kpi">
+          <p class="kpi-label">Taxa de recompra</p>
+          <p class="kpi-val">31%</p>
+          <p class="kpi-delta up">↑ de 0% → 31%</p>
+        </div>
+        <div class="kpi">
+          <p class="kpi-label">Leads na base</p>
+          <p class="kpi-val">1.840</p>
+          <p class="kpi-delta up">↑ 340 este mês</p>
+        </div>
+      </div>
+      <div class="dash-row">
+
+        <div class="dash-panel">
+          <p class="panel-title">Receita por canal</p>
+          <div class="bar-list">
+            <div>
+              <div class="bar-meta"><span>Canal direto (próprio)</span><b>R$21.400</b></div>
+              <div class="bar-track"><div class="bar-fill" data-w="74"></div></div>
+            </div>
+            <div>
+              <div class="bar-meta"><span>Mercado Livre</span><b>R$16.200</b></div>
+              <div class="bar-track"><div class="bar-fill dim" data-w="56"></div></div>
+            </div>
+            <div>
+              <div class="bar-meta"><span>Shopee</span><b>R$7.800</b></div>
+              <div class="bar-track"><div class="bar-fill dimmer" data-w="27"></div></div>
+            </div>
+            <div>
+              <div class="bar-meta"><span>Instagram / WhatsApp</span><b>R$2.800</b></div>
+              <div class="bar-track"><div class="bar-fill dimmer" data-w="10"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-panel">
+          <p class="panel-title">Funil de conversão</p>
+          <div class="funnel">
+            <div class="f-step"><div class="f-bar" data-w="100">Visitantes · 4.200</div></div>
+            <div class="f-step"><div class="f-bar" data-w="78">Leads · 1.840</div></div>
+            <div class="f-step"><div class="f-bar" data-w="52">Contato · 820</div></div>
+            <div class="f-step"><div class="f-bar" data-w="32">Compra · 340</div></div>
+            <div class="f-step"><div class="f-bar" data-w="15">Recompra · 105</div></div>
+          </div>
+        </div>
+
+        <div class="dash-panel">
+          <p class="panel-title">Origem dos leads</p>
+          <div class="origin-list">
+            <div class="ori">
+              <div class="ori-dot" style="background:#C9A55C"></div>
+              <span class="ori-name">Instagram / Meta Ads</span>
+              <div class="ori-track"><div class="ori-fill" data-w="62" style="background:#C9A55C"></div></div>
+              <span class="ori-pct">62%</span>
+            </div>
+            <div class="ori">
+              <div class="ori-dot" style="background:#5A9A72"></div>
+              <span class="ori-name">WhatsApp orgânico</span>
+              <div class="ori-track"><div class="ori-fill" data-w="18" style="background:#5A9A72"></div></div>
+              <span class="ori-pct">18%</span>
+            </div>
+            <div class="ori">
+              <div class="ori-dot" style="background:#5A7AB8"></div>
+              <span class="ori-name">Mercado Livre</span>
+              <div class="ori-track"><div class="ori-fill" data-w="13" style="background:#5A7AB8"></div></div>
+              <span class="ori-pct">13%</span>
+            </div>
+            <div class="ori">
+              <div class="ori-dot" style="background:#6B5A3A"></div>
+              <span class="ori-name">Indicação</span>
+              <div class="ori-track"><div class="ori-fill" data-w="7" style="background:#6B5A3A"></div></div>
+              <span class="ori-pct">7%</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── S6: ANTES/DEPOIS ──────────────────────────── -->
+  <div class="slide" data-i="5">
+    <p class="eyebrow">Transformação da operação</p>
+    <div class="rule"></div>
+    <h2 class="display-sm">De vendedor de plataforma<br>para <em>marca com sistema.</em></h2>
+    <div class="compare">
+      <div class="cmp-col">
+        <p class="cmp-tag bad">Operação atual</p>
+        <div class="cmp-list">
+          <div class="cmp-row">Visibilidade depende do algoritmo da plataforma</div>
+          <div class="cmp-row">Sem base de leads — cada venda começa do zero</div>
+          <div class="cmp-row">Margem corroída por comissão, frete e guerra de preço</div>
+          <div class="cmp-row">Sem histórico de comprador — sem recompra</div>
+          <div class="cmp-row">Produto entre centenas de iguais — decisão por preço</div>
+          <div class="cmp-row">Sem controle de métricas por canal</div>
+        </div>
+      </div>
+      <div class="cmp-col after">
+        <p class="cmp-tag good">Com o sistema</p>
+        <div class="cmp-list">
+          <div class="cmp-row">Tráfego próprio — independente de algoritmo</div>
+          <div class="cmp-row">Base de leads qualificada, crescendo todo mês</div>
+          <div class="cmp-row">Canal direto com margem real — sem intermediário</div>
+          <div class="cmp-row">CRM com histórico — recompra automatizada</div>
+          <div class="cmp-row">Narrativa de marca — decisão por desejo, não preço</div>
+          <div class="cmp-row">Dashboard em tempo real — controle total por canal</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── S7: PLANO 90 DIAS ─────────────────────────── -->
+  <div class="slide" data-i="6">
+    <p class="eyebrow">Plano de execução</p>
+    <div class="rule"></div>
+    <h2 class="display-sm">90 dias para <em>transformar a operação.</em></h2>
+    <div class="plan-grid">
+      <div class="plan-col">
+        <p class="plan-month">Mês 01 — Estrutura</p>
+        <p class="plan-title">A base que<br>você não tem</p>
+        <div class="plan-items">
+          <div class="plan-item">Landing própria com captura de lead</div>
+          <div class="plan-item">WhatsApp Business integrado ao funil</div>
+          <div class="plan-item">CRM configurado com histórico de compras</div>
+          <div class="plan-item">Dashboard operacional ao vivo</div>
+          <div class="plan-item">Fluxo de boas-vindas e primeiro contato automático</div>
+        </div>
+      </div>
+      <div class="plan-col">
+        <p class="plan-month">Mês 02 — Aquisição</p>
+        <p class="plan-title">Levar pessoas<br>para sua base</p>
+        <div class="plan-items">
+          <div class="plan-item">Identidade de marca aplicada nos canais</div>
+          <div class="plan-item">Primeiras campanhas de tráfego pago ativas</div>
+          <div class="plan-item">Narrativa de conteúdo — relógio como desejo</div>
+          <div class="plan-item">Base de leads com 500+ contatos qualificados</div>
+          <div class="plan-item">ML/Shopee integrados como topo — não como fim</div>
+        </div>
+      </div>
+      <div class="plan-col">
+        <p class="plan-month">Mês 03 — Escala</p>
+        <p class="plan-title">Sistema operando<br>por conta própria</p>
+        <div class="plan-items">
+          <div class="plan-item">Retargeting ativo para quem visitou e não comprou</div>
+          <div class="plan-item">Fluxo de recompra automático rodando</div>
+          <div class="plan-item">Campanhas de upsell por segmento</div>
+          <div class="plan-item">Dashboard com LTV e ROI por canal</div>
+          <div class="plan-item">Operação independente de qualquer plataforma</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── S8: CTA ───────────────────────────────────── -->
+  <div class="slide s8" data-i="7">
+    <p class="eyebrow">Próximo passo</p>
+    <div class="rule" style="margin:20px auto"></div>
+    <p class="s8-quote">
+      A próxima venda pode ser
+      <em>do seu cliente —<br>não do algoritmo.</em>
+    </p>
+    <p class="s8-body">
+      A operação já funciona. O que falta é transformá-la em algo que trabalha
+      <em>para você</em> — com base própria, margem real e controle total.
+    </p>
+    <button class="s8-btn">Vamos conversar</button>
+    <p class="s8-brand">MarketingOS · Operação de aquisição aplicada</p>
+  </div>
+
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <button class="nav-btn" id="prev">&#8592;</button>
+  <div class="dots" id="dots"></div>
+  <button class="nav-btn" id="next">&#8594;</button>
+</nav>
+
+<script>
+/* ─── SLIDES ──────────────────────────────────────────── */
+const slides = [...document.querySelectorAll('.slide')];
+const total  = slides.length;
+let   cur    = 0;
+let   busy   = false;
+
+/* dots */
+const dotsEl = document.getElementById('dots');
+slides.forEach((_, i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i === 0 ? ' on' : '');
+  d.onclick = () => goTo(i);
+  dotsEl.appendChild(d);
+});
+const dots = [...dotsEl.querySelectorAll('.dot')];
+
+function goTo(idx) {
+  if (idx < 0 || idx >= total || idx === cur || busy) return;
+  busy = true;
+  const prev = cur;
+  slides[prev].classList.add('exiting');
+  setTimeout(() => {
+    slides[prev].classList.remove('active', 'exiting');
+    cur = idx;
+    slides[cur].classList.add('active');
+    dots.forEach((d, i) => d.classList.toggle('on', i === cur));
+    document.getElementById('counter').textContent =
+      String(cur + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+    document.getElementById('progress').style.width =
+      ((cur + 1) / total * 100) + '%';
+    if (cur === 4) setTimeout(animateDash, 200);
+    busy = false;
+  }, 380);
+}
+
+document.getElementById('prev').onclick = () => goTo(cur - 1);
+document.getElementById('next').onclick = () => goTo(cur + 1);
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(cur + 1);
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goTo(cur - 1);
+});
+let tx = 0;
+document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; });
+document.addEventListener('touchend',   e => {
+  const dx = tx - e.changedTouches[0].clientX;
+  if (Math.abs(dx) > 50) goTo(dx > 0 ? cur + 1 : cur - 1);
+});
+
+/* hide hint */
+setTimeout(() => document.getElementById('hint').classList.add('gone'), 4000);
+
+/* ─── DASHBOARD ANIMATION ─────────────────────────────── */
+function animateDash() {
+  document.querySelectorAll('.bar-fill').forEach(el => {
+    el.style.width = el.dataset.w + '%';
+  });
+  document.querySelectorAll('.f-bar').forEach(el => {
+    el.style.width = el.dataset.w + '%';
+  });
+  document.querySelectorAll('.ori-fill').forEach(el => {
+    el.style.width = el.dataset.w + '%';
+  });
+}
+/* if dashboard is first slide shown on load */
+if (cur === 4) setTimeout(animateDash, 400);
+
+/* ─── WATCH FACE ──────────────────────────────────────── */
+const indicesEl = document.getElementById('indices');
+for (let i = 0; i < 60; i++) {
+  const s = document.createElement('span');
+  s.style.transform = `rotate(${i * 6}deg)`;
+  if (i % 5 === 0) {
+    s.style.cssText += ';after-height:12%';
+  }
+  indicesEl.appendChild(s);
+}
+
+const wf = document.getElementById('watchFace');
+/* create hands as divs for JS rotation */
+const handH = document.createElement('div');
+const handM = document.createElement('div');
+const handS = document.createElement('div');
+handH.id = 'hh'; handM.id = 'hm'; handS.id = 'hs';
+const handBase = `position:absolute;bottom:50%;left:50%;border-radius:2px;transform-origin:bottom center;`;
+handH.style.cssText = handBase + 'width:2px;height:28%;margin-left:-1px;background:rgba(201,165,92,.18);';
+handM.style.cssText = handBase + 'width:1px;height:38%;margin-left:-.5px;background:rgba(201,165,92,.14);';
+handS.style.cssText = handBase + 'width:1px;height:42%;margin-left:-.5px;background:rgba(201,165,92,.1);';
+wf.appendChild(handH); wf.appendChild(handM); wf.appendChild(handS);
+
+function tickClock() {
+  const n = new Date();
+  const h = n.getHours() % 12, m = n.getMinutes(), s = n.getSeconds();
+  handH.style.transform = `rotate(${h * 30 + m * 0.5}deg)`;
+  handM.style.transform = `rotate(${m * 6}deg)`;
+  handS.style.transform = `rotate(${s * 6}deg)`;
+}
+tickClock();
+setInterval(tickClock, 1000);
+</script>
+</body>
+</html>

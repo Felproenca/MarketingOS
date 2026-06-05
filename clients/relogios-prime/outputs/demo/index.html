@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relógios Prime — Diagnóstico e Próximos Passos</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fraunces:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  /* Padrão MarketingOS */
+  --mos-bg:#0a0a0a;
+  --mos-bg-2:#111;
+  --mos-bg-3:#1a1a1a;
+  --mos-line:#222;
+  --mos-line-2:#2a2a2a;
+  --mos-text:#fafafa;
+  --mos-text-2:#a0a0a0;
+  --mos-text-3:#666;
+  --mos-red:#d85a30;
+  --mos-green:#1d9e75;
+
+  /* IDENTIDADE DO CLIENTE */
+  --client-primary:    #0E0B07;
+  --client-secondary:  #1C1810;
+  --client-accent:     #C9A55C;
+  --client-neutral:    #7A7060;
+  --client-background: #F5F0E8;
+
+  --client-font-h: 'Cormorant Garamond', 'Fraunces', serif;
+  --client-font-b: 'Inter', sans-serif;
+}
+
+html{scroll-behavior:smooth}
+body{background:var(--mos-bg);color:var(--mos-text);font-family:var(--client-font-b);font-size:15px;line-height:1.6;overflow-x:hidden}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.85);backdrop-filter:blur(20px);border-bottom:0.5px solid var(--mos-line);padding:14px 0}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 32px;display:flex;justify-content:space-between;align-items:center}
+.nav-logo{font-family:var(--client-font-h);font-size:14px;font-weight:500;letter-spacing:0.04em}
+.nav-progress{font-family:var(--client-font-b);font-size:11px;color:var(--mos-text-3);letter-spacing:0.12em;text-transform:uppercase}
+
+/* SLIDES */
+.slide{min-height:100vh;padding:120px 32px 80px;display:flex;flex-direction:column;justify-content:center;border-bottom:0.5px solid var(--mos-line);position:relative}
+.slide-inner{max-width:980px;margin:0 auto;width:100%}
+.slide-label{font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--client-accent);margin-bottom:24px}
+.slide h1{font-family:var(--client-font-h);font-size:64px;font-weight:500;line-height:1.05;letter-spacing:-0.02em;margin-bottom:32px}
+.slide h1 em{font-style:italic;color:var(--client-accent)}
+.slide h2{font-family:var(--client-font-h);font-size:40px;font-weight:500;line-height:1.15;letter-spacing:-0.015em;margin-bottom:24px}
+.slide h3{font-family:var(--client-font-h);font-size:22px;font-weight:500;line-height:1.3;margin-bottom:12px}
+.slide-lead{font-size:19px;line-height:1.6;color:var(--mos-text-2);max-width:720px;margin-bottom:48px}
+.slide-text{font-size:16px;line-height:1.7;color:var(--mos-text-2);max-width:680px}
+.slide-text + .slide-text{margin-top:16px}
+
+/* COVER */
+.cover{background:radial-gradient(ellipse at top left, color-mix(in srgb, var(--client-accent) 12%, transparent), transparent 60%)}
+.cover .meta{font-size:12px;color:var(--mos-text-3);letter-spacing:0.12em;text-transform:uppercase;margin-top:64px}
+.cover .recipient{font-family:var(--client-font-h);font-size:24px;font-weight:400;font-style:italic;color:var(--client-accent);margin-top:8px}
+
+/* COMPARATIVO ANTES/DEPOIS */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:48px}
+.compare-col{border:0.5px solid var(--mos-line-2);border-radius:12px;padding:32px;background:var(--mos-bg-2)}
+.compare-col.bad{border-color:rgba(216,90,48,0.3);background:rgba(216,90,48,0.04)}
+.compare-col.good{border-color:rgba(29,158,117,0.3);background:rgba(29,158,117,0.04)}
+.compare-tag{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;margin-bottom:20px;display:inline-block;padding:4px 10px;border-radius:20px}
+.compare-tag.bad{color:var(--mos-red);background:rgba(216,90,48,0.12)}
+.compare-tag.good{color:var(--mos-green);background:rgba(29,158,117,0.12)}
+.compare-headline{font-family:var(--client-font-h);font-size:24px;font-weight:500;line-height:1.3;color:var(--mos-text);margin-bottom:16px}
+.compare-note{font-size:13px;color:var(--mos-text-2);line-height:1.6}
+
+/* PROBLEMAS */
+.problem-list{display:flex;flex-direction:column;gap:24px;margin-top:48px}
+.problem{display:grid;grid-template-columns:60px 1fr;gap:24px;padding-bottom:24px;border-bottom:0.5px solid var(--mos-line)}
+.problem:last-child{border-bottom:none}
+.problem-num{font-family:var(--client-font-h);font-size:32px;font-weight:300;color:var(--mos-text-3);font-style:italic;line-height:1}
+.problem-content h3{margin-bottom:8px}
+.problem-content p{font-size:15px;color:var(--mos-text-2);line-height:1.6}
+.problem-impact{margin-top:12px;font-size:13px;color:var(--client-accent);font-weight:500}
+
+/* MOCKUP DO SITE */
+.mockup-wrap{margin-top:48px;border-radius:12px;overflow:hidden;border:0.5px solid var(--mos-line-2)}
+.mockup-bar{background:var(--mos-bg-3);padding:12px 16px;display:flex;align-items:center;gap:8px;border-bottom:0.5px solid var(--mos-line)}
+.mockup-bar span{width:12px;height:12px;border-radius:50%;background:var(--mos-line-2)}
+.mockup-bar .url{margin-left:16px;font-size:11px;color:var(--mos-text-3);font-family:'SF Mono',monospace}
+.mockup-image{background:var(--client-background);padding:48px 32px;min-height:280px}
+.mockup-hero{font-family:var(--client-font-h);color:var(--client-primary);font-size:36px;font-weight:500;line-height:1.15;margin-bottom:12px}
+.mockup-hero em{font-style:italic;color:var(--client-accent)}
+.mockup-sub{color:var(--client-neutral);font-size:13px;max-width:480px;line-height:1.6}
+.mockup-cta{display:inline-block;margin-top:20px;background:var(--client-primary);color:#fff;padding:10px 20px;border-radius:30px;font-size:12px;font-weight:500}
+
+/* INSTAGRAM COMPARATIVO */
+.instagram-compare{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:48px}
+.ig-col{display:flex;flex-direction:column;gap:16px}
+.ig-label{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;padding:4px 10px;border-radius:20px;display:inline-block;align-self:flex-start}
+.ig-col.bad .ig-label{color:var(--mos-red);background:rgba(216,90,48,0.12)}
+.ig-col.good .ig-label{color:var(--mos-green);background:rgba(29,158,117,0.12)}
+.ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:var(--mos-bg-2);padding:12px;border-radius:8px}
+.ig-post{aspect-ratio:1;display:flex;align-items:center;justify-content:center;padding:8px;border-radius:2px;font-size:9px;text-align:center;color:#fff;font-weight:500;line-height:1.2;text-transform:uppercase;letter-spacing:0.06em;overflow:hidden}
+.ig-col.bad .ig-post{background:#3a3a3a;color:#888}
+.ig-col.good .ig-post.p1{background:var(--client-primary)}
+.ig-col.good .ig-post.p2{background:var(--client-secondary)}
+.ig-col.good .ig-post.p3{background:var(--client-accent);color:var(--client-primary)}
+.ig-col.good .ig-post.p4{background:var(--client-neutral);color:var(--client-primary)}
+.ig-col.good .ig-post.p5{background:var(--client-background);color:var(--client-primary);border:0.5px solid var(--client-primary)}
+.ig-col.good .ig-post.font{font-family:var(--client-font-h);font-style:italic;font-size:13px;text-transform:none;letter-spacing:0}
+.ig-note{font-size:13px;color:var(--mos-text-2);line-height:1.6;margin-top:8px}
+
+/* CARROSSEL NAVEGÁVEL */
+.carousel-demo{margin-top:48px}
+.carousel-frame{position:relative;width:100%;max-width:540px;margin:0 auto;aspect-ratio:1;border-radius:12px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,0.6);background:var(--client-background)}
+.carousel-slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:48px;text-align:center;opacity:0;pointer-events:none;transition:opacity 0.35s ease}
+.carousel-slide.active{opacity:1;pointer-events:all}
+.carousel-slide.gancho{background:var(--client-primary);color:#fff}
+.carousel-slide.conteudo{background:var(--client-background);color:var(--client-primary)}
+.carousel-slide.cta{background:var(--client-accent);color:var(--client-primary)}
+.carousel-num{position:absolute;top:20px;right:24px;font-family:var(--client-font-b);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;opacity:0.5}
+.carousel-label{font-family:var(--client-font-b);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;opacity:0.6;margin-bottom:16px}
+.carousel-title{font-family:var(--client-font-h);font-size:30px;font-weight:600;line-height:1.15;margin-bottom:16px}
+.carousel-body{font-family:var(--client-font-b);font-size:15px;line-height:1.7;opacity:0.85;max-width:420px}
+.carousel-cta-text{font-family:var(--client-font-h);font-size:26px;font-weight:600;line-height:1.2;margin-bottom:20px}
+.carousel-cta-btn{display:inline-block;padding:14px 32px;border-radius:40px;font-family:var(--client-font-b);font-size:15px;font-weight:600;background:var(--client-primary);color:#fff}
+
+.carousel-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:24px}
+.carousel-nav button{background:var(--mos-bg-2);border:0.5px solid var(--mos-line-2);color:var(--mos-text);width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.carousel-nav button:hover{background:var(--mos-bg-3);border-color:var(--client-accent)}
+.carousel-dots{display:flex;gap:8px;align-items:center}
+.carousel-dots .dot{width:6px;height:6px;border-radius:50%;background:var(--mos-line-2);cursor:pointer;transition:all 0.2s}
+.carousel-dots .dot.active{background:var(--client-accent);width:20px;border-radius:3px}
+.carousel-caption{text-align:center;font-size:13px;color:var(--mos-text-2);margin-top:24px;font-style:italic}
+
+/* CALENDÁRIO EDITORIAL */
+.calendar{margin-top:48px;border-radius:12px;overflow:hidden;border:0.5px solid var(--mos-line-2)}
+.calendar-head{display:grid;grid-template-columns:80px repeat(5, 1fr);background:var(--mos-bg-2);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--mos-text-3);font-weight:500}
+.calendar-head > div{padding:14px;border-right:0.5px solid var(--mos-line)}
+.calendar-head > div:last-child{border-right:none}
+.calendar-row{display:grid;grid-template-columns:80px repeat(5, 1fr);border-top:0.5px solid var(--mos-line)}
+.calendar-week{padding:16px;font-family:var(--client-font-h);font-style:italic;font-size:13px;color:var(--mos-text-2);border-right:0.5px solid var(--mos-line);display:flex;align-items:center}
+.calendar-cell{padding:14px;border-right:0.5px solid var(--mos-line);min-height:80px;display:flex;flex-direction:column;gap:6px;justify-content:space-between}
+.calendar-cell:last-child{border-right:none}
+.calendar-format{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;padding:3px 6px;border-radius:10px;display:inline-block;align-self:flex-start}
+.calendar-format.carrossel{background:color-mix(in srgb, var(--client-primary) 20%, transparent);color:var(--client-accent)}
+.calendar-format.post{background:color-mix(in srgb, var(--client-secondary) 20%, transparent);color:var(--client-accent)}
+.calendar-format.reels{background:color-mix(in srgb, var(--client-accent) 20%, transparent);color:var(--client-accent)}
+.calendar-format.story{background:color-mix(in srgb, var(--client-neutral) 20%, transparent);color:var(--mos-text-2)}
+.calendar-theme{font-size:12px;color:var(--mos-text);line-height:1.4}
+
+/* ROADMAP */
+.roadmap{margin-top:48px;display:flex;flex-direction:column;gap:0}
+.phase{display:grid;grid-template-columns:140px 1fr;gap:32px;padding:32px 0;border-top:0.5px solid var(--mos-line)}
+.phase:last-child{border-bottom:0.5px solid var(--mos-line)}
+.phase-period{font-family:var(--client-font-h);font-size:14px;font-weight:500;color:var(--client-accent);letter-spacing:0.04em}
+.phase-period .num{display:block;font-size:36px;font-weight:400;color:var(--mos-text);line-height:1;margin-bottom:4px}
+.phase-content h3{margin-bottom:8px}
+.phase-list{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:8px}
+.phase-list li{position:relative;padding-left:20px;font-size:14px;color:var(--mos-text-2);line-height:1.6}
+.phase-list li::before{content:'';position:absolute;left:0;top:10px;width:8px;height:1px;background:var(--client-accent)}
+
+/* MÉTRICAS */
+.metrics{display:grid;grid-template-columns:repeat(3, 1fr);gap:24px;margin-top:48px}
+.metric{border:0.5px solid var(--mos-line-2);border-radius:12px;padding:28px;background:var(--mos-bg-2)}
+.metric-label{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--mos-text-3);margin-bottom:12px}
+.metric-value{font-family:var(--client-font-h);font-size:42px;font-weight:400;line-height:1;color:var(--client-accent);margin-bottom:8px}
+.metric-note{font-size:12px;color:var(--mos-text-2);line-height:1.5}
+
+/* FINAL */
+.final{background:radial-gradient(ellipse at center, color-mix(in srgb, var(--client-accent) 12%, transparent), transparent 70%);text-align:center}
+.final h1{margin-bottom:24px}
+.final .slide-lead{margin:0 auto 48px}
+.final-cta{display:inline-block;background:var(--client-accent);color:var(--client-primary);padding:18px 36px;border-radius:40px;font-weight:600;font-size:14px;letter-spacing:0.04em;text-decoration:none;margin-top:8px}
+.final-signature{margin-top:80px;font-family:var(--client-font-h);font-style:italic;color:var(--mos-text-3);font-size:14px}
+
+@media (max-width:768px){
+  .slide{padding:100px 24px 60px}
+  .slide h1{font-size:42px}
+  .slide h2{font-size:30px}
+  .compare,.metrics,.instagram-compare{grid-template-columns:1fr}
+  .phase{grid-template-columns:1fr;gap:12px}
+  .calendar-head,.calendar-row{grid-template-columns:1fr}
+  .calendar-week{border-right:none;border-bottom:0.5px solid var(--mos-line)}
+  .calendar-cell{border-right:none;border-bottom:0.5px solid var(--mos-line)}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">MarketingOS</div>
+    <div class="nav-progress" id="progress">Diagnóstico Relógios Prime</div>
+  </div>
+</nav>
+
+<!-- SLIDE 1 — CAPA -->
+<section class="slide cover">
+  <div class="slide-inner">
+    <div class="slide-label">Documento confidencial</div>
+    <h1>Relógios Prime —<br><em>diagnóstico e próximos passos.</em></h1>
+    <p class="slide-lead">Análise completa da operação atual, oportunidades identificadas e proposta de estrutura para os próximos 90 dias.</p>
+    <div class="meta">Preparado para</div>
+    <div class="recipient">Relógios Prime</div>
+  </div>
+</section>
+
+<!-- SLIDE 2 — SITUAÇÃO ATUAL -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">01 · Onde vocês estão hoje</div>
+    <h2>Você construiu uma operação que vende. Agora precisa de uma que cresce.</h2>
+    <p class="slide-text">A Relógios Prime tem produto, tem operação, tem histórico de vendas. O Mercado Livre e a Shopee funcionam — mas funcionam para eles, não para você. Cada venda passa pelo filtro do algoritmo, cada comprador pertence à plataforma, e cada real de comissão reduz a margem de uma operação que você construiu do zero.</p>
+    <p class="slide-text">O problema não é o produto. É a estrutura. Uma operação que depende 100% de marketplaces para existir não é uma empresa — é um fornecedor de plataforma. A diferença entre os dois é quem controla o canal, os dados e o relacionamento com o cliente.</p>
+  </div>
+</section>
+
+<!-- SLIDE 3 — ANTES x DEPOIS -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">02 · A diferença começa no headline</div>
+    <h2>O mesmo produto, comunicado de duas formas.</h2>
+    <p class="slide-text">A primeira decisão de compra acontece antes do cliente ver o preço. Ela acontece no momento em que ele lê o que você escreve sobre o produto.</p>
+    <div class="compare">
+      <div class="compare-col bad">
+        <span class="compare-tag bad">Comunicação atual</span>
+        <div class="compare-headline">"Relógio de qualidade com entrega rápida"</div>
+        <p class="compare-note">Descreve o produto. Não cria desejo. Qualquer concorrente pode dizer a mesma coisa — e na mesma página do ML, provavelmente está dizendo.</p>
+      </div>
+      <div class="compare-col good">
+        <span class="compare-tag good">Nova proposta</span>
+        <div class="compare-headline">"O relógio certo para o momento que você vai querer lembrar"</div>
+        <p class="compare-note">Ativa desejo, não informação. Vende o momento, não o objeto. Diferencia sem mencionar material, mecanismo ou prazo de entrega.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4 — PROBLEMAS -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">03 · O que está limitando o crescimento</div>
+    <h2>Três gargalos estruturais que mais anúncio não resolve.</h2>
+    <p class="slide-text">A operação funciona porque o produto funciona. Mas existem três problemas estruturais que estão limitando o crescimento — e que seguirão presentes enquanto a estrutura não mudar.</p>
+    <div class="problem-list">
+      <div class="problem">
+        <div class="problem-num">01</div>
+        <div class="problem-content">
+          <h3>Dependência total de plataforma</h3>
+          <p>Mercado Livre e Shopee controlam sua visibilidade, sua margem e seus dados. Uma mudança de algoritmo, um aumento de comissão ou uma suspensão de conta pode derrubar a operação inteira. Você não tem canal próprio.</p>
+          <div class="problem-impact">Impacto: Risco existencial — a operação depende de decisões que você não controla.</div>
+        </div>
+      </div>
+      <div class="problem">
+        <div class="problem-num">02</div>
+        <div class="problem-content">
+          <h3>Zero base de contatos própria</h3>
+          <p>Cada comprador que já pagou pelo seu produto passou por uma plataforma que não te entregou o contato dele. Você não sabe quem são seus melhores clientes. Não pode reativar, não pode fidelizar, não pode vender de novo sem pagar à plataforma de novo.</p>
+          <div class="problem-impact">Impacto: Custo de aquisição permanente — você recomeça do zero a cada venda.</div>
+        </div>
+      </div>
+      <div class="problem">
+        <div class="problem-num">03</div>
+        <div class="problem-content">
+          <h3>Margem comprimida sem saída</h3>
+          <p>Comissão de plataforma (10–20%) + frete absorvido + guerra de preço com centenas de concorrentes na mesma vitrine = margem mínima. Escalar volume nessa estrutura não cresce lucro — só cresce trabalho.</p>
+          <div class="problem-impact">Impacto: Crescimento de receita bruta não se converte em crescimento real.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5 — MOCKUP DO SITE -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">04 · O canal que pertence a você</div>
+    <h2>Antes de qualquer campanha, você precisa de um lugar seu para onde mandar as pessoas.</h2>
+    <p class="slide-text">Não a página da plataforma — uma landing própria que captura, converte e guarda o dado do comprador. É a fundação de tudo que vem depois.</p>
+    <div class="mockup-wrap">
+      <div class="mockup-bar">
+        <span></span><span></span><span></span>
+        <span class="url">relogios-prime.com.br</span>
+      </div>
+      <div class="mockup-image">
+        <div class="mockup-hero">O relógio certo para o momento<br><em>que você vai querer lembrar.</em></div>
+        <p class="mockup-sub">Relógios selecionados para quem valoriza presença, não apenas pontualidade. Entrega rápida, qualidade garantida, experiência que faz sentido comprar de novo.</p>
+        <a class="mockup-cta">Explorar coleção →</a>
+      </div>
+    </div>
+    <p class="slide-text" style="margin-top:32px">A landing não é o site final — é o ponto de entrada do funil. O objetivo não é apresentar a marca, é capturar o lead e iniciar o relacionamento.</p>
+  </div>
+</section>
+
+<!-- SLIDE 6 — INSTAGRAM ATUAL VS PROPOSTO -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">05 · O Instagram que vende</div>
+    <h2>Do feed de catálogo ao feed que constrói marca.</h2>
+    <p class="slide-text">O Instagram da Relógios Prime tem potencial para ser o canal de conversão mais eficiente da operação — mas só se o feed parar de parecer catálogo e começar a parecer uma marca com ponto de vista.</p>
+
+    <div class="instagram-compare">
+      <div class="ig-col bad">
+        <span class="ig-label">Feed atual</span>
+        <div class="ig-grid">
+          <div class="ig-post">Foto produto</div>
+          <div class="ig-post">Preço destaque</div>
+          <div class="ig-post">Banner desconto</div>
+          <div class="ig-post">Foto produto</div>
+          <div class="ig-post">Avaliação 5★</div>
+          <div class="ig-post">Foto produto</div>
+          <div class="ig-post">Promoção relâmpago</div>
+          <div class="ig-post">Foto produto</div>
+          <div class="ig-post">Foto produto</div>
+        </div>
+        <p class="ig-note">Feed de produto sem narrativa. O visitante vê opções — não uma marca. Sem razão para seguir, sem razão para voltar.</p>
+      </div>
+
+      <div class="ig-col good">
+        <span class="ig-label">Feed proposto</span>
+        <div class="ig-grid">
+          <div class="ig-post p1">Estilo de vida</div>
+          <div class="ig-post p2">Relógio + ocasião</div>
+          <div class="ig-post p3 font">"O tempo que você usa diz quem você é."</div>
+          <div class="ig-post p4">Behind the scenes</div>
+          <div class="ig-post p1">Coleção destaque</div>
+          <div class="ig-post p5">Depoimento real</div>
+          <div class="ig-post p3 font">"Presente pra alguém. Ou pra você."</div>
+          <div class="ig-post p2">Lançamento</div>
+          <div class="ig-post p1">Look do dia</div>
+        </div>
+        <p class="ig-note">Feed que mistura produto, narrativa e desejo. O visitante enxerga uma marca — não só um catálogo. Conversão do perfil aumenta quando a pessoa sente algo antes de ver o preço.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 7 — CARROSSEL NAVEGÁVEL -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">06 · Conteúdo real em funcionamento</div>
+    <h2>Não é mockup. É o que vai ao ar.</h2>
+    <p class="slide-text">Este carrossel foi gerado com a identidade visual da Relógios Prime aplicada. O conteúdo é desenhado para salvar, compartilhar e gerar lead.</p>
+
+    <div class="carousel-demo">
+      <div class="carousel-frame" id="carouselFrame">
+        <div class="carousel-slide gancho active" data-slide="1">
+          <span class="carousel-num">1 / 5</span>
+          <div class="carousel-title">Você compra relógio pelo preço. Mas usa pelo que ele representa.</div>
+        </div>
+        <div class="carousel-slide conteudo" data-slide="2">
+          <span class="carousel-num">2 / 5</span>
+          <span class="carousel-label">O objeto</span>
+          <div class="carousel-title">Um relógio não mede tempo.</div>
+          <p class="carousel-body">Ele marca o momento. O que você estava vestindo quando chegou cedo. O que estava no pulso na foto que você olha até hoje.</p>
+        </div>
+        <div class="carousel-slide conteudo" data-slide="3">
+          <span class="carousel-num">3 / 5</span>
+          <span class="carousel-label">O erro</span>
+          <div class="carousel-title">Por que a maioria erra na hora de comprar.</div>
+          <p class="carousel-body">Escolhe pela promoção. Chega em casa e percebe que não é bem aquele. Não é culpa sua — é culpa de quem vende relógio como se fosse qualquer produto.</p>
+        </div>
+        <div class="carousel-slide conteudo" data-slide="4">
+          <span class="carousel-num">4 / 5</span>
+          <span class="carousel-label">A diferença</span>
+          <div class="carousel-title">Relógio certo = momento certo.</div>
+          <p class="carousel-body">Na Relógios Prime, cada peça tem uma intenção. Pra presentear. Pra ocasião especial. Pra usar todo dia sem pensar — e perceber só quando não está.</p>
+        </div>
+        <div class="carousel-slide cta" data-slide="5">
+          <span class="carousel-num">5 / 5</span>
+          <div class="carousel-cta-text">Encontrar o seu relógio →</div>
+          <a class="carousel-cta-btn">Ver coleção</a>
+        </div>
+      </div>
+
+      <div class="carousel-nav">
+        <button onclick="prevCarouselSlide()">←</button>
+        <div class="carousel-dots" id="carouselDots"></div>
+        <button onclick="nextCarouselSlide()">→</button>
+      </div>
+
+      <p class="carousel-caption">Exemplo real do formato que vai ao ar com a identidade da Relógios Prime aplicada.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 8 — CALENDÁRIO EDITORIAL -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">07 · Conteúdo planejado</div>
+    <h2>4 semanas de Instagram prontas para começar.</h2>
+    <p class="slide-text">Cada semana tem uma intenção — não são posts aleatórios. O calendário alterna formatos e temas para construir narrativa, não apenas presença.</p>
+
+    <div class="calendar">
+      <div class="calendar-head">
+        <div></div>
+        <div>Segunda</div>
+        <div>Terça</div>
+        <div>Quarta</div>
+        <div>Quinta</div>
+        <div>Sexta</div>
+      </div>
+      <div class="calendar-row">
+        <div class="calendar-week">Semana 1</div>
+        <div class="calendar-cell"><span class="calendar-format carrossel">Carrossel</span><div class="calendar-theme">Por que relógio ainda é o presente mais certo</div></div>
+        <div class="calendar-cell"><span class="calendar-format post">Post</span><div class="calendar-theme">Lançamento da semana + link captura</div></div>
+        <div class="calendar-cell"><span class="calendar-format reels">Reels</span><div class="calendar-theme">Unboxing + reação real</div></div>
+        <div class="calendar-cell"><span class="calendar-format carrossel">Carrossel</span><div class="calendar-theme">Guia de presente por perfil</div></div>
+        <div class="calendar-cell"><span class="calendar-format story">Story</span><div class="calendar-theme">Bastidor / curadoria da semana</div></div>
+      </div>
+      <div class="calendar-row">
+        <div class="calendar-week">Semana 2</div>
+        <div class="calendar-cell"><span class="calendar-format post">Post</span><div class="calendar-theme">Depoimento real de cliente</div></div>
+        <div class="calendar-cell"><span class="calendar-format carrossel">Carrossel</span><div class="calendar-theme">3 estilos, 3 ocasiões</div></div>
+        <div class="calendar-cell"><span class="calendar-format reels">Reels</span><div class="calendar-theme">Montagem look do dia</div></div>
+        <div class="calendar-cell"><span class="calendar-format post">Post</span><div class="calendar-theme">Frase + produto da semana</div></div>
+        <div class="calendar-cell"><span class="calendar-format carrossel">Carrossel</span><div class="calendar-theme">Comparativo de modelos</div></div>
+      </div>
+      <div class="calendar-row">
+        <div class="calendar-week">Semana 3</div>
+        <div class="calendar-cell"><span class="calendar-format carrossel">Carrossel</span><div class="calendar-theme">A história por trás da coleção</div></div>
+        <div class="calendar-cell"><span class="calendar-format reels">Reels</span><div class="calendar-theme">"O que seu relógio diz sobre você"</div></div>
+        <div class="calendar-cell"><span class="calendar-format post">Post</span><div class="calendar-theme">Bastidor da curadoria</div></div>
+        <div class="calendar-cell"><span class="calendar-format story">Story</span><div class="calendar-theme">Enquete + produto vencedor</div></div>
+        <div class="calendar-cell"><span class="calendar-format carrossel">Carrossel</span><div class="calendar-theme">Top 5 da semana</div></div>
+      </div>
+      <div class="calendar-row">
+        <div class="calendar-week">Semana 4</div>
+        <div class="calendar-cell"><span class="calendar-format post">Post</span><div class="calendar-theme">Teaser do próximo lançamento</div></div>
+        <div class="calendar-cell"><span class="calendar-format carrossel">Carrossel</span><div class="calendar-theme">Guia de cuidados com o relógio</div></div>
+        <div class="calendar-cell"><span class="calendar-format reels">Reels</span><div class="calendar-theme">Transformação look com relógio</div></div>
+        <div class="calendar-cell"><span class="calendar-format carrossel">Carrossel</span><div class="calendar-theme">Fidelidade — motivos para voltar</div></div>
+        <div class="calendar-cell"><span class="calendar-format post">Post</span><div class="calendar-theme">CTA direto + link de captura</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 9 — ROADMAP 90 DIAS -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">08 · O plano dos próximos 90 dias</div>
+    <h2>Da operação atual ao sistema rodando.</h2>
+    <p class="slide-text">Cada fase tem uma entrega concreta — não é consultoria, é execução. No final de 90 dias a operação está rodando com canal próprio, base de leads e dashboard ao vivo.</p>
+    <div class="roadmap">
+      <div class="phase">
+        <div class="phase-period"><span class="num">30</span>dias</div>
+        <div class="phase-content">
+          <h3>Estrutura — a base que não existe</h3>
+          <p style="font-size:14px;color:var(--mos-text-2);line-height:1.6">Antes de qualquer campanha, construímos o que vai segurar o lead quando ele chegar.</p>
+          <ul class="phase-list">
+            <li>Landing page de captura ao vivo</li>
+            <li>WhatsApp Business com fluxo de boas-vindas</li>
+            <li>CRM configurado com histórico de compras das plataformas</li>
+            <li>Dashboard operacional com métricas em tempo real</li>
+            <li>Primeiros 200 leads na base própria</li>
+          </ul>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-period"><span class="num">60</span>dias</div>
+        <div class="phase-content">
+          <h3>Aquisição — levar pessoas para a sua base</h3>
+          <p style="font-size:14px;color:var(--mos-text-2);line-height:1.6">Com estrutura no ar, ativamos os motores de captação própria.</p>
+          <ul class="phase-list">
+            <li>Identidade de marca aplicada no Instagram e WhatsApp</li>
+            <li>Primeiras campanhas de tráfego pago rodando</li>
+            <li>Conteúdo de narrativa — relógio como objeto de desejo</li>
+            <li>Base com 500+ leads qualificados</li>
+            <li>ML e Shopee integrados como topo de funil — não como fim</li>
+          </ul>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-period"><span class="num">90</span>dias</div>
+        <div class="phase-content">
+          <h3>Escala — sistema funcionando por conta própria</h3>
+          <p style="font-size:14px;color:var(--mos-text-2);line-height:1.6">A operação começa a crescer com menos esforço manual e mais inteligência automatizada.</p>
+          <ul class="phase-list">
+            <li>Retargeting ativo para quem visitou e não comprou</li>
+            <li>Fluxo de recompra automático disparado por comportamento</li>
+            <li>Campanhas de upsell por segmento de comprador</li>
+            <li>Dashboard completo com LTV, CAC e ROI por canal</li>
+            <li>Operação independente de qualquer plataforma</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 10 — POTENCIAL -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="slide-label">09 · O que isso pode gerar</div>
+    <h2>Estimativas conservadoras baseadas no nicho.</h2>
+    <p class="slide-text">Os números abaixo são referências de operações similares no segmento de acessórios com ticket médio entre R$200 e R$500. Métricas reais serão rastreadas no dashboard a partir da implantação.</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-label">Taxa de recompra</div>
+        <div class="metric-value">25–35%</div>
+        <div class="metric-note">Compradores que voltam dentro de 90 dias com CRM ativo. Na operação atual via plataforma: próximo de zero.</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Redução de CAC</div>
+        <div class="metric-value">40–60%</div>
+        <div class="metric-note">Canal direto elimina comissão de plataforma e reduz custo de aquisição de forma permanente.</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">LTV por cliente</div>
+        <div class="metric-value">3–5×</div>
+        <div class="metric-note">Clientes com relacionamento ativo têm LTV 3 a 5 vezes maior do que compradores únicos de plataforma.</div>
+      </div>
+    </div>
+    <p class="slide-text" style="margin-top:40px;font-size:13px;color:var(--mos-text-3)">*Estimativas de referência. Métricas reais acompanhadas no dashboard ao vivo a partir do dia 1 de implantação.</p>
+  </div>
+</section>
+
+<!-- SLIDE 11 — FECHAMENTO -->
+<section class="slide final">
+  <div class="slide-inner">
+    <div class="slide-label">Próximo passo</div>
+    <h1>A operação já existe.<br><em>O que falta é fazer ela trabalhar para você.</em></h1>
+    <p class="slide-lead">A Relógios Prime tem produto, volume e mercado. O próximo passo é construir o canal que pertence a você — não ao algoritmo. 90 dias para estruturar, adquirir e escalar com controle total.</p>
+    <a href="https://wa.me/5511999999999" class="final-cta">Conversar pelo WhatsApp →</a>
+    <div class="final-signature">
+      Felipe Proença · MarketingOS<br>
+      <span style="color:var(--mos-text-3);font-style:normal;font-family:var(--client-font-b);font-size:12px;letter-spacing:0.08em;text-transform:uppercase;margin-top:8px;display:inline-block">Apresentação confidencial · Relógios Prime</span>
+    </div>
+  </div>
+</section>
+
+<script>
+// Nav progress
+const slides=document.querySelectorAll('.slide');
+const progress=document.getElementById('progress');
+const labels=['Capa','Diagnóstico · 1/9','Diagnóstico · 2/9','Diagnóstico · 3/9','Proposta · 4/9','Instagram · 5/9','Carrossel · 6/9','Calendário · 7/9','Roadmap · 8/9','Potencial · 9/9','Próximo passo'];
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){const i=Array.from(slides).indexOf(e.target);if(labels[i])progress.textContent=labels[i];}});
+},{threshold:0.5});
+slides.forEach(s=>observer.observe(s));
+
+// Carrossel navegável
+let cur=0;
+const cSlides=document.querySelectorAll('.carousel-slide');
+const dotsEl=document.getElementById('carouselDots');
+cSlides.forEach((_,i)=>{const d=document.createElement('span');d.className='dot'+(i===0?' active':'');d.onclick=()=>goToCarouselSlide(i);dotsEl.appendChild(d);});
+function goToCarouselSlide(n){
+  const dots=dotsEl.querySelectorAll('.dot');
+  cSlides[cur].classList.remove('active');dots[cur].classList.remove('active');
+  cur=(n+cSlides.length)%cSlides.length;
+  cSlides[cur].classList.add('active');dots[cur].classList.add('active');
+}
+function nextCarouselSlide(){goToCarouselSlide(cur+1)}
+function prevCarouselSlide(){goToCarouselSlide(cur-1)}
+</script>
+
+</body>
+</html>

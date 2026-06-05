@@ -1,0 +1,69 @@
+{
+  "_meta": {
+    "description": "Identidade visual da Relógios Prime — definida para pitch de diagnóstico.",
+    "client": "relogios-prime",
+    "updated_at": "2026-06-05"
+  },
+
+  "identity": {
+    "brand_name": "Relógios Prime",
+    "tagline": "O relógio certo para o momento que você vai querer lembrar.",
+    "personality": ["premium", "acessível", "autêntico"],
+    "archetype": "O Cuidador Aspiracional — produto de desejo com preço de decisão"
+  },
+
+  "palette": {
+    "primary": {
+      "hex": "#0E0B07",
+      "usage": "cor dominante — fundos, elementos principais"
+    },
+    "secondary": {
+      "hex": "#1C1810",
+      "usage": "cor de apoio — cards, superfícies"
+    },
+    "accent": {
+      "hex": "#C9A55C",
+      "usage": "cor de destaque — CTAs, títulos, detalhe dourado"
+    },
+    "neutral": {
+      "hex": "#7A7060",
+      "usage": "textos secundários, elementos de suporte"
+    },
+    "background": {
+      "hex": "#F5F0E8",
+      "usage": "fundo claro — mockups, slides de produto"
+    }
+  },
+
+  "typography": {
+    "primary_font": "Cormorant Garamond",
+    "secondary_font": "Inter",
+    "style_notes": "Serif elegante para títulos e aspiração; sans limpo para corpo e dados."
+  },
+
+  "visual_style": {
+    "mood": "premium acessível — luxo sem intimidar",
+    "aesthetic": "editorial minimalista com toque quente",
+    "references": ["Hublot comunicação digital", "A-COLD-WALL editorial"],
+    "avoid": ["cores frias/tech", "fundos brancos puros", "estética de marketplace"],
+    "lighting": "luz quente lateral, sombras suaves",
+    "composition": "produto centralizado com espaço negativo generoso",
+    "photography_style": "flat lay e lifestyle — relógio no contexto do momento"
+  },
+
+  "pollinations_defaults": {
+    "model": "flux",
+    "width": 1080,
+    "height": 1080,
+    "negative_prompt": "blurry, low quality, distorted, watermark, text, letters, words",
+    "style_suffix": "warm editorial lighting, luxury watch photography, minimal background"
+  },
+
+  "format_specs": {
+    "feed_square": { "width": 1080, "height": 1080, "ratio": "1:1" },
+    "feed_portrait": { "width": 1080, "height": 1350, "ratio": "4:5" },
+    "stories": { "width": 1080, "height": 1920, "ratio": "9:16" },
+    "carousel_slide": { "width": 1080, "height": 1080, "ratio": "1:1" },
+    "meta_ads": { "width": 1200, "height": 628, "ratio": "1.91:1" }
+  }
+}

@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relógios Prime — Diagnóstico Operacional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #090909;
+    --surface:   #111111;
+    --card:      #181818;
+    --border:    #232323;
+    --gold:      #C9A55C;
+    --gold-dim:  #8A6E3A;
+    --gold-glow: rgba(201,165,92,0.12);
+    --text:      #EDE8DE;
+    --muted:     #6B6356;
+    --danger:    #C45C5C;
+    --success:   #5CA87A;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 100%; height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+  }
+
+  /* ── DECK ── */
+  .deck {
+    width: 100%; height: 100%;
+    position: relative;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 80px;
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity .45s ease, transform .45s ease;
+    pointer-events: none;
+  }
+  .slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: all;
+  }
+  .slide.exit {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+
+  /* ── NAV ── */
+  .nav {
+    position: fixed;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    z-index: 100;
+  }
+  .nav-btn {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: border-color .2s, color .2s;
+    font-size: 16px;
+  }
+  .nav-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .dots {
+    display: flex;
+    gap: 8px;
+  }
+  .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--border);
+    cursor: pointer;
+    transition: background .2s, transform .2s;
+  }
+  .dot.active { background: var(--gold); transform: scale(1.4); }
+
+  /* counter */
+  .counter {
+    position: fixed;
+    top: 32px; right: 40px;
+    font-size: 11px;
+    letter-spacing: .12em;
+    color: var(--muted);
+    z-index: 100;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* logo mark */
+  .logo-mark {
+    position: fixed;
+    top: 32px; left: 40px;
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    z-index: 100;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* ── TYPOGRAPHY ── */
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(42px, 6vw, 72px);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--text);
+  }
+  .h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 3.5vw, 46px);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--text);
+  }
+  .h2 em { font-style: italic; color: var(--gold); }
+  .body-lg {
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 560px;
+  }
+  .body-sm {
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  .divider {
+    width: 40px; height: 1px;
+    background: var(--gold);
+    margin: 24px 0;
+  }
+  .divider.center { margin: 24px auto; }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+  }
+  .card.gold-border { border-color: var(--gold-dim); }
+
+  /* ── SLIDE 1 — COVER ── */
+  .s1-wrap {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .s1-pre {
+    font-size: 11px;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 40px;
+  }
+  .s1-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5.5vw, 68px);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--text);
+    max-width: 800px;
+  }
+  .s1-title em {
+    font-style: italic;
+    color: var(--gold);
+    display: block;
+  }
+  .s1-sub {
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: .05em;
+    margin-top: 36px;
+    font-weight: 300;
+  }
+  .s1-tag {
+    margin-top: 56px;
+    padding: 10px 24px;
+    border: 1px solid var(--border);
+    border-radius: 40px;
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── SLIDE 2 — DIAGNÓSTICO ── */
+  .s2-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+    max-width: 900px;
+    margin-top: 36px;
+  }
+  .s2-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .s2-item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--danger);
+  }
+  .s2-item-label {
+    font-size: 10px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--danger);
+    margin-bottom: 10px;
+  }
+  .s2-item-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .s2-item-body {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── SLIDE 3 — PERDA ── */
+  .s3-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+    max-width: 960px;
+    margin-top: 36px;
+  }
+  .s3-col {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px 24px;
+    text-align: center;
+  }
+  .s3-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+    opacity: .7;
+  }
+  .s3-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .s3-label {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .s3-insight {
+    max-width: 760px;
+    text-align: center;
+    margin-top: 36px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .s3-insight span { color: var(--text); }
+
+  /* ── SLIDE 4 — ARQUITETURA ── */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+    max-width: 960px;
+    margin-top: 40px;
+  }
+  .flow-node {
+    flex: 1;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 16px;
+    text-align: center;
+    position: relative;
+  }
+  .flow-node.highlight {
+    border-color: var(--gold-dim);
+    background: linear-gradient(135deg, var(--card) 0%, rgba(201,165,92,0.06) 100%);
+  }
+  .flow-node-tag {
+    font-size: 9px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .flow-node-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .flow-node-body {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .flow-arrow {
+    flex: 0 0 32px;
+    text-align: center;
+    color: var(--gold-dim);
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .flow-note {
+    max-width: 760px;
+    text-align: center;
+    margin-top: 28px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .flow-note span { color: var(--gold); }
+
+  /* ── SLIDE 5 — DASHBOARD ── */
+  .dash-wrap {
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 24px;
+  }
+  .dash-kpis {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .kpi {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+  .kpi-label {
+    font-size: 10px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .kpi-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1;
+  }
+  .kpi-delta {
+    font-size: 11px;
+    margin-top: 4px;
+  }
+  .kpi-delta.up { color: var(--success); }
+  .kpi-delta.down { color: var(--danger); }
+
+  .dash-row {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 12px;
+  }
+
+  .dash-chart {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 20px;
+  }
+  .chart-title {
+    font-size: 10px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  /* Barras */
+  .bar-list { display: flex; flex-direction: column; gap: 10px; }
+  .bar-item {}
+  .bar-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 5px;
+  }
+  .bar-meta span:last-child { color: var(--text); }
+  .bar-track {
+    height: 5px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 4px;
+  }
+
+  /* funil */
+  .funnel { display: flex; flex-direction: column; gap: 6px; }
+  .funnel-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .funnel-bar {
+    height: 22px;
+    background: linear-gradient(90deg, var(--gold-dim), transparent);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    font-size: 10px;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .funnel-pct {
+    font-size: 10px;
+    color: var(--muted);
+    margin-left: auto;
+  }
+
+  /* origem */
+  .origin-list { display: flex; flex-direction: column; gap: 8px; }
+  .origin-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .origin-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .origin-name { font-size: 11px; color: var(--muted); flex: 1; }
+  .origin-bar-track {
+    flex: 2;
+    height: 4px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .origin-bar-fill { height: 100%; border-radius: 4px; }
+  .origin-pct { font-size: 11px; color: var(--text); min-width: 32px; text-align: right; }
+
+  /* ── SLIDE 6 — ANTES / DEPOIS ── */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    width: 100%;
+    max-width: 900px;
+    margin-top: 32px;
+  }
+  .compare-col {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+  }
+  .compare-col.after { border-color: var(--gold-dim); }
+  .compare-tag {
+    font-size: 10px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .compare-tag.bad { color: var(--danger); }
+  .compare-tag.good { color: var(--success); }
+  .compare-list { display: flex; flex-direction: column; gap: 12px; }
+  .compare-row {
+    display: flex;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  .compare-row::before {
+    content: '—';
+    color: var(--border);
+    flex-shrink: 0;
+  }
+  .compare-col.after .compare-row::before {
+    content: '✓';
+    color: var(--gold);
+  }
+  .compare-col.after .compare-row { color: var(--text); }
+
+  /* ── SLIDE 7 — PLANO ── */
+  .plan-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+    max-width: 960px;
+    margin-top: 36px;
+  }
+  .plan-col {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .plan-col::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gold-dim);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .4s ease;
+  }
+  .plan-col:hover::after { transform: scaleX(1); }
+  .plan-month {
+    font-size: 9px;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .plan-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--text);
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+  .plan-items { display: flex; flex-direction: column; gap: 8px; }
+  .plan-item {
+    display: flex;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+  .plan-item::before {
+    content: '·';
+    color: var(--gold-dim);
+    flex-shrink: 0;
+  }
+
+  /* ── SLIDE 8 — CTA ── */
+  .s8-wrap {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 680px;
+  }
+  .s8-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(26px, 3.8vw, 46px);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--text);
+  }
+  .s8-quote em {
+    font-style: italic;
+    color: var(--gold);
+    display: block;
+  }
+  .s8-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 28px;
+    line-height: 1.7;
+    max-width: 480px;
+  }
+  .s8-cta {
+    margin-top: 44px;
+    padding: 14px 40px;
+    background: transparent;
+    border: 1px solid var(--gold);
+    border-radius: 4px;
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: background .2s, color .2s;
+  }
+  .s8-cta:hover {
+    background: var(--gold);
+    color: var(--bg);
+  }
+  .s8-brand {
+    margin-top: 56px;
+    font-size: 10px;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<div class="logo-mark">MarketingOS</div>
+<div class="counter" id="counter">01 / 08</div>
+
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1 — COVER -->
+  <div class="slide active" data-index="0">
+    <div class="s1-wrap">
+      <div class="s1-pre">Relógios Prime · Diagnóstico Operacional</div>
+      <h1 class="s1-title">
+        Você vende relógio
+        <em>ou alimenta algoritmo?</em>
+      </h1>
+      <p class="s1-sub">Uma análise da sua operação atual — e onde ela pode chegar.</p>
+      <div class="s1-tag">Confidencial · MarketingOS · 2026</div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2 — DIAGNÓSTICO ATUAL -->
+  <div class="slide" data-index="1">
+    <div class="eyebrow">Diagnóstico atual</div>
+    <h2 class="h2">A operação que <em>você construiu</em><br>tem um problema estrutural.</h2>
+    <div class="divider"></div>
+    <div class="s2-grid">
+      <div class="s2-item">
+        <div class="s2-item-label">Dependência</div>
+        <div class="s2-item-title">Plataformas controlam tudo</div>
+        <p class="s2-item-body">Mercado Livre e Shopee definem sua visibilidade, sua margem e suas regras. Amanhã elas podem mudar — e você não tem controle.</p>
+      </div>
+      <div class="s2-item">
+        <div class="s2-item-label">Dado zero</div>
+        <div class="s2-item-title">Seu cliente não é seu</div>
+        <p class="s2-item-body">Cada comprador pertence à plataforma. Você vende, entrega e paga comissão — mas não sabe quem comprou, nem pode voltar a falar com ele.</p>
+      </div>
+      <div class="s2-item">
+        <div class="s2-item-label">Margem</div>
+        <div class="s2-item-title">Comissão + frete + guerra de preço</div>
+        <p class="s2-item-body">10–20% de comissão sobre cada venda. Mais frete. Mais concorrentes com preço igual ou menor. A margem sobrevive por pouco.</p>
+      </div>
+      <div class="s2-item">
+        <div class="s2-item-label">Marca</div>
+        <div class="s2-item-title">Produto sem narrativa</div>
+        <p class="s2-item-body">Na vitrine da plataforma, você é mais um. Não há identidade, não há percepção de valor — só preço e avaliação.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3 — O QUE ESTÁ SENDO PERDIDO -->
+  <div class="slide" data-index="2">
+    <div class="eyebrow">O que está em jogo</div>
+    <h2 class="h2">Cada venda sem base própria<br>é uma <em>oportunidade perdida.</em></h2>
+    <div class="divider"></div>
+    <div class="s3-cols">
+      <div class="s3-col">
+        <div class="s3-icon">↩</div>
+        <div class="s3-num">0%</div>
+        <div class="s3-label">de recompra ativada<br>sem CRM ou base de contato</div>
+      </div>
+      <div class="s3-col">
+        <div class="s3-icon">⬆</div>
+        <div class="s3-num">3–5×</div>
+        <div class="s3-label">mais barato vender<br>para quem já comprou</div>
+      </div>
+      <div class="s3-col">
+        <div class="s3-icon">◯</div>
+        <div class="s3-num">100%</div>
+        <div class="s3-label">dos dados do comprador<br>ficam com a plataforma</div>
+      </div>
+    </div>
+    <p class="s3-insight">
+      <span>A operação está funcionando —</span> mas está deixando dinheiro na mesa<br>em cada venda que não vira relacionamento.
+    </p>
+  </div>
+
+  <!-- SLIDE 4 — ARQUITETURA -->
+  <div class="slide" data-index="3">
+    <div class="eyebrow">A operação transformada</div>
+    <h2 class="h2">ML e Shopee viram <em>topo de funil.</em><br>Não o negócio todo.</h2>
+    <div class="divider"></div>
+    <div class="flow">
+      <div class="flow-node">
+        <div class="flow-node-tag">Entrada</div>
+        <div class="flow-node-title">ML · Shopee<br>Instagram · Tráfego</div>
+        <div class="flow-node-body">Canais de descoberta — não de dependência</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node highlight">
+        <div class="flow-node-tag">Captura</div>
+        <div class="flow-node-title">Landing própria<br>WhatsApp · Lead</div>
+        <div class="flow-node-body">O dado do comprador fica com você</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node highlight">
+        <div class="flow-node-tag">Relacionamento</div>
+        <div class="flow-node-title">CRM · Histórico<br>Segmentação</div>
+        <div class="flow-node-body">Você conhece quem comprou</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node highlight">
+        <div class="flow-node-tag">Receita</div>
+        <div class="flow-node-title">Recompra<br>Upsell · LTV</div>
+        <div class="flow-node-body">Venda para quem já confia</div>
+      </div>
+    </div>
+    <p class="flow-note">
+      <span>Dashboard em tempo real</span> — você enxerga cada etapa, cada número, cada canal.
+    </p>
+  </div>
+
+  <!-- SLIDE 5 — DASHBOARD -->
+  <div class="slide" data-index="4">
+    <div class="eyebrow">Controle operacional</div>
+    <h2 class="h2" style="margin-bottom:20px;">Você vai <em>enxergar tudo</em> em tempo real.</h2>
+    <div class="dash-wrap">
+      <div class="dash-kpis">
+        <div class="kpi">
+          <div class="kpi-label">Receita / mês</div>
+          <div class="kpi-value">R$ 48.200</div>
+          <div class="kpi-delta up">↑ 23% vs. mês anterior</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Ticket médio</div>
+          <div class="kpi-value">R$ 380</div>
+          <div class="kpi-delta up">↑ 14% canal direto</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Taxa de recompra</div>
+          <div class="kpi-value">31%</div>
+          <div class="kpi-delta up">↑ de 0% → 31%</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Leads na base</div>
+          <div class="kpi-value">1.840</div>
+          <div class="kpi-delta up">↑ 340 este mês</div>
+        </div>
+      </div>
+      <div class="dash-row">
+        <div class="dash-chart">
+          <div class="chart-title">Vendas por canal</div>
+          <div class="bar-list">
+            <div class="bar-item">
+              <div class="bar-meta"><span>Canal direto (próprio)</span><span>R$ 21.400</span></div>
+              <div class="bar-track"><div class="bar-fill" style="width:74%"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-meta"><span>Mercado Livre</span><span>R$ 16.200</span></div>
+              <div class="bar-track"><div class="bar-fill" style="width:56%;opacity:.6"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-meta"><span>Shopee</span><span>R$ 7.800</span></div>
+              <div class="bar-track"><div class="bar-fill" style="width:27%;opacity:.4"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-meta"><span>Instagram / WhatsApp</span><span>R$ 2.800</span></div>
+              <div class="bar-track"><div class="bar-fill" style="width:10%;opacity:.3"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="dash-chart">
+          <div class="chart-title">Funil de conversão</div>
+          <div class="funnel">
+            <div class="funnel-step">
+              <div class="funnel-bar" style="width:100%;opacity:1">Visitantes · 4.200</div>
+            </div>
+            <div class="funnel-step">
+              <div class="funnel-bar" style="width:78%;opacity:.85">Leads capturados · 1.840</div>
+            </div>
+            <div class="funnel-step">
+              <div class="funnel-bar" style="width:54%;opacity:.7">Primeiro contato · 820</div>
+            </div>
+            <div class="funnel-step">
+              <div class="funnel-bar" style="width:34%;opacity:.55">Compra · 340</div>
+            </div>
+            <div class="funnel-step">
+              <div class="funnel-bar" style="width:16%;opacity:.4">Recompra · 105</div>
+            </div>
+          </div>
+        </div>
+        <div class="dash-chart">
+          <div class="chart-title">Origem dos leads</div>
+          <div class="origin-list">
+            <div class="origin-item">
+              <div class="origin-dot" style="background:#C9A55C"></div>
+              <div class="origin-name">Instagram / Meta Ads</div>
+              <div class="origin-bar-track"><div class="origin-bar-fill" style="width:62%;background:#C9A55C"></div></div>
+              <div class="origin-pct">62%</div>
+            </div>
+            <div class="origin-item">
+              <div class="origin-dot" style="background:#5CA87A"></div>
+              <div class="origin-name">WhatsApp orgânico</div>
+              <div class="origin-bar-track"><div class="origin-bar-fill" style="width:18%;background:#5CA87A"></div></div>
+              <div class="origin-pct">18%</div>
+            </div>
+            <div class="origin-item">
+              <div class="origin-dot" style="background:#5C7AC9"></div>
+              <div class="origin-name">Mercado Livre</div>
+              <div class="origin-bar-track"><div class="origin-bar-fill" style="width:13%;background:#5C7AC9"></div></div>
+              <div class="origin-pct">13%</div>
+            </div>
+            <div class="origin-item">
+              <div class="origin-dot" style="background:#8A6E3A"></div>
+              <div class="origin-name">Indicação</div>
+              <div class="origin-bar-track"><div class="origin-bar-fill" style="width:7%;background:#8A6E3A"></div></div>
+              <div class="origin-pct">7%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6 — ANTES / DEPOIS -->
+  <div class="slide" data-index="5">
+    <div class="eyebrow">Transformação da operação</div>
+    <h2 class="h2">De vendedor de plataforma<br>para <em>marca com sistema.</em></h2>
+    <div class="divider"></div>
+    <div class="compare">
+      <div class="compare-col">
+        <div class="compare-tag bad">Operação atual</div>
+        <div class="compare-list">
+          <div class="compare-row">Visibilidade depende do algoritmo da plataforma</div>
+          <div class="compare-row">Sem base de leads — cada venda começa do zero</div>
+          <div class="compare-row">Margem corroída por comissão, frete e guerra de preço</div>
+          <div class="compare-row">Sem histórico de comprador — sem recompra</div>
+          <div class="compare-row">Produto entre centenas de iguais — decisão por preço</div>
+          <div class="compare-row">Sem controle de métricas por canal</div>
+        </div>
+      </div>
+      <div class="compare-col after">
+        <div class="compare-tag good">Com o sistema</div>
+        <div class="compare-list">
+          <div class="compare-row">Tráfego próprio — independente de algoritmo</div>
+          <div class="compare-row">Base de leads qualificada, crescendo todo mês</div>
+          <div class="compare-row">Canal direto com margem real — sem intermediário</div>
+          <div class="compare-row">CRM com histórico — recompra automatizada</div>
+          <div class="compare-row">Narrativa de marca — decisão por desejo, não preço</div>
+          <div class="compare-row">Dashboard em tempo real — você controla cada número</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7 — PLANO 90 DIAS -->
+  <div class="slide" data-index="6">
+    <div class="eyebrow">Plano de execução</div>
+    <h2 class="h2">90 dias para <em>transformar a operação.</em></h2>
+    <div class="divider"></div>
+    <div class="plan-grid">
+      <div class="plan-col">
+        <div class="plan-month">Mês 01 — Estrutura</div>
+        <div class="plan-title">A base que<br>você não tem</div>
+        <div class="plan-items">
+          <div class="plan-item">Landing própria com captura de lead</div>
+          <div class="plan-item">WhatsApp Business integrado ao funil</div>
+          <div class="plan-item">CRM configurado com histórico de compras</div>
+          <div class="plan-item">Primeiro dashboard operacional ao vivo</div>
+          <div class="plan-item">Fluxo de boas-vindas e primeiro contato automático</div>
+        </div>
+      </div>
+      <div class="plan-col">
+        <div class="plan-month">Mês 02 — Aquisição</div>
+        <div class="plan-title">Levar pessoas<br>para sua base</div>
+        <div class="plan-items">
+          <div class="plan-item">Identidade de marca aplicada (Instagram + WhatsApp)</div>
+          <div class="plan-item">Primeiras campanhas de tráfego pago ativas</div>
+          <div class="plan-item">Conteúdo de narrativa — relógio como objeto de desejo</div>
+          <div class="plan-item">Base de leads com 500+ contatos qualificados</div>
+          <div class="plan-item">Integração ML/Shopee como topo — não como fim</div>
+        </div>
+      </div>
+      <div class="plan-col">
+        <div class="plan-month">Mês 03 — Escala</div>
+        <div class="plan-title">Sistema operando<br>por conta própria</div>
+        <div class="plan-items">
+          <div class="plan-item">Retargeting ativo para quem visitou e não comprou</div>
+          <div class="plan-item">Fluxo de recompra automático rodando</div>
+          <div class="plan-item">Campanhas de upsell por segmento</div>
+          <div class="plan-item">Dashboard com LTV e ROI por canal</div>
+          <div class="plan-item">Operação independente de qualquer plataforma</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8 — CTA -->
+  <div class="slide" data-index="7">
+    <div class="s8-wrap">
+      <div class="eyebrow">Próximo passo</div>
+      <p class="s8-quote">
+        A próxima venda pode ser
+        <em>do seu cliente —<br>não do algoritmo.</em>
+      </p>
+      <p class="s8-sub">
+        A operação já funciona. O que falta é transformá-la em algo que funciona <em>para você</em> — com base própria, margem real e controle total.
+      </p>
+      <button class="s8-cta">Vamos conversar</button>
+      <div class="s8-brand">MarketingOS · Operação de aquisição aplicada</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- NAVIGATION -->
+<div class="nav">
+  <button class="nav-btn" id="prev">←</button>
+  <div class="dots" id="dots"></div>
+  <button class="nav-btn" id="next">→</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const dotsEl = document.getElementById('dots');
+  const counter = document.getElementById('counter');
+  let current = 0;
+  const total = slides.length;
+
+  // build dots
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(idx) {
+    if (idx < 0 || idx >= total) return;
+    slides[current].classList.remove('active');
+    slides[current].classList.add('exit');
+    setTimeout(() => slides[current - (current > idx ? -1 : 0)].classList.remove('exit'), 450);
+    const prev = current;
+    current = idx;
+    slides[current].classList.add('active');
+    setTimeout(() => slides[prev].classList.remove('exit'), 450);
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    counter.textContent = String(current + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+  }
+
+  document.getElementById('prev').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('next').addEventListener('click', () => goTo(current + 1));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(current + 1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goTo(current - 1);
+  });
+
+  // touch swipe
+  let tx = 0;
+  document.addEventListener('touchstart', e => tx = e.touches[0].clientX);
+  document.addEventListener('touchend', e => {
+    const dx = tx - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 40) goTo(dx > 0 ? current + 1 : current - 1);
+  });
+</script>
+</body>
+</html>

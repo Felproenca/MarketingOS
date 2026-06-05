@@ -1,0 +1,169 @@
+{
+  "client": {
+    "slug": "",
+    "name": "",
+    "updated_at": ""
+  },
+
+  "period": {
+    "month": "",
+    "year": "",
+    "start_date": "",
+    "end_date": ""
+  },
+
+  "meta_ads": {
+    "enabled": false,
+    "account_id": "",
+    "campaigns": [
+      {
+        "id": "",
+        "name": "",
+        "status": "",
+        "objective": "",
+        "budget_daily": 0,
+        "budget_total": 0,
+        "spend": 0,
+        "impressions": 0,
+        "reach": 0,
+        "clicks": 0,
+        "ctr": 0,
+        "cpc": 0,
+        "leads": 0,
+        "cpl": 0,
+        "conversions": 0,
+        "roas": 0
+      }
+    ],
+    "summary": {
+      "total_spend": 0,
+      "total_leads": 0,
+      "avg_cpl": 0,
+      "avg_roas": 0,
+      "total_impressions": 0,
+      "total_clicks": 0,
+      "avg_ctr": 0
+    }
+  },
+
+  "instagram_organic": {
+    "enabled": false,
+    "handle": "",
+    "followers": 0,
+    "followers_gained": 0,
+    "posts_published": 0,
+    "reach_total": 0,
+    "impressions_total": 0,
+    "avg_engagement_rate": 0,
+    "top_posts": [
+      {
+        "id": "",
+        "type": "",
+        "topic": "",
+        "reach": 0,
+        "likes": 0,
+        "comments": 0,
+        "saves": 0,
+        "shares": 0,
+        "engagement_rate": 0
+      }
+    ]
+  },
+
+  "whatsapp": {
+    "enabled": false,
+    "number": "",
+    "provider": "",
+    "conversations_started": 0,
+    "conversations_by_origin": {
+      "meta_ads": 0,
+      "site_cta": 0,
+      "instagram_bio": 0,
+      "organic": 0,
+      "other": 0
+    },
+    "response_rate": 0,
+    "avg_response_time_minutes": 0,
+    "leads_qualified": 0,
+    "conversions": 0,
+    "flows": [
+      {
+        "name": "",
+        "trigger": "",
+        "messages_sent": 0,
+        "response_rate": 0,
+        "conversions": 0,
+        "status": ""
+      }
+    ]
+  },
+
+  "site": {
+    "enabled": false,
+    "url": "",
+    "sessions": 0,
+    "users": 0,
+    "pageviews": 0,
+    "avg_session_duration_seconds": 0,
+    "bounce_rate": 0,
+    "traffic_by_source": {
+      "organic_search": 0,
+      "paid_social": 0,
+      "direct": 0,
+      "referral": 0,
+      "organic_social": 0,
+      "email": 0,
+      "other": 0
+    },
+    "cta_clicks": {
+      "whatsapp": 0,
+      "form": 0,
+      "phone": 0,
+      "other": 0
+    },
+    "forms_submitted": 0,
+    "top_pages": [
+      {
+        "path": "",
+        "sessions": 0,
+        "avg_time_seconds": 0,
+        "bounce_rate": 0
+      }
+    ]
+  },
+
+  "leads": {
+    "total": 0,
+    "by_channel": {
+      "meta_ads": 0,
+      "whatsapp_organic": 0,
+      "site_form": 0,
+      "site_cta_whatsapp": 0,
+      "instagram_organic": 0,
+      "other": 0
+    },
+    "qualified": 0,
+    "converted": 0,
+    "conversion_rate": 0,
+    "avg_ticket": 0,
+    "revenue_generated": 0
+  },
+
+  "goals": {
+    "leads_target": 0,
+    "leads_achieved": 0,
+    "leads_gap": 0,
+    "revenue_target": 0,
+    "revenue_achieved": 0,
+    "revenue_gap": 0,
+    "goal_reached": false
+  },
+
+  "insights": {
+    "best_performing_channel": "",
+    "worst_performing_channel": "",
+    "highest_cpl_campaign": "",
+    "lowest_cpl_campaign": "",
+    "notes": ""
+  }
+}

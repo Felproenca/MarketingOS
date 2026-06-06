@@ -177,6 +177,7 @@ Use `workflows/token-economy.md` como regra operacional para reduzir contexto.
 | `criacao/skill-social-copy.md` | Copy agent como skill |
 | `criacao/skill-visual-spec.md` | Direcao visual por slide/frame |
 | `criacao/skill-prompt-engineer.md` | Decisao HTML puro vs imagem externa |
+| `criacao/skill-social-content-agent.md` | **Orquestrador** — copy + spec + prompt Nano Banana + pacote HTML (`/criar conteudo`) |
 
 ### Grupo: Aquisicao → `/prospectar`
 > Leia `skills/aquisicao/_admin.md` → escolha uma skill → carregue so ela.

@@ -178,6 +178,7 @@ Use `workflows/token-economy.md` como regra operacional para reduzir contexto.
 | `criacao/skill-visual-spec.md` | Direcao visual por slide/frame |
 | `criacao/skill-prompt-engineer.md` | Decisao HTML puro vs imagem externa |
 | `criacao/skill-social-content-agent.md` | **Orquestrador** — copy + spec + prompt Nano Banana + pacote HTML (`/criar conteudo`) |
+| `criacao/skill-reels.md` | Reels de texto revelado — pesquisa + roteiro + HTML + Playwright → MP4 (`/criar reel`) |
 
 ### Grupo: Aquisicao → `/prospectar`
 > Leia `skills/aquisicao/_admin.md` → escolha uma skill → carregue so ela.

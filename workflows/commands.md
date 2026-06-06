@@ -175,6 +175,30 @@ npm run aprender -- --slug <slug> --min-age-hours 48
 **Fluxo:** MarketingOS monta brief → social-content-agents gera conteúdo → MarketingOS publica e mede → MarketingOS envia métricas de volta.  
 **Módulos:** `scripts/integration/brief-builder.js`, `content-client.js`, `learn-sender.js`.
 
+### Intelligence Externa — Repertoire Updaters
+
+```bash
+# Atualiza e inventaria os 4 repertórios externos aprovados
+npm run repertoire:update
+
+# Atualiza uma fonte específica
+npm run repertoire:update -- --source marketingskills
+npm run repertoire:update -- --source ai-marketing-claude
+npm run repertoire:update -- --source claude-skills
+npm run repertoire:update -- --source ai-marketing-claude-code-skills
+
+# Testa sem gravar
+npm run repertoire:update -- --dry-run
+
+# Depois da etapa geral, gera o filtro so de aquisicao
+npm run repertoire:acquisition
+```
+
+**Fontes:** coreyhaines31/marketingskills, zubair-trabzada/ai-marketing-claude, alirezarezvani/claude-skills, BrianRWagner/ai-marketing-claude-code-skills  
+**Agenda:** `intelligence/repertoire-updaters/schedule.md`  
+**Output geral:** `intelligence/repertoire-updaters/*.md`, `intelligence/repertoire-updaters/inventory.json`, `intelligence/repertoire-scan-report.md`  
+**Output aquisicao:** `intelligence/repertoire-updaters/acquisition.md`
+
 ### Demo Pipeline (agency → leads → demo personalizado → outreach)
 
 ```bash

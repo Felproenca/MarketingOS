@@ -43,6 +43,38 @@
       "follower_growth_monthly_avg": {
         "value": 0,
         "source": "interno"
+      },
+      "algorithm_signal_hierarchy_2026": {
+        "note": "Hierarquia confirmada de sinais que o algoritmo pondera. Atualizado jun/2026.",
+        "source": "ref",
+        "signals_ranked": [
+          "1. Save — sinal mais forte; indica valor de longo prazo",
+          "2. Compartilhamento por DM — indica valor social/relacional",
+          "3. Rewatch / retenção até o fim — indica valor de conteúdo (vídeo)",
+          "4. Tempo de permanência / slides passados no carrossel",
+          "5. Comentário e resposta — indica valor de comunidade",
+          "6. Curtida — sinal mais fraco"
+        ],
+        "distribution_logic": "Teste com amostra pequena na primeira hora. Se engajamento bom → algoritmo amplia alcance. Primeira hora é decisiva.",
+        "seo_factors": [
+          "Texto da legenda",
+          "Texto dentro da imagem/slide",
+          "Alt text do post",
+          "Tema recorrente do perfil",
+          "Comentários e respostas"
+        ],
+        "note_hashtags": "Hashtag é sinal secundário em 2026 — não substitui contexto semântico"
+      },
+      "saves_rate_benchmark": {
+        "value": "3%–8%",
+        "unit": "saves / alcance",
+        "note": "Benchmark de mercado para saves por post. Abaixo de 3% = conteúdo não retém valor percebido.",
+        "source": "ref"
+      },
+      "posting_frequency": {
+        "recommendation": "3x por semana consistente > 10x numa semana e sumir",
+        "reason": "Consistência ajuda o algoritmo a mapear tema e entregar para audiência certa",
+        "source": "ref"
       }
     },
     "site": {
@@ -254,6 +286,41 @@
   },
   "content_performance": {
     "note": "Formatos de conteúdo com melhor performance agregada entre clientes.",
+    "reels_texto_revelado": {
+      "note": "Reels de texto revelado — pipeline HTML→Playwright→MP4. Validado jun/2026.",
+      "source": "interno",
+      "producao": {
+        "pipeline": "HTML animado → Playwright gravação → FFmpeg MP4 → CapCut (só áudio)",
+        "script": "npm run reel:render",
+        "skill": "skills/criacao/skill-reels.md",
+        "tempo_operador_min": 5
+      },
+      "specs_tecnicas": {
+        "dimensao": "1080x1920px",
+        "duracao_ideal_s": "25–30",
+        "cenas": "10–12",
+        "tempo_logo_s": 5,
+        "letter_spacing": "0.01em positivo — nunca negativo",
+        "animacao_logo": "CSS @keyframes obrigatório (JS transitions não disparam no Playwright)",
+        "buffer_duration_ms": 2000
+      },
+      "estrutura_narrativa": {
+        "gancho": "Cena 1 — para o scroll",
+        "impacto": "Cena 2 — uma palavra grande, corte seco",
+        "dor": "Cenas 3–5 — aprofunda o problema",
+        "pausa_preta": "1.2–1.5s obrigatória — separa problema de solução",
+        "contraste": "Cenas 7–8 — a alternativa em gold",
+        "insight": "Cena 9 — frase salvável",
+        "logo": "Últimos 5s — animação Marketing/OS"
+      },
+      "tema": {
+        "processo": "WebSearch IA + cotidiano → 4 temas → interseção → gancho",
+        "criterio": "instagramável + inteligente + posicionamento do cliente"
+      },
+      "avg_reach_multiplier": 0,
+      "avg_saves_rate": 0,
+      "_updated_at": "2026-06-06"
+    },
     "carousel": {
       "avg_engagement_rate": 0,
       "avg_saves_rate": 0,

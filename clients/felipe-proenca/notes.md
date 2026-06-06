@@ -1,5 +1,34 @@
 # notes.md — Felipe Proença
 
+## 2026-06-06 — Pipeline de Reels nativo validado + carrossel publicado
+
+**O que foi feito:**
+- Carrossel "Sistema vs Agente" criado, renderizado e publicado (Instagram + Facebook)
+  - Instagram: instagram.com/p/DZOgBfukrgO/
+  - 7 slides: canvas de nós animado no slide 1, gold flip no slide 5, terminal block no slide 2
+- Pipeline de Reels criado do zero: HTML animado → Playwright grava → FFmpeg MP4
+  - Reel 01: "O próximo funcionário que você vai contratar não é humano" (tema 1 de 4)
+  - Operador só adiciona áudio no CapCut — zero edição de vídeo
+- Skill `skills/criacao/skill-reels.md` criada e documentada
+- Inteligência registrada: `intelligence/patterns.md` P001, `benchmarks.json` seção reels_texto_revelado
+- Checklist pós-publicação criado: `intelligence/checklist-pos-publicacao.md`
+- Benchmarks de algoritmo Instagram 2026 registrados (hierarquia de sinais, saves 3–8%)
+
+**Decisões tomadas:**
+- Pipeline Playwright → MP4 aprovado como padrão de Reels (sem edição de vídeo)
+- Logo final em CSS @keyframes obrigatório (JS transitions não disparam no Playwright)
+- Letter-spacing positivo (0.01em) — negativo achata letras na gravação
+- 3 Reels restantes (temas 2, 3, 4) a produzir nas próximas sessões
+- Explorar Three.js / GSAP / Matter.js para elevar qualidade visual (ver "futuro" na memória)
+
+**Próximos passos:**
+- Executar checklist de primeiros 30 min pós-publicação do carrossel
+- Produzir Reels 02, 03 e 04 (temas pesquisados nesta sessão)
+- Em ~48h: `npm run insights -- --slug felipe-proenca`
+- Próxima sessão: explorar "futuro" — Three.js no pipeline de Reels
+
+---
+
 ## 2026-06-04 — Prompt master para editor de Reels IA
 
 **O que foi feito:**

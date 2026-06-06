@@ -49,8 +49,39 @@ Exceções conhecidas:
 
 ## Padrões Confirmados
 
-> Ainda sem entradas — sistema recém iniciado.
-> Primeira entrada esperada após 2 clientes operacionais com dados comparáveis.
+### P001 — Pipeline HTML → Playwright → MP4 para Reels sem edição
+
+Categoria:        Produção / Canal
+Confirmado em:    felipe-proenca (Reel 01 — 2026-06-06)
+Nichos:           Marketing, Tecnologia, Consultoria
+Canais:           Instagram Reels
+Data:             jun/2026
+
+Descrição:
+→ Reels de texto revelado gerados inteiramente em código (HTML + CSS + JS),
+  gravados pelo Playwright como vídeo e convertidos para MP4 via FFmpeg.
+  Operador só adiciona áudio no CapCut (~5 min). Zero edição de vídeo.
+  Aprovado e validado pelo cliente na primeira iteração.
+
+Aplicação prática:
+→ Para qualquer cliente que precise de Reels sem câmera ou edição:
+  1. Pesquisa de tema (WebSearch IA + cotidiano)
+  2. Roteiro cena a cena (10–12 cenas, 25–30s total)
+  3. HTML com brand-kit do cliente
+  4. npm run reel:render → MP4
+
+Regras técnicas críticas:
+→ Logo final: CSS @keyframes obrigatório (JS transitions não disparam no Playwright)
+→ Letter-spacing: 0.01em positivo (negativo achata as letras na gravação)
+→ --duration: tempo_animação + 2000ms de buffer (nunca cortar o logo)
+→ Dimensão: 1080×1920, deviceScaleFactor: 1 (não usar 2x para vídeo)
+
+Skill impactada:
+→ skills/criacao/skill-reels.md (criada nesta sessão)
+
+Exceções conhecidas:
+→ Reels com pessoa falando: este pipeline não se aplica
+→ Reels com footage externa: usar CapCut diretamente
 
 ---
 
@@ -99,7 +130,7 @@ Exceções conhecidas:
 
 | ID | Título | Categoria | Nichos | Data |
 |---|---|---|---|---|
-| — | — | — | — | — |
+| P001 | Pipeline HTML→Playwright→MP4 para Reels | Produção / Canal | Marketing, Tech, Consultoria | jun/2026 |
 
 ---
 

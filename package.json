@@ -16,6 +16,8 @@
     "insights": "node scripts/insights/index.js",
     "backfill": "node scripts/insights/backfill.js",
     "aggregate": "node scripts/intelligence/aggregate.js",
+    "repertoire:update": "node scripts/intelligence/repertoire-updater.js",
+    "repertoire:acquisition": "node scripts/intelligence/acquisition-repertoire-updater.js",
     "demo": "node scripts/demo-pipeline/index.js",
     "bot": "node scripts/whatsapp-bot/index.js",
     "scraper": "node scripts/scraper/index.js",
@@ -24,7 +26,8 @@
     "site-prospect:dry": "node scripts/demo-pipeline/from-url.js --dry-run",
     "criar-conteudo": "node scripts/integration/criar-conteudo.js",
     "upload-image": "node scripts/integration/upload-image.js",
-    "aprender": "node scripts/integration/aprender.js"
+    "aprender": "node scripts/integration/aprender.js",
+    "reel:render": "node scripts/render-reel.js"
   },
   "keywords": [],
   "author": "",

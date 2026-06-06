@@ -36,6 +36,10 @@ Honesto. Único. Constrói credibilidade sem precisar de prova que ainda não ex
 
 ## Próximas ações
 
+- [ ] Executar checklist 30 min pós-publicação (`intelligence/checklist-pos-publicacao.md`) — carrossel publicado hoje
+- [ ] Em ~48h: `npm run insights -- --slug felipe-proenca`
+- [ ] Produzir Reels 02, 03, 04 (temas pesquisados em 2026-06-06)
+- [ ] Próxima sessão: explorar Three.js/GSAP no pipeline de Reels ("futuro")
 - [ ] **URGENTE** Renovar sessão WhatsApp (QR code) — `node scripts/prospector/send-prospects.js`
 - [ ] Enviar Etapa 2 para Bruno Capelli: (21) 99763-3682
 - [ ] Monitorar respostas dos petshops (Dom Peludo, Pet Hero, Petshop Mania, Toca da Raposa)
@@ -45,6 +49,14 @@ Honesto. Único. Constrói credibilidade sem precisar de prova que ainda não ex
 - [ ] Revisar e publicar carrossel IA aplicada (`outputs/posts/2026-06-03/ia-aplicada-sistema-carousel/`)
 - [ ] Fechar primeiro cliente real — prioridade absoluta
 - [ ] Grade 2 (Posts 10—18) — revisar à luz do build in public
+
+## Contexto da última sessão (2026-06-06)
+
+- Carrossel "Sistema vs Agente" publicado: instagram.com/p/DZOgBfukrgO/
+- Pipeline de Reels criado e validado: HTML → Playwright → MP4 (skill-reels.md)
+- Reel 01 produzido: "O próximo funcionário que você vai contratar não é humano"
+- 3 temas de Reels restantes pesquisados e prontos para produção
+- Próxima exploração: Three.js/GSAP no pipeline (ver "futuro" na memória)
 
 ## Contexto da última sessão (2026-06-05)
 

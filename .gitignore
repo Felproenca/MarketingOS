@@ -38,3 +38,4 @@ agency/outputs/
 
 # Editor
 .vscode/
+.vercel

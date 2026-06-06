@@ -1,11 +1,24 @@
 {
   "_meta": {
     "description": "Log de uso das skills por sessão. Atualizado automaticamente pelo /fechar.",
-    "updated_at": "2026-05-29",
-    "total_sessions": 3,
-    "total_operations": 13
+    "updated_at": "2026-06-06",
+    "total_sessions": 4,
+    "total_operations": 14
   },
   "sessions": [
+    {
+      "date": "2026-06-06",
+      "client": "system",
+      "skills_used": [
+        {
+          "skill": "skill-social-content-agent",
+          "group": "criacao",
+          "output_generated": "skills/criacao/skill-social-content-agent.md + CLAUDE.md atualizado",
+          "outcome": "aprovado"
+        }
+      ],
+      "notes": "Sessão de manutenção do sistema. Instalação da skill-social-content-agent v1.0 — orquestrador mestre do grupo criação que encadeia copy + spec visual + prompt Nano Banana + pacote HTML com dois checkpoints de aprovação."
+    },
     {
       "date": "2026-05-29",
       "client": "felipe-proenca",

@@ -1,7 +1,7 @@
 # Updater programado - zubair-trabzada/ai-marketing-claude
 
 Fonte: https://github.com/zubair-trabzada/ai-marketing-claude
-Ultimo scan: 2026-06-06T02:26:32.735Z
+Ultimo scan: 2026-06-07T01:23:24.691Z
 Commit analisado: e5aa0ea
 Cadencia: Quinzenal, quarta-feira, focado em auditoria, proposta e relatorio.
 

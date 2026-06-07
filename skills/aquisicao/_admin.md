@@ -68,6 +68,34 @@ skill-lead-capture
 
 ---
 
+## Fluxo de aquisicao v1.1
+
+Antes de abordar qualquer lead, separar a operacao em 5 camadas:
+
+```text
+1. Sinal
+   O que prova que existe oportunidade agora?
+
+2. Dor
+   Qual medo do prospect fica visivel pelo site, perfil, anuncio, oferta ou ausencia deles?
+
+3. Desejo
+   O que ele quer conquistar: mais cliente, previsibilidade, autoridade, agenda cheia, dominio local?
+
+4. Prova
+   Que dado, diagnostico, print, comparacao, demo ou case sustenta a abordagem?
+
+5. Proximo passo
+   Qual acao minima e facil a mensagem pede?
+```
+
+Se uma abordagem nao tiver essas 5 camadas, ela ainda nao esta pronta.
+
+Abordagem boa nao parece campanha.
+Parece diagnostico especifico que chegou na hora certa.
+
+---
+
 ## Regra de ouro deste grupo
 
 Quantidade de prospecto sem qualificação é desperdício.

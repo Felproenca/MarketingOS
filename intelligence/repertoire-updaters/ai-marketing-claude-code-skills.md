@@ -1,7 +1,7 @@
 # Updater programado - BrianRWagner/ai-marketing-claude-code-skills
 
 Fonte: https://github.com/BrianRWagner/ai-marketing-claude-code-skills
-Ultimo scan: 2026-06-06T02:38:23.300Z
+Ultimo scan: 2026-06-07T01:23:27.686Z
 Commit analisado: f36b34f
 Cadencia: Semanal, sexta-feira, focado em voz, autoridade, pesquisa e outreach.
 

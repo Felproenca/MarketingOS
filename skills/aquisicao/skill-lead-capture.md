@@ -1,11 +1,11 @@
 ---
 name: skill-lead-capture
-version: "1.0"
+version: "1.1"
 group: aquisicao
 command: /prospectar leads
 inputs:
   required: [client.md, campaigns.md]
-  optional: []
+  optional: [intelligence/repertoire-updaters/acquisition.md]
 env: []
 ---
 
@@ -52,11 +52,60 @@ Se algum estiver ausente, consulte o `client.md` antes de perguntar.
 
 ---
 
+## Mapa de Captura v1.1
+
+Antes de criar o fluxo, classificar a temperatura do lead:
+
+```text
+Frio:
+  Ainda nao confia. Precisa de diagnostico, checklist, comparacao, guia ou conteudo util.
+
+Morno:
+  Reconhece o problema. Precisa de prova, exemplo, simulacao, demo ou conversa curta.
+
+Quente:
+  Quer agir. Precisa de CTA direto, baixo atrito e resposta rapida.
+```
+
+Escolher o ativo conforme a intencao:
+
+```text
+Problema pouco claro      -> diagnostico/checklist
+Problema claro            -> simulacao/demo
+Comparando opcoes         -> comparativo/guia de decisao
+Pronto para comprar       -> WhatsApp/orcamento/agendamento
+Busca autoridade          -> newsletter/conteudo recorrente
+```
+
+Regra: captura boa pede o minimo necessario para cumprir a promessa.
+
+---
+
+## Tracking minimo
+
+Toda captura deve recomendar pelo menos um evento:
+
+```text
+view_capture_asset
+click_primary_cta
+start_form
+submit_lead
+click_whatsapp
+qualified_lead
+proposal_requested
+```
+
+Se nao houver ferramenta de analytics, registrar como pendencia tecnica.
+
+---
+
 ### CAPTURA DE LEADS — [Nome do Cliente]
 
 **Canal:** [ ]
 **Ativo:** [ ]
 **Destino:** [ ]
+**Temperatura do lead:** [ frio / morno / quente ]
+**Evento principal:** [ ]
 
 ---
 
@@ -134,6 +183,21 @@ Ferramenta de formulário:   [ Typebot / Tally / Formulário próprio / Meta Lea
 Destino dos dados:          [ Supabase / Planilha / CRM / Webhook ]
 Trigger de automação:       [ Envio do formulário / Clique no link / Resposta no WhatsApp ]
 Notificação interna:        [ Sim / Não — canal: ___ ]
+Evento de tracking:         [ view_capture_asset / click_primary_cta / submit_lead / click_whatsapp ]
+```
+
+---
+
+#### HANDOFF PARA VENDA
+
+```
+Origem da captura:
+Ativo prometido:
+Temperatura:
+Dados coletados:
+Pergunta/resposta de qualificacao:
+Mensagem enviada:
+Proximo passo esperado:
 ```
 
 ---
@@ -159,6 +223,14 @@ Status:            Ativo
 
 ---
 
+## Regras v1.1
+
+6. **Todo fluxo precisa de tracking minimo** — sem evento, nao ha aprendizado
+7. **Captura fria nao pede compromisso grande** — primeiro entrega microvalor
+8. **Handoff para venda e obrigatorio** — lead capturado sem contexto vira atendimento frio
+
+---
+
 ## Checkpoints
 
 ⏸ **CP1 — Fluxo aprovado**
@@ -174,6 +246,9 @@ Estrutura do fluxo de captura definida → aprovar lógica de qualificação e m
 - [ ] O primeiro contato WhatsApp está personalizado com o nome do lead?
 - [ ] O destino dos dados está definido e integrado?
 - [ ] O fluxo foi registrado no `campaigns.md`?
+- [ ] A temperatura do lead foi classificada?
+- [ ] O evento principal de tracking foi definido?
+- [ ] O handoff para venda esta claro?
 
 ---
 
@@ -191,4 +266,4 @@ Primeiro contato: [WhatsApp / E-mail / Manual]
 
 ---
 
-*Skill v1.0 — MarketingOS*
+*Skill v1.1 — MarketingOS*

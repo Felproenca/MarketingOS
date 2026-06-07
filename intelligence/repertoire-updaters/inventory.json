@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-06T02:38:23.306Z",
+  "updatedAt": "2026-06-07T01:23:27.699Z",
   "sources": {
     "marketingskills": {
       "id": "marketingskills",
@@ -28,7 +28,7 @@
       "adoptionRule": "Importar framework, checklist, referencia ou benchmark; nunca copiar tom generico nem substituir a alma do MarketingOS.",
       "repoDir": "C:\\Users\\Felipe Proença\\marketing-os\\.marketingos\\repertoire\\marketingskills",
       "commit": "7f4af1e",
-      "scannedAt": "2026-06-06T02:26:29.502Z",
+      "scannedAt": "2026-06-07T01:23:23.730Z",
       "counts": {
         "files": 365,
         "skills": 43,
@@ -1162,7 +1162,7 @@
       "adoptionRule": "Aproveitar arquitetura de orquestracao e formatos de entrega; recalibrar scoring para conversao e verdade humana.",
       "repoDir": "C:\\Users\\Felipe Proença\\marketing-os\\.marketingos\\repertoire\\ai-marketing-claude",
       "commit": "e5aa0ea",
-      "scannedAt": "2026-06-06T02:26:32.735Z",
+      "scannedAt": "2026-06-07T01:23:24.691Z",
       "counts": {
         "files": 37,
         "skills": 15,
@@ -1513,7 +1513,7 @@
       "adoptionRule": "Extrair governanca, padroes e perguntas de decisao; evitar importar complexidade que nao gere resultado direto.",
       "repoDir": "C:\\Users\\Felipe Proença\\marketing-os\\.marketingos\\repertoire\\claude-skills",
       "commit": "fcd4fa1",
-      "scannedAt": "2026-06-06T02:38:22.320Z",
+      "scannedAt": "2026-06-07T01:23:26.696Z",
       "counts": {
         "files": 4461,
         "skills": 757,
@@ -16969,7 +16969,7 @@
       "adoptionRule": "Adaptar modos, intakes e criterios de qualidade; manter linguagem de desejo, medo e IA aplicada do MarketingOS.",
       "repoDir": "C:\\Users\\Felipe Proença\\marketing-os\\.marketingos\\repertoire\\ai-marketing-claude-code-skills",
       "commit": "f36b34f",
-      "scannedAt": "2026-06-06T02:38:23.300Z",
+      "scannedAt": "2026-06-07T01:23:27.686Z",
       "counts": {
         "files": 89,
         "skills": 23,

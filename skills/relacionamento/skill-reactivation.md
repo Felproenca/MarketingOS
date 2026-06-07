@@ -1,11 +1,11 @@
 ---
 name: skill-reactivation
-version: "1.0"
+version: "1.1"
 group: relacionamento
 command: /relacionar reactivation
 inputs:
   required: [client.md, notes.md]
-  optional: []
+  optional: [intelligence/repertoire-updaters/claude-skills.md, intelligence/repertoire-updaters/marketingskills.md]
 env: []
 ---
 
@@ -62,6 +62,40 @@ Para negócios de compra anual, o corte pode ser 6 meses.
 
 ---
 
+## Diagnostico de Reativacao v1.1
+
+Antes da mensagem, responder:
+
+```text
+Por que essa pessoa comprou antes?
+O que provavelmente fez ela parar?
+Qual valor ainda pode existir para ela?
+O que mudou desde a ultima interacao?
+Qual oferta seria ajuda real, nao desespero?
+```
+
+Score de reativacao:
+
+```text
+Valor historico:          0-2
+Recencia:                 0-2
+Motivo conhecido:         0-2
+Canal valido:             0-1
+Oferta relevante:         0-2
+Risco de incomodo:        0-1 invertido
+Total:                    0-10
+```
+
+Classificacao:
+
+```text
+8-10: contato humano personalizado
+6-7: sequencia curta com valor
+0-5: campanha leve ou arquivar
+```
+
+---
+
 ## Lógica de Segmentação
 
 Antes de gerar qualquer mensagem, classifique os inativos:
@@ -96,6 +130,9 @@ Grupo D — Baixo valor + Inativo Longo
 **Segmento:** [ ]
 **Canal principal:** [ ]
 **Oferta de retorno:** [ ]
+**Score de reativacao:** [0-10]
+**Motivo provavel da inatividade:** [ ]
+**O que mudou desde a ultima interacao:** [ ]
 
 ---
 
@@ -244,6 +281,14 @@ ROI da reativação:              [ ]x
 
 ---
 
+## Regras v1.1
+
+7. **Reconhecer contexto anterior** — reativacao sem memoria parece spam
+8. **Oferta so vale se for relevante** — desconto sem diagnostico queima valor
+9. **Arquivar tambem e cuidado** — insistir demais reduz chance futura
+
+---
+
 ## Checkpoints
 
 ⏸ **CP1 — Mensagens aprovadas**
@@ -260,6 +305,9 @@ Nunca enviar para inativos sem confirmação explícita de quem recebe e quando.
 - [ ] O critério de encerramento está definido?
 - [ ] As métricas da campanha estão estruturadas para rastreamento?
 - [ ] O resultado será registrado no `campaigns.md`?
+- [ ] Score de reativacao foi calculado?
+- [ ] A mensagem reconhece historico real?
+- [ ] O criterio de arquivamento esta claro?
 
 ---
 
@@ -277,4 +325,4 @@ Histórico disponível: [Sim / Não]
 
 ---
 
-*Skill v1.0 — MarketingOS*
+*Skill v1.1 — MarketingOS*

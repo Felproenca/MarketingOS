@@ -35,6 +35,9 @@ Comando: `/analisar`
 "O funil não está convertendo — quero entender por quê"
 → skill-funnel-analysis.md
 
+"Quero auditar um site ou landing para entender vazamento de lead"
+→ skill-site-audit.md
+
 "Quero analisar um concorrente ou referência"
 → skill-investigar.md
 
@@ -58,6 +61,17 @@ Comando: `/analisar`
 Dado sem interpretação é número.
 Interpretação sem dado é opinião.
 Este grupo entrega os dois juntos.
+
+---
+
+## Rota v1.1
+
+```text
+"Quero auditar um site ou landing para entender vazamento de lead"
+→ skill-site-audit.md
+```
+
+Use essa rota quando a pergunta for "por que esta pagina nao converte?" ou quando o diagnostico precisa virar mensagem para prospect.
 
 ---
 

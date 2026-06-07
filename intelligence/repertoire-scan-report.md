@@ -1,6 +1,6 @@
 # Repertoire scan report - MarketingOS
 
-Atualizado em: 2026-06-06T02:38:23.327Z
+Atualizado em: 2026-06-07T01:23:27.740Z
 
 ## Sumario executivo
 Os quatro repositorios nao devem ser copiados em bloco. Eles formam quatro camadas de atualizacao:

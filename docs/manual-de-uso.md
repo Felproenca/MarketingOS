@@ -273,6 +273,7 @@ Arquivos:
 - `skills/analise/_admin.md`
 - `skills/analise/skill-dashboard.md`
 - `skills/analise/skill-funnel-analysis.md`
+- `skills/analise/skill-site-audit.md`
 - `skills/analise/skill-investigar.md`
 - `skills/analise/skill-seo.md`
 - `skills/analise/skill-estrategista.md`
@@ -969,6 +970,52 @@ Arquivos principais:
 | `intelligence/market-opportunities.md` | Oportunidades de mercado. |
 
 Antes de operar um cliente, intelligence vem antes do contexto do cliente.
+
+---
+
+## 26.1. Repertoire Updaters
+
+Os repertoire updaters trazem inteligencia externa para dentro do MarketingOS sem substituir `manifesto.md`, `alma.md` ou as regras de cliente.
+
+Eles rodam em duas etapas:
+
+### Etapa 1 - repertorio geral
+
+```bash
+npm run repertoire:update
+```
+
+Atualiza:
+
+- `intelligence/repertoire-updaters/marketingskills.md`
+- `intelligence/repertoire-updaters/ai-marketing-claude.md`
+- `intelligence/repertoire-updaters/claude-skills.md`
+- `intelligence/repertoire-updaters/ai-marketing-claude-code-skills.md`
+- `intelligence/repertoire-updaters/inventory.json`
+- `intelligence/repertoire-scan-report.md`
+
+Use primeiro para preservar o mapa completo dos quatro repertorios.
+
+### Etapa 2 - filtro de aquisicao
+
+```bash
+npm run repertoire:acquisition
+```
+
+Depende da etapa 1. Atualiza:
+
+- `intelligence/repertoire-updaters/acquisition.md`
+
+Use depois da etapa geral para extrair apenas o que fortalece aquisicao de clientes: prospeccao, outbound, midia paga, funil, CRO, lead capture, prova, proposta, RevOps, parcerias e fechamento.
+
+Agenda:
+
+```text
+intelligence/repertoire-updaters/schedule.md
+intelligence/repertoire-updaters/schedule.json
+```
+
+Regra: repertorio externo e insumo. Antes de aplicar em uma skill interna, registre a melhoria em `intelligence/skill-updates.md` e passe pelos filtros de `alma.md`.
 
 ---
 

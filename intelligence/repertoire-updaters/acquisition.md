@@ -1,6 +1,6 @@
 # Updater programado - Aquisicao de Clientes
 
-Atualizado em: 2026-06-06T03:56:48.614Z
+Atualizado em: 2026-06-07T01:24:55.159Z
 Depende de: `npm run repertoire:update`
 Rodar depois da Etapa 1 geral.
 

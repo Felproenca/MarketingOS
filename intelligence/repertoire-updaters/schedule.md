@@ -1,13 +1,13 @@
 # Agenda programada - Repertoire Updaters
 
-Criado em: 2026-06-06  
-Timezone: America/Sao_Paulo  
+Criado em: 2026-06-06
+Timezone: America/Sao_Paulo
 Regra: Etapa 2 so roda depois da Etapa 1.
 
 ## Etapa 1 - Updaters gerais
 
-Primeira rodada: 2026-06-08 09:00 BRT  
-Cadencia: semanal, toda segunda-feira, 09:00 BRT  
+Primeira rodada: 2026-06-08 09:00 BRT
+Cadencia: semanal, toda segunda-feira, 09:00 BRT
 Comando:
 
 ```bash
@@ -26,8 +26,8 @@ Objetivo: preservar o repertorio completo antes de qualquer foco especifico.
 
 ## Etapa 2 - Updater de aquisicao
 
-Primeira rodada: 2026-06-09 09:00 BRT  
-Cadencia: semanal, toda terca-feira, 09:00 BRT  
+Primeira rodada: 2026-06-09 09:00 BRT
+Cadencia: semanal, toda terca-feira, 09:00 BRT
 Dependencia: Etapa 1 concluida com sucesso.
 Comando:
 

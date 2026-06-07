@@ -1,11 +1,11 @@
 ---
 name: skill-pitch-deck
-version: "2.1"
+version: "2.2"
 group: aquisicao
 command: /pitch
 inputs:
   required: [client.md, brand-kit.json]
-  optional: [notes.md]
+  optional: [notes.md, intelligence/repertoire-updaters/acquisition.md]
 env: []
 ---
 
@@ -159,6 +159,74 @@ Para joalheria sem narrativa:
 6. Preview do novo site
 7. Carrossel real do slide 7 (gerado pela skill-carousel)
 8. Benchmarks do nicho
+9. Diagnostico comercial que justifica a proposta
+10. Prova disponivel: case / depoimento / print / demo / benchmark
+```
+
+---
+
+## Proposta Guiada por Diagnostico v2.2
+
+Antes de montar slides, preencher:
+
+```text
+Diagnostico que abre a proposta:
+-> O problema real observado, com evidencia.
+
+Custo da inacao:
+-> O que o prospect continua perdendo se nada mudar.
+
+Sistema recomendado:
+-> Como IA aplicada a captacao resolve o problema no contexto dele.
+
+Prova:
+-> Case, demo, print, benchmark ou comparacao.
+
+Objecoes provaveis:
+-> Preco, tempo, confianca, experiencia anterior, prioridade.
+
+Proximo passo:
+-> Uma acao simples: aprovar diagnostico, marcar call, validar escopo, iniciar piloto.
+```
+
+Regra: proposta sem diagnostico vira apresentacao bonita.
+Diagnostico sem proximo passo vira relatorio morto.
+
+---
+
+## Slides obrigatorios v2.2
+
+Adicionar ou adaptar a narrativa para conter:
+
+```text
+1. Abertura pelo problema observado
+2. Custo da inacao
+3. Oportunidade comercial
+4. Sistema recomendado
+5. Prova ou demo
+6. Plano de 90 dias
+7. O que nao faremos
+8. Investimento ou proximo passo
+9. Follow-up esperado
+```
+
+Se nao houver prova real, declarar "prova ausente" e usar demo/diagnostico como microprova. Nunca inventar case.
+
+---
+
+## Follow-up pos-proposta
+
+Gerar junto com o deck:
+
+```text
+D+2:
+Mensagem curta retomando o diagnostico e perguntando o que falta para decidir.
+
+D+7:
+Mensagem com custo da inacao ou prova adicional.
+
+D+14:
+Mensagem de encerramento elegante, deixando porta aberta.
 ```
 
 ---
@@ -223,6 +291,10 @@ PROSPECCTAR EM BATCH (vários prospectos no mesmo nicho)
 - [ ] Calendário editorial específico para o nicho?
 - [ ] Métricas marcadas como estimativa?
 - [ ] Foi salvo em /clients/[slug]/outputs/demo/?
+- [ ] Diagnostico comercial abre a proposta?
+- [ ] Custo da inacao esta claro?
+- [ ] Existe prova real ou microprova declarada?
+- [ ] Follow-ups D+2, D+7 e D+14 foram gerados?
 
 ---
 
@@ -250,6 +322,6 @@ Pitch deck gerado → confirmar antes de salvar e compartilhar com prospect.
 
 ---
 
-*Skill v2.1 — MarketingOS*
+*Skill v2.2 — MarketingOS*
 *Híbrido: print real quando der, mockup descritivo como fallback*
 *Decisão automática baseada em arquivo presente*

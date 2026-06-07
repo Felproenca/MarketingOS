@@ -1,11 +1,11 @@
 ---
 name: skill-retention
-version: "1.0"
+version: "1.1"
 group: relacionamento
 command: /relacionar retention
 inputs:
   required: [client.md, notes.md]
-  optional: []
+  optional: [intelligence/repertoire-updaters/claude-skills.md, intelligence/repertoire-updaters/marketingskills.md]
 env: []
 ---
 
@@ -43,6 +43,40 @@ Estruturar e gerar o sistema de retenção de clientes ativos, cobrindo:
 3. Canais de contato     → [ WhatsApp / E-mail / Instagram / Todos ]
 4. Histórico disponível  → [ Sim — descrever / Não ]
 5. Principal risco       → [ Esquecimento / Preço / Concorrência / Insatisfação ]
+```
+
+---
+
+## Health Score v1.1
+
+Antes de criar o plano, pontuar o cliente ativo:
+
+```text
+Uso/engajamento:            0-2
+Resposta a contatos:        0-2
+Percepcao de valor:         0-2
+Resultado ou progresso:     0-2
+Risco financeiro/objecao:   0-1
+Potencial de expansao:      0-1
+Total:                      0-10
+```
+
+Classificacao:
+
+```text
+8-10: saudavel / expansao possivel
+6-7: atencao / precisa reforcar valor
+0-5: risco / contato humano prioritario
+```
+
+Sinais de expansao:
+
+```text
+cliente pede mais velocidade
+cliente pergunta sobre outro canal
+cliente indica alguem
+cliente usa bem a entrega atual
+cliente tem nova meta ou novo produto
 ```
 
 ---
@@ -172,6 +206,21 @@ Ação ao detectar sinal:
 
 ---
 
+#### Health Score e Acao
+
+```
+Pontuacao atual: [0-10]
+Classificacao: [saudavel / atencao / risco]
+Sinal observado:
+Acao de retencao:
+Acao de expansao:
+Proxima reuniao:
+Pergunta de sucesso do cliente:
+→ "O que precisaria acontecer nos proximos 30 dias para voce sentir que valeu continuar?"
+```
+
+---
+
 #### Métricas de Retenção a Acompanhar
 
 ```
@@ -195,6 +244,13 @@ Tempo médio de retenção:    [ ] meses
 
 ---
 
+## Regras v1.1
+
+7. **Retencao aponta acao, nao apenas status** — todo risco precisa de proximo passo
+8. **Expansao vem depois de valor percebido** — nao ofertar mais antes de provar o atual
+
+---
+
 ## Checkpoints
 
 ⏸ **CP1 — Plano aprovado**
@@ -210,6 +266,9 @@ Plano de retenção com ações e fluxos definidos → aprovar antes de ativar q
 - [ ] Os sinais de churn estão definidos com ação correspondente?
 - [ ] As métricas de retenção estão definidas com metas?
 - [ ] O programa de indicação foi estruturado ou avaliado?
+- [ ] Health score foi calculado?
+- [ ] Sinal de expansao foi avaliado?
+- [ ] Pergunta de sucesso do cliente foi definida?
 
 ---
 
@@ -227,4 +286,4 @@ Canais disponíveis: [WhatsApp / E-mail / Ambos]
 
 ---
 
-*Skill v1.0 — MarketingOS*
+*Skill v1.1 — MarketingOS*

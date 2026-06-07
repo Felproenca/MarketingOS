@@ -1,11 +1,11 @@
 ---
 name: skill-venda
-version: "1.0"
+version: "1.1"
 group: venda
 command: /vender
 inputs:
   required: [client.md, notes.md]
-  optional: []
+  optional: [intelligence/repertoire-updaters/acquisition.md]
 env: []
 ---
 
@@ -44,6 +44,47 @@ Contexto do lead:
   → Qual objeção apareceu ou pode aparecer
   → Em qual estágio está (frio, morno, quente)
 ```
+
+---
+
+## Handoff de Aquisicao v1.1
+
+Quando o lead veio de `/prospectar`, carregar o resumo da abordagem antes de escrever qualquer mensagem:
+
+```text
+Origem:
+Score de oportunidade:
+Sinal usado na abordagem:
+Medo ativado:
+Desejo ativado:
+Mensagem enviada:
+Resposta do lead:
+Objecao aparente:
+Prova disponivel:
+Proxima melhor pergunta:
+```
+
+Se esse handoff nao existir, reconstruir antes de vender.
+Venda sem contexto volta para pitch generico.
+
+---
+
+## Prova antes de proposta
+
+Antes de enviar proposta, identificar qual prova reduz mais risco para esse lead:
+
+```text
+Diagnostico especifico
+Demo personalizada
+Comparacao com concorrente
+Print ou auditoria comentada
+Case parecido
+Depoimento
+Benchmark interno ou externo sinalizado como estimado/real
+```
+
+Regra: proposta nao deve ser a primeira prova.
+Primeiro o lead precisa sentir: "eles entenderam meu problema".
 
 ---
 
@@ -88,6 +129,9 @@ ESTÁGIO 5 — FECHAMENTO
 **Origem do lead:** [ ]
 **O que já sabe:** [ ]
 **Objeção identificada ou provável:** [ ]
+**Score de oportunidade:** [ ]
+**Sinal que gerou a conversa:** [ ]
+**Prova disponivel:** [ diagnostico / demo / case / print / benchmark / depoimento ]
 
 ---
 
@@ -192,6 +236,8 @@ Proposta sem diagnóstico é tiro no escuro.
 4. **Objeção é sinal de interesse** — quem não quer, some. Quem objeta, considera.
 5. **Uma pergunta por vez** — não ametralhar o lead com perguntas
 6. **Próximo passo sempre definido** — toda conversa termina com uma ação clara
+7. **Se veio de aquisicao, continuar o diagnostico** — nao trocar para pitch frio
+8. **Prova antes de proposta** — proposta sem prova vira PDF bonito sem decisao
 
 ---
 
@@ -210,6 +256,8 @@ Canal, tom e objeção principal precisam estar alinhados com o operador.
 - [ ] Se há objeção, a resposta dissolve sem pressionar?
 - [ ] O script de reunião tem mais perguntas do que afirmações?
 - [ ] O próximo passo está definido?
+- [ ] Se veio de prospeccao, o sinal usado na abordagem foi preservado?
+- [ ] A prova certa foi escolhida antes de propor?
 
 ---
 

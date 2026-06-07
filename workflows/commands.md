@@ -1,6 +1,6 @@
 # commands.md — Referência de Comandos do MarketingOS
 > Todos os comandos do sistema em um lugar só.
-> Atualizado em: 2026-06-02
+> Atualizado em: 2026-06-07
 
 ---
 
@@ -27,6 +27,7 @@
 | `/abrir [slug]` | Abre sessão do cliente — carrega intelligence + contexto |
 | `/fechar` | Encerra sessão — extrai aprendizados e faz commit |
 | `/salvar` | Checkpoint intermediário — commit sem encerrar sessão |
+| `/relatorio-sistema` | Relatório operacional do sistema — ranking de uso de skills, candidatas a aposentar |
 
 ---
 
@@ -68,6 +69,7 @@
 |---|---|---|
 | `/analisar dashboard` | Relatório de performance e métricas | `analise/skill-dashboard.md` |
 | `/analisar funil` | Diagnóstico de funil ponta a ponta | `analise/skill-funnel-analysis.md` |
+| `/analisar site` | Auditoria comercial de site ou landing | `analise/skill-site-audit.md` |
 | `/analisar investigar [@perfil\|URL]` | Concorrente ou referência de mercado | `analise/skill-investigar.md` |
 | `/analisar seo` | Auditoria e estratégia SEO | `analise/skill-seo.md` |
 | `/analisar estrategia` | Decisão estratégica e priorização | `analise/skill-estrategista.md` |
@@ -78,7 +80,7 @@
 
 ## 5. Aquisição
 
-| Comando | O que faz | Skill |
+| Comando | O que faz | Skill / Workflow |
 |---|---|---|
 | `/prospectar mercado` | Analisa nichos com potencial | `aquisicao/skill-market-analyzer.md` |
 | `/prospectar prospector` | Qualifica e prioriza prospectos | `aquisicao/skill-prospector.md` |
@@ -87,6 +89,7 @@
 | `/prospectar pitch` | Apresentação comercial HTML | `aquisicao/skill-pitch-deck.md` |
 | `/prospectar captacao` | Estrutura de captura de leads | `aquisicao/skill-lead-capture.md` |
 | `/prospectar anuncio` | Campanha Google/Meta com copy e CSV | `aquisicao/skill-anuncio.md` |
+| `/demo [slug]` | Demo comercial pré-contratação — 9 etapas (diagnóstico + posicionamento + site + carrossel + dashboard) | `workflows/client-demo.md` |
 
 ---
 
@@ -175,6 +178,48 @@ npm run aprender -- --slug <slug> --min-age-hours 48
 **Fluxo:** MarketingOS monta brief → social-content-agents gera conteúdo → MarketingOS publica e mede → MarketingOS envia métricas de volta.  
 **Módulos:** `scripts/integration/brief-builder.js`, `content-client.js`, `learn-sender.js`.
 
+### Investigação de Perfis — Sherlock
+
+```bash
+# Investiga presença de um perfil/concorrente em plataformas sociais
+npm run sherlock -- --slug <slug> --target @handle
+npm run sherlock -- --slug <slug> --target https://instagram.com/perfil --platform instagram
+npm run sherlock -- --slug <slug> --target @handle --dry-run   # sem salvar
+```
+
+**Plataformas:** Instagram (padrão para @handle), YouTube, LinkedIn (auto-detectado pela URL)
+**Output:** `clients/[slug]/outputs/inteligencia/[data]-sherlock-[handle].md`
+
+---
+
+### Bot de Conversas WhatsApp
+
+```bash
+# Escuta respostas de prospectos e conduz conversa automaticamente
+npm run bot
+
+# Força re-sync dos contactados (agency/contacted/)
+npm run bot -- --sync
+```
+
+**Pipeline:** sent → replied → demo_sent → call_offered  
+**Sessão persistente:** `.whatsapp-session/` (escanear QR na primeira vez)
+
+---
+
+### Renderização de Assets
+
+```bash
+# Carrossel HTML → PNGs
+npm run carousel:generate   # gera HTML + conteúdo
+npm run carousel:render     # renderiza HTML → PNGs com Playwright
+
+# Reel HTML → vídeo
+npm run reel:render -- --html <arquivo.html> --out <saida.webm> [--duration 30000]
+```
+
+---
+
 ### Intelligence Externa — Repertoire Updaters
 
 ```bash
@@ -190,14 +235,15 @@ npm run repertoire:update -- --source ai-marketing-claude-code-skills
 # Testa sem gravar
 npm run repertoire:update -- --dry-run
 
-# Depois da etapa geral, gera o filtro so de aquisicao
+# Etapa 2 obrigatoria apos a etapa geral
 npm run repertoire:acquisition
 ```
 
 **Fontes:** coreyhaines31/marketingskills, zubair-trabzada/ai-marketing-claude, alirezarezvani/claude-skills, BrianRWagner/ai-marketing-claude-code-skills  
 **Agenda:** `intelligence/repertoire-updaters/schedule.md`  
 **Output geral:** `intelligence/repertoire-updaters/*.md`, `intelligence/repertoire-updaters/inventory.json`, `intelligence/repertoire-scan-report.md`  
-**Output aquisicao:** `intelligence/repertoire-updaters/acquisition.md`
+**Output aquisicao:** `intelligence/repertoire-updaters/acquisition.md`  
+**Pacotes de aplicacao:** `intelligence/update-packages/`
 
 ### Demo Pipeline (agency → leads → demo personalizado → outreach)
 

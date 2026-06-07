@@ -232,6 +232,9 @@ Registrado em: campaigns.md
 Próximo conteúdo sugerido: [baseado em estrategia.md]
 ```
 
+**Pós-publicação obrigatória:** executar `intelligence/checklist-pos-publicacao.md` imediatamente.
+A janela de distribuição das primeiras horas é a única real — saves e DMs nos primeiros 30 min definem o alcance.
+
 ---
 
 ## Regras

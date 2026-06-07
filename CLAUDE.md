@@ -107,6 +107,7 @@ Só avançar depois de ter essas respostas. Estrutura sem essas respostas é ru�
   /workflows
   /scripts
   /intelligence
+    /repertoire-updaters
   /templates
   CLAUDE.md
 ```
@@ -153,6 +154,7 @@ Use `workflows/token-economy.md` como regra operacional para reduzir contexto.
 |---|---|
 | `analise/skill-dashboard.md` | Relatorio de performance e metricas |
 | `analise/skill-funnel-analysis.md` | Diagnostico de funil ponta a ponta |
+| `analise/skill-site-audit.md` | Auditoria comercial de site ou landing para conversao |
 | `analise/skill-investigar.md` | Analise de concorrente ou referencia |
 | `analise/skill-seo.md` | Estrategia e auditoria SEO |
 | `analise/skill-estrategista.md` | Decisao estrategica e priorizacao |
@@ -217,6 +219,74 @@ Use `workflows/token-economy.md` como regra operacional para reduzir contexto.
 | `workflows/reuniao-estrategica.md` | `/reuniao` | Reuniao quinzenal/mensal com o cliente |
 | `workflows/relatorio-executivo.md` | `/relatorio` | Relatorio executivo mensal |
 
+### Workflows de Demo e Operacao do Sistema
+
+| Workflow | Comando | Quando usar |
+|---|---|---|
+| `workflows/client-demo.md` | `/demo [slug]` | Demo comercial pre-contratacao — 9 etapas: diagnostico + posicionamento + site + carrossel + dashboard |
+| `workflows/relatorio-sistema.md` | `/relatorio-sistema` | Relatorio operacional do sistema — ranqueia skills por uso, identifica skills mortas |
+
+---
+
+## Repertoire Updaters — Inteligencia Externa Programada
+
+Os repositorios externos aprovados entram como repertorio, nao como verdade final. Eles atualizam a inteligencia do MarketingOS em duas etapas obrigatorias.
+
+### Etapa 1 — Updaters gerais
+
+```bash
+npm run repertoire:update
+```
+
+Atualiza:
+- `intelligence/repertoire-updaters/marketingskills.md`
+- `intelligence/repertoire-updaters/ai-marketing-claude.md`
+- `intelligence/repertoire-updaters/claude-skills.md`
+- `intelligence/repertoire-updaters/ai-marketing-claude-code-skills.md`
+- `intelligence/repertoire-updaters/inventory.json`
+- `intelligence/repertoire-scan-report.md`
+
+Objetivo: preservar o repertorio completo antes de qualquer foco especifico.
+
+### Etapa 2 — Updater de aquisicao
+
+```bash
+npm run repertoire:acquisition
+```
+
+Dependencia: so rodar depois da Etapa 1 concluida.
+
+Atualiza:
+- `intelligence/repertoire-updaters/acquisition.md`
+
+Objetivo: filtrar dos quatro repertorios apenas o que melhora aquisicao real: prospeccao, outbound, midia paga, funil, CRO, lead capture, social proof, proposta, RevOps, parcerias e fechamento.
+
+### Agenda operacional
+
+Fonte:
+- `intelligence/repertoire-updaters/schedule.md`
+- `intelligence/repertoire-updaters/schedule.json`
+
+Agenda definida:
+- Etapa 1: toda segunda-feira, 09:00 BRT.
+- Etapa 2: toda terca-feira, 09:00 BRT, depois da Etapa 1.
+
+### Regra de adocao
+
+Antes de aplicar qualquer aprendizado externo em skills internas:
+1. Confirmar que nao contradiz `manifesto.md` nem `alma.md`.
+2. Registrar melhoria em `intelligence/skill-updates.md`.
+3. Aplicar em uma unica skill ou workflow por vez.
+4. Atualizar `workflows/commands.md` se nascer comando novo.
+5. Nunca importar linguagem generica, promessa sem prova ou mecanica que nao aumenta conversao.
+
+Para aquisicao, toda peca precisa responder:
+- Qual medo do prospect isso nomeia?
+- Qual desejo de crescimento isso ativa?
+- Qual proxima acao comercial isso torna mais facil?
+- Qual dado, sinal ou prova sustenta a abordagem?
+- Isso vende IA aplicada ao negocio ou volta para linguagem de agencia?
+
 ---
 
 ## Regras de Implementacao
@@ -231,6 +301,7 @@ Use `workflows/token-economy.md` como regra operacional para reduzir contexto.
 8. Carrosseis: gerar HTML diretamente via `skill-carousel.md` v2.0; Python so pode ser motor interno quando chamado por `skill-content-engine.md`, nunca etapa manual intermediaria.
 9. Executar `/fechar` ao encerrar sessao — nunca apenas fechar o chat.
 10. Para workflows de mais de uma skill, usar `workflows/pipeline-runner.md`.
+11. Repertoire updaters rodam em duas etapas: primeiro `npm run repertoire:update`, depois `npm run repertoire:acquisition`.
 
 ---
 
@@ -268,6 +339,8 @@ Todo output vai para `clients/[slug]/outputs/`:
 - atualizar `metrics.json` apos analise de performance
 - indicar quando um dado e estimado vs real
 - sinalizar quando o contexto do cliente for insuficiente
+- preservar updaters gerais antes de focar em aquisicao
+- tratar repertorio externo como insumo a ser filtrado pela alma do MarketingOS
 
 ---
 
@@ -333,6 +406,8 @@ node scripts/create-client.js [slug]
 ---
 
 ## Roadmap
+
+- **Fase 2.5** — Repertoire updaters programados: repertorio geral + filtro de aquisicao
 
 - **Fase 1** (concluida) — Estrutura, templates, skills essenciais, comandos slash
 - **Fase 2** — Integracoes com canais por cliente, pipeline de dados e tracking

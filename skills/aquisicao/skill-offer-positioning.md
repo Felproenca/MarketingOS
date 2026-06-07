@@ -1,11 +1,11 @@
 ---
 name: skill-offer-positioning
-version: "1.0"
+version: "1.1"
 group: aquisicao
 command: /prospectar oferta
 inputs:
   required: [client.md, alma.md]
-  optional: []
+  optional: [intelligence/repertoire-updaters/acquisition.md]
 env: []
 ---
 
@@ -79,6 +79,69 @@ Antes de gerar qualquer copy, responda internamente:
 ---
 
 ## Estrutura da Oferta
+
+---
+
+## Camada de Aquisicao v1.1
+
+Antes de escrever a oferta para prospeccao, transformar o contexto em uma cadeia comercial:
+
+```text
+Sinal observado:
+-> O que vimos no site, perfil, anuncio, oferta, funil ou atendimento.
+
+Medo ativado:
+-> O que o prospect teme perder se continuar igual.
+
+Desejo ativado:
+-> O que ele quer conquistar, dominar ou destravar.
+
+Diagnostico:
+-> O que parece estar impedindo esse resultado.
+
+Promessa de proximo passo:
+-> O que podemos mostrar, diagnosticar ou construir sem pedir uma decisao grande demais.
+
+Prova:
+-> Dado, benchmark, comparacao, demo, case, print, auditoria ou observacao concreta.
+```
+
+Regra: em aquisicao fria, a primeira oferta quase nunca e "compre".
+A primeira oferta e uma decisao pequena:
+
+```text
+ver um diagnostico
+receber 2 pontos de melhoria
+comparar com concorrentes
+ver uma demo personalizada
+entender onde esta vazando cliente
+```
+
+So depois disso a oferta comercial entra.
+
+---
+
+## Escada de Oferta para Aquisicao
+
+```text
+Degrau 1 - Gancho de diagnostico
+Objetivo: conseguir resposta.
+Ex: "Quer que eu te mande os 2 pontos que mais podem estar travando conversao?"
+
+Degrau 2 - Microvalor
+Objetivo: provar leitura e competencia.
+Ex: mini-auditoria, comparacao, print comentado, demo simples.
+
+Degrau 3 - Conversa
+Objetivo: entender contexto real antes de propor.
+Ex: chamada curta, audio, WhatsApp, reuniao de diagnostico.
+
+Degrau 4 - Oferta principal
+Objetivo: apresentar o sistema no contexto do problema confirmado.
+Ex: IA aplicada a captacao, operacao integrada, funil, conteudo, tracking.
+```
+
+Toda adaptacao por canal deve indicar em qual degrau esta.
 
 ---
 
@@ -277,6 +340,9 @@ Mudança de posicionamento aqui requer reescrita do copy.
 - [ ] A copy foi adaptada para todos os canais relevantes?
 - [ ] Os 4 filtros de clareza foram aplicados?
 - [ ] Pelo menos 2 variações para teste A/B foram geradas?
+- [ ] Se for aquisicao fria, o sinal observado esta explicito?
+- [ ] O primeiro proximo passo e pequeno o suficiente para gerar resposta?
+- [ ] Existe prova, diagnostico ou microvalor antes da oferta principal?
 
 ---
 

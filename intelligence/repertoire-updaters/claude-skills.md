@@ -1,7 +1,7 @@
 # Updater programado - alirezarezvani/claude-skills
 
 Fonte: https://github.com/alirezarezvani/claude-skills
-Ultimo scan: 2026-06-06T02:38:22.320Z
+Ultimo scan: 2026-06-07T01:23:26.696Z
 Commit analisado: fcd4fa1
 Cadencia: Mensal, primeira sexta-feira, com triagem por impacto estrategico.
 

@@ -57,7 +57,7 @@ node scripts/create-client.js meu-cliente
 /abrir meu-cliente
 
 # 3. Executar skills por grupo
-/analisar      → relatório, funil, SEO, estratégia
+/analisar      → relatório, funil, site audit, SEO, estratégia
 /criar         → carrossel, post, site, branding, imagem
 /prospectar    → mercado, prospector, oferta, pitch, anúncio
 /vender        → abordagem e fechamento de lead
@@ -91,7 +91,7 @@ node scripts/create-client.js meu-cliente
     /venda              → /vender
     /relacionamento     → /relacionar
   /workflows            → open, close, pipeline, onboarding...
-  /intelligence         → patterns, benchmarks, system-usage
+  /intelligence         → patterns, benchmarks, system-usage, repertoire-updaters
   /templates            → pitch-deck-template.html
   /scripts              → create-client.js, command-router.js
 ```
@@ -123,4 +123,24 @@ npm run upload-image -- --content [id] --slide 1 --file imagem.png --slug [slug]
 npm run aprender -- --slug [slug]
 npm run demo -- --query "busca" --city "cidade" --segment clinica --dry-run
 npm run publicar -- --slug [slug] --file img.png --caption "legenda" --dry-run
+npm run repertoire:update
+npm run repertoire:acquisition
+```
+
+### Intelligence externa
+
+```bash
+# Etapa 1: atualiza os 4 repertorios gerais
+npm run repertoire:update
+
+# Etapa 2: filtra apenas o que fortalece aquisicao de clientes
+npm run repertoire:acquisition
+```
+
+Agenda e outputs:
+
+```text
+intelligence/repertoire-updaters/schedule.md
+intelligence/repertoire-scan-report.md
+intelligence/repertoire-updaters/acquisition.md
 ```

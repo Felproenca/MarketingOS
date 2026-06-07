@@ -80,4 +80,23 @@ Conteúdo que poderia ser de qualquer marca não é conteúdo.
 
 ---
 
+## Regra de voz v1.1
+
+Copy aprovada precisa passar por 3 filtros:
+
+```text
+1. Voz
+   Isso soa como essa marca ou como um template?
+
+2. Plataforma
+   Isso foi escrito para o comportamento real do canal ou so adaptado?
+
+3. Humano
+   Uma pessoa real falaria isso sem parecer apresentacao de IA?
+```
+
+Se qualquer resposta for "nao", voltar para `skill-social-copy.md` e reescrever.
+
+---
+
 *Leu alma.md? Escolheu a skill? Carregue só ela.*

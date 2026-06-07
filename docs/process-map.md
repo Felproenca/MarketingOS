@@ -112,6 +112,7 @@ FECHAR SESSÃO
   │   │   ├── _admin.md
   │   │   ├── skill-dashboard.md
   │   │   ├── skill-funnel-analysis.md
+  │   │   ├── skill-site-audit.md      → auditoria comercial de site/landing
   │   │   ├── skill-investigar.md
   │   │   ├── skill-seo.md
   │   │   └── skill-estrategista.md
@@ -150,6 +151,9 @@ FECHAR SESSÃO
   │   ├── open-client.md         → protocolo de abertura de sessão
   │   ├── close-client.md        → protocolo de fechamento de sessão
   │   ├── pipeline-runner.md     → executa pipelines multi-skill
+  │   ├── token-economy.md       → regra operacional de economia de tokens
+  │   ├── client-demo.md         → demo comercial pré-contratação (9 etapas) — /demo [slug]
+  │   ├── relatorio-sistema.md   → relatório operacional do sistema — /relatorio-sistema
   │   ├── onboarding-head.md     → primeiro mês do head implantado
   │   ├── reuniao-estrategica.md → roteiro de reunião quinzenal/mensal
   │   └── relatorio-executivo.md → relatório mensal executivo
@@ -159,6 +163,13 @@ FECHAR SESSÃO
   │   ├── patterns.md            → padrões confirmados em 2+ clientes
   │   ├── benchmarks.json        → métricas de referência por nicho/canal
   │   ├── market-opportunities.md → oportunidades de nicho identificadas
+  │   ├── skill-updates.md       → log de melhorias aplicadas nas skills
+  │   ├── experiments.md         → experimentos cross-client em andamento e planejados
+  │   ├── checklist-pos-publicacao.md → protocolo dos 30 min pós-post (algoritmo)
+  │   ├── system-usage.json      → log de uso de skills por sessão (base do /relatorio-sistema)
+  │   ├── repertoire-scan-report.md → relatorio dos repertorios externos
+  │   ├── /repertoire-updaters   → updaters gerais, aquisicao e agenda
+  │   ├── /update-packages       → pacotes de updates do repertoire aplicados
   │   └── brand-kit-marketingos.md → identidade visual do próprio sistema
   │
   ├── /templates
@@ -219,12 +230,20 @@ FECHAR SESSÃO
 
 ### Diretos — Análise
 
-| Comando | Skill |
+| Comando | Skill / Workflow |
 |---|---|
 | `/relatorio` | skill-dashboard.md |
 | `/funil` | skill-funnel-analysis.md |
+| `/analisar site` | skill-site-audit.md |
 | `/investigar [@perfil]` | skill-investigar.md |
 | `/seo` | skill-seo.md |
+| `/relatorio-sistema` | relatorio-sistema.md |
+
+### Demo Comercial
+
+| Comando | Workflow |
+|---|---|
+| `/demo [slug]` | client-demo.md |
 
 ### Diretos — Relacionamento
 
@@ -280,6 +299,24 @@ skill-dashboard → relatório executivo
 
 ---
 
+## Fluxo de Repertoire Updaters
+
+```
+Repositorios externos aprovados
+  -> npm run repertoire:update
+  -> intelligence/repertoire-updaters/*.md
+  -> intelligence/repertoire-updaters/inventory.json
+  -> intelligence/repertoire-scan-report.md
+  -> npm run repertoire:acquisition
+  -> intelligence/repertoire-updaters/acquisition.md
+  -> intelligence/skill-updates.md
+  -> skills internas atualizadas uma por vez
+```
+
+Regra: a etapa de aquisicao nunca substitui a etapa geral. Primeiro preservar repertorio completo; depois filtrar aquisicao.
+
+---
+
 ## Regras de Ouro
 
 1. Ler alma.md uma vez por sessão — antes de qualquer criação
@@ -306,6 +343,10 @@ skill-dashboard → relatório executivo
    5 grupos com _admin.md, skill-criatividade.md, skill-venda.md
    skill-pitch-deck.md, skill-prospector.md, skill-estrategista.md
    brand-kit-marketingos.md, templates/pitch-deck-template.html
+
+✅ Fase 2.5 — Repertoire Updaters Programados (concluída)
+   Etapa geral semanal + filtro de aquisicao semanal
+   skill-site-audit.md, aquisicao v1.1, SEO/AEO, captura, proposta, retencao e reativacao
 
 🔄 Fase 2 — Primeiros Clientes (em andamento)
    Felipe Proença: Grade 1 + Grade 2 publicadas, oferta estruturada

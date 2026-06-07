@@ -1,11 +1,11 @@
 ---
 name: skill-seo
-version: "1.0"
+version: "1.1"
 group: analise
 command: /analisar seo
 inputs:
   required: [client.md]
-  optional: [intelligence/benchmarks.json]
+  optional: [intelligence/benchmarks.json, intelligence/repertoire-updaters/acquisition.md, intelligence/repertoire-updaters/marketingskills.md]
 env: []
 ---
 
@@ -43,6 +43,54 @@ Foco em: tráfego orgânico qualificado, autoridade de nicho e conversão.
 ---
 
 ## Workflow de 8 Passos
+
+## Camada SEO/AEO v1.1
+
+Separar dois campos de descoberta:
+
+```text
+SEO tradicional:
+-> Google, buscas locais, paginas de servico, blog, comparativos, tecnicos.
+
+AEO / AI discoverability:
+-> Como a marca aparece ou deveria aparecer em respostas de IA, Perplexity, ChatGPT, Claude, Gemini e AI Overviews.
+```
+
+Antes do plano, mapear queries:
+
+```text
+Queries de problema:
+-> "como resolver [dor]"
+
+Queries de solucao:
+-> "[servico/produto] para [persona/situacao]"
+
+Queries de comparacao:
+-> "[categoria] vs [alternativa]"
+
+Queries locais:
+-> "[servico] em [cidade/bairro]"
+
+Queries de autoridade:
+-> "melhor especialista em [tema]"
+
+Queries de IA:
+-> "quais empresas ajudam com [resultado]"
+```
+
+Checklist de citabilidade:
+
+```text
+Resposta direta para perguntas importantes
+Provas, processos e exemplos especificos
+Autoridade de autor/marca
+FAQ real, nao decorativa
+Schema basico quando houver site
+Paginas comparativas ou locais quando fizer sentido
+Diretorios relevantes quando forem fonte de descoberta
+```
+
+---
 
 ### Passo 1 — Entender o negócio no contexto de busca
 
@@ -203,6 +251,31 @@ Objetivo: [definido no input]
 
 ## Acompanhamento
 [Passo 8]
+
+## SEO/AEO v1.1
+Busca tradicional:
+[principais oportunidades]
+
+Busca por IA:
+[como a marca deveria ser encontrada/citada]
+
+Queries prioritarias:
+[lista separando problema, solucao, comparacao, local e autoridade]
+
+Gaps de autoridade:
+[o que falta para ser confiavel]
+
+Paginas que precisam existir:
+[servico, local, comparativo, FAQ, case, guia]
+
+Diretorios:
+[diretorios relevantes]
+
+Schema:
+[schema recomendado]
+
+Plano 30 dias:
+[acoes priorizadas]
 ```
 
 ---
@@ -228,6 +301,14 @@ Estratégia SEO completa gerada → confirmar prioridades antes de salvar e inic
 
 ---
 
+## Regras v1.1
+
+6. Separar SEO de AEO — busca tradicional e busca por IA tem criterios diferentes.
+7. Toda recomendacao de descoberta precisa conectar com captura, autoridade ou conversao.
+8. Nao inventar presenca em IA — sinalizar como hipotese quando nao for testado.
+
+---
+
 ## Exemplo de Ativação
 
 ```
@@ -240,4 +321,4 @@ Objetivo: Tráfego para produto + blog de autoridade
 
 ---
 
-*Skill v1.0 — MarketingOS*
+*Skill v1.1 — MarketingOS*

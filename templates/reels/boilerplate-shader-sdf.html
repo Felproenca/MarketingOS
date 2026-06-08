@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080">
+  <title>Reel — Shader SDF (Ray Marching)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@200;400;800;900&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { width: 1080px; height: 1920px; background: #080808; overflow: hidden; position: relative; }
+    #c { position: absolute; top: 0; left: 0; display: block; }
+
+    /*
+     * CSS @keyframes — timeline de 20s.
+     * pct(t) = t / 200
+     *
+     * Logo começa em 17000ms = 85.000%
+     *   rule:      17000–17600 → 85.000%–88.000%
+     *   marketing: 17350–17850 → 86.750%–89.250%
+     *   slash:     17650–17950 → 88.250%–89.750%
+     *   os:        17800–18300 → 89.000%–91.500%
+     *   handle:    18150–18650 → 90.750%–93.250%
+     *
+     * Fade overlay: 19000–20000 → 95.000%–100%
+     */
+
+    @keyframes a-logo-rule {
+      0%, 85%      { width: 0 }
+      88%, 100%    { width: 72px }
+    }
+    @keyframes a-logo-marketing {
+      0%, 86.75%   { opacity: 0; transform: translateX(-24px); animation-timing-function: ease }
+      89.25%, 100% { opacity: 1; transform: translateX(0) }
+    }
+    @keyframes a-logo-slash {
+      0%, 88.25%   { opacity: 0; animation-timing-function: ease }
+      89.75%, 100% { opacity: 1 }
+    }
+    @keyframes a-logo-os {
+      0%, 89%      { opacity: 0; transform: translateX(24px); animation-timing-function: ease }
+      91.5%, 100%  { opacity: 1; transform: translateX(0) }
+    }
+    @keyframes a-logo-handle {
+      0%, 90.75%   { opacity: 0; transform: translateY(10px); animation-timing-function: ease }
+      93.25%, 100% { opacity: 1; transform: translateY(0) }
+    }
+    @keyframes a-fade {
+      0%, 95%      { opacity: 0 }
+      100%         { opacity: 1 }
+    }
+
+    #logo-wrap {
+      position: absolute; bottom: 240px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 18px;
+      white-space: nowrap; z-index: 20;
+    }
+    #logo-rule {
+      display: block; height: 2px; background: rgba(250,250,250,0.28); width: 0;
+      animation: a-logo-rule 20s linear forwards paused;
+    }
+    #logo-row { display: flex; align-items: baseline; }
+    #logo-marketing {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 88px;
+      color: #fafafa; opacity: 0; transform: translateX(-24px);
+      animation: a-logo-marketing 20s linear forwards paused;
+    }
+    #logo-slash {
+      font-family: 'Syne', sans-serif; font-weight: 200; font-size: 88px;
+      color: rgba(250,250,250,0.28); opacity: 0;
+      animation: a-logo-slash 20s linear forwards paused;
+    }
+    #logo-os {
+      font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400;
+      font-size: 88px; color: #c9a55c; opacity: 0; transform: translateX(24px);
+      animation: a-logo-os 20s linear forwards paused;
+    }
+    #logo-handle {
+      font-family: 'Syne', sans-serif; font-weight: 400; font-size: 34px;
+      color: rgba(201,165,92,0.55); opacity: 0; transform: translateY(10px);
+      animation: a-logo-handle 20s linear forwards paused;
+    }
+    #fade-overlay {
+      position: fixed; inset: 0; background: #080808;
+      opacity: 0; z-index: 90; pointer-events: none;
+      animation: a-fade 20s linear forwards paused;
+    }
+  </style>
+</head>
+<body>
+
+<!--
+  BOILERPLATE — TIPO: shader-sdf (Ray Marching)
+  ─────────────────────────────────────────────────────────────────────────
+  Zero assets. Zero bibliotecas. Pura matemática no GPU.
+
+  Técnica: Ray Marching com Signed Distance Functions (SDFs)
+  - Cada pixel lança um raio no espaço 3D
+  - O raio avança por passos até colidir com uma superfície implícita
+  - A superfície é definida por funções matemáticas (sdSphere, sdTorus, etc.)
+  - smin() cria blending orgânico entre formas (metaballs)
+
+  Iluminação:
+  - Blinn-Phong com duas luzes (principal + fill)
+  - Fresnel rim no contorno (ouro brilhante nas bordas)
+  - Material gold: base mix de branco e dourado, especular quente
+
+  Fases (window.REEL.currentTime):
+  - 0–2s    : fade in da cena (uReveal 0→1)
+  - 2–13s   : metaballs orbitam livremente — orgânico, vivo
+  - 13–16s  : collapse — raios reduzem, tudo converge ao centro (uCollapse 0→1)
+  - 16–17s  : silêncio — apenas o fundo
+  - 17–20s  : logo CSS @keyframes
+
+  Para adaptar ao brief:
+  - Trocar geometria no scene(): sdSphere → sdTorus, sdBox, sdCapsule, etc.
+  - Ajustar número de blobs (c1, c2, c3, c4...)
+  - Trocar material (gold → chrome, jade, neon)
+  - Adicionar texto CSS absoluto sobre o canvas (z-index > canvas, z-index < logo)
+  - Ajustar duração e percentuais do CSS logo
+  ─────────────────────────────────────────────────────────────────────────
+-->
+
+<canvas id="c" width="1080" height="1920"></canvas>
+
+<div id="logo-wrap">
+  <span id="logo-rule"></span>
+  <div id="logo-row">
+    <span id="logo-marketing">Marketing</span>
+    <span id="logo-slash">/</span>
+    <span id="logo-os">OS</span>
+  </div>
+  <span id="logo-handle">@felipeproenca_marketingos</span>
+</div>
+
+<div id="fade-overlay"></div>
+
+<script>
+// ── WebGL setup ───────────────────────────────────────────────────────────────
+const canvas = document.getElementById('c');
+const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+
+if (!gl) { console.error('WebGL não disponível'); }
+
+// ── Vertex shader — quad full-screen ─────────────────────────────────────────
+const VS = `
+  attribute vec2 a_pos;
+  void main() { gl_Position = vec4(a_pos, 0.0, 1.0); }
+`;
+
+// ── Fragment shader — Ray Marching + SDF ─────────────────────────────────────
+const FS = `
+  precision highp float;
+  uniform float uTime;      /* tempo em segundos — window.REEL.currentTime / 1000 */
+  uniform vec2  uRes;       /* resolução do canvas: 1080 x 1920 */
+  uniform float uReveal;    /* 0→1 durante fade-in (0–2s) */
+  uniform float uCollapse;  /* 0→1 durante collapse (13–16s) */
+
+  /* ── SDFs ─────────────────────────────────────────────────────────────── */
+
+  float sdSphere(vec3 p, float r) { return length(p) - r; }
+
+  float sdTorus(vec3 p, vec2 t) {
+    vec2 q = vec2(length(p.xz) - t.x, p.y);
+    return length(q) - t.y;
+  }
+
+  /* Smooth min — blending orgânico entre SDFs (metaballs) */
+  float smin(float a, float b, float k) {
+    float h = max(k - abs(a - b), 0.0) / k;
+    return min(a, b) - h * h * k * 0.25;
+  }
+
+  /* ── Cena — composição de metaballs ──────────────────────────────────── */
+
+  float scene(vec3 p) {
+    float t   = uTime * 0.55;
+    float orb = 1.0 - uCollapse; /* colapsa raio orbital com uCollapse */
+
+    vec3 c1 = vec3(sin(t * 0.70) * 1.20, cos(t * 0.50) * 0.95, sin(t * 0.35) * 0.50) * orb;
+    vec3 c2 = vec3(cos(t * 0.85) * 0.95, sin(t * 0.80) * 0.85, cos(t * 0.55) * 0.60) * orb;
+    vec3 c3 = vec3(sin(t * 0.42) * 0.85, cos(t * 1.10) * 1.05, sin(t * 0.75) * 0.40) * orb;
+    vec3 c4 = vec3(cos(t * 0.60) * 1.10, sin(t * 0.40) * 0.75, cos(t * 0.90) * 0.55) * orb;
+
+    /* raio dos blobs também colapsa — tudo converge numa esfera única */
+    float r1 = mix(0.68, 1.10, uCollapse);
+    float r2 = mix(0.62, 0.90, uCollapse);
+    float r3 = mix(0.74, 1.00, uCollapse);
+    float r4 = mix(0.58, 0.85, uCollapse);
+
+    float d = sdSphere(p - c1, r1);
+    d = smin(d, sdSphere(p - c2, r2), 0.65);
+    d = smin(d, sdSphere(p - c3, r3), 0.65);
+    d = smin(d, sdSphere(p - c4, r4), 0.65);
+    return d;
+  }
+
+  /* ── Normal por gradiente numérico (central differences) ────────────── */
+  vec3 calcNormal(vec3 p) {
+    float e = 0.0008;
+    return normalize(vec3(
+      scene(p + vec3(e, 0, 0)) - scene(p - vec3(e, 0, 0)),
+      scene(p + vec3(0, e, 0)) - scene(p - vec3(0, e, 0)),
+      scene(p + vec3(0, 0, e)) - scene(p - vec3(0, 0, e))
+    ));
+  }
+
+  /* ── Ambient occlusion simples ────────────────────────────────────────── */
+  float ao(vec3 p, vec3 n) {
+    float occ = 0.0;
+    float sca  = 1.0;
+    for (int i = 1; i <= 5; i++) {
+      float h  = 0.01 + 0.12 * float(i) / 5.0;
+      float d  = scene(p + n * h);
+      occ     += (h - d) * sca;
+      sca     *= 0.85;
+    }
+    return clamp(1.0 - 2.5 * occ, 0.0, 1.0);
+  }
+
+  /* ── Main ─────────────────────────────────────────────────────────────── */
+  void main() {
+    /* UV em espaço normalizado, corrigido pelo aspect ratio */
+    vec2 uv = (gl_FragCoord.xy - uRes * 0.5) / uRes.y;
+
+    /* Câmera — ligeiramente off-center, deriva no tempo */
+    float ct = uTime * 0.07;
+    vec3 ro = vec3(sin(ct) * 0.6, cos(ct * 0.7) * 0.4, 4.8);
+    vec3 ta = vec3(0.0);
+    vec3 ww = normalize(ta - ro);
+    vec3 uu = normalize(cross(ww, vec3(0, 1, 0)));
+    vec3 vv = cross(uu, ww);
+    vec3 rd = normalize(uv.x * uu + uv.y * vv + 1.5 * ww);
+
+    /* Ray march */
+    float t   = 0.02;
+    float hit = -1.0;
+    for (int i = 0; i < 96; i++) {
+      float d = scene(ro + rd * t);
+      if (d < 0.0008) { hit = t; break; }
+      t += d * 0.72; /* step conservador para evitar artefatos no smin */
+      if (t > 18.0) break;
+    }
+
+    vec3 col = vec3(0.032); /* background */
+
+    if (hit > 0.0) {
+      vec3 p = ro + rd * hit;
+      vec3 n = calcNormal(p);
+
+      /* Luzes */
+      vec3 L1  = normalize(vec3(2.2, 3.5, 4.0));
+      vec3 L2  = normalize(vec3(-1.8, 0.8, 2.5));
+      float d1 = max(dot(n, L1), 0.0);
+      float d2 = max(dot(n, L2), 0.0) * 0.28;
+
+      /* Especular Blinn-Phong */
+      vec3  H   = normalize(L1 - rd);
+      float sp  = pow(max(dot(n, H), 0.0), 56.0);
+
+      /* Fresnel — rim dourado nos contornos */
+      float fr  = pow(1.0 - max(dot(-rd, n), 0.0), 3.8);
+
+      /* Material gold */
+      vec3 gold  = vec3(0.79, 0.65, 0.36);
+      vec3 white = vec3(0.92, 0.92, 0.92);
+      vec3 base  = mix(white, gold, 0.62);
+
+      /* AO */
+      float occ = ao(p, n);
+
+      col  = base * (d1 * 0.72 + d2 + 0.06) * occ;
+      col += vec3(1.0, 0.90, 0.65) * sp * 2.2;
+      col += gold * fr * 0.52;
+    }
+
+    /* Vinheta */
+    float vig = 1.0 - smoothstep(0.28, 0.85, length(uv) * 1.1);
+    col *= vig;
+
+    /* Reveal fade-in (0→2s) */
+    col *= uReveal;
+
+    /* Grain shader-based — elimina necessidade do SVG grain */
+    float gr = fract(
+      sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233)) + uTime * 83.7) * 43758.5453
+    ) * 0.028 - 0.014;
+    col = max(col + gr, vec3(0.0));
+
+    gl_FragColor = vec4(col, 1.0);
+  }
+`;
+
+// ── Compilar shaders ──────────────────────────────────────────────────────────
+function compileShader(type, src) {
+  const s = gl.createShader(type);
+  gl.shaderSource(s, src);
+  gl.compileShader(s);
+  if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+    console.error('Shader error:', gl.getShaderInfoLog(s));
+  }
+  return s;
+}
+
+const prog = gl.createProgram();
+gl.attachShader(prog, compileShader(gl.VERTEX_SHADER, VS));
+gl.attachShader(prog, compileShader(gl.FRAGMENT_SHADER, FS));
+gl.linkProgram(prog);
+if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+  console.error('Program link error:', gl.getProgramInfoLog(prog));
+}
+gl.useProgram(prog);
+
+// ── Quad full-screen ──────────────────────────────────────────────────────────
+const buf = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+const aPos = gl.getAttribLocation(prog, 'a_pos');
+gl.enableVertexAttribArray(aPos);
+gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+// ── Uniforms ──────────────────────────────────────────────────────────────────
+const uTime     = gl.getUniformLocation(prog, 'uTime');
+const uRes      = gl.getUniformLocation(prog, 'uRes');
+const uReveal   = gl.getUniformLocation(prog, 'uReveal');
+const uCollapse = gl.getUniformLocation(prog, 'uCollapse');
+
+gl.uniform2f(uRes, 1080, 1920);
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+function remap(v, a, b, c, d) { return c + clamp((v - a) / (b - a), 0, 1) * (d - c); }
+function easeInOut(x) {
+  x = clamp(x, 0, 1);
+  return x < 0.5 ? 2*x*x : 1 - Math.pow(-2*x+2, 2)/2;
+}
+
+// ── Loop ──────────────────────────────────────────────────────────────────────
+function render() {
+  const tMs = (window.REEL && window.REEL.currentTime) || 0;
+  const t   = tMs / 1000;
+
+  const reveal   = easeInOut(remap(t, 0, 2, 0, 1));
+  const collapse = easeInOut(remap(t, 13, 16, 0, 1));
+
+  gl.uniform1f(uTime, t);
+  gl.uniform1f(uReveal, reveal);
+  gl.uniform1f(uCollapse, collapse);
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+  requestAnimationFrame(render);
+}
+
+window.__REEL_READY = true;
+render();
+</script>
+</body>
+</html>

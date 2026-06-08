@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080">
+  <title>Reel 03 — Você sabe quem vai ser seu próximo cliente?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@200;400;800;900&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { width: 1080px; height: 1920px; background: #080808; overflow: hidden; position: relative; }
+
+    /*
+     * CSS @keyframes — timeline de 30s (30000ms).
+     * pct(t_ms) = t_ms / 300
+     *
+     * Cenas (timing em ms):
+     *   s1  300–2400    "Você sabe quem vai ser"        branco  sz-lg
+     *   s2  2500–5000   "seu próximo cliente?"           gold    sz-lg
+     *   [PAUSA PRETA: 5000–6000]
+     *   s3  6000–8000   "A maioria não sabe."            branco  sz-md
+     *   s4  8000–10500  "Fica esperando indicação."      muted   sz-sm
+     *   s5  10500–12500 "Indicação não tem ritmo."       branco  sz-md
+     *   s6  12500–14500 "Não tem previsão."              muted   sz-sm
+     *   s7  14500–16500 "É ruído com sorte."             branco  sz-md
+     *   [PAUSA PRETA LONGA: 16500–18000]
+     *   s8  18000–20500 "Isso não é azar."               branco  sz-lg
+     *   s9  20500–23500 "É falta / de sistema."          gold    sz-xl
+     *   [SILÊNCIO: 23500–24000]
+     *   Logo: 24000–30000
+     *   Fade: 28500–30000
+     */
+
+    /* ── Cena 1 — sz-lg branco ─────────────────────────────────────────────── */
+    @keyframes a-s1 {
+      0%, 1.000%   { opacity:0; transform:translateY(16px); animation-timing-function:ease }
+      2.333%       { opacity:1; transform:translateY(0) }
+      6.667%       { opacity:1; transform:translateY(0); animation-timing-function:ease }
+      8.000%, 100% { opacity:0; transform:translateY(-10px) }
+    }
+
+    /* ── Cena 2 — sz-lg gold ───────────────────────────────────────────────── */
+    @keyframes a-s2 {
+      0%, 8.333%    { opacity:0; transform:translateY(16px); animation-timing-function:ease }
+      9.833%        { opacity:1; transform:translateY(0) }
+      15.333%       { opacity:1; transform:translateY(0); animation-timing-function:ease }
+      16.667%, 100% { opacity:0; transform:translateY(-10px) }
+    }
+
+    /* ── Cena 3 — sz-md branco ─────────────────────────────────────────────── */
+    @keyframes a-s3 {
+      0%, 20.000%   { opacity:0; transform:translateY(16px); animation-timing-function:ease }
+      21.500%       { opacity:1; transform:translateY(0) }
+      25.333%       { opacity:1; transform:translateY(0); animation-timing-function:ease }
+      26.667%, 100% { opacity:0; transform:translateY(-10px) }
+    }
+
+    /* ── Cena 4 — sz-sm muted ──────────────────────────────────────────────── */
+    @keyframes a-s4 {
+      0%, 26.667%   { opacity:0; transform:translateY(14px); animation-timing-function:ease }
+      28.333%       { opacity:1; transform:translateY(0) }
+      33.667%       { opacity:1; transform:translateY(0); animation-timing-function:ease }
+      35.000%, 100% { opacity:0; transform:translateY(-8px) }
+    }
+
+    /* ── Cena 5 — sz-md branco ─────────────────────────────────────────────── */
+    @keyframes a-s5 {
+      0%, 35.000%   { opacity:0; transform:translateY(16px); animation-timing-function:ease }
+      36.667%       { opacity:1; transform:translateY(0) }
+      40.333%       { opacity:1; transform:translateY(0); animation-timing-function:ease }
+      41.667%, 100% { opacity:0; transform:translateY(-10px) }
+    }
+
+    /* ── Cena 6 — sz-sm muted ──────────────────────────────────────────────── */
+    @keyframes a-s6 {
+      0%, 41.667%   { opacity:0; transform:translateY(14px); animation-timing-function:ease }
+      43.333%       { opacity:1; transform:translateY(0) }
+      47.000%       { opacity:1; transform:translateY(0); animation-timing-function:ease }
+      48.333%, 100% { opacity:0; transform:translateY(-8px) }
+    }
+
+    /* ── Cena 7 — sz-md branco ─────────────────────────────────────────────── */
+    @keyframes a-s7 {
+      0%, 48.333%   { opacity:0; transform:translateY(16px); animation-timing-function:ease }
+      50.000%       { opacity:1; transform:translateY(0) }
+      53.667%       { opacity:1; transform:translateY(0); animation-timing-function:ease }
+      55.000%, 100% { opacity:0; transform:translateY(-10px) }
+    }
+
+    /* ── Cena 8 — sz-lg branco (virada) ────────────────────────────────────── */
+    @keyframes a-s8 {
+      0%, 60.000%   { opacity:0; transform:translateY(16px); animation-timing-function:ease }
+      61.833%       { opacity:1; transform:translateY(0) }
+      67.000%       { opacity:1; transform:translateY(0); animation-timing-function:ease }
+      68.333%, 100% { opacity:0; transform:translateY(-10px) }
+    }
+
+    /* ── Cena 9 — sz-xl gold (insight máximo) ──────────────────────────────── */
+    /* Entra mais devagar — peso maior do insight */
+    @keyframes a-s9 {
+      0%, 68.333%   { opacity:0; transform:translateY(20px); animation-timing-function:ease }
+      70.667%       { opacity:1; transform:translateY(0) }
+      76.667%       { opacity:1; transform:translateY(0); animation-timing-function:ease }
+      78.333%, 100% { opacity:0; transform:translateY(-12px) }
+    }
+
+    /* ── Logo — timeline 30s, começa em 24000ms = 80.000% ─────────────────── */
+    /*   rule:      24000–24600 → 80.000%–82.000%  */
+    /*   marketing: 24350–24850 → 81.167%–82.833%  */
+    /*   slash:     24650–24950 → 82.167%–83.167%  */
+    /*   os:        24800–25300 → 82.667%–84.333%  */
+    /*   handle:    25150–25650 → 83.833%–85.500%  */
+    @keyframes a-logo-rule {
+      0%, 80.000%   { width: 0 }
+      82.000%, 100% { width: 72px }
+    }
+    @keyframes a-logo-marketing {
+      0%, 81.167%   { opacity:0; transform:translateX(-24px); animation-timing-function:ease }
+      82.833%, 100% { opacity:1; transform:translateX(0) }
+    }
+    @keyframes a-logo-slash {
+      0%, 82.167%   { opacity:0; animation-timing-function:ease }
+      83.167%, 100% { opacity:1 }
+    }
+    @keyframes a-logo-os {
+      0%, 82.667%   { opacity:0; transform:translateX(24px); animation-timing-function:ease }
+      84.333%, 100% { opacity:1; transform:translateX(0) }
+    }
+    @keyframes a-logo-handle {
+      0%, 83.833%   { opacity:0; transform:translateY(10px); animation-timing-function:ease }
+      85.500%, 100% { opacity:1; transform:translateY(0) }
+    }
+
+    /* ── Fade overlay — 28500–30000 → 95.000%–100% ─────────────────────────── */
+    @keyframes a-fade {
+      0%, 95.000% { opacity:0 }
+      100%        { opacity:1 }
+    }
+
+    /* ── Cenas ─────────────────────────────────────────────────────────────── */
+    .scene {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 0 80px;
+      line-height: 1.2; letter-spacing: 0.01em;
+      opacity: 0;
+      animation-duration: 30s;
+      animation-timing-function: linear;
+      animation-fill-mode: forwards;
+      animation-play-state: paused;
+    }
+    .sz-xl { font-family: 'Syne', sans-serif; font-weight: 900; font-size: 96px; color: #c9a55c; }
+    .sz-lg { font-family: 'Syne', sans-serif; font-weight: 900; font-size: 86px; color: #fafafa; }
+    .sz-md { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 64px; color: #fafafa; }
+    .sz-sm { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 50px; color: rgba(250,250,250,0.42); }
+    .gold  { color: #c9a55c; }
+
+    /* ── Grain ─────────────────────────────────────────────────────────────── */
+    #grain {
+      position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+      background-size: 300px 300px;
+    }
+
+    /* ── Logo wrap ─────────────────────────────────────────────────────────── */
+    #logo-wrap {
+      position: absolute; bottom: 240px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 18px;
+      white-space: nowrap; z-index: 20;
+    }
+    #logo-rule {
+      display: block; height: 2px; background: rgba(250,250,250,0.28); width: 0;
+      animation: a-logo-rule 30s linear forwards paused;
+    }
+    #logo-row { display: flex; align-items: baseline; }
+    #logo-marketing {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 88px;
+      color: #fafafa; opacity: 0; transform: translateX(-24px);
+      animation: a-logo-marketing 30s linear forwards paused;
+    }
+    #logo-slash {
+      font-family: 'Syne', sans-serif; font-weight: 200; font-size: 88px;
+      color: rgba(250,250,250,0.28); opacity: 0;
+      animation: a-logo-slash 30s linear forwards paused;
+    }
+    #logo-os {
+      font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400;
+      font-size: 88px; color: #c9a55c; opacity: 0; transform: translateX(24px);
+      animation: a-logo-os 30s linear forwards paused;
+    }
+    #logo-handle {
+      font-family: 'Syne', sans-serif; font-weight: 400; font-size: 34px;
+      color: rgba(201,165,92,0.55); opacity: 0; transform: translateY(10px);
+      animation: a-logo-handle 30s linear forwards paused;
+    }
+    #fade-overlay {
+      position: fixed; inset: 0; background: #080808;
+      opacity: 0; z-index: 90; pointer-events: none;
+      animation: a-fade 30s linear forwards paused;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Abertura ───────────────────────────────────────────────────────────── -->
+<div class="scene sz-lg"      style="animation-name:a-s1">Você sabe quem vai ser</div>
+<div class="scene sz-lg gold" style="animation-name:a-s2">seu próximo cliente?</div>
+
+<!-- ── Desenvolvimento — a dependência ───────────────────────────────────── -->
+<div class="scene sz-md"      style="animation-name:a-s3">A maioria não sabe.</div>
+<div class="scene sz-sm"      style="animation-name:a-s4">Fica esperando indicação.</div>
+<div class="scene sz-md"      style="animation-name:a-s5">Indicação não tem ritmo.</div>
+<div class="scene sz-sm"      style="animation-name:a-s6">Não tem previsão.</div>
+<div class="scene sz-md"      style="animation-name:a-s7">É ruído com sorte.</div>
+
+<!-- ── Payoff — diagnóstico + insight ────────────────────────────────────── -->
+<div class="scene sz-lg"      style="animation-name:a-s8">Isso não é azar.</div>
+<div class="scene sz-xl"      style="animation-name:a-s9">É falta<br>de sistema.</div>
+
+<div id="grain"></div>
+
+<div id="logo-wrap">
+  <span id="logo-rule"></span>
+  <div id="logo-row">
+    <span id="logo-marketing">Marketing</span>
+    <span id="logo-slash">/</span>
+    <span id="logo-os">OS</span>
+  </div>
+  <span id="logo-handle">@felipeproenca_marketingos</span>
+</div>
+
+<div id="fade-overlay"></div>
+
+<script>
+// CSS @keyframes — nenhum controle de timing via JS.
+// O renderer (render-reel.js --mode precise) sincroniza via:
+//   document.getAnimations().forEach(a => { a.currentTime = vt; })
+// Resultado: frame-accurate sem drift.
+window.__REEL_READY = true;
+</script>
+</body>
+</html>

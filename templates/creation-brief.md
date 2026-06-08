@@ -137,26 +137,69 @@ Seção 5 — Footer:     [logo, contato]
 ## 6. Tipo e Tech
 
 > Escolher um tipo principal. Justificar antes de escrever código.
+> Sem limitações — o pipeline suporta tudo que roda em browser.
 
 ```
-Tipo principal:
-  [ ] text          CSS @keyframes puro — copy é o produto
-  [ ] motion        GSAP + SVG — movimento controlado, sem 3D
-  [ ] 3d-objeto     Three.js + modelo GLB — produto físico, profundidade
-  [ ] 3d-abstrato   Three.js + geometria procedural — sem asset externo
-  [ ] shader        GLSL fragment — ruído, glitch, ondas, fractais
-  [ ] physics       Matter.js — gravidade, colisão como metáfora
-  [ ] scroll        GSAP ScrollTrigger — narrativa guiada por scroll
-  [ ] character     SVG morphing ou Three.js rigged — personagem animado
-  [ ] dataviz       Canvas 2D — número vira visual, dado é o argumento
-  [ ] hybrid        [descrever combinação]
+── TIPOGRAFIA ──────────────────────────────────────────────────────────────
+  [ ] text            CSS @keyframes — copy é o produto, ritmo é a emoção
+  [ ] kinetic-type    GSAP + física — tipografia em movimento orgânico
+  [ ] path-morph      opentype.js + SVG — letra que vira forma geométrica
+  [ ] 3d-text         Three.js TextGeometry — volume, luz, sombra na tipografia
+  [ ] variable-font   CSS + JS animando eixos wght/wdth de fonte variável
+
+── MOTION E COMPOSIÇÃO ─────────────────────────────────────────────────────
+  [ ] motion          GSAP timeline — formas, SVG, composição controlada
+  [ ] mask-reveal     GSAP clip-path — revelar via máscara (editorial de luxo)
+  [ ] editorial       grid CSS + GSAP — composição tipográfica arquitetônica
+  [ ] glitch          Canvas/GSAP — distorção digital, chromatic aberration
+
+── PARTÍCULAS E CAMPO ──────────────────────────────────────────────────────
+  [ ] particles       Canvas 2D + noise senoidal + pixel sampling de texto
+  [ ] gpu-particles   Three.js InstancedMesh + ShaderMaterial — 100k+ objetos
+  [ ] fluid-sph       SPH — simulação de fluido partícula a partícula
+  [ ] curl-noise      Campo vetorial 3D (curl de Perlin) — mais rico que senoidal
+
+── 3D ──────────────────────────────────────────────────────────────────────
+  [ ] 3d-abstrato     Three.js + geometria procedural — sem asset externo
+  [ ] 3d-objeto       Three.js + GLB/GLTF — produto físico, PBR, reflexão
+  [ ] 3d-world        Three.js + sky + fog + ground — ambiente completo
+  [ ] 3d-bloom        Qualquer cena 3D + EffectComposer (bloom, DOF, aberração)
+  [ ] 3d-shader       Three.js + ShaderMaterial — superfície com GLSL próprio
+
+── SHADERS / GLSL PURO ─────────────────────────────────────────────────────
+  [ ] shader-sdf      Ray marching + SDFs — formas 3D via matemática pura, zero mesh
+  [ ] shader-noise    Perlin/Simplex no fragment — texturas vivas, nuvens, plasma
+  [ ] shader-fluid    Simulação de fluido no GPU via ping-pong de framebuffers
+  [ ] shader-reaction Reaction-diffusion (Gray-Scott) — padrão orgânico emergente
+  [ ] shader-glitch   Pixel displacement + chromatic aberration via GLSL
+
+── ORGÂNICO E PROCEDURAL ───────────────────────────────────────────────────
+  [ ] lsystem         Fractais botânicos (L-systems) — crescimento orgânico
+  [ ] voronoi         Células de Voronoi animadas — mapa, cristal, território
+  [ ] cloth           Simulação de tecido (verlet integration) — suavidade física
+  [ ] reaction-diff   Canvas 2D — padrão de pele, coral, manchas emergentes
+
+── DADOS E NARRATIVA ───────────────────────────────────────────────────────
+  [ ] dataviz         D3 ou Canvas — dado que vira visual, número é argumento
+  [ ] typewriter      Texto que se digita em tempo real simulado
+  [ ] dashboard       Métricas que sobem/caem dramaticamente (Canvas animado)
+
+── EXPERIMENTAL ────────────────────────────────────────────────────────────
+  [ ] ascii           Rasterização em ASCII animada (Canvas + fonte mono)
+  [ ] plotter         Estilo pen plotter — linhas finas, vetorial, sem fill
+  [ ] dithering       Forma ou imagem em pixels dispersos (Floyd-Steinberg)
+  [ ] audio-reactive  Waveform pré-analisada → visual sincronizado (sem runtime audio)
+
+  [ ] hybrid          [descrever combinação]
 
 Biblioteca(s):
-  [ ] nenhuma (CSS puro)
+  [ ] nenhuma (CSS puro / raw WebGL)
   [ ] GSAP
   [ ] Three.js
+  [ ] Three.js + EffectComposer
   [ ] Matter.js
-  [ ] GSAP + Three.js
+  [ ] D3.js
+  [ ] opentype.js
   [ ] outra: ___________
 
 Usa window.REEL:   [ sim | não ]
@@ -166,25 +209,41 @@ Usa assets externos:
   [ ] HDR environment map      → origem: ___________
   [ ] imagem/textura           → origem: ___________
   [ ] fonte local              → origem: ___________
-  [ ] áudio                    → origem: ___________
+  [ ] áudio (pré-analisado)    → origem: ___________
 ```
 
 **Justificativa da escolha de tipo:**
 > [Por que esse tipo serve ao conceito do item 3? Se não souber, volte ao item 3.]
 
-### Mapa de tipos
+### Mapa de tipos — O que o olho sente
 
-| Tipo | Usar quando | Evitar quando |
-|---|---|---|
-| `text` | ritmo tipográfico É a emoção | precisa de movimento não-textual |
-| `motion` | formas, logo, transições precisas | física, profundidade 3D |
-| `3d-objeto` | produto físico é o protagonista | não tem modelo GLB |
-| `3d-abstrato` | deseja 3D sem asset — geometria como metáfora | produto precisa ser reconhecível |
-| `shader` | abstrato, glitch, textura viva, procedimental | precisa de legibilidade clara |
-| `physics` | caos como conceito, impacto como narrativa | marca exige controle visual total |
-| `scroll` | narrativa longa, site imersivo, storytelling guiado | output é vídeo ou estático |
-| `character` | narrativa encarnada, emoção via personagem | sem personagem definido na marca |
-| `dataviz` | dado é o argumento mais forte | dado não existe ou é fraco |
+| Tipo | Sensação visual | Usar quando | Evitar quando |
+|---|---|---|---|
+| `text` | ritmo, urgência, foco | copy é o produto | precisa de imagem |
+| `kinetic-type` | energia, momentum | marca tem personalidade forte | tipografia fraca |
+| `path-morph` | transformação, fluidez | conceito é metamorfose | marca precisa de legibilidade |
+| `3d-text` | peso, autoridade, volume | marca quer presença física | conceito é abstrato |
+| `motion` | controle, precisão, elegância | design system forte | física ou 3D real |
+| `mask-reveal` | suspense, luxo, editorial | revelação é o conceito | tudo precisa visível de início |
+| `editorial` | sofisticação, regra, ordem | marca high-end | conceito é caótico |
+| `glitch` | ruptura, urgência, digital | contraste técnico é a mensagem | marca pede suavidade |
+| `particles` | orgânico, emergência, escala | abstrato + texto | legibilidade imediata |
+| `gpu-particles` | cosmos, escala impossível | quer impressionar com volume | recursos são limitados |
+| `fluid-sph` | suavidade, viscosidade | líquido é metáfora | precisa de precisão geométrica |
+| `3d-abstrato` | profundidade, espaço | quer 3D sem produto físico | objeto precisa ser reconhecível |
+| `3d-objeto` | desejo, tangibilidade | produto físico como protagonista | não tem modelo |
+| `3d-bloom` | luz, energia, premium | qualquer cena 3D que quer brilho | minimalismo extremo |
+| `shader-sdf` | impossível, matemático, líquido | forma sem asset, máxima impressão | precisa de texto legível no frame |
+| `shader-noise` | névoa, profundidade, atmosfera | fundo vivo, textura que respira | movimento preciso e geométrico |
+| `shader-fluid` | caos controlado, simulação | física como poesia | brand exige controle visual total |
+| `shader-reaction` | biológico, emergente, vivo | natureza como conceito | resultado imprevisível assusta |
+| `lsystem` | crescimento, ramificação | natureza, expansão, processo | resultado muito orgânico |
+| `voronoi` | território, fragmentação | dado espacial, mapa, divisão | harmonia e fluidez |
+| `cloth` | suavidade, física, presença | produto têxtil ou metáfora de flexibilidade | marca rígida/técnica |
+| `dataviz` | lógica, prova, autoridade | dado existe e é forte | dado fraco ou inexistente |
+| `typewriter` | processo, tempo real, humano | jornada do pensamento | impacto precisa ser imediato |
+| `ascii` | nostalgia digital, contraste | conceito tech + humano | brand é premium visual |
+| `plotter` | artesanal, preciso, único | conceito editorial handmade | brand é digital-first |
 
 ---
 

@@ -1,5 +1,84 @@
 # notes.md — Felipe Proença
 
+## 2026-06-08 — Framework estratégico completo (inteligência para próximas sessões)
+
+**Origem:** Felipe encerrou sessão com dump estratégico completo. Registrar como inteligência permanente.
+
+### Diagnóstico de posicionamento — perguntas que precedem qualquer criação
+
+Antes de qualquer campanha, post ou venda, responder:
+1. **Qual o problema que resolvemos?** — o dinheiro mora no problema, não na solução
+2. **Para quem resolvemos?** — ICP completo:
+   - Gênero, faixa etária, nível de experiência
+   - Localização
+   - Faturamento mensal e anual
+3. **Qual é a solução?** — tech / educação / serviço / processo / IA?
+4. **Como entregamos?** — a entrega precisa ser definida antes da promoção
+5. **Como promovemos?** — só então envelopar para distribuição
+
+### Filosofia de conteúdo (registrada como diretriz permanente)
+
+**Rede social ≠ vitrine. É canal de distribuição, aquisição, conversão e retenção.**
+
+- Oferta precisa ser colocada na mesa das pessoas com consistência e repetição
+- Todo conteúdo tem objetivo claro:
+  - Stories → link
+  - Reels → oferta
+  - Feed → valor + autoridade
+- Ratio de entrega: entregar 10, sacar 1 / entregar 100, sacar 10
+  - "Serve 10x mais" antes de pedir qualquer coisa
+  - Quem entrega valor cria o direito de vender
+
+### Infraestrutura digital necessária
+
+**Terreno próprio vs terreno alugado:**
+- Redes sociais = terreno dos outros. O algoritmo muda. A conta pode ser derrubada.
+- Site = terreno próprio. Muda o jogo completamente.
+- Ter site = estar à frente de ~50% dos concorrentes no segmento digital
+
+**Páginas necessárias:**
+- Página de venda
+- Página de atração
+- Página de captura / leads
+- Página de produtos
+- Site institucional
+- Blog (SEO + autoridade)
+
+**Tráfego orgânico:** conteúdo consistente + SEO correto → lento mas constrói autoridade
+**Tráfego pago:** validar → escalar
+
+### Canais de distribuição
+
+| Canal | Tipo de conteúdo | Objetivo |
+|---|---|---|
+| Instagram | Reels + Stories + Feed | Aquisição + Conversão |
+| YouTube | Vídeos longos + Shorts | Autoridade + SEO |
+| LinkedIn | Posicionamento B2B | Aquisição B2B |
+| TikTok | Reels adaptados | Alcance jovem |
+| Spotify | Podcast | Autoridade + Relacionamento |
+
+**Pendente:** Banner do canal YouTube
+
+### IA e IoT em campanhas — oportunidade identificada
+
+Estudo mostra que a maioria das empresas do segmento digital usa redes sociais mas IA+IoT em campanhas ainda é **pouco difundido**. Isso é:
+1. Campo de aquisição (mostrar diferenciação)
+2. Pauta de conteúdo (educar antes de vender)
+
+### Filosofia de criação visual (Felipe, 2026-06-08)
+
+> "Engessar criação é uma burrice."
+> "Imagina juntar essas variáveis — texto emergindo de objetos, movimentos de câmera."
+> "Nossas mentes não são uma parede, são portas."
+
+**Diretriz:** tipos de criação não são silos. Combinação livre de variáveis é o padrão, não a exceção.
+
+### Citação permanente registrada
+
+> "A diferença de um cara bom e de um cara ruim é que só um cara bom superou as coisas ruins."
+
+---
+
 ## 2026-06-06 — Pipeline de Reels nativo validado + carrossel publicado
 
 **O que foi feito:**

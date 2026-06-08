@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080">
+  <title>Reel — GSAP Motion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@200;400;800;900&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { width: 1080px; height: 1920px; background: #080808; overflow: hidden; position: relative; }
+
+    svg#scene {
+      position: absolute; top: 0; left: 0;
+      width: 1080px; height: 1920px;
+    }
+
+    #text-wrap {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center; width: 900px;
+      pointer-events: none;
+    }
+    .rline {
+      font-family: 'Syne', sans-serif; font-weight: 900; font-size: 96px;
+      color: #fafafa; line-height: 1.15; letter-spacing: 0.01em;
+      display: block; margin-bottom: 8px;
+    }
+    .rline.gold { color: #c9a55c; }
+    .rline span { display: inline-block; }
+
+    #grain {
+      position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+      background-size: 300px 300px;
+    }
+
+    /*
+     * CSS @keyframes — timeline de 20s.
+     * pct(t) = t / 200
+     *
+     * Logo começa em 16000ms = 80.000%
+     *   rule:      16000–16600 → 80.000%–83.000%
+     *   marketing: 16350–16850 → 81.750%–84.250%
+     *   slash:     16650–16950 → 83.250%–84.750%
+     *   os:        16800–17300 → 84.000%–86.500%
+     *   handle:    17150–17650 → 85.750%–88.250%
+     *
+     * Fade overlay: 18000–19500 → 90.000%–97.500%
+     */
+
+    @keyframes a-logo-rule {
+      0%, 80%      { width: 0 }
+      83%, 100%    { width: 72px }
+    }
+    @keyframes a-logo-marketing {
+      0%, 81.75%   { opacity: 0; transform: translateX(-24px); animation-timing-function: ease }
+      84.25%, 100% { opacity: 1; transform: translateX(0) }
+    }
+    @keyframes a-logo-slash {
+      0%, 83.25%   { opacity: 0; animation-timing-function: ease }
+      84.75%, 100% { opacity: 1 }
+    }
+    @keyframes a-logo-os {
+      0%, 84%      { opacity: 0; transform: translateX(24px); animation-timing-function: ease }
+      86.5%, 100%  { opacity: 1; transform: translateX(0) }
+    }
+    @keyframes a-logo-handle {
+      0%, 85.75%   { opacity: 0; transform: translateY(10px); animation-timing-function: ease }
+      88.25%, 100% { opacity: 1; transform: translateY(0) }
+    }
+    @keyframes a-fade {
+      0%, 90%      { opacity: 0 }
+      97.5%, 100%  { opacity: 1 }
+    }
+
+    #logo-wrap {
+      position: absolute; bottom: 240px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 18px;
+      white-space: nowrap; z-index: 20;
+    }
+    #logo-rule {
+      display: block; height: 2px; background: rgba(250,250,250,0.28); width: 0;
+      animation: a-logo-rule 20s linear forwards paused;
+    }
+    #logo-row { display: flex; align-items: baseline; }
+    #logo-marketing {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 88px;
+      color: #fafafa; opacity: 0; transform: translateX(-24px);
+      animation: a-logo-marketing 20s linear forwards paused;
+    }
+    #logo-slash {
+      font-family: 'Syne', sans-serif; font-weight: 200; font-size: 88px;
+      color: rgba(250,250,250,0.28); opacity: 0;
+      animation: a-logo-slash 20s linear forwards paused;
+    }
+    #logo-os {
+      font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400;
+      font-size: 88px; color: #c9a55c; opacity: 0; transform: translateX(24px);
+      animation: a-logo-os 20s linear forwards paused;
+    }
+    #logo-handle {
+      font-family: 'Syne', sans-serif; font-weight: 400; font-size: 34px;
+      color: rgba(201,165,92,0.55); opacity: 0; transform: translateY(10px);
+      animation: a-logo-handle 20s linear forwards paused;
+    }
+    #fade-overlay {
+      position: fixed; inset: 0; background: #080808;
+      opacity: 0; z-index: 90; pointer-events: none;
+      animation: a-fade 20s linear forwards paused;
+    }
+  </style>
+</head>
+<body>
+
+<!--
+  BOILERPLATE — TIPO: motion / GSAP
+  ─────────────────────────────────────────────────────
+  Contrato com o renderer (render-reel.js --mode precise):
+
+  1. GSAP timeline criada como { paused: true }
+  2. Loop RAF lê window.REEL.currentTime e chama master.seek(t/1000)
+  3. O renderer controla o RAF virtual — logo, nenhum drift
+  4. CSS animations (logo + fade) são sincronizadas pelo renderer via a.currentTime = vt
+  5. window.__REEL_READY = true sinaliza que init assíncrono (fonts) terminou
+
+  Para adaptar ao brief:
+  - Trocar linhas de texto (#l-a até #l-d)
+  - Ajustar endpoints dos SVG lines (lineEndpoints)
+  - Ajustar timing do GSAP timeline (valores em segundos)
+  - Ajustar duração total (--duration) e percentuais do CSS logo
+  ─────────────────────────────────────────────────────
+-->
+
+<!-- SVG das linhas radiantes -->
+<svg id="scene" viewBox="0 0 1080 1920">
+  <circle id="dot" cx="540" cy="960" r="4" fill="#fafafa" opacity="0"/>
+  <!-- 6 linhas partem do centro (540, 960) — endpoints definidos no JS -->
+  <line id="l0" x1="540" y1="960" x2="540" y2="960" stroke="#c9a55c" stroke-width="1.2" opacity="0.65"/>
+  <line id="l1" x1="540" y1="960" x2="540" y2="960" stroke="#c9a55c" stroke-width="1.2" opacity="0.45"/>
+  <line id="l2" x1="540" y1="960" x2="540" y2="960" stroke="#c9a55c" stroke-width="1.2" opacity="0.65"/>
+  <line id="l3" x1="540" y1="960" x2="540" y2="960" stroke="#c9a55c" stroke-width="1.2" opacity="0.45"/>
+  <line id="l4" x1="540" y1="960" x2="540" y2="960" stroke="#c9a55c" stroke-width="1.2" opacity="0.65"/>
+  <line id="l5" x1="540" y1="960" x2="540" y2="960" stroke="#c9a55c" stroke-width="1.2" opacity="0.45"/>
+</svg>
+
+<!-- Texto — substituir com copy do brief -->
+<div id="text-wrap">
+  <div id="l-a" class="rline">Você não precisa</div>
+  <div id="l-b" class="rline">de um time maior.</div>
+  <div style="height: 48px;"></div>
+  <div id="l-c" class="rline gold">Você precisa</div>
+  <div id="l-d" class="rline gold">de um sistema.</div>
+</div>
+
+<div id="grain"></div>
+
+<div id="logo-wrap">
+  <span id="logo-rule"></span>
+  <div id="logo-row">
+    <span id="logo-marketing">Marketing</span>
+    <span id="logo-slash">/</span>
+    <span id="logo-os">OS</span>
+  </div>
+  <span id="logo-handle">@felipeproenca_marketingos</span>
+</div>
+
+<div id="fade-overlay"></div>
+
+<script>
+// ── Endpoints das 6 linhas (a partir do centro 540, 960) ─────────────────────
+// Assimétrico é mais editorial que radial simétrico.
+const lineEndpoints = [
+  { id: 'l0', tx: 540,  ty: 280  },  // cima
+  { id: 'l1', tx: 970,  ty: 510  },  // cima-direita
+  { id: 'l2', tx: 990,  ty: 1120 },  // direita
+  { id: 'l3', tx: 540,  ty: 1660 },  // baixo
+  { id: 'l4', tx:  80,  ty: 1120 },  // esquerda
+  { id: 'l5', tx: 110,  ty: 550  },  // cima-esquerda
+];
+
+// ── Split de texto em spans para stagger ─────────────────────────────────────
+function splitLine(el) {
+  const raw = el.textContent.trim();
+  el.innerHTML = '';
+  [...raw].forEach(ch => {
+    const sp = document.createElement('span');
+    sp.textContent = ch === ' ' ? ' ' : ch;
+    el.appendChild(sp);
+  });
+  return Array.from(el.querySelectorAll('span'));
+}
+
+const charsA = splitLine(document.getElementById('l-a'));
+const charsB = splitLine(document.getElementById('l-b'));
+const charsC = splitLine(document.getElementById('l-c'));
+const charsD = splitLine(document.getElementById('l-d'));
+
+// Estado inicial — invisível
+gsap.set([...charsA, ...charsB, ...charsC, ...charsD], { opacity: 0, y: 28 });
+
+// ── Timeline GSAP (paused — seekada frame a frame) ────────────────────────────
+const master = gsap.timeline({ paused: true });
+
+// 0.0s — dot aparece
+master.to('#dot', { opacity: 1, duration: 0.5, ease: 'power2.out' }, 0);
+
+// 0.5s–3.5s — 6 linhas irradiam do centro (stagger 0.18s por linha)
+lineEndpoints.forEach((ep, i) => {
+  master.to(document.getElementById(ep.id), {
+    attr: { x2: ep.tx, y2: ep.ty },
+    duration: 2.4, ease: 'power3.out',
+  }, 0.5 + i * 0.18);
+});
+
+// 4.5s — linha A monta letra por letra
+master.to(charsA, { opacity: 1, y: 0, duration: 0.4, stagger: 0.04, ease: 'power2.out' }, 4.5);
+
+// 5.8s — linha B
+master.to(charsB, { opacity: 1, y: 0, duration: 0.4, stagger: 0.04, ease: 'power2.out' }, 5.8);
+
+// 7.8s — linha C (gold)
+master.to(charsC, { opacity: 1, y: 0, duration: 0.4, stagger: 0.04, ease: 'power2.out' }, 7.8);
+
+// 9.0s — linha D (gold)
+master.to(charsD, { opacity: 1, y: 0, duration: 0.4, stagger: 0.04, ease: 'power2.out' }, 9.0);
+
+// 11.5s — texto sai
+master.to(['#l-a', '#l-b', '#l-c', '#l-d'], {
+  opacity: 0, y: -18, duration: 0.9, stagger: 0.06, ease: 'power2.in',
+}, 11.5);
+
+// 12.5s — linhas recolhem ao ponto (stagger reverso)
+lineEndpoints.forEach((ep, i) => {
+  master.to(document.getElementById(ep.id), {
+    attr: { x2: 540, y2: 960 },
+    duration: 1.8, ease: 'power3.in',
+  }, 12.5 + i * 0.10);
+});
+
+// 14.5s — dot desaparece
+master.to('#dot', { opacity: 0, duration: 0.5, ease: 'power2.in' }, 14.5);
+
+// ── Loop RAF — seekado pelo clock virtual do renderer ─────────────────────────
+//
+// O renderer (render-reel.js --mode precise) substitui requestAnimationFrame
+// por uma versão virtual. A cada frame:
+//   1. window.REEL.currentTime é atualizado com o tempo do frame
+//   2. CSS animations recebem a.currentTime = vt
+//   3. window.__tickRAF() dispara os callbacks RAF registrados
+//
+// Resultado: master.seek() recebe o tempo exato do frame → zero drift.
+
+function tick() {
+  const t = (window.REEL && window.REEL.currentTime || 0) / 1000;
+  master.seek(t, false); // false = sem suprimir eventos
+  requestAnimationFrame(tick);
+}
+
+document.fonts.ready.then(() => {
+  window.__REEL_READY = true;
+  tick();
+});
+</script>
+</body>
+</html>

@@ -201,16 +201,16 @@ async function renderPrecise() {
     const t = i * frameMs;
 
     // Avança clock virtual + CSS animations + RAF callbacks + REEL state
-    await page.evaluate((virtualTime, frameIndex, totalMs) => {
+    await page.evaluate(({ vt, fi, total, step }) => {
       if (window.REEL) {
-        window.REEL.currentTime  = virtualTime;
-        window.REEL.currentFrame = frameIndex;
-        window.REEL.progress     = virtualTime / totalMs;
+        window.REEL.currentTime  = vt;
+        window.REEL.currentFrame = fi;
+        window.REEL.progress     = vt / total;
       }
-      window.__advanceTime(1000 / 60);
-      document.getAnimations().forEach(a => { a.currentTime = virtualTime; });
+      window.__advanceTime(step);
+      document.getAnimations().forEach(a => { a.currentTime = vt; });
       window.__tickRAF && window.__tickRAF();
-    }, t, i, durationMs);
+    }, { vt: t, fi: i, total: durationMs, step: frameMs });
 
     // Força recálculo de layout antes de capturar
     await page.evaluate(() => document.body.getBoundingClientRect());

@@ -187,6 +187,13 @@ async function renderPrecise() {
   await page.addInitScript(CLOCK_SCRIPT);
   await page.goto(`file://${htmlPath}`, { waitUntil: 'networkidle' });
 
+  // Garante fontes carregadas e qualquer init assíncrono da página
+  await page.evaluate(() => document.fonts.ready);
+  // Se a página sinaliza readiness própria (ex: sampleText), aguardar até 6s
+  try {
+    await page.waitForFunction(() => window.__REEL_READY !== false, { timeout: 6000 });
+  } catch (_) { /* página sem __REEL_READY — ok */ }
+
   // Pausa todas as CSS animations no instante t=0
   await page.evaluate(() => {
     document.getAnimations().forEach(a => {

@@ -27,7 +27,7 @@ const htmlArg    = getArg('html');
 const outArg     = getArg('out');
 const durationMs = parseInt(getArg('duration') || '30000', 10);
 const mode       = getArg('mode') || 'screencast';
-const fps        = parseInt(getArg('fps') || '60', 10);
+const fps        = parseInt(getArg('fps') || (mode === 'precise' ? '30' : '60'), 10);
 
 if (!htmlArg || !outArg) {
   console.error('Uso: node scripts/render-reel.js --html <arquivo.html> --out <saida> [--duration 30000] [--mode screencast|precise] [--fps 60]');
@@ -54,6 +54,30 @@ const GPU_ARGS = [
   '--enable-gpu-rasterization',
 ];
 
+// ── window.REEL — config global injetado antes do HTML carregar ────────────
+//
+// Qualquer HTML/JS pode ler:
+//   window.REEL.currentTime   → ms desde o início (atualizado frame a frame)
+//   window.REEL.currentFrame  → índice do frame (0-based)
+//   window.REEL.progress      → 0.0 → 1.0 (currentTime / durationMs)
+//   window.REEL.fps           → frames por segundo do render
+//   window.REEL.durationMs    → duração total em ms
+//   window.REEL.width/height  → resolução do canvas
+
+function makeConfigScript(fps, durationMs, width, height) {
+  return `
+window.REEL = {
+  fps:         ${fps},
+  durationMs:  ${durationMs},
+  width:       ${width},
+  height:      ${height},
+  currentTime:  0,
+  currentFrame: 0,
+  progress:     0,
+};
+`;
+}
+
 // ── Screencast mode ────────────────────────────────────────────────────────
 
 async function renderScreencast() {
@@ -68,6 +92,7 @@ async function renderScreencast() {
   });
 
   const page = await ctx.newPage();
+  await page.addInitScript(makeConfigScript(fps, durationMs, 1080, 1920));
   await page.goto(`file://${htmlPath}`, { waitUntil: 'networkidle' });
 
   console.log('\n   ⏺  Gravando (screencast)...');
@@ -129,10 +154,12 @@ async function renderPrecise() {
   const totalFrames = Math.ceil(durationMs / frameMs);
   const outMp4      = outPath.endsWith('.mp4') ? outPath : outPath.replace(/\.\w+$/, '.mp4');
 
-  // FFmpeg recebe frames PNG via stdin e entrega MP4
+  // FFmpeg recebe frames JPEG via stdin e entrega MP4
+  // JPEG é 3-5x mais rápido que PNG para encodar — qualidade 92% invisível no output final
   const ff = spawn('ffmpeg', [
     '-y',
     '-f', 'image2pipe',
+    '-vcodec', 'mjpeg',
     '-framerate', String(fps),
     '-i', 'pipe:0',
     '-c:v', 'libx264',
@@ -155,7 +182,8 @@ async function renderPrecise() {
 
   const page = await ctx.newPage();
 
-  // Clock virtual injetado antes de qualquer script da página
+  // REEL config + clock virtual injetados antes de qualquer script da página
+  await page.addInitScript(makeConfigScript(fps, durationMs, 1080, 1920));
   await page.addInitScript(CLOCK_SCRIPT);
   await page.goto(`file://${htmlPath}`, { waitUntil: 'networkidle' });
 
@@ -172,18 +200,23 @@ async function renderPrecise() {
   for (let i = 0; i < totalFrames; i++) {
     const t = i * frameMs;
 
-    // Avança clock virtual + CSS animations + RAF callbacks
-    await page.evaluate((virtualTime) => {
+    // Avança clock virtual + CSS animations + RAF callbacks + REEL state
+    await page.evaluate((virtualTime, frameIndex, totalMs) => {
+      if (window.REEL) {
+        window.REEL.currentTime  = virtualTime;
+        window.REEL.currentFrame = frameIndex;
+        window.REEL.progress     = virtualTime / totalMs;
+      }
       window.__advanceTime(1000 / 60);
       document.getAnimations().forEach(a => { a.currentTime = virtualTime; });
       window.__tickRAF && window.__tickRAF();
-    }, t);
+    }, t, i, durationMs);
 
     // Força recálculo de layout antes de capturar
     await page.evaluate(() => document.body.getBoundingClientRect());
 
-    // Captura frame e envia direto para o FFmpeg
-    const frame = await page.screenshot({ type: 'png' });
+    // Captura frame JPEG e envia direto para o FFmpeg
+    const frame = await page.screenshot({ type: 'jpeg', quality: 92 });
     ff.stdin.write(frame);
 
     if (i % 30 === 0 || i === totalFrames - 1) {

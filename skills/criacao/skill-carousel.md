@@ -24,6 +24,22 @@ env: []
 → intelligence/benchmarks.json — APENAS `content_performance.carousel` (best_hook_type, best_slide_count, avg_saves_rate) para calibrar gancho e nº de slides com o que já performou
 → NÃO carregar: metrics.json, campaigns.md, notes.md, estrategia.md, system-usage.json, experiments.md, patterns.md
 
+---
+
+## DNA Visual — herança obrigatória
+
+Antes de gerar qualquer slide:
+
+1. Verificar se existe `clients/[slug]/outputs/branding/visual-dna.json`
+2. Se NÃO existir → interromper e instruir: "Execute /direcao-criativa antes de criar carrossel para este cliente."
+3. Se existir → carregar APENAS:
+   - `visual_dna.densidade`
+   - `visual_dna.ritmo_tipográfico`
+   - `visual_dna.presença_branca`
+   - `anti_dna.never_use.visual`
+
+Densidade e ritmo tipográfico definem quantidade de texto por slide e espaçamento.
+
 > Se `content_performance.carousel` tiver dados reais (≠ 0/vazio), usar como
 > default de gancho e contagem de slides. Se estiver zerado, seguir o julgamento
 > da skill normalmente — não inventar número.

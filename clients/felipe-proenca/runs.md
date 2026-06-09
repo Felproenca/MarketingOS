@@ -1,5 +1,30 @@
 ﻿# runs.md — Felipe Proença
 
+## Sessão 15 — 2026-06-09
+
+**Status:** Completo
+**Objetivo:** Criar e publicar 3 carrosséis de tutorial IA+marketing + corrigir pipeline de render
+
+**Entregáveis:**
+- `carousel-ia-mitos/index.html` — 6 slides, desmistificação IA
+- `carousel-sistema-captacao/index.html` — 7 slides, framework 5 passos
+- `carousel-marketing-diagnostico/index.html` — 6 slides, presença vs sistema
+- PNGs 1080×1080px capturados para os 19 slides
+- Publicados: Instagram + Facebook (@felipeproenca_marketingos)
+
+**Decisões:**
+- Bancos de referência (visual-references.json + copy-references.json) integrados ao processo criativo pela primeira vez
+- render-carousel-file.js corrigido: viewport 540px+deviceScaleFactor:2 → 1080px+clip — HTMLs com body fixo em 1080px não cortam mais
+- copy-references.json salvo em intelligence/ e registrado em MEMORY.md
+
+**Aprendizados:**
+- HTMLs com `body { width: 1080px }` exigem viewport 1080px no render — nunca deviceScaleFactor com viewport menor
+- Bancos de referência produzem output visivelmente mais denso e editorial — usar sempre antes de qualquer criação
+
+**Status:** Completo
+
+---
+
 ## Sessão 14 — 2026-06-08
 
 **Status:** Completo

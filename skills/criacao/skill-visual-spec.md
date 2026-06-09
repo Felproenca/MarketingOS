@@ -31,6 +31,24 @@ Nao carregar:
 
 ---
 
+## DNA Visual — herança obrigatória
+
+Antes de gerar qualquer especificação visual:
+
+1. Verificar se existe `clients/[slug]/outputs/branding/visual-dna.json`
+2. Se NÃO existir → interromper e instruir: "Execute /direcao-criativa antes de criar spec visual para este cliente."
+3. Se existir → carregar APENAS:
+   - `visual_dna.densidade`
+   - `visual_dna.contraste`
+   - `visual_dna.ornamentação`
+   - `visual_dna.ritmo_tipográfico`
+   - `anti_dna.never_use.visual`
+   - `anti_dna.never_use.typography`
+
+Não carregar o visual-dna.json inteiro — apenas os campos relevantes para spec visual.
+
+---
+
 ## Entrada
 
 ```text

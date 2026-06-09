@@ -1,0 +1,2949 @@
+{
+  "_meta": {
+    "name": "MarketingOS Visual References Bank",
+    "version": "1.0",
+    "description": "Banco de referências visuais interpretadas. Referência não entra crua — entra interpretada. O crawler coleta. A skill julga. O banco armazena. As outras skills consultam.",
+    "rule": "Nenhuma referência entra sem tension e transferable_principle preenchidos.",
+    "competitive_advantage": "A vantagem não está no volume. Está na camada interpretativa. Quando referências internas superam as externas, o sistema para de copiar repertório e começa a desenvolver gosto próprio.",
+    "sources": {
+      "public_curated": [
+        "awwwards.com/websites/three-js",
+        "gsap.com/showcase",
+        "tympanus.net/codrops",
+        "threejsresources.com/showcase",
+        "landing.love",
+        "lapa.ninja/category/3d-websites",
+        "onepagelove.com/tech/three-js"
+      ],
+      "technical_lab": [
+        "codepen.io",
+        "github.com/mrdoob/three.js/tree/dev/examples",
+        "gsap.com/demos",
+        "p5js.org/examples",
+        "pixijs.com/examples"
+      ],
+      "internal": "Tudo que o MarketingOS criou e aprovou. Memória estética proprietária.",
+      "client": "Site atual, posts, campanhas, concorrentes, marcas aspiracionais e anti-referências do cliente."
+    }
+  },
+  "_categories": {
+    "cinematic_webgl": {
+      "description": "Visual parecido com trailers e filmes. Imersivo, narrativo, dramático.",
+      "stack": [
+        "threejs",
+        "glsl",
+        "custom-shaders",
+        "post-processing",
+        "gsap"
+      ],
+      "search_terms": [
+        "immersive storytelling",
+        "cinematic webgl",
+        "shader transitions",
+        "webgl portfolio"
+      ],
+      "sources": [
+        "awwwards",
+        "codrops"
+      ]
+    },
+    "motion_design_premium": {
+      "description": "Visual tipo Apple, Stripe, Linear. Preciso, controlado, intencional.",
+      "stack": [
+        "gsap",
+        "scrolltrigger",
+        "lenis",
+        "svg",
+        "canvas-api"
+      ],
+      "search_terms": [
+        "scroll storytelling",
+        "motion design website",
+        "gsap showcase"
+      ],
+      "sources": [
+        "gsap.com/showcase",
+        "awwwards"
+      ]
+    },
+    "3d_product_experience": {
+      "description": "Produtos girando, desmontando, explodindo. Configuradores interativos.",
+      "stack": [
+        "threejs",
+        "react-three-fiber",
+        "gsap",
+        "hdri"
+      ],
+      "search_terms": [
+        "product configurator",
+        "3d ecommerce",
+        "interactive product showcase"
+      ],
+      "sources": [
+        "awwwards",
+        "landing.love"
+      ]
+    },
+    "particle_systems": {
+      "description": "Partículas, redes neurais, fumaça, fluidos. Sistemas generativos.",
+      "stack": [
+        "threejs",
+        "glsl",
+        "gpu-particles",
+        "webgpu"
+      ],
+      "search_terms": [
+        "particle simulation",
+        "gpu particles",
+        "fluid simulation webgl"
+      ],
+      "sources": [
+        "codrops",
+        "codepen"
+      ]
+    },
+    "generative_art": {
+      "description": "Arte procedural. Sistemas que criam formas únicas a cada execução.",
+      "stack": [
+        "p5js",
+        "threejs",
+        "regl",
+        "ogl",
+        "glsl"
+      ],
+      "search_terms": [
+        "generative art webgl",
+        "creative coding",
+        "shader art"
+      ],
+      "sources": [
+        "codepen",
+        "github"
+      ]
+    },
+    "interactive_video": {
+      "description": "Vídeo + WebGL. Transições, texturas, sobreposições.",
+      "stack": [
+        "html5-video",
+        "gsap",
+        "threejs",
+        "video-textures"
+      ],
+      "search_terms": [
+        "video texture",
+        "webgl video transitions",
+        "immersive video website"
+      ],
+      "sources": [
+        "awwwards",
+        "codrops"
+      ]
+    },
+    "typographic_motion": {
+      "description": "Tipografia como elemento central de movimento. Texto que age.",
+      "stack": [
+        "gsap",
+        "split-type",
+        "lenis",
+        "svg"
+      ],
+      "search_terms": [
+        "kinetic typography",
+        "text animation gsap",
+        "typographic website"
+      ],
+      "sources": [
+        "awwwards",
+        "onepagelove"
+      ]
+    },
+    "2d_3d_hybrid": {
+      "description": "Mistura de 2D e 3D. Personagens, ilustrações e espaço tridimensional.",
+      "stack": [
+        "threejs",
+        "gsap",
+        "blender",
+        "svg",
+        "lottie"
+      ],
+      "search_terms": [
+        "2d 3d hybrid",
+        "illustration 3d website",
+        "character web animation"
+      ],
+      "sources": [
+        "awwwards",
+        "codrops",
+        "lapa.ninja"
+      ]
+    }
+  },
+  "_library_map": {
+    "3d": "three.js",
+    "react_3d": "react-three-fiber",
+    "animation": "gsap",
+    "scroll_trigger": "scrolltrigger",
+    "smooth_scroll": "lenis",
+    "shaders": "glsl",
+    "render_low_level": "ogl",
+    "webgl_raw": "webgl",
+    "next_gen_gpu": "webgpu",
+    "particles": "three-nebula",
+    "physics_fast": "rapier",
+    "physics_cannon": "cannon.js",
+    "physics_ammo": "ammo.js",
+    "generative": "p5.js",
+    "data_viz": "d3.js",
+    "canvas_2d": "pixi.js",
+    "transitions": "barba.js",
+    "3d_modeling": "blender",
+    "motion_export": "lottie"
+  },
+  "_reference_schema": {
+    "_comment": "Schema obrigatório para cada referência. Sem tension e transferable_principle, a referência não entra.",
+    "reference_id": "",
+    "title": "",
+    "source": "awwwards | gsap | codrops | threejs-resources | landing-love | lapa-ninja | onepagelove | codepen | github | internal | client | competitor",
+    "category": "cinematic_webgl | motion_design_premium | 3d_product_experience | particle_systems | generative_art | interactive_video | typographic_motion | 2d_3d_hybrid",
+    "url": "",
+    "screenshot": "",
+    "video_capture": "",
+    "stack": [],
+    "visual_tags": [],
+    "motion_tags": [],
+    "interaction_tags": [],
+    "industry": [],
+    "best_for": [
+      "site",
+      "reel",
+      "pitch",
+      "landing",
+      "post",
+      "carousel"
+    ],
+    "tension": "",
+    "why_it_matches": [],
+    "what_to_steal": [],
+    "what_not_to_copy": [
+      "paleta",
+      "layout",
+      "copy",
+      "composição literal"
+    ],
+    "components": {
+      "motion": "",
+      "3d": "",
+      "scroll": "",
+      "interaction": "",
+      "typography": "",
+      "color_behavior": ""
+    },
+    "transferable_principle": "",
+    "added_by": "internal | operator",
+    "added_at": "",
+    "used_in": [],
+    "performance_notes": ""
+  },
+  "references": [
+    {
+      "reference_id": "ref-001",
+      "title": "Linear.app",
+      "source": "internal",
+      "category": "motion_design_premium",
+      "url": "https://linear.app",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "gsap",
+        "lenis",
+        "css-custom-properties"
+      ],
+      "visual_tags": [
+        "dark",
+        "minimal",
+        "high-contrast",
+        "editorial"
+      ],
+      "motion_tags": [
+        "slow",
+        "precise",
+        "controlled",
+        "intentional"
+      ],
+      "interaction_tags": [
+        "scroll",
+        "hover-microinteractions",
+        "keyboard-navigation"
+      ],
+      "industry": [
+        "saas",
+        "productivity",
+        "technology"
+      ],
+      "best_for": [
+        "site",
+        "pitch",
+        "landing"
+      ],
+      "tension": "precisão que parece espontânea",
+      "why_it_matches": [
+        "ritmo lento que transmite controle",
+        "microinterações quase invisíveis",
+        "densidade baixa como declaração de valor",
+        "ausência de elementos decorativos"
+      ],
+      "what_to_steal": [
+        "ritmo de entrada dos elementos",
+        "uso de silêncio visual entre seções",
+        "microinterações que respondem sem chamar atenção",
+        "tipografia como único elemento visual"
+      ],
+      "what_not_to_copy": [
+        "paleta azul-roxo específica",
+        "layout de features em grid",
+        "copy e posicionamento de produto",
+        "composição literal das seções"
+      ],
+      "components": {
+        "motion": "gsap com ease customizado",
+        "3d": "none",
+        "scroll": "lenis smooth scroll",
+        "interaction": "hover states mínimos",
+        "typography": "inter — ação pelo peso e tamanho, não pela família",
+        "color_behavior": "cor como ausência — o que não tem cor é mais importante"
+      },
+      "transferable_principle": "usar movimento mínimo para aumentar percepção de controle",
+      "added_by": "operator",
+      "added_at": "2026-06-08",
+      "used_in": [],
+      "performance_notes": "Referência de alta conversão B2B. Funciona para produtos que vendem precisão e confiança."
+    },
+    {
+      "reference_id": "ref-002",
+      "title": "Apple Vision Pro — Landing",
+      "source": "internal",
+      "category": "cinematic_webgl",
+      "url": "https://apple.com/apple-vision-pro",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "gsap",
+        "scrolltrigger",
+        "html5-video",
+        "css-3d"
+      ],
+      "visual_tags": [
+        "cinematic",
+        "dark",
+        "immersive",
+        "premium",
+        "product-focused"
+      ],
+      "motion_tags": [
+        "ultra-slow",
+        "dramatic",
+        "reveal",
+        "parallax-deep"
+      ],
+      "interaction_tags": [
+        "scroll-driven",
+        "video-scrubbing",
+        "depth"
+      ],
+      "industry": [
+        "technology",
+        "luxury-tech",
+        "product"
+      ],
+      "best_for": [
+        "site",
+        "landing",
+        "pitch"
+      ],
+      "tension": "simplicidade que esconde obsessão",
+      "why_it_matches": [
+        "cada elemento existe por uma razão exata",
+        "scroll como experiência narrativa completa",
+        "produto como personagem — não como item",
+        "tempo lento como sinal de confiança"
+      ],
+      "what_to_steal": [
+        "usar scroll para revelar em vez de mostrar",
+        "tratar o produto como protagonista de uma cena",
+        "silêncio entre seções como respiração narrativa",
+        "transições que fazem o tempo parecer um privilégio"
+      ],
+      "what_not_to_copy": [
+        "vídeos de produto específicos da Apple",
+        "tipografia SF Pro",
+        "composição e hierarquia de seções",
+        "posicionamento e copy"
+      ],
+      "components": {
+        "motion": "gsap scrolltrigger + vídeo scrubbing",
+        "3d": "css 3d transforms — sem threejs",
+        "scroll": "scrolltrigger com pinning",
+        "interaction": "scroll como único input",
+        "typography": "tipografia que desaparece para dar espaço ao produto",
+        "color_behavior": "preto como palco — não como estilo"
+      },
+      "transferable_principle": "silêncio visual como sinal de confiança — o que não está lá é tão importante quanto o que está",
+      "added_by": "operator",
+      "added_at": "2026-06-08",
+      "used_in": [],
+      "performance_notes": "Referência de alto impacto para pitches e landings de produto premium."
+    },
+    {
+      "reference_id": "ref-003",
+      "title": "Lusion — Choo Choo World",
+      "source": "awwwards",
+      "category": "2d_3d_hybrid",
+      "url": "https://lusion.co",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "threejs",
+        "blender",
+        "gsap",
+        "webgl",
+        "lottie"
+      ],
+      "visual_tags": [
+        "playful",
+        "3d",
+        "colorful",
+        "immersive",
+        "character-driven"
+      ],
+      "motion_tags": [
+        "expressive",
+        "bouncy",
+        "narrative",
+        "interactive"
+      ],
+      "interaction_tags": [
+        "cursor-interaction",
+        "3d-navigation",
+        "physics"
+      ],
+      "industry": [
+        "games",
+        "entertainment",
+        "brand-experience"
+      ],
+      "best_for": [
+        "site",
+        "reel"
+      ],
+      "tension": "seriedade técnica que parece brincadeira",
+      "why_it_matches": [
+        "mundo 3D construído com intenção criativa clara",
+        "cada elemento tem personalidade própria",
+        "interação que recompensa quem explora",
+        "tecnologia a serviço da narrativa — não ao contrário"
+      ],
+      "what_to_steal": [
+        "tratar objetos 3D como personagens com comportamento",
+        "cursor como elemento ativo da experiência",
+        "física como linguagem — não como efeito",
+        "cor e luz como parte do storytelling"
+      ],
+      "what_not_to_copy": [
+        "estética colorida e infantil específica",
+        "assets Blender do projeto",
+        "composição e mundo visual do jogo",
+        "paleta e personagens"
+      ],
+      "components": {
+        "motion": "gsap + física de objetos",
+        "3d": "threejs + blender assets",
+        "scroll": "navegação 3D — não scroll linear",
+        "interaction": "cursor como ferramenta criativa",
+        "typography": "tipografia integrada ao espaço 3D",
+        "color_behavior": "cor como ambiente — não como decoração"
+      },
+      "transferable_principle": "quando o usuário sente que está dentro da experiência, não assistindo — o engajamento muda de categoria",
+      "added_by": "operator",
+      "added_at": "2026-06-08",
+      "used_in": [],
+      "performance_notes": "Referência para marcas com alto componente de personalidade e experiência. Não usar para B2B conservador."
+    },
+    {
+      "reference_id": "ref-004",
+      "title": "Stripe — Homepage",
+      "source": "internal",
+      "category": "motion_design_premium",
+      "url": "https://stripe.com",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "gsap",
+        "scrolltrigger",
+        "lenis",
+        "css-custom-properties"
+      ],
+      "stack_confidence": "detected",
+      "visual_tags": [
+        "dark",
+        "gradient",
+        "editorial",
+        "premium",
+        "saas"
+      ],
+      "motion_tags": [
+        "scroll-driven",
+        "reveal",
+        "parallax",
+        "smooth"
+      ],
+      "interaction_tags": [
+        "scroll",
+        "hover",
+        "passive"
+      ],
+      "industry": [
+        "fintech",
+        "saas",
+        "technology"
+      ],
+      "best_for": [
+        "site",
+        "landing",
+        "pitch"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "tecnologia invisível",
+          "clareza que impressiona"
+        ],
+        "tempo": "moderado",
+        "densidade": "média",
+        "movimento": "fluido",
+        "profundidade": "média",
+        "emoção": [
+          "confiança",
+          "segurança",
+          "desejo"
+        ]
+      },
+      "tension": "complexidade técnica que parece simples",
+      "why_it_matches": [
+        "produto extremamente complexo comunicado com leveza total",
+        "gradientes usados como luz — não como decoração",
+        "cada seção resolve uma objeção sem parecer argumento de venda",
+        "hierarquia visual que guia sem forçar"
+      ],
+      "what_to_steal": [
+        "usar gradiente como temperatura emocional da seção",
+        "revelar features através de scroll sem listar especificações",
+        "código real como elemento visual de confiança técnica",
+        "espaçamento generoso como sinal de premium"
+      ],
+      "what_not_to_copy": [
+        "paleta roxa específica",
+        "layout de cards de features",
+        "copy e posicionamento",
+        "composição das seções"
+      ],
+      "components": {
+        "motion": "gsap scrolltrigger com ease customizado",
+        "3d": "none",
+        "scroll": "lenis + scrolltrigger",
+        "interaction": "hover states sutis em cards",
+        "typography": "tipografia que informa, não impressiona",
+        "color_behavior": "gradiente como narrativa — muda de temperatura conforme o scroll avança"
+      },
+      "transferable_principle": "mostrar o produto funcionando é mais convincente do que descrever o que ele faz",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Alta conversão B2B. Referência para qualquer produto técnico que precisa parecer acessível."
+    },
+    {
+      "reference_id": "ref-005",
+      "title": "Vercel — Homepage",
+      "source": "internal",
+      "category": "motion_design_premium",
+      "url": "https://vercel.com",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "gsap",
+        "nextjs",
+        "lenis",
+        "css-animations"
+      ],
+      "stack_confidence": "detected",
+      "visual_tags": [
+        "dark",
+        "minimal",
+        "high-contrast",
+        "monochrome",
+        "editorial"
+      ],
+      "motion_tags": [
+        "fast",
+        "precise",
+        "reveal",
+        "fade"
+      ],
+      "interaction_tags": [
+        "scroll",
+        "hover",
+        "keyboard"
+      ],
+      "industry": [
+        "developer-tools",
+        "saas",
+        "technology"
+      ],
+      "best_for": [
+        "site",
+        "landing",
+        "pitch"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "autoridade silenciosa",
+          "precisão que parece espontânea"
+        ],
+        "tempo": "rápido",
+        "densidade": "baixa",
+        "movimento": "mecânico",
+        "profundidade": "plana",
+        "emoção": [
+          "confiança",
+          "admiração",
+          "pertencimento"
+        ]
+      },
+      "tension": "velocidade que parece calma",
+      "why_it_matches": [
+        "preto absoluto como declaração de posicionamento",
+        "branco como único elemento de destaque — nada compete",
+        "velocidade de transição que transmite performance do produto",
+        "ausência total de ornamentação como sinal de confiança"
+      ],
+      "what_to_steal": [
+        "usar contraste máximo para comunicar clareza de propósito",
+        "velocidade de animação como extensão da promessa do produto",
+        "tipografia como único elemento visual — tudo mais é estrutura",
+        "grid rígido que transmite precisão sem explicar"
+      ],
+      "what_not_to_copy": [
+        "paleta preto/branco puro",
+        "layout de dashboard preview",
+        "copy técnico",
+        "estrutura de navegação"
+      ],
+      "components": {
+        "motion": "css transitions rápidas + gsap para elementos complexos",
+        "3d": "none",
+        "scroll": "lenis",
+        "interaction": "hover imediato — zero delay",
+        "typography": "geist — tipografia como identidade técnica",
+        "color_behavior": "preto como ausência de dúvida — não como estilo escuro"
+      },
+      "transferable_principle": "quando a estética é o produto, a ausência de decoração é a maior declaração de confiança",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Referência máxima para marcas que vendem precisão e performance. Risco: pode parecer frio se o produto exige warmth."
+    },
+    {
+      "reference_id": "ref-006",
+      "title": "Raycast — Homepage",
+      "source": "internal",
+      "category": "motion_design_premium",
+      "url": "https://raycast.com",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "gsap",
+        "scrolltrigger",
+        "react",
+        "css-3d"
+      ],
+      "stack_confidence": "detected",
+      "visual_tags": [
+        "dark",
+        "colorful-accents",
+        "premium",
+        "editorial",
+        "product-focused"
+      ],
+      "motion_tags": [
+        "scroll-driven",
+        "reveal",
+        "3d-tilt",
+        "smooth"
+      ],
+      "interaction_tags": [
+        "scroll",
+        "hover-3d",
+        "cursor"
+      ],
+      "industry": [
+        "developer-tools",
+        "productivity",
+        "saas"
+      ],
+      "best_for": [
+        "site",
+        "landing",
+        "pitch"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "precisão que parece espontânea",
+          "tecnologia invisível"
+        ],
+        "tempo": "moderado",
+        "densidade": "média",
+        "movimento": "fluido",
+        "profundidade": "média",
+        "emoção": [
+          "desejo",
+          "admiração",
+          "pertencimento"
+        ]
+      },
+      "tension": "poder técnico que parece prazer de usar",
+      "why_it_matches": [
+        "produto que poderia ser intimidador comunicado com desejo",
+        "cores de acento usadas cirurgicamente — nunca decorativas",
+        "interface do produto como personagem principal da narrativa",
+        "tilt 3D sutil que faz o produto parecer físico e desejável"
+      ],
+      "what_to_steal": [
+        "fazer o produto ser o herói visual — não o copy",
+        "usar tilt 3D para dar tangibilidade a produto digital",
+        "cores de acento como pontuação emocional — não como paleta",
+        "scroll que revela features como descobertas, não listas"
+      ],
+      "what_not_to_copy": [
+        "gradientes específicos de cor",
+        "layout de feature highlights",
+        "copy e posicionamento de produto",
+        "tipografia específica"
+      ],
+      "components": {
+        "motion": "gsap + css perspective para tilt",
+        "3d": "css 3d transforms — sem threejs",
+        "scroll": "scrolltrigger com pinning",
+        "interaction": "mouse parallax sutil em elementos de produto",
+        "typography": "peso e tamanho como hierarquia — não família",
+        "color_behavior": "fundo escuro neutro + cor única de acento que aparece em momentos de ênfase"
+      },
+      "transferable_principle": "um produto digital se torna desejável quando parece ter peso e presença física",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Excelente referência para produtos B2B que precisam gerar desejo além de convicção racional."
+    },
+    {
+      "reference_id": "ref-007",
+      "title": "Bruno Simon — Portfolio",
+      "source": "awwwards",
+      "category": "cinematic_webgl",
+      "url": "https://bruno-simon.com",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "threejs",
+        "cannon.js",
+        "gsap",
+        "blender",
+        "webgl"
+      ],
+      "stack_confidence": "detected",
+      "visual_tags": [
+        "3d",
+        "playful",
+        "isometric",
+        "colorful",
+        "interactive"
+      ],
+      "motion_tags": [
+        "physics",
+        "real-time",
+        "generative",
+        "expressive"
+      ],
+      "interaction_tags": [
+        "cursor-drive",
+        "physics",
+        "keyboard",
+        "gamepad"
+      ],
+      "industry": [
+        "portfolio",
+        "creative",
+        "developer"
+      ],
+      "best_for": [
+        "site",
+        "reel"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "seriedade técnica que parece brincadeira",
+          "precisão que parece espontânea"
+        ],
+        "tempo": "variável",
+        "densidade": "média",
+        "movimento": "orgânico",
+        "profundidade": "imersiva",
+        "emoção": [
+          "curiosidade",
+          "admiração",
+          "desejo"
+        ]
+      },
+      "tension": "engenharia de altíssimo nível que parece um brinquedo",
+      "why_it_matches": [
+        "física real aplicada a um mundo completamente inventado",
+        "cada interação recompensa — nunca frustra",
+        "tecnologia a serviço da narrativa pessoal — não como demonstração",
+        "mundo 3D que convida a explorar em vez de guiar linearmente"
+      ],
+      "what_to_steal": [
+        "usar física como linguagem expressiva — não como efeito",
+        "mundo navegável como alternativa ao scroll linear",
+        "recompensar a curiosidade do usuário com descobertas",
+        "personalidade técnica como diferencial de posicionamento"
+      ],
+      "what_not_to_copy": [
+        "estética de mundo em miniatura colorida",
+        "mecânica de carro específica",
+        "assets blender do projeto",
+        "paleta pastel"
+      ],
+      "components": {
+        "motion": "physics engine cannon.js + gsap para UI",
+        "3d": "threejs + blender assets",
+        "scroll": "navegação 3D — sem scroll tradicional",
+        "interaction": "cursor como veículo dentro do mundo",
+        "typography": "tipografia funcional — o mundo visual é o protagonista",
+        "color_behavior": "paleta de cor como identidade do mundo — coerente e fechada"
+      },
+      "transferable_principle": "quando o usuário controla algo, ele se torna co-autor da experiência — o engajamento muda de categoria",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Referência técnica máxima. Alto custo de implementação — usar princípio, não estrutura."
+    },
+    {
+      "reference_id": "ref-008",
+      "title": "Active Theory — Portfolio",
+      "source": "awwwards",
+      "category": "cinematic_webgl",
+      "url": "https://activetheory.net",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "threejs",
+        "glsl",
+        "gsap",
+        "webgl",
+        "custom-shaders"
+      ],
+      "stack_confidence": "inferred",
+      "visual_tags": [
+        "cinematic",
+        "dark",
+        "immersive",
+        "editorial",
+        "campaign"
+      ],
+      "motion_tags": [
+        "cinematic",
+        "shader-transitions",
+        "slow",
+        "dramatic"
+      ],
+      "interaction_tags": [
+        "scroll",
+        "cursor",
+        "passive"
+      ],
+      "industry": [
+        "creative-studio",
+        "entertainment",
+        "brand-experience"
+      ],
+      "best_for": [
+        "site",
+        "pitch",
+        "reel"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "autoridade silenciosa",
+          "luxo sem ostentação"
+        ],
+        "tempo": "lento",
+        "densidade": "baixa",
+        "movimento": "cinematográfico",
+        "profundidade": "imersiva",
+        "emoção": [
+          "admiração",
+          "desejo",
+          "segurança"
+        ]
+      },
+      "tension": "grandiosidade que não grita",
+      "why_it_matches": [
+        "trabalho de altíssimo nível apresentado com contenção",
+        "shaders como assinatura visual — não como efeito",
+        "transições que fazem o tempo expandir",
+        "portfólio que é ele mesmo uma campanha"
+      ],
+      "what_to_steal": [
+        "usar transições de shader para criar continuidade entre seções",
+        "tratar cada case como experiência cinematográfica",
+        "ritmo lento como sinal de confiança — quem tem pressa não é premium",
+        "luz e sombra como narrativa, não como iluminação"
+      ],
+      "what_not_to_copy": [
+        "shaders específicos do estúdio",
+        "composição de cases",
+        "identidade visual do portfólio",
+        "estrutura de navegação"
+      ],
+      "components": {
+        "motion": "gsap + custom shaders glsl",
+        "3d": "threejs com post-processing",
+        "scroll": "scroll-driven com transições de shader",
+        "interaction": "cursor customizado como elemento de identidade",
+        "typography": "tipografia grande, espaçada, que respira",
+        "color_behavior": "escuro como palco — a luz é o elemento de destaque"
+      },
+      "transferable_principle": "transições de shader criam continuidade emocional entre seções — o usuário não sente o corte",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Referência de patamar máximo. Aplicar princípios de ritmo e luz — não a tecnologia diretamente."
+    },
+    {
+      "reference_id": "ref-009",
+      "title": "Apple Vision Pro — Spatial Computing",
+      "source": "internal",
+      "category": "3d_product_experience",
+      "url": "https://apple.com/apple-vision-pro/",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "gsap",
+        "scrolltrigger",
+        "html5-video",
+        "css-3d",
+        "lenis"
+      ],
+      "stack_confidence": "detected",
+      "visual_tags": [
+        "cinematic",
+        "premium",
+        "dark",
+        "product-focused",
+        "luxury-tech"
+      ],
+      "motion_tags": [
+        "ultra-slow",
+        "scroll-driven",
+        "video-scrub",
+        "reveal"
+      ],
+      "interaction_tags": [
+        "scroll",
+        "passive",
+        "video-scrubbing"
+      ],
+      "industry": [
+        "technology",
+        "luxury-tech",
+        "product"
+      ],
+      "best_for": [
+        "site",
+        "landing",
+        "pitch"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "simplicidade que esconde obsessão",
+          "luxo sem ostentação"
+        ],
+        "tempo": "lento",
+        "densidade": "baixa",
+        "movimento": "cinematográfico",
+        "profundidade": "imersiva",
+        "emoção": [
+          "desejo",
+          "admiração",
+          "curiosidade"
+        ]
+      },
+      "tension": "futuro que parece inevitável",
+      "why_it_matches": [
+        "cada segundo de scroll é uma cena — não uma seção",
+        "produto apresentado como objeto de desejo antes de objeto de uso",
+        "silêncio entre seções como respiração narrativa",
+        "vídeo scrubbing que dá ao usuário sensação de controle sobre o tempo"
+      ],
+      "what_to_steal": [
+        "vídeo scrubbing para revelar produto progressivamente",
+        "silêncio como elemento de design — não ausência de conteúdo",
+        "tratar produto como protagonista de uma cena — não como item de catálogo",
+        "tipografia que aparece e desaparece como legendas de cinema"
+      ],
+      "what_not_to_copy": [
+        "vídeos específicos de produto Apple",
+        "tipografia SF Pro",
+        "estrutura e hierarquia de seções",
+        "copy e posicionamento"
+      ],
+      "components": {
+        "motion": "gsap scrolltrigger + video currentTime scrubbing",
+        "3d": "css 3d perspective em elementos específicos",
+        "scroll": "pinning pesado + video scrubbing",
+        "interaction": "scroll como único input — experiência passiva controlada",
+        "typography": "texto que desaparece para dar espaço ao produto",
+        "color_behavior": "preto como palco — a luz do produto é o único elemento quente"
+      },
+      "transferable_principle": "quando o scroll controla o tempo do vídeo, o usuário sente que está descobrindo o produto — não assistindo a um anúncio",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Referência máxima para landing pages de produto premium. Técnica de video scrubbing é o elemento mais transferível."
+    },
+    {
+      "reference_id": "ref-010",
+      "title": "Bang & Olufsen — Product Pages",
+      "source": "internal",
+      "category": "3d_product_experience",
+      "url": "https://bang-olufsen.com",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "gsap",
+        "scrolltrigger",
+        "css-animations",
+        "html5-video"
+      ],
+      "stack_confidence": "inferred",
+      "visual_tags": [
+        "luxury",
+        "minimal",
+        "editorial",
+        "monochrome",
+        "craft"
+      ],
+      "motion_tags": [
+        "slow",
+        "elegant",
+        "reveal",
+        "parallax"
+      ],
+      "interaction_tags": [
+        "scroll",
+        "hover",
+        "passive"
+      ],
+      "industry": [
+        "luxury",
+        "audio",
+        "premium-consumer"
+      ],
+      "best_for": [
+        "site",
+        "landing",
+        "pitch"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "luxo sem ostentação",
+          "autoridade silenciosa"
+        ],
+        "tempo": "lento",
+        "densidade": "mínima",
+        "movimento": "fluido",
+        "profundidade": "média",
+        "emoção": [
+          "desejo",
+          "admiração",
+          "exclusividade"
+        ]
+      },
+      "tension": "luxo que se revela devagar",
+      "why_it_matches": [
+        "produto que justifica o preço pela forma como é apresentado — não pelo argumento",
+        "espaço em branco como declaração de que o produto merece atenção isolada",
+        "fotografia que trata objeto industrial como obra de arte",
+        "velocidade lenta que força o usuário a olhar de verdade"
+      ],
+      "what_to_steal": [
+        "dar ao produto espaço para existir — não competir com copy",
+        "usar branco/neutro como amplificador do produto",
+        "revelação lenta como ritual de apresentação",
+        "fotografia como argumento de qualidade — antes do texto"
+      ],
+      "what_not_to_copy": [
+        "identidade visual minimalista específica",
+        "fotografia de produto",
+        "paleta neutra particular",
+        "tipografia editorial"
+      ],
+      "components": {
+        "motion": "gsap revelar com ease molto lento",
+        "3d": "none — fotografia de produto substitui",
+        "scroll": "parallax suave em imagens de produto",
+        "interaction": "hover que revela detalhe — micro-revelação",
+        "typography": "tipografia que não compete com o produto",
+        "color_behavior": "neutro como museu — a cor do produto é o único elemento vivo"
+      },
+      "transferable_principle": "o espaço ao redor de um objeto comunica o valor dele antes de qualquer palavra",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Referência para qualquer produto premium que precisa justificar preço premium pela experiência de apresentação."
+    },
+    {
+      "reference_id": "ref-011",
+      "title": "Immersive Garden — Creative Studio",
+      "source": "awwwards",
+      "category": "particle_systems",
+      "url": "https://immersive-g.com",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "threejs",
+        "glsl",
+        "gsap",
+        "custom-shaders",
+        "webgl"
+      ],
+      "stack_confidence": "inferred",
+      "visual_tags": [
+        "dark",
+        "particles",
+        "organic",
+        "immersive",
+        "cinematic"
+      ],
+      "motion_tags": [
+        "generative",
+        "organic",
+        "slow",
+        "fluid"
+      ],
+      "interaction_tags": [
+        "cursor",
+        "scroll",
+        "mouse-parallax"
+      ],
+      "industry": [
+        "creative-studio",
+        "art",
+        "technology"
+      ],
+      "best_for": [
+        "site",
+        "reel",
+        "pitch"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "energia controlada",
+          "tecnologia invisível"
+        ],
+        "tempo": "lento",
+        "densidade": "média",
+        "movimento": "orgânico",
+        "profundidade": "imersiva",
+        "emoção": [
+          "curiosidade",
+          "admiração",
+          "desejo"
+        ]
+      },
+      "tension": "caos que obedece",
+      "why_it_matches": [
+        "partículas que parecem vivas — comportamento orgânico em sistema matemático",
+        "cursor como força que influencia o sistema — não como ponteiro",
+        "escuridão como ambiente, luz como evento",
+        "sistema generativo que nunca repete o mesmo estado"
+      ],
+      "what_to_steal": [
+        "tratar cursor como elemento que perturba o sistema — não navega por ele",
+        "usar partículas para criar profundidade sem 3D pesado",
+        "sistema que reage mas não obedece — comportamento com personalidade",
+        "escuridão generosa que faz a luz parecer preciosa"
+      ],
+      "what_not_to_copy": [
+        "sistema de partículas específico",
+        "paleta e cores de luz",
+        "estética do estúdio",
+        "comportamento exato do cursor"
+      ],
+      "components": {
+        "motion": "glsl shaders + gsap para UI",
+        "3d": "threejs para sistema de partículas",
+        "scroll": "scroll afeta estado do sistema de partículas",
+        "interaction": "cursor como vetor de força no campo de partículas",
+        "typography": "tipografia que flutua sobre o sistema — nunca compete",
+        "color_behavior": "cor como energia — aparece onde há movimento ou pressão"
+      },
+      "transferable_principle": "quando o usuário percebe que suas ações afetam o sistema, ele para de navegar e começa a explorar",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Alto custo técnico. O princípio de cursor-como-força é altamente transferível com implementação simples."
+    },
+    {
+      "reference_id": "ref-012",
+      "title": "Codrops — Demos e Experimentos",
+      "source": "codrops",
+      "category": "generative_art",
+      "url": "https://tympanus.net/codrops",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "threejs",
+        "gsap",
+        "glsl",
+        "css",
+        "canvas-api"
+      ],
+      "stack_confidence": "detected",
+      "visual_tags": [
+        "experimental",
+        "editorial",
+        "varied",
+        "creative",
+        "technical"
+      ],
+      "motion_tags": [
+        "varied",
+        "precise",
+        "expressive",
+        "scroll-driven"
+      ],
+      "interaction_tags": [
+        "scroll",
+        "hover",
+        "cursor",
+        "click"
+      ],
+      "industry": [
+        "creative-development",
+        "inspiration",
+        "education"
+      ],
+      "best_for": [
+        "site",
+        "reel",
+        "post",
+        "carousel"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "precisão que parece espontânea",
+          "seriedade técnica que parece brincadeira"
+        ],
+        "tempo": "variável",
+        "densidade": "variável",
+        "movimento": "variável",
+        "profundidade": "variável",
+        "emoção": [
+          "curiosidade",
+          "admiração"
+        ]
+      },
+      "tension": "solução técnica elegante que parece magia",
+      "why_it_matches": [
+        "cada demo resolve um problema criativo com elegância inesperada",
+        "código como expressão artística — não como ferramenta",
+        "soluções que expandem o que parece possível com CSS e JS",
+        "laboratório público de possibilidades visuais"
+      ],
+      "what_to_steal": [
+        "tratar cada efeito como solução para um problema — não como decoração",
+        "combinar CSS puro com JS para efeitos que parecem impossíveis",
+        "experimentar com text-clip, blend-modes e perspective para tipografia criativa",
+        "transições de página como parte da identidade — não como cortesia"
+      ],
+      "what_not_to_copy": [
+        "demos específicos",
+        "soluções sem adaptação ao contexto",
+        "efeitos sem tensão identificada"
+      ],
+      "components": {
+        "motion": "variado — gsap, css, canvas, threejs",
+        "3d": "threejs em demos específicos",
+        "scroll": "variado por demo",
+        "interaction": "variado — o que serve ao efeito",
+        "typography": "tipografia frequentemente como protagonista dos efeitos",
+        "color_behavior": "variado — seguir o princípio de cada demo"
+      },
+      "transferable_principle": "qualquer efeito visual pode ser reduzido a um princípio abstrato — aprender o princípio, não o código",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Fonte primária de inspiração técnica. Visitar semanalmente. Sempre buscar o transferable_principle antes de salvar."
+    },
+    {
+      "reference_id": "ref-013",
+      "title": "Locomotive — Creative Agency",
+      "source": "awwwards",
+      "category": "typographic_motion",
+      "url": "https://locomotive.ca",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "locomotive-scroll",
+        "gsap",
+        "barba.js",
+        "css"
+      ],
+      "stack_confidence": "detected",
+      "visual_tags": [
+        "editorial",
+        "bold-typography",
+        "minimal",
+        "dark",
+        "premium"
+      ],
+      "motion_tags": [
+        "scroll-driven",
+        "kinetic-type",
+        "reveal",
+        "smooth"
+      ],
+      "interaction_tags": [
+        "scroll",
+        "cursor",
+        "page-transitions"
+      ],
+      "industry": [
+        "creative-agency",
+        "portfolio",
+        "luxury"
+      ],
+      "best_for": [
+        "site",
+        "pitch",
+        "landing"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "autoridade silenciosa",
+          "energia controlada"
+        ],
+        "tempo": "moderado",
+        "densidade": "baixa",
+        "movimento": "cinematográfico",
+        "profundidade": "plana",
+        "emoção": [
+          "admiração",
+          "confiança",
+          "desejo"
+        ]
+      },
+      "tension": "tipografia que se move como se soubesse para onde vai",
+      "why_it_matches": [
+        "texto tratado como elemento arquitetônico — não como informação",
+        "scroll que dá vida à tipografia sem distorcer a legibilidade",
+        "transições de página que fazem o site parecer um objeto contínuo",
+        "cada palavra tem peso e intenção no espaço"
+      ],
+      "what_to_steal": [
+        "usar tamanho extremo de tipografia para criar hierarquia sem grid",
+        "revelar texto progressivamente como se estivesse sendo escrito",
+        "transições de página com barba.js para experiência contínua",
+        "cursor customizado como extensão da identidade da marca"
+      ],
+      "what_not_to_copy": [
+        "identidade tipográfica específica",
+        "paleta da agência",
+        "estrutura de navegação",
+        "composição de cases"
+      ],
+      "components": {
+        "motion": "locomotive-scroll + gsap split-text",
+        "3d": "none",
+        "scroll": "locomotive-scroll com inércia customizada",
+        "interaction": "cursor customizado que muda de estado por contexto",
+        "typography": "tipografia como arquitetura — escala extrema, peso deliberado",
+        "color_behavior": "monocromático com cor como evento — não como paleta"
+      },
+      "transferable_principle": "tipografia em escala extrema transforma informação em experiência espacial",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Referência para qualquer marca que quer comunicar através de presença tipográfica. Funciona especialmente bem para marcas de posicionamento premium."
+    },
+    {
+      "reference_id": "ref-014",
+      "title": "GSAP Showcase — Coleção Oficial",
+      "source": "gsap",
+      "category": "typographic_motion",
+      "url": "https://gsap.com/showcase",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "gsap",
+        "scrolltrigger",
+        "split-type",
+        "css"
+      ],
+      "stack_confidence": "detected",
+      "visual_tags": [
+        "varied",
+        "motion-first",
+        "creative",
+        "technical"
+      ],
+      "motion_tags": [
+        "precise",
+        "scroll-driven",
+        "kinetic",
+        "stagger"
+      ],
+      "interaction_tags": [
+        "scroll",
+        "hover",
+        "cursor"
+      ],
+      "industry": [
+        "inspiration",
+        "creative-development"
+      ],
+      "best_for": [
+        "site",
+        "reel",
+        "carousel",
+        "post"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "precisão que parece espontânea"
+        ],
+        "tempo": "variável",
+        "densidade": "variável",
+        "movimento": "mecânico",
+        "profundidade": "variável",
+        "emoção": [
+          "admiração",
+          "curiosidade"
+        ]
+      },
+      "tension": "animação tão precisa que parece natural",
+      "why_it_matches": [
+        "cada showcase demonstra controle total sobre o tempo visual",
+        "stagger que faz elementos individuais contarem uma história coletiva",
+        "ease curves que mudam a emoção de uma animação idêntica",
+        "biblioteca que define como a web se move"
+      ],
+      "what_to_steal": [
+        "usar stagger para criar narrativa entre elementos relacionados",
+        "ease customizado como assinatura de movimento da marca",
+        "scrubbing de timeline para conectar scroll ao estado de animação",
+        "split-text para tratar cada palavra como ator independente"
+      ],
+      "what_not_to_copy": [
+        "animações específicas dos showcases",
+        "efeitos sem contexto de uso"
+      ],
+      "components": {
+        "motion": "gsap — todos os plugins disponíveis",
+        "3d": "quando relevante",
+        "scroll": "scrolltrigger como padrão",
+        "interaction": "variado por showcase",
+        "typography": "split-type + gsap como combinação padrão",
+        "color_behavior": "variado"
+      },
+      "transferable_principle": "o ease de uma animação carrega mais emoção do que a distância percorrida",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Fonte primária para motion design. Estudar os eases antes de qualquer implementação de animação."
+    },
+    {
+      "reference_id": "ref-015",
+      "title": "Aesop — Brand Experience",
+      "source": "internal",
+      "category": "interactive_video",
+      "url": "https://aesop.com",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "gsap",
+        "lenis",
+        "css-animations",
+        "html5-video"
+      ],
+      "stack_confidence": "inferred",
+      "visual_tags": [
+        "luxury",
+        "editorial",
+        "warm",
+        "craft",
+        "minimal"
+      ],
+      "motion_tags": [
+        "slow",
+        "elegant",
+        "reveal",
+        "atmospheric"
+      ],
+      "interaction_tags": [
+        "scroll",
+        "hover",
+        "passive"
+      ],
+      "industry": [
+        "luxury",
+        "beauty",
+        "retail",
+        "lifestyle"
+      ],
+      "best_for": [
+        "site",
+        "landing",
+        "pitch"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "luxo sem ostentação",
+          "cuidado que nunca pede atenção"
+        ],
+        "tempo": "lento",
+        "densidade": "baixa",
+        "movimento": "fluido",
+        "profundidade": "média",
+        "emoção": [
+          "desejo",
+          "segurança",
+          "admiração"
+        ]
+      },
+      "tension": "sofisticação que parece naturalidade",
+      "why_it_matches": [
+        "cada elemento comunica o mesmo nível de cuidado — embalagem, site, copy",
+        "tom editorial que informa sem vender",
+        "fotografia que trata produto como artefato cultural",
+        "texto longo que funciona porque cada palavra merece estar lá"
+      ],
+      "what_to_steal": [
+        "usar copy longo quando cada palavra tem peso — qualidade justifica duração",
+        "fotografia editorial como linguagem de posicionamento",
+        "cores terrosas/neutras como declaração de autenticidade",
+        "consistência total entre touchpoints — site, produto, embalagem"
+      ],
+      "what_not_to_copy": [
+        "paleta terrosa específica",
+        "tom editorial literário",
+        "tipografia escolhida",
+        "composição fotográfica"
+      ],
+      "components": {
+        "motion": "gsap reveal lento — nada é rápido",
+        "3d": "none",
+        "scroll": "lenis smooth",
+        "interaction": "hover que revela informação editorial",
+        "typography": "serifa editorial como declaração de posicionamento cultural",
+        "color_behavior": "neutro como pele — a cor do produto é orgânica, não aplicada"
+      },
+      "transferable_principle": "consistência total entre todos os touchpoints é mais convincente do que qualquer elemento visual isolado",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Referência para qualquer marca de cuidado, saúde ou lifestyle que quer posicionamento premium sem gritar."
+    },
+    {
+      "reference_id": "ref-016",
+      "title": "Porsche — Digital Experience",
+      "source": "internal",
+      "category": "3d_product_experience",
+      "url": "https://porsche.com",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "threejs",
+        "gsap",
+        "scrolltrigger",
+        "webgl",
+        "blender"
+      ],
+      "stack_confidence": "inferred",
+      "visual_tags": [
+        "luxury",
+        "automotive",
+        "dark",
+        "premium",
+        "3d"
+      ],
+      "motion_tags": [
+        "cinematic",
+        "slow",
+        "dramatic",
+        "precise"
+      ],
+      "interaction_tags": [
+        "scroll",
+        "cursor",
+        "configurator"
+      ],
+      "industry": [
+        "automotive",
+        "luxury",
+        "premium"
+      ],
+      "best_for": [
+        "site",
+        "landing",
+        "pitch"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "autoridade silenciosa",
+          "luxo sem ostentação",
+          "energia controlada"
+        ],
+        "tempo": "lento",
+        "densidade": "baixa",
+        "movimento": "cinematográfico",
+        "profundidade": "imersiva",
+        "emoção": [
+          "desejo",
+          "admiração",
+          "exclusividade"
+        ]
+      },
+      "tension": "performance que se contém para parecer mais perigosa",
+      "why_it_matches": [
+        "produto que é puro desempenho comunicado através de elegância visual",
+        "3D de produto que substitui completamente a necessidade de texto",
+        "luz sobre a carroceria como argumento de craft",
+        "configurador que transforma o usuário em designer do próprio objeto de desejo"
+      ],
+      "what_to_steal": [
+        "usar luz direcional 3D para comunicar materialidade e qualidade",
+        "configurador como ferramenta de desejo — não de customização funcional",
+        "câmera lenta como declaração de que o produto merece atenção",
+        "preto como campo neutro que amplifica qualquer cor do produto"
+      ],
+      "what_not_to_copy": [
+        "assets 3D de veículo específico",
+        "paleta de cores da marca",
+        "tipografia Porsche",
+        "estrutura de configurador"
+      ],
+      "components": {
+        "motion": "gsap + threejs para rotação de câmera",
+        "3d": "threejs + blender HDRI lighting",
+        "scroll": "scroll controla câmera 3D",
+        "interaction": "configurador de produto em threejs",
+        "typography": "tipografia que não compete com o objeto 3D",
+        "color_behavior": "fundo neutro que absorve a cor — o produto é a única fonte de cor"
+      },
+      "transferable_principle": "quando o usuário customiza algo, ele cria apego antes de tomar a decisão de compra",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Referência para produtos configuráveis ou personalizáveis. Princípio de configuração como ferramenta de desejo é altamente transferível."
+    },
+    {
+      "reference_id": "ref-017",
+      "title": "Notion — Homepage",
+      "source": "internal",
+      "category": "motion_design_premium",
+      "url": "https://notion.so",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "gsap",
+        "react",
+        "lenis",
+        "css-animations"
+      ],
+      "stack_confidence": "detected",
+      "visual_tags": [
+        "light",
+        "minimal",
+        "warm",
+        "accessible",
+        "editorial"
+      ],
+      "motion_tags": [
+        "gentle",
+        "reveal",
+        "fade",
+        "scroll-driven"
+      ],
+      "interaction_tags": [
+        "scroll",
+        "hover",
+        "click"
+      ],
+      "industry": [
+        "saas",
+        "productivity",
+        "knowledge"
+      ],
+      "best_for": [
+        "site",
+        "landing",
+        "pitch"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "tecnologia invisível",
+          "precisão que parece espontânea"
+        ],
+        "tempo": "moderado",
+        "densidade": "média",
+        "movimento": "fluido",
+        "profundidade": "plana",
+        "emoção": [
+          "confiança",
+          "curiosidade",
+          "pertencimento"
+        ]
+      },
+      "tension": "utilidade que parece criatividade",
+      "why_it_matches": [
+        "produto de produtividade que se posiciona como ferramenta criativa",
+        "fundo claro que comunica abertura e possibilidade — não restrição",
+        "ilustrações que humanizam um produto de trabalho",
+        "copy que fala com o que o usuário quer ser — não com o que ele precisa fazer"
+      ],
+      "what_to_steal": [
+        "usar ilustração como linguagem de humanização para produto técnico",
+        "fundo claro como declaração de acessibilidade e abertura",
+        "falar com a identidade aspiracional do usuário antes da funcionalidade",
+        "variação de densidade entre seções para criar ritmo editorial"
+      ],
+      "what_not_to_copy": [
+        "ilustrações específicas",
+        "paleta bege/creme particular",
+        "copy e posicionamento",
+        "estrutura de seções"
+      ],
+      "components": {
+        "motion": "gsap revelar suave — nada dramático",
+        "3d": "none",
+        "scroll": "lenis + fade reveals simples",
+        "interaction": "hover em cards com elevação sutil",
+        "typography": "tipografia que parece escrita à mão — humanidade digital",
+        "color_behavior": "bege/creme como calor — não como ausência de cor"
+      },
+      "transferable_principle": "produto técnico se torna desejável quando o posicionamento fala com o que o usuário quer ser, não com o que ele precisa resolver",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Referência para produtos que precisam combinar utilidade com apelo criativo. Especialmente útil para nichos como educação, consultoria e serviços criativos."
+    },
+    {
+      "reference_id": "ref-018",
+      "title": "Resn — Creative Agency",
+      "source": "awwwards",
+      "category": "cinematic_webgl",
+      "url": "https://resn.co.nz",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "threejs",
+        "gsap",
+        "glsl",
+        "barba.js",
+        "webgl"
+      ],
+      "stack_confidence": "inferred",
+      "visual_tags": [
+        "experimental",
+        "dark",
+        "immersive",
+        "creative",
+        "bold"
+      ],
+      "motion_tags": [
+        "expressive",
+        "dramatic",
+        "generative",
+        "cinematic"
+      ],
+      "interaction_tags": [
+        "cursor",
+        "scroll",
+        "hover"
+      ],
+      "industry": [
+        "creative-studio",
+        "entertainment",
+        "brand"
+      ],
+      "best_for": [
+        "site",
+        "pitch",
+        "reel"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "rebeldia com elegância",
+          "seriedade técnica que parece brincadeira"
+        ],
+        "tempo": "variável",
+        "densidade": "média",
+        "movimento": "expressivo",
+        "profundidade": "imersiva",
+        "emoção": [
+          "curiosidade",
+          "admiração",
+          "desejo"
+        ]
+      },
+      "tension": "irreverência que é levada completamente a sério",
+      "why_it_matches": [
+        "trabalho experimental apresentado com confiança máxima",
+        "personalidade de estúdio que não pede permissão",
+        "cada projeto tratado como experimento que funciona",
+        "risco criativo como posicionamento — não como acidente"
+      ],
+      "what_to_steal": [
+        "ter ponto de vista criativo forte antes de ter solução técnica",
+        "tratar o risco visual como declaração de competência",
+        "cada peça como extensão da personalidade — não como serviço entregue",
+        "usar o trabalho para atrair quem pensa igual — não todo mundo"
+      ],
+      "what_not_to_copy": [
+        "estética específica do estúdio",
+        "tipo de trabalho de games/entretenimento",
+        "identidade visual",
+        "tom de comunicação"
+      ],
+      "components": {
+        "motion": "gsap + threejs + custom shaders",
+        "3d": "threejs com liberdade criativa total",
+        "scroll": "variado por projeto",
+        "interaction": "cursor como elemento de personalidade do estúdio",
+        "typography": "tipografia bold como declaração de posicionamento",
+        "color_behavior": "cor como energia — sem regra fixa além da intenção"
+      },
+      "transferable_principle": "risco criativo consistente é mais convincente como portfólio do que execução perfeita de briefs seguros",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Referência de posicionamento e coragem criativa — mais do que técnica específica."
+    },
+    {
+      "reference_id": "ref-019",
+      "title": "Padrão Visual — Clínicas Premium",
+      "source": "internal",
+      "category": "motion_design_premium",
+      "url": "",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "gsap",
+        "lenis",
+        "css-animations"
+      ],
+      "stack_confidence": "inferred",
+      "visual_tags": [
+        "clean",
+        "warm",
+        "trustworthy",
+        "premium",
+        "human"
+      ],
+      "motion_tags": [
+        "gentle",
+        "slow",
+        "reveal",
+        "fade"
+      ],
+      "interaction_tags": [
+        "scroll",
+        "hover",
+        "passive"
+      ],
+      "industry": [
+        "healthcare",
+        "aesthetics",
+        "wellness",
+        "clinic"
+      ],
+      "best_for": [
+        "site",
+        "landing",
+        "post",
+        "carousel"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "cuidado que nunca pede atenção",
+          "autoridade silenciosa"
+        ],
+        "tempo": "lento",
+        "densidade": "baixa",
+        "movimento": "fluido",
+        "profundidade": "plana",
+        "emoção": [
+          "confiança",
+          "segurança",
+          "desejo"
+        ]
+      },
+      "tension": "autoridade clínica que parece acolhimento",
+      "why_it_matches": [
+        "paciente precisa confiar antes de desejar — a ordem importa",
+        "espaço em branco como higiene visual — sinaliza limpeza e precisão",
+        "fotografia de resultado como argumento — não promessa",
+        "tipografia que informa sem intimidar"
+      ],
+      "what_to_steal": [
+        "branco generoso como linguagem de precisão clínica",
+        "antes/depois como narrativa — não como prova",
+        "profissional como personagem de confiança — não como autoridade distante",
+        "depoimento visual — mostrar emoção do resultado, não especificação do procedimento"
+      ],
+      "what_not_to_copy": [
+        "stock photos genéricas de saúde",
+        "verde/azul médico estereotipado",
+        "linguagem técnica de procedimento como copy"
+      ],
+      "components": {
+        "motion": "revelar suave — movimentos abruptos quebram sensação de cuidado",
+        "3d": "none — fotografia real é mais convincente",
+        "scroll": "lenis smooth",
+        "interaction": "hover em resultados que ampliam para detalhe",
+        "typography": "serifa leve ou sans limpa — humanidade com precisão",
+        "color_behavior": "branco como base + acento único que transmite personalidade da clínica"
+      },
+      "transferable_principle": "no contexto de saúde, confiança precede desejo — design que transmite cuidado e precisão converte melhor do que design que vende resultado",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Referência específica para clientes do nicho de saúde e estética. Anti-padrão: verde médico, stock photo genérica, copy sobre procedimentos."
+    },
+    {
+      "reference_id": "ref-020",
+      "title": "Padrão Visual — Escritórios Jurídicos Premium",
+      "source": "internal",
+      "category": "motion_design_premium",
+      "url": "",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "gsap",
+        "lenis",
+        "css"
+      ],
+      "stack_confidence": "inferred",
+      "visual_tags": [
+        "dark",
+        "editorial",
+        "authoritative",
+        "minimal",
+        "luxury"
+      ],
+      "motion_tags": [
+        "slow",
+        "precise",
+        "reveal",
+        "dignified"
+      ],
+      "interaction_tags": [
+        "scroll",
+        "passive"
+      ],
+      "industry": [
+        "legal",
+        "law-firm",
+        "professional-services"
+      ],
+      "best_for": [
+        "site",
+        "landing",
+        "pitch"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "autoridade silenciosa",
+          "luxo sem ostentação"
+        ],
+        "tempo": "lento",
+        "densidade": "baixa",
+        "movimento": "mecânico",
+        "profundidade": "plana",
+        "emoção": [
+          "confiança",
+          "segurança",
+          "admiração"
+        ]
+      },
+      "tension": "poder que não precisa se provar",
+      "why_it_matches": [
+        "cliente jurídico compra segurança e discrição — nunca urgência",
+        "escuro como ambiente de seriedade — não como tendência visual",
+        "gold/cobre como acento de tradição e valor — não de ostentação",
+        "tipografia serifa como referência histórica de autoridade"
+      ],
+      "what_to_steal": [
+        "escuro + gold como linguagem de tradição e valor",
+        "copy que nomeia o medo do cliente antes de apresentar a solução",
+        "resultado como prova de credibilidade — não processo como argumento",
+        "discrição na quantidade de informação — o que não está dito também comunica"
+      ],
+      "what_not_to_copy": [
+        "clichê de balança da justiça",
+        "azul marinho + dourado estereotipado de advocacia",
+        "copy sobre expertise e anos de experiência"
+      ],
+      "components": {
+        "motion": "revelar lento com dignidade — nada rápido ou chamativo",
+        "3d": "none",
+        "scroll": "lenis smooth",
+        "interaction": "mínima — hover sutil apenas",
+        "typography": "serifa como autoridade histórica + sans para informação",
+        "color_behavior": "escuro como fundação + gold como sinal de valor — nunca acidente decorativo"
+      },
+      "transferable_principle": "no contexto jurídico, discrição é uma declaração de posicionamento — o que o site não mostra comunica tanto quanto o que mostra",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Referência específica para clientes jurídicos. Altamente aplicável ao padrão gold/preto do MarketingOS. Anti-padrão: clichês visuais de advocacia, copy sobre anos de experiência."
+    },
+    {
+      "reference_id": "ref-021",
+      "title": "Padrão Visual — Seguradoras e Brokers Premium",
+      "source": "internal",
+      "category": "motion_design_premium",
+      "url": "",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "gsap",
+        "lenis",
+        "css"
+      ],
+      "stack_confidence": "inferred",
+      "visual_tags": [
+        "trustworthy",
+        "clean",
+        "professional",
+        "warm",
+        "accessible"
+      ],
+      "motion_tags": [
+        "gentle",
+        "reveal",
+        "data-driven"
+      ],
+      "interaction_tags": [
+        "scroll",
+        "hover",
+        "calculator"
+      ],
+      "industry": [
+        "insurance",
+        "financial-services",
+        "broker"
+      ],
+      "best_for": [
+        "site",
+        "landing",
+        "pitch",
+        "carousel"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "clareza que impressiona",
+          "cuidado que nunca pede atenção"
+        ],
+        "tempo": "moderado",
+        "densidade": "média",
+        "movimento": "fluido",
+        "profundidade": "plana",
+        "emoção": [
+          "confiança",
+          "segurança",
+          "pertencimento"
+        ]
+      },
+      "tension": "proteção que parece proximidade",
+      "why_it_matches": [
+        "cliente de seguro compra tranquilidade — não produto",
+        "dados e números como argumento de clareza — não de complexidade",
+        "rosto humano como elemento de confiança antes do produto",
+        "simulador/calculadora como ferramenta de desejo — não de cotação"
+      ],
+      "what_to_steal": [
+        "simulador de ROI/economia como elemento de geração de desejo",
+        "copy que fala sobre o que o cliente perde sem proteção — não sobre o produto",
+        "rosto do consultor como elemento central de confiança",
+        "números e dados apresentados com clareza visual — não como tabela"
+      ],
+      "what_not_to_copy": [
+        "azul corporativo genérico de seguradora",
+        "stock photo de família feliz",
+        "copy sobre coberturas e franquias"
+      ],
+      "components": {
+        "motion": "gsap reveal moderado — acessível, não impressionante",
+        "3d": "none",
+        "scroll": "lenis smooth",
+        "interaction": "simulador interativo como elemento principal de conversão",
+        "typography": "sans legível — clareza acima de estética",
+        "color_behavior": "azul/verde como confiança + acento quente como humanidade"
+      },
+      "transferable_principle": "no contexto de proteção financeira, o melhor argumento de venda é mostrar o que o cliente perde sem agir — não o que ele ganha agindo",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Referência específica para clientes do nicho de seguros. Pontos Cardeais. Anti-padrão: azul corporativo genérico, stock photos de família, copy técnico de apólice."
+    },
+    {
+      "reference_id": "ref-022",
+      "title": "Padrão Visual — Pet Shops e Clínicas Veterinárias",
+      "source": "internal",
+      "category": "motion_design_premium",
+      "url": "",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "gsap",
+        "css-animations",
+        "lenis"
+      ],
+      "stack_confidence": "inferred",
+      "visual_tags": [
+        "warm",
+        "colorful",
+        "friendly",
+        "trustworthy",
+        "human"
+      ],
+      "motion_tags": [
+        "playful",
+        "gentle",
+        "expressive"
+      ],
+      "interaction_tags": [
+        "scroll",
+        "hover",
+        "booking"
+      ],
+      "industry": [
+        "pet",
+        "veterinary",
+        "pet-care"
+      ],
+      "best_for": [
+        "site",
+        "post",
+        "carousel",
+        "reel"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "cuidado que nunca pede atenção",
+          "energia controlada"
+        ],
+        "tempo": "moderado",
+        "densidade": "média",
+        "movimento": "orgânico",
+        "profundidade": "plana",
+        "emoção": [
+          "confiança",
+          "pertencimento",
+          "desejo"
+        ]
+      },
+      "tension": "amor que parece profissionalismo",
+      "why_it_matches": [
+        "tutor compra para o pet o que compraria para si mesmo se pudesse",
+        "fotografia do animal como protagonista absoluto — humano como coadjuvante",
+        "emoção do tutor ao ver o pet bem-cuidado como argumento de venda",
+        "agendamento fácil como declaração de respeito ao tempo do cliente"
+      ],
+      "what_to_steal": [
+        "fotos do animal em primeiro plano — tutor só aparece como reação",
+        "copy que fala para o amor do tutor — não para a racionalidade",
+        "antes/depois de animal com saúde como narrativa de cuidado",
+        "agendamento como CTA principal — reduz atrito antes da decisão"
+      ],
+      "what_not_to_copy": [
+        "patinhas e ossinhos como elementos decorativos",
+        "verde/amarelo pet shop genérico",
+        "copy sobre raças e serviços listados"
+      ],
+      "components": {
+        "motion": "movimento orgânico — nada mecânico ou corporativo",
+        "3d": "none",
+        "scroll": "smooth suave",
+        "interaction": "agendamento integrado como elemento principal",
+        "typography": "rounded sans — humanidade e acessibilidade",
+        "color_behavior": "paleta quente que transmite vida e cuidado — não frieza técnica"
+      },
+      "transferable_principle": "quando o protagonista visual é o objeto de amor do cliente — e não o serviço — a conexão emocional precede qualquer argumento racional",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Referência específica para nicho pet. Anti-padrão: ícones de patinha, cores pet shop genéricas, foco em serviços ao invés de emoção do tutor."
+    },
+    {
+      "reference_id": "ref-023",
+      "title": "Padrão Visual — MarketingOS Brand",
+      "source": "internal",
+      "category": "motion_design_premium",
+      "url": "",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "gsap",
+        "lenis",
+        "threejs",
+        "css-custom-properties"
+      ],
+      "stack_confidence": "inferred",
+      "visual_tags": [
+        "dark",
+        "gold",
+        "editorial",
+        "premium",
+        "technical"
+      ],
+      "motion_tags": [
+        "precise",
+        "slow",
+        "dramatic",
+        "controlled"
+      ],
+      "interaction_tags": [
+        "scroll",
+        "cursor",
+        "hover"
+      ],
+      "industry": [
+        "martech",
+        "ai",
+        "saas",
+        "agency"
+      ],
+      "best_for": [
+        "site",
+        "pitch",
+        "reel",
+        "post",
+        "carousel"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "tecnologia invisível",
+          "autoridade silenciosa",
+          "precisão que parece espontânea"
+        ],
+        "tempo": "lento",
+        "densidade": "baixa",
+        "movimento": "cinematográfico",
+        "profundidade": "média",
+        "emoção": [
+          "desejo",
+          "admiração",
+          "confiança"
+        ]
+      },
+      "tension": "sistema técnico complexo que parece simples de querer",
+      "why_it_matches": [
+        "preto como fundação que dá peso e seriedade ao produto",
+        "gold como sinal de valor e diferenciação — nunca decorativo",
+        "demonstração do sistema funcionando como argumento mais forte",
+        "linguagem de operação — não de agência"
+      ],
+      "what_to_steal": [
+        "mostrar o sistema funcionando como primeiro argumento — copy depois",
+        "gold usado com contenção — apenas onde há valor real a destacar",
+        "ritmo lento que faz o sistema parecer premium e cuidadoso",
+        "interface do sistema como elemento visual central — não ilustração"
+      ],
+      "what_not_to_copy": [],
+      "components": {
+        "motion": "gsap preciso — cada movimento tem razão de ser",
+        "3d": "threejs para elementos de destaque — não decorativos",
+        "scroll": "lenis + scrolltrigger",
+        "interaction": "cursor customizado com cor gold",
+        "typography": "sans geométrica — precisão técnica com personalidade",
+        "color_behavior": "preto como base absoluta + gold como pontuação de valor"
+      },
+      "transferable_principle": "um sistema que demonstra sua própria operação é mais convincente do que qualquer promessa sobre o que ele entrega",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "marketingos",
+      "used_in": [],
+      "performance_notes": "Referência da própria marca. Padrão que define o que todas as outras entregas devem parecer quando o cliente é o próprio MarketingOS."
+    },
+    {
+      "reference_id": "ref-024",
+      "title": "Three.js Examples — Laboratório Oficial",
+      "source": "threejs-resources",
+      "category": "3d_product_experience",
+      "url": "https://threejs.org/examples",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "threejs",
+        "glsl",
+        "webgl"
+      ],
+      "stack_confidence": "detected",
+      "visual_tags": [
+        "technical",
+        "varied",
+        "3d",
+        "experimental"
+      ],
+      "motion_tags": [
+        "varied",
+        "generative",
+        "physics",
+        "shader"
+      ],
+      "interaction_tags": [
+        "varied",
+        "cursor",
+        "keyboard"
+      ],
+      "industry": [
+        "education",
+        "inspiration",
+        "technical-reference"
+      ],
+      "best_for": [
+        "site",
+        "reel",
+        "pitch"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "precisão que parece espontânea"
+        ],
+        "tempo": "variável",
+        "densidade": "variável",
+        "movimento": "variável",
+        "profundidade": "imersiva",
+        "emoção": [
+          "curiosidade",
+          "admiração"
+        ]
+      },
+      "tension": "possibilidade técnica que parece impossível",
+      "why_it_matches": [
+        "cada exemplo demonstra o limite do que é possível no browser",
+        "fonte primária de referência técnica — onde os princípios são visíveis",
+        "laboratório que antecede todos os sites de nível Awwwards"
+      ],
+      "what_to_steal": [
+        "estudar o código fonte de cada exemplo — não apenas o visual",
+        "identificar o princípio por trás de cada efeito antes de implementar",
+        "combinar dois exemplos simples para criar resultado complexo"
+      ],
+      "what_not_to_copy": [
+        "exemplos sem adaptação criativa",
+        "código sem compreensão do princípio"
+      ],
+      "components": {
+        "motion": "threejs nativo",
+        "3d": "threejs — todos os recursos disponíveis",
+        "scroll": "variado",
+        "interaction": "variado",
+        "typography": "mínima — foco no exemplo técnico",
+        "color_behavior": "variado por exemplo"
+      },
+      "transferable_principle": "antes de implementar qualquer efeito 3D, encontre o exemplo mais simples que demonstra o princípio — a complexidade vem depois",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Referência técnica fundamental. Visitar antes de qualquer implementação Three.js."
+    },
+    {
+      "reference_id": "ref-025",
+      "title": "ShaderToy — Laboratório de Shaders",
+      "source": "internal",
+      "category": "generative_art",
+      "url": "https://shadertoy.com",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "glsl",
+        "webgl"
+      ],
+      "stack_confidence": "detected",
+      "visual_tags": [
+        "abstract",
+        "generative",
+        "mathematical",
+        "organic",
+        "fluid"
+      ],
+      "motion_tags": [
+        "generative",
+        "looping",
+        "fluid",
+        "organic"
+      ],
+      "interaction_tags": [
+        "passive",
+        "mouse"
+      ],
+      "industry": [
+        "art",
+        "technical-reference",
+        "inspiration"
+      ],
+      "best_for": [
+        "site",
+        "reel",
+        "post"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "caos que obedece",
+          "tecnologia invisível"
+        ],
+        "tempo": "variável",
+        "densidade": "variável",
+        "movimento": "orgânico",
+        "profundidade": "imersiva",
+        "emoção": [
+          "curiosidade",
+          "admiração"
+        ]
+      },
+      "tension": "matemática que parece natureza",
+      "why_it_matches": [
+        "shaders que simulam fenômenos físicos — fogo, água, névoa, luz",
+        "loops matemáticos que nunca repetem exatamente o mesmo estado",
+        "beleza emergente de equações — arte procedural pura",
+        "laboratório mais avançado de GLSL disponível publicamente"
+      ],
+      "what_to_steal": [
+        "usar noise functions para criar movimento orgânico em backgrounds",
+        "simular luz volumétrica com ray marching para fundos premium",
+        "usar shaders como textura de fundo — substitui imagens estáticas",
+        "loop infinito como elemento de fundo que nunca distrai — apenas ambienta"
+      ],
+      "what_not_to_copy": [
+        "shaders específicos sem adaptação",
+        "efeitos que chamam mais atenção do que o conteúdo"
+      ],
+      "components": {
+        "motion": "glsl puro — vertex e fragment shaders",
+        "3d": "ray marching para 3D sem threejs",
+        "scroll": "none — shaders são autônomos",
+        "interaction": "mouse como parâmetro do shader quando relevante",
+        "typography": "none — shaders são o conteúdo",
+        "color_behavior": "cor emergente da matemática — não aplicada"
+      },
+      "transferable_principle": "noise functions em GLSL podem transformar qualquer background estático em ambiente vivo que respira sem distrair",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Referência técnica avançada. O princípio de noise function é o mais transferível — background que respira sem gerar ansiedade visual."
+    },
+    {
+      "reference_id": "ref-026",
+      "title": "Awwwards — Three.js Collection",
+      "source": "awwwards",
+      "category": "cinematic_webgl",
+      "url": "https://awwwards.com/websites/three-js/",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "threejs",
+        "glsl",
+        "gsap",
+        "webgl"
+      ],
+      "stack_confidence": "inferred",
+      "visual_tags": [
+        "varied",
+        "premium",
+        "awarded",
+        "creative"
+      ],
+      "motion_tags": [
+        "varied",
+        "cinematic",
+        "immersive"
+      ],
+      "interaction_tags": [
+        "varied"
+      ],
+      "industry": [
+        "inspiration",
+        "awards"
+      ],
+      "best_for": [
+        "site",
+        "reel",
+        "pitch"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "precisão que parece espontânea"
+        ],
+        "tempo": "variável",
+        "densidade": "variável",
+        "movimento": "variável",
+        "profundidade": "imersiva",
+        "emoção": [
+          "admiração",
+          "curiosidade",
+          "desejo"
+        ]
+      },
+      "tension": "técnica que serve à narrativa",
+      "why_it_matches": [
+        "curadoria do que há de melhor em Three.js aplicado a sites reais",
+        "obras premiadas que equilibram técnica e propósito",
+        "fonte primária de referências de patamar máximo"
+      ],
+      "what_to_steal": [
+        "estudar como cada obra usa Three.js a serviço da narrativa — não como demonstração",
+        "identificar qual problema criativo a tecnologia resolve em cada site",
+        "mapear tendências emergentes antes de se tornarem clichês"
+      ],
+      "what_not_to_copy": [
+        "obras específicas sem adaptação",
+        "Three.js como fim em si mesmo"
+      ],
+      "components": {
+        "motion": "threejs + glsl como padrão",
+        "3d": "threejs — nível máximo",
+        "scroll": "variado",
+        "interaction": "variado",
+        "typography": "variado",
+        "color_behavior": "variado"
+      },
+      "transferable_principle": "Three.js premiado serve sempre a uma narrativa — quando a tecnologia é a narrativa, não há prêmio",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Fonte de curadoria contínua. Visitar mensalmente e alimentar o banco com as obras mais relevantes."
+    },
+    {
+      "reference_id": "ref-027",
+      "title": "SiteInspire — Design Minimalista e Editorial",
+      "source": "internal",
+      "category": "motion_design_premium",
+      "url": "https://siteinspire.com",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "varied"
+      ],
+      "stack_confidence": "inferred",
+      "visual_tags": [
+        "minimal",
+        "editorial",
+        "typography-driven",
+        "clean",
+        "varied"
+      ],
+      "motion_tags": [
+        "subtle",
+        "reveal",
+        "fade"
+      ],
+      "interaction_tags": [
+        "scroll",
+        "hover"
+      ],
+      "industry": [
+        "inspiration",
+        "design"
+      ],
+      "best_for": [
+        "site",
+        "landing"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "clareza que impressiona",
+          "autoridade silenciosa"
+        ],
+        "tempo": "moderado",
+        "densidade": "baixa",
+        "movimento": "fluido",
+        "profundidade": "plana",
+        "emoção": [
+          "admiração",
+          "confiança"
+        ]
+      },
+      "tension": "simplicidade que exige muito para ser feita",
+      "why_it_matches": [
+        "curadoria de sites que provam que menos é mais quando executado com precisão",
+        "tipografia como elemento central — não suporte",
+        "espaçamento como decisão de design — não consequência"
+      ],
+      "what_to_steal": [
+        "estudar a proporção entre texto e espaço branco nas obras curadas",
+        "mapear como sites minimalistas criam hierarquia sem grid visível",
+        "entender como a escolha tipográfica carrega toda a identidade"
+      ],
+      "what_not_to_copy": [
+        "minimalismo como falta de ideia — vazio sem tensão não é minimalismo"
+      ],
+      "components": {
+        "motion": "variado — geralmente sutil",
+        "3d": "raramente",
+        "scroll": "variado",
+        "interaction": "hover sutil",
+        "typography": "tipografia sempre como protagonista",
+        "color_behavior": "paleta restrita — máximo 2 cores mais neutro"
+      },
+      "transferable_principle": "minimalismo real não é ausência de elementos — é presença de intenção em cada elemento que ficou",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Fonte de curadoria contínua para direção editorial. Visitar para calibrar o senso do que é espaço bem usado."
+    },
+    {
+      "reference_id": "ref-028",
+      "title": "Lapa Ninja — 3D Websites",
+      "source": "lapa-ninja",
+      "category": "3d_product_experience",
+      "url": "https://lapa.ninja/category/3d-websites/",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "threejs",
+        "react-three-fiber",
+        "gsap"
+      ],
+      "stack_confidence": "inferred",
+      "visual_tags": [
+        "3d",
+        "varied",
+        "product",
+        "creative"
+      ],
+      "motion_tags": [
+        "3d-rotation",
+        "parallax",
+        "scroll-driven"
+      ],
+      "interaction_tags": [
+        "scroll",
+        "hover",
+        "cursor"
+      ],
+      "industry": [
+        "inspiration",
+        "product",
+        "brand"
+      ],
+      "best_for": [
+        "site",
+        "landing",
+        "pitch"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "profundidade que parece leveza"
+        ],
+        "tempo": "variável",
+        "densidade": "variável",
+        "movimento": "fluido",
+        "profundidade": "imersiva",
+        "emoção": [
+          "curiosidade",
+          "desejo",
+          "admiração"
+        ]
+      },
+      "tension": "profundidade 3D que não pesa",
+      "why_it_matches": [
+        "curadoria específica de sites que usam 3D com propósito",
+        "exemplos reais de produto sendo apresentado em 3D para conversão",
+        "variedade de abordagens para o mesmo desafio — produto em espaço digital"
+      ],
+      "what_to_steal": [
+        "estudar como cada site usa 3D para adicionar tangibilidade ao produto",
+        "mapear a relação entre complexidade técnica e clareza comunicacional",
+        "identificar quando o 3D ajuda e quando distrai"
+      ],
+      "what_not_to_copy": [
+        "3D pelo 3D — sem contribuição para a narrativa"
+      ],
+      "components": {
+        "motion": "variado — threejs como padrão",
+        "3d": "threejs ou react-three-fiber",
+        "scroll": "variado",
+        "interaction": "variado",
+        "typography": "variado",
+        "color_behavior": "variado"
+      },
+      "transferable_principle": "3D serve quando adiciona tangibilidade a um produto intangível — quando o produto já tem presença física, fotografia real supera renderização",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Fonte de referência para implementações de 3D em contexto de produto real."
+    },
+    {
+      "reference_id": "ref-029",
+      "title": "Vimeo Staff Picks — Referências Audiovisuais",
+      "source": "internal",
+      "category": "interactive_video",
+      "url": "https://vimeo.com/channels/staffpicks",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "video",
+        "motion-graphics",
+        "after-effects",
+        "cinema-4d"
+      ],
+      "stack_confidence": "inferred",
+      "visual_tags": [
+        "cinematic",
+        "storytelling",
+        "varied",
+        "premium",
+        "editorial"
+      ],
+      "motion_tags": [
+        "cinematic",
+        "narrative",
+        "editing",
+        "pacing"
+      ],
+      "interaction_tags": [
+        "passive",
+        "video"
+      ],
+      "industry": [
+        "film",
+        "brand",
+        "commercial",
+        "documentary"
+      ],
+      "best_for": [
+        "reel",
+        "pitch"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "energia controlada",
+          "autoridade silenciosa"
+        ],
+        "tempo": "variável",
+        "densidade": "variável",
+        "movimento": "cinematográfico",
+        "profundidade": "variável",
+        "emoção": [
+          "admiração",
+          "curiosidade",
+          "desejo"
+        ]
+      },
+      "tension": "narrativa que parece inevitável",
+      "why_it_matches": [
+        "curadoria do melhor em narrativa audiovisual aplicada a marcas",
+        "ritmo de edição como linguagem — não apenas corte e montagem",
+        "como grandes marcas usam vídeo para criar emoção antes de argumento"
+      ],
+      "what_to_steal": [
+        "estudar o timing de corte — quando o corte acontece define a emoção",
+        "trilha sonora como arquitetura emocional — não como fundo",
+        "primeiro frame como promessa do que vem — não como crédito",
+        "ausência de narração quando a imagem é suficiente"
+      ],
+      "what_not_to_copy": [
+        "peças específicas sem adaptação",
+        "linguagem audiovisual fora do contexto do cliente"
+      ],
+      "components": {
+        "motion": "motion graphics + edição de vídeo",
+        "3d": "cinema 4d quando relevante",
+        "scroll": "none — vídeo linear",
+        "interaction": "passiva",
+        "typography": "lower thirds e títulos como elemento de identidade",
+        "color_behavior": "grade de cor como assinatura visual do diretor"
+      },
+      "transferable_principle": "o timing do corte carrega mais emoção do que o conteúdo de cada cena — o ritmo é a mensagem",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Referência para produção de Reels e conteúdo audiovisual. Estudar ritmo e pacing antes de qualquer roteiro."
+    },
+    {
+      "reference_id": "ref-030",
+      "title": "Basic Agency — Portfolio",
+      "source": "awwwards",
+      "category": "motion_design_premium",
+      "url": "https://basicagency.com",
+      "screenshot": "",
+      "video_capture": "",
+      "stack": [
+        "gsap",
+        "lenis",
+        "barba.js",
+        "css"
+      ],
+      "stack_confidence": "inferred",
+      "visual_tags": [
+        "minimal",
+        "editorial",
+        "bold",
+        "typographic",
+        "premium"
+      ],
+      "motion_tags": [
+        "scroll-driven",
+        "kinetic-type",
+        "reveal",
+        "smooth"
+      ],
+      "interaction_tags": [
+        "scroll",
+        "cursor",
+        "page-transitions"
+      ],
+      "industry": [
+        "creative-agency",
+        "brand",
+        "portfolio"
+      ],
+      "best_for": [
+        "site",
+        "pitch"
+      ],
+      "taxonomy": {
+        "tension_tags": [
+          "autoridade silenciosa",
+          "clareza que impressiona"
+        ],
+        "tempo": "moderado",
+        "densidade": "baixa",
+        "movimento": "mecânico",
+        "profundidade": "plana",
+        "emoção": [
+          "admiração",
+          "confiança",
+          "desejo"
+        ]
+      },
+      "tension": "clareza radical que comunica mais do que elaboração",
+      "why_it_matches": [
+        "portfólio que não compete com o trabalho — apresenta",
+        "tipografia bold como declaração de ponto de vista",
+        "cada caso tratado com o mesmo nível de atenção que o trabalho em si",
+        "branco generoso que faz o trabalho respirar"
+      ],
+      "what_to_steal": [
+        "deixar o trabalho falar — design do portfólio como moldura, não quadro",
+        "tipografia bold em escala extrema como hierarquia sem artifício",
+        "transições de página como continuidade de experiência",
+        "curadoria como argumento de qualidade — menos casos, mais impacto"
+      ],
+      "what_not_to_copy": [
+        "identidade visual específica da agência",
+        "seleção de cases",
+        "tom de copy",
+        "estrutura de navegação"
+      ],
+      "components": {
+        "motion": "gsap com split-text para tipografia cinética",
+        "3d": "none",
+        "scroll": "lenis + scrolltrigger",
+        "interaction": "cursor customizado por contexto",
+        "typography": "bold em escala extrema como assinatura",
+        "color_behavior": "preto e branco como padrão + cor restrita a elementos de acento"
+      },
+      "transferable_principle": "curadoria rigorosa é mais convincente do que volume — mostrar menos com mais intenção comunica mais confiança",
+      "capture_status": "manual",
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Referência para posicionamento de portfólio e apresentação de cases. Princípio de curadoria rigorosa é altamente aplicável ao MarketingOS."
+    }
+  ],
+  "_feeding_protocol": {
+    "rule": "Referência não entra crua. Entra interpretada.",
+    "steps": [
+      "1. Coletar URL, screenshot e video_capture",
+      "2. Identificar category e stack",
+      "3. Preencher tension — obrigatório. Sem tensão, não entra.",
+      "4. Preencher transferable_principle — o mais importante. É o que pode ser reutilizado.",
+      "5. Preencher what_not_to_copy — paleta, layout, copy e composição nunca são transferíveis.",
+      "6. Classificar best_for — para qual tipo de entrega essa referência serve.",
+      "7. Registrar added_by e added_at."
+    ],
+    "priority_sources": [
+      "internal — memória estética proprietária (peso máximo)",
+      "client — contexto real do mercado do cliente",
+      "awwwards — obras reais reconhecidas",
+      "codrops — laboratório criativo com demos detalhados",
+      "gsap.com/showcase — animação com intenção",
+      "codepen — experimentos técnicos e possibilidades"
+    ],
+    "anti_pattern": "Nunca alimentar o banco com obras apenas visualmente bonitas. A beleza sem tension identificada não serve ao sistema."
+  }
+}

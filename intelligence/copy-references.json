@@ -1,0 +1,1472 @@
+{
+  "_meta": {
+    "name": "MarketingOS Copy References Bank",
+    "version": "1.0",
+    "description": "Banco de referências de linguagem interpretadas. Copy não entra crua — entra destrinchada. O que importa não é o que foi dito, mas como foi dito, em qual ritmo, com qual estrutura, provocando qual emoção.",
+    "rule": "Sem tension e transferable_principle preenchidos, a referência não entra. Sem first_line_principle identificado, a referência não serve.",
+    "competitive_advantage": "Quando o banco de referências internas supera as externas, o sistema para de imitar linguagem e começa a desenvolver voz própria.",
+    "anti_pattern": "Nunca salvar copy apenas porque é bonita. Salvar quando o mecanismo de funcionamento está claro."
+  },
+  "_categories": {
+    "copy_de_desejo": {
+      "description": "Copy que ativa o querer antes do precisar. O leitor sente falta de algo que não sabia que existia.",
+      "trigger": "desejo",
+      "examples": [
+        "Apple",
+        "Porsche",
+        "Bang & Olufsen",
+        "Tesla"
+      ]
+    },
+    "copy_de_rebeldia": {
+      "description": "Copy que se posiciona contra o status quo. Marca como alternativa ao que todos fazem.",
+      "trigger": "identidade",
+      "examples": [
+        "Nubank",
+        "Monzo",
+        "BrewDog",
+        "Oatly"
+      ]
+    },
+    "copy_de_precisao": {
+      "description": "Copy técnica que transmite confiança através da exatidão. Cada palavra justifica sua presença.",
+      "trigger": "confiança",
+      "examples": [
+        "Linear",
+        "Vercel",
+        "Stripe",
+        "Figma"
+      ]
+    },
+    "copy_de_pertencimento": {
+      "description": "Copy que cria grupo. O leitor sente que a marca foi feita para quem é como ele.",
+      "trigger": "identidade",
+      "examples": [
+        "Notion",
+        "Figma",
+        "Duolingo",
+        "Patagonia"
+      ]
+    },
+    "copy_consultiva": {
+      "description": "Copy B2B que vende sistema, não serviço. Diagnóstico antes de proposta.",
+      "trigger": "medo + desejo",
+      "examples": [
+        "HubSpot",
+        "Salesforce",
+        "RD Station",
+        "MarketingOS"
+      ]
+    },
+    "copy_de_urgencia_sem_pressao": {
+      "description": "Copy que cria movimento sem manipulação. A urgência vem da oportunidade, não da ameaça.",
+      "trigger": "curiosidade + desejo",
+      "examples": [
+        "Airbnb",
+        "Notion",
+        "Stripe"
+      ]
+    },
+    "copy_de_nicho": {
+      "description": "Copy específica por setor. A voz que cada nicho precisa para gerar confiança antes de desejo.",
+      "trigger": "variado por nicho",
+      "examples": [
+        "clínicas",
+        "jurídico",
+        "pet",
+        "seguros"
+      ]
+    },
+    "copy_de_demonstracao": {
+      "description": "Copy que mostra em vez de prometer. O argumento é o próprio funcionamento.",
+      "trigger": "confiança + desejo",
+      "examples": [
+        "Apple demo",
+        "Linear changelog",
+        "Stripe docs"
+      ]
+    }
+  },
+  "_reference_schema": {
+    "_comment": "Schema obrigatório para cada referência de copy.",
+    "reference_id": "",
+    "brand": "",
+    "category": "",
+    "source": "brand-website | ad | social | email | landing | internal | competitor",
+    "url": "",
+    "headline": "a linha mais importante da peça",
+    "body_sample": "trecho representativo — máx 3 linhas",
+    "voice": "como a marca soa em uma frase",
+    "rhythm": "curto-e-cortante | longo-e-denso | alternado | fragmentado | fluido",
+    "sentence_avg_words": 0,
+    "first_line_principle": "como o gancho é construído — o mecanismo",
+    "what_triggers_action": "medo | desejo | identidade | curiosidade | urgência | pertencimento",
+    "sentence_structure": "fragmentos | períodos-longos | perguntas | declarações | listas | mix",
+    "punctuation_style": "pontos-finais | reticências | travessões | parênteses | ausente",
+    "tension": "a contradição interna que torna essa voz inconfundível",
+    "why_it_works": [],
+    "what_to_steal": [],
+    "what_not_to_copy": [],
+    "what_is_never_said": "o anti-copy — o que essa voz jamais diria",
+    "transferable_principle": "",
+    "best_for": [],
+    "industry": [],
+    "added_by": "operator | system",
+    "added_at": "",
+    "client": "",
+    "used_in": [],
+    "performance_notes": ""
+  },
+  "_taxonomy": {
+    "trigger": [
+      "medo",
+      "desejo",
+      "identidade",
+      "curiosidade",
+      "urgência",
+      "pertencimento",
+      "autoridade",
+      "admiração"
+    ],
+    "rhythm": [
+      "curto-e-cortante",
+      "longo-e-denso",
+      "alternado",
+      "fragmentado",
+      "fluido"
+    ],
+    "voice_tags": [
+      "rebelde",
+      "preciso",
+      "acolhedor",
+      "autoritário",
+      "consultivo",
+      "provocador",
+      "íntimo",
+      "aspiracional",
+      "direto",
+      "poético",
+      "técnico-acessível",
+      "humano-sofisticado"
+    ],
+    "tension_tags": [
+      "simplicidade que esconde profundidade",
+      "autoridade que não precisa gritar",
+      "intimidade que mantém distância",
+      "rebeldia que é sofisticada",
+      "técnico que parece humano",
+      "urgência que parece calma",
+      "desejo que parece necessidade",
+      "pertencimento que parece exclusividade",
+      "clareza que impressiona",
+      "provocação que convida"
+    ]
+  },
+  "_feeding_protocol": {
+    "rule": "Copy não entra crua. Entra destrinchada.",
+    "steps": [
+      "1. Identificar a linha mais importante — o headline ou first line",
+      "2. Contar as palavras médias por frase — o ritmo é matemático",
+      "3. Identificar o trigger — o que ativa a ação no leitor",
+      "4. Preencher tension — obrigatório. Sem tensão, não entra.",
+      "5. Preencher first_line_principle — o mecanismo do gancho",
+      "6. Preencher transferable_principle — o padrão abstrato reutilizável",
+      "7. Preencher what_is_never_said — o anti-copy é tão importante quanto o copy"
+    ],
+    "anti_pattern": "Nunca alimentar o banco com copy apenas esteticamente agradável. A beleza sem mecanismo identificado não serve ao sistema."
+  },
+  "references": [
+    {
+      "reference_id": "copy-001",
+      "brand": "Apple",
+      "category": "copy_de_desejo",
+      "source": "brand-website",
+      "url": "https://apple.com",
+      "headline": "Think Different.",
+      "body_sample": "Here's to the crazy ones. The misfits. The rebels. The troublemakers. The round pegs in the square holes.",
+      "voice": "voz de quem reconhece o excepcional antes de todos",
+      "rhythm": "fragmentado",
+      "sentence_avg_words": 3,
+      "first_line_principle": "imperativo que é convite — não ordem. Dois palavras que definem uma postura de vida.",
+      "what_triggers_action": "identidade",
+      "sentence_structure": "fragmentos",
+      "punctuation_style": "pontos-finais",
+      "tension": "humildade que declara superioridade",
+      "why_it_works": [
+        "fala com quem o leitor quer ser — não com quem ele é",
+        "o produto nem é mencionado — a identidade é o produto",
+        "fragmentos curtos criam ritmo de manifesto — não de anúncio",
+        "cada frase é uma medalha que o leitor sente que merece"
+      ],
+      "what_to_steal": [
+        "começar pela identidade aspiracional — não pelo produto",
+        "fragmentos de 2-4 palavras para criar ritmo de convicção",
+        "não mencionar o produto até o leitor já estar dentro da visão",
+        "usar 'os que' para criar categoria de pessoas especiais"
+      ],
+      "what_not_to_copy": [
+        "tom messiânico específico da Apple",
+        "referências históricas de gênios",
+        "a frase em si"
+      ],
+      "what_is_never_said": "especificações técnicas, comparações com concorrentes, preço, benefícios funcionais",
+      "transferable_principle": "copy que fala com quem o leitor quer ser converte mais do que copy que fala com quem ele é",
+      "best_for": [
+        "post",
+        "reel",
+        "pitch",
+        "landing"
+      ],
+      "industry": [
+        "technology",
+        "luxury",
+        "premium",
+        "creative"
+      ],
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Referência máxima de copy de identidade. Risco: pode soar pretensioso sem a confiança de marca que a Apple construiu décadas."
+    },
+    {
+      "reference_id": "copy-002",
+      "brand": "Porsche",
+      "category": "copy_de_desejo",
+      "source": "brand-website",
+      "url": "https://porsche.com",
+      "headline": "There is no substitute.",
+      "body_sample": "Ideally, every drive should feel like the first.",
+      "voice": "voz de quem sabe o valor do que tem e não precisa convencer",
+      "rhythm": "curto-e-cortante",
+      "sentence_avg_words": 5,
+      "first_line_principle": "declaração absoluta que fecha a conversa antes de abrir. Sem argumento — apenas verdade.",
+      "what_triggers_action": "desejo",
+      "sentence_structure": "declarações",
+      "punctuation_style": "pontos-finais",
+      "tension": "exclusividade que parece simples",
+      "why_it_works": [
+        "não precisa convencer — declara. A confiança é o argumento.",
+        "cada linha é uma verdade que o leitor sente antes de entender",
+        "ausência de adjetivos superlativo — o produto fala por si",
+        "ritmo de conversa entre iguais — não pitch de vendas"
+      ],
+      "what_to_steal": [
+        "declarações absolutas sem qualificação — sem 'talvez', 'pode', 'tende a'",
+        "frases curtas que fecham — não abrem argumentos",
+        "ausência de superlativo — o absoluto é mais forte",
+        "confiança como postura — não como argumento"
+      ],
+      "what_not_to_copy": [
+        "tom de legado histórico específico",
+        "referências a corrida e engenharia",
+        "a frase em si"
+      ],
+      "what_is_never_said": "comparações, preço, especificação técnica como argumento de venda, urgência",
+      "transferable_principle": "declaração absoluta sem qualificação comunica mais confiança do que qualquer argumento elaborado",
+      "best_for": [
+        "post",
+        "pitch",
+        "landing",
+        "reel"
+      ],
+      "industry": [
+        "luxury",
+        "automotive",
+        "premium",
+        "produto-de-desejo"
+      ],
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Referência para marcas com posicionamento premium consolidado. O tom funciona quando há entrega real por trás."
+    },
+    {
+      "reference_id": "copy-003",
+      "brand": "Tesla",
+      "category": "copy_de_desejo",
+      "source": "brand-website",
+      "url": "https://tesla.com",
+      "headline": "Accelerating the world's transition to sustainable energy.",
+      "body_sample": "Not just an electric car. The best car.",
+      "voice": "voz de quem está construindo o futuro e te convida a participar",
+      "rhythm": "curto-e-cortante",
+      "sentence_avg_words": 6,
+      "first_line_principle": "missão como gancho — não produto. O leitor compra o significado antes do objeto.",
+      "what_triggers_action": "identidade + desejo",
+      "sentence_structure": "declarações",
+      "punctuation_style": "pontos-finais",
+      "tension": "futuro que parece presente",
+      "why_it_works": [
+        "missão como posicionamento — o produto é consequência, não argumento",
+        "rejeição da categoria antes de apresentar a superioridade",
+        "confiança técnica sem jargão técnico",
+        "o leitor se sente parte de algo maior do que uma compra"
+      ],
+      "what_to_steal": [
+        "rejeitar a categoria antes de se posicionar: 'não é X, é Y'",
+        "missão como primeiro argumento — produto como segundo",
+        "superlativo simples sem qualificação: 'o melhor'",
+        "fazer o leitor sentir que a compra é um ato de posicionamento no mundo"
+      ],
+      "what_not_to_copy": [
+        "tom missionário específico",
+        "referências a energia e sustentabilidade",
+        "a estrutura 'não apenas X, o melhor Y'"
+      ],
+      "what_is_never_said": "limitações, comparações com gasolina, custo de propriedade como argumento principal",
+      "transferable_principle": "quando a compra é apresentada como ato de posicionamento no mundo — não como decisão de consumo — o preço deixa de ser objeção",
+      "best_for": [
+        "landing",
+        "pitch",
+        "post"
+      ],
+      "industry": [
+        "technology",
+        "sustainability",
+        "premium",
+        "innovation"
+      ],
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Referência para marcas com missão clara além do produto. Funciona para MarketingOS: não é agência, é sistema."
+    },
+    {
+      "reference_id": "copy-004",
+      "brand": "Nubank",
+      "category": "copy_de_rebeldia",
+      "source": "brand-website",
+      "url": "https://nubank.com.br",
+      "headline": "Nós somos o Nu. Nós lutamos pelo seu poder.",
+      "body_sample": "Chega de banco te fazendo de otário. Chega de tarifa escondida. Chega de fila. Chega.",
+      "voice": "voz de aliado — está do lado do cliente contra o sistema",
+      "rhythm": "fragmentado",
+      "sentence_avg_words": 5,
+      "first_line_principle": "nomear o inimigo antes de apresentar a solução. O leitor concorda com o problema antes de considerar a marca.",
+      "what_triggers_action": "identidade + medo",
+      "sentence_structure": "fragmentos",
+      "punctuation_style": "pontos-finais",
+      "tension": "rebeldia que é sofisticada",
+      "why_it_works": [
+        "inimigo explícito cria aliança emocional imediata",
+        "repetição de 'chega' cria ritmo de cansaço — o leitor sente o que a copy descreve",
+        "linguagem coloquial que não perde inteligência",
+        "a marca como solução chega depois — não primeiro"
+      ],
+      "what_to_steal": [
+        "nomear o problema com a linguagem que o cliente usa internamente",
+        "repetição anafórica para criar ritmo de acúmulo emocional",
+        "posicionar a marca como aliada — não como fornecedora",
+        "inimigo claro cria identidade de grupo: 'nós vs eles'"
+      ],
+      "what_not_to_copy": [
+        "tom específico anti-banco",
+        "referências ao sistema financeiro tradicional",
+        "coloquialismo excessivo fora de contexto"
+      ],
+      "what_is_never_said": "taxas, juros, produtos financeiros no início da conversa, linguagem corporativa",
+      "transferable_principle": "nomear o inimigo do cliente antes de apresentar a solução cria aliança emocional que nenhum argumento de produto consegue",
+      "best_for": [
+        "post",
+        "reel",
+        "landing",
+        "pitch"
+      ],
+      "industry": [
+        "fintech",
+        "saas",
+        "qualquer-mercado-com-player-estabelecido-ruim"
+      ],
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Extremamente aplicável ao MarketingOS: 'chega de agência que promete e não entrega'. Adaptar o inimigo por nicho."
+    },
+    {
+      "reference_id": "copy-005",
+      "brand": "Oatly",
+      "category": "copy_de_rebeldia",
+      "source": "brand-website",
+      "url": "https://oatly.com",
+      "headline": "It's like milk, but made for humans.",
+      "body_sample": "We exist to make it easy for people to turn what they eat and drink into personal moments of healthy joy without recklessly taxing the planet's resources.",
+      "voice": "voz de quem não se leva a sério mas leva o produto muito a sério",
+      "rhythm": "alternado",
+      "sentence_avg_words": 8,
+      "first_line_principle": "comparação que posiciona e provoca ao mesmo tempo. 'Como X mas para Y' — onde Y implica que X não serve.",
+      "what_triggers_action": "identidade + curiosidade",
+      "sentence_structure": "mix",
+      "punctuation_style": "pontos-finais",
+      "tension": "irreverência que é completamente séria",
+      "why_it_works": [
+        "humor como trojan horse — a mensagem séria entra sem resistência",
+        "admissão de fraqueza que vira argumento de honestidade",
+        "linguagem de embalagem que parece escrita à mão — artesanal no texto",
+        "o leitor sente que está falando com um humano, não com uma corporação"
+      ],
+      "what_to_steal": [
+        "admitir o óbvio antes que o leitor pense — desativa objeção",
+        "humor que não diminui o produto — eleva a marca",
+        "copy de embalagem/produto como experiência — não como informação",
+        "missão longa que funciona porque cada palavra merece estar lá"
+      ],
+      "what_not_to_copy": [
+        "humor específico da marca sueca",
+        "referências a sustentabilidade e planeta",
+        "o tom de startup-que-virou-global"
+      ],
+      "what_is_never_said": "comparações sérias com leite, jargão de nutrição, urgência de compra",
+      "transferable_principle": "admitir o óbvio antes que o leitor pense desativa a objeção e cria confiança que nenhum argumento de marketing consegue",
+      "best_for": [
+        "post",
+        "embalagem",
+        "landing",
+        "social"
+      ],
+      "industry": [
+        "consumer-goods",
+        "food",
+        "sustainability",
+        "qualquer-categoria-com-alternativa-nova"
+      ],
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Referência para marcas que podem se dar ao luxo do humor. Aplicar o princípio de admissão de óbvio — não o humor em si."
+    },
+    {
+      "reference_id": "copy-006",
+      "brand": "Linear",
+      "category": "copy_de_precisao",
+      "source": "brand-website",
+      "url": "https://linear.app",
+      "headline": "The issue tracker you'll actually enjoy using.",
+      "body_sample": "Linear is built for high-performance teams. Move fast, stay aligned.",
+      "voice": "voz de engenheiro que respeita o tempo do outro",
+      "rhythm": "curto-e-cortante",
+      "sentence_avg_words": 5,
+      "first_line_principle": "resolve a objeção antes de apresentar o produto. 'Que você vai realmente usar' elimina a desconfiança de ferramentas abandonadas.",
+      "what_triggers_action": "desejo + identidade",
+      "sentence_structure": "declarações",
+      "punctuation_style": "pontos-finais",
+      "tension": "técnico que parece humano",
+      "why_it_works": [
+        "a objeção do leitor ('mais uma ferramenta que vou abandonar') está na headline",
+        "cada palavra existe por uma razão — zero redundância",
+        "fala com a identidade: 'high-performance teams' — o leitor quer ser isso",
+        "imperativo final 'move fast, stay aligned' soa como convite entre pares"
+      ],
+      "what_to_steal": [
+        "colocar a objeção principal na headline — antes do produto",
+        "eliminar todos os adjetivos que não adicionam informação real",
+        "imperativos curtos no final como call-to-action implícito",
+        "falar com a identidade aspiracional: 'times de alta performance'"
+      ],
+      "what_not_to_copy": [
+        "jargão de produto development específico",
+        "referências a sprints e issues",
+        "tom de ferramenta de dev"
+      ],
+      "what_is_never_said": "quanto custa, integrações disponíveis, número de funcionalidades, comparações com Jira",
+      "transferable_principle": "colocar a objeção principal na headline desativa a resistência antes que o leitor a formule conscientemente",
+      "best_for": [
+        "landing",
+        "post",
+        "pitch",
+        "carousel"
+      ],
+      "industry": [
+        "saas",
+        "productivity",
+        "b2b",
+        "technology"
+      ],
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Referência direta para copy do MarketingOS. 'O sistema de marketing que você vai realmente usar.' Princípio altamente transferível."
+    },
+    {
+      "reference_id": "copy-007",
+      "brand": "Stripe",
+      "category": "copy_de_precisao",
+      "source": "brand-website",
+      "url": "https://stripe.com",
+      "headline": "Financial infrastructure for the internet.",
+      "body_sample": "Millions of companies of all sizes use Stripe to accept payments, send payouts, and manage their businesses online.",
+      "voice": "voz de infraestrutura — invisível, confiável, sempre presente",
+      "rhythm": "fluido",
+      "sentence_avg_words": 9,
+      "first_line_principle": "categoria nova que elimina comparação. 'Infraestrutura financeira' não é 'gateway de pagamento' — é um nível acima.",
+      "what_triggers_action": "confiança",
+      "sentence_structure": "declarações",
+      "punctuation_style": "pontos-finais",
+      "tension": "poder que parece utilidade",
+      "why_it_works": [
+        "criar categoria nova elimina comparação direta com concorrentes",
+        "escala implícita: 'milhões de empresas' como prova social sem ser superlativo",
+        "linguagem de infraestrutura comunica confiabilidade antes de funcionalidade",
+        "copy técnica que qualquer pessoa entende — sem jargão, com precisão"
+      ],
+      "what_to_steal": [
+        "criar uma categoria nova em vez de competir na existente",
+        "prova social por escala — não por depoimento individual",
+        "nomear o que o produto realmente é — não o que ele faz",
+        "copy técnica sem jargão: preciso mas acessível"
+      ],
+      "what_not_to_copy": [
+        "tom de infraestrutura técnica sem adaptação",
+        "referências específicas a pagamentos e payouts",
+        "a categoria 'financial infrastructure'"
+      ],
+      "what_is_never_said": "fácil de integrar, rápido de implementar, melhor do mercado, comparações diretas",
+      "transferable_principle": "criar uma categoria nova para o produto elimina toda comparação com concorrentes — você não compete, você define o padrão",
+      "best_for": [
+        "landing",
+        "pitch",
+        "about"
+      ],
+      "industry": [
+        "saas",
+        "b2b",
+        "infrastructure",
+        "technology"
+      ],
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Princípio de 'criar categoria' é diretamente aplicável ao MarketingOS: não é agência, não é ferramenta — é sistema operacional de marketing."
+    },
+    {
+      "reference_id": "copy-008",
+      "brand": "Vercel",
+      "category": "copy_de_precisao",
+      "source": "brand-website",
+      "url": "https://vercel.com",
+      "headline": "Develop. Preview. Ship.",
+      "body_sample": "Vercel's frontend cloud gives developers the frameworks, workflows, and infrastructure to build a faster, more personalized web.",
+      "voice": "voz de ferramenta que não explica — demonstra",
+      "rhythm": "fragmentado",
+      "sentence_avg_words": 3,
+      "first_line_principle": "três verbos que são o produto inteiro. O workflow completo em seis palavras — sem adjetivo, sem benefício declarado.",
+      "what_triggers_action": "identidade + desejo",
+      "sentence_structure": "fragmentos",
+      "punctuation_style": "pontos-finais",
+      "tension": "simplicidade que contém complexidade",
+      "why_it_works": [
+        "três verbos = três etapas = produto inteiro. Economia máxima.",
+        "fala com desenvolvedor como desenvolvedor — não como usuário",
+        "o leitor projeta o próprio workflow na headline — já se vê usando",
+        "zero adjetivo: confiança pela ausência de qualificação"
+      ],
+      "what_to_steal": [
+        "reduzir o produto a três verbos que descrevem o workflow completo",
+        "falar com o profissional como par — não como cliente",
+        "zero adjetivo em headlines de produto técnico",
+        "estrutura de lista de verbos como arquitetura do produto"
+      ],
+      "what_not_to_copy": [
+        "três verbos específicos do workflow de dev",
+        "referências a frontend e cloud",
+        "tom técnico de dev tools"
+      ],
+      "what_is_never_said": "fácil, rápido, melhor, simples — qualquer adjetivo que precise ser provado",
+      "transferable_principle": "reduzir o produto a três verbos que descrevem o workflow do usuário comunica clareza e respeito ao tempo do leitor simultaneamente",
+      "best_for": [
+        "headline",
+        "pitch",
+        "post"
+      ],
+      "industry": [
+        "developer-tools",
+        "saas",
+        "b2b"
+      ],
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Aplicável ao MarketingOS: 'Prospecta. Nutre. Converte.' ou 'Diagnostica. Automatiza. Cresce.' Testar variações."
+    },
+    {
+      "reference_id": "copy-009",
+      "brand": "Notion",
+      "category": "copy_de_pertencimento",
+      "source": "brand-website",
+      "url": "https://notion.so",
+      "headline": "Write, plan, share. With AI at your side.",
+      "body_sample": "Notion is the connected workspace where better, faster work happens.",
+      "voice": "voz de colaborador — está junto, não acima",
+      "rhythm": "fluido",
+      "sentence_avg_words": 7,
+      "first_line_principle": "lista de verbos do que o usuário JÁ quer fazer, seguida de como. 'Com IA ao seu lado' — parceria, não ferramenta.",
+      "what_triggers_action": "pertencimento + desejo",
+      "sentence_structure": "mix",
+      "punctuation_style": "pontos-finais",
+      "tension": "utilidade que parece criatividade",
+      "why_it_works": [
+        "'ao seu lado' — IA como parceira, não como substituta ou ferramenta",
+        "workspace 'conectado' — o leitor projeta seus próprios workflows",
+        "verbos do que o usuário já faz — reduz atrito mental de adoção",
+        "copy que faz o produto parecer extensão natural do trabalho"
+      ],
+      "what_to_steal": [
+        "posicionar IA como 'ao seu lado' — parceira, não substituta",
+        "verbos que o leitor já associa ao próprio trabalho",
+        "workspace como conceito expansivo — o leitor projeta o uso",
+        "copy que reduz atrito de adoção antes de apresentar benefício"
+      ],
+      "what_not_to_copy": [
+        "referências específicas a notas e wikis",
+        "tom de ferramenta de produtividade genérica"
+      ],
+      "what_is_never_said": "substitui outras ferramentas, tem mais funcionalidades, integra com X e Y como argumento principal",
+      "transferable_principle": "posicionar o produto como parceiro — e não como ferramenta — muda a relação emocional antes da decisão de uso",
+      "best_for": [
+        "landing",
+        "post",
+        "onboarding"
+      ],
+      "industry": [
+        "saas",
+        "productivity",
+        "knowledge",
+        "b2b"
+      ],
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Diretamente aplicável ao MarketingOS: posicionar como 'sistema que opera ao seu lado' — não como agência que trabalha por você."
+    },
+    {
+      "reference_id": "copy-010",
+      "brand": "Patagonia",
+      "category": "copy_de_pertencimento",
+      "source": "brand-website",
+      "url": "https://patagonia.com",
+      "headline": "We're in business to save our home planet.",
+      "body_sample": "Don't buy this jacket.",
+      "voice": "voz de quem tem convicção que incomoda",
+      "rhythm": "curto-e-cortante",
+      "sentence_avg_words": 4,
+      "first_line_principle": "missão como declaração de posicionamento existencial. 'Estamos no negócio para X' — onde X não é dinheiro.",
+      "what_triggers_action": "identidade",
+      "sentence_structure": "declarações",
+      "punctuation_style": "pontos-finais",
+      "tension": "empresa que sabota as próprias vendas para vender mais",
+      "why_it_works": [
+        "'Don't buy this jacket' — antimarketing que é o melhor marketing possível",
+        "missão que exclui quem não compartilha os valores — fortalece quem fica",
+        "convicção que incomoda cria confiança absoluta em quem concorda",
+        "o produto vira consequência da postura — não o contrário"
+      ],
+      "what_to_steal": [
+        "missão que define quem você é antes de definir o que você vende",
+        "antimarketing como posicionamento — dizer o que outros não diriam",
+        "convicção que exclui atrai mais do que inclusividade genérica",
+        "postura como produto — o que você acredita é tão importante quanto o que você vende"
+      ],
+      "what_not_to_copy": [
+        "causas ambientais específicas",
+        "tom ativista sem entrega real",
+        "antimarketing sem convicção genuína por trás"
+      ],
+      "what_is_never_said": "melhor qualidade do mercado, melhor custo-benefício, comparações com concorrentes",
+      "transferable_principle": "copy que tem o courage de excluir quem não é o cliente ideal cria pertencimento mais forte do que copy que tenta incluir todos",
+      "best_for": [
+        "about",
+        "pitch",
+        "post",
+        "manifesto"
+      ],
+      "industry": [
+        "lifestyle",
+        "sustainability",
+        "premium-consumer",
+        "qualquer-marca-com-posição-de-valores"
+      ],
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Princípio de 'excluir para incluir' é aplicável ao MarketingOS: 'não é para qualquer empresa — é para quem quer de verdade crescer com sistema'."
+    },
+    {
+      "reference_id": "copy-011",
+      "brand": "HubSpot",
+      "category": "copy_consultiva",
+      "source": "brand-website",
+      "url": "https://hubspot.com",
+      "headline": "There's a better way to grow.",
+      "body_sample": "Marketing, sales, and service software that helps your business grow without compromise.",
+      "voice": "voz de consultor — diagnóstico antes de proposta",
+      "rhythm": "fluido",
+      "sentence_avg_words": 8,
+      "first_line_principle": "implica que o método atual do leitor está errado — sem dizer isso diretamente. 'Uma forma melhor' pressupõe que a forma atual não é a melhor.",
+      "what_triggers_action": "medo + desejo",
+      "sentence_structure": "declarações",
+      "punctuation_style": "pontos-finais",
+      "tension": "crítica que parece sugestão",
+      "why_it_works": [
+        "'uma forma melhor' implica que a forma atual é inferior — sem atacar",
+        "'sem compromisso' resolve a objeção de que crescer exige sacrifício",
+        "three palavras-chave do produto (marketing, sales, service) em uma linha",
+        "tom de parceiro de negócio — não de fornecedor de software"
+      ],
+      "what_to_steal": [
+        "implicar que o método atual é inferior sem atacá-lo diretamente",
+        "resolver a objeção no mesmo período em que apresenta o benefício",
+        "three pilares do produto em uma linha — completude sem listar",
+        "'sem compromisso' como resolução de tensão: crescer vs. sacrificar"
+      ],
+      "what_not_to_copy": [
+        "referências específicas a marketing e vendas como categoria",
+        "tom de plataforma all-in-one"
+      ],
+      "what_is_never_said": "mais barato que a concorrência, fácil de usar, rápida implementação como argumento principal",
+      "transferable_principle": "implicar que o método atual do leitor é subótimo sem atacá-lo cria abertura para a solução sem criar defensividade",
+      "best_for": [
+        "landing",
+        "pitch",
+        "email",
+        "post"
+      ],
+      "industry": [
+        "saas",
+        "b2b",
+        "martech",
+        "consultivo"
+      ],
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Aplicável ao MarketingOS: 'existe uma forma melhor de adquirir clientes' — implica que o que o prospect faz hoje não é o melhor."
+    },
+    {
+      "reference_id": "copy-012",
+      "brand": "MarketingOS — Padrão Interno",
+      "category": "copy_consultiva",
+      "source": "internal",
+      "url": "",
+      "headline": "Você sabe de onde vai vir o próximo cliente?",
+      "body_sample": "A maioria dos negócios cresce por indicação e acaso. O MarketingOS transforma isso em sistema — previsível, automático, escalável.",
+      "voice": "voz de sistema — opera, não promete",
+      "rhythm": "alternado",
+      "sentence_avg_words": 7,
+      "first_line_principle": "pergunta que nomeia a dor sem acusação. 'Você sabe?' — não 'você não sabe'. Abre a vulnerabilidade com cuidado.",
+      "what_triggers_action": "medo + desejo",
+      "sentence_structure": "perguntas + declarações",
+      "punctuation_style": "pontos-finais",
+      "tension": "urgência que parece calma",
+      "why_it_works": [
+        "pergunta que o leitor responde internamente com 'não' — autodiagnóstico",
+        "'indicação e acaso' nomeia a realidade sem julgamento",
+        "três adjetivos finais (previsível, automático, escalável) são o desejo do ICP",
+        "travessão que separa o problema da solução no mesmo período"
+      ],
+      "what_to_steal": [
+        "perguntas que o leitor responde com 'não' — cria diagnóstico antes do pitch",
+        "nomear a realidade atual do leitor com precisão e sem julgamento",
+        "três adjetivos que são o desejo — não a descrição do produto",
+        "travessão como separador de problema/solução na mesma frase"
+      ],
+      "what_not_to_copy": [],
+      "what_is_never_said": "agência, gestão de redes sociais, pacote de posts, entregamos X posts por mês",
+      "transferable_principle": "pergunta que o leitor responde internamente com 'não' cria abertura para a solução sem nenhum pitch de vendas",
+      "best_for": [
+        "post",
+        "reel",
+        "pitch",
+        "prospeccao",
+        "landing"
+      ],
+      "industry": [
+        "martech",
+        "b2b",
+        "clinica",
+        "juridico",
+        "pet",
+        "seguros"
+      ],
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "marketingos",
+      "used_in": [],
+      "performance_notes": "Copy de referência do próprio MarketingOS. Testar em Reels e posts de topo de funil."
+    },
+    {
+      "reference_id": "copy-013",
+      "brand": "Padrão — Clínicas Estéticas Premium",
+      "category": "copy_de_nicho",
+      "source": "internal",
+      "url": "",
+      "headline": "Resultados que falam antes de você precisar explicar.",
+      "body_sample": "Cada procedimento é desenvolvido para o seu rosto — não para um padrão. Porque o objetivo nunca foi parecer diferente. Foi parecer mais você.",
+      "voice": "voz de cuidado especializado — conhece você antes de te atender",
+      "rhythm": "fluido",
+      "sentence_avg_words": 9,
+      "first_line_principle": "o resultado como personagem ativo — 'resultados que falam'. O trabalho faz o pitch, não a clínica.",
+      "what_triggers_action": "desejo + identidade",
+      "sentence_structure": "declarações",
+      "punctuation_style": "pontos-finais",
+      "tension": "autoridade clínica que parece cuidado pessoal",
+      "why_it_works": [
+        "resultado como sujeito ativo — não a clínica, não o médico",
+        "'mais você' — não 'mais bonita'. Identidade antes de vaidade.",
+        "negação do padrão de beleza como argumento de diferenciação",
+        "copy que faz o leitor se sentir visto antes de ser atendido"
+      ],
+      "what_to_steal": [
+        "resultado como sujeito — não serviço como argumento",
+        "negar o padrão de beleza genérico antes de apresentar a abordagem",
+        "'mais você' como promessa — identidade, não transformação",
+        "personalização como diferencial — 'desenvolvido para o seu rosto'"
+      ],
+      "what_not_to_copy": [
+        "copy específica de procedimento",
+        "referências a tecnologias e equipamentos",
+        "antes/depois como argumento principal"
+      ],
+      "what_is_never_said": "promoção, desconto, pacotes, procedimentos com nome técnico como argumento de venda",
+      "transferable_principle": "em estética, a promessa de 'parecer mais você' converte mais do que 'parecer melhor' — identidade supera vaidade como motivador",
+      "best_for": [
+        "post",
+        "carousel",
+        "landing",
+        "stories"
+      ],
+      "industry": [
+        "aesthetics",
+        "clinic",
+        "wellness",
+        "healthcare"
+      ],
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Anti-padrão: before/after como primeiro argumento, nomes técnicos de procedimentos, copy sobre equipamentos."
+    },
+    {
+      "reference_id": "copy-014",
+      "brand": "Padrão — Escritórios Jurídicos Premium",
+      "category": "copy_de_nicho",
+      "source": "internal",
+      "url": "",
+      "headline": "O que está em jogo é grande demais para ser tratado como rotina.",
+      "body_sample": "Cada caso carrega uma história — e a responsabilidade de quem confia a nós é o que define como trabalhamos.",
+      "voice": "voz de guardião — está aqui para proteger, não para impressionar",
+      "rhythm": "fluido",
+      "sentence_avg_words": 11,
+      "first_line_principle": "escala do problema como gancho. 'Grande demais' nomeia o medo do cliente sem precisar descrever o que pode dar errado.",
+      "what_triggers_action": "medo + confiança",
+      "sentence_structure": "declarações",
+      "punctuation_style": "travessões",
+      "tension": "poder que não precisa se mostrar",
+      "why_it_works": [
+        "'grande demais para ser rotina' — valida a gravidade do problema do cliente",
+        "'cada caso carrega uma história' — humaniza sem diminuir a seriedade",
+        "responsabilidade como motivador — não ambição ou expertise",
+        "copy que faz o leitor sentir que será tratado como único — não como processo"
+      ],
+      "what_to_steal": [
+        "validar a gravidade do problema antes de apresentar a solução",
+        "responsabilidade como posicionamento — mais forte do que expertise",
+        "humanizar o caso sem diminuir a seriedade jurídica",
+        "copy que transmite que o cliente não é um número"
+      ],
+      "what_not_to_copy": [
+        "jargão jurídico como argumento de venda",
+        "anos de experiência como headline",
+        "número de casos ganhos"
+      ],
+      "what_is_never_said": "rápido, acessível, simples, sem burocracia — qualquer coisa que minimize a seriedade do serviço",
+      "transferable_principle": "validar a gravidade do problema do cliente antes de apresentar a solução cria confiança que nenhum argumento de credencial consegue",
+      "best_for": [
+        "landing",
+        "pitch",
+        "post"
+      ],
+      "industry": [
+        "legal",
+        "law-firm",
+        "professional-services"
+      ],
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Anti-padrão: anos de experiência como headline, jargão jurídico, número de vitórias."
+    },
+    {
+      "reference_id": "copy-015",
+      "brand": "Padrão — Seguradoras e Brokers",
+      "category": "copy_de_nicho",
+      "source": "internal",
+      "url": "",
+      "headline": "Porque o que você construiu merece continuar existindo.",
+      "body_sample": "Não vendemos seguros. Ajudamos pessoas a proteger o que mais importa — e a dormir tranquilas sabendo que estão preparadas.",
+      "voice": "voz de proteção — não de produto financeiro",
+      "rhythm": "fluido",
+      "sentence_avg_words": 10,
+      "first_line_principle": "o que está sendo protegido como sujeito emocional — não o produto de seguro. 'O que você construiu' ativa orgulho e medo simultaneamente.",
+      "what_triggers_action": "medo + identidade",
+      "sentence_structure": "declarações",
+      "punctuation_style": "travessões",
+      "tension": "proteção que parece proximidade",
+      "why_it_works": [
+        "'o que você construiu' — ativa o orgulho do cliente pelo próprio patrimônio",
+        "rejeição da categoria ('não vendemos seguros') como posicionamento",
+        "'dormir tranquilo' — benefício emocional que nenhum produto técnico entrega",
+        "copy que fala sobre o que o cliente sente — não sobre o que o produto cobre"
+      ],
+      "what_to_steal": [
+        "ativar o orgulho do cliente pelo que construiu antes de falar de proteção",
+        "rejeitar a categoria de produto para criar categoria de serviço",
+        "benefício emocional final: 'dormir tranquilo' — não cobertura técnica",
+        "travessão para separar produto de propósito"
+      ],
+      "what_not_to_copy": [
+        "termos técnicos de apólice",
+        "coberturas como argumento principal",
+        "preço como diferencial"
+      ],
+      "what_is_never_said": "a cobertura mais completa, o melhor custo-benefício, aprovação rápida",
+      "transferable_principle": "em seguros, o leitor não compra cobertura — compra a sensação de que vai estar bem. Copy que vende a sensação converte mais do que copy que vende o produto",
+      "best_for": [
+        "landing",
+        "post",
+        "carousel",
+        "pitch"
+      ],
+      "industry": [
+        "insurance",
+        "financial-services",
+        "broker"
+      ],
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "pontos-cardeais",
+      "used_in": [],
+      "performance_notes": "Referência direta para Pontos Cardeais. Anti-padrão: tabela de coberturas, preço, aprovação rápida."
+    },
+    {
+      "reference_id": "copy-016",
+      "brand": "Padrão — Pet Shops e Clínicas Veterinárias",
+      "category": "copy_de_nicho",
+      "source": "internal",
+      "url": "",
+      "headline": "Ele confia em você. Você confia em nós.",
+      "body_sample": "Seu pet não entende o que acontece quando está sendo cuidado. Por isso, quem cuida precisa entender cada detalhe — incluindo o que ele não consegue dizer.",
+      "voice": "voz de cuidado especializado — entende o vínculo antes do serviço",
+      "rhythm": "fluido",
+      "sentence_avg_words": 10,
+      "first_line_principle": "cadeia de confiança em duas linhas simétricas. Cria responsabilidade sem pressão — o serviço é a extensão do amor do tutor.",
+      "what_triggers_action": "pertencimento + confiança",
+      "sentence_structure": "mix",
+      "punctuation_style": "pontos-finais",
+      "tension": "amor que parece profissionalismo",
+      "why_it_works": [
+        "simetria de confiança: pet → tutor → clínica. Cadeia emocional clara.",
+        "'o que ele não consegue dizer' — posiciona o profissional como intérprete do pet",
+        "vulnerabilidade do pet como argumento de cuidado — não de serviço",
+        "o tutor se sente responsável e aliviado ao mesmo tempo"
+      ],
+      "what_to_steal": [
+        "cadeia de confiança que inclui o pet como sujeito ativo",
+        "posicionar o profissional como intérprete — não como técnico",
+        "ativar a responsabilidade do tutor antes de apresentar o serviço",
+        "simetria estrutural que cria sensação de sistema fechado e seguro"
+      ],
+      "what_not_to_copy": [
+        "copy fofa genérica sobre amor por animais",
+        "referências a raças e procedimentos",
+        "tom de pet shop de shopping"
+      ],
+      "what_is_never_said": "preço por serviço, promoções, pacotes de banho e tosa",
+      "transferable_principle": "em pet care, o tutor não compra serviço — compra a extensão do próprio cuidado. Copy que honra esse vínculo converte mais do que copy que vende procedimento",
+      "best_for": [
+        "post",
+        "carousel",
+        "landing",
+        "stories"
+      ],
+      "industry": [
+        "pet",
+        "veterinary",
+        "pet-care"
+      ],
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Anti-padrão: fofura genérica, promoções, listas de serviços."
+    },
+    {
+      "reference_id": "copy-017",
+      "brand": "Linear — Changelog",
+      "category": "copy_de_demonstracao",
+      "source": "brand-website",
+      "url": "https://linear.app/changelog",
+      "headline": "Cycles. Because shipping is the best kind of progress.",
+      "body_sample": "We added Cycles to Linear. Two-week sprints, automatically tracked. No setup. No meetings about meetings.",
+      "voice": "voz de produto — mostra, não conta",
+      "rhythm": "fragmentado",
+      "sentence_avg_words": 4,
+      "first_line_principle": "feature + razão filosófica. O nome da feature seguido de 'porque' — a justificativa é um manifesto, não uma explicação.",
+      "what_triggers_action": "identidade + desejo",
+      "sentence_structure": "fragmentos",
+      "punctuation_style": "pontos-finais",
+      "tension": "produto que respeita o tempo do leitor",
+      "why_it_works": [
+        "'porque' após o nome da feature transforma funcionalidade em filosofia",
+        "fragmentos curtos criam ritmo de changelog que parece conversa",
+        "'no setup. no meetings about meetings' — resolve duas objeções em seis palavras",
+        "copy que faz o leitor sentir que o produto foi construído para ele"
+      ],
+      "what_to_steal": [
+        "feature + 'porque' + razão filosófica como estrutura de anúncio",
+        "fragmentos curtos que resolvem objeções sem desenvolvê-las",
+        "negação dupla ('no X. no Y') como forma de resolver objeção",
+        "changelog como conteúdo de posicionamento — não apenas de produto"
+      ],
+      "what_not_to_copy": [
+        "referências específicas a sprints e dev workflow",
+        "tom de product update técnico"
+      ],
+      "what_is_never_said": "estamos animados em anunciar, novo recurso disponível, confira nossa documentação",
+      "transferable_principle": "feature + 'porque' + razão filosófica transforma anúncio de produto em declaração de valores — o leitor compra a visão, não a funcionalidade",
+      "best_for": [
+        "post",
+        "reel",
+        "changelog",
+        "produto"
+      ],
+      "industry": [
+        "saas",
+        "product",
+        "technology",
+        "b2b"
+      ],
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Aplicável ao MarketingOS para posts de demonstração de feature: 'Diagnóstico automático. Porque o primeiro passo de qualquer venda é entender antes de oferecer.'"
+    },
+    {
+      "reference_id": "copy-018",
+      "brand": "Airbnb",
+      "category": "copy_de_urgencia_sem_pressao",
+      "source": "brand-website",
+      "url": "https://airbnb.com",
+      "headline": "Belong anywhere.",
+      "body_sample": "Don't just visit. Live like a local.",
+      "voice": "voz de possibilidade — abre horizontes sem empurrar",
+      "rhythm": "curto-e-cortante",
+      "sentence_avg_words": 3,
+      "first_line_principle": "imperativo que é convite existencial. 'Belong' — não 'stay', 'sleep', 'visit'. A experiência mais profunda em uma palavra.",
+      "what_triggers_action": "identidade + desejo",
+      "sentence_structure": "declarações",
+      "punctuation_style": "pontos-finais",
+      "tension": "produto transacional que parece transformação",
+      "why_it_works": [
+        "'belong' — pertencimento é mais profundo do que qualquer benefício funcional",
+        "'anywhere' — escala universal sem listar destinos",
+        "'don't just visit' — implica que o que o leitor faz hoje é insuficiente",
+        "'live like a local' — promessa de experiência autêntica em quatro palavras"
+      ],
+      "what_to_steal": [
+        "escolher o verbo mais profundo — não o mais óbvio para o produto",
+        "'don't just X' para implicar que a alternativa atual é insuficiente",
+        "contraste entre o que todos fazem e o que a marca oferece",
+        "escala universal implícita — 'anywhere', 'everywhere', 'always'"
+      ],
+      "what_not_to_copy": [
+        "referências a viagem e hospedagem",
+        "a palavra 'belong' em outros contextos sem mesma profundidade"
+      ],
+      "what_is_never_said": "os melhores preços, reserva fácil, mais opções do que hotéis",
+      "transferable_principle": "escolher o verbo mais profundo para descrever o que o produto faz transforma transação em experiência — e experiência em identidade",
+      "best_for": [
+        "headline",
+        "post",
+        "pitch",
+        "landing"
+      ],
+      "industry": [
+        "marketplace",
+        "travel",
+        "lifestyle",
+        "qualquer-marca-com-experiência-humana"
+      ],
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "",
+      "used_in": [],
+      "performance_notes": "Princípio do verbo mais profundo é universalmente aplicável. Para MarketingOS: não 'automatize', mas 'controle'. Não 'gerencie', mas 'domine'."
+    },
+    {
+      "reference_id": "copy-019",
+      "brand": "Princípio — Gancho por Dado Específico",
+      "category": "copy_de_demonstracao",
+      "source": "internal",
+      "url": "",
+      "headline": "83% dos leads que não respondem na primeira hora nunca mais respondem.",
+      "body_sample": "Não é falta de interesse. É falta de sistema. Enquanto você responde um lead, os outros três já foram para o concorrente.",
+      "voice": "voz de diagnóstico — mostra o problema antes de vender",
+      "rhythm": "alternado",
+      "sentence_avg_words": 8,
+      "first_line_principle": "dado específico que o leitor não conhece + implicação imediata. O número cria urgência sem precisar declarar urgência.",
+      "what_triggers_action": "medo",
+      "sentence_structure": "mix",
+      "punctuation_style": "pontos-finais",
+      "tension": "urgência que parece análise",
+      "why_it_works": [
+        "dado percentual específico cria credibilidade instantânea",
+        "a causa ('não é falta de interesse') reencadra a narrativa do leitor",
+        "'enquanto você' — coloca o leitor dentro da cena em tempo real",
+        "a perda é concreta: 'três leads já foram'"
+      ],
+      "what_to_steal": [
+        "dado percentual específico como abertura — não genérico",
+        "reencadrar a causa do problema antes de apresentar a solução",
+        "'enquanto você X, Y acontece' — cena em tempo real",
+        "perda concreta e quantificável — não abstracta"
+      ],
+      "what_not_to_copy": [
+        "dado específico sem fonte verificável para uso externo",
+        "tom alarmista sem solução clara na sequência"
+      ],
+      "what_is_never_said": "é urgente, não perca tempo, corra, últimas vagas",
+      "transferable_principle": "dado específico + reencadramento da causa + cena em tempo real cria urgência sem declarar urgência — o leitor chega à conclusão sozinho",
+      "best_for": [
+        "post",
+        "reel",
+        "email",
+        "prospeccao"
+      ],
+      "industry": [
+        "b2b",
+        "martech",
+        "qualquer-nicho-com-problema-de-velocidade-de-resposta"
+      ],
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "marketingos",
+      "used_in": [],
+      "performance_notes": "Template de gancho de alto impacto para posts de topo de funil do MarketingOS. Adaptar o dado por nicho."
+    },
+    {
+      "reference_id": "copy-020",
+      "brand": "Princípio — Gancho por Pergunta de Diagnóstico",
+      "category": "copy_consultiva",
+      "source": "internal",
+      "url": "",
+      "headline": "Se eu parasse de postar hoje, em quanto tempo meu negócio perderia clientes?",
+      "body_sample": "Se a resposta te assustou — você não tem marketing. Você tem presença. São coisas diferentes.",
+      "voice": "voz de consultor — diagnóstico que revela sem julgar",
+      "rhythm": "alternado",
+      "sentence_avg_words": 8,
+      "first_line_principle": "hipótese que força o leitor a fazer o diagnóstico. A pergunta não pode ser respondida com 'não sei' — o desconforto do 'não sei' é o gancho.",
+      "what_triggers_action": "medo + identidade",
+      "sentence_structure": "perguntas + declarações",
+      "punctuation_style": "travessões",
+      "tension": "diagnóstico que parece conversa",
+      "why_it_works": [
+        "pergunta hipotética que o leitor responde internamente com silêncio",
+        "'se a resposta te assustou' — valida o desconforto sem julgar",
+        "distinção conceitual ('presença vs. marketing') como insight de valor",
+        "o leitor aprende algo antes de qualquer pitch"
+      ],
+      "what_to_steal": [
+        "hipótese que revela vulnerabilidade sem expor o leitor",
+        "'se X te assustou' como ponte entre diagnóstico e solução",
+        "distinção conceitual que reencadra o problema do leitor",
+        "insight genuíno antes de qualquer call-to-action"
+      ],
+      "what_not_to_copy": [
+        "a pergunta específica fora do contexto de marketing",
+        "tom de coach ou guru"
+      ],
+      "what_is_never_said": "você está errando, você precisa de mim, não perca mais tempo",
+      "transferable_principle": "pergunta hipotética que o leitor não consegue responder confortavelmente cria mais abertura para a solução do que qualquer dado ou argumento",
+      "best_for": [
+        "post",
+        "reel",
+        "prospeccao",
+        "stories"
+      ],
+      "industry": [
+        "b2b",
+        "martech",
+        "qualquer-nicho-com-dependência-de-canal-único"
+      ],
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "marketingos",
+      "used_in": [],
+      "performance_notes": "Template de gancho consultivo de alto engajamento. Adaptar a hipótese por nicho."
+    },
+    {
+      "reference_id": "copy-021",
+      "brand": "Princípio — Ritmo Curto-Longo-Curto",
+      "category": "copy_de_precisao",
+      "source": "internal",
+      "url": "",
+      "headline": "O sistema funciona. Enquanto você dorme, atende. Enquanto você trabalha, prospecta. Sem parar.",
+      "body_sample": "Não é automação. É operação contínua.",
+      "voice": "voz de sistema — factual, sem hipérbole",
+      "rhythm": "alternado",
+      "sentence_avg_words": 5,
+      "first_line_principle": "declaração curta de resultado + duas cenas de funcionamento + fechamento absoluto. O ritmo cria sensação de sistema que não para.",
+      "what_triggers_action": "desejo",
+      "sentence_structure": "declarações",
+      "punctuation_style": "pontos-finais",
+      "tension": "poder que parece simples",
+      "why_it_works": [
+        "ritmo short-long-long-short cria tensão e resolução no mesmo parágrafo",
+        "anáfora 'enquanto você' repete o benefício sem repetir a palavra",
+        "'sem parar' — finaliza com absoluto que fecha qualquer objeção",
+        "distinção final ('não é X, é Y') eleva a categoria do produto"
+      ],
+      "what_to_steal": [
+        "ritmo curto-médio-médio-curto para criar tensão e resolução",
+        "anáfora 'enquanto você' para multiplicar o benefício sem lista",
+        "finalizar com absoluto de uma ou duas palavras",
+        "distinção de categoria no fechamento: 'não é X, é Y'"
+      ],
+      "what_not_to_copy": [
+        "a copy em si — é template de estrutura, não de conteúdo"
+      ],
+      "what_is_never_said": "incrível, revolucionário, nunca visto antes",
+      "transferable_principle": "ritmo alternado curto-longo cria sensação de aceleração — o leitor sente o momentum do produto antes de entender racionalmente o que ele faz",
+      "best_for": [
+        "post",
+        "reel",
+        "carousel",
+        "pitch"
+      ],
+      "industry": [
+        "saas",
+        "martech",
+        "automação",
+        "b2b"
+      ],
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "marketingos",
+      "used_in": [],
+      "performance_notes": "Template de estrutura rítmica de alto impacto. Adaptar as cenas por produto e nicho."
+    },
+    {
+      "reference_id": "copy-022",
+      "brand": "Princípio — Lista que Não É Lista",
+      "category": "copy_de_rebeldia",
+      "source": "internal",
+      "url": "",
+      "headline": "Sem reunião de alinhamento. Sem relatório de vaidade. Sem esperar o mês acabar para saber o que aconteceu.",
+      "body_sample": "Só sistema. Só resultado. Só controle.",
+      "voice": "voz de contraste — define pelo que rejeita",
+      "rhythm": "fragmentado",
+      "sentence_avg_words": 6,
+      "first_line_principle": "anáfora negativa que lista o que a marca não é — cada item é uma dor do cliente. A solução não precisa ser descrita: já está implícita.",
+      "what_triggers_action": "identidade + medo",
+      "sentence_structure": "fragmentos",
+      "punctuation_style": "pontos-finais",
+      "tension": "rejeição que é proposta",
+      "why_it_works": [
+        "cada 'sem' é uma dor que o leitor reconhece imediatamente",
+        "a solução não precisa ser descrita — a rejeição das dores já é a proposta",
+        "ritmo de 'sem X. Sem Y. Sem Z.' cria acúmulo emocional de alívio",
+        "fechamento com 'só X. Só Y. Só Z.' espelha a estrutura e resolve"
+      ],
+      "what_to_steal": [
+        "listar o que a marca não é antes de dizer o que é",
+        "anáfora negativa como diagnóstico das dores do cliente",
+        "espelhar estrutura negativa com estrutura positiva no fechamento",
+        "cada item da lista deve ser uma dor real e específica — não genérica"
+      ],
+      "what_not_to_copy": [
+        "a copy em si — é template de estrutura"
+      ],
+      "what_is_never_said": "somos diferentes, somos melhores, nossa abordagem é única",
+      "transferable_principle": "listar o que você não é e o que você não faz define posicionamento com mais clareza do que listar o que você é e o que você faz",
+      "best_for": [
+        "post",
+        "reel",
+        "pitch",
+        "landing"
+      ],
+      "industry": [
+        "b2b",
+        "saas",
+        "martech",
+        "qualquer-mercado-com-dores-bem-conhecidas"
+      ],
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "marketingos",
+      "used_in": [],
+      "performance_notes": "Template de alto impacto para posts de posicionamento do MarketingOS. Adaptar os 'sem' por nicho e ICP."
+    },
+    {
+      "reference_id": "copy-023",
+      "brand": "Princípio — Email de Prospecção Fria Premium",
+      "category": "copy_consultiva",
+      "source": "internal",
+      "url": "",
+      "headline": "Vi [algo específico sobre o negócio deles]. Uma pergunta.",
+      "body_sample": "[Nome], percebi que [observação específica e verdadeira sobre o negócio]. Faz sentido conversar 15 minutos essa semana?",
+      "voice": "voz de observador — viu algo real antes de entrar em contato",
+      "rhythm": "curto-e-cortante",
+      "sentence_avg_words": 7,
+      "first_line_principle": "observação genuína + pergunta simples. Sem pitch, sem apresentação de produto, sem 'espero que esteja bem'.",
+      "what_triggers_action": "curiosidade",
+      "sentence_structure": "declarações + perguntas",
+      "punctuation_style": "pontos-finais",
+      "tension": "brevidade que parece respeito",
+      "why_it_works": [
+        "observação específica prova que não é disparo em massa",
+        "'uma pergunta' como subject — abre sem revelar",
+        "15 minutos — baixo comprometimento, alta especificidade",
+        "sem apresentação de empresa, produto ou benefício — só conversa"
+      ],
+      "what_to_steal": [
+        "observação específica e verdadeira como abertura — não elogio genérico",
+        "'uma pergunta' como estrutura — abre sem revelar intenção",
+        "15 minutos como pedido — específico e baixo comprometimento",
+        "sem apresentação de produto na primeira mensagem"
+      ],
+      "what_not_to_copy": [
+        "templates de prospecção genérica",
+        "elogios genéricos como abertura",
+        "'espero que esteja bem'"
+      ],
+      "what_is_never_said": "somos especialistas em, ajudamos empresas como a sua, gostaria de apresentar nossa solução",
+      "transferable_principle": "a primeira mensagem de prospecção não deve vender — deve apenas abrir. Observação genuína + pergunta simples abre mais do que qualquer pitch",
+      "best_for": [
+        "prospeccao",
+        "email",
+        "whatsapp"
+      ],
+      "industry": [
+        "b2b",
+        "qualquer-nicho"
+      ],
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "marketingos",
+      "used_in": [],
+      "performance_notes": "Template de prospecção manual do MarketingOS. Usar com o diagnóstico gerado pelo sistema — mas enviar como Felipe, não como disparo automático."
+    },
+    {
+      "reference_id": "copy-024",
+      "brand": "Princípio — Copy de Reel Educativo",
+      "category": "copy_de_demonstracao",
+      "source": "internal",
+      "url": "",
+      "headline": "Em 2026, clínicas que não automatizam o atendimento perdem para clínicas que sim.",
+      "body_sample": "Não é sobre tecnologia. É sobre tempo de resposta. O lead que não recebe resposta em 5 minutos vai para o Google e encontra outra clínica.",
+      "voice": "voz de dado — factual, sem alarmismo",
+      "rhythm": "alternado",
+      "sentence_avg_words": 9,
+      "first_line_principle": "tensão competitiva + ano como âncora temporal. 'Clínicas que X perdem para clínicas que sim' — cria lado vencedor e lado perdedor sem usar essas palavras.",
+      "what_triggers_action": "medo + identidade",
+      "sentence_structure": "declarações",
+      "punctuation_style": "pontos-finais",
+      "tension": "urgência que parece análise de mercado",
+      "why_it_works": [
+        "tensão competitiva: 'clínicas que não X perdem para clínicas que sim'",
+        "ano como âncora temporal — cria senso de momento específico",
+        "reencadre: 'não é sobre tecnologia, é sobre tempo de resposta'",
+        "cena em tempo real: 'em 5 minutos vai para o Google'"
+      ],
+      "what_to_steal": [
+        "estrutura 'quem não X perde para quem sim' — competição implícita",
+        "reencadre de categoria: 'não é sobre X, é sobre Y'",
+        "cena em tempo real com número específico (5 minutos)",
+        "ano como âncora para criar senso de momento atual"
+      ],
+      "what_not_to_copy": [
+        "referência específica a clínicas sem adaptar por nicho"
+      ],
+      "what_is_never_said": "você precisa comprar, contrate agora, preço especial",
+      "transferable_principle": "estrutura 'quem não X perde para quem sim' cria urgência competitiva sem precisar declarar urgência — o leitor sente que está ficando para trás",
+      "best_for": [
+        "reel",
+        "post",
+        "carousel"
+      ],
+      "industry": [
+        "b2b",
+        "martech",
+        "qualquer-nicho"
+      ],
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "marketingos",
+      "used_in": [],
+      "performance_notes": "Template de Reel educativo por nicho. Adaptar 'clínicas' por nicho alvo de cada post."
+    },
+    {
+      "reference_id": "copy-025",
+      "brand": "Princípio — Fechamento de Pitch",
+      "category": "copy_consultiva",
+      "source": "internal",
+      "url": "",
+      "headline": "Não precisa decidir agora. Precisa saber o que está perdendo.",
+      "body_sample": "Posso te mostrar em 15 minutos o que esse sistema entregaria para o seu negócio especificamente. Sem compromisso, sem proposta, sem pressão.",
+      "voice": "voz de confiança — não precisa forçar",
+      "rhythm": "curto-e-cortante",
+      "sentence_avg_words": 6,
+      "first_line_principle": "inverter a pressão de fechamento. 'Não precisa decidir agora' — remove a barreira mais comum. 'Precisa saber o que está perdendo' — cria a urgência real.",
+      "what_triggers_action": "medo + curiosidade",
+      "sentence_structure": "declarações",
+      "punctuation_style": "pontos-finais",
+      "tension": "urgência que parece ausência de pressão",
+      "why_it_works": [
+        "remover a pressão explicitamente desativa a defensividade",
+        "o medo de perda ('o que está perdendo') é mais forte do que o desejo de ganho",
+        "lista tripla 'sem X, sem Y, sem Z' — remove todas as objeções de uma vez",
+        "especificidade: 'para o seu negócio especificamente' — não demo genérica"
+      ],
+      "what_to_steal": [
+        "remover a pressão antes de criar urgência — nessa ordem",
+        "medo de perda como gatilho final — não benefício de ganho",
+        "lista tripla de remoção de objeções antes do pedido",
+        "'especificamente' como palavra que personaliza o pedido"
+      ],
+      "what_not_to_copy": [
+        "a copy em si fora de contexto de fechamento",
+        "tom de vendedor que tenta parecer não vendedor"
+      ],
+      "what_is_never_said": "oportunidade única, oferta por tempo limitado, últimas vagas, preço especial só hoje",
+      "transferable_principle": "remover a pressão de decisão antes de criar urgência de informação converte mais do que qualquer técnica de fechamento baseada em escassez",
+      "best_for": [
+        "prospeccao",
+        "pitch",
+        "whatsapp",
+        "email"
+      ],
+      "industry": [
+        "b2b",
+        "qualquer-venda-consultiva"
+      ],
+      "added_by": "operator",
+      "added_at": "2026-06-09",
+      "client": "marketingos",
+      "used_in": [],
+      "performance_notes": "Template de fechamento consultivo. Usar na abordagem manual com prospects que já tiveram contato mas não responderam."
+    }
+  ]
+}

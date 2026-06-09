@@ -24,6 +24,23 @@ env: []
 
 ---
 
+## DNA Visual — herança obrigatória
+
+Antes de gerar qualquer roteiro ou HTML animado:
+
+1. Verificar se existe `clients/[slug]/outputs/branding/visual-dna.json`
+2. Se NÃO existir → interromper e instruir: "Execute /direcao-criativa antes de criar reel para este cliente."
+3. Se existir → carregar APENAS:
+   - `visual_dna.tempo`
+   - `visual_dna.movimento`
+   - `motion_principles` (array completo)
+   - `anti_dna.never_use.motion`
+
+O tempo e os motion_principles definem o ritmo de entrada, duração dos frames e tipo de transição.
+Nunca usar motion que contradiga o anti_dna.
+
+---
+
 ## Objetivo
 
 Gerar um Reel completo em **uma única operação**:

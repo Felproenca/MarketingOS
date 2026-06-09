@@ -23,6 +23,18 @@ env: []
 → intelligence/benchmarks.json — APENAS `content_performance` do formato em jogo (feed_image / reels / stories): best_hook_type e métricas para calibrar gancho e formato
 → NÃO carregar: metrics.json, campaigns.md, notes.md, estrategia.md, system-usage.json, experiments.md, patterns.md
 
+---
+
+## DNA Visual — herança obrigatória
+
+Antes de gerar qualquer post:
+
+1. Verificar se existe `clients/[slug]/outputs/branding/visual-dna.json`
+2. Se NÃO existir → interromper e instruir: "Execute /direcao-criativa antes de criar post para este cliente."
+3. Se existir → carregar:
+   - `visual_dna` (completo — post é entrega unificada)
+   - `anti_dna.never_use`
+
 > Se o bloco do formato tiver dados reais (≠ 0/vazio), usar como default de
 > gancho. Se estiver zerado, seguir o julgamento da skill — não inventar número.
 

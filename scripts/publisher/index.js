@@ -32,6 +32,8 @@ const {
   createCarouselItem,
   createCarouselContainer,
   createReelContainer,
+  createReelContainerResumable,
+  uploadVideoToUri,
   createStoryContainer,
   publishContainer,
   waitForContainer,
@@ -137,19 +139,46 @@ async function publishStory(cfg, imageUrl) {
   return mediaId;
 }
 
-async function publishReel(cfg, videoUrl, caption) {
+async function publishReel(cfg, fileOrUrl, caption) {
+  const isLocal = !/^https?:\/\//i.test(fileOrUrl);
+
+  if (isLocal) {
+    // Upload direto para Meta via resumable upload (sem passar por imgbb)
+    process.stdout.write('\n  Iniciando container resumable...');
+    const container = await createReelContainerResumable(cfg.igUserId, caption, cfg.accessToken);
+    const containerId = container.id;
+    const uploadUri = container.uri;
+    if (!uploadUri) throw new Error('Meta não retornou URI de upload. Verifique permissões do token.');
+    console.log(` ✓ ${containerId}`);
+
+    process.stdout.write('  Enviando vídeo para Meta');
+    const fileSizeMB = (require('fs').statSync(fileOrUrl).size / 1024 / 1024).toFixed(1);
+    process.stdout.write(` (${fileSizeMB} MB)...`);
+    await uploadVideoToUri(uploadUri, fileOrUrl, cfg.accessToken);
+    console.log(' ✓');
+
+    process.stdout.write('  Aguardando encode do vídeo');
+    await waitForContainer(containerId, cfg.accessToken, 600000);
+    console.log(' ✓');
+
+    process.stdout.write('  Publicando...');
+    const { id: mediaId } = await publishContainer(cfg.igUserId, containerId, cfg.accessToken);
+    console.log(` ✓ ${mediaId}`);
+    return mediaId;
+  }
+
+  // Fluxo padrão via URL pública
   process.stdout.write('\n  Criando container de Reel...');
-  const { id: containerId } = await createReelContainer(cfg.igUserId, videoUrl, caption, cfg.accessToken);
+  const { id: containerId } = await createReelContainer(cfg.igUserId, fileOrUrl, caption, cfg.accessToken);
   console.log(` ✓ ${containerId}`);
 
   process.stdout.write('  Aguardando encode do vídeo');
-  await waitForContainer(containerId, cfg.accessToken, 600000); // 10min max
+  await waitForContainer(containerId, cfg.accessToken, 600000);
   console.log(' ✓');
 
   process.stdout.write('  Publicando...');
   const { id: mediaId } = await publishContainer(cfg.igUserId, containerId, cfg.accessToken);
   console.log(` ✓ ${mediaId}`);
-
   return mediaId;
 }
 

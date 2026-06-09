@@ -31,6 +31,22 @@ Nao carregar:
 
 ---
 
+## DNA Visual — herança obrigatória
+
+Antes de gerar qualquer prompt de imagem externa:
+
+1. Verificar se existe `clients/[slug]/outputs/branding/visual-dna.json`
+2. Se NÃO existir → continuar com brand-kit.json (esta skill é auxiliar — não bloquear pipeline)
+3. Se existir → carregar APENAS:
+   - `visual_dna.temperatura` — alimenta tom de luz e ambiente do prompt
+   - `visual_dna.textura` — alimenta textura de superfície e grão
+   - `anti_dna.never_use.visual` → negative prompt obrigatório
+   - `anti_dna.never_use.color` → negative prompt de cor
+
+Esses campos vão diretamente para o prompt positivo e negativo do gerador de imagem.
+
+---
+
 ## Regra de decisao
 
 Usar HTML puro quando:

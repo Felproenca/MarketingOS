@@ -13,9 +13,9 @@ async function render() {
   fs.mkdirSync(outDir, { recursive: true });
 
   const browser = await chromium.launch({ headless: true });
-  const context = await browser.newContext({ deviceScaleFactor: 2 });
+  const context = await browser.newContext();
   const page    = await context.newPage();
-  await page.setViewportSize({ width: 540, height: 540 });
+  await page.setViewportSize({ width: 1080, height: 1080 });
   const fileUrl = 'file:///' + htmlPath.split(path.sep).join('/');
   await page.goto(fileUrl, { waitUntil: 'networkidle' });
   await page.waitForTimeout(1200);
@@ -31,7 +31,7 @@ async function render() {
     }, i);
     await page.waitForTimeout(300);
     const out = path.join(outDir, `slide-${String(i + 1).padStart(2, '0')}.png`);
-    await page.screenshot({ path: out });
+    await page.screenshot({ path: out, clip: { x: 0, y: 0, width: 1080, height: 1080 } });
     console.log('  slide', i + 1, '->', out.split(path.sep).pop());
   }
 

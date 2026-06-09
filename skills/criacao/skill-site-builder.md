@@ -27,6 +27,23 @@ env: []
 
 ---
 
+## DNA Visual — herança obrigatória
+
+Antes de qualquer layout ou decisão de UX:
+
+1. Verificar se existe `clients/[slug]/outputs/branding/visual-dna.json`
+2. Se NÃO existir → interromper e instruir: "Execute /direcao-criativa antes de criar site para este cliente."
+3. Se existir → carregar:
+   - `visual_dna.spatial_logic` — como o espaço vazio é tratado (luxo, respiro, silêncio)
+   - `visual_dna.densidade` — densidade de elementos por seção
+   - `visual_dna.ritmo_tipográfico` — comportamento da tipografia no layout
+   - `color_behavior` — como a cor opera (não quais cores)
+   - `anti_dna.never_use.visual` e `anti_dna.never_use.interaction`
+
+O spatial_logic define a arquitetura de cada seção antes de qualquer código.
+
+---
+
 ## Objetivo da Skill
 
 Gerar um site completo orientado a conversão com:

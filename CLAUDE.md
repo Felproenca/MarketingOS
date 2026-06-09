@@ -28,6 +28,36 @@ Essa marca tem gravidade para arrastar — ou precisa construir a ponte?
 
 ---
 
+## Regra de DNA Visual — herança obrigatória
+
+Antes de qualquer criação visual para um cliente:
+
+1. Verificar se existe `clients/[slug]/outputs/branding/visual-dna.json`
+2. Se NÃO existir → executar `/direcao-criativa` antes de qualquer skill de criação
+3. Se existir → cada skill carrega apenas os campos relevantes (ver cada skill)
+
+**Teste obrigatório antes de publicar qualquer peça:**
+> "A marca continuaria reconhecível sem logo, nome e cores principais?"
+> Se não → a peça não sai.
+
+**Hierarquia de skills de criação:**
+```
+/direcao-criativa    ← executa primeiro, sempre
+      ↓
+visual-dna.json      ← gerado e salvo em clients/[slug]/outputs/branding/
+      ↓
+/criar [qualquer]    ← herda o DNA, nunca ignora
+```
+
+**Para salvar referência no banco:**
+```
+/salvar-referencia                              ← skill-save-reference.md
+node scripts/capture-reference.js --url <url>  ← captura automática
+bookmarklet                                     ← captura manual enquanto navega
+```
+
+---
+
 ## Linguagem de Posicionamento — MarketingOS
 
 Quando gerar qualquer conteúdo, pitch ou abordagem para o Felipe ou para o MarketingOS:
@@ -163,9 +193,12 @@ Use `workflows/token-economy.md` como regra operacional para reduzir contexto.
 
 ### Grupo: Criacao → `/criar`
 > Leia `alma.md` (raiz) + `skills/criacao/_admin.md` → escolha uma skill → carregue so ela.
+> **Ordem obrigatória para novo cliente:** `/branding` → `/direcao-criativa` → qualquer outra skill.
 
 | Skill | Quando usar |
 |---|---|
+| `criacao/skill-creative-direction.md` | **Motor de DNA Visual** — executa após /branding, antes de qualquer criação (`/direcao-criativa`) |
+| `criacao/skill-save-reference.md` | Captura e interpreta referência visual para o banco (`/salvar-referencia`) |
 | `criacao/skill-criatividade.md` | Verdade humana + direcao criativa (obrigatoria antes de criar) |
 | `criacao/skill-niche-intelligence.md` | Mapa de nicho, angulos e oportunidade editorial (obrigatoria sem mapa) |
 | `criacao/skill-lancamento.md` | Sequencia de 5–10 conteudos de lancamento para perfil zero — delega execucao |
@@ -181,6 +214,7 @@ Use `workflows/token-economy.md` como regra operacional para reduzir contexto.
 | `criacao/skill-prompt-engineer.md` | Decisao HTML puro vs imagem externa |
 | `criacao/skill-social-content-agent.md` | **Orquestrador** — copy + spec + prompt Nano Banana + pacote HTML (`/criar conteudo`) |
 | `criacao/skill-reels.md` | Reels de texto revelado — pesquisa + roteiro + HTML + Playwright → MP4 (`/criar reel`) |
+| `criacao/skill-reel-builder.md` | Construtor multi-tipo — text, motion, particles, 3d-abstrato, shader, physics (`/criar reel --tipo`) |
 
 ### Grupo: Aquisicao → `/prospectar`
 > Leia `skills/aquisicao/_admin.md` → escolha uma skill → carregue so ela.

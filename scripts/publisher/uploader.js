@@ -27,14 +27,20 @@ async function uploadToImgbb(filePath, apiKey) {
 
 // Resolve a file-or-URL to a publicly accessible URL
 // - If already a URL → return as-is
-// - If local file + IMGBB key → upload and return
-// - If local file + no key → throw with instructions
+// - If video file (mp4/mov) → return local path (handled by Meta resumable upload in publishReel)
+// - If local image + IMGBB key → upload and return
+// - If local image + no key → throw with instructions
 async function resolveUrl(fileOrUrl, imgbbApiKey) {
   if (/^https?:\/\//i.test(fileOrUrl)) return fileOrUrl;
 
   const absPath = path.resolve(fileOrUrl);
   if (!fs.existsSync(absPath)) {
     throw new Error(`Arquivo não encontrado: ${absPath}`);
+  }
+
+  // Videos são enviados diretamente para Meta via resumable upload — não passam pelo imgbb
+  if (/\.(mp4|mov|avi|webm)$/i.test(absPath)) {
+    return absPath;
   }
 
   if (!imgbbApiKey) {

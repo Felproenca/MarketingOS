@@ -73,6 +73,33 @@ a skill-criatividade é obrigatória antes de tudo.
 
 ---
 
+## Skills disponíveis neste grupo
+
+| Skill | Comando | Função |
+|---|---|---|
+| skill-creative-direction | /direcao-criativa | Motor de direção criativa — executa antes de tudo |
+| skill-branding | /branding | Identidade visual e posicionamento |
+| skill-social-content-agent | /criar conteudo | Orquestrador de conteúdo social |
+| skill-reels | /criar reel | Gerador de Reels (texto revelado) |
+| skill-reel-builder | /criar reel [--tipo] | Construtor multi-tipo: text, motion, particles, 3d, shader |
+| skill-carousel | /criar carousel | Gerador de carrossel Instagram |
+| skill-post | /criar post | Gerador de post Instagram |
+| skill-visual-spec | /criar visual-spec | Spec visual por slide/frame |
+| skill-image-generation | /criar imagem | Prompts para Pollinations / Nano Banana |
+| skill-social-copy | /criar copy | Copy para posts e legendas |
+| skill-save-reference | /salvar-referencia | Captura e interpreta referências visuais |
+| skill-site-builder | /criar site | Construtor de sites e landing pages |
+| skill-prompt-engineer | /criar prompt | Engenharia de prompts de imagem |
+| skill-lancamento | /lancamento | Estratégia de lançamento |
+| skill-niche-intelligence | /nicho | Inteligência de nicho |
+
+**Ordem obrigatória para novo cliente:**
+1. /branding → define identidade
+2. /direcao-criativa → gera visual-dna.json
+3. Qualquer outra skill → herda o DNA
+
+---
+
 ## Regra de ouro deste grupo
 
 Conteúdo que poderia ser de qualquer marca não é conteúdo.

@@ -29,6 +29,41 @@
 
 ---
 
+## Princípios operacionais de conteúdo
+
+**Rede social não é vitrine — é canal de distribuição, aquisição, conversão e retenção.**
+Cada publicação existe para mover alguém: atrair, ativar, converter ou reter. Se não tem objetivo declarado, não sai.
+
+**Regra 10x:**
+> Entregue 10 vezes antes de sacar 1. Quem entrega valor de verdade ganha o direito de vender.
+> Entregar 10 → sacar 1. Entregar 100 → sacar 10.
+> Objetivo é vender — não apenas publicar.
+
+**Todo conteúdo precisa ter:**
+- CTA claro (stories com link, reels com oferta, carrossel com próximo passo)
+- Objetivo declarado antes de ser produzido
+- Oferta visível em pelo menos 1 de cada 10 peças
+
+**Canais prioritários:**
+1. Instagram — reels + carrossel + stories
+2. YouTube — autoridade e SEO
+3. LinkedIn — prospecção B2B
+4. TikTok / Spotify — distribuição secundária
+
+**Terreno próprio vs terreno dos outros:**
+Redes sociais são terreno alugado — o algoritmo muda, a conta pode cair.
+Site é terreno próprio: SEO, autoridade, captura de lead, hub de conversão.
+Ter site já coloca o negócio à frente de metade dos concorrentes no segmento digital.
+Prioridade: site com SEO correto + tráfego orgânico consistente (lento, mas constrói autoridade).
+
+**Páginas necessárias:**
+- Captura / leads
+- Produto / oferta
+- Institucional
+- Blog (SEO + autoridade)
+
+---
+
 ## Direção atual — Build in Public
 
 **Ângulo novo:** parar de vender resultado, começar a mostrar processo em tempo real.
@@ -49,6 +84,15 @@ Honesto. Único. Constrói credibilidade sem precisar de prova que ainda não ex
 - [ ] Revisar e publicar carrossel IA aplicada (`outputs/posts/2026-06-03/ia-aplicada-sistema-carousel/`)
 - [ ] Fechar primeiro cliente real — prioridade absoluta
 - [ ] Grade 2 (Posts 10—18) — revisar à luz do build in public
+
+## Contexto da última sessão (2026-06-08)
+
+- Reel 04 "A Máquina" publicado com áudio: instagram.com/reel/DZWUmEyDeQ4/
+- Publisher atualizado: suporte a vídeo local via Meta resumable upload (sem imgbb)
+- YouTube banner publicado: grid técnico + terminal + flow cards
+- ICP atualizado com dados demográficos completos (gênero, faixa etária, faturamento anual)
+- Princípios operacionais de conteúdo registrados (regra 10x, CTA, terreno próprio)
+- Próximo: textos dos posts da Grade 2 (Posts 10–18)
 
 ## Contexto da última sessão (2026-06-06)
 

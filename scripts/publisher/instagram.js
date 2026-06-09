@@ -56,7 +56,7 @@ async function createFeedContainer(igUserId, imageUrl, caption, accessToken) {
   return createMediaContainer(igUserId, { image_url: imageUrl, caption }, accessToken);
 }
 
-// Reels (video)
+// Reels (video via URL pública)
 async function createReelContainer(igUserId, videoUrl, caption, accessToken) {
   return createMediaContainer(igUserId, {
     media_type: 'REELS',
@@ -64,6 +64,39 @@ async function createReelContainer(igUserId, videoUrl, caption, accessToken) {
     caption,
     share_to_feed: true,
   }, accessToken);
+}
+
+// Reels (upload direto via Meta resumable upload — para arquivos locais)
+async function createReelContainerResumable(igUserId, caption, accessToken) {
+  return createMediaContainer(igUserId, {
+    media_type: 'REELS',
+    upload_type: 'resumable',
+    caption,
+    share_to_feed: true,
+  }, accessToken);
+}
+
+async function uploadVideoToUri(uploadUri, filePath, accessToken) {
+  const fs = require('fs');
+  const fileBuffer = fs.readFileSync(filePath);
+  const fileSize = fs.statSync(filePath).size;
+  const fileName = require('path').basename(filePath);
+
+  const res = await fetch(uploadUri, {
+    method: 'POST',
+    headers: {
+      'Authorization': `OAuth ${accessToken}`,
+      'file_size': String(fileSize),
+      'file_name': encodeURIComponent(fileName),
+      'Content-Type': 'application/octet-stream',
+      'offset': '0',
+    },
+    body: fileBuffer,
+  });
+
+  const text = await res.text();
+  if (!res.ok) throw new Error(`Upload do vídeo falhou: ${res.status} ${text}`);
+  try { return JSON.parse(text); } catch { return { ok: true }; }
 }
 
 // Story (image)
@@ -145,6 +178,8 @@ module.exports = {
   createCarouselItem,
   createCarouselContainer,
   createReelContainer,
+  createReelContainerResumable,
+  uploadVideoToUri,
   createStoryContainer,
   publishContainer,
   waitForContainer,

@@ -26,6 +26,21 @@ env: []
 
 ---
 
+## Relação com skill-creative-direction
+
+A skill-branding define identidade (o que a marca é).
+A skill-creative-direction define expressão (como a marca se move).
+
+Sequência correta:
+1. /branding → define identidade, posicionamento, brand-kit
+2. /direcao-criativa → converte identidade em DNA Visual e Assinatura Perceptiva
+3. Skills de criação → herdam visual-dna.json
+
+Se /direcao-criativa já foi executada para este cliente, não reexecutar /branding sem motivo.
+O visual-dna.json é a fonte de verdade para criação.
+
+---
+
 ## Objetivo da Skill
 
 Criar a camada de direcao criativa que evita output generico e orienta todas as entregas visuais e de UX.

@@ -24,6 +24,23 @@ env: []
 
 ---
 
+## DNA Visual — herança obrigatória
+
+Antes de gerar qualquer prompt de imagem:
+
+1. Verificar se existe `clients/[slug]/outputs/branding/visual-dna.json`
+2. Se NÃO existir → interromper e instruir: "Execute /direcao-criativa antes de gerar imagens para este cliente."
+3. Se existir → carregar APENAS:
+   - `visual_dna.temperatura`
+   - `visual_dna.profundidade`
+   - `visual_dna.textura`
+   - `anti_dna.never_use.visual`
+   - `anti_dna.never_use.color`
+
+Esses campos alimentam diretamente o prompt de imagem e o negative prompt.
+
+---
+
 ## Objetivo da Skill
 
 Gerar prompts de imagem precisos e alinhados à identidade visual do cliente, prontos para executar via Pollinations AI, cobrindo:

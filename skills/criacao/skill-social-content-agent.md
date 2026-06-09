@@ -28,6 +28,21 @@ Não carregar: metrics.json, campaigns.md, notes.md, estrategia.md, system-usage
 
 ---
 
+## DNA Visual — herança obrigatória
+
+Antes de executar qualquer estágio do pipeline:
+
+1. Verificar se existe `clients/[slug]/outputs/branding/visual-dna.json`
+2. Se NÃO existir → interromper e instruir: "Execute /direcao-criativa antes de criar conteúdo para este cliente."
+3. Se existir → carregar:
+   - `visual_dna` completo → alimenta skill-visual-spec no Estágio 2
+   - `motion_principles` → alimenta prompt do Nano Banana no Estágio 3
+   - `anti_dna` completo → filtro em todos os estágios
+
+O DNA Visual é o contrato de coerência. Nenhum output do agente pode contradizê-lo.
+
+---
+
 ## Input do Operador
 
 ```

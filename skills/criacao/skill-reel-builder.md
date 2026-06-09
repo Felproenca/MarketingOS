@@ -41,6 +41,22 @@ env: []
 
 ---
 
+## DNA Visual — herança obrigatória
+
+Antes de gerar qualquer HTML, independente do tipo:
+
+1. Verificar se existe `clients/[slug]/outputs/branding/visual-dna.json`
+2. Se NÃO existir → interromper e instruir: "Execute /direcao-criativa antes de buildar reel para este cliente."
+3. Se existir → carregar:
+   - `visual_dna.tempo` e `visual_dna.movimento` — ritmo de entrada e tipo de transição
+   - `motion_principles` (array completo) — princípios que governam todo movimento da marca
+   - `anti_dna.never_use.motion` e `anti_dna.never_use.visual` — filtro por tipo
+
+Para tipos combinados (ex: partículas + texto + câmera), o DNA é o contrato de coerência entre as camadas.
+Nenhum tipo visual pode contradizer os motion_principles da marca.
+
+---
+
 ## Processo em 6 etapas
 
 ### Etapa 1 — Localizar e ler o brief

@@ -25,7 +25,10 @@ Meta 3: Coletar primeiro depoimento real para prova social
 ```txt
 [x] Demo interativo completo — demo-sistema-liliana.html
 [x] Seção "O que acontece depois" — transparência sobre setup
-[ ] Reunião de fechamento com Liliana — skill/workflow: skill-venda.md
+[x] Reunião de fechamento com Liliana — positiva, aguardando decisão
+[x] Link enviado — https://demo-omega-amber-71.vercel.app
+[ ] Aguardar resposta até 2026-06-15
+[ ] Follow-up no dia 15 se silêncio
 [ ] Setup WA provider (Z-API ou WATI) — após assinatura
 [ ] Setup Google Calendar OAuth — após assinatura
 [ ] Primeiro conteúdo publicado — skill-carousel + skill-publicar
@@ -35,9 +38,9 @@ Meta 3: Coletar primeiro depoimento real para prova social
 ```txt
 Data: 2026-06-10
 Decisoes:
-  → Promessas de volume de leads removidas do pitch — risco > benefício
-  → Transparência sobre WA provider virou argumento de confiança
-  → ROI ancorado no preço da sessão (R$ 800–1.600), não em projeções de leads
-Pendencias: Retorno da Liliana após ver o demo
-Proximo contato: Aguardar — follow-up se silêncio após 48h
+  → Valor ajustado: 1º mês R$ 748 + 2º e 3º mês R$ 1.600/mês
+  → Reunião positiva — Liliana ficou de pensar
+  → Perguntas de perfil de cliente funcionaram bem para abrir escuta
+Pendencias: Decisão da Liliana até 2026-06-15
+Proximo contato: 2026-06-15 — follow-up se sem resposta
 ```

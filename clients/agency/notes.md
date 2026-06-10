@@ -31,6 +31,23 @@
 
 ---
 
+## 2026-06-10 — Reunião + envio do demo v2 — Liliana Sierra
+
+**Contexto:** Reunião de fechamento realizada. Resultado positivo — ficou de pensar.
+
+**Negociação:**
+- Valor original: R$ 1.997/mês
+- Valor fechado: 1º mês R$ 748 (implantação) + 2º e 3º mês R$ 1.600/mês
+- Total do plano: R$ 3.948
+
+**Perguntas de abertura usadas:** Qual o perfil dos clientes atuais · De onde vêm os clientes · O que acontece quando a indicação seca.
+
+**O que funcionou:** Reunião descrita como boa — sinal de rapport e interesse real.
+
+**Próximo passo:** Resposta até 2026-06-15. Se silêncio → follow-up no dia 15.
+
+**Link enviado:** https://demo-omega-amber-71.vercel.app
+
 ## 2026-06-10 — Pitch Liliana Sierra — demo-sistema v2
 
 **Contexto:** Sessão de refinamento do demo interativo `demo-sistema-liliana.html` antes da reunião de fechamento.

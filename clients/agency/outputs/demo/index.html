@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MarketingOS × Liliana Sierra — Sistema Completo</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080808;--bg2:#111;--bg3:#1a1a1a;
+  --line:#1e1e1e;--line2:#2a2a2a;
+  --text:#fafafa;--muted:#888;--dim:#444;
+  --gold:#c9a55c;--gold-d:rgba(201,165,92,.12);--gold-b:rgba(201,165,92,.28);
+  --teal:#1a2e3a;--teal2:#2d5266;--sage:#8fa8a0;--sage-d:rgba(143,168,160,.15);--cream:#f4f1ee;
+  --avail:#1a73e8;--avail-d:rgba(26,115,232,.13);--avail-b:rgba(26,115,232,.35);
+  --booked:#5f6368;--booked-d:rgba(95,99,104,.18);
+  --cancel:#d85a30;--cancel-d:rgba(216,90,48,.12);
+  --green:#1d9e75;--green-d:rgba(29,158,117,.12);
+  --fs:'Syne',sans-serif;--fc:'Cormorant Garamond',serif;--fi:'Inter',sans-serif;--fm:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--fi);line-height:1.6;overflow-x:hidden}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(8,8,8,.93);backdrop-filter:blur(20px);border-bottom:.5px solid var(--line);padding:13px 0}
+.nav-i{max-width:1100px;margin:0 auto;padding:0 32px;display:flex;justify-content:space-between;align-items:center}
+.nav-logo{font-family:var(--fs);font-size:13px;font-weight:800;letter-spacing:-.01em}
+.nav-logo .sl{opacity:.2;font-weight:200;margin:0 1px}
+.nav-logo .os{font-family:var(--fc);font-style:italic;color:var(--gold)}
+.nav-lbl{font-size:10px;color:var(--dim);letter-spacing:.14em;text-transform:uppercase}
+
+/* SECTIONS */
+section{padding:100px 32px 80px;border-bottom:.5px solid var(--line)}
+.inner{max-width:1100px;margin:0 auto}
+.s-lbl{font-size:9px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--sage);margin-bottom:18px;display:block}
+h1{font-family:var(--fs);font-size:clamp(36px,5vw,64px);font-weight:800;line-height:1.03;letter-spacing:-.03em;margin-bottom:18px}
+h1 em{font-style:normal;color:var(--gold)}
+h2{font-family:var(--fs);font-size:clamp(24px,3.5vw,40px);font-weight:800;line-height:1.06;letter-spacing:-.025em;margin-bottom:14px}
+h2 em{font-style:normal;color:var(--gold)}
+h3{font-family:var(--fs);font-size:17px;font-weight:700;line-height:1.2;margin-bottom:8px}
+.lead{font-size:17px;line-height:1.7;color:var(--muted);max-width:620px;margin-bottom:36px}
+.bt{font-size:14px;line-height:1.75;color:var(--muted);max-width:620px}
+.bt+.bt{margin-top:12px}
+
+/* COVER */
+.cover{padding-top:140px;min-height:100vh;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(ellipse at 15% 60%,rgba(143,168,160,.06),transparent 55%),radial-gradient(ellipse at 85% 20%,rgba(201,165,92,.04),transparent 50%)}
+.cover-tag{font-family:var(--fm);font-size:10px;color:var(--dim);letter-spacing:.18em;text-transform:uppercase;margin-bottom:28px}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:28px}
+.pill{font-family:var(--fm);font-size:10px;padding:5px 12px;border-radius:20px;border:1px solid var(--line2);color:var(--muted)}
+.pill.g{border-color:var(--gold-b);color:var(--gold);background:var(--gold-d)}
+.pill.t{border-color:rgba(143,168,160,.3);color:var(--sage);background:var(--sage-d)}
+.cover-meta{margin-top:44px;display:flex;align-items:center;gap:20px}
+.cover-for{font-size:11px;color:var(--dim);letter-spacing:.12em;text-transform:uppercase}
+.cover-name{font-family:var(--fc);font-size:18px;font-style:italic;color:var(--sage)}
+
+/* 2-COL */
+.two-col{display:grid;grid-template-columns:1fr 540px;gap:60px;align-items:center}
+.two-col.rev{grid-template-columns:540px 1fr}
+
+/* CAROUSEL */
+.viewer{width:540px;height:540px;overflow:hidden;border-radius:8px;box-shadow:0 32px 80px rgba(0,0,0,.75);flex-shrink:0}
+.strip{display:flex;height:540px;transition:transform .45s cubic-bezier(.4,0,.2,1)}
+.slide{width:540px;height:540px;flex-shrink:0;display:flex;flex-direction:column;padding:36px;position:relative;overflow:hidden}
+.c-ctrl{display:flex;align-items:center;gap:14px;margin-top:16px}
+.c-btn{width:34px;height:34px;border-radius:6px;border:1px solid var(--line2);background:var(--bg2);color:var(--dim);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:var(--fs)}
+.c-btn:hover:not(:disabled){border-color:var(--gold);color:var(--gold)}
+.c-btn:disabled{opacity:.2;cursor:default}
+.c-count{font-family:var(--fm);font-size:11px;color:var(--dim)}
+.c-dots{display:flex;gap:5px;align-items:center}
+.c-dot{width:5px;height:5px;border-radius:50%;background:var(--line2);transition:all .25s;cursor:pointer}
+.c-dot.on{background:var(--gold);width:16px;border-radius:3px}
+
+/* CAROUSEL 1 — dark/gold, texto puro */
+.c1 .slide{background:#080808}
+.c1 .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.c1 .brand{font-family:var(--fs);font-size:10px;font-weight:800;display:flex;align-items:baseline;gap:2px}
+.c1 .brand .sl{opacity:.25;font-weight:200;margin:0 1px}
+.c1 .brand .os{font-family:var(--fc);font-style:italic;color:var(--gold);font-weight:400}
+.c1 .tag{font-size:9px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.c1 .eye{display:inline-flex;align-items:center;gap:8px;font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.c1 .eye::before{content:'';width:16px;height:2px;background:var(--gold);flex-shrink:0}
+.c1 .body{flex:1;display:flex;flex-direction:column;justify-content:center}
+.c1 .bot{display:flex;justify-content:space-between;align-items:flex-end}
+.c1 .big{font-family:var(--fs);font-size:38px;font-weight:800;color:var(--text);line-height:1.04;letter-spacing:-.03em}
+.c1 .big em{font-style:normal;color:var(--gold)}
+.c1 .sub{font-size:12px;color:var(--muted);line-height:1.65;max-width:380px;margin-top:14px}
+.c1 .ghost{position:absolute;font-family:var(--fs);font-weight:900;color:var(--gold);opacity:.04;line-height:1;letter-spacing:-.05em;pointer-events:none;right:-8px;bottom:-14px;font-size:150px}
+.c1 .lst{display:flex;flex-direction:column;gap:9px;margin-top:14px}
+.c1 .itm{display:flex;align-items:flex-start;gap:11px;background:#111;border:1px solid #1e1e1e;border-radius:7px;padding:11px 13px}
+.c1 .itm.hl{border-color:rgba(201,165,92,.3);background:rgba(201,165,92,.1)}
+.c1 .num{font-family:var(--fm);font-size:10px;color:var(--gold);min-width:20px;padding-top:1px}
+.c1 .it{font-size:12px;color:var(--text);font-weight:600;line-height:1.4}
+.c1 .is{font-size:11px;color:var(--muted);line-height:1.5;margin-top:2px}
+.c1 .prog{display:flex;gap:5px}
+.c1 .pd{width:5px;height:5px;border-radius:50%;background:#1e1e1e}
+.c1 .pd.on{background:var(--gold);width:16px;border-radius:3px}
+.c1 .gold-sl{background:var(--gold)!important}
+.c1 .gold-sl .brand,.c1 .gold-sl .brand .os{color:#080808}
+.c1 .gold-sl .big{color:#080808}
+.c1 .gold-sl .big em{color:rgba(0,0,0,.45)}
+.c1 .gold-sl .sub{color:rgba(0,0,0,.5)}
+.c1 .gold-sl .pd{background:rgba(0,0,0,.2)}
+.c1 .gold-sl .pd.on{background:#080808}
+.c1 .gold-sl .eye{color:rgba(0,0,0,.5)}
+.c1 .gold-sl .eye::before{background:rgba(0,0,0,.5)}
+.c1 .cta-p{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--gold-b);background:var(--gold-d);padding:10px 18px;border-radius:6px;font-size:12px;font-weight:600;color:var(--gold);letter-spacing:.04em;width:fit-content;margin-top:16px}
+.c1 .handle{font-family:var(--fm);font-size:10px;color:var(--muted);letter-spacing:.06em}
+.c1 .sn{font-family:var(--fm);font-size:10px;color:var(--muted);letter-spacing:.08em}
+.grain{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5}
+
+/* CAROUSEL 2 — teal/elementos visuais, 90 dias */
+.c2 .slide{background:var(--teal)}
+.c2 .m1{background:#132232}
+.c2 .m2{background:#1a2e3a}
+.c2 .m3{background:#0f2620}
+.c2 .dia91{background:#080808}
+.c2 .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.c2 .phase-lbl{font-family:var(--fm);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--sage);opacity:.7}
+.c2 .brand{font-family:var(--fs);font-size:10px;font-weight:800;opacity:.35;color:var(--cream)}
+.c2 .body{flex:1;display:flex;flex-direction:column;justify-content:center}
+.c2 .bot{display:flex;justify-content:space-between;align-items:flex-end}
+.c2 .big{font-family:var(--fs);font-size:32px;font-weight:800;color:var(--cream);line-height:1.06;letter-spacing:-.025em}
+.c2 .big em{font-style:normal;color:var(--sage)}
+.c2 .big i{font-family:var(--fc);font-style:italic;font-weight:400;font-size:30px;color:var(--sage);display:block;margin-top:4px}
+.c2 .sub{font-size:12px;color:rgba(244,241,238,.45);line-height:1.65;margin-top:10px}
+.c2 .pbadge{display:inline-flex;align-items:center;gap:6px;background:rgba(143,168,160,.15);border:1px solid rgba(143,168,160,.3);border-radius:20px;padding:4px 12px;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);margin-bottom:12px}
+.c2 .pbar-wrap{margin:14px 0 4px;height:4px;background:rgba(255,255,255,.08);border-radius:2px}
+.c2 .pbar{height:100%;border-radius:2px;background:var(--sage)}
+.c2 .pbar-lbls{display:flex;justify-content:space-between;font-family:var(--fm);font-size:9px;color:rgba(244,241,238,.35);margin-bottom:14px}
+.c2 .cklist{display:flex;flex-direction:column;gap:7px}
+.c2 .ck{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:6px}
+.c2 .ck-ico{width:16px;height:16px;border-radius:50%;background:var(--sage);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:9px;color:var(--teal);font-weight:800}
+.c2 .ck-t{font-size:12px;color:var(--cream);line-height:1.4}
+.c2 .ck-s{font-size:10px;color:rgba(244,241,238,.4);margin-top:2px}
+.c2 .pd{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.1)}
+.c2 .pd.on{background:var(--sage);width:16px;border-radius:3px}
+.c2 .prog{display:flex;gap:5px}
+
+/* CAROUSEL 3 — visual/gradients, semana automatizada */
+.c3 .slide{background:#080808}
+.c3 .seg{background:linear-gradient(140deg,#0e1a2e 0%,#1a2e46 100%)}
+.c3 .qua{background:linear-gradient(140deg,#0e2218 0%,#1a3828 100%)}
+.c3 .qui{background:linear-gradient(140deg,#1c1200 0%,#332200 100%)}
+.c3 .sex{background:linear-gradient(140deg,#22080a 0%,#381010 100%)}
+.c3 .pos{background:linear-gradient(140deg,#0a1a1a 0%,#102e2c 100%)}
+.c3 .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.c3 .day-tag{font-family:var(--fs);font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+.c3 .day-tag.seg{color:#60a5fa}.c3 .day-tag.qua{color:#4ade80}
+.c3 .day-tag.qui{color:var(--gold)}.c3 .day-tag.sex{color:#f87171}.c3 .day-tag.pos{color:var(--sage)}
+.c3 .brand{font-family:var(--fs);font-size:10px;font-weight:800;opacity:.28}
+.c3 .body{flex:1;display:flex;flex-direction:column;justify-content:center}
+.c3 .bot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:10px}
+.c3 .big{font-family:var(--fs);font-size:28px;font-weight:800;color:var(--text);line-height:1.1;letter-spacing:-.025em}
+.c3 .sub{font-size:12px;color:var(--muted);line-height:1.65;margin-top:8px}
+.c3 .acts{display:flex;flex-direction:column;gap:7px;margin-top:14px}
+.c3 .act{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:6px}
+.c3 .atag{font-family:var(--fm);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 6px;border-radius:3px;flex-shrink:0;margin-top:1px}
+.c3 .atag.auto{background:rgba(74,222,128,.12);color:#4ade80}
+.c3 .atag.pub{background:rgba(96,165,250,.12);color:#60a5fa}
+.c3 .atag.cal{background:rgba(201,165,92,.12);color:var(--gold)}
+.c3 .atag.wa{background:rgba(37,211,102,.12);color:#25d366}
+.c3 .atag.alrt{background:rgba(248,113,113,.12);color:#f87171}
+.c3 .ab{font-size:12px;color:var(--text);line-height:1.4}
+.c3 .as{font-size:10px;color:var(--muted);margin-top:2px}
+.c3 .pd{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.1)}
+.c3 .pd.on{background:var(--sage);width:16px;border-radius:3px}
+.c3 .prog{display:flex;gap:5px}
+.c3 .sn{font-family:var(--fm);font-size:10px;color:var(--muted);letter-spacing:.08em}
+
+/* WA FLOW */
+.wa-wrap{background:#0d1a0e;border-radius:10px;overflow:hidden;border:.5px solid var(--line2);margin-top:32px}
+.wa-bar{background:#1a2e1a;padding:10px 14px;display:flex;align-items:center;gap:7px;border-bottom:.5px solid var(--line)}
+.wa-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.wa-url{margin-left:10px;font-size:11px;color:var(--dim);font-family:var(--fm);flex:1}
+.wa-body{padding:22px 26px;display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.wa-col-lbl{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:12px;font-weight:600}
+.wb{border-radius:10px;padding:10px 13px;font-size:13px;line-height:1.5;margin-bottom:7px;max-width:260px}
+.wi{background:#1e2e20;color:#c8e6c9}
+.wa{background:#162030;color:#90caf9}
+.wt{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 5px;border-radius:3px;margin-bottom:5px}
+.wt.auto{background:rgba(144,202,249,.15);color:#90caf9}
+.wt.ok{background:rgba(37,211,102,.15);color:#25d366}
+.wt.alrt{background:rgba(216,90,48,.15);color:#f87171}
+
+/* GOOGLE CALENDAR */
+.gcal-wrap{border-radius:10px;overflow:hidden;border:.5px solid var(--line2);background:var(--bg2);margin-top:32px}
+.gcal-hdr{background:var(--bg3);border-bottom:.5px solid var(--line);padding:12px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.gcal-title{font-size:14px;font-weight:600;display:flex;align-items:center;gap:10px}
+.gcal-glogo{width:18px;height:18px;border-radius:50%;background:conic-gradient(#4285f4 0deg 90deg,#34a853 90deg 180deg,#fbbc05 180deg 270deg,#ea4335 270deg 360deg);flex-shrink:0}
+.gcal-legend{display:flex;gap:16px;align-items:center;font-size:11px;color:var(--muted)}
+.gcal-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.gcal-week{display:grid;grid-template-columns:52px repeat(5,1fr)}
+.gcal-ch{padding:10px 0;text-align:center;border-bottom:.5px solid var(--line);border-right:.5px solid var(--line)}
+.gcal-ch:last-child{border-right:none}
+.gcal-dn{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.gcal-dd{font-family:var(--fs);font-size:20px;font-weight:800;color:var(--text);line-height:1}
+.gcal-ch.today .gcal-dd{color:var(--gold)}
+.gcal-rows{display:contents}
+.gcal-tc{grid-column:1;display:flex;flex-direction:column}
+.gcal-t{padding:0 8px;display:flex;align-items:flex-start;justify-content:flex-end;height:80px;border-bottom:.5px solid var(--line);border-right:.5px solid var(--line)}
+.gcal-t span{font-family:var(--fm);font-size:9px;color:var(--dim);margin-top:5px}
+.gcal-dc{display:flex;flex-direction:column;border-right:.5px solid var(--line)}
+.gcal-dc:last-child{border-right:none}
+.gcal-cell{height:80px;border-bottom:.5px solid var(--line);padding:4px 5px;position:relative}
+.gcal-slot{height:calc(100% - 2px);border-radius:5px;padding:5px 7px;font-size:11px;line-height:1.3;display:flex;flex-direction:column;justify-content:flex-start;overflow:hidden}
+.gcal-slot.avail{background:var(--avail-d);border:1px solid var(--avail-b);cursor:default}
+.gcal-slot.avail .sl-top{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#60a5fa;opacity:.9}
+.gcal-slot.avail .sl-name{font-size:11px;color:#90b8f8;margin-top:1px}
+.gcal-slot.booked{background:var(--booked-d);border:1px solid rgba(95,99,104,.3);cursor:pointer;transition:all .2s}
+.gcal-slot.booked:hover{background:rgba(95,99,104,.28);border-color:rgba(95,99,104,.6)}
+.gcal-slot.booked.canceling{background:var(--cancel-d)!important;border-color:rgba(216,90,48,.5)!important;animation:pulse .6s ease-in-out}
+.gcal-slot .sl-top{font-size:9px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.gcal-slot .sl-name{font-size:11px;font-weight:600;color:var(--text);margin-top:1px}
+.gcal-slot .sl-time{font-size:10px;color:var(--muted)}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(.97)}}
+
+/* CANCEL PANEL */
+.cancel-panel{background:var(--bg2);border:.5px solid rgba(216,90,48,.3);border-radius:10px;margin-top:18px;overflow:hidden;display:none;animation:slideD .3s ease}
+.cancel-panel.show{display:block}
+@keyframes slideD{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.cancel-hdr{background:rgba(216,90,48,.08);border-bottom:.5px solid rgba(216,90,48,.2);padding:14px 20px;display:flex;align-items:center;gap:12px}
+.cancel-blink{width:8px;height:8px;border-radius:50%;background:var(--cancel);flex-shrink:0;animation:blink 1.2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.cancel-msg{font-size:13px;font-weight:600}
+.cancel-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.cancel-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px 20px}
+.c-opt{border:.5px solid var(--line2);border-radius:8px;padding:16px;cursor:pointer;transition:all .2s;background:var(--bg3)}
+.c-opt:hover{border-color:var(--gold);background:var(--gold-d)}
+.c-opt.sel{border-color:var(--gold);background:var(--gold-d)}
+.c-opt-ico{font-size:20px;margin-bottom:8px}
+.c-opt-t{font-size:13px;font-weight:600;margin-bottom:4px}
+.c-opt-s{font-size:11px;color:var(--muted);line-height:1.5}
+.cancel-result{padding:16px 20px;border-top:.5px solid var(--line);display:none}
+.cancel-result.show{display:block}
+
+/* WAITLIST */
+.wlist{display:flex;flex-direction:column;gap:8px}
+.witem{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg3);border:.5px solid var(--line2);border-radius:7px;cursor:pointer;transition:all .2s}
+.witem:hover{border-color:var(--green);background:var(--green-d)}
+.witem.sent{border-color:var(--green)!important;background:var(--green-d)!important;cursor:default}
+.wavatar{width:32px;height:32px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--cream);flex-shrink:0}
+.wname{font-size:13px;font-weight:600}
+.winfo{font-size:11px;color:var(--muted)}
+.wbadge{margin-left:auto;font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px}
+.wbadge.wait{background:var(--gold-d);color:var(--gold);border:.5px solid var(--gold-b)}
+.wbadge.sent{background:var(--green-d);color:var(--green);border:.5px solid rgba(29,158,117,.3)}
+.wa-preview{background:#0d1a0e;border-radius:8px;padding:14px 16px;margin-top:12px}
+.wa-preview-lbl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;font-weight:600}
+.wamsg{background:#1e2e20;color:#c8e6c9;border-radius:10px;border-bottom-left-radius:2px;padding:10px 13px;font-size:12px;line-height:1.6;max-width:340px}
+.wamsg .wt{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 5px;border-radius:3px;margin-bottom:6px;background:rgba(37,211,102,.15);color:#25d366}
+
+/* RESCHEDULE */
+.rlist{display:flex;flex-direction:column;gap:8px}
+.ritem{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg3);border:.5px solid var(--line2);border-radius:7px;cursor:pointer;transition:all .2s}
+.ritem:hover{border-color:#60a5fa;background:rgba(96,165,250,.08)}
+.ritem.moved{border-color:var(--green)!important;background:var(--green-d)!important;cursor:default}
+.ritem-name{font-size:13px;font-weight:600;flex:1}
+.ritem-from{font-family:var(--fm);font-size:10px;color:var(--muted);text-decoration:line-through}
+.rarrow{color:var(--dim);font-size:12px;margin:0 4px}
+.ritem-to{font-family:var(--fm);font-size:10px;color:#60a5fa;font-weight:600}
+
+/* CONTENT CALENDAR */
+.cal-tabs{display:flex;gap:0;border:.5px solid var(--line2);border-radius:8px;overflow:hidden;width:fit-content;margin-bottom:22px}
+.cal-tab{padding:8px 24px;font-size:12px;font-weight:600;cursor:pointer;background:var(--bg2);color:var(--muted);border-right:.5px solid var(--line2);transition:all .2s;letter-spacing:.06em;font-family:var(--fs)}
+.cal-tab:last-child{border-right:none}
+.cal-tab.on{background:var(--gold-d);color:var(--gold)}
+.cal-month{display:none}
+.cal-month.active{display:block}
+.cal-grid{border-radius:10px;overflow:hidden;border:.5px solid var(--line2)}
+.cal-head{display:grid;grid-template-columns:60px repeat(5,1fr);background:var(--bg3)}
+.cal-head>div{padding:10px 11px;border-right:.5px solid var(--line);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:700}
+.cal-head>div:last-child{border-right:none}
+.cal-row{display:grid;grid-template-columns:60px repeat(5,1fr);border-top:.5px solid var(--line)}
+.cal-wk{padding:12px 10px;font-family:var(--fc);font-style:italic;font-size:13px;color:var(--muted);border-right:.5px solid var(--line);display:flex;align-items:center}
+.cal-cell{padding:10px 10px;border-right:.5px solid var(--line);min-height:68px;display:flex;flex-direction:column;gap:4px}
+.cal-cell:last-child{border-right:none}
+.cfmt{font-size:9px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:2px 6px;border-radius:10px;display:inline-block;align-self:flex-start}
+.cfmt.ca{background:rgba(26,46,58,.6);color:var(--sage);border:.5px solid rgba(143,168,160,.2)}
+.cfmt.cr{background:rgba(201,165,92,.12);color:var(--gold);border:.5px solid rgba(201,165,92,.2)}
+.cfmt.cp{background:rgba(96,165,250,.1);color:#60a5fa;border:.5px solid rgba(96,165,250,.2)}
+.cfmt.cs{background:rgba(95,99,104,.1);color:var(--muted);border:.5px solid var(--line2)}
+.ctheme{font-size:11px;color:var(--text);line-height:1.35;margin-top:2px}
+
+/* METRICS */
+.mets{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
+.met{border:.5px solid var(--line2);border-radius:10px;padding:22px;background:var(--bg2)}
+.met-v{font-family:var(--fs);font-size:34px;font-weight:800;color:var(--gold);line-height:1}
+.met-l{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.met-n{font-size:12px;color:var(--dim);margin-top:4px;line-height:1.5}
+
+/* CTA */
+.cta-sec{background:radial-gradient(ellipse at center,rgba(143,168,160,.07),transparent 65%);text-align:center}
+.cta-btn{display:inline-block;background:var(--sage);color:var(--teal);padding:16px 36px;border-radius:40px;font-weight:700;font-size:14px;letter-spacing:.04em;text-decoration:none;margin-top:28px;font-family:var(--fs)}
+.cta-sig{margin-top:56px;font-family:var(--fc);font-style:italic;color:var(--dim);font-size:13px}
+.divider{width:40px;height:1px;background:var(--gold);margin:24px 0;opacity:.4}
+
+/* GRAVAÇÃO TAG */
+.cfmt.cg{background:rgba(167,139,250,.12);color:#a78bfa;border:.5px solid rgba(167,139,250,.25)}
+
+/* PRICING SECTION */
+.price-grid{display:grid;grid-template-columns:1fr 380px;gap:48px;align-items:start}
+.price-card{border:.5px solid var(--gold-b);border-radius:16px;background:linear-gradient(155deg,rgba(201,165,92,.07) 0%,rgba(8,8,8,0) 55%);padding:36px;position:relative;overflow:hidden}
+.price-badge{display:inline-flex;align-items:center;gap:6px;background:var(--gold-d);border:.5px solid var(--gold-b);border-radius:20px;padding:5px 14px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+.price-old{font-family:var(--fm);font-size:20px;color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(216,90,48,.8);text-decoration-thickness:2px;margin-bottom:4px}
+.price-new{font-family:var(--fs);font-size:62px;font-weight:800;color:var(--gold);line-height:1;letter-spacing:-.03em;display:flex;align-items:flex-start;gap:4px}
+.price-new .cur{font-size:22px;font-weight:600;margin-top:10px;color:var(--muted)}
+.price-new .per{font-size:20px;font-weight:500;color:var(--muted);align-self:flex-end;margin-bottom:4px}
+.price-period{font-size:12px;color:var(--dim);margin-top:8px;letter-spacing:.04em}
+.price-note{font-size:12px;color:var(--dim);margin-top:18px;padding-top:18px;border-top:.5px solid var(--line);line-height:1.7}
+.price-note em{color:var(--sage);font-style:normal;font-weight:600}
+.pay-opts{display:flex;flex-direction:column;gap:10px;margin-top:24px}
+.pay-opt{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;border:.5px solid var(--line2);border-radius:10px}
+.pay-opt.pix{border-color:rgba(29,158,117,.3);background:rgba(29,158,117,.06)}
+.pay-opt.card{border-color:rgba(96,165,250,.25);background:rgba(96,165,250,.05)}
+.pay-opt-ico{font-size:20px;flex-shrink:0;margin-top:2px}
+.pay-opt-t{font-size:13px;font-weight:600;margin-bottom:3px}
+.pay-opt-s{font-size:12px;color:var(--muted);line-height:1.5}
+.includes-card{background:var(--bg2);border:.5px solid var(--line2);border-radius:14px;padding:26px}
+.includes-title{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+.inc-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:.5px solid var(--line)}
+.inc-item:last-child{border-bottom:none;padding-bottom:0}
+.inc-ico{width:18px;height:18px;border-radius:50%;background:var(--gold-d);border:.5px solid var(--gold-b);display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0;margin-top:2px;color:var(--gold)}
+.inc-t{font-size:13px;color:var(--text);font-weight:500;line-height:1.35}
+.inc-s{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.45}
+.load-box{margin-top:14px;padding:16px;background:var(--gold-d);border:.5px solid var(--gold-b);border-radius:10px}
+.load-lbl{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.load-txt{font-size:13px;color:var(--text);line-height:1.65}
+.price-copy{margin-bottom:44px}
+
+/* ── LILIANA SITE PREVIEW ── */
+.ls-wrap{border-radius:14px;overflow:hidden;box-shadow:0 48px 120px rgba(0,0,0,.6);border:.5px solid rgba(255,255,255,.07)}
+.ls-browser{background:#242424;padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:.5px solid rgba(255,255,255,.05)}
+.ls-bdot{width:11px;height:11px;border-radius:50%;flex-shrink:0}
+.ls-burl{flex:1;background:#1a1a1a;border-radius:5px;padding:5px 14px;font-family:var(--fm);font-size:11px;color:#555;margin-left:12px}
+.ls-site{font-family:'Inter',sans-serif;background:#fdfbf8;color:#1e1610;--lsa:#c87941;--lsl:#e8e0d8;--lsm:#5a4638;--lsb:#f5ede3}
+/* Nav */
+.ls-nav{background:rgba(253,251,248,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--lsl);padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:66px}
+.ls-nav-logo{display:flex;align-items:center;gap:14px}
+.ls-logo-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;letter-spacing:.04em;color:#1e1610;line-height:1.1}
+.ls-logo-sub{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#999;font-weight:500;margin-top:2px}
+.ls-nav-links{display:flex;gap:30px;list-style:none}
+.ls-nav-links a{font-size:12px;color:var(--lsm);text-decoration:none;letter-spacing:.03em}
+.ls-nav-cta{background:var(--lsa);color:#fff;padding:9px 20px;border-radius:40px;font-size:12px;font-weight:600;letter-spacing:.04em;text-decoration:none}
+/* Hero */
+.ls-hero{padding:96px 48px 72px;background:linear-gradient(155deg,#fdfbf8 55%,#f5ede3 100%);position:relative;overflow:hidden;min-height:520px;display:flex;flex-direction:column;justify-content:center}
+.ls-hero-bg{position:absolute;right:-80px;top:50%;transform:translateY(-50%);width:500px;height:500px;opacity:.05;pointer-events:none}
+.ls-eyebrow{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--lsa);margin-bottom:22px}
+.ls-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4.5vw,56px);font-weight:500;line-height:1.07;letter-spacing:-.01em;color:#1e1610;max-width:540px;margin-bottom:22px}
+.ls-hero h1 em{font-style:italic;color:var(--lsa)}
+.ls-hero-sub{font-size:15px;line-height:1.75;color:var(--lsm);max-width:420px;margin-bottom:36px}
+.ls-btn{display:inline-flex;align-items:center;gap:8px;background:var(--lsa);color:#fff;padding:14px 28px;border-radius:40px;font-size:13px;font-weight:600;letter-spacing:.04em;text-decoration:none}
+.ls-btn-ghost{display:inline-flex;align-items:center;gap:8px;color:var(--lsa);font-size:13px;font-weight:600;letter-spacing:.04em;text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px;margin-left:20px}
+/* Método */
+.ls-sec{padding:72px 48px}
+.ls-sec-lbl{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--lsa);margin-bottom:12px}
+.ls-sec h2{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3.5vw,38px);font-weight:500;line-height:1.1;color:#1e1610;margin-bottom:40px;max-width:460px}
+.ls-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.ls-card{padding:28px;border:1px solid var(--lsl);border-radius:12px;background:#fff}
+.ls-card-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--lsa);margin-bottom:16px;letter-spacing:.1em}
+.ls-card h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#1e1610;margin-bottom:10px;line-height:1.2}
+.ls-card p{font-size:13px;color:var(--lsm);line-height:1.7}
+/* Stats */
+.ls-stats{background:#1e1610;padding:64px 48px}
+.ls-stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.ls-stat-v{font-family:'Syne',sans-serif;font-size:48px;font-weight:800;color:#c87941;line-height:1}
+.ls-stat-l{font-size:12px;color:#fdf8f3;margin-top:8px;opacity:.65;line-height:1.6;max-width:200px}
+/* Depoimento */
+.ls-quote-sec{padding:72px 48px;background:var(--lsb);border-top:1px solid var(--lsl)}
+.ls-quote-mark{font-family:'Cormorant Garamond',serif;font-size:90px;color:var(--lsa);opacity:.18;line-height:.6;display:block;text-align:center;margin-bottom:-8px}
+.ls-quote{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.8vw,28px);font-weight:400;font-style:italic;color:#1e1610;line-height:1.45;max-width:640px;margin:0 auto;text-align:center}
+.ls-quote-attr{font-size:11px;color:var(--lsm);text-align:center;margin-top:20px;letter-spacing:.06em;opacity:.7}
+/* Sobre */
+.ls-sobre{padding:72px 48px;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;background:#fff}
+.ls-sobre-img{aspect-ratio:1;border-radius:12px;background:linear-gradient(140deg,#f5ede3 0%,#e8d5c0 100%);display:flex;align-items:center;justify-content:center}
+.ls-sobre h2{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.5vw,40px);font-weight:500;line-height:1.1;color:#1e1610;margin-bottom:16px}
+.ls-sobre p{font-size:14px;color:var(--lsm);line-height:1.78;margin-bottom:14px}
+/* Footer CTA */
+.ls-footer-cta{padding:80px 48px;text-align:center;background:linear-gradient(180deg,#fdfbf8 0%,#f0e4d4 100%)}
+.ls-footer-cta h2{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,48px);font-weight:500;line-height:1.06;color:#1e1610;margin-bottom:16px}
+.ls-footer-cta p{font-size:15px;color:var(--lsm);margin-bottom:36px;line-height:1.7;max-width:440px;margin-left:auto;margin-right:auto}
+/* Animations */
+.ls-anim{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.ls-anim.visible{opacity:1;transform:translateY(0)}
+.ls-anim.d1{transition-delay:.13s}.ls-anim.d2{transition-delay:.26s}.ls-anim.d3{transition-delay:.4s}
+/* Brinde box */
+.brinde-box{border:.5px solid rgba(201,165,92,.4);border-radius:16px;padding:36px;background:linear-gradient(125deg,rgba(201,165,92,.07) 0%,rgba(8,8,8,0) 60%);display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center}
+
+@media(max-width:900px){
+  .price-grid{grid-template-columns:1fr}
+
+  .two-col,.two-col.rev{grid-template-columns:1fr}
+  .viewer{width:100%;max-width:540px;margin:0 auto}
+  section{padding:80px 20px 60px}
+  .mets,.cancel-opts{grid-template-columns:1fr 1fr}
+  .wa-body{grid-template-columns:1fr}
+  .gcal-week{grid-template-columns:44px repeat(5,1fr)}
+  .price-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-i">
+    <div class="nav-logo">Marketing<span class="sl">/</span><span class="os">OS</span></div>
+    <div class="nav-lbl" id="nav-lbl">Sistema · Liliana Sierra</div>
+  </div>
+</nav>
+
+<!-- ═══ 0 · COVER ═══ -->
+<section class="cover" id="s0">
+  <div class="inner">
+    <div class="cover-tag">— MarketingOS × Liliana Sierra — Sistema Completo —</div>
+    <h1>Da agenda cheia<br>por indicação ao<br>sistema que <em>não para.</em></h1>
+    <p class="lead">Automação de atendimento, agendamento, follow-up de desistência e conteúdo — integrados ao Google Agenda. Sem você no celular.</p>
+    <div class="pills">
+      <span class="pill g">Automação WhatsApp</span>
+      <span class="pill g">Google Agenda integrado</span>
+      <span class="pill g">Follow-up de desistência</span>
+      <span class="pill t">3 carrosséis / semana</span>
+      <span class="pill t">Lista de espera automática</span>
+      <span class="pill">90 dias de conteúdo</span>
+    </div>
+    <div class="cover-meta">
+      <span class="cover-for">Preparado para</span>
+      <span class="cover-name">Liliana Sierra · Hipnoterapeuta</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 1 · CARROSSEL — Conteúdo (texto puro, dark/gold) ═══ -->
+<section id="s1">
+  <div class="inner">
+    <span class="s-lbl">01 · Estratégia de conteúdo</span>
+    <div class="two-col">
+      <div>
+        <h2>O conteúdo que<br>educa antes de<br><em>você falar.</em></h2>
+        <div class="divider"></div>
+        <p class="bt">Hipnoterapia carrega ceticismo. Quem chega ao perfil pela primeira vez vai embora antes de perguntar — a menos que o conteúdo faça o trabalho de convencimento por você.</p>
+        <p class="bt" style="margin-top:12px">Três formatos publicados 3× por semana. Cada um com papel no funil: educação, prova e conversão. Você aprova em 5 minutos — o sistema publica, monitora e ajusta.</p>
+      </div>
+      <div>
+        <div class="viewer c1" id="v1">
+          <div class="strip" id="s1strip">
+
+            <!-- slide 1: gancho -->
+            <div class="slide">
+              <svg class="grain"><filter id="g1"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#g1)" opacity="0.04"/></svg>
+              <div class="top">
+                <span class="tag">— MARKETINGOS —</span>
+                <div class="brand">Marketing<span class="sl">/</span><span class="os">OS</span></div>
+              </div>
+              <div class="body" style="gap:16px;padding:8px 0">
+                <span class="eye">Hipnoterapia · A verdade</span>
+                <div class="big">Você explica<br>hipnoterapia<br><em>10× por dia.</em></div>
+                <p class="sub">O conteúdo faz isso por você — antes de qualquer contato. Quem chega já chegou educado.</p>
+              </div>
+              <div class="bot">
+                <div class="prog">
+                  <div class="pd on"></div><div class="pd"></div><div class="pd"></div><div class="pd"></div><div class="pd"></div>
+                </div>
+              </div>
+              <div class="ghost">01</div>
+            </div>
+
+            <!-- slide 2: problema -->
+            <div class="slide">
+              <svg class="grain"><filter id="g2"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#g2)" opacity="0.04"/></svg>
+              <div class="top">
+                <span class="eye">O problema real</span>
+                <div class="brand">Marketing<span class="sl">/</span><span class="os">OS</span></div>
+              </div>
+              <div class="body">
+                <div class="big" style="font-size:26px;margin-bottom:6px">O ceticismo<br>chega antes<br><em>de você.</em></div>
+                <div class="lst">
+                  <div class="itm">
+                    <span class="num">01</span>
+                    <div><div class="it">Lead descobre hipnoterapia</div><div class="is">Busca no Google ou vê indicação de um amigo — chega ao perfil sem contexto.</div></div>
+                  </div>
+                  <div class="itm hl">
+                    <span class="num">02</span>
+                    <div><div class="it">Perfil parado = sem razão para confiar</div><div class="is">95% vai embora antes de mandar mensagem. Sem conteúdo, o visitante não entende, não confia, não age.</div></div>
+                  </div>
+                  <div class="itm">
+                    <span class="num">03</span>
+                    <div><div class="it">Com o sistema: o perfil convence sozinho</div><div class="is">Quem chega pelo conteúdo já chegou educado, qualificado e mais próximo do agendamento.</div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="bot">
+                <div class="prog"><div class="pd"></div><div class="pd on"></div><div class="pd"></div><div class="pd"></div><div class="pd"></div></div>
+              </div>
+            </div>
+
+            <!-- slide 3: solução -->
+            <div class="slide">
+              <svg class="grain"><filter id="g3"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#g3)" opacity="0.04"/></svg>
+              <div class="top">
+                <span class="eye">Os 3 formatos</span>
+                <div class="brand">Marketing<span class="sl">/</span><span class="os">OS</span></div>
+              </div>
+              <div class="body">
+                <div class="big" style="font-size:26px;margin-bottom:6px">3 formatos.<br>Cada um com<br><em>um papel.</em></div>
+                <div class="lst">
+                  <div class="itm hl">
+                    <span class="num">C</span>
+                    <div><div class="it">Carrossel — educa</div><div class="is">Explica o mecanismo. "Por que força de vontade não resolve". Salvo e compartilhado.</div></div>
+                  </div>
+                  <div class="itm">
+                    <span class="num">R</span>
+                    <div><div class="it">Reels — alcança</div><div class="is">Chega em quem ainda não te conhece. Gancho forte nos primeiros 3 segundos.</div></div>
+                  </div>
+                  <div class="itm">
+                    <span class="num">P</span>
+                    <div><div class="it">Post — prova</div><div class="is">Depoimentos reais, dados científicos, bastidores. Constrói autoridade semana a semana.</div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="bot">
+                <div class="prog"><div class="pd"></div><div class="pd"></div><div class="pd on"></div><div class="pd"></div><div class="pd"></div></div>
+              </div>
+            </div>
+
+            <!-- slide 4: gold -->
+            <div class="slide gold-sl">
+              <svg class="grain"><filter id="g4"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#g4)" opacity="0.06"/></svg>
+              <div class="top">
+                <span class="tag">— MARKETINGOS —</span>
+                <div class="brand">Marketing<span class="sl">/</span><span class="os">OS</span></div>
+              </div>
+              <div class="body" style="gap:20px">
+                <div class="big" style="font-size:36px;line-height:1.08;color:#080808">A venda<br>acontece antes<br>da sessão.</div>
+                <p class="sub" style="font-size:14px">Quem agenda já decidiu. O conteúdo é o que faz essa decisão acontecer — sem você precisar convencer ninguém manualmente.</p>
+              </div>
+              <div class="bot">
+                <div class="prog"><div class="pd"></div><div class="pd"></div><div class="pd"></div><div class="pd on"></div><div class="pd"></div></div>
+                <span class="sn">04 / 05</span>
+              </div>
+            </div>
+
+            <!-- slide 5: CTA -->
+            <div class="slide">
+              <svg class="grain"><filter id="g5"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#g5)" opacity="0.04"/></svg>
+              <div class="top">
+                <span class="tag">— MARKETINGOS —</span>
+                <div class="brand">Marketing<span class="sl">/</span><span class="os">OS</span></div>
+              </div>
+              <div class="body" style="gap:14px">
+                <span class="eye">O que o sistema entrega</span>
+                <div class="big" style="font-size:36px">3× semana.<br>Aprovação em<br><em>5 minutos.</em></div>
+                <p class="sub" style="max-width:300px">Você não cria, não agenda, não publica. Recebe o conteúdo pronto, aprova ou ajusta, e ele vai ao ar automaticamente.</p>
+                <div class="cta-p">Ver agenda dos 90 dias →</div>
+              </div>
+              <div class="bot">
+                <span class="handle">@lilianasierraoficial</span>
+                <div class="prog"><div class="pd"></div><div class="pd"></div><div class="pd"></div><div class="pd"></div><div class="pd on"></div></div>
+              </div>
+              <div class="ghost">05</div>
+            </div>
+
+          </div>
+        </div>
+        <div class="c-ctrl">
+          <button class="c-btn" id="c1p" onclick="nav('s1strip','c1p','c1n','c1c','c1d',-1)" disabled>‹</button>
+          <div class="c-dots" id="c1d"></div>
+          <button class="c-btn" id="c1n" onclick="nav('s1strip','c1p','c1n','c1c','c1d',1)">›</button>
+          <span class="c-count" id="c1c">01 / 05</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 2 · AUTOMAÇÃO DE ATENDIMENTO ═══ -->
+<section id="s2">
+  <div class="inner">
+    <span class="s-lbl">02 · Automação de atendimento</span>
+    <h2>Cada lead atendido.<br>Cada sessão agendada.<br><em>Sem você no celular.</em></h2>
+    <p class="bt">O fluxo responde em segundos, qualifica o perfil, mostra os horários disponíveis e confirma o agendamento — automaticamente. Você entra apenas para a sessão em si.</p>
+    <div class="wa-wrap">
+      <div class="wa-bar">
+        <div class="wa-dot" style="background:#ef4444"></div>
+        <div class="wa-dot" style="background:#eab308"></div>
+        <div class="wa-dot" style="background:#22c55e"></div>
+        <span class="wa-url">whatsapp-flow · liliana-sierra · ativo</span>
+      </div>
+      <div class="wa-body">
+        <div>
+          <div class="wa-col-lbl">Lead entra</div>
+          <div class="wb wi">"Oi, vi seu perfil. Queria saber sobre hipnoterapia"</div>
+          <div class="wb wa"><span class="wt auto">Automático</span><br>"Que situação te trouxe até aqui? Posso te ajudar a entender se faz sentido pra você."</div>
+          <div class="wb wi">"Tenho ansiedade há anos, já tentei de tudo e nada resolve..."</div>
+          <div class="wb wa"><span class="wt auto">Automático</span><br>"Ansiedade é uma das situações que melhor responde à hipnoterapia — age na raiz, não no sintoma. Quer ver os horários disponíveis?"</div>
+          <div class="wb wi">"Sim, quero!"</div>
+          <div class="wb wa"><span class="wt auto">Automático</span><br>"Essa semana tenho:<br>📅 Qua 11h · Qui 14h · Sex 10h<br>Qual funciona pra você?"</div>
+        </div>
+        <div>
+          <div class="wa-col-lbl">Confirmação + lembretes</div>
+          <div class="wb wi">"Quinta às 14h!"</div>
+          <div class="wb wa"><span class="wt ok">Confirmado</span><br>"Quinta 14h confirmado ✓<br>Vou te lembrar na véspera e 2h antes."</div>
+          <div class="wb wa" style="margin-top:14px"><span class="wt auto">D-1 · automático</span><br>"Lembrete: sua sessão é amanhã, quinta às 14h. Alguma dúvida antes de começar?"</div>
+          <div class="wb wa"><span class="wt auto">H-2 · automático</span><br>"Sua sessão começa em 2 horas. Tudo certo por aí?"</div>
+          <div class="wb wa" style="margin-top:14px"><span class="wt auto">D+3 · automático</span><br>"Como você está se sentindo depois da sessão? Quero saber como foi pra você."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 3 · GOOGLE AGENDA + DESISTÊNCIA ═══ -->
+<section id="s3">
+  <div class="inner">
+    <span class="s-lbl">03 · Google Agenda integrado</span>
+    <h2>Agenda real.<br>Vagas azuis, sessões cinza.<br><em>Desistência? Automático.</em></h2>
+    <p class="bt">Cada agendamento confirmado pelo WhatsApp aparece automaticamente no Google Agenda. Vagas disponíveis em azul. Sessões confirmadas em cinza. Quando alguém desiste, o sistema age antes de você perceber.</p>
+    <p class="bt" style="margin-top:8px;font-family:var(--fm);font-size:11px;color:var(--dim)">↓ Clique em uma sessão cinza para simular uma desistência</p>
+
+    <div class="gcal-wrap">
+      <div class="gcal-hdr">
+        <div class="gcal-title">
+          <div class="gcal-glogo"></div>
+          Google Agenda · Junho 2025
+        </div>
+        <div class="gcal-legend">
+          <div class="gcal-dot" style="background:var(--avail-b)"></div> Disponível
+          <div class="gcal-dot" style="background:rgba(95,99,104,.5)"></div> Confirmado
+        </div>
+      </div>
+      <div class="gcal-week">
+        <div class="gcal-ch" style="background:var(--bg3)"></div>
+        <div class="gcal-ch"><div class="gcal-dn">Seg</div><div class="gcal-dd">09</div></div>
+        <div class="gcal-ch today"><div class="gcal-dn">Ter</div><div class="gcal-dd">10</div></div>
+        <div class="gcal-ch"><div class="gcal-dn">Qua</div><div class="gcal-dd">11</div></div>
+        <div class="gcal-ch"><div class="gcal-dn">Qui</div><div class="gcal-dd">12</div></div>
+        <div class="gcal-ch"><div class="gcal-dn">Sex</div><div class="gcal-dd">13</div></div>
+
+        <!-- time column -->
+        <div class="gcal-tc">
+          <div class="gcal-t"><span>09h</span></div>
+          <div class="gcal-t"><span>10h</span></div>
+          <div class="gcal-t"><span>11h</span></div>
+          <div class="gcal-t"><span>14h</span></div>
+          <div class="gcal-t"><span>15h</span></div>
+          <div class="gcal-t"><span>16h</span></div>
+        </div>
+
+        <!-- SEG -->
+        <div class="gcal-dc">
+          <div class="gcal-cell"><div class="gcal-slot booked" onclick="trigCancel('Ana Paula S.','Seg 09h')"><div class="sl-top">Confirmado</div><div class="sl-name">Ana Paula S.</div><div class="sl-time">09:00 · 60min</div></div></div>
+          <div class="gcal-cell"><div class="gcal-slot avail"><div class="sl-top">Disponível</div><div class="sl-name">Agendar</div></div></div>
+          <div class="gcal-cell"></div>
+          <div class="gcal-cell"><div class="gcal-slot booked" onclick="trigCancel('Sofia M.','Seg 14h')"><div class="sl-top">Confirmado</div><div class="sl-name">Sofia M.</div><div class="sl-time">14:00 · 60min</div></div></div>
+          <div class="gcal-cell"><div class="gcal-slot avail"><div class="sl-top">Disponível</div><div class="sl-name">Agendar</div></div></div>
+          <div class="gcal-cell"></div>
+        </div>
+
+        <!-- TER -->
+        <div class="gcal-dc">
+          <div class="gcal-cell"><div class="gcal-slot avail"><div class="sl-top">Disponível</div><div class="sl-name">Agendar</div></div></div>
+          <div class="gcal-cell"><div class="gcal-slot booked" onclick="trigCancel('Carlos R.','Ter 10h')"><div class="sl-top">Confirmado</div><div class="sl-name">Carlos R.</div><div class="sl-time">10:00 · 60min</div></div></div>
+          <div class="gcal-cell"></div>
+          <div class="gcal-cell"><div class="gcal-slot avail"><div class="sl-top">Disponível</div><div class="sl-name">Agendar</div></div></div>
+          <div class="gcal-cell"><div class="gcal-slot avail"><div class="sl-top">Disponível</div><div class="sl-name">Agendar</div></div></div>
+          <div class="gcal-cell"></div>
+        </div>
+
+        <!-- QUA -->
+        <div class="gcal-dc">
+          <div class="gcal-cell"><div class="gcal-slot booked" onclick="trigCancel('Maria S.','Qua 09h')"><div class="sl-top">Confirmado</div><div class="sl-name">Maria S.</div><div class="sl-time">09:00 · 60min</div></div></div>
+          <div class="gcal-cell"><div class="gcal-slot avail"><div class="sl-top">Disponível</div><div class="sl-name">Agendar</div></div></div>
+          <div class="gcal-cell"></div>
+          <div class="gcal-cell"><div class="gcal-slot avail"><div class="sl-top">Disponível</div><div class="sl-name">Agendar</div></div></div>
+          <div class="gcal-cell"><div class="gcal-slot booked" onclick="trigCancel('Renata K.','Qua 15h')"><div class="sl-top">Confirmado</div><div class="sl-name">Renata K.</div><div class="sl-time">15:00 · 60min</div></div></div>
+          <div class="gcal-cell"></div>
+        </div>
+
+        <!-- QUI -->
+        <div class="gcal-dc">
+          <div class="gcal-cell"><div class="gcal-slot avail"><div class="sl-top">Disponível</div><div class="sl-name">Agendar</div></div></div>
+          <div class="gcal-cell"><div class="gcal-slot avail"><div class="sl-top">Disponível</div><div class="sl-name">Agendar</div></div></div>
+          <div class="gcal-cell"></div>
+          <div class="gcal-cell"><div class="gcal-slot booked" id="juli-slot" onclick="trigCancel('Juliana F.','Qui 14h')"><div class="sl-top">Confirmado</div><div class="sl-name">Juliana F.</div><div class="sl-time">14:00 · 60min</div></div></div>
+          <div class="gcal-cell"><div class="gcal-slot avail"><div class="sl-top">Disponível</div><div class="sl-name">Agendar</div></div></div>
+          <div class="gcal-cell"></div>
+        </div>
+
+        <!-- SEX -->
+        <div class="gcal-dc">
+          <div class="gcal-cell"><div class="gcal-slot avail"><div class="sl-top">Disponível</div><div class="sl-name">Agendar</div></div></div>
+          <div class="gcal-cell"><div class="gcal-slot booked" onclick="trigCancel('Beatriz L.','Sex 10h')"><div class="sl-top">Confirmado</div><div class="sl-name">Beatriz L.</div><div class="sl-time">10:00 · 60min</div></div></div>
+          <div class="gcal-cell"></div>
+          <div class="gcal-cell"><div class="gcal-slot avail"><div class="sl-top">Disponível</div><div class="sl-name">Agendar</div></div></div>
+          <div class="gcal-cell"><div class="gcal-slot avail"><div class="sl-top">Disponível</div><div class="sl-name">Agendar</div></div></div>
+          <div class="gcal-cell"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAINEL DE DESISTÊNCIA -->
+    <div class="cancel-panel" id="cancel-panel">
+      <div class="cancel-hdr">
+        <div class="cancel-blink"></div>
+        <div>
+          <div class="cancel-msg" id="cancel-msg">Cancelamento detectado — Juliana F. · Qui 14h</div>
+          <div class="cancel-sub">O sistema identificou a desistência e está aguardando sua ação. Escolha como proceder:</div>
+        </div>
+      </div>
+      <div class="cancel-opts">
+        <div class="c-opt" id="opt-wait" onclick="showWaitlist()">
+          <div class="c-opt-ico">📋</div>
+          <div class="c-opt-t">Notificar lista de espera</div>
+          <div class="c-opt-s">O sistema envia mensagem automática para a próxima pessoa na fila. Ela escolhe se quer a vaga.</div>
+        </div>
+        <div class="c-opt" id="opt-resched" onclick="showResched()">
+          <div class="c-opt-ico">📅</div>
+          <div class="c-opt-t">Adiantar da agenda</div>
+          <div class="c-opt-s">Mostrar clientes com sessão futura e oferecer a vaga liberada. Ideal quando a lista de espera está vazia.</div>
+        </div>
+      </div>
+      <div class="cancel-result" id="cancel-result"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 4 · CARROSSEL — 90 Dias (elementos visuais) ═══ -->
+<section id="s4">
+  <div class="inner">
+    <span class="s-lbl">04 · Os 90 dias em detalhe</span>
+    <div class="two-col rev">
+      <div>
+        <div class="viewer c2" id="v2">
+          <div class="strip" id="s2strip">
+
+            <!-- slide 1: visão geral -->
+            <div class="slide" style="background:#1a2e3a">
+              <div class="top">
+                <span class="phase-lbl">— 90 dias —</span>
+                <span class="brand">MarketingOS</span>
+              </div>
+              <div class="body" style="gap:14px;justify-content:center">
+                <div class="big">90 dias.<br>3 fases.<br><em>1 sistema.</em></div>
+                <p class="sub">Cada fase tem um objetivo claro, entregas específicas e métricas para medir. Ao final do dia 90: mais pedidos de sessão do que vagas disponíveis.</p>
+                <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">
+                  <div style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px">
+                    <div style="width:8px;height:8px;border-radius:50%;background:#60a5fa;flex-shrink:0"></div>
+                    <span style="font-size:12px;color:var(--cream)">Dias 1–30 · Infraestrutura e automação</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px">
+                    <div style="width:8px;height:8px;border-radius:50%;background:#4ade80;flex-shrink:0"></div>
+                    <span style="font-size:12px;color:var(--cream)">Dias 31–60 · Consistência e qualificação</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px">
+                    <div style="width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0"></div>
+                    <span style="font-size:12px;color:var(--cream)">Dias 61–90 · Escala e lista de espera</span>
+                  </div>
+                </div>
+              </div>
+              <div class="bot">
+                <div class="prog"><div class="pd on"></div><div class="pd"></div><div class="pd"></div><div class="pd"></div><div class="pd"></div></div>
+                <span style="font-family:var(--fm);font-size:10px;color:rgba(244,241,238,.3);letter-spacing:.08em">01 / 05</span>
+              </div>
+            </div>
+
+            <!-- slide 2: mês 1 -->
+            <div class="slide m1">
+              <div class="top">
+                <span class="pbadge" style="background:rgba(96,165,250,.15);border-color:rgba(96,165,250,.3);color:#60a5fa">Fase 1 · Dias 1–30</span>
+                <span class="brand">MarketingOS</span>
+              </div>
+              <div class="body">
+                <div class="big" style="font-size:28px;margin-bottom:4px">Infraestrutura<br><em>no ar.</em></div>
+                <div class="pbar-wrap"><div class="pbar" style="width:33%"></div></div>
+                <div class="pbar-lbls"><span>Início</span><span>33%</span><span>90 dias</span></div>
+                <div class="cklist">
+                  <div class="ck"><div class="ck-ico">✓</div><div><div class="ck-t">Fluxo WhatsApp configurado e ativo</div><div class="ck-s">Resposta, qualificação e agendamento automáticos</div></div></div>
+                  <div class="ck"><div class="ck-ico">✓</div><div><div class="ck-t">Google Agenda integrado com link de agendamento</div><div class="ck-s">Vagas visíveis, confirmação e lembretes automáticos</div></div></div>
+                  <div class="ck"><div class="ck-ico">✓</div><div><div class="ck-t">Follow-up de desistência ativado</div><div class="ck-s">Lista de espera ou adiantamento automático</div></div></div>
+                  <div class="ck"><div class="ck-ico">✓</div><div><div class="ck-t">Primeiros 4 conteúdos publicados</div><div class="ck-s">Perfil reativado, algoritmo retomado</div></div></div>
+                </div>
+              </div>
+              <div class="bot">
+                <div class="prog"><div class="pd"></div><div class="pd on"></div><div class="pd"></div><div class="pd"></div><div class="pd"></div></div>
+                <span style="font-family:var(--fm);font-size:10px;color:rgba(244,241,238,.3);letter-spacing:.08em">02 / 05</span>
+              </div>
+            </div>
+
+            <!-- slide 3: mês 2 -->
+            <div class="slide m2">
+              <div class="top">
+                <span class="pbadge" style="background:rgba(74,222,128,.12);border-color:rgba(74,222,128,.3);color:#4ade80">Fase 2 · Dias 31–60</span>
+                <span class="brand">MarketingOS</span>
+              </div>
+              <div class="body">
+                <div class="big" style="font-size:28px;margin-bottom:4px">Consistência<br><em>e qualificação.</em></div>
+                <div class="pbar-wrap"><div class="pbar" style="width:66%;background:#4ade80"></div></div>
+                <div class="pbar-lbls"><span>Dia 30</span><span>66%</span><span>90 dias</span></div>
+                <div class="cklist">
+                  <div class="ck"><div class="ck-ico" style="background:#4ade80">✓</div><div><div class="ck-t">3 publicações/semana no ar</div><div class="ck-s">Carrossel + Reels + Post — aprovação em 5 min cada</div></div></div>
+                  <div class="ck"><div class="ck-ico" style="background:#4ade80">✓</div><div><div class="ck-t">Qualificação automática refinada</div><div class="ck-s">Fluxo aprende com as respostas — filtra melhor</div></div></div>
+                  <div class="ck"><div class="ck-ico" style="background:#4ade80">✓</div><div><div class="ck-t">Coleta de depoimentos automática</div><div class="ck-s">D+3 pós-sessão — pede feedback e autorização</div></div></div>
+                  <div class="ck"><div class="ck-ico" style="background:#4ade80">✓</div><div><div class="ck-t">Primeiros leads originados pelo conteúdo</div><div class="ck-s">Pessoas que chegam pelo Instagram, não por indicação</div></div></div>
+                </div>
+              </div>
+              <div class="bot">
+                <div class="prog"><div class="pd"></div><div class="pd"></div><div class="pd on"></div><div class="pd"></div><div class="pd"></div></div>
+                <span style="font-family:var(--fm);font-size:10px;color:rgba(244,241,238,.3);letter-spacing:.08em">03 / 05</span>
+              </div>
+            </div>
+
+            <!-- slide 4: mês 3 -->
+            <div class="slide m3">
+              <div class="top">
+                <span class="pbadge" style="background:rgba(201,165,92,.12);border-color:rgba(201,165,92,.3);color:var(--gold)">Fase 3 · Dias 61–90</span>
+                <span class="brand">MarketingOS</span>
+              </div>
+              <div class="body">
+                <div class="big" style="font-size:28px;margin-bottom:4px">Lista de espera<br><em>formada.</em></div>
+                <div class="pbar-wrap"><div class="pbar" style="width:100%;background:var(--gold)"></div></div>
+                <div class="pbar-lbls"><span>Dia 60</span><span>100%</span><span>Dia 90</span></div>
+                <div class="cklist">
+                  <div class="ck"><div class="ck-ico" style="background:var(--gold);color:#080808">✓</div><div><div class="ck-t">Mais pedidos do que vagas</div><div class="ck-s">Lista de espera ativa — você decide se escala</div></div></div>
+                  <div class="ck"><div class="ck-ico" style="background:var(--gold);color:#080808">✓</div><div><div class="ck-t">Indicação automaticamente estimulada</div><div class="ck-s">Fluxo pede indicação após depoimento coletado</div></div></div>
+                  <div class="ck"><div class="ck-ico" style="background:var(--gold);color:#080808">✓</div><div><div class="ck-t">Métricas reais de origem de cada cliente</div><div class="ck-s">Instagram, indicação, Google — você sabe de onde vem</div></div></div>
+                  <div class="ck"><div class="ck-ico" style="background:var(--gold);color:#080808">✓</div><div><div class="ck-t">Receita previsível e planejável</div><div class="ck-s">Dashboard ao vivo — sem surpresas no mês seguinte</div></div></div>
+                </div>
+              </div>
+              <div class="bot">
+                <div class="prog"><div class="pd"></div><div class="pd"></div><div class="pd"></div><div class="pd on"></div><div class="pd"></div></div>
+                <span style="font-family:var(--fm);font-size:10px;color:rgba(244,241,238,.3);letter-spacing:.08em">04 / 05</span>
+              </div>
+            </div>
+
+            <!-- slide 5: dia 91 -->
+            <div class="slide dia91">
+              <svg class="grain"><filter id="g91"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#g91)" opacity="0.04"/></svg>
+              <div class="top">
+                <span class="phase-lbl">— Dia 91 —</span>
+                <span class="brand">MarketingOS</span>
+              </div>
+              <div class="body" style="gap:20px">
+                <div class="big">No dia 91,<br>você decide.<br><i style="font-family:var(--fc);font-style:italic;font-weight:400;font-size:28px;color:var(--sage);display:block;margin-top:4px">Não o mercado.</i></div>
+                <p class="sub" style="font-size:13px;color:rgba(244,241,238,.5)">Escalar atendimentos. Aumentar o ticket. Fechar a agenda e selecionar o perfil. Essa decisão só existe com sistema. Sem sistema, você aceita o que chega.</p>
+              </div>
+              <div class="bot">
+                <div class="prog"><div class="pd"></div><div class="pd"></div><div class="pd"></div><div class="pd"></div><div class="pd on"></div></div>
+                <span style="font-family:var(--fm);font-size:10px;color:rgba(244,241,238,.3);letter-spacing:.08em">05 / 05</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="c-ctrl">
+          <button class="c-btn" id="c2p" onclick="nav('s2strip','c2p','c2n','c2c','c2d',-1)" disabled>‹</button>
+          <div class="c-dots" id="c2d"></div>
+          <button class="c-btn" id="c2n" onclick="nav('s2strip','c2p','c2n','c2c','c2d',1)">›</button>
+          <span class="c-count" id="c2c">01 / 05</span>
+        </div>
+      </div>
+      <div>
+        <h2>Cada fase com<br>objetivo, entrega<br>e <em>métrica.</em></h2>
+        <div class="divider"></div>
+        <p class="bt">Não é um plano genérico. É uma sequência construída para hipnoterapia — do zero de presença digital à lista de espera formada em 90 dias.</p>
+        <p class="bt" style="margin-top:12px">Cada semana tem conteúdos específicos, automações sendo refinadas e métricas sendo coletadas. Você acompanha tudo no dashboard ao vivo.</p>
+        <div class="mets" style="grid-template-columns:1fr 1fr;margin-top:28px">
+          <div class="met">
+            <div class="met-v">30</div>
+            <div class="met-l">Dias para operação completa</div>
+          </div>
+          <div class="met">
+            <div class="met-v">3×</div>
+            <div class="met-l">Publicações por semana</div>
+          </div>
+          <div class="met">
+            <div class="met-v">8–15</div>
+            <div class="met-l">Consultas/mês via conteúdo</div>
+          </div>
+          <div class="met">
+            <div class="met-v">4–6h</div>
+            <div class="met-l">Horas economizadas/semana</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 5 · AGENDA DE CONTEÚDO REAL ═══ -->
+<section id="s5">
+  <div class="inner">
+    <span class="s-lbl">05 · Agenda de conteúdo real · 12 semanas</span>
+    <h2>Conteúdo desenhado<br>para hipnoterapia.<br><em>Semana a semana.</em></h2>
+    <p class="bt" style="margin-bottom:28px">Cada peça tem papel no funil: educação, prova ou conversão. Calendário completo dos 3 meses — sem improvisar, sem repetir, sem deixar passar.</p>
+    <div class="cal-tabs">
+      <div class="cal-tab on" onclick="showMonth(1,this)">Mês 1 — Infraestrutura</div>
+      <div class="cal-tab" onclick="showMonth(2,this)">Mês 2 — Consistência</div>
+      <div class="cal-tab" onclick="showMonth(3,this)">Mês 3 — Escala</div>
+    </div>
+
+    <!-- MÊS 1 -->
+    <div class="cal-month active" id="m1">
+      <div class="cal-grid">
+        <div class="cal-head"><div></div><div>Segunda</div><div>Terça</div><div>Quarta</div><div>Quinta</div><div>Sexta</div></div>
+        <div class="cal-row">
+          <div class="cal-wk">Sem. 1</div>
+          <div class="cal-cell"><span class="cfmt ca">Carrossel</span><div class="ctheme">O que a hipnoterapia realmente é</div></div>
+          <div class="cal-cell"><span class="cfmt cp">Post</span><div class="ctheme">3 mitos sobre hipnose</div></div>
+          <div class="cal-cell"><span class="cfmt cr">Reels</span><div class="ctheme">Como é uma sessão — do início ao fim</div></div>
+          <div class="cal-cell"><span class="cfmt ca">Carrossel</span><div class="ctheme">Por que você sabe o que mudar e não consegue</div></div>
+          <div class="cal-cell"><span class="cfmt cs">Story</span><div class="ctheme">Bastidores: preparando o espaço</div></div>
+        </div>
+        <div class="cal-row">
+          <div class="cal-wk">Sem. 2</div>
+          <div class="cal-cell"><span class="cfmt cp">Post</span><div class="ctheme">Para quem é a hipnoterapia?</div></div>
+          <div class="cal-cell"><span class="cfmt ca">Carrossel</span><div class="ctheme">Ansiedade: o que acontece no subconsciente</div></div>
+          <div class="cal-cell"><span class="cfmt cr">Reels</span><div class="ctheme">Hipnose de palco vs hipnoterapia clínica</div></div>
+          <div class="cal-cell"><span class="cfmt cp">Post</span><div class="ctheme">Você mantém o controle? Sim — e o porquê</div></div>
+          <div class="cal-cell"><span class="cfmt ca">Carrossel</span><div class="ctheme">5 situações que a hipnoterapia costuma resolver</div></div>
+        </div>
+        <div class="cal-row">
+          <div class="cal-wk">Sem. 3</div>
+          <div class="cal-cell"><span class="cfmt ca">Carrossel</span><div class="ctheme">Fobia, medo e ansiedade: como o subconsciente cria padrões</div></div>
+          <div class="cal-cell"><span class="cfmt cr">Reels</span><div class="ctheme">Quanto tempo leva para funcionar?</div></div>
+          <div class="cal-cell"><span class="cfmt cp">Post</span><div class="ctheme">Hábitos que não saem: por que força de vontade falha</div></div>
+          <div class="cal-cell"><span class="cfmt cs">Story</span><div class="ctheme">Agenda aberta — como marcar</div></div>
+          <div class="cal-cell"><span class="cfmt ca">Carrossel</span><div class="ctheme">93% de recuperação — o que a pesquisa mostra</div></div>
+        </div>
+        <div class="cal-row">
+          <div class="cal-wk">Sem. 4</div>
+          <div class="cal-cell"><span class="cfmt cp">Post</span><div class="ctheme">O que acontece depois de uma sessão?</div></div>
+          <div class="cal-cell"><span class="cfmt ca">Carrossel</span><div class="ctheme">Autoestima e autossabotagem</div></div>
+          <div class="cal-cell"><span class="cfmt cr">Reels</span><div class="ctheme">"Tenho medo de perder o controle" — resposta honesta</div></div>
+          <div class="cal-cell"><span class="cfmt ca">Carrossel</span><div class="ctheme">Hipnoterapia não é controle. É liberdade.</div></div>
+          <div class="cal-cell"><span class="cfmt cp">Post</span><div class="ctheme">Transformação é processo. A hipnoterapia acelera.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MÊS 2 -->
+    <div class="cal-month" id="m2">
+      <div class="cal-grid">
+        <div class="cal-head"><div></div><div>Segunda</div><div>Terça</div><div>Quarta</div><div>Quinta</div><div>Sexta</div></div>
+        <div class="cal-row">
+          <div class="cal-wk">Sem. 5</div>
+          <div class="cal-cell"><span class="cfmt ca">Carrossel</span><div class="ctheme">Depoimento: como Maria superou o pânico</div></div>
+          <div class="cal-cell"><span class="cfmt cr">Reels</span><div class="ctheme">O momento exato em que a mudança acontece</div></div>
+          <div class="cal-cell"><span class="cfmt cp">Post</span><div class="ctheme">Pesquisa: hipnoterapia e tabagismo</div></div>
+          <div class="cal-cell"><span class="cfmt ca">Carrossel</span><div class="ctheme">Síndrome do impostor: raiz subconsciente</div></div>
+          <div class="cal-cell"><span class="cfmt cs">Story</span><div class="ctheme">Enquete: qual é seu maior bloqueio?</div></div>
+        </div>
+        <div class="cal-row">
+          <div class="cal-wk">Sem. 6</div>
+          <div class="cal-cell"><span class="cfmt cp">Post</span><div class="ctheme">O que é transe hipnótico, de verdade</div></div>
+          <div class="cal-cell"><span class="cfmt ca">Carrossel</span><div class="ctheme">Hipnoterapia para emagrecer: como funciona</div></div>
+          <div class="cal-cell"><span class="cfmt cr">Reels</span><div class="ctheme">Sessão 1 vs sessão 6 — o que muda</div></div>
+          <div class="cal-cell"><span class="cfmt cp">Post</span><div class="ctheme">Você pode ser hipnotizado? Teste mental</div></div>
+          <div class="cal-cell"><span class="cfmt ca">Carrossel</span><div class="ctheme">Crianças e hipnoterapia: o que funciona</div></div>
+        </div>
+        <div class="cal-row">
+          <div class="cal-wk">Sem. 7</div>
+          <div class="cal-cell"><span class="cfmt ca">Carrossel</span><div class="ctheme">Procrastinação: padrão subconsciente ou preguiça?</div></div>
+          <div class="cal-cell"><span class="cfmt cr">Reels</span><div class="ctheme">Por que psicólogo não é a mesma coisa</div></div>
+          <div class="cal-cell"><span class="cfmt cp">Post</span><div class="ctheme">Depoimento: superando o medo de voar</div></div>
+          <div class="cal-cell"><span class="cfmt ca">Carrossel</span><div class="ctheme">O que o subconsciente faz enquanto você dorme</div></div>
+          <div class="cal-cell"><span class="cfmt cs">Story</span><div class="ctheme">Vagas abertas para junho</div></div>
+        </div>
+        <div class="cal-row">
+          <div class="cal-wk">Sem. 8</div>
+          <div class="cal-cell"><span class="cfmt cp">Post</span><div class="ctheme">Relacionamentos e padrões repetidos</div></div>
+          <div class="cal-cell"><span class="cfmt ca">Carrossel</span><div class="ctheme">Ansiedade social: a raiz que ninguém vê</div></div>
+          <div class="cal-cell"><span class="cfmt cr">Reels</span><div class="ctheme">Hipnoterapia online: funciona do mesmo jeito?</div></div>
+          <div class="cal-cell"><span class="cfmt ca">Carrossel</span><div class="ctheme">5 perguntas que todo cliente faz antes da 1ª sessão</div></div>
+          <div class="cal-cell"><span class="cfmt cp">Post</span><div class="ctheme">Você não é seu passado. Só está carregando ele.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MÊS 3 -->
+    <div class="cal-month" id="m3">
+      <div class="cal-grid">
+        <div class="cal-head"><div></div><div>Segunda</div><div>Terça</div><div>Quarta</div><div>Quinta</div><div>Sexta</div></div>
+        <div class="cal-row">
+          <div class="cal-wk">Sem. 9</div>
+          <div class="cal-cell"><span class="cfmt ca">Carrossel</span><div class="ctheme">6 meses depois: o que mudou de verdade</div></div>
+          <div class="cal-cell"><span class="cfmt cr">Reels</span><div class="ctheme">A sessão que mais me surpreendeu</div></div>
+          <div class="cal-cell"><span class="cfmt cp">Post</span><div class="ctheme">Por que algumas pessoas mudam mais rápido</div></div>
+          <div class="cal-cell"><span class="cfmt ca">Carrossel</span><div class="ctheme">Hipnoterapia e dor crônica: o que a ciência diz</div></div>
+          <div class="cal-cell"><span class="cfmt cs">Story</span><div class="ctheme">Lista de espera: entrar na fila</div></div>
+        </div>
+        <div class="cal-row">
+          <div class="cal-wk">Sem. 10</div>
+          <div class="cal-cell"><span class="cfmt cp">Post</span><div class="ctheme">Quando a mudança parece impossível</div></div>
+          <div class="cal-cell"><span class="cfmt ca">Carrossel</span><div class="ctheme">Fobias: 3 sessões que mudaram tudo</div></div>
+          <div class="cal-cell"><span class="cfmt cr">Reels</span><div class="ctheme">O que você ainda não sabe sobre o seu subconsciente</div></div>
+          <div class="cal-cell"><span class="cfmt cp">Post</span><div class="ctheme">Depoimento real: 4 sessões, 12 anos de bloqueio resolvidos</div></div>
+          <div class="cal-cell"><span class="cfmt ca">Carrossel</span><div class="ctheme">Hipnoterapia como ferramenta de alta performance</div></div>
+        </div>
+        <div class="cal-row">
+          <div class="cal-wk">Sem. 11</div>
+          <div class="cal-cell"><span class="cfmt ca">Carrossel</span><div class="ctheme">Medo vs fobia: qual é a diferença real</div></div>
+          <div class="cal-cell"><span class="cfmt cr">Reels</span><div class="ctheme">Você já foi hipnotizado sem saber</div></div>
+          <div class="cal-cell"><span class="cfmt cp">Post</span><div class="ctheme">Trauma e memória: como o subconsciente guarda</div></div>
+          <div class="cal-cell"><span class="cfmt ca">Carrossel</span><div class="ctheme">Gestantes e hipnose: parto mais tranquilo</div></div>
+          <div class="cal-cell"><span class="cfmt cs">Story</span><div class="ctheme">Agenda de julho — abertura em breve</div></div>
+        </div>
+        <div class="cal-row">
+          <div class="cal-wk">Sem. 12</div>
+          <div class="cal-cell"><span class="cfmt cp">Post</span><div class="ctheme">O que 90 dias de sistema entregaram</div></div>
+          <div class="cal-cell"><span class="cfmt ca">Carrossel</span><div class="ctheme">Por que hipnoterapia é o próximo passo depois da terapia</div></div>
+          <div class="cal-cell"><span class="cfmt cr">Reels</span><div class="ctheme">Você está pronto para mudar o que não muda sozinho?</div></div>
+          <div class="cal-cell"><span class="cfmt ca">Carrossel</span><div class="ctheme">Liberdade: o que ela parece na prática</div></div>
+          <div class="cal-cell"><span class="cfmt cp">Post</span><div class="ctheme">O próximo passo é seu. A vaga está aqui.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 6 · CARROSSEL — Semana Automatizada (visual) ═══ -->
+<section id="s6">
+  <div class="inner">
+    <span class="s-lbl">06 · A semana que funciona sozinha</span>
+    <div class="two-col">
+      <div>
+        <h2>O que acontece<br>sem você<br><em>perceber.</em></h2>
+        <div class="divider"></div>
+        <p class="bt">Segunda publica. Quarta atende o lead. Quinta confirma no Google Agenda. Sexta aciona a lista de espera de quem cancelou. Domingo o follow-up de depoimento vai automaticamente.</p>
+        <p class="bt" style="margin-top:12px">Você entra no fluxo em um ponto: a sessão em si. Todo o resto é operado pelo sistema — sem notificação perdida, sem agendamento esquecido, sem vaga desperdiçada.</p>
+      </div>
+      <div>
+        <div class="viewer c3" id="v3">
+          <div class="strip" id="s3strip">
+
+            <!-- slide 1: segunda -->
+            <div class="slide seg">
+              <div class="top">
+                <span class="day-tag seg">Segunda</span>
+                <span class="brand">MarketingOS</span>
+              </div>
+              <div class="body">
+                <div class="big">Conteúdo<br>publicado.<br><span style="font-size:20px;color:#60a5fa;display:block;margin-top:6px">Automaticamente.</span></div>
+                <div class="acts">
+                  <div class="act"><span class="atag pub">Pub</span><div><div class="ab">Carrossel publicado no Instagram</div><div class="as">Você aprovou na semana anterior — foi ao ar às 09h no horário de pico</div></div></div>
+                  <div class="act"><span class="atag pub">Pub</span><div><div class="ab">Post de depoimento publicado</div><div class="as">Depoimento coletado automaticamente D+3 após a última sessão</div></div></div>
+                  <div class="act"><span class="atag auto">Auto</span><div><div class="ab">Story de engajamento agendado</div><div class="as">"Qual é seu maior bloqueio hoje?" — enquete automática, respostas monitoradas</div></div></div>
+                </div>
+              </div>
+              <div class="bot">
+                <div class="prog"><div class="pd on"></div><div class="pd"></div><div class="pd"></div><div class="pd"></div><div class="pd"></div></div>
+                <span class="sn">01 / 05</span>
+              </div>
+            </div>
+
+            <!-- slide 2: quarta -->
+            <div class="slide qua">
+              <div class="top">
+                <span class="day-tag qua">Quarta</span>
+                <span class="brand">MarketingOS</span>
+              </div>
+              <div class="body">
+                <div class="big">Lead entra.<br>WA responde.<br><span style="font-size:20px;color:#4ade80;display:block;margin-top:6px">Em segundos.</span></div>
+                <div class="acts">
+                  <div class="act"><span class="atag wa">WA</span><div><div class="ab">Lead manda mensagem pelo Instagram</div><div class="as">"Vi seu carrossel sobre ansiedade, quero saber mais"</div></div></div>
+                  <div class="act"><span class="atag auto">Auto</span><div><div class="ab">Qualificação automática iniciada</div><div class="as">Sistema identifica o perfil, entende a situação e apresenta os horários disponíveis</div></div></div>
+                  <div class="act"><span class="atag cal">Cal</span><div><div class="ab">Sessão agendada → Google Agenda atualizado</div><div class="as">Vaga bloqueada automaticamente, confirmação enviada para as duas partes</div></div></div>
+                </div>
+              </div>
+              <div class="bot">
+                <div class="prog"><div class="pd"></div><div class="pd on"></div><div class="pd"></div><div class="pd"></div><div class="pd"></div></div>
+                <span class="sn">02 / 05</span>
+              </div>
+            </div>
+
+            <!-- slide 3: quinta -->
+            <div class="slide qui">
+              <div class="top">
+                <span class="day-tag qui">Quinta</span>
+                <span class="brand">MarketingOS</span>
+              </div>
+              <div class="body">
+                <div class="big">Sessão<br>confirmada.<br><span style="font-size:20px;color:var(--gold);display:block;margin-top:6px">Lembrete enviado.</span></div>
+                <div class="acts">
+                  <div class="act"><span class="atag wa">D-1</span><div><div class="ab">Lembrete automático enviado ao cliente</div><div class="as">"Sua sessão é amanhã, quinta às 14h. Tudo certo?" — resposta registrada</div></div></div>
+                  <div class="act"><span class="atag wa">H-2</span><div><div class="ab">Confirmação 2h antes da sessão</div><div class="as">Cliente confirma ou sinaliza impossibilidade — sistema já prepara o fluxo de desistência se necessário</div></div></div>
+                  <div class="act"><span class="atag cal">Cal</span><div><div class="ab">Você vê tudo no Google Agenda</div><div class="as">Nome, horário, status de confirmação — sem precisar checar o WhatsApp</div></div></div>
+                </div>
+              </div>
+              <div class="bot">
+                <div class="prog"><div class="pd"></div><div class="pd"></div><div class="pd on"></div><div class="pd"></div><div class="pd"></div></div>
+                <span class="sn">03 / 05</span>
+              </div>
+            </div>
+
+            <!-- slide 4: sexta - desistência -->
+            <div class="slide sex">
+              <div class="top">
+                <span class="day-tag sex">Desistência</span>
+                <span class="brand">MarketingOS</span>
+              </div>
+              <div class="body">
+                <div class="big">Alguém<br>cancelou.<br><span style="font-size:20px;color:#f87171;display:block;margin-top:6px">A vaga não para.</span></div>
+                <div class="acts">
+                  <div class="act"><span class="atag alrt">Alerta</span><div><div class="ab">Cancelamento detectado automaticamente</div><div class="as">Você recebe notificação e escolhe: notificar lista de espera ou adiantar da agenda</div></div></div>
+                  <div class="act"><span class="atag wa">WA</span><div><div class="ab">Mensagem automática para o próximo da fila</div><div class="as">"Uma vaga abriu para [dia/horário]. Você toparia adiantar sua sessão?"</div></div></div>
+                  <div class="act"><span class="atag cal">Cal</span><div><div class="ab">Google Agenda atualizado com quem confirmou</div><div class="as">Vaga não fica vazia — sistema fecha o ciclo sem sua intervenção manual</div></div></div>
+                </div>
+              </div>
+              <div class="bot">
+                <div class="prog"><div class="pd"></div><div class="pd"></div><div class="pd"></div><div class="pd on"></div><div class="pd"></div></div>
+                <span class="sn">04 / 05</span>
+              </div>
+            </div>
+
+            <!-- slide 5: D+3 -->
+            <div class="slide pos">
+              <div class="top">
+                <span class="day-tag pos">D+3 pós-sessão</span>
+                <span class="brand">MarketingOS</span>
+              </div>
+              <div class="body">
+                <div class="big">Sessão feita.<br>Follow-up<br><span style="font-size:20px;color:var(--sage);display:block;margin-top:6px">automático.</span></div>
+                <div class="acts">
+                  <div class="act"><span class="atag wa">WA</span><div><div class="ab">Mensagem de follow-up enviada automaticamente</div><div class="as">"Como você está se sentindo 3 dias depois da sessão?" — humanizado, não robótico</div></div></div>
+                  <div class="act"><span class="atag auto">Auto</span><div><div class="ab">Coleta de depoimento integrada</div><div class="as">Se feedback positivo → sistema pede autorização para usar como prova social</div></div></div>
+                  <div class="act"><span class="atag auto">Auto</span><div><div class="ab">Indicação estimulada</div><div class="as">"Conhece alguém que poderia se beneficiar?" — plantado no momento certo, sem pressão</div></div></div>
+                </div>
+              </div>
+              <div class="bot">
+                <div class="prog"><div class="pd"></div><div class="pd"></div><div class="pd"></div><div class="pd"></div><div class="pd on"></div></div>
+                <span class="sn">05 / 05</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="c-ctrl">
+          <button class="c-btn" id="c3p" onclick="nav('s3strip','c3p','c3n','c3c','c3d',-1)" disabled>‹</button>
+          <div class="c-dots" id="c3d"></div>
+          <button class="c-btn" id="c3n" onclick="nav('s3strip','c3p','c3n','c3c','c3d',1)">›</button>
+          <span class="c-count" id="c3c">01 / 05</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 7 · CTA ═══ -->
+<section id="s7" style="background:radial-gradient(ellipse at 70% 0%,rgba(201,165,92,.05),transparent 55%)">
+  <div class="inner">
+    <span class="s-lbl">07 · Investimento</span>
+    <div class="price-copy">
+      <h2>O sistema que você acabou<br>de ver — <em>funcionando para você.</em></h2>
+      <p class="lead">A indicação é o canal mais poderoso que existe. E o mais instável. Um mês fraco vira um buraco na agenda que leva semanas para fechar. O sistema garante que esse mês nunca mais aconteça — independente de indicação, algoritmo ou sazonalidade.</p>
+    </div>
+    <div class="price-grid">
+
+      <!-- CARD DE PREÇO -->
+      <div>
+        <div class="price-card">
+          <div class="price-badge">Plano de lançamento · 3 meses renovável</div>
+
+          <!-- FASE 1 -->
+          <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:4px">
+            <div style="font-family:var(--fm);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);white-space:nowrap">1º mês</div>
+            <div class="price-new" style="font-size:52px">
+              <span class="cur">R$</span>748
+            </div>
+          </div>
+          <div style="font-size:11px;color:var(--dim);margin-bottom:20px;padding-bottom:20px;border-bottom:.5px solid var(--line)">Mês de implantação — setup, onboarding e primeiros conteúdos no ar</div>
+
+          <!-- FASE 2 -->
+          <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:4px">
+            <div style="font-family:var(--fm);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);white-space:nowrap">2º e 3º mês</div>
+            <div class="price-new" style="font-size:52px">
+              <span class="cur">R$</span>1.600<span class="per">/mês</span>
+            </div>
+          </div>
+          <div class="price-period" style="margin-bottom:0">Sistema em operação plena · renova a cada 90 dias · cancela com 30 dias de aviso</div>
+
+          <div class="price-note">
+            Uma sessão de hipnoterapia custa em média R$ 800–1.600. O sistema já se paga com <em>2 sessões que vieram do conteúdo</em> — e que não teriam chegado sem ele.
+          </div>
+          <div class="pay-opts">
+            <div class="pay-opt pix">
+              <div class="pay-opt-ico">⚡</div>
+              <div>
+                <div class="pay-opt-t">PIX — início imediato</div>
+                <div class="pay-opt-s">Pagamento confirmado hoje, operação iniciada amanhã. Sem taxas adicionais.</div>
+              </div>
+            </div>
+            <div class="pay-opt card">
+              <div class="pay-opt-ico">💳</div>
+              <div>
+                <div class="pay-opt-t">Cartão de crédito</div>
+                <div class="pay-opt-s">Cada mês cobrado separadamente. 1º mês em até 3× sem juros · meses seguintes em até 12× com juros da operadora.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cta-sig" style="margin-top:32px;text-align:left">
+          Felipe Proença · MarketingOS<br>
+          <span style="font-style:normal;font-family:var(--fi);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:6px;display:inline-block">Apresentação confidencial · Liliana Sierra</span>
+        </div>
+      </div>
+
+      <!-- O QUE ESTÁ INCLUÍDO -->
+      <div>
+        <div class="includes-card">
+          <div class="includes-title">O que está incluído nos 3 meses</div>
+          <div class="inc-item">
+            <div class="inc-ico">✓</div>
+            <div><div class="inc-t">Automação completa de atendimento</div><div class="inc-s">WhatsApp: resposta, qualificação, agendamento, confirmação, lembretes D-1 e H-2, follow-up D+3</div></div>
+          </div>
+          <div class="inc-item">
+            <div class="inc-ico">✓</div>
+            <div><div class="inc-t">Google Agenda integrado</div><div class="inc-s">Vagas sincronizadas em tempo real. Lista de espera e reagendamento automático na desistência.</div></div>
+          </div>
+          <div class="inc-item">
+            <div class="inc-ico">✓</div>
+            <div><div class="inc-t">Conteúdo para Instagram — 3×/semana</div><div class="inc-s">Carrossel + Reels + Post por semana. Você aprova em 5 min. Publicação automática no horário certo.</div></div>
+          </div>
+          <div class="inc-item">
+            <div class="inc-ico">✓</div>
+            <div><div class="inc-t">Agenda de 90 dias de conteúdo</div><div class="inc-s">Temas semanais específicos para hipnoterapia — sem improvisar, sem repetir tema.</div></div>
+          </div>
+          <div class="inc-item">
+            <div class="inc-ico">✓</div>
+            <div><div class="inc-t">Coleta automática de depoimentos</div><div class="inc-s">D+3 após cada sessão. Depoimento aprovado vira conteúdo de prova social automaticamente.</div></div>
+          </div>
+          <div class="inc-item">
+            <div class="inc-ico">✓</div>
+            <div><div class="inc-t">Dashboard de métricas ao vivo</div><div class="inc-s">Origem de cada cliente, alcance orgânico, pedidos de sessão, taxa de conversão e receita projetada.</div></div>
+          </div>
+        </div>
+        <div class="load-box">
+          <div class="load-lbl">Carga de trabalho da Liliana</div>
+          <div class="load-txt"><strong style="color:var(--gold)">5 min/semana</strong> para aprovar os conteúdos + <strong style="color:var(--gold)">20 min/semana</strong> para gravar os Reels que pedem a sua presença. O resto é 100% operado pelo sistema — sem notificação perdida, sem vaga desperdiçada.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 8 · O QUE ACONTECE DEPOIS ═══ -->
+<section id="s8" style="padding:64px 32px">
+  <div class="inner">
+    <div style="max-width:720px;margin:0 auto">
+      <div style="font-family:var(--fm);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:14px">Transparência total</div>
+      <h2 style="font-size:clamp(20px,3vw,32px);margin-bottom:10px;line-height:1.2">O que acontece depois<br><em>que você assina.</em></h2>
+      <p class="bt" style="margin-bottom:40px;max-width:560px">Sem caixa preta. Você sabe exatamente o que entra em movimento, em que ordem, e o que precisa da sua parte.</p>
+
+      <div style="display:flex;flex-direction:column;gap:0">
+
+        <!-- Semana 1 -->
+        <div style="display:flex;gap:24px;padding:24px 0;border-top:.5px solid var(--brd)">
+          <div style="flex-shrink:0;width:80px;font-family:var(--fm);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);padding-top:3px">Dias 1–7</div>
+          <div style="flex:1">
+            <div style="font-family:var(--fs);font-size:15px;font-weight:700;color:var(--fg);margin-bottom:6px">Onboarding e setup</div>
+            <div style="font-family:var(--fb);font-size:13px;color:var(--dim);line-height:1.6">Reunião de 30min para mapear a agenda, o fluxo de atendimento atual e as preferências de conteúdo. O sistema já começa a ser configurado com os dados reais da Liliana.</div>
+          </div>
+        </div>
+
+        <!-- Semana 1 B — WA -->
+        <div style="display:flex;gap:24px;padding:24px 0;border-top:.5px solid var(--brd)">
+          <div style="flex-shrink:0;width:80px;font-family:var(--fm);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);padding-top:3px">Dias 3–5</div>
+          <div style="flex:1">
+            <div style="font-family:var(--fs);font-size:15px;font-weight:700;color:var(--fg);margin-bottom:6px">Ativação do WhatsApp</div>
+            <div style="font-family:var(--fb);font-size:13px;color:var(--dim);line-height:1.6">A automação roda via um provider de WhatsApp Business API (Z-API ou similar — custo adicional de ~R$ 97–150/mês, pago diretamente pela Liliana). A conexão é simples: você escaneia um QR code e o sistema assume o atendimento.</div>
+            <div style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;background:rgba(201,165,92,.08);border:.5px solid rgba(201,165,92,.25);border-radius:6px;padding:6px 10px;font-family:var(--fm);font-size:10px;color:var(--gold);letter-spacing:.06em">⚡ Setup: ~30 min com suporte em tempo real</div>
+          </div>
+        </div>
+
+        <!-- Semana 1 C — Calendar -->
+        <div style="display:flex;gap:24px;padding:24px 0;border-top:.5px solid var(--brd)">
+          <div style="flex-shrink:0;width:80px;font-family:var(--fm);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);padding-top:3px">Dias 5–7</div>
+          <div style="flex:1">
+            <div style="font-family:var(--fs);font-size:15px;font-weight:700;color:var(--fg);margin-bottom:6px">Google Agenda conectado</div>
+            <div style="font-family:var(--fb);font-size:13px;color:var(--dim);line-height:1.6">Acesso à API do Google Calendar via autorização da Liliana (uma tela de permissão, 2 minutos). A partir daí, vagas disponíveis e confirmadas ficam sincronizadas em tempo real com a automação de WhatsApp.</div>
+          </div>
+        </div>
+
+        <!-- Semana 2 -->
+        <div style="display:flex;gap:24px;padding:24px 0;border-top:.5px solid var(--brd)">
+          <div style="flex-shrink:0;width:80px;font-family:var(--fm);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);padding-top:3px">Semana 2</div>
+          <div style="flex:1">
+            <div style="font-family:var(--fs);font-size:15px;font-weight:700;color:var(--fg);margin-bottom:6px">Primeiro conteúdo vai ao ar</div>
+            <div style="font-family:var(--fb);font-size:13px;color:var(--dim);line-height:1.6">Carrossel + post de feed + primeiro Reel programados. Você aprova em 5 min. O sistema publica no horário de maior engajamento. A partir daí, 3 conteúdos por semana — sem esforço da sua parte além da gravação de 20 min.</div>
+          </div>
+        </div>
+
+        <!-- Dia 30 -->
+        <div style="display:flex;gap:24px;padding:24px 0;border-top:.5px solid var(--brd)">
+          <div style="flex-shrink:0;width:80px;font-family:var(--fm);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);padding-top:3px">Dia 30</div>
+          <div style="flex:1">
+            <div style="font-family:var(--fs);font-size:15px;font-weight:700;color:var(--fg);margin-bottom:6px">Site no ar</div>
+            <div style="font-family:var(--fb);font-size:13px;color:var(--dim);line-height:1.6">Site profissional indexado no Google, com SEO estruturado para buscas de hipnoterapia no Rio de Janeiro. A partir daqui, você tem dois canais ativos simultaneamente: Instagram (descoberta) e Google (intenção de compra).</div>
+          </div>
+        </div>
+
+        <!-- Mês 2-3 -->
+        <div style="display:flex;gap:24px;padding:24px 0;border-top:.5px solid var(--brd);border-bottom:.5px solid var(--brd)">
+          <div style="flex-shrink:0;width:80px;font-family:var(--fm);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);padding-top:3px">Mês 2–3</div>
+          <div style="flex:1">
+            <div style="font-family:var(--fs);font-size:15px;font-weight:700;color:var(--fg);margin-bottom:6px">Sistema em velocidade de cruzeiro</div>
+            <div style="font-family:var(--fb);font-size:13px;color:var(--dim);line-height:1.6">Conteúdo acumulado começa a trabalhar de forma composta. Depoimentos coletados automaticamente alimentam o Instagram e o site. A agenda passa a ter pressão de demanda — não de oferta.</div>
+            <div style="margin-top:14px;font-family:var(--fb);font-size:12px;color:var(--dim);font-style:italic;border-left:2px solid var(--gold);padding-left:12px;line-height:1.5">O sistema já se paga com 2 sessões que chegaram pelo conteúdo — e que não teriam chegado sem ele.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 10 · BRINDE — SITE PROFISSIONAL ═══ -->
+<section id="s9" style="padding:64px 32px 0;border-bottom:none">
+  <div class="inner">
+    <div class="brinde-box">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:8px;background:var(--gold-d);border:.5px solid var(--gold-b);border-radius:20px;padding:5px 14px;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:18px">🎁 Bônus incluído no plano</div>
+        <h2 style="font-size:clamp(20px,3vw,34px);margin-bottom:12px">Site profissional.<br><em>Do zero ao ar em 30 dias.</em></h2>
+        <p class="bt" style="max-width:560px">O site não é só uma página. É uma camada de aquisição com inteligência. SEO estruturado para que quem busca hipnoterapia no Google encontre você — e chegue já educado, já convencido, já pronto para agendar. Não é presença digital. É um canal que trabalha enquanto você atende. Abaixo, o que vai ao ar.</p>
+      </div>
+      <div style="text-align:right;flex-shrink:0;min-width:160px">
+        <div style="font-family:var(--fm);font-size:10px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Valor de mercado</div>
+        <div style="font-family:var(--fs);font-size:30px;font-weight:800;color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(216,90,48,.75);line-height:1">R$ 4.800</div>
+        <div style="font-family:var(--fm);font-size:10px;color:var(--green);font-weight:700;margin-top:8px;letter-spacing:.08em;white-space:nowrap">✓ INCLUÍDO SEM CUSTO</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 11 · SITE MOCKUP — LILIANA SIERRA ═══ -->
+<section id="s10" style="padding:36px 32px 80px;border-bottom:none">
+  <div class="inner">
+    <div class="ls-wrap">
+      <div class="ls-browser">
+        <div class="ls-bdot" style="background:#ef4444"></div>
+        <div class="ls-bdot" style="background:#eab308"></div>
+        <div class="ls-bdot" style="background:#22c55e"></div>
+        <div class="ls-burl">lilianasierra.com.br</div>
+      </div>
+      <div class="ls-site">
+
+        <!-- NAV -->
+        <nav class="ls-nav ls-anim">
+          <div class="ls-nav-logo">
+            <svg width="44" height="44" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="30" cy="30" r="27" stroke="#c87941" stroke-width="1.4"/>
+              <circle cx="30" cy="30" r="19" stroke="#c87941" stroke-width="1.3" opacity=".6"/>
+              <circle cx="30" cy="30" r="11.5" stroke="#c87941" stroke-width="1.2" opacity=".38"/>
+              <circle cx="30" cy="30" r="5" stroke="#c87941" stroke-width="1.1" opacity=".22"/>
+              <circle cx="30" cy="30" r="1.8" fill="#c87941"/>
+            </svg>
+            <div>
+              <div class="ls-logo-name">Liliana Sierra</div>
+              <div class="ls-logo-sub">Hipnoterapeuta e Mentora</div>
+            </div>
+          </div>
+          <ul class="ls-nav-links">
+            <li><a href="#">Início</a></li>
+            <li><a href="#">Método</a></li>
+            <li><a href="#">Sobre</a></li>
+            <li><a href="#">Depoimentos</a></li>
+          </ul>
+          <a href="#" class="ls-nav-cta">Agendar sessão →</a>
+        </nav>
+
+        <!-- HERO -->
+        <div class="ls-hero">
+          <div class="ls-hero-bg">
+            <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+              <circle cx="30" cy="30" r="27" stroke="#c87941" stroke-width="1"/>
+              <circle cx="30" cy="30" r="19" stroke="#c87941" stroke-width="1"/>
+              <circle cx="30" cy="30" r="12" stroke="#c87941" stroke-width="1"/>
+              <circle cx="30" cy="30" r="6" stroke="#c87941" stroke-width="1"/>
+              <circle cx="30" cy="30" r="2" fill="#c87941"/>
+            </svg>
+          </div>
+          <div class="ls-eyebrow ls-anim">Hipnoterapia Clínica · Rio de Janeiro</div>
+          <h1 class="ls-anim d1">Você não precisa de<br>mais força de vontade.<br><em>Precisa falar com<br>quem realmente decide.</em></h1>
+          <p class="ls-hero-sub ls-anim d2">A parte de você que repete padrões não é teimosia. É o subconsciente fazendo o que aprendeu — décadas atrás. A hipnoterapia fala diretamente com ele, sem resistência, sem luta.</p>
+          <div class="ls-anim d3" style="display:flex;align-items:center">
+            <a href="#" class="ls-btn">Agendar minha sessão →</a>
+            <a href="#" class="ls-btn-ghost">Como funciona</a>
+          </div>
+        </div>
+
+        <!-- MÉTODO -->
+        <div class="ls-sec" style="background:#fff;border-top:1px solid var(--lsl)">
+          <div class="ls-sec-lbl ls-anim">O método</div>
+          <h2 class="ls-anim d1">3 etapas para uma<br>mudança que dura.</h2>
+          <div class="ls-cards">
+            <div class="ls-card ls-anim d1">
+              <div class="ls-card-num">01</div>
+              <h3>Identificamos o padrão</h3>
+              <p>O subconsciente guarda tudo que o consciente tenta esquecer. Na primeira sessão, encontramos a raiz — não o sintoma que você já conhece.</p>
+            </div>
+            <div class="ls-card ls-anim d2">
+              <div class="ls-card-num">02</div>
+              <h3>Reprogramamos a raiz</h3>
+              <p>A hipnoterapia acessa o subconsciente diretamente, sem resistência. O padrão antigo é substituído — não suprimido ou gerenciado.</p>
+            </div>
+            <div class="ls-card ls-anim d3">
+              <div class="ls-card-num">03</div>
+              <h3>A mudança se sustenta</h3>
+              <p>Sem força de vontade diária. Sem recaída. Porque o subconsciente não foi convencido — foi atualizado.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="ls-stats">
+          <div class="ls-stats-grid">
+            <div class="ls-anim">
+              <div class="ls-stat-v">93%</div>
+              <div class="ls-stat-l">taxa de recuperação em 6 sessões · estudo comparativo de psicoterapia</div>
+            </div>
+            <div class="ls-anim d1">
+              <div class="ls-stat-v">1–6</div>
+              <div class="ls-stat-l">sessões em média para resultados percebidos · vs meses de terapia convencional</div>
+            </div>
+            <div class="ls-anim d2">
+              <div class="ls-stat-v">+600</div>
+              <div class="ls-stat-l">estudos científicos publicados sobre eficácia da hipnose clínica nas últimas décadas</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DEPOIMENTO -->
+        <div class="ls-quote-sec">
+          <span class="ls-quote-mark ls-anim">"</span>
+          <p class="ls-quote ls-anim d1">"Tentei de tudo por 8 anos. Análise, medicação, meditação. Depois de 3 sessões com a Liliana, o padrão que eu acreditava ser parte de quem eu era simplesmente parou de aparecer."</p>
+          <p class="ls-quote-attr ls-anim d2">— M.S. · Rio de Janeiro · ansiedade e autossabotagem</p>
+        </div>
+
+        <!-- SOBRE -->
+        <div class="ls-sobre">
+          <div class="ls-sobre-img ls-anim">
+            <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:70%;opacity:.32">
+              <circle cx="100" cy="100" r="92" stroke="#c87941" stroke-width="1.5"/>
+              <circle cx="100" cy="100" r="65" stroke="#c87941" stroke-width="1.5" opacity=".62"/>
+              <circle cx="100" cy="100" r="40" stroke="#c87941" stroke-width="1.5" opacity=".38"/>
+              <circle cx="100" cy="100" r="18" stroke="#c87941" stroke-width="1.5" opacity=".2"/>
+              <circle cx="100" cy="100" r="6" fill="#c87941" opacity=".32"/>
+            </svg>
+          </div>
+          <div>
+            <div class="ls-sec-lbl ls-anim">Sobre</div>
+            <h2 class="ls-anim d1">Liliana Sierra</h2>
+            <p class="ls-anim d2">Hipnoterapeuta clínica e mentora especializada em trabalhar com os padrões que a mente consciente não consegue alcançar — ansiedade, fobias, autossabotagem, vícios comportamentais e bloqueios emocionais de longa data.</p>
+            <p class="ls-anim d2">Formada em hipnoterapia clínica com especializações em técnicas avançadas de reprogramação. Atende presencialmente em Rio de Janeiro e online para todo o Brasil.</p>
+            <a href="#" class="ls-btn ls-anim d3" style="margin-top:24px;display:inline-flex">Conhecer mais →</a>
+          </div>
+        </div>
+
+        <!-- FOOTER CTA -->
+        <div class="ls-footer-cta">
+          <h2 class="ls-anim">Pronta para parar de<br>lutar consigo mesma?</h2>
+          <p class="ls-anim d1">Uma sessão é o suficiente para começar. Sem julgamento, sem perda de controle. Apenas a liberdade do padrão que ficou no caminho.</p>
+          <a href="#" class="ls-btn ls-anim d2">Agendar minha primeira sessão →</a>
+          <div class="ls-anim d3" style="margin-top:48px;padding-top:28px;border-top:1px solid var(--lsl);font-size:11px;color:#b8a898;letter-spacing:.06em">
+            © 2025 Liliana Sierra · Hipnoterapeuta e Mentora · Rio de Janeiro
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ── CAROUSEL ENGINE ── */
+const states = {};
+function initCarousel(stripId, prevId, nextId, countId, dotsId, total) {
+  const s = { cur: 0, total };
+  states[stripId] = s;
+  const dd = document.getElementById(dotsId);
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('span');
+    d.className = 'c-dot' + (i === 0 ? ' on' : '');
+    d.onclick = () => goTo(stripId, prevId, nextId, countId, dotsId, i);
+    dd.appendChild(d);
+  }
+  update(stripId, prevId, nextId, countId, dotsId);
+}
+function nav(stripId, prevId, nextId, countId, dotsId, dir) {
+  const s = states[stripId];
+  s.cur = Math.max(0, Math.min(s.total - 1, s.cur + dir));
+  update(stripId, prevId, nextId, countId, dotsId);
+}
+function goTo(stripId, prevId, nextId, countId, dotsId, idx) {
+  states[stripId].cur = idx;
+  update(stripId, prevId, nextId, countId, dotsId);
+}
+function update(stripId, prevId, nextId, countId, dotsId) {
+  const s = states[stripId];
+  document.getElementById(stripId).style.transform = 'translateX(-' + (s.cur * 540) + 'px)';
+  document.getElementById(countId).textContent = String(s.cur + 1).padStart(2,'0') + ' / ' + String(s.total).padStart(2,'0');
+  document.getElementById(prevId).disabled = s.cur === 0;
+  document.getElementById(nextId).disabled = s.cur === s.total - 1;
+  document.getElementById(dotsId).querySelectorAll('.c-dot').forEach((d, i) => d.classList.toggle('on', i === s.cur));
+}
+initCarousel('s1strip','c1p','c1n','c1c','c1d', 5);
+initCarousel('s2strip','c2p','c2n','c2c','c2d', 5);
+initCarousel('s3strip','c3p','c3n','c3c','c3d', 5);
+
+/* keyboard nav — last focused carousel */
+let activeStrip = 's1strip', activePrev = 'c1p', activeNext = 'c1n', activeCount = 'c1c', activeDots = 'c1d';
+['v1','v2','v3'].forEach((id, i) => {
+  const s = ['s1strip','s2strip','s3strip'][i];
+  const p = ['c1p','c2p','c3p'][i];
+  const n = ['c1n','c2n','c3n'][i];
+  const c = ['c1c','c2c','c3c'][i];
+  const d = ['c1d','c2d','c3d'][i];
+  document.getElementById(id)?.addEventListener('mouseenter', () => { activeStrip=s; activePrev=p; activeNext=n; activeCount=c; activeDots=d; });
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') nav(activeStrip, activePrev, activeNext, activeCount, activeDots, 1);
+  if (e.key === 'ArrowLeft')  nav(activeStrip, activePrev, activeNext, activeCount, activeDots, -1);
+});
+
+/* ── CONTENT CALENDAR TABS ── */
+function showMonth(n, el) {
+  ['m1','m2','m3'].forEach(id => { document.getElementById(id).classList.remove('active'); });
+  document.getElementById('m' + n).classList.add('active');
+  document.querySelectorAll('.cal-tab').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+}
+
+/* ── GOOGLE CALENDAR CANCEL FLOW ── */
+let cancelSlot = null;
+let selectedOpt = null;
+
+function trigCancel(name, slot) {
+  if (cancelSlot && cancelSlot.el) cancelSlot.el.classList.remove('canceling');
+  const els = document.querySelectorAll('.gcal-slot.booked');
+  let target = null;
+  els.forEach(el => { if (el.querySelector('.sl-name')?.textContent === name) target = el; });
+  if (target) target.classList.add('canceling');
+  cancelSlot = { name, slot, el: target };
+  selectedOpt = null;
+  document.getElementById('opt-wait').classList.remove('sel');
+  document.getElementById('opt-resched').classList.remove('sel');
+  const res = document.getElementById('cancel-result');
+  res.innerHTML = '';
+  res.classList.remove('show');
+  document.getElementById('cancel-msg').textContent = 'Cancelamento detectado — ' + name + ' · ' + slot;
+  const panel = document.getElementById('cancel-panel');
+  panel.classList.add('show');
+  setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+}
+
+function showWaitlist() {
+  if (selectedOpt === 'wait') return;
+  selectedOpt = 'wait';
+  document.getElementById('opt-wait').classList.add('sel');
+  document.getElementById('opt-resched').classList.remove('sel');
+  const res = document.getElementById('cancel-result');
+  res.classList.add('show');
+  res.innerHTML = `
+    <div style="margin-bottom:12px;font-size:12px;font-weight:600;color:var(--text)">Lista de espera — escolha quem notificar:</div>
+    <div class="wlist">
+      <div class="witem" id="w1" onclick="notifyWait('w1','Patricia A.','Qua 15h')">
+        <div class="wavatar">PA</div>
+        <div><div class="wname">Patricia A.</div><div class="winfo">Na lista há 3 dias · Quer horário da tarde</div></div>
+        <div class="wbadge wait">Aguardando</div>
+      </div>
+      <div class="witem" id="w2" onclick="notifyWait('w2','Fernanda T.','Seg 09h')">
+        <div class="wavatar">FT</div>
+        <div><div class="wname">Fernanda T.</div><div class="winfo">Na lista há 1 dia · Qualquer horário</div></div>
+        <div class="wbadge wait">Aguardando</div>
+      </div>
+      <div class="witem" id="w3" onclick="notifyWait('w3','Cláudia B.','Qui 14h')">
+        <div class="wavatar">CB</div>
+        <div><div class="wname">Cláudia B.</div><div class="winfo">Na lista hoje · Urgente — crise de ansiedade</div></div>
+        <div class="wbadge wait">Aguardando</div>
+      </div>
+    </div>
+    <div id="wa-sent-preview" style="display:none">
+      <div class="wa-preview">
+        <div class="wa-preview-lbl">Mensagem enviada automaticamente · WhatsApp</div>
+        <div class="wamsg">
+          <span class="wt">Automático · MarketingOS</span><br>
+          "Oi <span id="notif-name"></span>! Uma vaga abriu para <strong id="notif-slot"></strong>. Você gostaria de agendar a sua sessão?"
+        </div>
+      </div>
+      <div style="margin-top:10px;font-size:11px;color:var(--green);display:flex;align-items:center;gap:6px">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block"></span>
+        Vaga reservada por 30 min enquanto aguarda resposta
+      </div>
+    </div>
+  `;
+}
+
+function notifyWait(id, name, slot) {
+  const el = document.getElementById(id);
+  if (el.classList.contains('sent')) return;
+  el.classList.add('sent');
+  el.querySelector('.wbadge').textContent = '✓ Notificado';
+  el.querySelector('.wbadge').className = 'wbadge sent';
+  el.onclick = null;
+  const preview = document.getElementById('wa-sent-preview');
+  document.getElementById('notif-name').textContent = name.split(' ')[0];
+  document.getElementById('notif-slot').textContent = cancelSlot?.slot || slot;
+  preview.style.display = 'block';
+}
+
+function showResched() {
+  if (selectedOpt === 'resched') return;
+  selectedOpt = 'resched';
+  document.getElementById('opt-resched').classList.add('sel');
+  document.getElementById('opt-wait').classList.remove('sel');
+  const res = document.getElementById('cancel-result');
+  res.classList.add('show');
+  const canceledSlot = cancelSlot?.slot || 'Qui 14h';
+  res.innerHTML = `
+    <div style="margin-bottom:12px;font-size:12px;font-weight:600;color:var(--text)">Adiantar da agenda — escolha quem pode vir antes:</div>
+    <div class="rlist">
+      <div class="ritem" id="r1" onclick="doResched('r1','Beatriz L.','Sex 10h','${canceledSlot}')">
+        <div class="wavatar" style="background:var(--teal2)">BL</div>
+        <div class="ritem-name">Beatriz L.</div>
+        <span class="ritem-from">Sex 10h</span>
+        <span class="rarrow">→</span>
+        <span class="ritem-to">${canceledSlot}</span>
+      </div>
+      <div class="ritem" id="r2" onclick="doResched('r2','Renata K.','Qua 15h','${canceledSlot}')">
+        <div class="wavatar" style="background:var(--teal2)">RK</div>
+        <div class="ritem-name">Renata K.</div>
+        <span class="ritem-from">Qua 15h</span>
+        <span class="rarrow">→</span>
+        <span class="ritem-to">${canceledSlot}</span>
+      </div>
+      <div class="ritem" id="r3" onclick="doResched('r3','Sofia M.','Seg 14h','${canceledSlot}')">
+        <div class="wavatar" style="background:var(--teal2)">SM</div>
+        <div class="ritem-name">Sofia M.</div>
+        <span class="ritem-from">Seg 14h</span>
+        <span class="rarrow">→</span>
+        <span class="ritem-to">${canceledSlot}</span>
+      </div>
+    </div>
+    <div id="resched-confirm" style="display:none;margin-top:12px">
+      <div class="wa-preview">
+        <div class="wa-preview-lbl">Mensagem enviada automaticamente · WhatsApp</div>
+        <div class="wamsg">
+          <span class="wt">Automático · MarketingOS</span><br>
+          "Oi <span id="resched-name"></span>! Surgiu uma vaga em <strong id="resched-slot"></strong>. Você topa adiantar sua sessão e liberar o <span id="resched-old"></span>?"
+        </div>
+      </div>
+      <div style="margin-top:10px;font-size:11px;color:var(--green);display:flex;align-items:center;gap:6px">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block"></span>
+        Google Agenda atualizado após confirmação — nenhuma vaga desperdiçada
+      </div>
+    </div>
+  `;
+}
+
+function doResched(id, name, oldSlot, newSlot) {
+  const el = document.getElementById(id);
+  if (el.classList.contains('moved')) return;
+  document.querySelectorAll('.ritem').forEach(r => { r.classList.remove('moved'); r.onclick = null; });
+  el.classList.add('moved');
+  const confirm = document.getElementById('resched-confirm');
+  document.getElementById('resched-name').textContent = name.split(' ')[0];
+  document.getElementById('resched-slot').textContent = newSlot;
+  document.getElementById('resched-old').textContent = oldSlot;
+  confirm.style.display = 'block';
+}
+
+/* ── SCROLL ANIMATIONS — Liliana site ── */
+const lsAnims = document.querySelectorAll('.ls-anim');
+const lsObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); lsObs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+lsAnims.forEach(el => lsObs.observe(el));
+
+/* ── GRAVAÇÃO BADGES no calendário ── */
+document.querySelectorAll('.cal-cell').forEach(cell => {
+  if (cell.querySelector('.cfmt.cr')) {
+    const badge = document.createElement('span');
+    badge.className = 'cfmt cg';
+    badge.style.marginTop = '4px';
+    badge.textContent = '🎬 sua gravação · 20min';
+    cell.appendChild(badge);
+  }
+});
+
+/* ── NAV LABEL ── */
+const secs = document.querySelectorAll('section');
+const lbls = ['Apresentação','Estratégia de Conteúdo','Automação WA','Google Agenda','90 Dias','Agenda de Conteúdo','Semana Automatizada','Investimento','Bônus · Site','Site · Liliana Sierra'];
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { const i = Array.from(secs).indexOf(e.target); if (lbls[i]) document.getElementById('nav-lbl').textContent = lbls[i]; } });
+}, { threshold: 0.3 });
+secs.forEach(s => obs.observe(s));
+</script>
+</body>
+</html>

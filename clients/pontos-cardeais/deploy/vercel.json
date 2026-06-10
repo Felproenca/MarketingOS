@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "name": "pontos-cardeais",
+  "builds": [
+    { "src": "*.html", "use": "@vercel/static" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
+      ]
+    }
+  ]
+}

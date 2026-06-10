@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fortunato Trader — Diagnóstico e Próximos Passos</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --mos-bg:#0a0a0a;--mos-bg-2:#111;--mos-bg-3:#1a1a1a;
+  --mos-line:#1e1e1e;--mos-line-2:#252525;
+  --mos-text:#fafafa;--mos-text-2:#9a9a9a;--mos-text-3:#555;
+  --mos-red:#d85a30;--mos-green:#1d9e75;
+  --cp:#050e1a;--cs:#0c2340;--ca:#00d4aa;--cn:#3a5a7a;--cb:#070d18;
+  --fh:'Syne',sans-serif;--fb:'DM Sans',sans-serif;--fm:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--mos-bg);color:var(--mos-text);font-family:var(--fb);font-size:15px;line-height:1.6;overflow-x:hidden}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(10,10,10,.92);backdrop-filter:blur(20px);border-bottom:.5px solid var(--mos-line);padding:14px 0}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 32px;display:flex;justify-content:space-between;align-items:center}
+.nav-logo{font-family:var(--fm);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mos-text-3)}
+.nav-logo span{color:var(--ca)}
+.nav-progress{font-family:var(--fm);font-size:11px;color:var(--mos-text-3);letter-spacing:.12em;text-transform:uppercase}
+
+/* SLIDES */
+.slide{min-height:100vh;padding:120px 32px 80px;display:flex;flex-direction:column;justify-content:center;border-bottom:.5px solid var(--mos-line)}
+.slide-inner{max-width:980px;margin:0 auto;width:100%}
+.slide-label{font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--ca);margin-bottom:24px;font-family:var(--fm)}
+.slide h1{font-family:var(--fh);font-size:clamp(2.8rem,5vw,4rem);font-weight:800;line-height:1.05;letter-spacing:-.03em;margin-bottom:32px}
+.slide h1 em{font-style:italic;color:var(--ca)}
+.slide h2{font-family:var(--fh);font-size:clamp(2rem,3.5vw,2.8rem);font-weight:700;line-height:1.12;letter-spacing:-.025em;margin-bottom:24px}
+.slide h2 em{font-style:normal;color:var(--ca)}
+.slide-lead{font-size:19px;line-height:1.65;color:var(--mos-text-2);max-width:720px;margin-bottom:48px}
+.slide-text{font-size:15px;line-height:1.75;color:var(--mos-text-2);max-width:680px}
+.slide-text+.slide-text{margin-top:16px}
+
+/* COVER */
+.cover{min-height:100vh;padding:0;display:grid;grid-template-columns:1fr 1fr;align-items:center;border-bottom:.5px solid var(--mos-line);position:relative;overflow:hidden}
+.cover-bg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 22% 50%,rgba(0,212,170,.06) 0%,transparent 65%);pointer-events:none}
+.cover-left{padding:120px 48px 80px 64px;position:relative;z-index:1}
+.cover-eyebrow{font-family:var(--fm);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ca);margin-bottom:28px}
+.cover-h1{font-family:var(--fh);font-size:clamp(2.6rem,4vw,3.6rem);font-weight:800;line-height:1.06;letter-spacing:-.03em;margin-bottom:28px}
+.cover-h1 em{font-style:italic;color:var(--ca)}
+.cover-sub{font-size:1rem;color:var(--mos-text-2);line-height:1.7;max-width:420px;margin-bottom:40px}
+.cover-stats{display:flex;gap:32px;margin-top:40px}
+.cstat{border-left:2px solid var(--ca);padding-left:14px}
+.cstat .n{font-family:var(--fh);font-size:1.8rem;font-weight:800;line-height:1}
+.cstat .n.red{color:var(--mos-red)}
+.cstat .l{font-family:var(--fm);font-size:9px;letter-spacing:.1em;color:var(--mos-text-3);text-transform:uppercase;margin-top:4px}
+.cover-right{height:100vh;display:flex;align-items:center;justify-content:center;padding:80px 32px 80px 0;position:relative}
+.cover-meta{font-family:var(--fm);font-size:11px;color:var(--mos-text-3);letter-spacing:.1em;margin-top:48px}
+.scroll-hint{text-align:center}
+.scroll-hint p{font-family:var(--fm);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ca);margin-bottom:16px}
+.scroll-arrow{display:flex;flex-direction:column;align-items:center;gap:6px;animation:arrowBounce 2s ease-in-out infinite}
+@keyframes arrowBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+
+/* ══ THREE.JS SECTION ══ */
+.chart-universe{position:relative;min-height:100vh;padding:0;overflow:hidden;background:#020c18;border-bottom:.5px solid var(--mos-line)}
+#threeCanvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.chart-overlay{position:absolute;inset:0;pointer-events:none;z-index:10;display:flex;flex-direction:column;justify-content:flex-end;padding:0 0 64px 64px}
+.chart-phase-tag{font-family:var(--fm);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,212,170,.7);margin-bottom:10px;transition:opacity .6s}
+.chart-headline{font-family:var(--fh);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:800;line-height:1.1;color:#fff;transition:opacity .6s}
+.chart-headline .hl{color:var(--ca)}
+.chart-headline .gold{color:#f5c518}
+.chart-pnl{display:inline-flex;align-items:center;gap:12px;margin-top:20px;background:rgba(0,0,0,.55);border:1px solid rgba(0,212,170,.2);backdrop-filter:blur(16px);border-radius:6px;padding:10px 22px;opacity:0;transition:opacity .8s}
+.chart-pnl.show{opacity:1}
+.chart-pnl-label{font-family:var(--fm);font-size:9px;letter-spacing:.14em;color:var(--mos-text-3);text-transform:uppercase}
+.chart-pnl-val{font-family:var(--fh);font-size:1.7rem;font-weight:800;color:var(--ca);min-width:120px}
+.chart-legend{position:absolute;top:50%;right:48px;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px}
+.chart-legend-item{font-family:var(--fm);font-size:9px;letter-spacing:.12em;text-transform:uppercase;display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.32)}
+.legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.chart-section-label{position:absolute;top:88px;left:64px;font-family:var(--fm);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,212,170,.5)}
+
+/* COMPARE */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:48px}
+.compare-col{border:.5px solid var(--mos-line-2);border-radius:12px;padding:32px;background:var(--mos-bg-2)}
+.compare-col.bad{border-color:rgba(216,90,48,.3);background:rgba(216,90,48,.04)}
+.compare-col.good{border-color:rgba(0,212,170,.2);background:rgba(0,212,170,.03)}
+.compare-tag{font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;margin-bottom:20px;display:inline-block;padding:4px 10px;border-radius:20px;font-family:var(--fm)}
+.compare-tag.bad{color:var(--mos-red);background:rgba(216,90,48,.12)}
+.compare-tag.good{color:var(--ca);background:rgba(0,212,170,.1)}
+.compare-headline{font-family:var(--fh);font-size:22px;font-weight:700;line-height:1.3;margin-bottom:16px}
+.compare-note{font-size:13px;color:var(--mos-text-2);line-height:1.6}
+
+/* PROBLEMS */
+.problem-list{display:flex;flex-direction:column;gap:24px;margin-top:48px}
+.problem{display:grid;grid-template-columns:56px 1fr;gap:24px;padding-bottom:24px;border-bottom:.5px solid var(--mos-line)}
+.problem:last-child{border-bottom:none}
+.problem-num{font-family:var(--fh);font-size:2.8rem;font-weight:800;color:rgba(0,212,170,.1);line-height:1}
+.problem-content h3{font-family:var(--fh);font-size:1.1rem;font-weight:700;margin-bottom:8px}
+.problem-content p{font-size:14px;color:var(--mos-text-2);line-height:1.65}
+.problem-impact{margin-top:10px;font-size:12px;color:var(--ca);font-weight:500;font-family:var(--fm);letter-spacing:.05em}
+
+/* MOCKUP */
+.mockup-wrap{margin-top:48px;border-radius:12px;overflow:hidden;border:.5px solid var(--mos-line-2)}
+.mockup-bar{background:var(--mos-bg-3);padding:12px 16px;display:flex;align-items:center;gap:8px;border-bottom:.5px solid var(--mos-line)}
+.mockup-bar .dr{width:11px;height:11px;border-radius:50%;background:#ff5f57}
+.mockup-bar .dy{width:11px;height:11px;border-radius:50%;background:#ffbd2e}
+.mockup-bar .dg{width:11px;height:11px;border-radius:50%;background:#28c941}
+.mockup-bar .url{margin-left:16px;font-size:11px;color:var(--mos-text-3);font-family:var(--fm)}
+.mockup-image{background:var(--cb);padding:48px 32px;min-height:280px}
+.mockup-nav{display:flex;gap:28px;margin-bottom:40px}
+.mockup-nav a{font-family:var(--fm);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mos-text-3);text-decoration:none}
+.mockup-nav a.active{color:var(--ca);border-bottom:1px solid var(--ca);padding-bottom:4px}
+.mockup-hero{font-family:var(--fh);color:var(--mos-text);font-size:32px;font-weight:800;line-height:1.12;margin-bottom:14px}
+.mockup-hero em{font-style:normal;color:var(--ca)}
+.mockup-sub{color:var(--mos-text-2);font-size:13px;max-width:480px;line-height:1.65;margin-bottom:24px}
+.mockup-actions{display:flex;gap:12px}
+.mockup-cta-p{display:inline-block;background:var(--ca);color:var(--cp);padding:11px 24px;border-radius:4px;font-size:12px;font-weight:700;font-family:var(--fh);letter-spacing:.04em}
+.mockup-cta-s{display:inline-block;border:1px solid rgba(0,212,170,.3);color:var(--ca);padding:11px 24px;border-radius:4px;font-size:12px;font-weight:600;font-family:var(--fh)}
+
+/* INSTAGRAM */
+.instagram-compare{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:48px}
+.ig-col{display:flex;flex-direction:column;gap:16px}
+.ig-label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;padding:4px 10px;border-radius:20px;display:inline-block;align-self:flex-start;font-family:var(--fm)}
+.ig-col.bad .ig-label{color:var(--mos-red);background:rgba(216,90,48,.12)}
+.ig-col.good .ig-label{color:var(--ca);background:rgba(0,212,170,.1)}
+.ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:var(--mos-bg-2);padding:10px;border-radius:8px}
+.ig-post{aspect-ratio:1;display:flex;align-items:center;justify-content:center;padding:8px;border-radius:2px;font-size:8px;text-align:center;line-height:1.3;text-transform:uppercase;letter-spacing:.06em;overflow:hidden;font-family:var(--fm)}
+.ig-col.bad .ig-post{background:#1e1e1e;color:#444}
+.ig-col.bad .ig-post.s{background:#1a2838;color:rgba(0,212,170,.35);font-size:7px}
+.ig-col.good .ig-post{background:var(--cs);color:rgba(0,212,170,.7);font-size:8px}
+.ig-col.good .ig-post.pa{background:rgba(0,212,170,.08);border:.5px solid rgba(0,212,170,.25);color:var(--ca)}
+.ig-note{font-size:13px;color:var(--mos-text-2);line-height:1.65;margin-top:8px}
+.ig-mechanic-bar{margin-top:32px;padding:20px 24px;background:var(--mos-bg-2);border:.5px solid var(--mos-line-2);border-radius:10px;display:grid;grid-template-columns:1fr 1px 1fr;gap:24px}
+.ig-m-side{display:flex;gap:14px;align-items:flex-start}
+.ig-m-sep{background:var(--mos-line-2)}
+.ig-m-side h4{font-family:var(--fh);font-size:.85rem;font-weight:700;margin-bottom:4px}
+.ig-m-side p{font-size:.76rem;color:var(--mos-text-2);line-height:1.55}
+
+/* REEL DEMO */
+.reel-demo{margin-top:48px;display:grid;grid-template-columns:260px 1fr;gap:40px;align-items:start}
+.reel-phone{width:220px;background:var(--cp);border:.5px solid rgba(0,212,170,.15);border-radius:32px;overflow:hidden;aspect-ratio:9/16;display:flex;flex-direction:column;position:relative;box-shadow:0 24px 80px rgba(0,0,0,.5)}
+.reel-topbar{position:absolute;top:0;left:0;right:0;height:44px;background:linear-gradient(180deg,rgba(0,0,0,.7) 0%,transparent);z-index:2;display:flex;align-items:center;justify-content:space-between;padding:12px 16px 0}
+.reel-user{font-family:var(--fh);font-size:.65rem;font-weight:700;color:#fff}
+.reel-bg{position:absolute;inset:0;background:linear-gradient(180deg,var(--cs) 0%,var(--cp) 60%,#000 100%);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:48px 20px 60px}
+.reel-scene{text-align:center;position:relative;z-index:1}
+.reel-cena{font-family:var(--fm);font-size:.5rem;letter-spacing:.15em;color:rgba(0,212,170,.5);text-transform:uppercase;margin-bottom:10px}
+.reel-t{font-family:var(--fh);font-size:.9rem;font-weight:800;line-height:1.2;color:#fff;margin-bottom:6px}
+.reel-t.hl{color:var(--ca)}
+.reel-bottom{position:absolute;bottom:0;left:0;right:0;padding:16px;background:linear-gradient(0deg,rgba(0,0,0,.7) 0%,transparent);z-index:2}
+.reel-caption{font-size:.58rem;color:rgba(255,255,255,.65);line-height:1.5}
+.reel-script{display:flex;flex-direction:column;gap:16px}
+.reel-script h3{font-family:var(--fh);font-size:1.05rem;font-weight:700;margin-bottom:4px}
+.scene{border-left:2px solid var(--mos-line-2);padding-left:16px;transition:border-color .2s}
+.scene:hover{border-color:var(--ca)}
+.scene-label{font-family:var(--fm);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ca);margin-bottom:6px}
+.scene-copy{font-family:var(--fh);font-size:.88rem;font-weight:600;margin-bottom:4px}
+.scene-note{font-size:.75rem;color:var(--mos-text-2);line-height:1.5}
+
+/* CALENDAR */
+.calendar{margin-top:48px;border-radius:12px;overflow:hidden;border:.5px solid var(--mos-line-2)}
+.calendar-head{display:grid;grid-template-columns:80px repeat(5,1fr);background:var(--mos-bg-2);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mos-text-3);font-family:var(--fm)}
+.calendar-head>div{padding:14px;border-right:.5px solid var(--mos-line)}
+.calendar-head>div:last-child{border-right:none}
+.calendar-row{display:grid;grid-template-columns:80px repeat(5,1fr);border-top:.5px solid var(--mos-line)}
+.calendar-week{padding:16px;font-family:var(--fm);font-size:11px;color:var(--mos-text-2);border-right:.5px solid var(--mos-line);display:flex;align-items:center;letter-spacing:.06em}
+.calendar-cell{padding:12px;border-right:.5px solid var(--mos-line);min-height:76px;display:flex;flex-direction:column;gap:6px}
+.calendar-cell:last-child{border-right:none}
+.calendar-format{font-size:9px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;padding:3px 7px;border-radius:10px;display:inline-block;align-self:flex-start;font-family:var(--fm)}
+.calendar-format.reels{background:rgba(0,212,170,.1);color:var(--ca)}
+.calendar-format.story{background:rgba(255,255,255,.05);color:var(--mos-text-3)}
+.calendar-format.live{background:rgba(216,90,48,.12);color:var(--mos-red)}
+.calendar-theme{font-size:11px;color:var(--mos-text);line-height:1.4}
+
+/* ROADMAP */
+.roadmap{margin-top:48px;display:flex;flex-direction:column}
+.phase{display:grid;grid-template-columns:140px 1fr;gap:32px;padding:32px 0;border-top:.5px solid var(--mos-line)}
+.phase:last-child{border-bottom:.5px solid var(--mos-line)}
+.phase-period{font-family:var(--fh);font-size:12px;font-weight:600;color:var(--ca);letter-spacing:.04em}
+.phase-period .num{display:block;font-size:3rem;font-weight:800;color:var(--mos-text);line-height:1;margin-bottom:4px}
+.phase-content h3{font-family:var(--fh);font-size:1.05rem;font-weight:700;margin-bottom:8px}
+.phase-list{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.phase-list li{position:relative;padding-left:20px;font-size:13px;color:var(--mos-text-2);line-height:1.6}
+.phase-list li::before{content:'';position:absolute;left:0;top:10px;width:8px;height:1px;background:var(--ca)}
+
+/* METRICS */
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.metric{border:.5px solid var(--mos-line-2);border-radius:12px;padding:28px;background:var(--mos-bg-2)}
+.metric-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mos-text-3);margin-bottom:12px;font-family:var(--fm)}
+.metric-value{font-family:var(--fh);font-size:2.8rem;font-weight:800;line-height:1;color:var(--ca);margin-bottom:8px}
+.metric-note{font-size:12px;color:var(--mos-text-2);line-height:1.55}
+
+/* FINAL */
+.final{background:radial-gradient(ellipse at center,rgba(0,212,170,.07) 0%,transparent 65%);text-align:center}
+.final h1{margin-bottom:24px}
+.final .slide-lead{margin:0 auto 48px}
+.final-cta{display:inline-block;background:var(--ca);color:var(--cp);padding:18px 40px;border-radius:4px;font-weight:700;font-size:14px;letter-spacing:.06em;text-decoration:none;font-family:var(--fh)}
+.final-signature{margin-top:80px;font-family:var(--fm);color:var(--mos-text-3);font-size:12px;letter-spacing:.08em;text-transform:uppercase;line-height:2}
+
+@media(max-width:900px){
+  .cover{grid-template-columns:1fr}
+  .cover-right{display:none}
+  .cover-left{padding:120px 32px 80px}
+  .compare,.metrics,.instagram-compare{grid-template-columns:1fr}
+  .phase{grid-template-columns:1fr;gap:12px}
+  .reel-demo{grid-template-columns:1fr}
+  .chart-overlay{padding:0 0 48px 32px}
+  .chart-legend{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">Marketing<span>OS</span></div>
+    <div class="nav-progress" id="navProgress">Fortunato Trader — Proposta</div>
+  </div>
+</nav>
+
+<!-- SLIDE 1 — COVER -->
+<section class="slide cover" id="s1">
+  <div class="cover-bg"></div>
+  <div class="cover-left">
+    <div class="cover-eyebrow">Proposta Comercial · MarketingOS</div>
+    <h1 class="cover-h1">Fortunato Trader —<br><em>diagnóstico e<br>próximos passos.</em></h1>
+    <p class="cover-sub">Análise da presença digital atual, oportunidades identificadas e proposta de operação para os próximos 90 dias.</p>
+    <div class="cover-stats">
+      <div class="cstat"><div class="n">4.000+</div><div class="l">Traders na comunidade</div></div>
+      <div class="cstat"><div class="n red">10</div><div class="l">Meses sem post no feed</div></div>
+      <div class="cstat"><div class="n">IFVG</div><div class="l">Método proprietário</div></div>
+    </div>
+    <div class="cover-meta">Preparado para &nbsp;·&nbsp; Fortunato &nbsp;·&nbsp; Jun 2026</div>
+  </div>
+  <div class="cover-right">
+    <div class="scroll-hint">
+      <p>Role para ver o método ao vivo</p>
+      <div class="scroll-arrow">
+        <div style="width:1px;height:40px;background:linear-gradient(180deg,transparent,var(--ca))"></div>
+        <div style="font-size:1.2rem;color:var(--ca)">↓</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE CHART — THREE.JS FULLSCREEN -->
+<section class="chart-universe" id="s-chart">
+  <canvas id="threeCanvas"></canvas>
+  <div class="chart-section-label" id="chartSectionLabel">02 · O método IFVG em operação real</div>
+
+  <div class="chart-overlay">
+    <div class="chart-phase-tag" id="chartPhaseTag">Mercado em desequilíbrio</div>
+    <div class="chart-headline" id="chartHeadline">Identificando o <span class="hl">IFVG</span> —<br>onde o institucional opera.</div>
+    <div class="chart-pnl" id="pnlBadge">
+      <div class="chart-pnl-label">P&L da operação</div>
+      <div class="chart-pnl-val" id="pnlVal">+$0</div>
+    </div>
+  </div>
+
+  <div class="chart-legend">
+    <div class="chart-legend-item"><div class="legend-dot" style="background:#00d4aa"></div>Zona IFVG</div>
+    <div class="chart-legend-item"><div class="legend-dot" style="background:#f5c518"></div>Entrada / TP</div>
+    <div class="chart-legend-item"><div class="legend-dot" style="background:#d85a30"></div>Bearish</div>
+    <div class="chart-legend-item"><div class="legend-dot" style="background:#1d9e75"></div>Bullish</div>
+  </div>
+</section>
+
+<!-- SLIDE 2 — DIAGNÓSTICO -->
+<section class="slide" id="s2">
+  <div class="slide-inner">
+    <div class="slide-label">03 · Onde você está hoje</div>
+    <h2>Um ecossistema construído.<br><em>Uma engrenagem parada.</em></h2>
+    <p class="slide-text">Você construiu algo que poucos têm: uma audiência real de 4.000+ traders, um método técnico diferenciado — o IFVG — e um site que já gera tráfego como hub de cupons. A estrutura está pronta. O problema é específico.</p>
+    <p class="slide-text" style="margin-top:16px">O feed do Instagram parou em 30 de julho de 2025. Em 10 meses, zero traders novos descobriram o Fortunato por conteúdo. Stories frequentes mantêm quem já chegou — mas não trazem ninguém novo. Enquanto isso, concorrentes com métodos similares cresceram no espaço que você poderia ocupar.</p>
+  </div>
+</section>
+
+<!-- SLIDE 3 — ANTES × DEPOIS -->
+<section class="slide" id="s3">
+  <div class="slide-inner">
+    <div class="slide-label">04 · Posicionamento atual vs. potencial</div>
+    <h2>O mesmo trader,<br><em>comunicado de duas formas.</em></h2>
+    <p class="slide-text">O site fortunatotrader.com.br funciona bem como hub de cupons — mas não comunica quem é o Fortunato. Um visitante novo não encontra o especialista. Encontra o comparador de descontos.</p>
+    <div class="compare">
+      <div class="compare-col bad">
+        <span class="compare-tag bad">Posicionamento atual</span>
+        <div class="compare-headline">"Cupons de até 90% OFF nas Melhores Mesas Proprietárias"</div>
+        <p class="compare-note">Posiciona como aggregator de promoções. O IFVG não aparece. Sem face, sem autoridade, sem razão para seguir além do cupom.</p>
+      </div>
+      <div class="compare-col good">
+        <span class="compare-tag good">Posicionamento proposto</span>
+        <div class="compare-headline">"O especialista em IFVG por trás do maior hub de mesas proprietárias do Brasil."</div>
+        <p class="compare-note">Ancora o Fortunato como especialista. O hub de cupons passa a ser consequência da autoridade. Quem chega entra pelo método — e converte porque confia no criador.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4 — PROBLEMAS -->
+<section class="slide" id="s4">
+  <div class="slide-inner">
+    <div class="slide-label">05 · O que está limitando o crescimento</div>
+    <h2>Três problemas.<br><em>Todos resolvíveis.</em></h2>
+    <div class="problem-list">
+      <div class="problem">
+        <div class="problem-num">01</div>
+        <div class="problem-content">
+          <h3>Feed parado — zero descoberta orgânica</h3>
+          <p>10 meses sem post no feed. O algoritmo penaliza perfis inativos progressivamente, mesmo com Stories ativos. Nenhum trader novo descobre o Fortunato por conteúdo.</p>
+          <div class="problem-impact">→ Crescimento estagnado. Funil de afiliado sem topo.</div>
+        </div>
+      </div>
+      <div class="problem">
+        <div class="problem-num">02</div>
+        <div class="problem-content">
+          <h3>Fortunato como especialista é invisível no site</h3>
+          <p>fortunatotrader.com.br é um excelente aggregator — mas o especialista não aparece. Sem âncora do IFVG, sem razão para confiar além da promoção.</p>
+          <div class="problem-impact">→ Autoridade não transita para o site. Retenção baseada em cupom, não em método.</div>
+        </div>
+      </div>
+      <div class="problem">
+        <div class="problem-num">03</div>
+        <div class="problem-content">
+          <h3>IFVG não tem espaço para provar seu valor</h3>
+          <p>O método é o diferencial técnico real — específico, defensável. Mas sem conteúdo demonstrando o IFVG ao vivo, ele não converte. Trader cético precisa ver antes de acreditar.</p>
+          <div class="problem-impact">→ O melhor argumento de venda não está sendo usado.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5 — MOCKUP SITE -->
+<section class="slide" id="s5">
+  <div class="slide-inner">
+    <div class="slide-label">06 · O que muda no site</div>
+    <h2>O hub continua funcionando.<br><em>O especialista aparece.</em></h2>
+    <p class="slide-text">Não reconstruímos do zero. Adicionamos a camada de autoridade: o Fortunato como especialista, seção dedicada ao método IFVG e CTA principal ancorado na confiança — não no cupom.</p>
+    <div class="mockup-wrap">
+      <div class="mockup-bar"><span class="dr"></span><span class="dy"></span><span class="dg"></span><span class="url">fortunatotrader.com.br</span></div>
+      <div class="mockup-image">
+        <div class="mockup-nav"><a class="active">Início</a><a>Método IFVG</a><a>Mesas Proprietárias</a><a>Comunidade</a></div>
+        <div class="mockup-hero">O método que identifica<br><em>onde o institucional opera.</em></div>
+        <p class="mockup-sub">Fortunato ensina o IFVG — leitura de desequilíbrios de fluxo que revela as zonas onde o dinheiro grande está posicionado. Aprenda a operar com ele nas mesas proprietárias.</p>
+        <div class="mockup-actions"><a class="mockup-cta-p">Conhecer o Método →</a><a class="mockup-cta-s">Ver Mesas com Cupom</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 6 — INSTAGRAM -->
+<section class="slide" id="s6">
+  <div class="slide-inner">
+    <div class="slide-label">07 · Instagram — a mecânica que importa</div>
+    <h2>Stories retém.<br><em>Reels adquire.</em><br>Você tem um. Precisa dos dois.</h2>
+    <p class="slide-text">A questão não é fazer o feed bonito. É ligar o mecanismo de descoberta que está desligado há 10 meses. Stories mantém quem já chegou em loop. Reels é o funil que abre o ecossistema para quem ainda não te encontrou.</p>
+    <div class="instagram-compare">
+      <div class="ig-col bad">
+        <span class="ig-label">Feed atual — @FORTUNATONINJATRADER</span>
+        <div class="ig-grid">
+          <div class="ig-post">Jul/25</div><div class="ig-post">Jul/25</div><div class="ig-post s">Story ativo</div>
+          <div class="ig-post">Jun/25</div><div class="ig-post s">Story ativo</div><div class="ig-post">Mai/25</div>
+          <div class="ig-post">Mai/25</div><div class="ig-post">Abr/25</div><div class="ig-post">Mar/25</div>
+        </div>
+        <p class="ig-note">Feed parado desde 30 jul 2025. Stories ativos mantêm audiência existente — mas não chegam novos traders. Círculo fechado: retenção sem aquisição.</p>
+      </div>
+      <div class="ig-col good">
+        <span class="ig-label">Feed proposto — Reels estratégicos</span>
+        <div class="ig-grid">
+          <div class="ig-post pa">IFVG ao vivo</div><div class="ig-post">Entrada mesa</div><div class="ig-post pa">Desequilíbrio</div>
+          <div class="ig-post">Sessão NY</div><div class="ig-post pa">IFVG vs ICT</div><div class="ig-post">Setup APEX</div>
+          <div class="ig-post pa">Erro comum</div><div class="ig-post">Op. real</div><div class="ig-post pa">Fluxo inst.</div>
+        </div>
+        <p class="ig-note">2–3 Reels por semana demonstrando o IFVG em operações reais. Cada vídeo é uma porta de entrada para a comunidade e para o link de afiliado.</p>
+      </div>
+    </div>
+    <div class="ig-mechanic-bar">
+      <div class="ig-m-side"><div style="font-size:1.3rem;flex-shrink:0;margin-top:2px">🔁</div><div><h4>Stories = Loop fechado</h4><p>A audiência existente consome e continua consumindo. Ótimo para retenção — mas o círculo não se abre para novos traders.</p></div></div>
+      <div class="ig-m-sep"></div>
+      <div class="ig-m-side"><div style="font-size:1.3rem;flex-shrink:0;margin-top:2px">📈</div><div><h4>Reels = Funil aberto</h4><p>Cada Reel é indexado, descoberto e distribuído. Um trader que nunca te viu encontra o IFVG, entra no ecossistema e converte.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 7 — REEL DEMO -->
+<section class="slide" id="s7">
+  <div class="slide-inner">
+    <div class="slide-label">08 · Como um Reel de IFVG é construído</div>
+    <h2>Não é vídeo genérico.<br><em>É método demonstrado.</em></h2>
+    <p class="slide-text">Fortunato grava. MarketingOS entrega o roteiro: gancho, estrutura cena a cena, legenda e CTA. Cada Reel é construído para atrair o trader qualificado — aquele que já sabe o que é ICT/SMC e está buscando o próximo nível.</p>
+    <div class="reel-demo">
+      <div>
+        <div class="reel-phone">
+          <div class="reel-topbar"><div class="reel-user">@fortunatoninjatrader</div><div style="font-size:.55rem;color:rgba(255,255,255,.5);font-family:var(--fm)">● Reel</div></div>
+          <div class="reel-bg">
+            <div class="reel-scene">
+              <div class="reel-cena" id="reelCena">Cena 01 — Gancho</div>
+              <div class="reel-t" id="reelT1">Você sabe o que é ICT.</div>
+              <div class="reel-t hl" id="reelT2" style="margin-top:6px">Mas está usando errado.</div>
+            </div>
+          </div>
+          <div class="reel-bottom"><div class="reel-caption">IFVG — o desequilíbrio que o ICT não te ensinou a usar direito. Método completo 👇</div></div>
+        </div>
+        <div style="margin-top:14px;display:flex;gap:8px;justify-content:center">
+          <button onclick="reelPrev()" style="background:var(--mos-bg-2);border:.5px solid var(--mos-line-2);color:var(--mos-text);padding:6px 14px;border-radius:4px;cursor:pointer;font-family:var(--fm);font-size:11px">← Cena</button>
+          <button onclick="reelNext()" style="background:var(--mos-bg-2);border:.5px solid var(--mos-line-2);color:var(--mos-text);padding:6px 14px;border-radius:4px;cursor:pointer;font-family:var(--fm);font-size:11px">Cena →</button>
+        </div>
+      </div>
+      <div class="reel-script">
+        <h3>Roteiro — Reel 01: "O desequilíbrio que poucos veem"</h3>
+        <div class="scene"><div class="scene-label">Gancho · 0–3s</div><div class="scene-copy">"Você sabe o que é ICT. Mas está usando errado."</div><div class="scene-note">Para o scroll. Trader que estudou ICT sente a provocação imediatamente.</div></div>
+        <div class="scene"><div class="scene-label">Desenvolvimento · 4–15s</div><div class="scene-copy">"O IFVG não é um FVG qualquer. É o desequilíbrio que carrega ordem institucional."</div><div class="scene-note">Demonstração ao vivo no gráfico. Zona, preço voltando, entrada.</div></div>
+        <div class="scene"><div class="scene-label">Prova · 16–22s</div><div class="scene-copy">"Olha o que aconteceu nessa sessão de NY."</div><div class="scene-note">Screen capture da operação real no NinjaTrader. Resultado visível.</div></div>
+        <div class="scene"><div class="scene-label">CTA · 23–27s</div><div class="scene-copy">"Link na bio pra entrar na comunidade e começar a identificar isso."</div><div class="scene-note">CTA para comunidade, não para venda direta. Funil começa aqui.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 8 — CALENDÁRIO -->
+<section class="slide" id="s8">
+  <div class="slide-inner">
+    <div class="slide-label">09 · Calendário editorial — primeiras 4 semanas</div>
+    <h2>Reativação com <em>conteúdo de método</em>,<br>não com volume.</h2>
+    <p class="slide-text">2–3 Reels por semana, todos demonstrando o IFVG. O sorteio de 13/06 entra como primeiro conteúdo — urgência imediata para reativar o feed.</p>
+    <div class="calendar">
+      <div class="calendar-head"><div></div><div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div></div>
+      <div class="calendar-row">
+        <div class="calendar-week">Sem. 1</div>
+        <div class="calendar-cell"><span class="calendar-format live">Live/Sorteio</span><div class="calendar-theme">13/06 — Reativar com sorteio</div></div>
+        <div class="calendar-cell"></div>
+        <div class="calendar-cell"><span class="calendar-format reels">Reel</span><div class="calendar-theme">O que é IFVG vs ICT</div></div>
+        <div class="calendar-cell"></div>
+        <div class="calendar-cell"><span class="calendar-format reels">Reel</span><div class="calendar-theme">Operação real: sessão NY com IFVG</div></div>
+      </div>
+      <div class="calendar-row">
+        <div class="calendar-week">Sem. 2</div>
+        <div class="calendar-cell"></div>
+        <div class="calendar-cell"><span class="calendar-format reels">Reel</span><div class="calendar-theme">Como identificar IFVG em 30s</div></div>
+        <div class="calendar-cell"></div>
+        <div class="calendar-cell"><span class="calendar-format reels">Reel</span><div class="calendar-theme">Por que a maioria erra a entrada</div></div>
+        <div class="calendar-cell"><span class="calendar-format story">Story</span><div class="calendar-theme">Bastidores da operação do dia</div></div>
+      </div>
+      <div class="calendar-row">
+        <div class="calendar-week">Sem. 3</div>
+        <div class="calendar-cell"><span class="calendar-format reels">Reel</span><div class="calendar-theme">IFVG + mesa proprietária: método para avaliação</div></div>
+        <div class="calendar-cell"></div>
+        <div class="calendar-cell"><span class="calendar-format reels">Reel</span><div class="calendar-theme">O erro que quebra conta — como o IFVG evita</div></div>
+        <div class="calendar-cell"></div>
+        <div class="calendar-cell"><span class="calendar-format story">Story</span><div class="calendar-theme">Enquete: qual setup você mais usa?</div></div>
+      </div>
+      <div class="calendar-row">
+        <div class="calendar-week">Sem. 4</div>
+        <div class="calendar-cell"></div>
+        <div class="calendar-cell"><span class="calendar-format reels">Reel</span><div class="calendar-theme">IFVG vs FVG comum — o que muda na prática</div></div>
+        <div class="calendar-cell"></div>
+        <div class="calendar-cell"><span class="calendar-format reels">Reel</span><div class="calendar-theme">Recap: 3 setups IFVG que funcionaram</div></div>
+        <div class="calendar-cell"><span class="calendar-format story">Story</span><div class="calendar-theme">Link comunidade + cupom ativo</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 9 — ROADMAP -->
+<section class="slide" id="s9">
+  <div class="slide-inner">
+    <div class="slide-label">10 · Plano para 90 dias</div>
+    <h2>Da base<br><em>à tração.</em></h2>
+    <div class="roadmap">
+      <div class="phase">
+        <div class="phase-period"><span class="num">30</span>dias</div>
+        <div class="phase-content">
+          <h3>Percepção e Identidade</h3>
+          <p style="font-size:13px;color:var(--mos-text-2);line-height:1.65">Antes de criar, entender. Mapear campo semântico do IFVG/SMC no Brasil, concorrentes, ICP e posicionamento.</p>
+          <ul class="phase-list"><li>Percepção do nicho IFVG/SMC — concorrentes, linguagem, ICP</li><li>Identidade visual premium: tipografia, cores, system</li><li>Reformulação site: camada de autoridade do especialista</li><li>Página do método IFVG com CTA principal</li><li>Primeiros 3 roteiros de Reel entregues</li></ul>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-period"><span class="num">60</span>dias</div>
+        <div class="phase-content">
+          <h3>Ativação do Feed</h3>
+          <p style="font-size:13px;color:var(--mos-text-2);line-height:1.65">Feed reativado com 2–3 Reels/semana. Todos demonstram o método. Todos têm CTA para comunidade ou afiliado.</p>
+          <ul class="phase-list"><li>8–12 Reels publicados com roteiro MarketingOS</li><li>Legenda + copy + CTA de cada vídeo com 72h de antecedência</li><li>Sorteio de 13/06 como alavanca de reativação</li><li>Bio otimizada: link para comunidade + site + mesa afiliada</li><li>Análise de primeiros resultados</li></ul>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-period"><span class="num">90</span>dias</div>
+        <div class="phase-content">
+          <h3>Escala e Otimização</h3>
+          <p style="font-size:13px;color:var(--mos-text-2);line-height:1.65">Dobrar o que converte. Parar o que não traz trader qualificado. Avaliar expansão para YouTube.</p>
+          <ul class="phase-list"><li>Análise: quais Reels geraram mais cliques em afiliado</li><li>Ajuste de calendário baseado em dados reais</li><li>Avaliação de expansão para YouTube Shorts</li><li>Revisão do funil site → mesa: CTA e jornada</li><li>Planejamento Q4 com sazonalidade do mercado</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 10 — MÉTRICAS -->
+<section class="slide" id="s10">
+  <div class="slide-inner">
+    <div class="slide-label">11 · O que isso pode gerar — estimativas conservadoras</div>
+    <h2>Com a engrenagem<br><em>funcionando.</em></h2>
+    <p class="slide-text">Projeções baseadas em benchmarks de criadores de nicho técnico de trading no Brasil.</p>
+    <div class="metrics">
+      <div class="metric"><div class="metric-label">Seguidores qualificados</div><div class="metric-value">+800</div><div class="metric-note">Em 90 dias com 2 Reels/semana de IFVG. Traders que buscam o método — não audiência genérica.</div></div>
+      <div class="metric"><div class="metric-label">Cliques em links afiliado</div><div class="metric-value">3×</div><div class="metric-note">Aumento estimado com topo de funil ativo. Cada Reel termina com CTA para a bio onde o link vive.</div></div>
+      <div class="metric"><div class="metric-label">Novas inscrições em mesas</div><div class="metric-value">+40</div><div class="metric-note">Estimativa de conversão de ~5% da audiência nova qualificada por mês. Comissão direta.</div></div>
+    </div>
+    <p class="slide-text" style="margin-top:40px;font-size:12px;color:var(--mos-text-3)">Estimativas de referência — não garantias. Resultado depende de frequência de publicação, qualidade de execução e variáveis do algoritmo.</p>
+  </div>
+</section>
+
+<!-- SLIDE 11 — FECHAMENTO -->
+<section class="slide final" id="s11">
+  <div class="slide-inner">
+    <div class="slide-label">Próximo passo</div>
+    <h1>Uma conversa.<br><em>Um ponto de partida.</em></h1>
+    <p class="slide-lead">Sem contrato longo. Sem mistério sobre escopo. Você aprova cada roteiro antes de gravar. Cada entrega antes de publicar.</p>
+    <a href="#" class="final-cta">Conversar agora →</a>
+    <div class="final-signature">Felipe Proença · MarketingOS<br><span style="color:var(--mos-text-3);font-size:11px">Apresentação confidencial · Fortunato Trader · Jun/2026</span></div>
+  </div>
+</section>
+
+<script>
+/* ── NAV PROGRESS ── */
+const allSlides = document.querySelectorAll('.slide, .chart-universe');
+const progEl = document.getElementById('navProgress');
+const labels = ['Proposta','O IFVG em operação','Diagnóstico','Posicionamento','Problemas','Site','Instagram','Reel','Calendário','Roadmap','Potencial','Próximo Passo'];
+const obsNav = new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const i=Array.from(allSlides).indexOf(e.target);if(labels[i])progEl.textContent=labels[i];}});},{threshold:0.45});
+allSlides.forEach(s=>obsNav.observe(s));
+
+/* ── REEL PREVIEW ── */
+const reelScenes=[
+  {cena:'Cena 01 — Gancho',t1:'Você sabe o que é ICT.',t2:'Mas está usando errado.'},
+  {cena:'Cena 02 — Conceito',t1:'IFVG não é um FVG',t2:'qualquer.'},
+  {cena:'Cena 03 — Demo ao vivo',t1:'Olha o desequilíbrio',t2:'nessa zona.'},
+  {cena:'Cena 04 — Resultado',t1:'Sessão NY.',t2:'+$1.840 de resultado.'},
+  {cena:'Cena 05 — CTA',t1:'Link na bio.',t2:'Comunidade + cupom.'},
+];
+let rCur=0;
+function updateReel(){const s=reelScenes[rCur];document.getElementById('reelCena').textContent=s.cena;document.getElementById('reelT1').textContent=s.t1;document.getElementById('reelT2').textContent=s.t2;}
+function reelNext(){rCur=(rCur+1)%reelScenes.length;updateReel();}
+function reelPrev(){rCur=(rCur-1+reelScenes.length)%reelScenes.length;updateReel();}
+
+/* ══════════════════════════════════════
+   THREE.JS TRADING SCENE
+══════════════════════════════════════ */
+(function initScene(){
+  const container = document.getElementById('s-chart');
+  const canvas    = document.getElementById('threeCanvas');
+
+  /* ── renderer ── */
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:false});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+  /* ── scene / camera ── */
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x020c18);
+  scene.fog = new THREE.FogExp2(0x020c18, 0.022);
+
+  const camera = new THREE.PerspectiveCamera(52, 1, 0.1, 300);
+  camera.position.set(0, 10, 28);
+  camera.lookAt(0,3,0);
+
+  function onResize(){
+    const w=container.clientWidth, h=container.clientHeight;
+    renderer.setSize(w,h,false);
+    camera.aspect=w/h;
+    camera.updateProjectionMatrix();
+  }
+  onResize();
+  window.addEventListener('resize', onResize);
+
+  /* ── lights ── */
+  scene.add(new THREE.AmbientLight(0x001c38, 4));
+
+  const tealPt = new THREE.PointLight(0x00d4aa, 0, 50);
+  tealPt.position.set(-2, 10, 4);
+  scene.add(tealPt);
+
+  const goldPt = new THREE.PointLight(0xf5c518, 0, 40);
+  goldPt.position.set(8, 7, 3);
+  scene.add(goldPt);
+
+  const rimDir = new THREE.DirectionalLight(0x003366, 1.8);
+  rimDir.position.set(-15, 15, -8);
+  scene.add(rimDir);
+
+  const fillDir = new THREE.DirectionalLight(0x001122, 0.8);
+  fillDir.position.set(10, -5, 10);
+  scene.add(fillDir);
+
+  /* ── grid floor ── */
+  const gSize=36, gDiv=24, gStep=gSize/gDiv;
+  const gVerts=[];
+  for(let i=0;i<=gDiv;i++){
+    const p=-gSize/2+i*gStep;
+    gVerts.push(p,0,-gSize/2, p,0,gSize/2, -gSize/2,0,p, gSize/2,0,p);
+  }
+  const gGeo=new THREE.BufferGeometry();
+  gGeo.setAttribute('position',new THREE.Float32BufferAttribute(gVerts,3));
+  scene.add(new THREE.LineSegments(gGeo,new THREE.LineBasicMaterial({color:0x001830,transparent:true,opacity:0.55})));
+
+  /* ── secondary depth grid ── */
+  const gVerts2=[];
+  for(let i=0;i<=gDiv;i+=4){
+    const p=-gSize/2+i*gStep;
+    gVerts2.push(p,0,-gSize/2, p,0,gSize/2, -gSize/2,0,p, gSize/2,0,p);
+  }
+  const gGeo2=new THREE.BufferGeometry();
+  gGeo2.setAttribute('position',new THREE.Float32BufferAttribute(gVerts2,3));
+  scene.add(new THREE.LineSegments(gGeo2,new THREE.LineBasicMaterial({color:0x003366,transparent:true,opacity:0.35})));
+
+  /* ── candle data generator ── */
+  const N=34;
+  const rawCandles=[];
+  let price=100;
+  function rng(n){let x=Math.sin(n*7919+3571)*233280;return x-Math.floor(x);}
+
+  for(let i=0;i<N;i++){
+    const r=rng(i), r2=rng(i+50), r3=rng(i+200);
+    let o=price, c;
+
+    // Phase design
+    if(i<6){                               // noise / chop
+      c=o+(r-0.5)*14;
+    } else if(i>=6&&i<=8){                 // fast up move (IFVG formation)
+      c=o+22+r*10;
+    } else if(i===9){                      // gap candle (the IFVG gap)
+      c=o+28;
+    } else if(i===10){                     // reaction / small bear
+      c=o-8;
+    } else if(i>=11&&i<=18){               // pullback toward IFVG
+      c=o-(r2*10+5);
+    } else if(i>=19&&i<=22){               // IFVG zone touch + consolidation
+      c=o+(r3-0.52)*6;
+    } else if(i>=23&&i<=30){               // strong reversal up
+      const momentum=1+(i-22)*0.18;
+      c=o+(r*12+16)*momentum;
+    } else {                               // post TP consolidation
+      c=o+(r-0.42)*10;
+    }
+
+    const hl=Math.abs(c-o);
+    const hi=Math.max(o,c)+(hl*0.3+r*6);
+    const lo=Math.min(o,c)-(hl*0.25+r2*5);
+    rawCandles.push({o,h:hi,l:lo,c,bull:c>=o});
+    price=c;
+  }
+
+  // Normalize price to Y in [0..9]
+  const allPrices=rawCandles.flatMap(c=>[c.h,c.l]);
+  const minP=Math.min(...allPrices), maxP=Math.max(...allPrices), pR=maxP-minP;
+  const norm=p=>((p-minP)/pR)*9;
+  const candles=rawCandles.map(c=>({...c,nO:norm(c.o),nC:norm(c.c),nH:norm(c.h),nL:norm(c.l)}));
+
+  const SPACING=0.9;
+  const STARTX=-(N/2)*SPACING;
+
+  // Key indices / prices
+  const IFVG_TOP   = candles[9].nC;            // top of gap
+  const IFVG_BOT   = candles[8].nC;            // bottom of gap
+  const ENTRY_IDX  = 21;
+  const ENTRY_Y    = (IFVG_TOP+IFVG_BOT)/2;
+  const TP_Y       = ENTRY_Y + 4.5;
+  const TP_IDX     = 28;
+  const IFVG_MID_Y = (IFVG_TOP+IFVG_BOT)/2;
+
+  /* ── materials ── */
+  function candleMat(hex, emHex, emInt=0.25){
+    return new THREE.MeshStandardMaterial({color:hex, emissive:emHex, emissiveIntensity:emInt, roughness:0.28, metalness:0.65});
+  }
+  const matBull  = candleMat(0x00c49a, 0x003322, 0.2);
+  const matBear  = candleMat(0xc84a20, 0x3d0e00, 0.2);
+  const matBullRev = candleMat(0x00ffcc, 0x00d4aa, 0.9);  // reversal candles glow
+  const matWick  = new THREE.MeshStandardMaterial({color:0x113344, roughness:0.6});
+  const matWickBull = new THREE.MeshStandardMaterial({color:0x005533, roughness:0.6});
+
+  /* ── build candle meshes ── */
+  const candleGroup = new THREE.Group();
+  scene.add(candleGroup);
+  const candleMeshes=[];
+
+  for(let i=0;i<N;i++){
+    const c=candles[i];
+    const x=STARTX+i*SPACING;
+    const bodyH=Math.max(Math.abs(c.nC-c.nO),0.06);
+    const bodyY=(c.nO+c.nC)/2;
+    const wickH=Math.max(c.nH-c.nL,bodyH+0.05);
+    const wickY=(c.nH+c.nL)/2;
+    const isRev=i>=23&&i<=30;
+    const mat=c.bull?(isRev?matBullRev:matBull):matBear;
+    const wmat=c.bull?matWickBull:matWick;
+
+    const body=new THREE.Mesh(new THREE.BoxGeometry(0.58, bodyH, 0.58), mat);
+    body.position.set(x, bodyY, 0);
+    body.castShadow=true;
+
+    const wick=new THREE.Mesh(new THREE.BoxGeometry(0.07, wickH, 0.07), wmat);
+    wick.position.set(x, wickY, 0);
+
+    body.visible=false; wick.visible=false;
+    candleGroup.add(body, wick);
+    candleMeshes.push({body,wick,shown:false});
+  }
+
+  /* ── IFVG zone box ── */
+  const ifvgH = IFVG_TOP-IFVG_BOT;
+  const ifvgXStart = STARTX+8*SPACING;
+  const ifvgXWidth = (N-8)*SPACING+1.2;
+
+  const ifvgBody = new THREE.Mesh(
+    new THREE.BoxGeometry(ifvgXWidth, ifvgH, 0.5),
+    new THREE.MeshBasicMaterial({color:0x00d4aa, transparent:true, opacity:0, side:THREE.DoubleSide})
+  );
+  ifvgBody.position.set(ifvgXStart+ifvgXWidth/2-SPACING/2, IFVG_MID_Y, 0);
+  scene.add(ifvgBody);
+
+  const ifvgEdge = new THREE.LineSegments(
+    new THREE.EdgesGeometry(new THREE.BoxGeometry(ifvgXWidth, ifvgH, 0.5)),
+    new THREE.LineBasicMaterial({color:0x00d4aa, transparent:true, opacity:0})
+  );
+  ifvgEdge.position.copy(ifvgBody.position);
+  scene.add(ifvgEdge);
+
+  // Top / bottom lines of IFVG zone
+  function hLine(y, xStart, xEnd, color){
+    const g=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(xStart,y,0.1),new THREE.Vector3(xEnd,y,0.1)]);
+    const m=new THREE.Line(g,new THREE.LineBasicMaterial({color,transparent:true,opacity:0}));
+    scene.add(m);
+    return m;
+  }
+  const ifvgLineTop=hLine(IFVG_TOP, ifvgXStart-1, STARTX+N*SPACING, 0x00d4aa);
+  const ifvgLineBot=hLine(IFVG_BOT, ifvgXStart-1, STARTX+N*SPACING, 0x004433);
+
+  /* ── IFVG label in 3D space ── */
+  // (using html overlay instead for crisp text)
+
+  /* ── Entry sphere ── */
+  const entryX = STARTX+ENTRY_IDX*SPACING;
+  const entrySphere = new THREE.Mesh(
+    new THREE.SphereGeometry(0.25, 24, 24),
+    new THREE.MeshStandardMaterial({color:0xf5c518, emissive:0xf5c518, emissiveIntensity:2, roughness:0, metalness:1})
+  );
+  entrySphere.position.set(entryX, ENTRY_Y, 0.2);
+  entrySphere.visible=false;
+  scene.add(entrySphere);
+
+  // Entry vertical line
+  const entryLineGeo=new THREE.BufferGeometry().setFromPoints([
+    new THREE.Vector3(entryX,-0.5,0.1),
+    new THREE.Vector3(entryX,ENTRY_Y,0.1)
+  ]);
+  const entryLine=new THREE.Line(entryLineGeo,
+    new THREE.LineBasicMaterial({color:0xf5c518,transparent:true,opacity:0})
+  );
+  scene.add(entryLine);
+
+  // Pulsing rings
+  const rings=[];
+  for(let r=0;r<3;r++){
+    const ring=new THREE.Mesh(
+      new THREE.TorusGeometry(0.45+r*0.35, 0.025, 8, 40),
+      new THREE.MeshBasicMaterial({color:0xf5c518, transparent:true, opacity:0})
+    );
+    ring.position.set(entryX, ENTRY_Y, 0.2);
+    ring.visible=false;
+    scene.add(ring);
+    rings.push({m:ring, offset:r*(1/3)});
+  }
+
+  /* ── TP line ── */
+  const tpLine=hLine(TP_Y, STARTX+TP_IDX*SPACING-2, STARTX+N*SPACING+1, 0xf5c518);
+
+  /* ── Price trail ── */
+  const trailMat=new THREE.LineBasicMaterial({color:0x00ffcc,transparent:true,opacity:0,linewidth:2});
+  const trailGeo=new THREE.BufferGeometry();
+  const trailLine=new THREE.Line(trailGeo,trailMat);
+  scene.add(trailLine);
+
+  /* ── Star field ── */
+  const STARS=800;
+  const starArr=new Float32Array(STARS*3);
+  for(let i=0;i<STARS;i++){
+    starArr[i*3]=(Math.random()-0.5)*80;
+    starArr[i*3+1]=Math.random()*25;
+    starArr[i*3+2]=(Math.random()-0.5)*60-5;
+  }
+  const starGeo=new THREE.BufferGeometry();
+  starGeo.setAttribute('position',new THREE.Float32BufferAttribute(starArr,3));
+  scene.add(new THREE.Points(starGeo,new THREE.PointsMaterial({color:0x224466,size:0.06,transparent:true,opacity:0.6})));
+
+  /* ── Institutional flow particles ── */
+  const FLOW=250;
+  const fPos=new Float32Array(FLOW*3);
+  const fVel=new Float32Array(FLOW*3);
+  for(let i=0;i<FLOW;i++){
+    fPos[i*3]=(Math.random()-0.5)*28;
+    fPos[i*3+1]=Math.random()*12;
+    fPos[i*3+2]=(Math.random()-0.5)*8;
+    fVel[i*3]=(Math.random()-0.5)*0.018;
+    fVel[i*3+1]=-0.008-Math.random()*0.012;
+    fVel[i*3+2]=0;
+  }
+  const flowGeo=new THREE.BufferGeometry();
+  flowGeo.setAttribute('position',new THREE.Float32BufferAttribute(fPos,3));
+  const flowMat=new THREE.PointsMaterial({color:0x00d4aa,size:0.11,transparent:true,opacity:0});
+  const flowPts=new THREE.Points(flowGeo,flowMat);
+  scene.add(flowPts);
+
+  /* ── TP explosion particles ── */
+  const EXP=160;
+  const expBase=new Float32Array(EXP*3);
+  const expVel=new Float32Array(EXP*3);
+  const tpX=STARTX+TP_IDX*SPACING;
+  for(let i=0;i<EXP;i++){
+    const a=Math.random()*Math.PI*2, sp=0.04+Math.random()*0.14;
+    expBase[i*3]=tpX; expBase[i*3+1]=TP_Y; expBase[i*3+2]=0.1;
+    expVel[i*3]=Math.cos(a)*sp;
+    expVel[i*3+1]=Math.sin(a)*sp+0.05;
+    expVel[i*3+2]=(Math.random()-0.5)*sp;
+  }
+  const expPos=expBase.slice(); // live positions
+  const expGeo=new THREE.BufferGeometry();
+  expGeo.setAttribute('position',new THREE.Float32BufferAttribute(expPos,3));
+  const expMat=new THREE.PointsMaterial({color:0xf5c518,size:0.18,transparent:true,opacity:0});
+  const expPts=new THREE.Points(expGeo,expMat);
+  scene.add(expPts);
+
+  /* ── Camera waypoints ── */
+  const WAY=[
+    {p:new THREE.Vector3(0,10,28),   l:new THREE.Vector3(0,3,0)},         // wide: all candles
+    {p:new THREE.Vector3(-3,8,20),   l:new THREE.Vector3(-3,IFVG_MID_Y,0)}, // IFVG zone
+    {p:new THREE.Vector3(0,7,18),    l:new THREE.Vector3(entryX,ENTRY_Y,0)},// entry point
+    {p:new THREE.Vector3(4,9,22),    l:new THREE.Vector3(tpX,TP_Y+1,0)},   // TP
+    {p:new THREE.Vector3(0,12,30),   l:new THREE.Vector3(0,5,0)},           // full wide out
+  ];
+  let wayIdx=0;
+  const camPos=new THREE.Vector3().copy(WAY[0].p);
+  const camLook=new THREE.Vector3().copy(WAY[0].l);
+  let mouseX=0, mouseY=0;
+  document.addEventListener('mousemove',e=>{mouseX=(e.clientX/window.innerWidth-0.5)*2;mouseY=(e.clientY/window.innerHeight-0.5)*2;});
+
+  /* ── Overlay elements ── */
+  const oPhase    = document.getElementById('chartPhaseTag');
+  const oHeadline = document.getElementById('chartHeadline');
+  const oPnlBadge = document.getElementById('pnlBadge');
+  const oPnlVal   = document.getElementById('pnlVal');
+
+  const phases=[
+    {tag:'Mercado em desequilíbrio — IFVG formando',
+     hl:'Identificando o <span class="hl">IFVG</span> —<br>onde o institucional opera.'},
+    {tag:'Zona IFVG detectada',
+     hl:'O desequilíbrio <span class="hl">ficou exposto</span>.<br>Preço vai voltar buscá-lo.'},
+    {tag:'Pullback em execução — entrada iminente',
+     hl:'Preço retorna à zona.<br><span class="hl">Momento de entrada.</span>'},
+    {tag:'Operação ativa — posição aberta',
+     hl:'Entrada executada.<br>IFVG <span class="gold">entregando resultado.</span>'},
+    {tag:'Take Profit atingido ✓',
+     hl:'<span class="gold">+$2.140</span> —<br>método funcionando.'},
+  ];
+
+  function setPhaseUI(p){
+    oPhase.textContent=phases[p].tag;
+    oHeadline.innerHTML=phases[p].hl;
+    if(p>=3){oPnlBadge.classList.add('show');}
+  }
+
+  /* ── Animation state ── */
+  let phase=0, phaseT=0;
+  const PHASE_DUR=[2.8, 2.4, 3.0, 3.8, 2.0];
+  let started=false, running=false;
+  let pnl=0, pnlTgt=0;
+  let trailPts=[];
+  let expStarted=false;
+  const clock=new THREE.Clock();
+
+  function animate(){
+    if(!running) return;
+    requestAnimationFrame(animate);
+    const dt=Math.min(clock.getDelta(), 0.05);
+    phaseT+=dt;
+
+    // Phase advance
+    if(phaseT>=PHASE_DUR[phase]&&phase<4){
+      phase++;
+      phaseT=0;
+      setPhaseUI(phase);
+      wayIdx=Math.min(wayIdx+1, WAY.length-1);
+    }
+
+    // Candles appear
+    const candleTarget=Math.floor((phaseT/PHASE_DUR[phase])*8)+phase*8;
+    for(let i=0;i<Math.min(candleTarget+1,N);i++){
+      if(!candleMeshes[i].shown){
+        candleMeshes[i].body.visible=true;
+        candleMeshes[i].wick.visible=true;
+        candleMeshes[i].shown=true;
+      }
+    }
+
+    // Phase effects
+    if(phase>=1){
+      const t=Math.min(phaseT/1.5,1);
+      ifvgBody.material.opacity=t*0.07;
+      ifvgEdge.material.opacity=t*0.55;
+      ifvgLineTop.material.opacity=t*0.65;
+      ifvgLineBot.material.opacity=t*0.3;
+      tealPt.intensity=t*2.5;
+    }
+    if(phase>=2){
+      flowMat.opacity=Math.min(phaseT/1.2,1)*0.75;
+      const fp=flowGeo.attributes.position.array;
+      for(let i=0;i<FLOW;i++){
+        fp[i*3]+=fVel[i*3]; fp[i*3+1]+=fVel[i*3+1]; fp[i*3+2]+=fVel[i*3+2];
+        // Gentle attraction toward IFVG band
+        const dy=IFVG_MID_Y-fp[i*3+1];
+        fp[i*3+1]+=dy*0.003;
+        if(fp[i*3+1]<-1||fp[i*3+1]>14){
+          fp[i*3]=(Math.random()-0.5)*28; fp[i*3+1]=12; fp[i*3+2]=(Math.random()-0.5)*8;
+        }
+      }
+      flowGeo.attributes.position.needsUpdate=true;
+    }
+    if(phase>=3){
+      // Entry
+      entrySphere.visible=true;
+      entryLine.material.opacity=Math.min(phaseT/0.8,1)*0.7;
+      rings.forEach(r=>{
+        r.m.visible=true;
+        const cyc=((Date.now()*0.001*0.7)+r.offset)%1;
+        r.m.scale.setScalar(1+cyc*2);
+        r.m.material.opacity=Math.max(0,0.6-cyc*0.6);
+      });
+      goldPt.intensity=2.5;
+      // Trail
+      const trailMax=Math.min(Math.floor(phaseT/0.18)+1, 16);
+      trailPts=[];
+      for(let t=0;t<trailMax&&(ENTRY_IDX+t)<N;t++){
+        const ci=ENTRY_IDX+t;
+        trailPts.push(new THREE.Vector3(STARTX+ci*SPACING, candles[ci].nC, 0.15));
+      }
+      if(trailPts.length>1){
+        trailMat.opacity=0.85;
+        trailGeo.setFromPoints(trailPts);
+      }
+      // PNL
+      const lastIdx=Math.min(ENTRY_IDX+Math.floor(phaseT/0.18),N-1);
+      pnlTgt=(candles[lastIdx].nC-ENTRY_Y)*290;
+      pnl+=(pnlTgt-pnl)*0.08;
+      if(pnl>0) oPnlVal.textContent='+$'+Math.round(pnl).toLocaleString();
+    }
+    if(phase>=4){
+      // TP
+      tpLine.material.opacity=Math.min(phaseT/0.6,1)*0.9;
+      goldPt.intensity=5;
+      tealPt.intensity=4;
+      // Explosion
+      if(!expStarted){expStarted=true;}
+      expMat.opacity=Math.max(0,1-phaseT/2.5);
+      const ep=expGeo.attributes.position.array;
+      for(let i=0;i<EXP;i++){
+        ep[i*3]+=expVel[i*3]; ep[i*3+1]+=expVel[i*3+1]; ep[i*3+2]+=expVel[i*3+2];
+        expVel[i*3+1]-=0.0025; // gravity
+      }
+      expGeo.attributes.position.needsUpdate=true;
+      expPts.visible=true;
+      // Final PNL
+      pnl+=(2140-pnl)*0.06;
+      oPnlVal.textContent='+$'+Math.round(pnl).toLocaleString();
+    }
+
+    // Camera lerp
+    const tgt=WAY[wayIdx];
+    camPos.lerp(tgt.p, 0.028);
+    camLook.lerp(tgt.l, 0.028);
+    camera.position.copy(camPos);
+    camera.position.x += mouseX*1.0;
+    camera.position.y += mouseY*(-0.5);
+    camera.lookAt(camLook);
+
+    renderer.render(scene,camera);
+  }
+
+  /* ── Activate on scroll into view ── */
+  const chartObs=new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting&&!started){
+      started=true; running=true;
+      clock.start();
+      setPhaseUI(0);
+      animate();
+    } else if(entries[0].isIntersecting&&started&&!running){
+      running=true; animate();
+    } else if(!entries[0].isIntersecting){
+      running=false;
+    }
+  },{threshold:0.15});
+  chartObs.observe(container);
+})();
+</script>
+</body>
+</html>

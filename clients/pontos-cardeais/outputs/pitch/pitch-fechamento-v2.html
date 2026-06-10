@@ -90,15 +90,19 @@ h1.hero-h em{font-style:normal;color:var(--gold)}
 .vnav-dot{width:6px;height:6px;border-radius:50%;background:var(--border);cursor:pointer;transition:background .2s,transform .2s}
 .vnav-dot.active{background:var(--gold);transform:scale(1.3)}
 .viewer{height:480px;background:var(--bg2);border:1px solid var(--border);border-radius:20px;overflow:hidden;position:relative}
-.strip{display:flex;height:100%;transition:transform .45s cubic-bezier(.55,.055,.675,.19)}
-.slide{min-width:100%;height:100%;padding:3rem;display:flex;flex-direction:column;justify-content:space-between;flex-shrink:0}
-.slide-tag{font-family:var(--f3);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);opacity:.7}
-.slide-h{font-family:var(--f1);font-weight:800;font-size:1.75rem;color:var(--white);letter-spacing:-.025em;line-height:1.2;margin:1rem 0 .75rem}
-.slide-body{font-size:.9rem;color:var(--dim);line-height:1.75;flex:1}
-.slide-footer{display:flex;align-items:center;justify-content:space-between}
-.slide-num{font-family:var(--f3);font-size:.65rem;color:var(--dimmer)}
-.slide-status{display:flex;align-items:center;gap:.5rem;font-family:var(--f3);font-size:.68rem;color:var(--gold);opacity:.8}
-.slide-status-dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.strip{display:flex;height:100%;transition:transform .45s cubic-bezier(.55,.055,.675,.19);width:100%}
+.slide{flex:0 0 100%;max-width:100%;height:100%;padding:3rem 3.5rem;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;position:relative;box-sizing:border-box}
+/* Accent bar esquerda em cada slide */
+.slide::before{content:'';position:absolute;top:2.5rem;left:0;width:3px;height:calc(100% - 5rem);background:linear-gradient(to bottom,var(--gold),transparent);border-radius:0 2px 2px 0;opacity:.5}
+.slide-tag{font-family:var(--f3);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:.5rem}
+.slide-tag::before{content:'';width:18px;height:1px;background:var(--gold)}
+.slide-h{font-family:var(--f1);font-weight:800;font-size:clamp(1.25rem,2vw,1.65rem);color:var(--white);letter-spacing:-.025em;line-height:1.25;margin:1rem 0 .875rem;max-width:90%}
+.slide-body{font-size:.875rem;color:var(--dim);line-height:1.8;flex:1;overflow:hidden;max-width:100%}
+.slide-body p{max-width:100%;word-break:break-word;overflow-wrap:break-word}
+.slide-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:.75rem}
+.slide-num{font-family:var(--f3);font-size:.62rem;color:var(--dimmer);letter-spacing:.08em}
+.slide-status{display:flex;align-items:center;gap:.5rem;font-family:var(--f3);font-size:.65rem;color:var(--gold);opacity:.8}
+.slide-status-dot{width:5px;height:5px;border-radius:50%;background:var(--gold)}
 
 /* ── MOCKUP BROWSER ── */
 .browser-wrap{margin-top:3rem}
@@ -357,7 +361,9 @@ h1.hero-h em{font-style:normal;color:var(--gold)}
   <div class="viewer ls-anim d2">
     <div class="strip" id="c1-strip">
       <!-- Slide 1 -->
-      <div class="slide" style="background:linear-gradient(135deg,var(--bg2) 0%,var(--bg) 100%)">
+      <div class="slide" style="background:var(--bg2)">
+        <svg style="position:absolute;right:2rem;top:50%;transform:translateY(-50%);opacity:.04;pointer-events:none" width="180" height="180" viewBox="0 0 34 34" fill="none"><circle cx="17" cy="17" r="16" stroke="#C69A35" stroke-width=".6"/><circle cx="17" cy="17" r="9" stroke="#C69A35" stroke-width=".4"/><line x1="17" y1="1" x2="17" y2="33" stroke="#C69A35" stroke-width=".4"/><line x1="1" y1="17" x2="33" y2="17" stroke="#C69A35" stroke-width=".4"/><polygon points="17,3 15.2,10 17,8.5 18.8,10" fill="#C69A35"/></svg>
+        <div style="position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(ellipse,rgba(198,154,53,.07),transparent 70%);pointer-events:none"></div>
         <div>
           <div class="slide-tag">Frente 01 · Site</div>
           <div class="slide-h">Landing page exclusiva da operação viagem de Ana Cristina.</div>
@@ -372,7 +378,7 @@ h1.hero-h em{font-style:normal;color:var(--gold)}
         </div>
       </div>
       <!-- Slide 2 -->
-      <div class="slide" style="background:linear-gradient(135deg,#0A2A20 0%,var(--bg) 100%)">
+      <div class="slide" style="background:var(--bg2)">
         <div>
           <div class="slide-tag">Frente 02 · Conteúdo</div>
           <div class="slide-h">Motor de conteúdo para Instagram — sem parar.</div>
@@ -387,7 +393,7 @@ h1.hero-h em{font-style:normal;color:var(--gold)}
         </div>
       </div>
       <!-- Slide 3 -->
-      <div class="slide" style="background:linear-gradient(135deg,#1A2000 0%,var(--bg) 100%)">
+      <div class="slide" style="background:var(--bg2)">
         <div>
           <div class="slide-tag">Frente 03 · SEO</div>
           <div class="slide-h">50+ páginas de destino. A Pontos Cardeais ranqueando onde o lead procura.</div>
@@ -402,7 +408,7 @@ h1.hero-h em{font-style:normal;color:var(--gold)}
         </div>
       </div>
       <!-- Slide 4 -->
-      <div class="slide" style="background:linear-gradient(135deg,#001A2A 0%,var(--bg) 100%)">
+      <div class="slide" style="background:var(--bg2)">
         <div>
           <div class="slide-tag">Frente 04 · WhatsApp</div>
           <div class="slide-h">Qualificação de lead antes de Ana tocar no telefone.</div>
@@ -417,7 +423,7 @@ h1.hero-h em{font-style:normal;color:var(--gold)}
         </div>
       </div>
       <!-- Slide 5 -->
-      <div class="slide" style="background:linear-gradient(135deg,#1A0A2A 0%,var(--bg) 100%)">
+      <div class="slide" style="background:var(--bg2)">
         <div>
           <div class="slide-tag">Frente 05 · ICP Testing</div>
           <div class="slide-h">Descobrir o cliente de ticket alto — sem adivinhar.</div>
@@ -606,7 +612,8 @@ h1.hero-h em{font-style:normal;color:var(--gold)}
   </div>
   <div class="viewer ls-anim d2">
     <div class="strip" id="c2-strip">
-      <div class="slide" style="background:linear-gradient(135deg,var(--bg3) 0%,var(--bg) 100%)">
+      <div class="slide" style="background:var(--bg2)">
+        <svg style="position:absolute;right:2rem;bottom:2rem;opacity:.05;pointer-events:none" width="140" height="140" viewBox="0 0 34 34" fill="none"><circle cx="17" cy="17" r="16" stroke="#C69A35" stroke-width=".6"/><circle cx="17" cy="17" r="9" stroke="#C69A35" stroke-width=".4"/><line x1="17" y1="1" x2="17" y2="33" stroke="#C69A35" stroke-width=".4"/><line x1="1" y1="17" x2="33" y2="17" stroke="#C69A35" stroke-width=".4"/><polygon points="17,3 15.2,10 17,8.5 18.8,10" fill="#C69A35"/></svg>
         <div>
           <div class="slide-tag">Posicionamento</div>
           <div class="slide-h">"Quem confia na viajante, confia no seguro."</div>
@@ -620,7 +627,7 @@ h1.hero-h em{font-style:normal;color:var(--gold)}
           <span class="slide-status"><span class="slide-status-dot"></span>Posicionamento definido</span>
         </div>
       </div>
-      <div class="slide" style="background:linear-gradient(135deg,#0A2010 0%,var(--bg) 100%)">
+      <div class="slide" style="background:var(--bg2)">
         <div>
           <div class="slide-tag">Presença digital</div>
           <div class="slide-h">Instagram de viagens que vende seguro sem parecer que está vendendo.</div>
@@ -634,7 +641,7 @@ h1.hero-h em{font-style:normal;color:var(--gold)}
           <span class="slide-status"><span class="slide-status-dot"></span>4 formatos por destino</span>
         </div>
       </div>
-      <div class="slide" style="background:linear-gradient(135deg,#1A0A00 0%,var(--bg) 100%)">
+      <div class="slide" style="background:var(--bg2)">
         <div>
           <div class="slide-tag">Cross-sell</div>
           <div class="slide-h">O seguro viagem abre a corretora inteira.</div>

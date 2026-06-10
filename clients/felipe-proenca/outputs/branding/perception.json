@@ -1,0 +1,188 @@
+{
+  "client": "felipe-proenca",
+  "version": "1.0",
+  "generated_at": "2026-06-09",
+  "generated_by": "skill-perception-engine",
+  "consumed_by": ["skill-branding", "skill-carousel", "skill-post", "skill-reels", "skill-reel-builder", "skill-social-content-agent", "skill-site-builder", "skill-visual-spec"],
+
+  "camada_1_leitura_de_alma": {
+    "provocacao_central": "Esse cara pensa diferente de todo o mercado de marketing. E eu quero ver onde isso vai chegar.",
+    "o_que_a_marca_quer_provocar": "A sensação de que existe uma forma mais inteligente de fazer marketing — e que o Felipe está construindo isso em público, agora, para que você veja como funciona antes de precisar comprar.",
+    "nao_provocar": [
+      "Mais uma ferramenta de automação",
+      "Agência com promessa de resultado",
+      "Guru com método secreto",
+      "SaaS genérico de marketing"
+    ],
+    "tom_atual": "Técnico-operacional. Linguagem nativa de arquiteto de sistemas: skill, workflow, DNA Visual, pipeline. Precisa, mas é a linguagem de quem constrói — não de quem vai usar.",
+    "tom_desejado": "Construtor com visão pública. Rigor técnico com opinião. Documentação de produto bem feita que também provoca.",
+    "tensao_interna_identificada": "O Felipe pensa como engenheiro de sistemas, mas o ICP decide pelo medo de ficar para trás — não pela elegância da arquitetura. A distância entre como ele fala naturalmente e como o cliente processa é o maior gap de comunicação atual.",
+    "perguntas_fundantes": [
+      "O que eu quero que as pessoas sintam quando encontram minha marca?",
+      "O que essa marca não pode nunca parecer, independente do formato?"
+    ]
+  },
+
+  "camada_2_vetores_de_percepcao": {
+    "vetores": {
+      "autoridade": 4,
+      "calor_humano": 3,
+      "precisao": 5,
+      "inovacao": 4,
+      "energia": 3,
+      "sofisticacao": 3,
+      "proximidade": 3,
+      "exclusividade": 2
+    },
+    "leitura": "A marca hoje tem precisão sem exclusividade e autoridade sem proximidade suficiente. A tensão entre precisão alta (5) e proximidade média (3) é o núcleo da assinatura — e é transferível.",
+    "vetor_dominante": "precisao",
+    "vetores_suporte": ["autoridade", "inovacao"],
+    "gap_atual": "exclusividade: 2 — sinal fraco por estar em fase de validação. Precisa ser construída ativamente."
+  },
+
+  "camada_3_assinatura": {
+    "tensao_principal": "sistema que parece manifesto",
+    "tensao_descricao": "O Felipe não apresenta ferramentas — apresenta uma forma de pensar. Quando alguém encontra o MarketingOS, não vê um produto: vê uma posição intelectual sobre como marketing deveria funcionar. A arquitetura técnica lê como convicção, não como complexidade.",
+    "tensoes_secundarias": [
+      {
+        "tensao": "precisão que parece conversa",
+        "descricao": "O rigor técnico não afasta — abre uma conversa sobre o que o mercado está errando"
+      },
+      {
+        "tensao": "construção que parece prova",
+        "descricao": "O ato de construir em público é simultaneamente processo e evidência"
+      }
+    ],
+    "anti_dna": [
+      {
+        "proibido": "Agência criativa",
+        "por_que": "Paletas vibrantes, layouts descontraídos, promessas sem estrutura — o oposto da identidade"
+      },
+      {
+        "proibido": "Guru de marketing",
+        "por_que": "Depoimentos exagerados, método secreto, urgência artificial — destrói a credibilidade técnica"
+      },
+      {
+        "proibido": "SaaS genérico",
+        "por_que": "Azul corporativo, ícones de features, copy sobre funcionalidades — irreconhecível"
+      },
+      {
+        "proibido": "Influencer de tech",
+        "por_que": "Humor sem substância, conteúdo que entretém sem ensinar a pensar"
+      },
+      {
+        "proibido": "Resultado em N dias",
+        "por_que": "Qualquer promessa com número mágico sem prova real contradiz o posicionamento de sistema"
+      }
+    ],
+    "teste_supremo": {
+      "pergunta": "Se removermos o logo, o nome e as cores do MarketingOS de qualquer peça do Felipe — alguém ainda reconheceria quem está se comunicando?",
+      "resultado_atual": "parcialmente aprovado",
+      "diagnostico": "O tom técnico é diferenciador. A perspectiva sobre marketing como sistema não existe em mais ninguém no mercado. Mas a Assinatura Perceptiva 'sistema que parece manifesto' ainda não está sendo ativamente expressa na maioria das peças — está implícita na arquitetura, não na superfície.",
+      "o_que_falta": "As peças precisam comunicar a tensão antes de comunicar a solução. Quando o Felipe aparece como quem nomeia o problema do mercado antes de apresentar o sistema, a identidade se torna inconfundível."
+    }
+  },
+
+  "camada_4_visual_dna": {
+    "tempo": "moderado",
+    "tempo_descricao": "O ritmo de quem constrói algo sério — nem a lentidão do luxo, nem a aceleração da ansiedade",
+    "ritmo": "pulsante",
+    "ritmo_descricao": "Publicações com cadência, slides com estrutura. Pontual, não contínuo",
+    "densidade": "equilibrado",
+    "densidade_descricao": "Substancioso o suficiente para respeitar a inteligência do leitor. Não denso a ponto de excluir",
+    "profundidade": "camadas",
+    "profundidade_descricao": "Sempre há o 'o quê' e o 'por quê'. Superfície acessível, profundidade disponível para quem quer",
+    "contraste": "extremo",
+    "contraste_descricao": "Preto e dourado. Declaração clara entre o que é e o que não é",
+    "temperatura": "fria",
+    "temperatura_descricao": "O rigor técnico é a base. O calor vem do build in public — é camada, não temperatura base",
+    "movimento": "sutil",
+    "movimento_descricao": "Animações revelam e confirmam. Não espetacularizam",
+    "ornamentacao": "minimalista",
+    "ornamentacao_descricao": "O conteúdo é a ornamentação. Tipografia e layout a serviço da ideia"
+  },
+
+  "camada_5_referencias": {
+    "referencias_compatíveis": [
+      {
+        "id": "ref-linear",
+        "nome": "Linear",
+        "tensao": "precisão que desaparece",
+        "compatibilidade": "precisão técnica comunicada sem alardes, temperatura fria, sofisticação que não precisa se anunciar",
+        "absorver_para_felipe": [
+          "Dark mode como posicionamento — não como estética",
+          "Copy que pressupõe competência do leitor: você sabe do que estou falando",
+          "Micro-sinais de qualidade que somam sem se destacar individualmente",
+          "Velocidade como valor percebido — o sistema não cria atrito"
+        ],
+        "nao_aplicar": [
+          "Escala de produto de software",
+          "Interface interativa de dev tool",
+          "A combinação Inter + dark + roxo + aurora — individualmente genéricos, juntos é assinatura registrada"
+        ]
+      },
+      {
+        "id": "ref-stripe",
+        "nome": "Stripe",
+        "tensao": "infraestrutura que parece produto",
+        "compatibilidade": "transformar algo técnico e invisível em objeto de desejo; confiança por acumulação de cuidados, não por promessa",
+        "absorver_para_felipe": [
+          "O próprio MarketingOS em uso é o argumento — mostrar o sistema funcionando é mais persuasivo que descrever",
+          "Documentação como sinal de seriedade — quem documenta bem, entrega bem",
+          "Screenshot de dashboard como prova por contexto",
+          "Confiança construída por cuidados invisíveis — cada detalhe correto soma"
+        ],
+        "nao_aplicar": [
+          "Gradiente visual e aurora animada",
+          "Contexto financeiro/enterprise",
+          "Escala de produto global"
+        ]
+      },
+      {
+        "id": "ref-aesop",
+        "nome": "Aesop",
+        "tensao": "cotidiano que parece sagrado",
+        "compatibilidade": "o princípio da lentidão e da ausência de urgência como sinal de valor",
+        "absorver_para_felipe": [
+          "Ausência de urgência como sinal de que o sistema é real — nunca prometer resultado em 7 dias",
+          "O processo de construção tem valor intrínseco — a jornada é o argumento",
+          "Lentidão como luxo — o tempo que a marca se dá para comunicar sinaliza o valor do que oferece"
+        ],
+        "nao_aplicar": [
+          "Temperatura quente e estética editorial de luxo físico",
+          "Produto físico e ritual de uso",
+          "Contexto de luxo de consumo"
+        ]
+      }
+    ]
+  },
+
+  "camada_6_direcao_criativa": {
+    "sensacao_alvo": "Esse cara entende o problema melhor do que eu. E está construindo a solução em público.",
+    "nunca_parecer": [
+      "Agência digital",
+      "Guru com segredo do marketing",
+      "Ferramenta genérica de automação",
+      "Influencer de tech"
+    ],
+    "perguntas_de_saida": [
+      "Isso poderia ser dito por uma agência qualquer? Se sim — reescrever.",
+      "Isso mostra o Felipe pensando, não apenas entregando?",
+      "Isso constrói quem o Felipe é no mercado — ou só serve para hoje?"
+    ],
+    "por_tipo_de_entrega": {
+      "post_feed": "Tensão editorial como abertura + posição clara da marca + 1 prova mínima (dado real, exemplo real, processo real). Nunca tutorial de clique.",
+      "carrossel": "Ensinar a pensar, não a executar. Cada slide = 1 ideia completa. Slide final = princípio transferível que o leitor leva consigo.",
+      "reel": "Abertura com contradição ou fato que derruba uma crença do mercado. Mostra raciocínio — nunca passo a passo. O insight é salvável por si só.",
+      "site_landing": "Rigor sem frieza. A arquitetura da página é a prova do sistema. Cada seção responde uma objeção antes de ela ser formulada.",
+      "copy_geral": "Nomear o problema do mercado antes de apresentar a solução. A tensão vem antes da resposta."
+    },
+    "palavras_de_marca": [
+      "sistema", "operação", "aquisição", "resultado", "previsível", "construção", "integrado", "arquitetura"
+    ],
+    "palavras_proibidas": [
+      "guru", "hack", "segredo", "fórmula", "explosivo", "viralizar", "engajamento pelo engajamento",
+      "método", "passo a passo", "resultado em X dias"
+    ]
+  }
+}

@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seguro Viagem · Ana Cristina — Pontos Cardeais</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0B1D3A;--navy2:#1A3660;--navy3:#0d2448;
+  --amber:#C69A35;--amber-lt:#E8C76A;--amber-d:rgba(198,154,53,.14);--amber-b:rgba(198,154,53,.3);
+  --bg:#FAFAF8;--bg2:#F0EEE9;--white:#FFFFFF;
+  --text:#0F1623;--muted:#4B5563;--dim:#9CA3AF;
+  --border:#E5E3DE;
+  --f1:'Outfit',sans-serif;--f2:'DM Sans',sans-serif;--f3:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--bg);color:var(--text);font-family:var(--f2);line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* ── AIRPLANE LAYER ── */
+#plane-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:50}
+#plane-el{position:fixed;top:0;left:0;pointer-events:none;z-index:51;will-change:transform;transition:transform .05s linear}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 0;transition:background .3s,box-shadow .3s}
+.nav.scrolled{background:rgba(11,29,58,.97);backdrop-filter:blur(20px);box-shadow:0 1px 0 rgba(255,255,255,.06)}
+.nav-i{max-width:1160px;margin:0 auto;padding:0 40px;display:flex;justify-content:space-between;align-items:center}
+.nav-logo{display:flex;align-items:center;gap:.625rem}
+.nav-name{font-family:var(--f1);font-weight:700;font-size:1rem;color:#fff;line-height:1.2}
+.nav-name span{display:block;font-size:.6rem;font-weight:400;opacity:.5;letter-spacing:.1em;text-transform:uppercase}
+.nav-cta{font-family:var(--f1);font-size:.8rem;font-weight:600;background:var(--amber);color:var(--navy);padding:.5rem 1.25rem;border-radius:6px;text-decoration:none;letter-spacing:.02em;transition:background .2s}
+.nav-cta:hover{background:var(--amber-lt)}
+
+/* ── HERO ── */
+.hero{min-height:100vh;background:var(--navy);display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;padding:0 40px;padding-top:100px}
+.hero-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.hero-compass{position:absolute;right:-15vw;top:50%;transform:translateY(-50%);opacity:.03}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:48px 48px;opacity:1}
+.hero-glow{position:absolute;width:800px;height:800px;border-radius:50%;background:radial-gradient(ellipse,rgba(198,154,53,.06),transparent 65%);top:50%;left:50%;transform:translate(-50%,-50%)}
+.hero-inner{max-width:1160px;margin:0 auto;width:100%;position:relative;z-index:2;display:grid;grid-template-columns:1fr 420px;gap:80px;align-items:center}
+.hero-label{font-family:var(--f3);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:1.5rem;display:flex;align-items:center;gap:.625rem}
+.hero-label::before{content:'';width:28px;height:1.5px;background:var(--amber)}
+h1.hero-h{font-family:var(--f1);font-weight:900;font-size:clamp(2.5rem,5vw,4.25rem);line-height:1.06;letter-spacing:-.035em;color:#fff;margin-bottom:1.25rem}
+h1.hero-h em{font-style:normal;color:var(--amber)}
+.hero-sub{font-size:1.1rem;line-height:1.75;color:rgba(255,255,255,.58);max-width:520px;margin-bottom:2.5rem}
+.hero-verbs{display:flex;align-items:center;gap:1rem;margin-bottom:2.5rem}
+.verb{font-family:var(--f1);font-weight:800;font-size:1.25rem;color:#fff;letter-spacing:-.01em}
+.verb-sep{width:6px;height:6px;border-radius:50%;background:var(--amber)}
+.hero-form{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:2rem;backdrop-filter:blur(12px)}
+.form-label{font-family:var(--f3);font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:.625rem;display:block}
+.form-select,.form-input{width:100%;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.12);border-radius:8px;padding:.875rem 1rem;font-family:var(--f2);font-size:.9rem;color:#fff;margin-bottom:1rem;outline:none;appearance:none;transition:border-color .2s}
+.form-select:focus,.form-input:focus{border-color:var(--amber)}
+.form-select option{background:var(--navy);color:#fff}
+.form-select::placeholder,.form-input::placeholder{color:rgba(255,255,255,.3)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.875rem}
+.btn-cta{width:100%;background:var(--amber);color:var(--navy);font-family:var(--f1);font-weight:700;font-size:1rem;padding:1rem;border:none;border-radius:8px;cursor:pointer;letter-spacing:.02em;transition:background .2s,transform .15s;margin-top:.25rem}
+.btn-cta:hover{background:var(--amber-lt);transform:translateY(-1px)}
+.form-trust{display:flex;align-items:center;gap:.5rem;margin-top:1rem;font-size:.75rem;color:rgba(255,255,255,.35);font-family:var(--f3);letter-spacing:.06em}
+.form-trust::before{content:'🔒';font-size:.8rem}
+
+/* ── MANIFESTO ── */
+.manifesto{padding:120px 40px;background:var(--bg)}
+.manifesto-inner{max-width:1160px;margin:0 auto}
+.section-tag{font-family:var(--f3);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:1rem;display:flex;align-items:center;gap:.625rem}
+.section-tag::before{content:'';width:24px;height:1.5px;background:var(--amber)}
+.manifesto-grid{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;margin-top:3rem}
+.manifesto-left h2{font-family:var(--f1);font-weight:800;font-size:clamp(2rem,3.5vw,3rem);line-height:1.1;letter-spacing:-.025em;color:var(--text);margin-bottom:1.25rem}
+.manifesto-left h2 em{font-style:normal;color:var(--amber)}
+.manifesto-left p{font-size:1rem;line-height:1.8;color:var(--muted);margin-bottom:1.5rem}
+.manifesto-negation{list-style:none;display:flex;flex-direction:column;gap:.75rem;margin-bottom:2rem}
+.manifesto-negation li{display:flex;align-items:flex-start;gap:.75rem;font-size:.9rem;color:var(--muted);line-height:1.5}
+.neg-x{width:18px;height:18px;border-radius:50%;background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;font-size:.6rem;color:#dc2626;font-weight:700}
+.pos-check{width:18px;height:18px;border-radius:50%;background:var(--amber-d);border:1px solid var(--amber-b);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;font-size:.6rem;color:var(--amber);font-weight:700}
+.manifesto-right{display:flex;flex-direction:column;gap:1.25rem}
+.stat-card{background:var(--navy);border-radius:16px;padding:2rem;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;right:0;width:120px;height:120px;background:radial-gradient(ellipse at 100% 0%,rgba(198,154,53,.1),transparent 70%)}
+.stat-num{font-family:var(--f1);font-weight:900;font-size:3rem;color:var(--amber);line-height:1;letter-spacing:-.04em}
+.stat-desc{font-size:.875rem;color:rgba(255,255,255,.55);margin-top:.5rem;line-height:1.55}
+
+/* ── DESTINOS ── */
+.destinos{padding:100px 0 80px;background:var(--navy);overflow:hidden}
+.destinos-header{padding:0 40px;max-width:1160px;margin:0 auto 3rem;display:flex;align-items:flex-end;justify-content:space-between}
+.destinos-header h2{font-family:var(--f1);font-weight:800;font-size:clamp(1.75rem,3vw,2.5rem);color:#fff;letter-spacing:-.02em;line-height:1.15}
+.destinos-header h2 em{font-style:normal;color:var(--amber)}
+.destinos-sub{font-size:.875rem;color:rgba(255,255,255,.45);max-width:280px;text-align:right;line-height:1.6}
+.destinos-scroll{display:flex;gap:1.25rem;padding:0 40px;overflow-x:auto;scrollbar-width:none;cursor:grab}
+.destinos-scroll:active{cursor:grabbing}
+.destinos-scroll::-webkit-scrollbar{display:none}
+.dest-card{min-width:260px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.75rem;flex-shrink:0;transition:background .25s,border-color .25s,transform .25s;cursor:pointer;position:relative;overflow:hidden}
+.dest-card:hover{background:rgba(255,255,255,.09);border-color:rgba(198,154,53,.3);transform:translateY(-4px)}
+.dest-card.required{border-color:rgba(198,154,53,.35)}
+.dest-flag{font-size:2.5rem;margin-bottom:1rem;display:block;line-height:1}
+.dest-name{font-family:var(--f1);font-weight:700;font-size:1.1rem;color:#fff;margin-bottom:.375rem}
+.dest-risk{font-size:.8rem;color:rgba(255,255,255,.45);line-height:1.55;margin-bottom:1rem}
+.dest-badge{display:inline-flex;align-items:center;gap:.375rem;padding:.25rem .625rem;border-radius:4px;font-family:var(--f3);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+.badge-required{background:rgba(198,154,53,.15);color:var(--amber);border:1px solid var(--amber-b)}
+.badge-recommended{background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.1)}
+.dest-cta{position:absolute;bottom:1.5rem;right:1.5rem;opacity:0;transition:opacity .2s}
+.dest-card:hover .dest-cta{opacity:1}
+.dest-cta a{font-family:var(--f3);font-size:.65rem;color:var(--amber);letter-spacing:.08em;text-decoration:none;text-transform:uppercase}
+
+/* ── ANA CRISTINA ── */
+.ana{padding:120px 40px;background:var(--bg)}
+.ana-inner{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 480px;gap:100px;align-items:center}
+.ana-quote-mark{font-family:var(--f1);font-size:8rem;font-weight:900;color:var(--amber);opacity:.15;line-height:.6;margin-bottom:-1rem}
+.ana-quote{font-family:var(--f1);font-weight:700;font-size:clamp(1.5rem,2.5vw,2rem);line-height:1.3;letter-spacing:-.02em;color:var(--text);margin-bottom:1.5rem}
+.ana-quote em{font-style:normal;color:var(--amber)}
+.ana-body{font-size:1rem;line-height:1.8;color:var(--muted);margin-bottom:2rem}
+.ana-creds{display:flex;flex-direction:column;gap:.75rem}
+.ana-cred{display:flex;align-items:center;gap:.75rem;font-size:.875rem;color:var(--muted)}
+.cred-dot{width:8px;height:8px;border-radius:50%;background:var(--amber);flex-shrink:0}
+.ana-right{position:relative}
+.ana-card{background:var(--navy);border-radius:20px;padding:2.5rem;position:relative;overflow:hidden}
+.ana-card-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 20% 80%,rgba(198,154,53,.08),transparent 60%)}
+.ana-card-tag{font-family:var(--f3);font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:1.25rem;opacity:.8}
+.ana-card-name{font-family:var(--f1);font-weight:800;font-size:1.75rem;color:#fff;letter-spacing:-.02em;margin-bottom:.375rem}
+.ana-card-role{font-size:.875rem;color:rgba(255,255,255,.45);margin-bottom:2rem}
+.ana-stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem}
+.ana-stat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1.125rem}
+.ana-stat-num{font-family:var(--f1);font-weight:800;font-size:1.75rem;color:var(--amber);line-height:1}
+.ana-stat-label{font-size:.7rem;color:rgba(255,255,255,.4);margin-top:.375rem;line-height:1.45}
+.ana-wa{display:flex;align-items:center;gap:.75rem;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.2);border-radius:10px;padding:1rem 1.25rem;cursor:pointer;transition:background .2s}
+.ana-wa:hover{background:rgba(37,211,102,.18)}
+.ana-wa svg{flex-shrink:0}
+.ana-wa-text{font-size:.875rem;color:#c8e6c9;font-weight:500}
+.ana-wa-sub{font-size:.75rem;color:rgba(200,230,201,.55)}
+
+/* ── EXIGÊNCIAS ── */
+.exige{padding:100px 40px;background:var(--bg2)}
+.exige-inner{max-width:1160px;margin:0 auto}
+.exige-inner h2{font-family:var(--f1);font-weight:800;font-size:clamp(1.75rem,3vw,2.5rem);color:var(--text);letter-spacing:-.02em;margin-bottom:.625rem}
+.exige-inner h2 em{font-style:normal;color:var(--amber)}
+.exige-sub{font-size:1rem;color:var(--muted);margin-bottom:3rem;max-width:520px;line-height:1.7}
+.exige-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.25rem}
+.exige-card{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.exige-card:hover{border-color:var(--amber-b);box-shadow:0 4px 20px rgba(198,154,53,.1)}
+.exige-card.open{border-color:var(--amber-b)}
+.exige-head{padding:1.5rem;display:flex;align-items:center;justify-content:space-between}
+.exige-head-left{display:flex;align-items:center;gap:.875rem}
+.exige-flag{font-size:1.75rem;line-height:1}
+.exige-country{font-family:var(--f1);font-weight:600;font-size:1rem;color:var(--text)}
+.exige-region{font-size:.75rem;color:var(--muted);margin-top:.125rem}
+.exige-arrow{width:24px;height:24px;border-radius:50%;background:var(--bg2);display:flex;align-items:center;justify-content:center;transition:transform .25s,background .2s}
+.exige-card.open .exige-arrow{transform:rotate(180deg);background:var(--amber-d)}
+.exige-body{height:0;overflow:hidden;transition:height .3s ease}
+.exige-body-inner{padding:0 1.5rem 1.5rem;border-top:1px solid var(--border)}
+.exige-rule{background:rgba(198,154,53,.06);border:1px solid var(--amber-b);border-radius:8px;padding:.875rem 1rem;margin:1rem 0;font-size:.8rem;color:var(--text);line-height:1.6}
+.exige-rule strong{color:var(--amber)}
+.exige-detail{font-size:.8rem;color:var(--muted);line-height:1.7}
+
+/* ── COMO FUNCIONA ── */
+.como{padding:120px 40px;background:var(--white)}
+.como-inner{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 440px;gap:100px;align-items:center}
+.como-steps{display:flex;flex-direction:column;gap:0}
+.como-step{display:flex;align-items:flex-start;gap:1.5rem;padding:2rem 0;border-bottom:1px solid var(--border);position:relative}
+.como-step:last-child{border-bottom:none}
+.step-num{width:48px;height:48px;border-radius:12px;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-num span{font-family:var(--f1);font-weight:800;font-size:1.1rem;color:var(--amber)}
+.step-title{font-family:var(--f1);font-weight:700;font-size:1.05rem;color:var(--text);margin-bottom:.375rem}
+.step-desc{font-size:.875rem;color:var(--muted);line-height:1.65}
+.como-wa{background:#0d1a0e;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.07)}
+.como-wa-bar{background:#1a2e1a;padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,.06)}
+.wa-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.wa-title{font-family:var(--f3);font-size:.7rem;color:rgba(255,255,255,.3);letter-spacing:.06em;margin-left:8px}
+.como-wa-msgs{padding:1.5rem 1.25rem;display:flex;flex-direction:column;gap:.75rem}
+.wmsg{border-radius:10px;padding:.75rem 1rem;font-size:.8rem;line-height:1.55;max-width:280px}
+.wmsg.recv{background:#1e2e20;color:#c8e6c9;border-bottom-left-radius:2px}
+.wmsg.sent{background:#162030;color:#90caf9;border-bottom-right-radius:2px;align-self:flex-end}
+.wmsg .wlabel{font-family:var(--f3);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.375rem;display:block}
+.wlabel.auto{color:rgba(144,202,249,.6)}
+.wlabel.client{color:rgba(200,230,201,.6)}
+
+/* ── PARCEIRAS ── */
+.parceiras{padding:80px 40px;background:var(--bg)}
+.parceiras-inner{max-width:1160px;margin:0 auto}
+.parceiras-inner h2{font-family:var(--f1);font-weight:700;font-size:1.25rem;color:var(--muted);letter-spacing:-.01em;margin-bottom:2.5rem;text-align:center}
+.logos-grid{display:flex;flex-wrap:wrap;gap:0;justify-content:center;align-items:center}
+.logo-item{padding:1.5rem 2.5rem;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:background .2s;background:var(--white)}
+.logo-item:hover{background:var(--bg2)}
+.logo-name{font-family:var(--f1);font-weight:700;font-size:.95rem;color:var(--navy);letter-spacing:.02em;opacity:.7}
+
+/* ── CTA FINAL ── */
+.cta-final{padding:120px 40px;background:var(--navy);position:relative;overflow:hidden}
+.cta-final-bg{position:absolute;inset:0;pointer-events:none}
+.cta-final-bg-compass{position:absolute;left:-10vw;top:50%;transform:translateY(-50%);opacity:.03}
+.cta-final-inner{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 460px;gap:100px;align-items:center}
+.cta-final-left h2{font-family:var(--f1);font-weight:900;font-size:clamp(2rem,4vw,3.5rem);color:#fff;line-height:1.1;letter-spacing:-.03em;margin-bottom:1.25rem}
+.cta-final-left h2 em{font-style:normal;color:var(--amber)}
+.cta-final-left p{font-size:1rem;color:rgba(255,255,255,.55);line-height:1.8;margin-bottom:2.5rem;max-width:420px}
+.cta-trust{display:flex;flex-direction:column;gap:.625rem}
+.trust-item{display:flex;align-items:center;gap:.625rem;font-size:.85rem;color:rgba(255,255,255,.55)}
+.trust-dot{width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0}
+.cta-form-box{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:2.25rem;backdrop-filter:blur(10px)}
+.cta-form-title{font-family:var(--f1);font-weight:700;font-size:1.1rem;color:#fff;margin-bottom:.375rem}
+.cta-form-sub{font-size:.8rem;color:rgba(255,255,255,.4);margin-bottom:1.75rem}
+
+/* ── FOOTER ── */
+.footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding:48px 40px}
+.footer-inner{max-width:1160px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.footer-brand{font-family:var(--f1);font-weight:700;color:#fff;font-size:.9rem;opacity:.5}
+.footer-susep{font-family:var(--f3);font-size:.65rem;color:rgba(255,255,255,.25);letter-spacing:.06em}
+
+/* ── SCROLL ANIMATIONS ── */
+.fade-up{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+.fade-up.d1{transition-delay:.1s}
+.fade-up.d2{transition-delay:.22s}
+.fade-up.d3{transition-delay:.34s}
+.fade-up.d4{transition-delay:.46s}
+
+/* ── WA FLOAT BUTTON ── */
+.wa-float{position:fixed;bottom:2rem;right:2rem;z-index:300;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);cursor:pointer;transition:transform .2s,box-shadow .2s}
+.wa-float:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,.55)}
+
+@media(max-width:900px){
+  .hero-inner,.manifesto-grid,.ana-inner,.como-inner,.cta-final-inner{grid-template-columns:1fr}
+  .hero-inner{gap:40px}
+  .hero-form{width:100%}
+  .exige-grid{grid-template-columns:1fr 1fr}
+  .destinos-header{flex-direction:column;align-items:flex-start;gap:.75rem}
+  .destinos-header .destinos-sub{text-align:left}
+  .footer-inner{flex-direction:column;gap:1rem;text-align:center}
+  .manifesto-right{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+}
+@media(max-width:580px){
+  section{padding-left:24px;padding-right:24px}
+  .hero,.manifesto,.destinos,.ana,.exige,.como,.parceiras,.cta-final,.footer{padding-left:24px;padding-right:24px}
+  .exige-grid,.manifesto-right{grid-template-columns:1fr}
+  .ana-stats{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ── AIRPLANE LAYER ── -->
+<canvas id="plane-canvas"></canvas>
+<div id="plane-el">
+  <svg width="72" height="28" viewBox="0 0 72 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- fuselagem -->
+    <path d="M4 14 Q 36 12 68 14" stroke="rgba(255,255,255,0.9)" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- asa principal -->
+    <path d="M28 14 L42 2 L52 14 L42 11 Z" fill="rgba(255,255,255,0.85)"/>
+    <path d="M28 14 L42 26 L52 14 L42 17 Z" fill="rgba(255,255,255,0.35)"/>
+    <!-- cauda -->
+    <path d="M7 14 L10 7 L17 14 L10 11.5 Z" fill="rgba(255,255,255,0.7)"/>
+    <!-- cockpit -->
+    <ellipse cx="61" cy="14" rx="6" ry="3.5" fill="rgba(198,154,53,0.7)"/>
+    <!-- detalhe amber na asa -->
+    <path d="M32 14 L42 4 L46 14" fill="rgba(198,154,53,0.25)"/>
+  </svg>
+</div>
+
+<!-- ── NAV ── -->
+<nav class="nav" id="mainNav">
+  <div class="nav-i">
+    <div class="nav-logo">
+      <svg width="30" height="30" viewBox="0 0 34 34" fill="none">
+        <circle cx="17" cy="17" r="16" stroke="rgba(198,154,53,.5)" stroke-width="1.25"/>
+        <line x1="17" y1="3" x2="17" y2="31" stroke="white" stroke-opacity=".3" stroke-width="1"/>
+        <line x1="3" y1="17" x2="31" y2="17" stroke="white" stroke-opacity=".3" stroke-width="1"/>
+        <polygon points="17,6 14.5,14 17,11.5 19.5,14" fill="#C69A35"/>
+        <circle cx="17" cy="17" r="2.5" fill="white"/>
+      </svg>
+      <div class="nav-name">Ana Cristina<span>Seguro Viagem</span></div>
+    </div>
+    <a href="#cotacao" class="nav-cta">Fazer Cotação</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+    <svg class="hero-compass" width="900" height="900" viewBox="0 0 34 34" fill="none">
+      <circle cx="17" cy="17" r="16" stroke="white" stroke-width=".5"/>
+      <circle cx="17" cy="17" r="10" stroke="white" stroke-width=".25"/>
+      <line x1="17" y1="1" x2="17" y2="33" stroke="white" stroke-width=".3"/>
+      <line x1="1" y1="17" x2="33" y2="17" stroke="white" stroke-width=".3"/>
+      <polygon points="17,3 15,11 17,9 19,11" fill="white" opacity=".3"/>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-left fade-up">
+      <div class="hero-label">Pontos Cardeais · Seguro Viagem</div>
+      <h1 class="hero-h">O que garante que<br>a viagem acontece<br><em>do jeito que deveria.</em></h1>
+      <p class="hero-sub">Não é cobertura de papel. É a diferença entre perder tudo e continuar viajando. Ana Cristina compara 10 seguradoras — você escolhe a melhor e viaja tranquilo.</p>
+      <div class="hero-verbs">
+        <span class="verb">Conta</span>
+        <div class="verb-sep"></div>
+        <span class="verb">Comparo</span>
+        <div class="verb-sep"></div>
+        <span class="verb">Você viaja</span>
+      </div>
+    </div>
+    <div class="hero-form fade-up d2" id="cotacao">
+      <label class="form-label">Para onde você vai?</label>
+      <select class="form-select">
+        <option value="" disabled selected>Selecione o destino</option>
+        <optgroup label="🌍 Europa (Schengen — obrigatório)">
+          <option>Portugal</option>
+          <option>França</option>
+          <option>Espanha</option>
+          <option>Itália</option>
+          <option>Alemanha</option>
+          <option>Outros países Schengen</option>
+        </optgroup>
+        <optgroup label="🌎 Américas">
+          <option>Estados Unidos / Canadá</option>
+          <option>Argentina</option>
+          <option>México / Cancún</option>
+          <option>Cuba (obrigatório)</option>
+          <option>Outros</option>
+        </optgroup>
+        <optgroup label="🌏 Ásia & Oceania">
+          <option>Japão</option>
+          <option>Austrália</option>
+          <option>Dubai / EAU</option>
+          <option>Outros</option>
+        </optgroup>
+        <optgroup label="🇧🇷 Brasil">
+          <option>Fernando de Noronha</option>
+          <option>Pantanal / Bonito</option>
+          <option>Outro destino nacional</option>
+        </optgroup>
+      </select>
+      <label class="form-label">Datas da viagem</label>
+      <div class="form-row">
+        <input type="date" class="form-input" placeholder="Ida" title="Data de ida">
+        <input type="date" class="form-input" placeholder="Volta" title="Data de volta">
+      </div>
+      <label class="form-label">Quantas pessoas?</label>
+      <select class="form-select">
+        <option>1 pessoa</option>
+        <option>2 pessoas</option>
+        <option>3 pessoas</option>
+        <option>4 ou mais</option>
+      </select>
+      <button class="btn-cta">Quero minha cotação gratuita →</button>
+      <div class="form-trust">Gratuito · Sem compromisso · Resposta em minutos</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MANIFESTO ── -->
+<section class="manifesto">
+  <div class="manifesto-inner">
+    <div class="section-tag">Por que isso importa</div>
+    <div class="manifesto-grid">
+      <div class="manifesto-left fade-up">
+        <h2>Seguro viagem não é<br><em>burocracia.</em><br>É plano B.</h2>
+        <p>A maioria das pessoas compra seguro viagem porque é obrigatório para o visto. Ou porque o cartão pede. Raramente porque entendeu o que está comprando.</p>
+        <p>Ana Cristina viajou. Viu o que acontece quando algo dá errado longe de casa. E decidiu ser a pessoa que garante que você não vai passar por isso sem proteção.</p>
+        <ul class="manifesto-negation">
+          <li><div class="neg-x">✗</div><span>Sem cobertura de papel que não cobre nada</span></li>
+          <li><div class="neg-x">✗</div><span>Sem suporte que some quando você mais precisa</span></li>
+          <li><div class="neg-x">✗</div><span>Sem ler letra miúda sozinho às 3h da manhã</span></li>
+        </ul>
+        <ul class="manifesto-negation">
+          <li><div class="pos-check">✓</div><span>10 seguradoras comparadas para o seu destino específico</span></li>
+          <li><div class="pos-check">✓</div><span>Ana como contato direto do início ao fim</span></li>
+          <li><div class="pos-check">✓</div><span>Cobertura que faz sentido para o que você vai fazer</span></li>
+        </ul>
+      </div>
+      <div class="manifesto-right fade-up d2">
+        <div class="stat-card">
+          <div class="stat-num">R$150k</div>
+          <div class="stat-desc">Custo médio de um tratamento médico de emergência nos Estados Unidos. Um seguro viagem cobre. Um cartão de crédito, geralmente, não.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">Obrigatório</div>
+          <div class="stat-desc">Para visto Schengen (Europa), Cuba e outros destinos. Sem o seguro, sem o visto. Com o errado, risco de recusa na fronteira.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">10</div>
+          <div class="stat-desc">Seguradoras comparadas por Ana para cada cotação: Allianz, Porto Seguro, Bradesco, Liberty, Mapfre, Tokio Marine, Sul América, HDI, Azul e mais.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DESTINOS ── -->
+<section class="destinos">
+  <div class="destinos-header fade-up">
+    <div>
+      <div class="section-tag" style="color:var(--amber)">Destinos</div>
+      <h2>Para onde você vai,<br><em>Ana já foi.</em></h2>
+    </div>
+    <div class="destinos-sub">Cada destino tem riscos, exigências e coberturas específicas. Ana conhece todos.</div>
+  </div>
+  <div class="destinos-scroll" id="destinosScroll">
+    <div class="dest-card required">
+      <span class="dest-flag">🇵🇹</span>
+      <div class="dest-name">Portugal</div>
+      <div class="dest-risk">Visto Schengen exige seguro com cobertura mínima de €30.000. Ana sabe exatamente qual atende os requisitos do consulado.</div>
+      <span class="dest-badge badge-required">⚠ Obrigatório para visto</span>
+      <div class="dest-cta"><a href="#">Ver coberturas →</a></div>
+    </div>
+    <div class="dest-card required">
+      <span class="dest-flag">🇺🇸</span>
+      <div class="dest-name">Estados Unidos</div>
+      <div class="dest-risk">Tratamento médico pode ultrapassar R$150.000. Sem cobertura adequada, uma emergência no país pode comprometer anos de economia.</div>
+      <span class="dest-badge badge-required">⚡ Cobertura alta recomendada</span>
+      <div class="dest-cta"><a href="#">Ver coberturas →</a></div>
+    </div>
+    <div class="dest-card required">
+      <span class="dest-flag">🇪🇺</span>
+      <div class="dest-name">Europa (Schengen)</div>
+      <div class="dest-risk">27 países, uma regra: seguro viagem é obrigatório para concessão do visto. Cobertura mínima de €30.000 em despesas médicas.</div>
+      <span class="dest-badge badge-required">⚠ Obrigatório para visto</span>
+      <div class="dest-cta"><a href="#">Ver coberturas →</a></div>
+    </div>
+    <div class="dest-card">
+      <span class="dest-flag">🎢</span>
+      <div class="dest-name">Orlando / Disney</div>
+      <div class="dest-risk">Viagem de família tem dinâmica específica: crianças, atividades, parques. Cobertura precisa contemplar cancelamento e assistência para todos.</div>
+      <span class="dest-badge badge-recommended">Recomendado</span>
+      <div class="dest-cta"><a href="#">Ver coberturas →</a></div>
+    </div>
+    <div class="dest-card required">
+      <span class="dest-flag">🇨🇺</span>
+      <div class="dest-name">Cuba</div>
+      <div class="dest-risk">Seguro viagem é obrigatório na entrada do país — não é exigência consular, é exigência na fronteira. Sem o comprovante, sem entrada.</div>
+      <span class="dest-badge badge-required">⚠ Obrigatório na entrada</span>
+      <div class="dest-cta"><a href="#">Ver coberturas →</a></div>
+    </div>
+    <div class="dest-card">
+      <span class="dest-flag">🇯🇵</span>
+      <div class="dest-name">Japão</div>
+      <div class="dest-risk">Barreira linguística + sistema de saúde diferente = risco alto em emergências. Cobertura com assistência em português é essencial.</div>
+      <span class="dest-badge badge-recommended">Assistência 24h PT</span>
+      <div class="dest-cta"><a href="#">Ver coberturas →</a></div>
+    </div>
+    <div class="dest-card">
+      <span class="dest-flag">🇦🇷</span>
+      <div class="dest-name">Argentina</div>
+      <div class="dest-risk">Destino favorito do brasileiro. Fácil de ir, mas câmbio e sistema de saúde local tornam o seguro uma proteção real — não apenas formal.</div>
+      <span class="dest-badge badge-recommended">Recomendado</span>
+      <div class="dest-cta"><a href="#">Ver coberturas →</a></div>
+    </div>
+    <div class="dest-card">
+      <span class="dest-flag">🇦🇺</span>
+      <div class="dest-name">Austrália</div>
+      <div class="dest-risk">Distância máxima. Custo de repatriação em emergência pode passar de R$100k. Cobertura robusta não é luxo — é necessidade.</div>
+      <span class="dest-badge badge-recommended">Cobertura premium</span>
+      <div class="dest-cta"><a href="#">Ver coberturas →</a></div>
+    </div>
+    <div class="dest-card">
+      <span class="dest-flag">🏝️</span>
+      <div class="dest-name">Maldivas / Caribe</div>
+      <div class="dest-risk">Lua de mel em destino isolado. Emergência médica em ilha remota tem custo de evacuação altíssimo. Proteção premium para quem investe na viagem.</div>
+      <span class="dest-badge badge-recommended">Lua de mel</span>
+      <div class="dest-cta"><a href="#">Ver coberturas →</a></div>
+    </div>
+    <div class="dest-card">
+      <span class="dest-flag">🌊</span>
+      <div class="dest-name">Fernando de Noronha</div>
+      <div class="dest-risk">Destino nacional, mas tratamento médico de emergência na ilha pode chegar a R$50k para remoção. O seguro cobre — o SUS, não.</div>
+      <span class="dest-badge badge-recommended">Destino nacional</span>
+      <div class="dest-cta"><a href="#">Ver coberturas →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ANA CRISTINA ── -->
+<section class="ana">
+  <div class="ana-inner">
+    <div class="fade-up">
+      <div class="section-tag">Quem protege você</div>
+      <div class="ana-quote-mark">"</div>
+      <h2 class="ana-quote">Eu já vi tudo que pode dar errado<br>numa viagem.<br><em>Por isso eu sei o que cobrir.</em></h2>
+      <p class="ana-body">Ana Cristina não é corretora que aprendeu sobre viagens. É viajante que aprendeu a proteger quem viaja. A diferença é que ela fala de Portugal, Japão e Maldivas com a mesma propriedade que fala de cobertura de bagagem e assistência médica de emergência.</p>
+      <p class="ana-body">Quando você descreve seu destino, ela entende o risco real — não só o que consta na tabela de coberturas. E compara as 10 seguradoras parceiras da Pontos Cardeais para recomendar o que faz sentido para você.</p>
+      <ul class="ana-creds">
+        <li class="ana-cred"><div class="cred-dot"></div>Corretora certificada · SUSEP</li>
+        <li class="ana-cred"><div class="cred-dot"></div>Parceria com 10 seguradoras líderes</li>
+        <li class="ana-cred"><div class="cred-dot"></div>Atendimento direto no WhatsApp · do início ao fim</li>
+        <li class="ana-cred"><div class="cred-dot"></div>Pontos Cardeais · Rio de Janeiro</li>
+      </ul>
+    </div>
+    <div class="ana-right fade-up d2">
+      <div class="ana-card">
+        <div class="ana-card-bg"></div>
+        <div class="ana-card-tag">Especialista em Seguro Viagem</div>
+        <div class="ana-card-name">Ana Cristina</div>
+        <div class="ana-card-role">Corretora · Pontos Cardeais Seguros</div>
+        <div class="ana-stats">
+          <div class="ana-stat">
+            <div class="ana-stat-num">10</div>
+            <div class="ana-stat-label">seguradoras comparadas para cada cotação</div>
+          </div>
+          <div class="ana-stat">
+            <div class="ana-stat-num">24h</div>
+            <div class="ana-stat-label">atendimento via WhatsApp</div>
+          </div>
+          <div class="ana-stat">
+            <div class="ana-stat-num">50+</div>
+            <div class="ana-stat-label">destinos com conhecimento específico</div>
+          </div>
+          <div class="ana-stat">
+            <div class="ana-stat-num">0</div>
+            <div class="ana-stat-label">custo para cotar e comparar</div>
+          </div>
+        </div>
+        <div class="ana-wa">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <div>
+            <div class="ana-wa-text">Falar com Ana Cristina</div>
+            <div class="ana-wa-sub">Resposta em minutos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXIGÊNCIAS ── -->
+<section class="exige">
+  <div class="exige-inner">
+    <div class="section-tag fade-up">Exigências por destino</div>
+    <h2 class="fade-up">Cada país tem<br><em>sua própria regra.</em></h2>
+    <p class="exige-sub fade-up">Conhecer a exigência antes de cotar evita surpresas na fronteira. Ana garante que sua cobertura atende o que cada destino exige.</p>
+    <div class="exige-grid">
+      <div class="exige-card fade-up d1" onclick="toggleExige(this)">
+        <div class="exige-head">
+          <div class="exige-head-left">
+            <span class="exige-flag">🇪🇺</span>
+            <div>
+              <div class="exige-country">Países Schengen</div>
+              <div class="exige-region">27 países · Europa</div>
+            </div>
+          </div>
+          <div class="exige-arrow">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6,9 12,15 18,9"/></svg>
+          </div>
+        </div>
+        <div class="exige-body">
+          <div class="exige-body-inner">
+            <div class="exige-rule"><strong>Obrigatório para concessão do visto.</strong> Cobertura mínima de €30.000 em despesas médicas de emergência, incluindo repatriação.</div>
+            <p class="exige-detail">O seguro deve ser válido em todos os países Schengen e cobrir toda a duração da viagem mais 15 dias. Alguns consulados exigem cobertura superior — Portugal costuma pedir €50.000. Ana sabe qual seguro atende cada consulado.</p>
+          </div>
+        </div>
+      </div>
+      <div class="exige-card fade-up d2" onclick="toggleExige(this)">
+        <div class="exige-head">
+          <div class="exige-head-left">
+            <span class="exige-flag">🇨🇺</span>
+            <div>
+              <div class="exige-country">Cuba</div>
+              <div class="exige-region">Caribe</div>
+            </div>
+          </div>
+          <div class="exige-arrow">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6,9 12,15 18,9"/></svg>
+          </div>
+        </div>
+        <div class="exige-body">
+          <div class="exige-body-inner">
+            <div class="exige-rule"><strong>Obrigatório na entrada do país.</strong> Seguro emitido por empresa credenciada pelo governo cubano.</div>
+            <p class="exige-detail">Diferente de outros países, Cuba exige o comprovante na chegada — não para o visto. Sem o seguro credenciado, o viajante pode ser recusado na imigração ou forçado a contratar no aeroporto, geralmente com custo mais alto e coberturas piores.</p>
+          </div>
+        </div>
+      </div>
+      <div class="exige-card fade-up d3" onclick="toggleExige(this)">
+        <div class="exige-head">
+          <div class="exige-head-left">
+            <span class="exige-flag">🇺🇸</span>
+            <div>
+              <div class="exige-country">Estados Unidos</div>
+              <div class="exige-region">América do Norte</div>
+            </div>
+          </div>
+          <div class="exige-arrow">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6,9 12,15 18,9"/></svg>
+          </div>
+        </div>
+        <div class="exige-body">
+          <div class="exige-body-inner">
+            <div class="exige-rule"><strong>Não obrigatório, mas crítico.</strong> Tratamento de emergência pode custar entre R$80.000 e R$200.000.</div>
+            <p class="exige-detail">O sistema de saúde americano não cobre estrangeiros. Uma fratura, um infarto ou uma internação simples pode comprometer anos de economia. A cobertura recomendada por Ana é de no mínimo USD 100.000 — com assistência 24h em português.</p>
+          </div>
+        </div>
+      </div>
+      <div class="exige-card fade-up d1" onclick="toggleExige(this)">
+        <div class="exige-head">
+          <div class="exige-head-left">
+            <span class="exige-flag">🇧🇷</span>
+            <div>
+              <div class="exige-country">Brasil — Noronha</div>
+              <div class="exige-region">Destino nacional</div>
+            </div>
+          </div>
+          <div class="exige-arrow">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6,9 12,15 18,9"/></svg>
+          </div>
+        </div>
+        <div class="exige-body">
+          <div class="exige-body-inner">
+            <div class="exige-rule"><strong>Não obrigatório, mas custos de remoção são altos.</strong> Evacuação médica da ilha pode passar de R$50.000.</div>
+            <p class="exige-detail">O SUS cobre atendimento básico na ilha, mas remoção para o continente para tratamentos mais complexos não está garantida nem é rápida. Seguro viagem nacional com cobertura de remoção aérea é a proteção correta para Noronha.</p>
+          </div>
+        </div>
+      </div>
+      <div class="exige-card fade-up d2" onclick="toggleExige(this)">
+        <div class="exige-head">
+          <div class="exige-head-left">
+            <span class="exige-flag">🇯🇵</span>
+            <div>
+              <div class="exige-country">Japão</div>
+              <div class="exige-region">Ásia</div>
+            </div>
+          </div>
+          <div class="exige-arrow">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6,9 12,15 18,9"/></svg>
+          </div>
+        </div>
+        <div class="exige-body">
+          <div class="exige-body-inner">
+            <div class="exige-rule"><strong>Não obrigatório.</strong> Barreira linguística e sistema de saúde diferente tornam o seguro com assistência em português essencial.</div>
+            <p class="exige-detail">O Japão tem um dos melhores sistemas de saúde do mundo — e um dos mais caros para estrangeiros. Além do custo, a barreira linguística em emergências é real. Ana recomenda seguros com central 24h que enviam médico-tradutor quando necessário.</p>
+          </div>
+        </div>
+      </div>
+      <div class="exige-card fade-up d3" onclick="toggleExige(this)">
+        <div class="exige-head">
+          <div class="exige-head-left">
+            <span class="exige-flag">🇦🇺</span>
+            <div>
+              <div class="exige-country">Austrália</div>
+              <div class="exige-region">Oceania</div>
+            </div>
+          </div>
+          <div class="exige-arrow">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6,9 12,15 18,9"/></svg>
+          </div>
+        </div>
+        <div class="exige-body">
+          <div class="exige-body-inner">
+            <div class="exige-rule"><strong>Não obrigatório.</strong> Distância = custo de repatriação altíssimo. Cobertura premium é a única proteção real.</div>
+            <p class="exige-detail">Um voo de repatriação médica do Brasil para a Austrália custa entre R$150.000 e R$400.000. Nenhum cartão de crédito cobre isso adequadamente. Ana recomenda coberturas com repatriação ilimitada para esse destino.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COMO FUNCIONA ── -->
+<section class="como">
+  <div class="como-inner">
+    <div class="fade-up">
+      <div class="section-tag">Como funciona</div>
+      <h2 style="font-family:var(--f1);font-weight:800;font-size:clamp(1.75rem,3vw,2.5rem);letter-spacing:-.02em;color:var(--text);margin-bottom:.625rem">Três passos.<br>Do destino<br><span style="color:var(--amber)">ao seguro certo.</span></h2>
+      <p style="font-size:1rem;color:var(--muted);line-height:1.8;margin-bottom:2.5rem;max-width:440px">Ana não manda link. Ela entende para onde você vai, o que vai fazer — e recomenda o que faz sentido. No WhatsApp, sem formulário.</p>
+      <div class="como-steps">
+        <div class="como-step">
+          <div class="step-num"><span>01</span></div>
+          <div>
+            <div class="step-title">Você conta o destino e as datas</div>
+            <div class="step-desc">Manda mensagem no WhatsApp com para onde vai, quando, quantas pessoas e se tem alguma atividade específica (mergulho, esqui, trekking). Quanto mais detalhe, melhor a recomendação.</div>
+          </div>
+        </div>
+        <div class="como-step">
+          <div class="step-num"><span>02</span></div>
+          <div>
+            <div class="step-title">Ana compara as 10 seguradoras</div>
+            <div class="step-desc">Ela analisa as opções das seguradoras parceiras para o seu destino específico, considera as exigências locais e separa 2 ou 3 opções com coberturas e preços diferentes — sem empurrar a mais cara.</div>
+          </div>
+        </div>
+        <div class="como-step">
+          <div class="step-num"><span>03</span></div>
+          <div>
+            <div class="step-title">Você escolhe e fecha em minutos</div>
+            <div class="step-desc">Ana explica a diferença entre as opções em linguagem simples. Você escolhe o que faz mais sentido para você. A apólice é emitida e o comprovante chega por e-mail — pronto para o consulado ou para embarcar.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fade-up d2">
+      <div class="como-wa">
+        <div class="como-wa-bar">
+          <div class="wa-dot" style="background:#ef4444"></div>
+          <div class="wa-dot" style="background:#eab308"></div>
+          <div class="wa-dot" style="background:#22c55e"></div>
+          <span class="wa-title">WhatsApp · Ana Cristina · Pontos Cardeais</span>
+        </div>
+        <div class="como-wa-msgs">
+          <div class="wmsg recv">
+            <span class="wlabel client">Você</span>
+            "Oi Ana! Vou pra Portugal em agosto, 15 dias, casal. Precisamos do seguro pro visto Schengen."
+          </div>
+          <div class="wmsg sent">
+            <span class="wlabel auto">Ana</span>
+            "Oi! Ótimo, vou comparar as opções. Portugal exige cobertura mínima de €30.000 para o visto. Já tenho 3 opções com coberturas diferentes aqui. Posso te mandar os detalhes?"
+          </div>
+          <div class="wmsg recv">
+            <span class="wlabel client">Você</span>
+            "Sim, por favor!"
+          </div>
+          <div class="wmsg sent">
+            <span class="wlabel auto">Ana</span>
+            "Separei 3 opções para vocês dois, 15 dias:<br><br>🔵 Básico: €30k cobertura — R$189 (atende o visto)<br>🟡 Intermediário: €50k + bagagem — R$267<br>🟢 Premium: €100k + cancelamento — R$398<br><br>Qual faz mais sentido pra vocês?"
+          </div>
+          <div class="wmsg recv">
+            <span class="wlabel client">Você</span>
+            "O intermediário! Como a gente fecha?"
+          </div>
+          <div class="wmsg sent">
+            <span class="wlabel auto">Ana</span>
+            "Ótimo! Só preciso do nome completo, data de nascimento e CPF dos dois. A apólice sai em 5 minutos e mando o comprovante por e-mail — já aceito pelo consulado ✓"
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PARCEIRAS ── -->
+<section class="parceiras">
+  <div class="parceiras-inner">
+    <h2 class="fade-up">10 seguradoras. Uma comparação. A melhor cobertura para você.</h2>
+    <div class="logos-grid">
+      <div class="logo-item"><span class="logo-name">Allianz</span></div>
+      <div class="logo-item"><span class="logo-name">Porto Seguro</span></div>
+      <div class="logo-item"><span class="logo-name">Bradesco</span></div>
+      <div class="logo-item"><span class="logo-name">Liberty</span></div>
+      <div class="logo-item"><span class="logo-name">Mapfre</span></div>
+      <div class="logo-item"><span class="logo-name">Tokio Marine</span></div>
+      <div class="logo-item"><span class="logo-name">Sul América</span></div>
+      <div class="logo-item"><span class="logo-name">HDI</span></div>
+      <div class="logo-item"><span class="logo-name">Azul Seguros</span></div>
+      <div class="logo-item"><span class="logo-name">Suhai</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA FINAL ── -->
+<section class="cta-final" id="cotacao-final">
+  <div class="cta-final-bg">
+    <svg class="cta-final-bg-compass" width="700" height="700" viewBox="0 0 34 34" fill="none">
+      <circle cx="17" cy="17" r="16" stroke="white" stroke-width=".4"/>
+      <polygon points="17,3 15,11 17,9 19,11" fill="white" opacity=".3"/>
+    </svg>
+  </div>
+  <div class="cta-final-inner">
+    <div class="fade-up">
+      <h2>Pronto para<br>viajar <em>com segurança</em><br>de verdade?</h2>
+      <p>Não é burocracia, não é obrigação de viagem. É a diferença entre voltar com memórias e voltar com dívida. Ana compara em minutos — você escolhe e viaja.</p>
+      <div class="cta-trust">
+        <div class="trust-item"><div class="trust-dot"></div>Cotação gratuita e sem compromisso</div>
+        <div class="trust-item"><div class="trust-dot"></div>10 seguradoras comparadas por Ana</div>
+        <div class="trust-item"><div class="trust-dot"></div>Apólice emitida em minutos</div>
+        <div class="trust-item"><div class="trust-dot"></div>Comprovante aceito por consulados</div>
+      </div>
+    </div>
+    <div class="cta-form-box fade-up d2">
+      <div class="cta-form-title">Fazer cotação gratuita</div>
+      <div class="cta-form-sub">Resposta de Ana em minutos via WhatsApp</div>
+      <label class="form-label">Destino</label>
+      <input type="text" class="form-input" placeholder="Para onde você vai?">
+      <label class="form-label">Data de ida e volta</label>
+      <div class="form-row">
+        <input type="date" class="form-input">
+        <input type="date" class="form-input">
+      </div>
+      <label class="form-label">Seu WhatsApp</label>
+      <input type="tel" class="form-input" placeholder="(21) 99999-9999">
+      <button class="btn-cta">Quero cotação com Ana →</button>
+      <div class="form-trust">SUSEP registrada · Dados protegidos · Sem spam</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="nav-logo">
+      <svg width="24" height="24" viewBox="0 0 34 34" fill="none">
+        <circle cx="17" cy="17" r="16" stroke="rgba(198,154,53,.4)" stroke-width="1"/>
+        <line x1="17" y1="3" x2="17" y2="31" stroke="white" stroke-opacity=".25" stroke-width="1"/>
+        <line x1="3" y1="17" x2="31" y2="17" stroke="white" stroke-opacity=".25" stroke-width="1"/>
+        <polygon points="17,7 15,12 17,10.5 19,12" fill="#C69A35"/>
+        <circle cx="17" cy="17" r="2" fill="white"/>
+      </svg>
+      <span class="footer-brand">Pontos Cardeais Seguros</span>
+    </div>
+    <span class="footer-susep">Corretora de Seguros · SUSEP · Rio de Janeiro · © 2026</span>
+  </div>
+</footer>
+
+<!-- ── WA FLOAT ── -->
+<div class="wa-float" onclick="window.open('https://wa.me/55','_blank')">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</div>
+
+<script>
+// ── AIRPLANE ──
+const canvas = document.getElementById('plane-canvas');
+const ctx = canvas.getContext('2d');
+const planeEl = document.getElementById('plane-el');
+let trail = [];
+let animFrame;
+let lastScroll = -1;
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+function getPlanePos() {
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = Math.min(Math.max(window.scrollY / (maxScroll || 1), 0), 1);
+  const x = -80 + pct * (window.innerWidth + 160);
+  const y = window.innerHeight * 0.18 + Math.sin(pct * Math.PI * 2.8) * window.innerHeight * 0.10;
+  const angle = Math.cos(pct * Math.PI * 2.8) * 12;
+  return {x, y, angle, pct};
+}
+
+function drawTrail() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  if (trail.length < 2) return;
+  ctx.save();
+  ctx.setLineDash([6, 8]);
+  ctx.lineWidth = 1.5;
+  ctx.lineCap = 'round';
+  for (let i = 1; i < trail.length; i++) {
+    const alpha = (i / trail.length) * 0.45;
+    ctx.globalAlpha = alpha;
+    ctx.strokeStyle = '#C69A35';
+    ctx.beginPath();
+    ctx.moveTo(trail[i-1].x, trail[i-1].y);
+    ctx.lineTo(trail[i].x, trail[i].y);
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+
+function updatePlane() {
+  if (lastScroll === window.scrollY) {
+    animFrame = requestAnimationFrame(updatePlane);
+    return;
+  }
+  lastScroll = window.scrollY;
+  const {x, y, angle} = getPlanePos();
+  trail.push({x: x + 36, y: y + 14});
+  if (trail.length > 180) trail.shift();
+  drawTrail();
+  planeEl.style.transform = `translate(${x}px, ${y}px) rotate(${angle}deg)`;
+  animFrame = requestAnimationFrame(updatePlane);
+}
+updatePlane();
+
+// ── NAV scroll ──
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 60);
+}, {passive: true});
+
+// ── FADE-UP ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold: 0.12});
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// ── EXIGE TOGGLE ──
+function toggleExige(card) {
+  const body = card.querySelector('.exige-body');
+  const inner = card.querySelector('.exige-body-inner');
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.exige-card').forEach(c => {
+    c.classList.remove('open');
+    c.querySelector('.exige-body').style.height = '0';
+  });
+  if (!isOpen) {
+    card.classList.add('open');
+    body.style.height = inner.offsetHeight + 'px';
+  }
+}
+
+// ── DESTINOS DRAG SCROLL ──
+const scroll = document.getElementById('destinosScroll');
+let isDown = false, startX, scrollLeft;
+scroll.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - scroll.offsetLeft; scrollLeft = scroll.scrollLeft; });
+scroll.addEventListener('mouseleave', () => isDown = false);
+scroll.addEventListener('mouseup', () => isDown = false);
+scroll.addEventListener('mousemove', e => {
+  if (!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - scroll.offsetLeft;
+  scroll.scrollLeft = scrollLeft - (x - startX) * 1.5;
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pontos Cardeais — Operação 2026 | MarketingOS</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#060E1C;--bg2:#0B1D3A;--bg3:#112240;--bg4:#0d1a2d;
+  --gold:#C69A35;--gold-lt:#E8C76A;--gold-d:rgba(198,154,53,.12);--gold-b:rgba(198,154,53,.28);
+  --white:#F0EEE9;--dim:rgba(240,238,233,.5);--dimmer:rgba(240,238,233,.25);
+  --border:rgba(240,238,233,.08);--border2:rgba(198,154,53,.2);
+  --teal:#0A3040;--sage:#6B8A9E;
+  --green:#25D366;--red:rgba(239,68,68,.85);
+  --f1:'Syne',sans-serif;--f2:'DM Sans',sans-serif;--f3:'DM Mono',monospace;
+  --nav-h:64px;
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--bg);color:var(--white);font-family:var(--f2);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:500;background:rgba(6,14,28,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-i{height:100%;max-width:1140px;margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{display:flex;align-items:center;gap:.75rem}
+.nav-brand-name{font-family:var(--f1);font-weight:700;font-size:.9rem;color:var(--white);letter-spacing:.01em}
+.nav-brand-name span{display:block;font-size:.6rem;font-weight:400;color:var(--gold);letter-spacing:.12em;text-transform:uppercase}
+.nav-sections{display:flex;align-items:center;gap:2rem}
+.nav-section-item{font-family:var(--f3);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dimmer);cursor:pointer;transition:color .2s;padding:4px 0;border-bottom:1.5px solid transparent}
+.nav-section-item.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-cta{font-family:var(--f3);font-size:.7rem;font-weight:500;background:var(--gold);color:var(--bg);padding:.4rem 1rem;border-radius:5px;letter-spacing:.05em;cursor:pointer;transition:background .2s;white-space:nowrap}
+.nav-cta:hover{background:var(--gold-lt)}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:var(--nav-h) 40px 80px;position:relative;overflow:hidden}
+.hero-mesh{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(198,154,53,.05),transparent 65%);pointer-events:none}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:56px 56px;pointer-events:none;opacity:.6}
+.hero-top-tag{font-family:var(--f3);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem;display:flex;align-items:center;gap:.75rem;opacity:.85}
+.hero-top-tag::before,.hero-top-tag::after{content:'';flex:1;height:1px;background:var(--gold-b)}
+h1.hero-h{font-family:var(--f1);font-weight:800;font-size:clamp(2.8rem,6vw,5.5rem);line-height:1.02;letter-spacing:-.04em;color:var(--white);max-width:900px;margin-bottom:1.5rem}
+h1.hero-h em{font-style:normal;color:var(--gold)}
+.hero-sub{font-size:1.1rem;color:var(--dim);max-width:560px;line-height:1.8;margin-bottom:3rem}
+.hero-pill{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1.125rem;border:1px solid var(--border2);border-radius:100px;font-family:var(--f3);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);background:var(--gold-d);margin-bottom:1rem}
+.hero-scroll{margin-top:4rem;display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:.35}
+.hero-scroll span{font-family:var(--f3);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase}
+.hero-scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2s ease-in-out infinite}
+@keyframes scrollPulse{0%,100%{opacity:.35;transform:scaleY(.7);transform-origin:top}50%{opacity:.8;transform:scaleY(1);transform-origin:top}}
+
+/* ── SECTIONS ── */
+.sec{padding:120px 40px;max-width:1140px;margin:0 auto}
+.sec-full{padding:120px 40px}
+.sec-full-inner{max-width:1140px;margin:0 auto}
+.sec-tag{font-family:var(--f3);font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem;display:flex;align-items:center;gap:.625rem}
+.sec-tag::before{content:'';width:24px;height:1px;background:var(--gold)}
+.sec-h{font-family:var(--f1);font-weight:800;font-size:clamp(2rem,4vw,3.25rem);line-height:1.08;letter-spacing:-.03em;margin-bottom:1rem}
+.sec-h em{font-style:normal;color:var(--gold)}
+.sec-sub{font-size:1rem;color:var(--dim);line-height:1.8;max-width:560px}
+
+/* ── PROBLEMA ── */
+.problema-bg{background:var(--bg)}
+.problema-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-top:4rem}
+.prob-col p{font-size:.95rem;color:var(--dim);line-height:1.85;margin-bottom:1.25rem}
+.prob-divider{width:1px;background:var(--border);align-self:stretch}
+.prob-items{display:flex;flex-direction:column;gap:1rem}
+.prob-item{display:flex;align-items:flex-start;gap:1rem;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.15);border-radius:12px;padding:1.25rem}
+.prob-x{width:28px;height:28px;border-radius:50%;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.7rem;color:#f87171;font-weight:700;margin-top:2px}
+.prob-text{font-size:.875rem;color:rgba(240,238,233,.65);line-height:1.6}
+.prob-text strong{color:var(--white);font-weight:500}
+
+/* ── OPORTUNIDADE ── */
+.opp-bg{background:var(--bg2)}
+.opp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3.5rem}
+.opp-card{background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:2rem;transition:border-color .25s,background .25s}
+.opp-card:hover{border-color:var(--border2);background:rgba(198,154,53,.03)}
+.opp-num{font-family:var(--f1);font-weight:800;font-size:2.5rem;color:var(--gold);line-height:1;letter-spacing:-.04em;margin-bottom:.5rem}
+.opp-label{font-size:.8rem;color:var(--dim);line-height:1.6}
+.opp-divider{height:1px;background:var(--border);margin:1.25rem 0}
+.opp-insight{font-family:var(--f3);font-size:.68rem;letter-spacing:.05em;color:var(--gold);opacity:.7}
+
+/* ── CAROUSEL VIEWER ── */
+.viewer-wrap{background:var(--bg);border-radius:0}
+.viewer-section{padding:100px 0}
+.viewer-section-inner{max-width:1140px;margin:0 auto;padding:0 40px}
+.viewer-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:3rem}
+.viewer-nav{display:flex;align-items:center;gap:.75rem}
+.vnav-btn{width:36px;height:36px;border-radius:50%;background:var(--bg2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,border-color .2s}
+.vnav-btn:hover{background:var(--bg3);border-color:var(--border2)}
+.vnav-dots{display:flex;gap:.375rem}
+.vnav-dot{width:6px;height:6px;border-radius:50%;background:var(--border);cursor:pointer;transition:background .2s,transform .2s}
+.vnav-dot.active{background:var(--gold);transform:scale(1.3)}
+.viewer{height:480px;background:var(--bg2);border:1px solid var(--border);border-radius:20px;overflow:hidden;position:relative}
+.strip{display:flex;height:100%;transition:transform .45s cubic-bezier(.55,.055,.675,.19)}
+.slide{min-width:100%;height:100%;padding:3rem;display:flex;flex-direction:column;justify-content:space-between;flex-shrink:0}
+.slide-tag{font-family:var(--f3);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);opacity:.7}
+.slide-h{font-family:var(--f1);font-weight:800;font-size:1.75rem;color:var(--white);letter-spacing:-.025em;line-height:1.2;margin:1rem 0 .75rem}
+.slide-body{font-size:.9rem;color:var(--dim);line-height:1.75;flex:1}
+.slide-footer{display:flex;align-items:center;justify-content:space-between}
+.slide-num{font-family:var(--f3);font-size:.65rem;color:var(--dimmer)}
+.slide-status{display:flex;align-items:center;gap:.5rem;font-family:var(--f3);font-size:.68rem;color:var(--gold);opacity:.8}
+.slide-status-dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+
+/* ── MOCKUP BROWSER ── */
+.browser-wrap{margin-top:3rem}
+.browser{background:#0d1117;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.5)}
+.browser-bar{background:#161b22;padding:12px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
+.b-dots{display:flex;gap:6px}
+.b-dot{width:10px;height:10px;border-radius:50%}
+.b-url{flex:1;background:#0d1117;border:1px solid var(--border);border-radius:5px;padding:4px 10px;font-family:var(--f3);font-size:.68rem;color:rgba(240,238,233,.3);display:flex;align-items:center;gap:.5rem;max-width:360px;margin:0 auto}
+.b-lock{font-size:.65rem;color:var(--gold);opacity:.7}
+.browser-content{height:460px;overflow:hidden;position:relative}
+.browser-content iframe{width:100%;height:600px;border:none;transform:scale(.77);transform-origin:top left;width:130%;pointer-events:none}
+.browser-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,var(--bg) 100%)}
+.browser-cta{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--bg);font-family:var(--f3);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:.6rem 1.5rem;border-radius:6px;white-space:nowrap;cursor:pointer}
+
+/* ── WA FLOW ── */
+.wa-flow-section{background:var(--bg)}
+.wa-flow{display:grid;grid-template-columns:340px 1fr;gap:3rem;margin-top:3.5rem;align-items:start}
+.wa-phone{background:#111827;border:1px solid rgba(255,255,255,.07);border-radius:20px;overflow:hidden}
+.wa-phone-top{background:#1F2B1F;padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.06)}
+.wa-phone-avatar{width:32px;height:32px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#fff}
+.wa-phone-name{font-size:.8rem;color:#c8e6c9;font-weight:500}
+.wa-phone-status{font-size:.65rem;color:rgba(200,230,201,.5)}
+.wa-msgs{padding:1rem .875rem;display:flex;flex-direction:column;gap:.625rem;min-height:360px}
+.wm{max-width:260px;padding:.625rem .875rem;border-radius:10px;font-size:.78rem;line-height:1.55}
+.wm.recv{background:#1e2e20;color:#c8e6c9;border-bottom-left-radius:2px;align-self:flex-start}
+.wm.sent{background:#162030;color:#90caf9;border-bottom-right-radius:2px;align-self:flex-end}
+.wm.system{background:rgba(198,154,53,.08);border:1px solid var(--border2);color:var(--gold);font-family:var(--f3);font-size:.65rem;letter-spacing:.05em;border-radius:6px;max-width:100%;align-self:stretch;text-align:center}
+.wm-time{font-size:.6rem;opacity:.45;margin-top:.25rem;text-align:right}
+.wa-flow-explain{display:flex;flex-direction:column;gap:1.5rem}
+.wa-step{display:flex;align-items:flex-start;gap:1rem;padding:1.5rem;background:var(--bg2);border:1px solid var(--border);border-radius:14px;transition:border-color .25s;cursor:pointer}
+.wa-step.active{border-color:var(--border2);background:rgba(198,154,53,.04)}
+.wa-step-num{width:36px;height:36px;border-radius:10px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--f1);font-weight:700;font-size:.9rem;color:var(--gold)}
+.wa-step-title{font-family:var(--f1);font-weight:700;font-size:.95rem;margin-bottom:.25rem}
+.wa-step-desc{font-size:.8rem;color:var(--dim);line-height:1.6}
+
+/* ── MOTOR ── */
+.motor-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-top:3.5rem}
+.motor-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:2rem;position:relative;overflow:hidden}
+.motor-card::before{content:'';position:absolute;top:-40px;right:-40px;width:120px;height:120px;border-radius:50%;background:radial-gradient(ellipse,rgba(198,154,53,.07),transparent)}
+.motor-icon{font-size:1.75rem;margin-bottom:1rem;display:block}
+.motor-title{font-family:var(--f1);font-weight:700;font-size:1rem;margin-bottom:.5rem}
+.motor-desc{font-size:.8rem;color:var(--dim);line-height:1.65}
+.motor-stat{margin-top:1.25rem;display:flex;align-items:center;gap:.5rem;font-family:var(--f3);font-size:.68rem;color:var(--gold);opacity:.8}
+.motor-stat-dot{width:5px;height:5px;border-radius:50%;background:var(--gold)}
+
+/* ── TIMELINE ── */
+.timeline{margin-top:3.5rem}
+.tl-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0}
+.tl-col{position:relative;padding-top:3rem}
+.tl-col::before{content:'';position:absolute;top:1.375rem;left:0;right:0;height:2px;background:var(--border)}
+.tl-col:first-child::before{left:50%}
+.tl-col:last-child::before{right:50%}
+.tl-dot{position:absolute;top:.875rem;left:50%;transform:translateX(-50%);width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--border2)}
+.tl-col.active .tl-dot{background:var(--gold);border-color:var(--gold);box-shadow:0 0 0 4px rgba(198,154,53,.2)}
+.tl-inner{padding:0 1.25rem}
+.tl-period{font-family:var(--f3);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.875rem}
+.tl-title{font-family:var(--f1);font-weight:700;font-size:1rem;margin-bottom:.75rem}
+.tl-items{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.tl-items li{font-size:.8rem;color:var(--dim);line-height:1.55;display:flex;align-items:flex-start;gap:.5rem}
+.tl-items li::before{content:'→';color:var(--gold);opacity:.6;flex-shrink:0;margin-top:1px}
+
+/* ── INVESTMENT ── */
+.inv-bg{background:var(--bg2)}
+.inv-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.25rem;margin-top:3.5rem}
+.price-card{background:var(--bg);border:1px solid var(--border);border-radius:18px;padding:2.25rem;transition:transform .25s,border-color .25s;position:relative;overflow:hidden}
+.price-card:hover{transform:translateY(-4px)}
+.price-card.featured{border-color:var(--border2);background:rgba(198,154,53,.04)}
+.price-badge{position:absolute;top:1.25rem;right:1.25rem;background:var(--gold);color:var(--bg);font-family:var(--f3);font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:.25rem .625rem;border-radius:100px;font-weight:500}
+.price-tier{font-family:var(--f3);font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:1rem}
+.price-val{font-family:var(--f1);font-weight:800;font-size:2.75rem;color:var(--white);letter-spacing:-.04em;line-height:1}
+.price-val sup{font-size:1.25rem;vertical-align:top;margin-top:.5rem}
+.price-val sub{font-size:.9rem;font-weight:400;color:var(--dim)}
+.price-divider{height:1px;background:var(--border);margin:1.5rem 0}
+.price-items{list-style:none;display:flex;flex-direction:column;gap:.625rem;margin-bottom:2rem}
+.price-items li{font-size:.8rem;color:var(--dim);display:flex;align-items:flex-start;gap:.625rem;line-height:1.5}
+.price-items li .pi-check{color:var(--gold);flex-shrink:0}
+.price-items li .pi-x{color:rgba(240,238,233,.2);flex-shrink:0}
+.price-btn{width:100%;padding:.875rem;border-radius:8px;font-family:var(--f1);font-weight:700;font-size:.9rem;cursor:pointer;transition:background .2s,transform .15s;border:none}
+.price-btn.primary{background:var(--gold);color:var(--bg)}
+.price-btn.primary:hover{background:var(--gold-lt);transform:translateY(-1px)}
+.price-btn.secondary{background:var(--bg2);color:var(--white);border:1px solid var(--border)}
+.price-btn.secondary:hover{background:var(--bg3)}
+
+/* ── CLOSING ── */
+.closing{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 40px;position:relative;overflow:hidden}
+.closing-mesh{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(198,154,53,.07),transparent 65%);pointer-events:none}
+.closing h2{font-family:var(--f1);font-weight:800;font-size:clamp(2.5rem,6vw,5rem);line-height:1.05;letter-spacing:-.04em;max-width:800px;margin-bottom:1.5rem}
+.closing h2 em{font-style:normal;color:var(--gold)}
+.closing p{font-size:1.1rem;color:var(--dim);max-width:500px;line-height:1.8;margin-bottom:3rem}
+.closing-btns{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;justify-content:center}
+.btn-gold{background:var(--gold);color:var(--bg);font-family:var(--f1);font-weight:700;font-size:1rem;padding:.875rem 2rem;border-radius:8px;border:none;cursor:pointer;transition:background .2s,transform .15s;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem}
+.btn-gold:hover{background:var(--gold-lt);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--white);font-family:var(--f1);font-weight:600;font-size:1rem;padding:.875rem 2rem;border-radius:8px;border:1px solid var(--border);cursor:pointer;transition:border-color .2s;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem}
+.btn-outline:hover{border-color:var(--border2)}
+
+/* ── FOOTER ── */
+.footer{background:var(--bg);border-top:1px solid var(--border);padding:48px 40px}
+.footer-inner{max-width:1140px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.footer-brand{font-family:var(--f1);font-size:.85rem;font-weight:700;color:var(--white);opacity:.35}
+.footer-meta{font-family:var(--f3);font-size:.62rem;color:var(--dimmer);letter-spacing:.06em}
+
+/* ── SCROLL ANIMS ── */
+.ls-anim{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.ls-anim.d1{transition-delay:.1s}
+.ls-anim.d2{transition-delay:.22s}
+.ls-anim.d3{transition-delay:.34s}
+.ls-anim.d4{transition-delay:.46s}
+.ls-anim.visible{opacity:1;transform:translateY(0)}
+
+/* ── BLINK ── */
+.blink{animation:blink 1.2s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+@media(max-width:900px){
+  .nav-sections{display:none}
+  .problema-grid,.opp-grid,.motor-grid,.tl-grid,.inv-grid,.wa-flow{grid-template-columns:1fr}
+  .tl-col::before,.tl-col:first-child::before,.tl-col:last-child::before{display:none}
+  .hero-h{font-size:2.5rem}
+  .viewer{height:auto;min-height:360px}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="nav">
+  <div class="nav-i">
+    <div class="nav-brand">
+      <svg width="28" height="28" viewBox="0 0 34 34" fill="none">
+        <circle cx="17" cy="17" r="16" stroke="rgba(198,154,53,.4)" stroke-width="1.25"/>
+        <line x1="17" y1="3" x2="17" y2="31" stroke="white" stroke-opacity=".2" stroke-width="1"/>
+        <line x1="3" y1="17" x2="31" y2="17" stroke="white" stroke-opacity=".2" stroke-width="1"/>
+        <polygon points="17,6 14.5,13 17,11 19.5,13" fill="#C69A35"/>
+        <circle cx="17" cy="17" r="2.5" fill="white"/>
+      </svg>
+      <div class="nav-brand-name">Pontos Cardeais<span>Proposta Operacional · 2026</span></div>
+    </div>
+    <div class="nav-sections">
+      <div class="nav-section-item active" onclick="scrollTo('hero')">Visão</div>
+      <div class="nav-section-item" onclick="scrollTo('operacao')">Operação</div>
+      <div class="nav-section-item" onclick="scrollTo('site')">Site</div>
+      <div class="nav-section-item" onclick="scrollTo('whatsapp')">WhatsApp</div>
+      <div class="nav-section-item" onclick="scrollTo('motor')">Motor</div>
+      <div class="nav-section-item" onclick="scrollTo('plano')">Plano</div>
+      <div class="nav-section-item" onclick="scrollTo('investimento')">Investimento</div>
+    </div>
+    <div class="nav-cta" onclick="scrollTo('investimento')">Ver proposta</div>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" id="hero">
+  <div class="hero-mesh"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-pill">Pontos Cardeais Seguros · Rio de Janeiro</div>
+  <h1 class="hero-h">A corretora que o RJ<br>ainda não tem.<br><em>O sistema que faz isso acontecer.</em></h1>
+  <p class="hero-sub">Seguro viagem como produto âncora. Ana Cristina como referência. MarketingOS como operação. Um sistema que transforma a Pontos Cardeais em líder de um mercado que ninguém ainda dominou.</p>
+  <div class="hero-scroll">
+    <span>Explorar proposta</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- ── PROBLEMA ── -->
+<div id="operacao" style="background:var(--bg)">
+<div class="sec">
+  <div class="sec-tag ls-anim">O diagnóstico</div>
+  <h2 class="sec-h ls-anim d1">A Pontos Cardeais<br>tem tudo para dominar.<br><em>Falta a operação.</em></h2>
+  <div class="problema-grid ls-anim d2">
+    <div class="prob-col">
+      <p>A corretora tem 10 seguradoras parceiras, todos os ramos, décadas de operação no mercado carioca e um ativo humano valioso — uma corretora com conhecimento genuíno em viagens. O que falta não é produto. É presença.</p>
+      <p>Hoje, quem procura seguro no Google não encontra a Pontos Cardeais. Quem chega no site não tem por que ficar nem razão para entrar em contato. O Instagram existe, mas não trabalha. E nenhum sistema qualifica o lead antes de Ana falar com ele.</p>
+      <p>A solução não é mais conteúdo. É uma operação completa — ancorada no produto certo, com o personagem certo, e o sistema certo para escalar.</p>
+    </div>
+    <div class="prob-divider"></div>
+    <div class="prob-items">
+      <div class="prob-item">
+        <div class="prob-x">✗</div>
+        <div class="prob-text"><strong>Site sem captura de leads.</strong> Visitante chega, não encontra razão para agir, sai.</div>
+      </div>
+      <div class="prob-item">
+        <div class="prob-x">✗</div>
+        <div class="prob-text"><strong>Instagram sem estratégia.</strong> Posts esporádicos que não constroem autoridade nem geram cotações.</div>
+      </div>
+      <div class="prob-item">
+        <div class="prob-x">✗</div>
+        <div class="prob-text"><strong>Zero presença em SEO.</strong> Nenhuma página ranqueando para termos de seguro viagem no RJ.</div>
+      </div>
+      <div class="prob-item">
+        <div class="prob-x">✗</div>
+        <div class="prob-text"><strong>ICP indefinido.</strong> Múltiplos perfis de cliente, nenhum segmentado, ticket médio não otimizado.</div>
+      </div>
+      <div class="prob-item">
+        <div class="prob-x">✗</div>
+        <div class="prob-text"><strong>Ana sem posicionamento digital.</strong> Expertise de viagens existe, mas ninguém no digital sabe que ela existe.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ── OPORTUNIDADE ── -->
+<div style="background:var(--bg2);padding:100px 0">
+<div class="sec" style="padding-top:0;padding-bottom:0">
+  <div class="sec-tag ls-anim">Por que agora</div>
+  <h2 class="sec-h ls-anim d1">Seguro viagem é<br><em>o mercado mais ignorado</em><br>do setor no RJ.</h2>
+  <p class="sec-sub ls-anim d2">Alta intenção de compra. Exigência legal em destinos prioritários. SEO infinito. Sazonalidade previsível. E nenhuma corretora carioca domina esse espaço ainda.</p>
+  <div class="opp-grid">
+    <div class="opp-card ls-anim d1">
+      <div class="opp-num">200+</div>
+      <div class="opp-label">combinações de keyword por destino. Cada uma é uma página de SEO potencial. Uma agência faz 2. O sistema faz 50+ com consistência.</div>
+      <div class="opp-divider"></div>
+      <div class="opp-insight">Volume de páginas = dominância orgânica</div>
+    </div>
+    <div class="opp-card ls-anim d2">
+      <div class="opp-num">Obrig.</div>
+      <div class="opp-label">Visto Schengen exige seguro viagem. Cuba exige na entrada. Isso cria urgência real — o lead está em modo de compra antes de chegar na página.</div>
+      <div class="opp-divider"></div>
+      <div class="opp-insight">Urgência legal = intenção de compra alta</div>
+    </div>
+    <div class="opp-card ls-anim d3">
+      <div class="opp-num">R$150k</div>
+      <div class="opp-label">Custo médio de emergência médica nos EUA. O medo é real, o risco é real. O conteúdo que nomeia esse medo converte — porque a solução é óbvia depois.</div>
+      <div class="opp-divider"></div>
+      <div class="opp-insight">Medo nomeado = decisão acelerada</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ── CAROUSEL 1: O QUE CONSTRUÍMOS ── -->
+<div style="background:var(--bg)">
+<div class="viewer-section">
+<div class="viewer-section-inner">
+  <div class="viewer-header ls-anim">
+    <div>
+      <div class="sec-tag">A operação completa</div>
+      <h2 class="sec-h" style="margin-bottom:0">Cinco frentes.<br><em>Uma operação integrada.</em></h2>
+    </div>
+    <div class="viewer-nav">
+      <button class="vnav-btn" onclick="nav('c1',-1)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15,18 9,12 15,6"/></svg>
+      </button>
+      <div class="vnav-dots" id="c1-dots">
+        <div class="vnav-dot active" onclick="goTo('c1',0)"></div>
+        <div class="vnav-dot" onclick="goTo('c1',1)"></div>
+        <div class="vnav-dot" onclick="goTo('c1',2)"></div>
+        <div class="vnav-dot" onclick="goTo('c1',3)"></div>
+        <div class="vnav-dot" onclick="goTo('c1',4)"></div>
+      </div>
+      <button class="vnav-btn" onclick="nav('c1',1)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9,6 15,12 9,18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="viewer ls-anim d2">
+    <div class="strip" id="c1-strip">
+      <!-- Slide 1 -->
+      <div class="slide" style="background:linear-gradient(135deg,var(--bg2) 0%,var(--bg) 100%)">
+        <div>
+          <div class="slide-tag">Frente 01 · Site</div>
+          <div class="slide-h">Landing page exclusiva da operação viagem de Ana Cristina.</div>
+          <div class="slide-body">
+            <p style="margin-bottom:1rem">Um site completo de seguro viagem, ancorado no posicionamento de Ana Cristina. Não uma página de brochura — uma máquina de cotações.</p>
+            <p>2D de avião que anima no scroll. Grid interativo de destinos. Exigências legais por país. WhatsApp flow integrado. Formulário de cotação por destino.</p>
+          </div>
+        </div>
+        <div class="slide-footer">
+          <span class="slide-num">01 / 05</span>
+          <span class="slide-status"><span class="slide-status-dot"></span>Pronto para produção</span>
+        </div>
+      </div>
+      <!-- Slide 2 -->
+      <div class="slide" style="background:linear-gradient(135deg,#0A2A20 0%,var(--bg) 100%)">
+        <div>
+          <div class="slide-tag">Frente 02 · Conteúdo</div>
+          <div class="slide-h">Motor de conteúdo para Instagram — sem parar.</div>
+          <div class="slide-body">
+            <p style="margin-bottom:1rem">Quatro formatos programados por destino: dica de viagem, alerta de risco, depoimento real e exigência legal. Ana valida e publica — o sistema produz o roteiro.</p>
+            <p>Calendário editorial sazonal: férias, carnaval, inverno europeu, fim de ano. O conteúdo certo no momento certo, sem trabalho manual toda semana.</p>
+          </div>
+        </div>
+        <div class="slide-footer">
+          <span class="slide-num">02 / 05</span>
+          <span class="slide-status"><span class="slide-status-dot"></span>Calendário programado</span>
+        </div>
+      </div>
+      <!-- Slide 3 -->
+      <div class="slide" style="background:linear-gradient(135deg,#1A2000 0%,var(--bg) 100%)">
+        <div>
+          <div class="slide-tag">Frente 03 · SEO</div>
+          <div class="slide-h">50+ páginas de destino. A Pontos Cardeais ranqueando onde o lead procura.</div>
+          <div class="slide-body">
+            <p style="margin-bottom:1rem">Cada destino prioritário ganha uma página específica: /seguro-viagem/portugal, /seguro-viagem/disney-orlando, /seguro-viagem/europa. Keyword targeting por intenção de compra.</p>
+            <p>Uma agência produz 2 páginas. O sistema produz 50+ com consistência técnica, sem custo adicional por volume.</p>
+          </div>
+        </div>
+        <div class="slide-footer">
+          <span class="slide-num">03 / 05</span>
+          <span class="slide-status"><span class="slide-status-dot"></span>50+ páginas mapeadas</span>
+        </div>
+      </div>
+      <!-- Slide 4 -->
+      <div class="slide" style="background:linear-gradient(135deg,#001A2A 0%,var(--bg) 100%)">
+        <div>
+          <div class="slide-tag">Frente 04 · WhatsApp</div>
+          <div class="slide-h">Qualificação de lead antes de Ana tocar no telefone.</div>
+          <div class="slide-body">
+            <p style="margin-bottom:1rem">O sistema mapeia o destino, urgência e perfil do lead via WhatsApp. Ana entra na conversa quando o lead já está pronto para cotar — não quando ainda está só curioso.</p>
+            <p>Automação com mensagens personalizadas por destino. Se for Schengen, o sistema já informa a exigência do visto. Se for EUA, o risco médico. Lead chega educado, Ana fecha mais rápido.</p>
+          </div>
+        </div>
+        <div class="slide-footer">
+          <span class="slide-num">04 / 05</span>
+          <span class="slide-status"><span class="slide-status-dot"></span>Fluxo mapeado</span>
+        </div>
+      </div>
+      <!-- Slide 5 -->
+      <div class="slide" style="background:linear-gradient(135deg,#1A0A2A 0%,var(--bg) 100%)">
+        <div>
+          <div class="slide-tag">Frente 05 · ICP Testing</div>
+          <div class="slide-h">Descobrir o cliente de ticket alto — sem adivinhar.</div>
+          <div class="slide-body">
+            <p style="margin-bottom:1rem">O mercado da Pontos Cardeais tem múltiplos perfis. O sistema roda testes por destino e produto para identificar quais geram maior ticket, maior conversão e maior retenção.</p>
+            <p>Em 60 dias: os dados dizem quem é o cliente ideal. Em 90 dias: operação escalada para o segmento certo. Nada de intuição — decisão por performance real.</p>
+          </div>
+        </div>
+        <div class="slide-footer">
+          <span class="slide-num">05 / 05</span>
+          <span class="slide-status"><span class="slide-status-dot"></span>Dados em 60 dias</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ── SITE MOCKUP ── -->
+<div style="background:var(--bg2);padding:100px 0" id="site">
+<div class="viewer-section-inner">
+  <div class="ls-anim">
+    <div class="sec-tag">O site da operação viagem</div>
+    <h2 class="sec-h">Assim vai aparecer<br>para o lead de Ana Cristina.<br><em>Pronto para conversão.</em></h2>
+    <p class="sec-sub" style="margin-bottom:2.5rem">Site completo, responsivo, com animação 2D de avião no scroll, grid interativo de destinos e formulário de cotação conectado ao WhatsApp de Ana.</p>
+  </div>
+  <div class="browser-wrap ls-anim d2">
+    <div class="browser">
+      <div class="browser-bar">
+        <div class="b-dots">
+          <div class="b-dot" style="background:#ff5f57"></div>
+          <div class="b-dot" style="background:#febc2e"></div>
+          <div class="b-dot" style="background:#28c840"></div>
+        </div>
+        <div class="b-url"><span class="b-lock">🔒</span>pontoscardeais.com.br/seguro-viagem</div>
+      </div>
+      <div class="browser-content">
+        <iframe src="../viagem/ana-cristina-viagem.html" title="Site Seguro Viagem Ana Cristina" loading="lazy"></iframe>
+        <div class="browser-overlay"></div>
+        <div class="browser-cta" onclick="window.open('../viagem/ana-cristina-viagem.html','_blank')">Abrir site completo →</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ── WHATSAPP FLOW ── -->
+<div style="background:var(--bg)" id="whatsapp">
+<div class="sec">
+  <div class="sec-tag ls-anim">Qualificação de lead</div>
+  <h2 class="sec-h ls-anim d1">O lead chega educado.<br><em>Ana só fecha.</em></h2>
+  <p class="sec-sub ls-anim d2" style="margin-bottom:0">O sistema mapeia o destino, urgência e perfil do lead antes de Ana tocar na conversa. Menos tempo por lead, mais conversões por hora.</p>
+  <div class="wa-flow ls-anim d3">
+    <div class="wa-phone">
+      <div class="wa-phone-top">
+        <div class="wa-phone-avatar">AC</div>
+        <div>
+          <div class="wa-phone-name">Ana Cristina · Seguro Viagem</div>
+          <div class="wa-phone-status">online agora</div>
+        </div>
+      </div>
+      <div class="wa-msgs" id="waMsgs">
+        <div class="wm system">Sistema MarketingOS · Qualificação automática</div>
+        <div class="wm recv">
+          <div>Olá! Você clicou em cotação para <strong>Portugal</strong>. Me confirma as datas da viagem e quantas pessoas?</div>
+          <div class="wm-time">10:03</div>
+        </div>
+        <div class="wm sent">
+          <div>Vou de 12 a 26 de agosto. Somos 2 pessoas.</div>
+          <div class="wm-time">10:05</div>
+        </div>
+        <div class="wm recv">
+          <div>Perfeito! Portugal é Schengen, então o seguro é obrigatório para o visto — cobertura mínima de €30.000 em despesas médicas.<br><br>Vocês já solicitaram o visto ou ainda vão solicitar?</div>
+          <div class="wm-time">10:05</div>
+        </div>
+        <div class="wm sent">
+          <div>Ainda vamos solicitar essa semana.</div>
+          <div class="wm-time">10:07</div>
+        </div>
+        <div class="wm recv">
+          <div>Entendido. Urgente então! Preparei 3 opções para vocês dois, 15 dias:<br><br>🔵 Básico €30k — R$189<br>🟡 Intermediário €50k + bagagem — R$267<br>🟢 Premium €100k + cancelamento — R$398<br><br>Qual faz mais sentido para vocês?</div>
+          <div class="wm-time">10:07</div>
+        </div>
+        <div class="wm sent">
+          <div>O intermediário! Como fechamos?</div>
+          <div class="wm-time">10:09</div>
+        </div>
+        <div class="wm recv">
+          <div>Ótimo! Só preciso do nome completo, data de nascimento e CPF dos dois. A apólice sai em 5 minutos e mando o PDF por aqui — já aceito pelo Consulado Português ✓</div>
+          <div class="wm-time">10:09</div>
+        </div>
+      </div>
+    </div>
+    <div class="wa-flow-explain">
+      <div class="wa-step active" onclick="activateStep(this,0)">
+        <div class="wa-step-num">01</div>
+        <div>
+          <div class="wa-step-title">Lead entra pelo site ou Instagram</div>
+          <div class="wa-step-desc">O visitante clica em "cotação" informando o destino. O sistema já sabe que é Schengen, Cuba ou EUA — e personaliza a abordagem antes de Ana entrar.</div>
+        </div>
+      </div>
+      <div class="wa-step" onclick="activateStep(this,1)">
+        <div class="wa-step-num">02</div>
+        <div>
+          <div class="wa-step-title">Sistema qualifica: destino, datas e urgência</div>
+          <div class="wa-step-desc">Antes de Ana tocar no telefone, o sistema já mapeou o destino, as datas e a urgência do visto. Lead que precisa urgente recebe prioridade. Lead que está planejando vai para nurturing.</div>
+        </div>
+      </div>
+      <div class="wa-step" onclick="activateStep(this,2)">
+        <div class="wa-step-num">03</div>
+        <div>
+          <div class="wa-step-title">Ana entra com as opções prontas</div>
+          <div class="wa-step-desc">Quando Ana toca na conversa, o lead já foi educado sobre a exigência legal, já sabe o risco do destino e já espera receber opções. A conversa começa no meio — não do zero.</div>
+        </div>
+      </div>
+      <div class="wa-step" onclick="activateStep(this,3)">
+        <div class="wa-step-num">04</div>
+        <div>
+          <div class="wa-step-title">Fechamento em minutos, apólice em 5</div>
+          <div class="wa-step-desc">Lead escolhe opção. Ana coleta dados. Apólice emitida em minutos com PDF que já atende o consulado. Processo que antes tomava dias agora fecha na mesma conversa.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ── MOTOR ── -->
+<div style="background:var(--bg2);padding:100px 0" id="motor">
+<div class="sec" style="padding-top:0;padding-bottom:0">
+  <div class="sec-tag ls-anim">O motor do sistema</div>
+  <h2 class="sec-h ls-anim d1">O que uma agência<br>não consegue fazer.<br><em>O sistema faz por padrão.</em></h2>
+  <p class="sec-sub ls-anim d2" style="margin-bottom:0">Volume, consistência e aprendizado contínuo — as três coisas que distinguem uma operação de marketing de um fornecedor de serviços.</p>
+  <div class="motor-grid">
+    <div class="motor-card ls-anim d1">
+      <span class="motor-icon">📄</span>
+      <div class="motor-title">50+ páginas SEO por destino</div>
+      <div class="motor-desc">Uma agência produz 1 ou 2 páginas de destino. O sistema produz 50+ com estrutura técnica, keywords corretas e conteúdo específico por destino. Cada página é uma porta de entrada orgânica.</div>
+      <div class="motor-stat"><div class="motor-stat-dot"></div>Volume que agência não escala</div>
+    </div>
+    <div class="motor-card ls-anim d2">
+      <span class="motor-icon">📱</span>
+      <div class="motor-title">Conteúdo em escala com a voz de Ana</div>
+      <div class="motor-desc">O sistema produz o roteiro por destino. Ana valida e publica. Parece dela porque é dela — o sistema só acelera o que ela já sabe. Frequência sem sacrificar autenticidade.</div>
+      <div class="motor-stat"><div class="motor-stat-dot"></div>Consistência sem trabalho manual</div>
+    </div>
+    <div class="motor-card ls-anim d3">
+      <span class="motor-icon">🤖</span>
+      <div class="motor-title">Automação sazonal sem operação manual</div>
+      <div class="motor-desc">Férias de julho: Europa aciona. Fim de ano: Orlando e Maldivas. Carnaval: Argentina. O sistema dispara o conteúdo e o anúncio certos na data certa — sem ninguém lembrar de fazer.</div>
+      <div class="motor-stat"><div class="motor-stat-dot"></div>Calendário de 12 meses pré-programado</div>
+    </div>
+    <div class="motor-card ls-anim d4">
+      <span class="motor-icon">📊</span>
+      <div class="motor-title">Aprendizado por performance real</div>
+      <div class="motor-desc">Quais destinos geram mais leads? Qual conteúdo converte? Qual canal traz o cliente de ticket mais alto? O sistema responde essas perguntas com dados — e escala o que funciona.</div>
+      <div class="motor-stat"><div class="motor-stat-dot"></div>Decisão por dado, não por intuição</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ── CAROUSEL 2: ANA CRISTINA ── -->
+<div style="background:var(--bg)">
+<div class="viewer-section">
+<div class="viewer-section-inner">
+  <div class="viewer-header ls-anim">
+    <div>
+      <div class="sec-tag">O ativo humano</div>
+      <h2 class="sec-h" style="margin-bottom:0">Ana Cristina<br><em>como marca.</em></h2>
+    </div>
+    <div class="viewer-nav">
+      <button class="vnav-btn" onclick="nav('c2',-1)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15,18 9,12 15,6"/></svg>
+      </button>
+      <div class="vnav-dots" id="c2-dots">
+        <div class="vnav-dot active" onclick="goTo('c2',0)"></div>
+        <div class="vnav-dot" onclick="goTo('c2',1)"></div>
+        <div class="vnav-dot" onclick="goTo('c2',2)"></div>
+      </div>
+      <button class="vnav-btn" onclick="nav('c2',1)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9,6 15,12 9,18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="viewer ls-anim d2">
+    <div class="strip" id="c2-strip">
+      <div class="slide" style="background:linear-gradient(135deg,var(--bg3) 0%,var(--bg) 100%)">
+        <div>
+          <div class="slide-tag">Posicionamento</div>
+          <div class="slide-h">"Quem confia na viajante, confia no seguro."</div>
+          <div class="slide-body">
+            <p style="margin-bottom:1rem">Ana não é apresentada como corretora. É apresentada como especialista em destinos que protege quem vai para lá. A entrada do lead não é "preciso de seguro" — é "vou para Portugal".</p>
+            <p>Esse reposicionamento muda tudo: a conversa começa com autoridade sobre o destino, não com obrigação sobre o produto. O seguro é a consequência natural.</p>
+          </div>
+        </div>
+        <div class="slide-footer">
+          <span class="slide-num">01 / 03</span>
+          <span class="slide-status"><span class="slide-status-dot"></span>Posicionamento definido</span>
+        </div>
+      </div>
+      <div class="slide" style="background:linear-gradient(135deg,#0A2010 0%,var(--bg) 100%)">
+        <div>
+          <div class="slide-tag">Presença digital</div>
+          <div class="slide-h">Instagram de viagens que vende seguro sem parecer que está vendendo.</div>
+          <div class="slide-body">
+            <p style="margin-bottom:1rem">Formato 1: dica de destino pura — Lisboa em 4 dias, o que fazer no Japão. Nenhuma venda. Só construção de autoridade. O seguro aparece de forma natural na última linha.</p>
+            <p>Formato 2: alerta de risco real — "Tratamento médico nos EUA pode custar R$150k. Seu cartão cobre isso?" O medo é real, a solução é óbvia, o CTA é direto.</p>
+          </div>
+        </div>
+        <div class="slide-footer">
+          <span class="slide-num">02 / 03</span>
+          <span class="slide-status"><span class="slide-status-dot"></span>4 formatos por destino</span>
+        </div>
+      </div>
+      <div class="slide" style="background:linear-gradient(135deg,#1A0A00 0%,var(--bg) 100%)">
+        <div>
+          <div class="slide-tag">Cross-sell</div>
+          <div class="slide-h">O seguro viagem abre a corretora inteira.</div>
+          <div class="slide-body">
+            <p style="margin-bottom:1rem">Quem viaja tem carro, tem casa, às vezes tem empresa. O cliente que chega pelo seguro viagem é o mais fácil de migrar para outros produtos — porque já confia em Ana antes de precisar de auto ou residencial.</p>
+            <p>A operação de viagem não é um produto isolado. É a porta de entrada para o ICP de alto ticket da Pontos Cardeais.</p>
+          </div>
+        </div>
+        <div class="slide-footer">
+          <span class="slide-num">03 / 03</span>
+          <span class="slide-status"><span class="slide-status-dot"></span>Funil de aquisição completo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ── TIMELINE ── -->
+<div style="background:var(--bg2);padding:100px 0" id="plano">
+<div class="sec" style="padding-top:0;padding-bottom:0">
+  <div class="sec-tag ls-anim">Plano de execução</div>
+  <h2 class="sec-h ls-anim d1">30 dias para operar.<br><em>90 dias para dominar.</em></h2>
+  <p class="sec-sub ls-anim d2" style="margin-bottom:0">Cada fase tem entregáveis concretos. Nada fica "em desenvolvimento para sempre" — cada mês termina com algo funcionando.</p>
+  <div class="timeline ls-anim d3">
+    <div class="tl-grid">
+      <div class="tl-col active">
+        <div class="tl-dot"></div>
+        <div class="tl-inner">
+          <div class="tl-period">Mês 01 — Fundação</div>
+          <div class="tl-title">O sistema entra em operação.</div>
+          <ul class="tl-items">
+            <li>Site de seguro viagem publicado</li>
+            <li>Landing page de Ana Cristina no ar</li>
+            <li>WhatsApp flow configurado</li>
+            <li>Instagram com calendário editorial ativo</li>
+            <li>10 primeiras páginas SEO por destino</li>
+            <li>Branding da operação viagem aprovado</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-col">
+        <div class="tl-dot"></div>
+        <div class="tl-inner">
+          <div class="tl-period">Mês 02 — Tração</div>
+          <div class="tl-title">Primeiros leads e primeiros dados.</div>
+          <ul class="tl-items">
+            <li>30+ páginas SEO publicadas</li>
+            <li>Campanha Google para destinos Schengen</li>
+            <li>Instagram com 3 posts/semana</li>
+            <li>Relatório: quais destinos geram mais leads</li>
+            <li>ICP testing iniciado por segmento</li>
+            <li>Ajuste de copy baseado em performance</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-col">
+        <div class="tl-dot"></div>
+        <div class="tl-inner">
+          <div class="tl-period">Mês 03 — Escala</div>
+          <div class="tl-title">Escalar o que funciona. Cortar o que não funciona.</div>
+          <ul class="tl-items">
+            <li>50+ páginas SEO no ar</li>
+            <li>ICP definido por dados reais</li>
+            <li>Automação sazonal ativa</li>
+            <li>Investimento redirecionado para os destinos de maior ticket</li>
+            <li>Relatório executivo com CAC e ticket médio por canal</li>
+            <li>Plano de expansão para ramos adjacentes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ── INVESTMENT ── -->
+<div style="background:var(--bg)" id="investimento">
+<div class="sec">
+  <div class="sec-tag ls-anim">Proposta de investimento</div>
+  <h2 class="sec-h ls-anim d1">A operação que a Pontos Cardeais<br><em>merece ter.</em></h2>
+  <p class="sec-sub ls-anim d2">Três formatos de entrada. O mesmo sistema operando os três. A diferença está em volume, velocidade e frentes ativas.</p>
+  <div class="inv-grid">
+    <div class="price-card ls-anim d1">
+      <div class="price-tier">Operação Viagem</div>
+      <div class="price-val"><sup>R$</sup>2.800<sub>/mês</sub></div>
+      <div class="price-divider"></div>
+      <ul class="price-items">
+        <li><span class="pi-check">→</span>Site de seguro viagem completo</li>
+        <li><span class="pi-check">→</span>Landing page de Ana Cristina</li>
+        <li><span class="pi-check">→</span>10 páginas SEO por destino</li>
+        <li><span class="pi-check">→</span>Calendário editorial Instagram</li>
+        <li><span class="pi-check">→</span>WhatsApp flow configurado</li>
+        <li><span class="pi-check">→</span>Relatório mensal de performance</li>
+        <li><span class="pi-x" style="opacity:.3">→</span><span style="opacity:.35">Campanha Google Ads</span></li>
+        <li><span class="pi-x" style="opacity:.3">→</span><span style="opacity:.35">ICP testing multicanal</span></li>
+      </ul>
+      <button class="price-btn secondary">Começar com viagem</button>
+    </div>
+    <div class="price-card featured ls-anim d2">
+      <div class="price-badge">Recomendado</div>
+      <div class="price-tier">Operação Completa</div>
+      <div class="price-val"><sup>R$</sup>4.800<sub>/mês</sub></div>
+      <div class="price-divider"></div>
+      <ul class="price-items">
+        <li><span class="pi-check">→</span>Tudo do plano anterior</li>
+        <li><span class="pi-check">→</span>50+ páginas SEO completas</li>
+        <li><span class="pi-check">→</span>Campanha Google Ads gerenciada</li>
+        <li><span class="pi-check">→</span>ICP testing por segmento</li>
+        <li><span class="pi-check">→</span>Automação sazonal ativa</li>
+        <li><span class="pi-check">→</span>4 posts/semana Instagram</li>
+        <li><span class="pi-check">→</span>Dashboard de performance em tempo real</li>
+        <li><span class="pi-check">→</span>Reunião estratégica quinzenal</li>
+      </ul>
+      <button class="price-btn primary">Quero a operação completa</button>
+    </div>
+    <div class="price-card ls-anim d3">
+      <div class="price-tier">Expansão Total</div>
+      <div class="price-val"><sup>R$</sup>7.200<sub>/mês</sub></div>
+      <div class="price-divider"></div>
+      <ul class="price-items">
+        <li><span class="pi-check">→</span>Tudo do plano anterior</li>
+        <li><span class="pi-check">→</span>Expansão para auto e residencial</li>
+        <li><span class="pi-check">→</span>Funil de lead para ICP de alto ticket</li>
+        <li><span class="pi-check">→</span>Site corretora principal reformulado</li>
+        <li><span class="pi-check">→</span>Múltiplos canais de aquisição</li>
+        <li><span class="pi-check">→</span>Head de marketing implantado</li>
+        <li><span class="pi-check">→</span>Integração com CRM da corretora</li>
+        <li><span class="pi-check">→</span>Relatório executivo com CAC e LTV</li>
+      </ul>
+      <button class="price-btn secondary">Falar sobre expansão</button>
+    </div>
+  </div>
+  <div class="ls-anim" style="margin-top:3rem;background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:2rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap">
+    <div>
+      <div style="font-family:var(--f1);font-weight:700;font-size:1.1rem;margin-bottom:.375rem">Nenhum contrato de longo prazo.</div>
+      <div style="font-size:.875rem;color:var(--dim);line-height:1.6;max-width:500px">A operação continua porque funciona — não porque tem multa. Se em 90 dias o sistema não estiver gerando leads qualificados para Ana, encerramos sem burocracia.</div>
+    </div>
+    <div style="font-family:var(--f3);font-size:.68rem;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap">Resultado ou saída limpa</div>
+  </div>
+</div>
+</div>
+
+<!-- ── CLOSING ── -->
+<section class="closing">
+  <div class="closing-mesh"></div>
+  <h2>A Pontos Cardeais<br>no topo do<br><em>seguro viagem no RJ.</em></h2>
+  <p>O mercado está vazio. Ana tem o posicionamento certo. O sistema tem a operação certa. O único passo que falta é o primeiro.</p>
+  <div class="closing-btns">
+    <a class="btn-gold" href="#investimento">Escolher plano →</a>
+    <a class="btn-outline" href="../viagem/ana-cristina-viagem.html" target="_blank">Ver site de viagem →</a>
+  </div>
+  <div style="margin-top:4rem;font-family:var(--f3);font-size:.65rem;letter-spacing:.12em;color:var(--dimmer);text-transform:uppercase">MarketingOS para Pontos Cardeais · 2026-06-10 · Confidencial</div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="nav-brand">
+      <svg width="22" height="22" viewBox="0 0 34 34" fill="none">
+        <circle cx="17" cy="17" r="16" stroke="rgba(198,154,53,.35)" stroke-width="1"/>
+        <polygon points="17,7 15,12 17,10.5 19,12" fill="#C69A35" opacity=".7"/>
+        <circle cx="17" cy="17" r="2" fill="white" opacity=".5"/>
+      </svg>
+      <span class="footer-brand">Pontos Cardeais Seguros</span>
+    </div>
+    <span class="footer-meta">MarketingOS · Proposta de operação · 2026</span>
+  </div>
+</footer>
+
+<script>
+// ── CAROUSEL ENGINE ──
+const carousels = {
+  c1: {el: document.getElementById('c1-strip'), pos: 0, total: 5},
+  c2: {el: document.getElementById('c2-strip'), pos: 0, total: 3},
+};
+
+function goTo(id, idx) {
+  const c = carousels[id];
+  c.pos = idx;
+  c.el.style.transform = `translateX(-${idx * 100}%)`;
+  document.querySelectorAll(`#${id}-dots .vnav-dot`).forEach((d, i) => {
+    d.classList.toggle('active', i === idx);
+  });
+}
+
+function nav(id, dir) {
+  const c = carousels[id];
+  const next = (c.pos + dir + c.total) % c.total;
+  goTo(id, next);
+}
+
+// ── NAV SCROLLSPY ──
+window.addEventListener('scroll', () => {
+  const sections = ['hero','operacao','site','whatsapp','motor','plano','investimento'];
+  const navItems = document.querySelectorAll('.nav-section-item');
+  let current = 'hero';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 120) current = id;
+  });
+  navItems.forEach((item, i) => {
+    item.classList.toggle('active', item.textContent.toLowerCase().includes(current.toLowerCase()) || (i === 0 && current === 'hero'));
+  });
+}, {passive: true});
+
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ── SCROLL ANIMS ──
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold: 0.1});
+document.querySelectorAll('.ls-anim').forEach(el => obs.observe(el));
+
+// ── WA STEP SELECTOR ──
+function activateStep(el, idx) {
+  document.querySelectorAll('.wa-step').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ── SMOOTH SCROLL FOR ANCHORS ──
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const id = a.getAttribute('href').slice(1);
+    scrollTo(id);
+  });
+});
+</script>
+</body>
+</html>

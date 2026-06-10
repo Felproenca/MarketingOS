@@ -1,0 +1,107 @@
+{
+  "_meta": {
+    "client": "felipe-proenca",
+    "version": "3.0",
+    "updated_at": "2026-06-10",
+    "note": "Reescrito pós-Virada. Derivado de brand-kit.json v2 + perception.json. Fonte de verdade para site-builder e qualquer entrega visual.",
+    "source_of_truth": "brand-kit.json para tokens visuais, perception.json para identidade"
+  },
+
+  "signature": "sistema que parece manifesto",
+
+  "tensions": [
+    "sistema que parece manifesto",
+    "precisão que parece conversa",
+    "construção que parece prova"
+  ],
+
+  "anti_dna": [
+    "gradientes coloridos ou aurora animada",
+    "qualquer acento além do gold #c9a55c",
+    "fontes além de Syne / Playfair Display / JetBrains Mono",
+    "visual de agência criativa (paleta vibrante, formas orgânicas)",
+    "emojis nas peças de feed",
+    "fotos de banco de imagem de marketing",
+    "promessa de resultado em número de dias",
+    "urgência artificial",
+    "border-radius > 12px em cards",
+    "elementos decorativos sem função"
+  ],
+
+  "style_keywords": ["editorial-técnico", "dark-premium", "contraste-extremo", "minimalismo-funcional", "camadas"],
+
+  "color_system": {
+    "background":   "#080808",
+    "surface":      "#111111",
+    "surface_2":    "#1a1a1a",
+    "border":       "rgba(255,255,255,0.07)",
+    "border_solid": "#1e1e1e",
+    "text_primary": "#fafafa",
+    "text_secondary": "#888888",
+    "dim":          "rgba(255,255,255,0.3)",
+    "accent":       "#c9a55c",
+    "accent_dim":   "rgba(201,165,92,0.14)",
+    "accent_border": "rgba(201,165,92,0.28)",
+    "cta":          "#c9a55c",
+    "note": "Gold #c9a55c é o único acento. Nunca violet, nunca azul, nunca degradê."
+  },
+
+  "typography": {
+    "headline_family":    "Syne",
+    "headline_weight":    800,
+    "subheadline_weight": 600,
+    "body_weight":        400,
+    "eyebrow_weight":     500,
+    "editorial_family":   "Playfair Display",
+    "editorial_style":    "italic",
+    "mono_family":        "JetBrains Mono",
+    "scale":              "comfortable",
+    "rules": {
+      "playfair_limit": "UMA ocorrência por peça — impacto emocional único",
+      "eyebrow_style":  "uppercase, letter-spacing 0.2em, gold",
+      "letter_spacing": "0.01em mínimo — nunca negativo (achata letras na gravação)",
+      "inter_forbidden": true
+    }
+  },
+
+  "spacing": "large",
+  "layout_density": "balanced",
+  "border_radius": "minimal",
+  "shadows": "none",
+
+  "layout_patterns": {
+    "ghost_number":    "Syne 900, 260-320px, gold opacity 0.04-0.06 — slide de gancho e CTA",
+    "eyebrow_line":    "::before 24px gold + Syne 500 uppercase — toda seção com contexto",
+    "terminal_block":  "bg surface_2, border border_solid, border-radius 12px, JetBrains Mono",
+    "color_flip":      "bg gold #c9a55c, text #080808 — um por carrossel",
+    "progress_dots":   "dots 6px border_solid, ativo gold 20px — todo carrossel rodapé",
+    "grain_overlay":   "SVG feTurbulence baseFrequency 0.65, opacity 0.04 — todo slide escuro"
+  },
+
+  "components": {
+    "buttons":  "minimal — border gold ou fundo gold, sem sombra, sem gradiente",
+    "cards":    "flat — bg surface, border border, sem sombra",
+    "inputs":   "clean — border border_solid, focus border gold",
+    "tags":     "Syne 500 uppercase muted, eyebrow style"
+  },
+
+  "ux_rules": {
+    "cta_repetition_min": 3,
+    "hero_objective":     "tese clara em 3 segundos — não feature, não promessa numérica",
+    "mobile_first":       true,
+    "cta_language":       "conversa, não compra — 'Agendar diagnóstico', nunca 'Saiba mais'",
+    "proof_type":         "processo real e outputs verificáveis — nunca depoimento genérico",
+    "icp_filter_explicit": true
+  },
+
+  "perception_dna": {
+    "tempo":         "moderado",
+    "ritmo":         "pulsante",
+    "densidade":     "equilibrado",
+    "profundidade":  "camadas",
+    "contraste":     "extremo",
+    "temperatura":   "fria",
+    "movimento":     "sutil",
+    "ornamentacao":  "minimalista"
+  }
+}

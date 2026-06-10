@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@200;400;500;600;800;900&family=Playfair+Display:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  width: 1920px;
+  height: 1080px;
+  background: #080808;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── Grain ──────────────────────────────────────── */
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ── Ghost "OS" background ──────────────────────── */
+.ghost {
+  position: absolute;
+  right: -48px;
+  bottom: -160px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 900;
+  font-size: 780px;
+  color: #c9a55c;
+  opacity: 0.028;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  z-index: 0;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ── Vertical rule (left margin accent) ─────────── */
+.v-rule {
+  position: absolute;
+  left: 88px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(201,165,92,0.2) 20%,
+    rgba(201,165,92,0.2) 80%,
+    transparent 100%
+  );
+  z-index: 2;
+}
+
+/* ── Layout container ───────────────────────────── */
+.layout {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  padding: 60px 96px 60px 120px;
+}
+
+/* ── Header ─────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+}
+.logo-marketing {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 26px;
+  color: #fafafa;
+  letter-spacing: -0.01em;
+}
+.logo-slash {
+  font-family: 'Syne', sans-serif;
+  font-weight: 200;
+  font-size: 26px;
+  color: rgba(250,250,250,0.22);
+}
+.logo-os {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 26px;
+  color: #c9a55c;
+}
+
+.header-meta {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.header-meta span {
+  font-family: 'Syne', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #333333;
+}
+.header-meta .sep {
+  width: 1px;
+  height: 14px;
+  background: #2a2a2a;
+}
+
+/* ── Divider ─────────────────────────────────────── */
+.h-rule {
+  width: 100%;
+  height: 1px;
+  margin-top: 28px;
+  background: linear-gradient(to right,
+    rgba(201,165,92,0.5),
+    rgba(201,165,92,0.15) 40%,
+    transparent 70%
+  );
+}
+
+/* ── Main content ───────────────────────────────── */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 16px;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 44px;
+}
+.eyebrow-bar {
+  width: 28px;
+  height: 2px;
+  background: #c9a55c;
+  opacity: 0.55;
+}
+.eyebrow-text {
+  font-family: 'Syne', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(201,165,92,0.6);
+}
+
+.headline {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 118px;
+  line-height: 1.0;
+  color: #fafafa;
+  letter-spacing: -0.01em;
+}
+.headline em {
+  font-style: italic;
+  color: #c9a55c;
+  font-weight: 400;
+}
+
+.secondary {
+  margin-top: 36px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.secondary-line {
+  width: 1px;
+  height: 32px;
+  background: rgba(201,165,92,0.25);
+}
+.secondary-text {
+  font-family: 'Syne', sans-serif;
+  font-weight: 200;
+  font-size: 22px;
+  color: rgba(250,250,250,0.2);
+  letter-spacing: 0.02em;
+}
+
+/* ── Footer ─────────────────────────────────────── */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-handle {
+  font-family: 'Syne', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: rgba(201,165,92,0.38);
+}
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.footer-right span {
+  font-family: 'Syne', sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: #2a2a2a;
+  text-transform: uppercase;
+}
+.footer-right .dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #2a2a2a;
+}
+</style>
+</head>
+<body>
+
+<!-- Grain overlay -->
+<svg class="grain" xmlns="http://www.w3.org/2000/svg">
+  <filter id="grain-f">
+    <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+  </filter>
+  <rect width="100%" height="100%" filter="url(#grain-f)" opacity="0.045"/>
+</svg>
+
+<!-- Ghost background -->
+<div class="ghost">OS</div>
+
+<!-- Left vertical rule -->
+<div class="v-rule"></div>
+
+<!-- Layout -->
+<div class="layout">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">
+      <span class="logo-marketing">Marketing</span>
+      <span class="logo-slash">/</span>
+      <span class="logo-os">OS</span>
+    </div>
+    <div class="header-meta">
+      <span>Sistema Operacional de Marketing</span>
+      <div class="sep"></div>
+      <span>v2.0</span>
+      <div class="sep"></div>
+      <span>2026</span>
+    </div>
+  </div>
+
+  <!-- Horizontal rule -->
+  <div class="h-rule"></div>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="eyebrow">
+      <div class="eyebrow-bar"></div>
+      <span class="eyebrow-text">Inteligência antes da produção</span>
+    </div>
+
+    <div class="headline">
+      percepção<br>
+      antes de<br>
+      <em>produção.</em>
+    </div>
+
+    <div class="secondary">
+      <div class="secondary-line"></div>
+      <span class="secondary-text">O sistema é o argumento.</span>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span class="footer-handle">@felipeproenca_marketingos</span>
+    <div class="footer-right">
+      <span>Perceber</span>
+      <div class="dot"></div>
+      <span>Interpretar</span>
+      <div class="dot"></div>
+      <span>Produzir</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+document.fonts.ready.then(() => {
+  window.__WALLPAPER_READY = true;
+});
+</script>
+</body>
+</html>

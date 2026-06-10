@@ -90,8 +90,8 @@ h1.hero-h em{font-style:normal;color:var(--gold)}
 .vnav-dot{width:6px;height:6px;border-radius:50%;background:var(--border);cursor:pointer;transition:background .2s,transform .2s}
 .vnav-dot.active{background:var(--gold);transform:scale(1.3)}
 .viewer{height:480px;background:var(--bg2);border:1px solid var(--border);border-radius:20px;overflow:hidden;position:relative}
-.strip{display:flex;height:100%;transition:transform .45s cubic-bezier(.55,.055,.675,.19);width:100%}
-.slide{flex:0 0 100%;max-width:100%;height:100%;padding:3rem 3.5rem;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;position:relative;box-sizing:border-box}
+.strip{display:flex;height:100%;transition:transform .45s cubic-bezier(.55,.055,.675,.19);will-change:transform}
+.slide{flex-shrink:0;width:100%;height:100%;padding:3rem 3.5rem;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;position:relative;box-sizing:border-box}
 /* Accent bar esquerda em cada slide */
 .slide::before{content:'';position:absolute;top:2.5rem;left:0;width:3px;height:calc(100% - 5rem);background:linear-gradient(to bottom,var(--gold),transparent);border-radius:0 2px 2px 0;opacity:.5}
 .slide-tag{font-family:var(--f3);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:.5rem}
@@ -823,7 +823,9 @@ const carousels = {
 function goTo(id, idx) {
   const c = carousels[id];
   c.pos = idx;
-  c.el.style.transform = `translateX(-${idx * 100}%)`;
+  // usar pixels reais — percentagem refere ao strip inteiro (N× viewer), nao ao slide
+  const slideW = c.el.parentElement.offsetWidth;
+  c.el.style.transform = `translateX(-${idx * slideW}px)`;
   document.querySelectorAll(`#${id}-dots .vnav-dot`).forEach((d, i) => {
     d.classList.toggle('active', i === idx);
   });
@@ -834,6 +836,11 @@ function nav(id, dir) {
   const next = (c.pos + dir + c.total) % c.total;
   goTo(id, next);
 }
+
+// recalcular posicao em resize para nao ficar desalinhado
+window.addEventListener('resize', () => {
+  Object.keys(carousels).forEach(id => goTo(id, carousels[id].pos));
+});
 
 // ── NAV SCROLLSPY ──
 const sectionIds = ['hero','operacao','site','whatsapp','motor','plano','investimento'];

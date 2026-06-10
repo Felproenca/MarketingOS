@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { buildContext } = require('./context/context-builder');
 
 const ROOT = path.resolve(__dirname, '..');
 const CLIENTS_DIR = path.join(ROOT, 'clients');
@@ -78,12 +79,23 @@ function nowTimestamp() {
   return new Date().toISOString().replace('T', ' ').slice(0, 16);
 }
 
-function buildSlides(tema, objetivo, cta, slidesCount) {
+function buildSlides(tema, objetivo, cta, slidesCount, context) {
+  const direction = context && context.perception ? context.perception.camada_6_direcao_criativa : null;
+  const carouselDirection = direction && direction.por_tipo_de_entrega
+    ? direction.por_tipo_de_entrega.carrossel
+    : '';
+  const coreTension = context && context.perception && context.perception.camada_3_assinatura
+    ? context.perception.camada_3_assinatura.tensao_principal
+    : '';
+  const principle = context && context.reference_summary && context.reference_summary.principles_applied
+    ? context.reference_summary.principles_applied[0]
+    : '';
+
   const slides = [];
   slides.push({
     type: 'GANCHO',
-    title: `Pare de perder resultado com ${tema}`,
-    body: 'Quando o assunto e crescimento, consistencia vence improviso.',
+    title: coreTension ? `${tema}: ${coreTension}` : `Pare de perder resultado com ${tema}`,
+    body: carouselDirection || 'Quando o assunto e crescimento, consistencia vence improviso.',
   });
   slides.push({
     type: 'CONTEXTO',
@@ -102,7 +114,7 @@ function buildSlides(tema, objetivo, cta, slidesCount) {
   slides.push({
     type: 'INSIGHT',
     title: `Sem processo, ${objetivo.toLowerCase()} vira loteria`,
-    body: 'Um bom carrossel guia a pessoa da identificacao para a acao.',
+    body: principle || 'Um bom carrossel guia a pessoa da identificacao para a acao.',
   });
 
   slides.push({
@@ -114,7 +126,7 @@ function buildSlides(tema, objetivo, cta, slidesCount) {
   return slides.slice(0, slidesCount);
 }
 
-function buildCopyMd(meta, slides) {
+function buildCopyMd(meta, slides, context) {
   const lines = [];
   lines.push(`# Carrossel - ${meta.tema}`);
   lines.push('');
@@ -123,6 +135,17 @@ function buildCopyMd(meta, slides) {
   lines.push(`- Slides: ${meta.slides}`);
   lines.push(`- CTA: ${meta.cta}`);
   lines.push('');
+  if (context && context.context_report) {
+    lines.push('## Contexto aplicado');
+    lines.push('');
+    lines.push(`- Context source: ${context.context_report.summary.reference_source}`);
+    lines.push(`- Arquivos carregados: ${context.context_report.loaded.map((item) => item.path).join(', ') || 'nenhum'}`);
+    lines.push(`- Arquivos ausentes: ${context.context_report.missing.map((item) => item.path).join(', ') || 'nenhum'}`);
+    if (context.reference_summary && context.reference_summary.principles_applied.length) {
+      lines.push(`- Principio dominante: ${context.reference_summary.principles_applied[0]}`);
+    }
+    lines.push('');
+  }
 
   slides.forEach((slide, index) => {
     lines.push(`## Slide ${String(index + 1).padStart(2, '0')} - ${slide.type}`);
@@ -175,7 +198,7 @@ function escapeHtml(text) {
     .replaceAll('>', '&gt;');
 }
 
-function buildCarouselHtml(meta, slides, visual) {
+function buildCarouselHtml(meta, slides, visual, context) {
   const slideSections = slides
     .map((slide, i) => {
       return `<section class="slide" id="slide-${i + 1}">
@@ -186,7 +209,17 @@ function buildCarouselHtml(meta, slides, visual) {
     })
     .join('\n');
 
-  return `<!doctype html>
+  const contextComment = context && context.reference_summary
+    ? `<!--
+Context Builder:
+- reference_source: ${context.reference_summary.source}
+- principles_applied: ${context.reference_summary.principles_applied.join(' | ')}
+- what_to_steal: ${context.reference_summary.what_to_steal.slice(0, 3).join(' | ')}
+-->
+`
+    : '';
+
+  return `${contextComment}<!doctype html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
@@ -214,9 +247,9 @@ function buildCarouselHtml(meta, slides, visual) {
       width: 1080px;
       height: 1350px;
       background: radial-gradient(circle at 20% 20%, var(--secondary) 0%, var(--bg) 58%);
-      border: 2px solid var(--accent);
+      border: ${visual.borderWidth}px solid var(--accent);
       position: relative;
-      padding: 96px 90px;
+      padding: ${visual.slidePadding}px;
       display: grid;
       align-content: center;
       gap: 34px;
@@ -251,23 +284,34 @@ ${slideSections}
 </html>`;
 }
 
-function getVisualFromBrandKit(brandKit) {
+function getVisualFromBrandKit(brandKit, context) {
   const palette = brandKit && brandKit.palette ? brandKit.palette : {};
   const typography = brandKit && brandKit.typography ? brandKit.typography : {};
+  const visualDna = context && context.visual_dna && context.visual_dna.visual_dna ? context.visual_dna.visual_dna : {};
+  const density = String(visualDna.densidade || '').toLowerCase();
+  const contrast = String(visualDna.contraste || '').toLowerCase();
 
   return {
-    background: pickColor(palette.background && palette.background.hex, '#0f172a'),
-    outerBackground: pickColor(palette.neutral && palette.neutral.hex, '#020617'),
-    foreground: pickColor(palette.primary && palette.primary.hex, '#e2e8f0'),
-    secondary: pickColor(palette.secondary && palette.secondary.hex, '#164e63'),
-    accent: pickColor(palette.accent && palette.accent.hex, '#22d3ee'),
-    muted: pickColor(palette.neutral && palette.neutral.hex, '#94a3b8'),
-    primaryFont: pickFont(typography.primary_font, 'Segoe UI'),
-    secondaryFont: pickFont(typography.secondary_font, 'Arial'),
+    background: pickColor(colorValue(palette.background), '#0f172a'),
+    outerBackground: pickColor(colorValue(palette.surface || palette.neutral), '#020617'),
+    foreground: pickColor(colorValue(palette.text || palette.primary), '#e2e8f0'),
+    secondary: pickColor(colorValue(palette.surface_2 || palette.secondary), '#164e63'),
+    accent: pickColor(colorValue(palette.gold || palette.accent), '#22d3ee'),
+    muted: pickColor(colorValue(palette.muted || palette.neutral), '#94a3b8'),
+    primaryFont: pickFont(typography.primary_font || typography.headline, 'Segoe UI'),
+    secondaryFont: pickFont(typography.secondary_font || typography.body, 'Arial'),
+    slidePadding: density.includes('baixa') || density.includes('esparso') ? 112 : 90,
+    borderWidth: contrast.includes('alto') || contrast.includes('extremo') ? 1 : 2,
     styleSuffix: brandKit && brandKit.pollinations_defaults && brandKit.pollinations_defaults.style_suffix
       ? String(brandKit.pollinations_defaults.style_suffix).trim()
       : '',
   };
+}
+
+function colorValue(value) {
+  if (!value) return '';
+  if (typeof value === 'string') return value;
+  return value.hex || '';
 }
 
 function appendCampaignLog(campaignsPath, meta, jobSlug) {
@@ -314,13 +358,22 @@ function main() {
   ensureDir(instagramDir);
 
   const meta = { slug, tema, objetivo, slides, cta };
-  const slideData = buildSlides(tema, objetivo, cta, slides);
   const brandKit = readJsonIfExists(path.join(baseClientDir, 'brand-kit.json'));
-  const visual = getVisualFromBrandKit(brandKit);
+  const context = buildCarouselContext(slug);
+  const visual = getVisualFromBrandKit(context && context.branding ? context.branding : brandKit, context);
+  const slideData = buildSlides(tema, objetivo, cta, slides, context);
 
-  fs.writeFileSync(path.join(jobDir, 'copy.md'), buildCopyMd(meta, slideData), 'utf8');
+  fs.writeFileSync(path.join(jobDir, 'copy.md'), buildCopyMd(meta, slideData, context), 'utf8');
   fs.writeFileSync(path.join(jobDir, 'legenda.md'), buildLegenda(meta), 'utf8');
-  fs.writeFileSync(path.join(jobDir, 'carrossel.html'), buildCarouselHtml(meta, slideData, visual), 'utf8');
+  fs.writeFileSync(path.join(jobDir, 'carrossel.html'), buildCarouselHtml(meta, slideData, visual, context), 'utf8');
+  if (context && context.context_report) {
+    fs.writeFileSync(path.join(jobDir, 'context-report.json'), JSON.stringify({
+      context_report: context.context_report,
+      references_used: context.references,
+      reference_summary: context.reference_summary,
+      principles_applied: context.reference_summary ? context.reference_summary.principles_applied : [],
+    }, null, 2), 'utf8');
+  }
   if (useIaPrompts) {
     fs.writeFileSync(path.join(jobDir, 'prompts.md'), buildPromptsMd(meta, visual.styleSuffix), 'utf8');
   }
@@ -357,9 +410,50 @@ process.exit(result.status || 0);
   appendCampaignLog(path.join(baseClientDir, 'campaigns.md'), meta, jobSlug);
 
   console.log(`Pipeline criado: ${jobDir}`);
-  console.log(`Arquivos: copy.md, legenda.md, carrossel.html, render.js${useIaPrompts ? ', prompts.md' : ''}`);
+  console.log(`Arquivos: copy.md, legenda.md, carrossel.html, render.js, context-report.json${useIaPrompts ? ', prompts.md' : ''}`);
   console.log('Proximo passo: node <jobDir>/render.js');
   console.log(`Registro atualizado em campaigns.md (${nowTimestamp()})`);
+}
+
+function buildCarouselContext(slug) {
+  try {
+    return buildContext({
+      client_slug: slug,
+      output_type: 'carousel',
+      rootDir: ROOT,
+    });
+  } catch (error) {
+    console.warn(`Context Builder indisponivel, usando fallback antigo: ${error.message}`);
+    return {
+      branding: readJsonIfExists(path.join(CLIENTS_DIR, slug, 'brand-kit.json')) || {},
+      perception: {},
+      visual_dna: {},
+      references: [],
+      reference_summary: {
+        source: 'fallback-brand-kit',
+        references_used: [],
+        tensions: [],
+        transferable_principles: [],
+        principles_applied: [],
+        what_to_steal: [],
+        what_not_to_copy: [],
+        translation_for_this_brand: {},
+      },
+      context_report: {
+        loaded: [{ key: 'branding', path: `clients/${slug}/brand-kit.json` }],
+        missing: [],
+        skipped: [],
+        errors: [{ key: 'context_builder', error: error.message }],
+        summary: {
+          client_slug: slug,
+          output_type: 'carousel',
+          reference_source: 'fallback-brand-kit',
+          references_count: 0,
+        },
+        generated_at: new Date().toISOString(),
+      },
+    };
+  }
 }
 
 main();

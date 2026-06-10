@@ -1,11 +1,11 @@
 ---
 name: skill-creative-direction
-version: "1.0"
+version: "2.0"
 group: criacao
 command: /direcao-criativa
 inputs:
   required: [client.md, brand-kit.json, alma.md]
-  optional: [notes.md, intelligence/visual-references.json]
+  optional: [notes.md, intelligence/reference-library/index.json]
 env: []
 ---
 
@@ -33,7 +33,7 @@ Carregar apenas:
 - `client.md` — blocos 1, 2, 3 e 4 completos
 - `brand-kit.json` — estado atual da identidade visual
 - `notes.md` — inteligência acumulada e decisões visuais anteriores (se existir)
-- `intelligence/visual-references.json` — banco de referências (se existir)
+- `intelligence/reference-library/index.json` — índice leve da Biblioteca Viva (se existir)
 
 NÃO carregar: metrics.json, campaigns.md, estrategia.md, runs.md
 
@@ -119,23 +119,32 @@ Critério de qualidade: se a tensão puder descrever outra marca sem ajuste, ree
 
 ---
 
-## Estágio 4 — Consulta ao Repertório
+## Estágio 4 — Consulta à Biblioteca Viva
 
-Com a assinatura perceptiva definida, consultar `intelligence/visual-references.json`.
+Com a assinatura perceptiva definida, consultar `intelligence/reference-library/index.json`.
 
-Filtros de busca em ordem de prioridade:
-1. `source: internal` — o que o próprio MarketingOS já criou e aprovou
-2. `source: client` — referências do próprio cliente e seu mercado
-3. `source: awwwards | gsap | codrops` — repertório público curado
-4. `best_for` — filtrar pelo tipo de peça que será criada
+**Passo 1 — Matching no índice**
 
-Retornar 3 a 5 referências que mais se aproximam da assinatura perceptiva.
-Nunca retornar referências com `tension` incompatível, mesmo que o stack seja igual.
+O `index.json` contém uma linha por referência com: `tension`, `principio_transferivel`, `dimensoes` e `emocao`.
+Cruzar a assinatura perceptiva do Estágio 3 com os campos:
+- `tension` — compatível com as tensões primárias da marca?
+- `dimensoes.tempo`, `dimensoes.densidade`, `dimensoes.temperatura` — convergem com o DNA emergente?
+- `emocao` — a referência evoca o que a marca quer provocar?
+
+Selecionar 3 a 5 referências compatíveis. Nunca selecionar referência com `tension` incompatível, mesmo que o stack seja igual.
+
+**Passo 2 — Carregar os JSONs completos**
+
+Para cada referência selecionada, carregar o JSON completo:
+- `intelligence/reference-library/seed/[slug].json` — referências da biblioteca de semente
+- `intelligence/reference-library/acquired/[slug].json` — referências capturadas com /adquirir
+
+Os JSONs completos contêm campos que o índice não tem: `components`, `what_to_steal`, `what_not_to_copy`, `transferable_principle`.
 
 Se o banco estiver vazio ou insuficiente:
 - Registrar lacuna em `intelligence/skill-updates.md`
 - Prosseguir com direção criativa baseada nos estágios anteriores
-- Sinalizar ao operador que o banco precisa ser alimentado
+- Sinalizar ao operador que o banco precisa ser alimentado com `/adquirir [url]`
 
 ---
 
@@ -273,14 +282,55 @@ Formato por peça:
 
 ---
 
+## Estágio 6.5 — Contexto de Referências (reference-context.json)
+
+Output intermediário gerado após o DNA Visual e antes da Direção por Peça.
+É o arquivo que todas as skills de criação herdam para provar influência de referência.
+
+```json
+{
+  "client": "[slug]",
+  "generated": "[data]",
+  "references_used": [
+    {
+      "id": "ref-[slug]",
+      "name": "[nome da referência]",
+      "tension": "[tensão identificada]"
+    }
+  ],
+  "why_these_references": [
+    "[por que esta referência foi escolhida para esta marca — conexão com a assinatura perceptiva]"
+  ],
+  "principles_applied": [
+    "[princípio transferível extraído — não a obra, o padrão]"
+  ],
+  "what_to_steal": [
+    "[o que roubar — específico e acionável]"
+  ],
+  "what_not_to_copy": [
+    "[o que nunca copiar — paleta, layout, copy, composição literal]"
+  ],
+  "translation_for_this_brand": {
+    "[princípio]": "[como esse princípio se traduz na linguagem desta marca específica]"
+  }
+}
+```
+
+**Gate de completude:** Se `principles_applied` ou `translation_for_this_brand` estiverem vazios, o arquivo não está pronto e nenhuma skill de criação pode ser iniciada.
+
+Salvar em: `clients/[slug]/outputs/branding/reference-context.json`
+
+---
+
 ## Output obrigatório
 
 Salvar em `clients/[slug]/outputs/branding/`:
 
 ```
-visual-dna.json          ← consumido por todas as skills de criação
-creative-direction.md    ← narrativa completa dos 8 estágios
-references-decomposed.json ← referências após engenharia reversa
+visual-dna.json            ← consumido por todas as skills de criação
+reference-context.json     ← contexto de referências — herdado por todas as skills de criação
+creative-direction.md      ← narrativa completa dos estágios
+references-decomposed.json ← referências após engenharia reversa (detalhe técnico)
 ```
 
 Atualizar `brand-kit.json` do cliente com o campo `visual_dna` se ainda não existir.
@@ -297,6 +347,7 @@ Registrar execução em `notes.md` com data e principais decisões.
 - [ ] O `what_not_to_copy` inclui paleta, layout, copy e composição?
 - [ ] O Anti-DNA tem justificativa (`reasoning`) preenchida?
 - [ ] O `visual-dna.json` foi salvo e está pronto para ser herdado?
+- [ ] O `reference-context.json` foi gerado com `principles_applied` e `translation_for_this_brand` preenchidos?
 - [ ] O teste final foi aplicado: "reconhecível sem logo, nome e cores?"
 
 ---
@@ -322,11 +373,13 @@ Vetores de Percepção
       ↓
 Assinatura Perceptiva
       ↓
-Consulta ao Repertório        ← intelligence/visual-references.json
-      ↓
+Consulta à Biblioteca Viva    ← intelligence/reference-library/index.json (matching)
+      ↓                            ↓ carregar JSONs completos seed/ ou acquired/
 Engenharia Reversa
       ↓
-DNA Visual                    → herdado por todas as skills de criação
+DNA Visual
+      ↓
+reference-context.json        → clients/[slug]/outputs/branding/  [GATE: principles_applied obrigatório]
       ↓
 Anti-DNA
       ↓
@@ -335,11 +388,11 @@ Direção Criativa por Peça
 visual-dna.json               → clients/[slug]/outputs/branding/
 ```
 
-Todas as skills de criação consultam `visual-dna.json` antes de executar.
-Se o arquivo não existir para o cliente, executar `/direcao-criativa` antes de qualquer criação.
+Todas as skills de criação carregam `visual-dna.json` + `reference-context.json` antes de executar.
+Se os arquivos não existirem para o cliente, executar `/direcao-criativa` antes de qualquer criação.
 
 ---
 
-*Skill v1.0 — MarketingOS*
+*Skill v2.0 — MarketingOS*
 *Motor de coerência visual. Não é opcional — é o que separa presença de produção.*
-*O banco de referências cresce com uso. A vantagem competitiva vem quando o sistema para de copiar repertório externo e começa a desenvolver gosto próprio.*
+*v2.0: Biblioteca Viva integrada. reference-context.json é gate obrigatório — sem ele, nenhuma skill de criação avança.*

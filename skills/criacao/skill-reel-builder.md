@@ -1,6 +1,6 @@
 ---
 name: skill-reel-builder
-version: "1.0"
+version: "1.1"
 group: criacao
 command: /criar reel
 inputs:
@@ -41,7 +41,7 @@ env: []
 
 ---
 
-## DNA Visual — herança obrigatória
+## DNA Visual + Referências — herança obrigatória
 
 Antes de gerar qualquer HTML, independente do tipo:
 
@@ -51,9 +51,21 @@ Antes de gerar qualquer HTML, independente do tipo:
    - `visual_dna.tempo` e `visual_dna.movimento` — ritmo de entrada e tipo de transição
    - `motion_principles` (array completo) — princípios que governam todo movimento da marca
    - `anti_dna.never_use.motion` e `anti_dna.never_use.visual` — filtro por tipo
+4. Verificar se existe `clients/[slug]/outputs/branding/reference-context.json`
+5. Se NÃO existir → interromper: "Execute /direcao-criativa para gerar o contexto de referências antes de buildar reel."
+6. Se existir → carregar:
+   - `principles_applied` — princípios que definem comportamento visual e de movimento
+   - `what_to_steal` — o que aplicar dos precedentes por tipo (text, particles, 3d, etc.)
+   - `translation_for_this_brand` — como os princípios se traduzem para esta marca
 
-Para tipos combinados (ex: partículas + texto + câmera), o DNA é o contrato de coerência entre as camadas.
+Para tipos combinados (ex: partículas + texto + câmera), o DNA + o reference-context são o contrato de coerência entre as camadas.
 Nenhum tipo visual pode contradizer os motion_principles da marca.
+
+**Declaração obrigatória antes de gerar o HTML:**
+Para cada tipo visual escolhido, declarar qual princípio de `principles_applied` será expresso e como.
+
+**Gate de profundidade:**
+Se o HTML final não demonstrar influência explícita de ao menos 1 princípio transferível da referência — o output é raso. Revisar antes de entregar.
 
 ---
 

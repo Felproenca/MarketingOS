@@ -1,6 +1,6 @@
 ---
 name: skill-reels
-version: "1.0"
+version: "1.1"
 group: criacao
 command: /criar reel
 inputs:
@@ -24,7 +24,7 @@ env: []
 
 ---
 
-## DNA Visual — herança obrigatória
+## DNA Visual + Referências — herança obrigatória
 
 Antes de gerar qualquer roteiro ou HTML animado:
 
@@ -35,9 +35,21 @@ Antes de gerar qualquer roteiro ou HTML animado:
    - `visual_dna.movimento`
    - `motion_principles` (array completo)
    - `anti_dna.never_use.motion`
+4. Verificar se existe `clients/[slug]/outputs/branding/reference-context.json`
+5. Se NÃO existir → interromper: "Execute /direcao-criativa para gerar o contexto de referências antes de criar reel."
+6. Se existir → carregar:
+   - `principles_applied` — princípios que definem o comportamento do movimento
+   - `what_to_steal` — o que aplicar dos precedentes no timing e nas transições
+   - `translation_for_this_brand` — como os princípios se traduzem para esta marca
 
 O tempo e os motion_principles definem o ritmo de entrada, duração dos frames e tipo de transição.
 Nunca usar motion que contradiga o anti_dna.
+
+**Declaração obrigatória antes de gerar o HTML:**
+Declarar qual princípio de `principles_applied` guia as decisões de timing, entrada e transição do reel.
+
+**Gate de profundidade:**
+Se o HTML final não demonstrar influência explícita de ao menos 1 princípio transferível da referência no motion — o output é raso. Revisar antes de entregar.
 
 ---
 

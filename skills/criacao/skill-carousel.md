@@ -26,7 +26,7 @@ env: []
 
 ---
 
-## DNA Visual — herança obrigatória
+## DNA Visual + Referências — herança obrigatória
 
 Antes de gerar qualquer slide:
 
@@ -37,8 +37,20 @@ Antes de gerar qualquer slide:
    - `visual_dna.ritmo_tipográfico`
    - `visual_dna.presença_branca`
    - `anti_dna.never_use.visual`
+4. Verificar se existe `clients/[slug]/outputs/branding/reference-context.json`
+5. Se NÃO existir → interromper: "Execute /direcao-criativa para gerar o contexto de referências antes de criar carrossel."
+6. Se existir → carregar:
+   - `principles_applied` — princípios que devem guiar cada decisão visual
+   - `what_to_steal` — o que aplicar dos precedentes
+   - `translation_for_this_brand` — como os princípios se traduzem para esta marca
 
 Densidade e ritmo tipográfico definem quantidade de texto por slide e espaçamento.
+
+**Declaração obrigatória antes de gerar o HTML:**
+Antes do primeiro slide, declarar em 1–3 frases quais princípios de `principles_applied` serão visíveis no carrossel e onde.
+
+**Gate de profundidade:**
+Se o output final não demonstrar influência explícita de ao menos 1 princípio transferível da referência — o output é raso. Revisar antes de entregar.
 
 > Se `content_performance.carousel` tiver dados reais (≠ 0/vazio), usar como
 > default de gancho e contagem de slides. Se estiver zerado, seguir o julgamento
@@ -427,6 +439,9 @@ HTML gerado → confirmar slug do cliente e número do carrossel antes de salvar
 **Teste Supremo (gate obrigatório):**
 - [ ] Se removermos logo, nome e cores desta marca do carrossel — alguém ainda reconheceria quem está se comunicando? Se não → revisar antes de entregar.
 
+**Gate de referência (obrigatório):**
+- [ ] Ao menos 1 princípio de `reference-context.json` está explicitamente rastreável no output? Se não → o carrossel é raso. Revisar.
+
 **Checklist técnico:**
 - [ ] HTML abre e funciona no browser sem erros?
 - [ ] Cores e fontes extraídas do `brand-kit.json`?
@@ -449,5 +464,6 @@ HTML gerado → confirmar slug do cliente e número do carrossel antes de salvar
 
 ---
 
-*Skill v2.0 — MarketingOS*
-*Atualização principal: HTML direto eliminando etapa intermediária de conversão.*
+*Skill v2.1 — MarketingOS*
+*v2.0: HTML direto eliminando etapa intermediária de conversão.*
+*v2.1: reference-context.json integrado — gate de profundidade obrigatório antes de entregar.*

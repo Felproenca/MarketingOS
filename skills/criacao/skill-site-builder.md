@@ -27,7 +27,7 @@ env: []
 
 ---
 
-## DNA Visual — herança obrigatória
+## DNA Visual + Referências — herança obrigatória
 
 Antes de qualquer layout ou decisão de UX:
 
@@ -39,8 +39,20 @@ Antes de qualquer layout ou decisão de UX:
    - `visual_dna.ritmo_tipográfico` — comportamento da tipografia no layout
    - `color_behavior` — como a cor opera (não quais cores)
    - `anti_dna.never_use.visual` e `anti_dna.never_use.interaction`
+4. Verificar se existe `clients/[slug]/outputs/branding/reference-context.json`
+5. Se NÃO existir → interromper: "Execute /direcao-criativa para gerar o contexto de referências antes de criar site."
+6. Se existir → carregar:
+   - `principles_applied` — princípios que devem guiar layout, motion e copy
+   - `what_to_steal` — o que aplicar dos precedentes por seção
+   - `translation_for_this_brand` — como os princípios se traduzem para esta marca
 
 O spatial_logic define a arquitetura de cada seção antes de qualquer código.
+
+**Declaração obrigatória antes de gerar cada seção:**
+Ao descrever o briefing visual de cada seção, indicar qual princípio de `principles_applied` está sendo aplicado e como ele se manifesta no layout ou na interação.
+
+**Gate de profundidade:**
+Se o output final não demonstrar influência explícita de ao menos 1 princípio transferível da referência — o output é raso. Revisar antes de entregar.
 
 ---
 
@@ -529,6 +541,9 @@ Rodar mentalmente o checklist de anti-padrões antes de entregar → sinalizar q
 - [ ] CTA aparece no mínimo 3 vezes na página?
 - [ ] Briefing visual de cada seção é acionável no Cursor/Figma?
 
+**Gate de referência (obrigatório):**
+- [ ] Ao menos 1 princípio de `reference-context.json` é rastreável no output (layout, motion ou copy)? Se não → o site é raso. Revisar.
+
 **Taste:**
 - [ ] Dials declarados (VARIANCE / MOTION / DENSITY)?
 - [ ] Nenhuma fonte da lista proibida?
@@ -555,5 +570,6 @@ Modo: [Copy + Estrutura / HTML Completo]
 
 ---
 
-*Skill v2.0 — MarketingOS*
-*v2.0: Taste Configuration integrada (baseada em Leonxlnx/taste-skill) — tipografia, dials, anti-slop, double-bezel, motion.*
+*Skill v2.1 — MarketingOS*
+*v2.0: Taste Configuration integrada — tipografia, dials, anti-slop, double-bezel, motion.*
+*v2.1: reference-context.json integrado — gate de profundidade obrigatório antes de entregar.*

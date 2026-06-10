@@ -25,7 +25,7 @@ env: []
 
 ---
 
-## DNA Visual — herança obrigatória
+## DNA Visual + Referências — herança obrigatória
 
 Antes de gerar qualquer post:
 
@@ -34,6 +34,18 @@ Antes de gerar qualquer post:
 3. Se existir → carregar:
    - `visual_dna` (completo — post é entrega unificada)
    - `anti_dna.never_use`
+4. Verificar se existe `clients/[slug]/outputs/branding/reference-context.json`
+5. Se NÃO existir → interromper: "Execute /direcao-criativa para gerar o contexto de referências antes de criar post."
+6. Se existir → carregar:
+   - `principles_applied` — princípios que devem guiar cada decisão visual e de copy
+   - `what_to_steal` — o que aplicar dos precedentes
+   - `translation_for_this_brand` — como os princípios se traduzem para esta marca
+
+**Declaração obrigatória antes de gerar o post:**
+Antes de escrever copy ou briefing visual, declarar qual princípio de `principles_applied` será aplicado e como.
+
+**Gate de profundidade:**
+Se o output final não demonstrar influência explícita de ao menos 1 princípio transferível da referência — o output é raso. Revisar antes de entregar.
 
 > Se o bloco do formato tiver dados reais (≠ 0/vazio), usar como default de
 > gancho. Se estiver zerado, seguir o julgamento da skill — não inventar número.
@@ -270,6 +282,9 @@ Se formato não foi especificado no comando (Feed / Reels / Story), perguntar an
 **Teste Supremo (gate obrigatório):**
 - [ ] Se removermos logo, nome e cores desta marca do post — alguém ainda reconheceria quem está se comunicando? Se não → revisar antes de entregar.
 
+**Gate de referência (obrigatório):**
+- [ ] Ao menos 1 princípio de `reference-context.json` está explicitamente rastreável no output? Se não → o post é raso. Revisar.
+
 **Checklist técnico:**
 - [ ] O gancho do visual/roteiro funciona isolado?
 - [ ] A legenda complementa sem repetir o visual?
@@ -295,5 +310,5 @@ CTA: [ação desejada]
 
 ---
 
-*Skill v1.0 — MarketingOS*
-*Atualize esta skill sempre que identificar padrões que melhoram o desempenho dos posts.*
+*Skill v1.1 — MarketingOS*
+*v1.1: reference-context.json integrado — gate de profundidade obrigatório antes de entregar.*

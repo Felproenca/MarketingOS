@@ -55,11 +55,12 @@ perception.json      ← salvo em clients/[slug]/outputs/branding/
       ↓
 /branding            ← identidade operacional, herda perception.json
       ↓
-/direcao-criativa    ← DNA Visual + movimento, herda ambos
+/direcao-criativa    ← DNA Visual + Biblioteca Viva, herda ambos
       ↓
-visual-dna.json      ← salvo em clients/[slug]/outputs/branding/
+visual-dna.json           ← salvo em clients/[slug]/outputs/branding/
+reference-context.json    ← salvo em clients/[slug]/outputs/branding/ [GATE obrigatório]
       ↓
-/criar [qualquer]    ← herda perception.json + visual-dna.json
+/criar [qualquer]    ← herda perception.json + visual-dna.json + reference-context.json
 ```
 
 **Para referências no banco:**

@@ -1,6 +1,6 @@
 ---
 name: skill-social-content-agent
-version: "1.0"
+version: "1.1"
 group: criacao
 command: /criar conteudo
 inputs:
@@ -28,7 +28,7 @@ Não carregar: metrics.json, campaigns.md, notes.md, estrategia.md, system-usage
 
 ---
 
-## DNA Visual — herança obrigatória
+## DNA Visual + Referências — herança obrigatória
 
 Antes de executar qualquer estágio do pipeline:
 
@@ -38,8 +38,17 @@ Antes de executar qualquer estágio do pipeline:
    - `visual_dna` completo → alimenta skill-visual-spec no Estágio 2
    - `motion_principles` → alimenta prompt do Nano Banana no Estágio 3
    - `anti_dna` completo → filtro em todos os estágios
+4. Verificar se existe `clients/[slug]/outputs/branding/reference-context.json`
+5. Se NÃO existir → interromper: "Execute /direcao-criativa para gerar o contexto de referências antes de criar conteúdo."
+6. Se existir → carregar:
+   - `principles_applied` → alimenta a spec visual no Estágio 2
+   - `what_to_steal` → insumo para o prompt do Nano Banana no Estágio 3
+   - `translation_for_this_brand` → calibra copy e briefing visual
 
-O DNA Visual é o contrato de coerência. Nenhum output do agente pode contradizê-lo.
+O DNA Visual + reference-context são o contrato de coerência. Nenhum output do agente pode contradizê-los.
+
+**Gate de profundidade:**
+Ao finalizar o pacote, verificar se ao menos 1 princípio de `principles_applied` é explicitamente rastreável no output (copy, spec ou prompt). Se não → revisar antes de entregar.
 
 ---
 

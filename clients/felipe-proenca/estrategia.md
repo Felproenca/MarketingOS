@@ -71,19 +71,37 @@ Honesto. Único. Constrói credibilidade sem precisar de prova que ainda não ex
 
 ## Próximas ações
 
-- [ ] Executar checklist 30 min pós-publicação (`intelligence/checklist-pos-publicacao.md`) — carrossel publicado hoje
-- [ ] Em ~48h: `npm run insights -- --slug felipe-proenca`
-- [ ] Produzir Reels 02, 03, 04 (temas pesquisados em 2026-06-06)
-- [ ] Próxima sessão: explorar Three.js/GSAP no pipeline de Reels ("futuro")
-- [ ] **URGENTE** Renovar sessão WhatsApp (QR code) — `node scripts/prospector/send-prospects.js`
-- [ ] Enviar Etapa 2 para Bruno Capelli: (21) 99763-3682
-- [ ] Monitorar respostas dos petshops (Dom Peludo, Pet Hero, Petshop Mania, Toca da Raposa)
-- [ ] Se Bruno Capelli responder: enviar link `pontos-cardeais-preview.netlify.app/pitch-bruno-capelli.html`
-- [ ] Renovar token Meta/Instagram para rodar `npm run insights`
-- [ ] Renovar imgbb API key (imgbb.com > API)
-- [ ] Revisar e publicar carrossel IA aplicada (`outputs/posts/2026-06-03/ia-aplicada-sistema-carousel/`)
+**Imediato — validação da tese:**
+- [ ] Publicar Dia 1 do plano 30 dias (`outputs/branding/conteudo-30-dias.md`): "Por que empresas produzem tanto e são esquecidas?"
+- [ ] Seguir sequência semanal: problema → o que falta → automação amplifica erros → tese em ação
+- [ ] Monitorar sinal de validação: pessoas usando sua linguagem nos comentários
+
+**Sistema — atualizações pendentes:**
+- [ ] Atualizar `skill-prospector.md` com novo ICP (perfil/estado mental, não setor)
+- [ ] Tornar scraper mais eficiente (sinalizando na sessão 2026-06-10)
+
+**Operacional — continuidade:**
+- [ ] Renovar token Meta/Instagram: `npm run insights`
 - [ ] Fechar primeiro cliente real — prioridade absoluta
-- [ ] Grade 2 (Posts 10—18) — revisar à luz do build in public
+- [ ] **URGENTE** Renovar sessão WhatsApp (QR code): `node scripts/prospector/send-prospects.js`
+- [ ] Enviar Etapa 2 para Bruno Capelli: (21) 99763-3682
+- [ ] Renovar imgbb API key (imgbb.com > API)
+
+**Conteúdo — próxima fase (pós-30 dias):**
+- [ ] Se tese validada → `/direcao-criativa` → site novo com posicionamento atual
+- [ ] Grade 2 (Posts 10—18) — revisar à luz da tese e do plano 30 dias
+- [ ] Produzir Reels 02, 03, 04 com ângulos da tese (não tutoriais de feature)
+
+## Contexto da última sessão (2026-06-10)
+
+- Perception Engine executado: `perception.json` gerado, assinatura "sistema que parece manifesto"
+- Tese central cristalizada: "Não automatizamos criação. Automatizamos a inteligência que torna a criação válida."
+- ICP redefinido: perfil/estado mental, não setor — fundador com marketing ativo sem lógica unificada
+- Promessa revisada: "Você vai operar marketing com direção, não com esperança."
+- Branding completo reescrito: 6 arquivos pós-Virada — positioning, brand-strategy, visual-direction, ui-direction, references, design-system
+- Wallpaper desktop gerado: `outputs/wallpaper-desktop.png` (3840×2160)
+- Plano 30 dias criado: validar tese por conteúdo antes de escalar branding
+- Pendentes: prospector + scraper precisam de atualização baseada no novo ICP
 
 ## Contexto da última sessão (2026-06-08)
 

@@ -1,5 +1,63 @@
 ﻿# runs.md — Felipe Proença
 
+## Sessão 16 — 2026-06-10
+
+**Status:** Completo
+**Objetivo:** Perception Engine + Tese Central + Branding completo pós-Virada
+
+**Executado:**
+
+**Perception Engine (`/perceber felipe-proenca`):**
+- 6 camadas executadas: Leitura de Alma, Vetores, Assinatura, DNA Visual, Matching de Referências, Direção Criativa
+- `outputs/branding/perception.json` gerado — fonte de verdade de identidade
+- Assinatura: "sistema que parece manifesto" | Vetores dominantes: precisão 5, autoridade 4, inovação 4
+- Referências compatíveis: Linear + Stripe + Aesop (com tradução específica para o contexto do Felipe)
+- Teste Supremo: parcialmente aprovado — tom técnico diferencia, tensão ainda precisa aparecer na superfície
+
+**Tese Central:**
+- `outputs/branding/tese.md` criado — manifesto revisado, 10 princípios, anti-DNA, sinal de validação
+- Frase de categoria: "Não automatizamos criação. Automatizamos a inteligência que torna a criação válida."
+- Posicionamento externo: "Sistema Operacional de Marketing"
+- Promessa: "Você vai operar marketing com direção, não com esperança."
+- Framing corrigido: produção sem interpretação é ruído; interpretação sem produção é estagnação
+
+**Plano 30 dias:**
+- `outputs/branding/conteudo-30-dias.md` criado — 4 semanas, zero posts sobre feature
+- Semana 1: nomear o problema | Semana 2: o que falta | Semana 3: automação amplifica erros | Semana 4: tese em ação
+
+**Branding (`/branding felipe-proenca`):**
+- 6 arquivos reescritos (versão anterior era pré-Virada com tipografia e paleta erradas):
+  - `positioning.md` — ICP por perfil/estado mental; promessa e posicionamento revisados
+  - `brand-strategy.md` — 4 pilares, narrativa, tabela de provas, 4 riscos com mitigação
+  - `visual-direction.md` — assinatura + anti-DNA + paleta gold correta + padrões de layout
+  - `ui-direction.md` — arquitetura homepage 7 blocos orientada a argumento
+  - `references.md` — matching semântico com tradução para o contexto
+  - `design-system.json` v3 — signature, tensions, anti_dna, perception_dna
+
+**Wallpaper Desktop:**
+- `outputs/wallpaper-desktop.html` + `outputs/wallpaper-desktop.png` (3840×2160)
+- `scripts/render-wallpaper.js` criado para regenerar em qualquer resolução
+- Elementos: Playfair italic "percepção antes de produção.", ghost "OS", grain, logo, handle, footer com verbos do sistema
+
+**Aprendizados:**
+
+1. **ICP por perfil supera ICP por setor.** "Dono de pet shop" perde toda a sofisticação construída. "Fundador com marketing ativo e resultado inconsistente que não consegue explicar" atrai o cliente que a tese resolve.
+
+2. **A tese precisa existir antes do branding.** Branding servindo uma crença é radicalmente mais poderoso que branding servindo uma identidade visual.
+
+3. **"O sistema é o argumento" muda o conteúdo.** Não precisa dizer que tem IA — mostra o perception.json. Não precisa dizer que tem método — mostra a evolução do raciocínio. A demonstração pública é o marketing.
+
+4. **Perception Engine como pré-requisito é correto.** Fazer o branding depois do perception.json eliminou toda a deriva genérica das versões anteriores. Os 6 arquivos de branding desta sessão são qualitativamente superiores porque partiram da assinatura perceptiva.
+
+5. **Posição estranha é memorável.** "Sistema que parece manifesto" não parece agência, SaaS, consultoria nem automação. Não encaixa em categoria existente — isso é o diferencial, não o problema.
+
+**Pendências abertas:**
+- Prospector: atualizar com novo ICP (perfil, não setor)
+- Scraper: tornar mais eficiente
+- Plano 30 dias: executar a partir do Dia 1 na próxima sessão
+
+---
+
 ## Sessão 15 — 2026-06-09
 
 **Status:** Completo

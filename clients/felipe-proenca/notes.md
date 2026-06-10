@@ -1,5 +1,39 @@
 # notes.md — Felipe Proença
 
+## 2026-06-10 — Virada de posicionamento: Perception Engine + Branding completo
+
+**O que foi feito:**
+- `/perceber felipe-proenca` executado: Perception Engine completo, 6 camadas
+- `perception.json` gerado em `outputs/branding/`
+- `tese.md` criado: tese central, manifesto revisado, 10 princípios inegociáveis
+- `conteudo-30-dias.md` criado: plano de validação da tese antes de qualquer mudança visual
+- `/branding felipe-proenca` executado: 6 arquivos de branding reescritos (pré-Virada estavam desatualizados)
+- Wallpaper desktop 3840×2160 gerado: `outputs/wallpaper-desktop.png`
+
+**Decisões estratégicas tomadas:**
+
+1. **Assinatura Perceptiva:** "sistema que parece manifesto" — o Felipe não apresenta ferramentas, apresenta uma forma de pensar.
+
+2. **ICP redefinido por perfil, não por setor.** O ICP anterior ("médicos, pet shops, etc.") era o ICP de uma agência. O novo ICP é: fundador/CEO com marketing ativo mas sem lógica unificada — resultado inconsistente que não consegue explicar.
+
+3. **Posicionamento externo:** "Sistema Operacional de Marketing" (não "Intelligence-First Marketing" — categoria sem significado público ainda). Internamente: Intelligence-First Marketing.
+
+4. **Promessa principal revisada:** "Você vai operar marketing com direção, não com esperança." Substituiu "Você vai saber de onde vem o próximo cliente" (muito genérico).
+
+5. **Framing de produção corrigido:** Não é guerra contra produção. "Produção sem interpretação é ruído. Interpretação sem produção é estagnação. A vantagem está na combinação — mas na ordem certa."
+
+6. **A frase que cria categoria:** "Não automatizamos criação. Automatizamos a inteligência que torna a criação válida." — ninguém no mercado está vendendo isso.
+
+7. **Princípio central:** "O sistema é o argumento." Não dizer que tem IA — mostrar o perception.json. Não dizer que tem método — mostrar a evolução do raciocínio.
+
+8. **Plano 30 dias aprovado:** Antes de mexer em branding visual, validar a tese através de conteúdo. Se em 30 dias as pessoas começarem a usar a linguagem do Felipe, a tese é real.
+
+**Pendências identificadas nesta sessão:**
+- Prospector precisa ser atualizado com o novo ICP (perfil, não setor)
+- Scraper precisa ficar mais eficiente
+
+---
+
 ## 2026-06-08 — Framework estratégico completo (inteligência para próximas sessões)
 
 **Origem:** Felipe encerrou sessão com dump estratégico completo. Registrar como inteligência permanente.

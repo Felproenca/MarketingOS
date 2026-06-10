@@ -1,0 +1,62 @@
+{
+  "_meta": {
+    "description": "Template de referência para o Perception Engine. Duas camadas obrigatórias: física e semântica.",
+    "schema": "intelligence/reference-library/reference-schema.json",
+    "taxonomy": "intelligence/reference-library/reference-taxonomy.md",
+    "usage": "Copiar este template ao criar uma nova referência manualmente. Para aquisição automatizada, usar skill-reference-acquisition.md."
+  },
+
+  "id": "ref-[slug]",
+  "slug": "[kebab-case]",
+  "name": "[Nome legível]",
+
+  "physical": {
+    "url": "",
+    "screenshots": [],
+    "video": null,
+    "stack": [],
+    "stack_confidence": "detected | inferred",
+    "metadata": {
+      "title": "",
+      "description": "",
+      "captured_at": null,
+      "capture_status": "auto | manual | failed | stub"
+    }
+  },
+
+  "semantic": {
+    "tension": "",
+    "por_que_funciona": "",
+    "principio_transferivel": "",
+    "dimensoes": {
+      "tempo": "lento | moderado | acelerado",
+      "ritmo": "estático | pulsante | contínuo | errático",
+      "densidade": "esparso | equilibrado | denso",
+      "profundidade": "plano | camadas | imersivo",
+      "contraste": "suave | médio | extremo",
+      "temperatura": "fria | neutra | quente",
+      "movimento": "ausente | sutil | expressivo | explosivo",
+      "ornamentacao": "minimalista | funcional | ornamental | maximalista"
+    },
+    "tags": {
+      "visual": [],
+      "motion": [],
+      "interaction": [],
+      "emocao": [],
+      "contexto": []
+    },
+    "absorver": [],
+    "nunca_copiar": []
+  },
+
+  "system": {
+    "status": "stub | draft | validated | active",
+    "validation": {
+      "validated_by": null,
+      "validated_at": null,
+      "notes": null
+    },
+    "added_at": "[ISO 8601]",
+    "used_in": []
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "id": "ref-bruno-simon",
+  "slug": "bruno-simon",
+  "name": "Bruno Simon",
+
+  "physical": {
+    "url": "https://bruno-simon.com",
+    "screenshots": [],
+    "video": null,
+    "stack": ["threejs", "webgl", "javascript", "cannon-js"],
+    "stack_confidence": "inferred",
+    "metadata": {
+      "title": "Bruno Simon — Creative Developer",
+      "description": "Portfolio interativo de desenvolvedor criativo construído como jogo 3D dirigível no browser.",
+      "captured_at": null,
+      "capture_status": "stub"
+    }
+  },
+
+  "semantic": {
+    "tension": "complexidade técnica que parece brincadeira",
+    "por_que_funciona": "Bruno Simon faz o maior argumento de venda possível sem escrever uma linha de copy: o próprio site é o portfolio. A física, a iluminação, a interatividade — tudo que seria listado num currículo está sendo vivido. A forma de apresentar é mais valiosa que qualquer coisa apresentada dentro dela.",
+    "principio_transferivel": "a forma de apresentar é o próprio argumento — quando a embalagem é o produto, não é preciso mais nada dentro",
+    "dimensoes": {
+      "tempo": "moderado",
+      "ritmo": "errático",
+      "densidade": "esparso",
+      "profundidade": "imersivo",
+      "contraste": "extremo",
+      "temperatura": "neutra",
+      "movimento": "expressivo",
+      "ornamentacao": "minimalista"
+    },
+    "tags": {
+      "visual": ["playful", "geometric", "dark", "cinematic"],
+      "motion": ["physics", "cursor-reactive", "generative"],
+      "interaction": ["cursor", "keyboard", "game", "drag"],
+      "emocao": ["alegria", "admiração", "curiosidade"],
+      "contexto": ["portfolio", "experiencia-interativa", "branding"]
+    },
+    "absorver": [
+      "Gamificação como estrutura narrativa — mecânica de jogo como guia de onboarding, demo ou tour, não apenas como estética",
+      "Física como linguagem — objetos que respondem ao cursor criam imersão imediata sem tutorial",
+      "Minimalismo visual dentro de complexidade técnica — o cenário é simples, o engine é denso",
+      "Tom de brinquedo premium — leveza sofisticada, não infantilidade"
+    ],
+    "nunca_copiar": [
+      "Ausência total de texto — só funciona porque a obra fala por si. Exige nível de execução equivalente; aplicar sem isso é omissão, não ousadia.",
+      "O jogo de carro físico específico — assinatura de Bruno Simon no mercado",
+      "Low-poly aesthetic com iluminação específica — muito associada ao trabalho dele",
+      "Cannon.js physics como interação principal — vira imitação explícita"
+    ]
+  },
+
+  "system": {
+    "status": "stub",
+    "validation": {
+      "validated_by": null,
+      "validated_at": null,
+      "notes": "Seed library — captura física pendente. Análise semântica pré-preenchida para validação metodológica."
+    },
+    "added_at": "2026-06-09",
+    "used_in": []
+  }
+}

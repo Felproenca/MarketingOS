@@ -1,0 +1,81 @@
+{
+  "_meta": {
+    "version": "2.0",
+    "description": "Schema de referência com duas camadas obrigatórias: física e semântica. A camada semântica é derivada da obra — nunca a substitui. O sistema retorna obras reais, não conceitos.",
+    "taxonomy": "intelligence/reference-library/reference-taxonomy.md",
+    "rule": "Sem tension e principio_transferivel preenchidos, a referência não entra na biblioteca."
+  },
+
+  "_schema": {
+    "id": "ref-[slug]",
+    "slug": "string — kebab-case, gerado do título ou domínio",
+    "name": "string — nome legível da obra ou marca",
+
+    "physical": {
+      "_description": "Camada 1 — Repertório Concreto. A obra em si. Imutável após validação.",
+      "url": "string",
+      "screenshots": ["string — caminho relativo a partir de intelligence/reference-library/"],
+      "video": "string | null",
+      "stack": ["string — ver taxonomy seção 7"],
+      "stack_confidence": "detected | inferred",
+      "metadata": {
+        "title": "string — título da página ou obra",
+        "description": "string — o que é essa obra em uma linha",
+        "captured_at": "ISO 8601",
+        "capture_status": "auto | manual | failed | stub"
+      }
+    },
+
+    "semantic": {
+      "_description": "Camada 2 — Conhecimento Extraído. Derivado da obra pela Engenharia Reversa. Pode ser revisado.",
+      "tension": "string — a contradição perceptiva principal. Ver taxonomy seção 1.",
+      "por_que_funciona": "string — diagnóstico de 1-3 frases do mecanismo de impacto",
+      "principio_transferivel": "string — o padrão abstrato reutilizável. Uma frase. Não descreve a obra — descreve o princípio.",
+      "dimensoes": {
+        "tempo": "lento | moderado | acelerado",
+        "ritmo": "estático | pulsante | contínuo | errático",
+        "densidade": "esparso | equilibrado | denso",
+        "profundidade": "plano | camadas | imersivo",
+        "contraste": "suave | médio | extremo",
+        "temperatura": "fria | neutra | quente",
+        "movimento": "ausente | sutil | expressivo | explosivo",
+        "ornamentacao": "minimalista | funcional | ornamental | maximalista"
+      },
+      "tags": {
+        "visual": ["string — ver taxonomy seção 4"],
+        "motion": ["string — ver taxonomy seção 5"],
+        "interaction": ["string — ver taxonomy seção 6"],
+        "emocao": ["string — ver taxonomy seção 3. Máximo 3."],
+        "contexto": ["string — ver taxonomy seção 8"]
+      },
+      "absorver": ["string — padrões específicos e transferíveis. Máximo 5. Proibido genérico."],
+      "nunca_copiar": ["string — paleta, layout, copy e composição literal são sempre proibidos. Adicionar específicos da obra."]
+    },
+
+    "system": {
+      "status": "stub | draft | validated | active",
+      "validation": {
+        "validated_by": "string | null",
+        "validated_at": "ISO 8601 | null",
+        "notes": "string | null"
+      },
+      "added_at": "ISO 8601",
+      "used_in": ["string — slug do cliente ou projeto onde foi referenciada"]
+    }
+  },
+
+  "_status_lifecycle": {
+    "stub": "Entrada manual pré-preenchida. Física incompleta. Serve para seed e planejamento.",
+    "draft": "Captura física concluída. Engenharia Reversa gerada pelo sistema. Aguarda validação humana.",
+    "validated": "Operador confirmou tension e principio_transferivel. Pronto para uso.",
+    "active": "Referenciada em pelo menos um projeto real. Prioridade no matching."
+  },
+
+  "_query_examples": {
+    "por_tensao": "tension contains 'autoridade silenciosa'",
+    "por_dimensoes": "dimensoes.temperatura = 'fria' AND dimensoes.movimento = 'expressivo'",
+    "por_contexto": "tags.contexto includes 'luxo'",
+    "por_emocao": "tags.emocao includes 'confiança'",
+    "combinado": "tension contains 'luxo' AND dimensoes.densidade = 'esparso' AND tags.contexto includes 'produto'"
+  }
+}

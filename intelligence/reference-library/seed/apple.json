@@ -1,0 +1,66 @@
+{
+  "id": "ref-apple",
+  "slug": "apple",
+  "name": "Apple",
+
+  "physical": {
+    "url": "https://apple.com",
+    "screenshots": [],
+    "video": null,
+    "stack": ["html-css", "javascript"],
+    "stack_confidence": "inferred",
+    "metadata": {
+      "title": "Apple",
+      "description": "Site institucional e de produto da Apple Inc.",
+      "captured_at": null,
+      "capture_status": "stub"
+    }
+  },
+
+  "semantic": {
+    "tension": "tecnologia que parece humanidade",
+    "por_que_funciona": "A Apple elimina toda fricção cognitiva entre o usuário e o produto. Cada elemento da página serve para reduzir a distância emocional entre uma pessoa e um objeto de hardware. O resultado é um produto técnico percebido como extensão do corpo — não como ferramenta.",
+    "principio_transferivel": "reduzir a zero o esforço perceptivo — o usuário encontra o produto sem perceber que foi guiado",
+    "dimensoes": {
+      "tempo": "lento",
+      "ritmo": "contínuo",
+      "densidade": "esparso",
+      "profundidade": "camadas",
+      "contraste": "extremo",
+      "temperatura": "neutra",
+      "movimento": "sutil",
+      "ornamentacao": "minimalista"
+    },
+    "tags": {
+      "visual": ["minimal", "cinematic", "luxury", "typographic"],
+      "motion": ["scroll-driven", "enter-animation", "parallax"],
+      "interaction": ["scroll", "passive"],
+      "emocao": ["desejo", "admiração", "confiança"],
+      "contexto": ["tecnologia", "produto", "luxo", "institucional"]
+    },
+    "absorver": [
+      "Proporção generosa de whitespace — o espaço vazio comunica que a marca não precisa preencher tudo",
+      "Tipografia como hierarquia absoluta — tamanho e peso substituem cor como estrutura de informação",
+      "Imagem de produto como personagem principal — não como ilustração de spec",
+      "Transições de scroll que criam sensação de revelação gradual — o produto aparece, não é apresentado",
+      "Copy que pressupõe inteligência do leitor — sem superlativo, sem exclamação"
+    ],
+    "nunca_copiar": [
+      "Paleta específica (branco absoluto + preto absoluto + cinza característico)",
+      "Escala de produto — contexto de hardware premium não transfere para outros segmentos",
+      "San Francisco typeface — identitária da Apple",
+      "O grid de produto 1:1 centralizado — vira pastiche fora do contexto"
+    ]
+  },
+
+  "system": {
+    "status": "stub",
+    "validation": {
+      "validated_by": null,
+      "validated_at": null,
+      "notes": "Seed library — captura física pendente. Análise semântica pré-preenchida para validação metodológica."
+    },
+    "added_at": "2026-06-09",
+    "used_in": []
+  }
+}

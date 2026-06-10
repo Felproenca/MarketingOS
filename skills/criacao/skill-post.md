@@ -267,6 +267,10 @@ Se formato não foi especificado no comando (Feed / Reels / Story), perguntar an
 
 ## Checklist antes de entregar
 
+**Teste Supremo (gate obrigatório):**
+- [ ] Se removermos logo, nome e cores desta marca do post — alguém ainda reconheceria quem está se comunicando? Se não → revisar antes de entregar.
+
+**Checklist técnico:**
 - [ ] O gancho do visual/roteiro funciona isolado?
 - [ ] A legenda complementa sem repetir o visual?
 - [ ] O CTA é específico e alinhado ao objetivo?

@@ -1,0 +1,66 @@
+{
+  "id": "ref-linear",
+  "slug": "linear",
+  "name": "Linear",
+
+  "physical": {
+    "url": "https://linear.app",
+    "screenshots": [],
+    "video": null,
+    "stack": ["react", "javascript", "gsap"],
+    "stack_confidence": "inferred",
+    "metadata": {
+      "title": "Linear — The issue tracking tool you'll enjoy using",
+      "description": "Site de produto SaaS de gestão de projetos para times de engenharia.",
+      "captured_at": null,
+      "capture_status": "stub"
+    }
+  },
+
+  "semantic": {
+    "tension": "precisão que desaparece",
+    "por_que_funciona": "Linear comunica velocidade não pela quantidade de movimento, mas pela ausência de resistência. Cada micro-animação confirma uma ação sem chamar atenção para si mesma. A sofisticação técnica do produto desaparece — o que fica é a sensação de que o usuário é mais capaz quando o usa.",
+    "principio_transferivel": "velocidade como valor percebido — quando o produto não cria atrito, o usuário sente que é mais capaz",
+    "dimensoes": {
+      "tempo": "acelerado",
+      "ritmo": "pulsante",
+      "densidade": "equilibrado",
+      "profundidade": "camadas",
+      "contraste": "extremo",
+      "temperatura": "fria",
+      "movimento": "expressivo",
+      "ornamentacao": "minimalista"
+    },
+    "tags": {
+      "visual": ["dark", "minimal", "geometric", "typographic"],
+      "motion": ["enter-animation", "hover", "scroll-driven", "page-transition"],
+      "interaction": ["scroll", "cursor", "passive"],
+      "emocao": ["confiança", "admiração", "desejo"],
+      "contexto": ["saas", "tecnologia", "produto"]
+    },
+    "absorver": [
+      "Micro-animações que confirmam ações sem chamar atenção para si — invisíveis individualmente, percebidas como fluidez geral",
+      "Tipografia mono como sinal de rigor técnico — a fonte é a primeira prova de qualidade",
+      "Gradiente escuro com profundidade — cria senso de dimensão sem adicionar elementos",
+      "Dark mode como posicionamento — não como feature, como declaração de quem é o usuário",
+      "Copy que fala com engenheiros como pares — pressupõe exigência, não explica o óbvio"
+    ],
+    "nunca_copiar": [
+      "Paleta roxa-escura específica — identitária do Linear",
+      "Grid de features com ícones técnicos — vira clichê de SaaS fora do contexto",
+      "A combinação Inter + dark + roxo + aurora — individualmente genéricos, juntos é assinatura registrada",
+      "Animação de 'aurora' no hero — assinatura visual registrada na memória do mercado"
+    ]
+  },
+
+  "system": {
+    "status": "stub",
+    "validation": {
+      "validated_by": null,
+      "validated_at": null,
+      "notes": "Seed library — captura física pendente. Análise semântica pré-preenchida para validação metodológica."
+    },
+    "added_at": "2026-06-09",
+    "used_in": []
+  }
+}

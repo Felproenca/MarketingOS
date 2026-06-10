@@ -1,0 +1,66 @@
+{
+  "id": "ref-active-theory",
+  "slug": "active-theory",
+  "name": "Active Theory",
+
+  "physical": {
+    "url": "https://activetheory.net",
+    "screenshots": [],
+    "video": null,
+    "stack": ["threejs", "webgl", "gsap", "shader", "javascript"],
+    "stack_confidence": "inferred",
+    "metadata": {
+      "title": "Active Theory — Digital Studio",
+      "description": "Portfolio de estúdio digital especializado em experiências interativas de alta complexidade técnica.",
+      "captured_at": null,
+      "capture_status": "stub"
+    }
+  },
+
+  "semantic": {
+    "tension": "caos que parece calculado",
+    "por_que_funciona": "Active Theory opera com aparente caos visual — fragmentação, velocidade, intensidade. Mas cada elemento está no timing certo. O impacto vem da tensão entre a sensação de desordem e a precisão cirúrgica da execução. O usuário sente que está assistindo algo que poderia descontrolar a qualquer momento — e não descontrola. Isso é domínio técnico como estética: o controle não atenua o impacto, ele o multiplica.",
+    "principio_transferivel": "quando a estrutura é invisível, a energia parece ilimitada — o controle não atenua o impacto, o multiplica",
+    "dimensoes": {
+      "tempo": "acelerado",
+      "ritmo": "errático",
+      "densidade": "densa",
+      "profundidade": "imersivo",
+      "contraste": "extremo",
+      "temperatura": "fria",
+      "movimento": "explosivo",
+      "ornamentacao": "funcional"
+    },
+    "tags": {
+      "visual": ["dark", "cinematic", "geometric", "editorial"],
+      "motion": ["shader", "particle", "page-transition", "scroll-driven", "morphing"],
+      "interaction": ["scroll", "cursor", "passive"],
+      "emocao": ["admiração", "urgência", "curiosidade"],
+      "contexto": ["portfolio", "experiencia-interativa", "branding", "lancamento"]
+    },
+    "absorver": [
+      "Fragmentação visual como estilo — transições que 'quebram' a imagem criam percepção de sofisticação técnica",
+      "Timing de transição como assinatura — o ritmo específico de entrada e saída é mais identitário que a paleta",
+      "Shaders como textura — não como efeito, mas como camada de linguagem visual",
+      "Intensidade que não cansa — hierarquia de momentos de alta e baixa energia dentro do scroll",
+      "Preto absoluto como tela — não como cor de fundo, mas como ausência que dá peso aos elementos"
+    ],
+    "nunca_copiar": [
+      "Intensidade máxima do início ao fim — sem estrutura de ritmo subjacente vira agressão visual, não impacto",
+      "O estilo de fragmentação com glitch específico — assinatura registrada no mercado",
+      "A tipografia de título em caixa alta com tracking extremo — muito associada ao estúdio",
+      "WebGL em tela cheia como tela inicial — cria expectativa de performance que poucas marcas conseguem cumprir"
+    ]
+  },
+
+  "system": {
+    "status": "stub",
+    "validation": {
+      "validated_by": null,
+      "validated_at": null,
+      "notes": "Seed library — captura física pendente. Análise semântica pré-preenchida para validação metodológica."
+    },
+    "added_at": "2026-06-09",
+    "used_in": []
+  }
+}

@@ -8,9 +8,22 @@ Devolver alma ao marketing —
 e através dele, devolver às pessoas
 a coragem de acreditar no que construíram.
 
+Aumentar a capacidade de percepção.
+Ajudar cada empresa a entender quem é,
+o que a torna diferente,
+e quais sinais ela precisa emitir
+para ser inconfundível.
+
+Toda produção é consequência dessa compreensão.
+Nunca o contrário.
+
 ## Visão
 Construímos o futuro onde cada negócio genuíno
 tem a linguagem para mudar a vida de quem encontra.
+
+Um futuro onde marketing não é volume — é clareza.
+Não é automação — é direção.
+Não é conteúdo — é coerência.
 
 ## Valores
 
@@ -48,9 +61,17 @@ Não vendemos marketing.
 Não vendemos site.
 Não vendemos posts.
 
-Vendemos inteligência artificial aplicada
+Vendemos clareza.
+Vendemos direção.
+Vendemos a capacidade de uma marca ser inconfundível.
+
+Na prática: inteligência aplicada
 que gera leads, opera canais e entrega
 controle em tempo real.
+
+Mas a ordem importa:
+primeiro a marca compreende quem é.
+Depois o sistema multiplica.
 
 O cliente não compra o que precisa.
 Compra o que deseja.
@@ -95,6 +116,28 @@ Essa marca tem gravidade para arrastar — ou precisa construir a ponte?
 
 ---
 
+## Percepção antes de produção
+
+Antes de criar qualquer peça, campanha, automação,
+vídeo, post, anúncio ou estratégia, o sistema responde:
+
+*"O que esta marca deseja que as pessoas sintam?"*
+
+E depois:
+
+*"Quais sinais produzem essa percepção?"*
+
+A produção só começa após a interpretação.
+
+**O Teste Supremo** — aplica a qualquer entrega:
+> Se removermos o logo, o nome e as cores da marca,
+> alguém ainda reconheceria quem está se comunicando?
+
+Se não — existe um problema de identidade.
+Se sim — existe uma marca.
+
+---
+
 ## O critério de tudo que sai deste sistema
 
 1. Isso é autêntico? Poderia ter sido dito só por essa marca?
@@ -115,8 +158,8 @@ Criar o que o mercado ainda não sabe que precisa — e tornar inevitável.
 
 Conteúdo bonito que não converte é fracasso bem-apresentado.
 
-Este sistema não existe para produzir — existe para gerar resultado.
-A diferença importa: produção é volume, resultado é transformação.
+Este sistema não existe para produzir — existe para compreender e, a partir da compreensão, gerar resultado.
+A diferença importa: produção é volume, interpretação é direção, resultado é transformação.
 
 Quando algo não está funcionando, dizer com clareza.
 Quando o cliente quer o confortável e o confortável não converte, propor o desconfortável.

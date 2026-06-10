@@ -1,0 +1,66 @@
+{
+  "id": "ref-aesop",
+  "slug": "aesop",
+  "name": "Aesop",
+
+  "physical": {
+    "url": "https://aesop.com",
+    "screenshots": [],
+    "video": null,
+    "stack": ["javascript", "html-css"],
+    "stack_confidence": "inferred",
+    "metadata": {
+      "title": "Aesop — Skin, Hair and Body Products",
+      "description": "Site de e-commerce e marca de cosméticos premium com identidade editorial forte.",
+      "captured_at": null,
+      "capture_status": "stub"
+    }
+  },
+
+  "semantic": {
+    "tension": "cotidiano que parece sagrado",
+    "por_que_funciona": "Aesop não vende produto de higiene — vende a transformação de atos cotidianos em rituais. Lavar as mãos, passar creme: atos mecânicos que a marca eleva à categoria de prática intencional. A copy, a fotografia, a ausência de urgência — tudo serve para fazer o ordinário parecer digno de atenção. É luxo construído sobre o tempo, não sobre o preço.",
+    "principio_transferivel": "lentidão como luxo — o tempo que a marca se dá para comunicar sinaliza o valor do que oferece",
+    "dimensoes": {
+      "tempo": "lento",
+      "ritmo": "estático",
+      "densidade": "equilibrado",
+      "profundidade": "plano",
+      "contraste": "médio",
+      "temperatura": "quente",
+      "movimento": "ausente",
+      "ornamentacao": "funcional"
+    },
+    "tags": {
+      "visual": ["editorial", "luxury", "textured", "minimal"],
+      "motion": ["scroll-driven"],
+      "interaction": ["scroll", "passive"],
+      "emocao": ["desejo", "calma", "exclusividade"],
+      "contexto": ["luxo", "produto", "e-commerce", "branding"]
+    },
+    "absorver": [
+      "Copy como ritual — cada frase pressupõe que o leitor valoriza o ato de ler, não apenas o produto",
+      "Produto fotografado como objeto arqueológico — textura, proporção e sombra importam mais que a embalagem",
+      "Ausência de urgência como sinal de valor — zero gatilhos de escassez artificial",
+      "Tipografia serifada em corpo grande — comunica permanência e cultura, não velocidade e tech",
+      "Paleta de terra e neutros — cria sensação de material, de algo feito à mão mesmo que industrialmente"
+    ],
+    "nunca_copiar": [
+      "A paleta ocre/terra específica — identitária da Aesop",
+      "Tipografia serifada com espaçamento exagerado — fora do contexto de luxo torna-se afetação",
+      "O estilo fotográfico de flatlay sobre superfícies brutas — clichê de 'luxo minimalista' no e-commerce",
+      "Copy em segunda pessoa filosófica — só funciona se a marca tiver autoridade intelectual construída"
+    ]
+  },
+
+  "system": {
+    "status": "stub",
+    "validation": {
+      "validated_by": null,
+      "validated_at": null,
+      "notes": "Seed library — captura física pendente. Análise semântica pré-preenchida para validação metodológica."
+    },
+    "added_at": "2026-06-09",
+    "used_in": []
+  }
+}

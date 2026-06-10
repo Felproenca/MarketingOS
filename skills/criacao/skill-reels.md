@@ -252,6 +252,10 @@ Save esperado:       alto (insight salvável)
 
 ## Checklist antes de entregar
 
+**Teste Supremo (gate obrigatório):**
+- [ ] Se removermos logo, nome e cores desta marca do reel — alguém ainda reconheceria quem está se comunicando? Se não → revisar antes de entregar.
+
+**Checklist técnico:**
 - [ ] HTML abre no browser sem erros?
 - [ ] Fontes carregam (Syne + Playfair)?
 - [ ] Letter-spacing positivo (sem achatamento)?

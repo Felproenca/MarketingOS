@@ -56,6 +56,37 @@ O sucesso do cliente não é consequência do nosso trabalho.
 
 ---
 
+O mercado se obcecou em automatizar a produção.
+
+Nós construímos a capacidade de automatizar a interpretação.
+
+Porque produzir nunca foi o maior problema.
+O maior problema sempre foi saber o que merece ser produzido.
+
+A maioria das empresas não sofre por falta de conteúdo.
+Sofre por falta de clareza.
+
+Não sofre por falta de automação.
+Sofre por falta de direção.
+
+O MarketingOS deixa de ser um sistema que produz marketing.
+Passa a ser um sistema que compreende marketing.
+
+O conteúdo é consequência da compreensão.
+Nunca o contrário.
+
+Antes de criar qualquer peça, o sistema responde:
+
+*"O que esta marca deseja que as pessoas sintam?"*
+
+E depois:
+
+*"Quais sinais produzem essa percepção?"*
+
+A produção só começa após a interpretação.
+
+---
+
 *Documento fundacional — MarketingOS*
-*Não editar. Não resumir. Não adaptar.*
+*O núcleo original é permanente. A missão expandiu em 2026.*
 *Se algo que estamos prestes a fazer contradiz isso — não fazemos.*

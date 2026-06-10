@@ -1,0 +1,66 @@
+{
+  "id": "ref-stripe",
+  "slug": "stripe",
+  "name": "Stripe",
+
+  "physical": {
+    "url": "https://stripe.com",
+    "screenshots": [],
+    "video": null,
+    "stack": ["react", "javascript"],
+    "stack_confidence": "inferred",
+    "metadata": {
+      "title": "Stripe — Financial infrastructure for the internet",
+      "description": "Site de produto de infraestrutura financeira para desenvolvedores e empresas.",
+      "captured_at": null,
+      "capture_status": "stub"
+    }
+  },
+
+  "semantic": {
+    "tension": "infraestrutura que parece produto",
+    "por_que_funciona": "Stripe fez o impossível no design de software B2B: tornou algo profundamente técnico e commoditizado em algo que desenvolvedores desejam usar. O gradiente de dados animado no hero é ao mesmo tempo arte e prova técnica. A copy assume competência do leitor. A documentação é o produto. A soma de cuidados invisíveis transforma infraestrutura em objeto de desejo — e isso muda tudo sobre como a marca é percebida.",
+    "principio_transferivel": "confiança se constrói com acumulação de cuidados invisíveis — não com certificações exibidas",
+    "dimensoes": {
+      "tempo": "moderado",
+      "ritmo": "pulsante",
+      "densidade": "equilibrado",
+      "profundidade": "camadas",
+      "contraste": "médio",
+      "temperatura": "fria",
+      "movimento": "sutil",
+      "ornamentacao": "funcional"
+    },
+    "tags": {
+      "visual": ["gradient", "editorial", "typographic", "light"],
+      "motion": ["generative", "scroll-driven", "enter-animation"],
+      "interaction": ["scroll", "passive"],
+      "emocao": ["confiança", "admiração", "segurança"],
+      "contexto": ["saas", "tecnologia", "produto", "institucional"]
+    },
+    "absorver": [
+      "Gradiente de dados animado como visual principal — tecnologia complexa transformada em estética, não em diagrama",
+      "Copy que pressupõe competência do leitor — 'financial infrastructure' não 'solução de pagamentos fácil'",
+      "Documentação como produto — o cuidado com os docs é parte do argumento de venda",
+      "Logos de clientes como prova silenciosa — não depoimentos, mas fatos",
+      "Screenshot de dashboard como prova por contexto — mostrar o produto sendo usado é mais persuasivo que qualquer lista de features"
+    ],
+    "nunca_copiar": [
+      "O gradiente roxo-azul específico — é a identidade cromática do Stripe",
+      "O estilo de 'dashboard flutuando' — clichê de SaaS a ser evitado",
+      "Tons de violeta — associados demais ao brand",
+      "Estrutura de pricing em cards — funciona no contexto, vira genérica fora dele"
+    ]
+  },
+
+  "system": {
+    "status": "stub",
+    "validation": {
+      "validated_by": null,
+      "validated_at": null,
+      "notes": "Seed library — captura física pendente. Análise semântica pré-preenchida para validação metodológica."
+    },
+    "added_at": "2026-06-09",
+    "used_in": []
+  }
+}

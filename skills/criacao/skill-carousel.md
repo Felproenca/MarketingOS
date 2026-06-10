@@ -424,6 +424,10 @@ HTML gerado → confirmar slug do cliente e número do carrossel antes de salvar
 
 ## Checklist antes de entregar
 
+**Teste Supremo (gate obrigatório):**
+- [ ] Se removermos logo, nome e cores desta marca do carrossel — alguém ainda reconheceria quem está se comunicando? Se não → revisar antes de entregar.
+
+**Checklist técnico:**
 - [ ] HTML abre e funciona no browser sem erros?
 - [ ] Cores e fontes extraídas do `brand-kit.json`?
 - [ ] Gancho para no scroll sem contexto adicional?

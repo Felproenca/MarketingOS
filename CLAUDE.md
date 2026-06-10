@@ -4,6 +4,11 @@ Voce opera como MarketingOS.
 Sistema operacional de marketing para aquisicao, posicionamento e conversao.
 Combina `skills` (capacidade isolada), `workflows` (sequencia operacional), contexto por cliente e scripts de execucao.
 
+**Modelo mental v2:**
+A produção é consequência da compreensão. Nunca o contrário.
+Antes de criar: o sistema compreende o que a marca deseja provocar.
+Depois de compreender: o sistema produz com coerência, não com volume.
+
 ---
 
 ## Fundação — leia antes de tudo
@@ -28,32 +33,40 @@ Essa marca tem gravidade para arrastar — ou precisa construir a ponte?
 
 ---
 
-## Regra de DNA Visual — herança obrigatória
+## Regra de Percepção — pré-requisito de criação
 
 Antes de qualquer criação visual para um cliente:
 
-1. Verificar se existe `clients/[slug]/outputs/branding/visual-dna.json`
-2. Se NÃO existir → executar `/direcao-criativa` antes de qualquer skill de criação
-3. Se existir → cada skill carrega apenas os campos relevantes (ver cada skill)
+1. Verificar se existe `clients/[slug]/outputs/branding/perception.json`
+2. Se NÃO existir → executar `/perceber [slug]` (Perception Engine — 6 camadas)
+3. Verificar se existe `clients/[slug]/outputs/branding/visual-dna.json`
+4. Se NÃO existir → executar `/direcao-criativa` após `/perceber`
+5. Se ambos existirem → cada skill carrega apenas os campos relevantes
 
-**Teste obrigatório antes de publicar qualquer peça:**
-> "A marca continuaria reconhecível sem logo, nome e cores principais?"
+**Teste Supremo — gate obrigatório antes de qualquer entrega:**
+> "Se removermos o logo, o nome e as cores desta marca — alguém ainda reconheceria quem está se comunicando?"
 > Se não → a peça não sai.
 
-**Hierarquia de skills de criação:**
+**Hierarquia completa de criação (novo cliente):**
 ```
-/direcao-criativa    ← executa primeiro, sempre
+/perceber [slug]     ← Perception Engine — obrigatório, executa primeiro
       ↓
-visual-dna.json      ← gerado e salvo em clients/[slug]/outputs/branding/
+perception.json      ← salvo em clients/[slug]/outputs/branding/
       ↓
-/criar [qualquer]    ← herda o DNA, nunca ignora
+/branding            ← identidade operacional, herda perception.json
+      ↓
+/direcao-criativa    ← DNA Visual + movimento, herda ambos
+      ↓
+visual-dna.json      ← salvo em clients/[slug]/outputs/branding/
+      ↓
+/criar [qualquer]    ← herda perception.json + visual-dna.json
 ```
 
-**Para salvar referência no banco:**
+**Para referências no banco:**
 ```
-/salvar-referencia                              ← skill-save-reference.md
-node scripts/capture-reference.js --url <url>  ← captura automática
-bookmarklet                                     ← captura manual enquanto navega
+/adquirir [url]        ← pipeline automatizado: captura + análise + validação
+/salvar-referencia     ← input manual: screenshot, vídeo ou notas
+/reverter [url]        ← engenharia reversa de obra específica
 ```
 
 ---
@@ -177,6 +190,17 @@ Use `workflows/token-economy.md` como regra operacional para reduzir contexto.
 | `skills/skill-salvar.md` | `/salvar` | Checkpoint intermediario — commit sem encerrar sessao |
 | `alma.md` (raiz) | — | Lido uma vez por sessao antes de qualquer criacao |
 
+### Grupo: Percepção → `/perceber`
+> **Executa antes de qualquer criação para novo cliente.**
+> Leia `skills/perception/_admin.md` → escolha uma skill → carregue so ela.
+
+| Skill | Comando | Quando usar |
+|---|---|---|
+| `perception/skill-perception-engine.md` | `/perceber [slug]` | **Obrigatório para novo cliente** — orquestra as 6 camadas, gera `perception.json` |
+| `perception/skill-reverse-engineering.md` | `/reverter [url]` | Engenharia Reversa de obra específica → alimenta biblioteca semântica |
+| `perception/skill-tension-map.md` | `/tensoes [slug]` | Mapa de tensões de conteúdo — substitui "sobre o que falar?" |
+| `perception/skill-reference-acquisition.md` | `/adquirir [url]` | Pipeline automatizado de aquisição de referência: captura + análise + validação |
+
 ### Grupo: Analise → `/analisar`
 > Leia `skills/analise/_admin.md` → escolha uma skill → carregue so ela.
 
@@ -193,7 +217,7 @@ Use `workflows/token-economy.md` como regra operacional para reduzir contexto.
 
 ### Grupo: Criacao → `/criar`
 > Leia `alma.md` (raiz) + `skills/criacao/_admin.md` → escolha uma skill → carregue so ela.
-> **Ordem obrigatória para novo cliente:** `/branding` → `/direcao-criativa` → qualquer outra skill.
+> **Ordem obrigatória para novo cliente:** `/perceber` → `/branding` → `/direcao-criativa` → qualquer outra skill.
 
 | Skill | Quando usar |
 |---|---|

@@ -1,0 +1,79 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "description": "Índice leve da Biblioteca Viva. Uma linha por referência. Para consulta de matching sem carregar os JSONs completos.",
+    "full_schema": "intelligence/reference-library/reference-schema.json",
+    "taxonomy": "intelligence/reference-library/reference-taxonomy.md",
+    "seed_path": "intelligence/reference-library/seed/",
+    "acquired_path": "intelligence/reference-library/acquired/"
+  },
+
+  "references": [
+    {
+      "id": "ref-apple",
+      "slug": "apple",
+      "name": "Apple",
+      "status": "stub",
+      "tension": "tecnologia que parece humanidade",
+      "principio_transferivel": "reduzir a zero o esforço perceptivo — a marca aparece sem aparecer",
+      "dimensoes": { "tempo": "lento", "densidade": "esparso", "temperatura": "neutra", "movimento": "sutil" },
+      "emocao": ["desejo", "admiração", "confiança"],
+      "contexto": ["tecnologia", "produto", "luxo"]
+    },
+    {
+      "id": "ref-linear",
+      "slug": "linear",
+      "name": "Linear",
+      "status": "stub",
+      "tension": "precisão que desaparece",
+      "principio_transferivel": "velocidade como valor percebido — quando o produto não cria atrito, o usuário sente que é mais capaz",
+      "dimensoes": { "tempo": "acelerado", "densidade": "equilibrado", "temperatura": "fria", "movimento": "expressivo" },
+      "emocao": ["confiança", "admiração", "desejo"],
+      "contexto": ["saas", "tecnologia", "produto"]
+    },
+    {
+      "id": "ref-stripe",
+      "slug": "stripe",
+      "name": "Stripe",
+      "status": "stub",
+      "tension": "infraestrutura que parece produto",
+      "principio_transferivel": "confiança se constrói com acumulação de cuidados invisíveis — não com certificações exibidas",
+      "dimensoes": { "tempo": "moderado", "densidade": "equilibrado", "temperatura": "fria", "movimento": "sutil" },
+      "emocao": ["confiança", "admiração", "segurança"],
+      "contexto": ["saas", "tecnologia", "produto"]
+    },
+    {
+      "id": "ref-aesop",
+      "slug": "aesop",
+      "name": "Aesop",
+      "status": "stub",
+      "tension": "cotidiano que parece sagrado",
+      "principio_transferivel": "lentidão como luxo — o tempo que a marca se dá para comunicar sinaliza o valor do que oferece",
+      "dimensoes": { "tempo": "lento", "densidade": "equilibrado", "temperatura": "quente", "movimento": "ausente" },
+      "emocao": ["desejo", "calma", "exclusividade"],
+      "contexto": ["luxo", "produto", "e-commerce"]
+    },
+    {
+      "id": "ref-bruno-simon",
+      "slug": "bruno-simon",
+      "name": "Bruno Simon",
+      "status": "stub",
+      "tension": "complexidade técnica que parece brincadeira",
+      "principio_transferivel": "a forma de apresentar é o próprio argumento — quando a embalagem é o produto, não é preciso mais nada dentro",
+      "dimensoes": { "tempo": "moderado", "densidade": "esparso", "temperatura": "neutra", "movimento": "expressivo" },
+      "emocao": ["alegria", "admiração", "curiosidade"],
+      "contexto": ["portfolio", "experiencia-interativa"]
+    },
+    {
+      "id": "ref-active-theory",
+      "slug": "active-theory",
+      "name": "Active Theory",
+      "status": "stub",
+      "tension": "caos que parece calculado",
+      "principio_transferivel": "quando a estrutura é invisível, a energia parece ilimitada — o controle não atenua o impacto, o multiplica",
+      "dimensoes": { "tempo": "acelerado", "densidade": "densa", "temperatura": "fria", "movimento": "explosivo" },
+      "emocao": ["admiração", "urgência", "curiosidade"],
+      "contexto": ["portfolio", "experiencia-interativa", "lancamento"]
+    }
+  ]
+}

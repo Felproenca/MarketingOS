@@ -20,24 +20,29 @@ env: []
 → client.md — completo (todos os blocos)
 → notes.md — inteligência acumulada e histórico de decisões visuais
 → brand-kit.json — estado atual da identidade
+→ outputs/branding/perception.json — se existir (gerado pelo /perceber)
 → intelligence/patterns.md — trechos relevantes ao nicho
-→ intelligence/benchmarks.json — referências de canal (site/landing)
-→ NÃO carregar: metrics.json, campaigns.md, alma.md, estrategia.md
+→ intelligence/reference-library/index.json — banco de referências semânticas
+→ NÃO carregar: metrics.json, campaigns.md, alma.md, estrategia.md, benchmarks.json
 
 ---
 
-## Relação com skill-creative-direction
+## Hierarquia de execução
 
-A skill-branding define identidade (o que a marca é).
-A skill-creative-direction define expressão (como a marca se move).
+```
+/perceber [slug]         ← Perception Engine — obrigatório para novo cliente
+      ↓ perception.json
+/branding                ← define identidade operacional, herda perception.json
+      ↓ positioning.md, design-system.json, assinatura_perceptiva
+/direcao-criativa        ← converte em DNA Visual e movimento
+      ↓ visual-dna.json
+Skills de criação        ← herdam visual-dna.json + perception.json
+```
 
-Sequência correta:
-1. /branding → define identidade, posicionamento, brand-kit
-2. /direcao-criativa → converte identidade em DNA Visual e Assinatura Perceptiva
-3. Skills de criação → herdam visual-dna.json
+Se `perception.json` existir: ler e herdar `camada_3_assinatura` e `camada_4_visual_dna` antes de definir qualquer diretriz visual.
+Se `perception.json` não existir: executar as 3 perguntas da Leitura de Alma como substituto mínimo antes de continuar.
 
-Se /direcao-criativa já foi executada para este cliente, não reexecutar /branding sem motivo.
-O visual-dna.json é a fonte de verdade para criação.
+O `visual-dna.json` é a fonte de verdade para criação. O `perception.json` é a fonte de verdade para identidade.
 
 ---
 
@@ -76,10 +81,10 @@ Salvar em `clients/[slug]/outputs/branding/`:
 
 1. `positioning.md`
 2. `brand-strategy.md`
-3. `visual-direction.md`
+3. `visual-direction.md` — incluindo `assinatura_perceptiva` e `anti_dna`
 4. `ui-direction.md`
-5. `references.md`
-6. `design-system.json`
+5. `references.md` — referências do `intelligence/reference-library/index.json` com matching semântico
+6. `design-system.json` — incluindo campos `signature`, `tensions`, `anti_dna`
 
 ---
 
@@ -207,6 +212,10 @@ Mudança de posicionamento após este ponto invalida o design-system.
 
 ⏸ **CP2 — Design system aprovado**
 design-system.json gerado → confirmar paleta, tipografia e regras antes de salvar e liberar para skill-site-builder.
+
+⏸ **CP3 — Teste Supremo**
+Antes de encerrar: "Se removermos o logo, o nome e as cores desta marca de qualquer peça gerada a partir deste branding — alguém ainda reconheceria quem está se comunicando?"
+Se não → `assinatura_perceptiva` não está específica o suficiente. Refazer antes de liberar.
 
 ---
 

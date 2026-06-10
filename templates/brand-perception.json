@@ -1,0 +1,88 @@
+{
+  "_meta": {
+    "description": "Template de percepção de marca. Gerado pelo skill-perception-engine.md. Herdado por todas as skills de criação.",
+    "usage": "Não preencher manualmente. Gerado via /perceber [slug]. Salvo em clients/[slug]/outputs/branding/perception.json.",
+    "inherits_from": ["clients/[slug]/client.md", "clients/[slug]/outputs/branding/visual-dna.json"],
+    "consumed_by": [
+      "skills/criacao/skill-branding.md",
+      "skills/criacao/skill-carousel.md",
+      "skills/criacao/skill-post.md",
+      "skills/criacao/skill-reels.md",
+      "skills/criacao/skill-reel-builder.md",
+      "skills/criacao/skill-site-builder.md",
+      "skills/criacao/skill-visual-spec.md",
+      "skills/criacao/skill-creative-direction.md"
+    ]
+  },
+
+  "slug": "",
+  "generated_at": "",
+  "version": "1.0",
+
+  "camada_1_alma": {
+    "provocacao_central": "",
+    "tom_atual": "",
+    "tom_desejado": "",
+    "tensao_interna": ""
+  },
+
+  "camada_2_vetores": {
+    "autoridade": 0,
+    "calor_humano": 0,
+    "precisao": 0,
+    "inovacao": 0,
+    "energia": 0,
+    "sofisticacao": 0,
+    "proximidade": 0,
+    "exclusividade": 0
+  },
+
+  "camada_3_assinatura": {
+    "principal": "",
+    "secundarias": [],
+    "anti_dna": []
+  },
+
+  "camada_4_visual_dna": {
+    "tempo": "",
+    "ritmo": "",
+    "densidade": "",
+    "profundidade": "",
+    "contraste": "",
+    "temperatura": "",
+    "movimento": "",
+    "ornamentacao": ""
+  },
+
+  "camada_5_referencias": [
+    {
+      "slug": "",
+      "tensao_compativel": "",
+      "absorver_para_esta_marca": [],
+      "nao_aplicavel": ""
+    }
+  ],
+
+  "camada_6_direcao": {
+    "sensacao_alvo": "",
+    "nunca_parecer": [],
+    "perguntas_de_saida": [
+      "Isso é autêntico? Poderia ter sido dito só por essa marca?",
+      "Se removermos logo, nome e cores — alguém ainda reconheceria quem está se comunicando?",
+      "Isso serve ao cliente ou serve à métrica?"
+    ],
+    "por_tipo": {
+      "site": "",
+      "carrossel": "",
+      "reel": "",
+      "post": "",
+      "pitch": ""
+    }
+  },
+
+  "teste_supremo": {
+    "pergunta": "Se removermos o logo, o nome e as cores desta marca, alguém ainda reconheceria quem está se comunicando?",
+    "resultado": "aprovado | reprovado | pendente",
+    "observacoes": ""
+  }
+}

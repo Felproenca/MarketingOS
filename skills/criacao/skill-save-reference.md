@@ -1,6 +1,6 @@
 ---
 name: skill-save-reference
-version: "1.0"
+version: "2.0"
 group: criacao
 command: /salvar-referencia
 inputs:
@@ -10,10 +10,16 @@ env: []
 ---
 
 # skill-save-reference.md — Captura e Interpretação de Referências
-> Skill de alimentação do banco de repertório visual do MarketingOS.
-> Referência não entra crua. Entra interpretada.
-> O crawler coleta. A skill julga. O banco armazena. As outras skills consultam.
-> Output: entrada em `intelligence/visual-references.json`
+> Skill de alimentação da Biblioteca Viva do MarketingOS.
+> Referência não entra crua. Entra interpretada com duas camadas: física e semântica.
+> Para pipeline automatizado (URL → captura → análise → validação): usar `skill-reference-acquisition.md` (`/adquirir`).
+> Esta skill: input manual ou semi-manual → análise → entrada em `intelligence/reference-library/`
+
+**Quando usar esta skill vs skill-reference-acquisition:**
+- `/salvar-referencia` → você tem screenshot, vídeo, ou notas. Quer interpretar manualmente.
+- `/adquirir [url]` → você tem uma URL. Quer captura automatizada + análise + validação.
+
+Output: `intelligence/reference-library/acquired/[slug].json` seguindo `templates/perception-reference.json`
 
 ---
 
@@ -128,59 +134,67 @@ Classificar nos eixos do banco:
 
 ### Passo 6 — Geração do JSON
 
-Montar o objeto completo para inserção no banco:
+Montar o objeto seguindo `templates/perception-reference.json` (duas camadas: physical + semantic):
 
 ```json
 {
-  "reference_id": "ref-[NNN]",
-  "title": "",
-  "source": "awwwards | gsap | codrops | threejs-resources | landing-love | lapa-ninja | onepagelove | codepen | github | internal | client | competitor",
-  "category": "cinematic_webgl | motion_design_premium | 3d_product_experience | particle_systems | generative_art | interactive_video | typographic_motion | 2d_3d_hybrid",
-  "url": "",
-  "screenshot": "intelligence/visual-references/screenshots/ref-[NNN].png",
-  "video_capture": "",
-  "stack": [],
-  "stack_confidence": "detected | inferred",
-  "visual_tags": [],
-  "motion_tags": [],
-  "interaction_tags": [],
-  "industry": [],
-  "best_for": [],
-  "taxonomy": {
-    "tension_tags": [],
-    "tempo": "",
-    "densidade": "",
-    "movimento": "",
-    "profundidade": "",
-    "emoção": []
+  "id": "ref-[slug]",
+  "slug": "[kebab-case]",
+  "name": "[nome legível]",
+
+  "physical": {
+    "url": "",
+    "screenshots": ["intelligence/reference-library/acquired/assets/[slug]/screenshot.png"],
+    "video": null,
+    "stack": [],
+    "stack_confidence": "detected | inferred",
+    "metadata": {
+      "title": "",
+      "description": "",
+      "captured_at": "",
+      "capture_status": "manual"
+    }
   },
-  "tension": "",
-  "why_it_matches": [],
-  "what_to_steal": [],
-  "what_not_to_copy": [],
-  "components": {
-    "motion": "",
-    "3d": "",
-    "scroll": "",
-    "interaction": "",
-    "typography": "",
-    "color_behavior": ""
+
+  "semantic": {
+    "tension": "",
+    "por_que_funciona": "",
+    "principio_transferivel": "",
+    "dimensoes": {
+      "tempo": "",
+      "ritmo": "",
+      "densidade": "",
+      "profundidade": "",
+      "contraste": "",
+      "temperatura": "",
+      "movimento": "",
+      "ornamentacao": ""
+    },
+    "tags": {
+      "visual": [],
+      "motion": [],
+      "interaction": [],
+      "emocao": [],
+      "contexto": []
+    },
+    "absorver": [],
+    "nunca_copiar": []
   },
-  "transferable_principle": "",
-  "capture_status": "auto | manual | failed",
-  "added_by": "operator | system",
-  "added_at": "",
-  "client": "",
-  "used_in": [],
-  "performance_notes": ""
+
+  "system": {
+    "status": "draft",
+    "validation": { "validated_by": null, "validated_at": null, "notes": null },
+    "added_at": "",
+    "used_in": []
+  }
 }
 ```
 
 ### Passo 7 — Inserção no banco
 
-Inserir o objeto em `intelligence/visual-references.json` dentro do array `references`.
-Incrementar `reference_id` automaticamente.
-Confirmar inserção ao operador com resumo de 3 linhas.
+Salvar em `intelligence/reference-library/acquired/[slug].json`.
+Atualizar `intelligence/reference-library/index.json` com entrada leve (id, slug, name, status, tension, principio, dimensoes resumidas).
+Confirmar inserção ao operador com: tensão identificada + princípio transferível.
 
 ---
 

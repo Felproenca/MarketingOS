@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Benchmarks de performance por nicho e canal. Alimentado pelos metrics.json de todos os clientes ativos. Usado pelo Cursor para avaliar se um resultado é bom, médio ou ruim para aquele contexto específico.",
-    "updated_at": "2026-06-04",
+    "updated_at": "2026-06-11",
     "total_clients": 1,
     "methodology": "Média dos clientes ativos com pelo menos 60 dias de dados. Valores marcados com 'ref' são referências de mercado externas, não dados internos.",
     "total_posts": 21
@@ -337,7 +337,7 @@
       "best_hook_type": "",
       "_posts_count": 21,
       "_source": "interno",
-      "_updated_at": "2026-06-04"
+      "_updated_at": "2026-06-11"
     },
     "stories": {
       "avg_tap_forward_rate": 0,

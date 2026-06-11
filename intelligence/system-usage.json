@@ -1,11 +1,36 @@
 {
   "_meta": {
     "description": "Log de uso das skills por sessão. Atualizado automaticamente pelo /fechar.",
-    "updated_at": "2026-06-06",
-    "total_sessions": 4,
-    "total_operations": 14
+    "updated_at": "2026-06-11",
+    "total_sessions": 5,
+    "total_operations": 17
   },
   "sessions": [
+    {
+      "date": "2026-06-11",
+      "client": "felipe-proenca + system",
+      "skills_used": [
+        {
+          "skill": "skill-creative-direction",
+          "group": "criacao",
+          "output_generated": "Estágio 4 Passo 3 adicionado — Reference Library externa como segunda fonte de matching; workflows/reference-library.md criado",
+          "outcome": "aprovado"
+        },
+        {
+          "skill": "skill-site-builder",
+          "group": "criacao",
+          "output_generated": "clients/felipe-proenca/outputs/site/index.html — site 3D scroll-driven (Three.js + GSAP) + 8 previews PNG validados via Playwright",
+          "outcome": "aprovado"
+        },
+        {
+          "skill": "skill-salvar",
+          "group": "sistema",
+          "output_generated": "commits 524d29a + 918a4d3 — integração Reference Library + runs.md sessão 17",
+          "outcome": "aprovado"
+        }
+      ],
+      "notes": "Integração da Reference Library externa (../social-content-agents, 42 refs) nas 6 skills de criação + skill-content-engine deprecada. Site novo do Felipe: terminal vivo, schematics SVG, princípios por scrub. Insights bloqueado: token Meta expirado. Aprendizado: 3D admitido no DNA quando todo movimento é dirigido pelo leitor."
+    },
     {
       "date": "2026-06-06",
       "client": "system",

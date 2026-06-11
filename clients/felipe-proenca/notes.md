@@ -1,5 +1,28 @@
 # notes.md — Felipe Proença
 
+## 2026-06-11 — Reference Library integrada + site novo 3D scroll-driven
+
+**O que foi feito:**
+- Reference Library externa (`../social-content-agents`, 42 refs com código real) integrada ao sistema: protocolo em `workflows/reference-library.md`, blocos nas 6 skills de criação
+- `skill-content-engine.md` deprecada — repo pivotou, motor Python preservado na branch `legacy-content-engine`
+- Site novo gerado: `outputs/site/index.html` — Three.js camera fly-through por scroll, partículas gold, manifesto pinado, terminal vivo (comando digitando + 6 camadas processando + perception.json retornando), schematics SVG nos passos Perceber/Compreender/Produzir, princípios materializando por scrub
+- Validado via Playwright: zero erros de console, 8 previews PNG
+
+**Decisões tomadas:**
+1. **3D admitido no DNA com condição:** todo movimento dirigido pelo leitor (scroll/mouse), nada anda sozinho — tradução de "movimento mínimo como sinal de controle". Texto continua entrando só por fade.
+2. **Divisão de papéis dos bancos:** Reference Library = execução (como fazer, código); Biblioteca Viva = percepção (por que fazer, tensões). `reference-context.json` segue como gate.
+3. **Terminal vivo como padrão de prova:** o `terminal_block` do brand-kit elevado de estático para operante — o sistema demonstrando a si mesmo (princípio Stripe).
+
+**O que funcionou:**
+- Teste de integração de ponta a ponta: gates → consulta (3 refs) → código adaptado ao DNA → render validado. O fluxo desenhado pela manhã funcionou à tarde sem ajuste.
+- Feedback do Felipe direcionou refinamento certeiro: "telas em operação" + "camadas no scroll" — ambos implementados sem quebrar o DNA.
+
+**Próximos passos:**
+- Site é draft aprovado em conteúdo/motion — falta deploy (Vercel/Netlify) e domínio
+- Avaliar migração dos bancos antigos (`visual-references.json`, `copy-references.json`) para a Reference Library
+
+---
+
 ## 2026-06-10 — Virada de posicionamento: Perception Engine + Branding completo
 
 **O que foi feito:**

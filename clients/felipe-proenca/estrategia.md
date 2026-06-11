@@ -88,9 +88,17 @@ Honesto. Único. Constrói credibilidade sem precisar de prova que ainda não ex
 - [ ] Renovar imgbb API key (imgbb.com > API)
 
 **Conteúdo — próxima fase (pós-30 dias):**
-- [ ] Se tese validada → `/direcao-criativa` → site novo com posicionamento atual
+- [x] Site novo com posicionamento atual — draft pronto em `outputs/site/index.html` (2026-06-11)
+- [ ] Deploy do site novo (Vercel/Netlify) + domínio → landing page no ar (prioridade 3 desta fase)
 - [ ] Grade 2 (Posts 10—18) — revisar à luz da tese e do plano 30 dias
 - [ ] Produzir Reels 02, 03, 04 com ângulos da tese (não tutoriais de feature)
+
+## Contexto da última sessão (2026-06-11)
+
+- Reference Library externa integrada às skills de criação — protocolo em `workflows/reference-library.md`
+- Site novo gerado e validado: Three.js scroll-driven + terminal vivo + princípios por scrub — tese central como hero, manifesto pinado, perception.json como prova
+- Site é draft aprovado em conteúdo e motion — falta deploy para virar o hub de conversão previsto na estratégia
+- skill-content-engine deprecada (motor Python removido do upstream)
 
 ## Contexto da última sessão (2026-06-10)
 

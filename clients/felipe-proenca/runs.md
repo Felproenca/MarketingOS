@@ -1,5 +1,26 @@
 ﻿# runs.md — Felipe Proença
 
+## Sessão 17 — 2026-06-11
+
+**Status:** Completo
+**Objetivo:** Integração da Reference Library externa + site novo com 3D scroll-driven
+
+**Entregáveis:**
+- Reference Library integrada ao sistema: `workflows/reference-library.md` (protocolo de consulta) + blocos nas skills carousel, reels, reel-builder, site-builder, visual-spec e creative-direction (Estágio 4, Passo 3)
+- `skill-content-engine.md` deprecada — motor Python removido do upstream do social-content-agents; código antigo + 159 linhas locais preservados na branch `legacy-content-engine`
+- Site novo: `outputs/site/index.html` — 6 seções, Three.js camera fly-through dirigido por scroll, partículas gold, manifesto pinado com frases por fade, terminal vivo (comando digitando + outputs retornando + 6 camadas processando), schematics SVG desenhando nos 3 passos, princípios materializando em camadas por scrub
+- 8 previews PNG validados via Playwright (zero erros de console)
+
+**Decisões:**
+- 3D é admitido no DNA quando todo movimento é dirigido pelo leitor (scroll) — "movimento mínimo como sinal de controle"
+- Reference Library externa = fonte de execução (como fazer); Biblioteca Viva = fonte de percepção (por que fazer)
+- `reference-context.json` segue como gate obrigatório — a biblioteca não o substitui
+- Princípios rastreados no site: Linear (scroll-only motion), Stripe (terminal com perception.json como prova), Aesop (scrub lento, CTA sem pressão)
+
+**Aprendizados:**
+- O repo social-content-agents pivotou para Reference Library — main local estava 6 commits atrás com mudanças não commitadas em arquivos deletados no upstream; preservar em branch antes de pull evitou perda
+- Teste de integração de ponta a ponta funcionou: gates → consulta à biblioteca (3 refs) → código adaptado ao DNA → render validado
+
 ## Sessão 16 — 2026-06-10
 
 **Status:** Completo

@@ -47,6 +47,10 @@ Antes de gerar qualquer especificação visual:
 
 Não carregar o visual-dna.json inteiro — apenas os campos relevantes para spec visual.
 
+**Reference Library (código):**
+Ao especificar motion ou efeito por slide/frame, consultar `../social-content-agents/index.json`
+e citar o `id` da entry na spec — protocolo em `workflows/reference-library.md`. Máx. 3 refs.
+
 ---
 
 ## Entrada

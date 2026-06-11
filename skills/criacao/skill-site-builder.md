@@ -54,6 +54,12 @@ Ao descrever o briefing visual de cada seção, indicar qual princípio de `prin
 **Gate de profundidade:**
 Se o output final não demonstrar influência explícita de ao menos 1 princípio transferível da referência — o output é raso. Revisar antes de entregar.
 
+**Reference Library (código e benchmarks):**
+Consultar `../social-content-agents/index.json` — `sites/` para benchmark de layout
+(Stripe, Vercel, Linear, Aesop, Lusion), `motion/` para código de scroll/reveal/interação,
+`visual/` para sistemas e paletas. Adaptar ao visual-dna — protocolo em
+`workflows/reference-library.md`. Máx. 3 refs.
+
 ---
 
 ## Objetivo da Skill

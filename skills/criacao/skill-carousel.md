@@ -52,6 +52,10 @@ Antes do primeiro slide, declarar em 1–3 frases quais princípios de `principl
 **Gate de profundidade:**
 Se o output final não demonstrar influência explícita de ao menos 1 princípio transferível da referência — o output é raso. Revisar antes de entregar.
 
+**Reference Library (código):**
+Para motion ou padrão visual específico, consultar `../social-content-agents/index.json`
+e adaptar o snippet ao visual-dna — protocolo em `workflows/reference-library.md`. Máx. 3 refs.
+
 > Se `content_performance.carousel` tiver dados reais (≠ 0/vazio), usar como
 > default de gancho e contagem de slides. Se estiver zerado, seguir o julgamento
 > da skill normalmente — não inventar número.

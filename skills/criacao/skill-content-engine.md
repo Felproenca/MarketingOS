@@ -11,6 +11,13 @@ env:
 ---
 
 # skill-content-engine.md - Motor Social de Conteudo
+
+> ⚠️ **DEPRECADA (2026-06-11).** O repo `social-content-agents` pivotou para
+> Reference Library — o motor Python (agents, workflows, API local) foi removido
+> do upstream. O codigo antigo sobrevive apenas na branch `legacy-content-engine`
+> do repo local. Para consultar referencias, usar `workflows/reference-library.md`.
+> Esta skill nao deve ser executada ate ser reescrita ou removida.
+
 > Skill ponte entre MarketingOS e `social-content-agents`.
 > Use quando a execucao precisar de pipeline automatizado, API local, HTML/PNG,
 > status de imagens externas ou aprendizado por metricas.

@@ -51,6 +51,11 @@ Declarar qual princípio de `principles_applied` guia as decisões de timing, en
 **Gate de profundidade:**
 Se o HTML final não demonstrar influência explícita de ao menos 1 princípio transferível da referência no motion — o output é raso. Revisar antes de entregar.
 
+**Reference Library (código):**
+Para o motion do reel, consultar `../social-content-agents/index.json` (15 refs de motion
+com código GSAP/Three.js/vanilla) e adaptar ao visual-dna — protocolo em
+`workflows/reference-library.md`. Máx. 3 refs.
+
 ---
 
 ## Objetivo

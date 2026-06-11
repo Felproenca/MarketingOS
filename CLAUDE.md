@@ -70,6 +70,13 @@ reference-context.json    ← salvo em clients/[slug]/outputs/branding/ [GATE ob
 /reverter [url]        ← engenharia reversa de obra específica
 ```
 
+**Reference Library externa (código real):**
+Repo irmão `../social-content-agents` — 42 refs: motion com código (GSAP, Three.js,
+Framer, vanilla), sistemas visuais, paletas por setor, benchmarks de sites e
+concorrentes. Protocolo de consulta: `workflows/reference-library.md`.
+As skills de criação consultam quando precisam de implementação; a Biblioteca Viva
+(`intelligence/reference-library/`) continua sendo a fonte de percepção e tensões.
+
 ---
 
 ## Linguagem de Posicionamento — MarketingOS
@@ -233,7 +240,7 @@ Use `workflows/token-economy.md` como regra operacional para reduzir contexto.
 | `criacao/skill-site-builder.md` | Site ou landing page |
 | `criacao/skill-image-generation.md` | Prompts e imagens de apoio |
 | `criacao/skill-publicar.md` | Aprovacao, checklist e publicacao real via Meta Graph API (`npm run publicar`) |
-| `criacao/skill-content-engine.md` | Motor social automatizado (`social-content-agents`) |
+| `criacao/skill-content-engine.md` | ⚠️ DEPRECADA — motor Python removido do upstream; ver `workflows/reference-library.md` |
 | `criacao/skill-social-copy.md` | Copy agent como skill |
 | `criacao/skill-visual-spec.md` | Direcao visual por slide/frame |
 | `criacao/skill-prompt-engineer.md` | Decisao HTML puro vs imagem externa |

@@ -141,6 +141,17 @@ Para cada referência selecionada, carregar o JSON completo:
 
 Os JSONs completos contêm campos que o índice não tem: `components`, `what_to_steal`, `what_not_to_copy`, `transferable_principle`.
 
+**Passo 3 — Reference Library externa (código e benchmarks)**
+
+Consultar também `../social-content-agents/index.json` — biblioteca externa com
+código real (motion), sistemas visuais, paletas por setor e benchmarks de sites.
+Protocolo completo: `workflows/reference-library.md`.
+
+Cruzar `tags` e `tensions` das entries com a assinatura perceptiva, igual ao Passo 1.
+Selecionar no máximo 3. As referências daqui alimentam o `reference-context.json`
+com a vantagem de já carregarem implementação (`code`, `adaptation_notes`) — citar
+o `id` da entry no campo `references_used`.
+
 Se o banco estiver vazio ou insuficiente:
 - Registrar lacuna em `intelligence/skill-updates.md`
 - Prosseguir com direção criativa baseada nos estágios anteriores

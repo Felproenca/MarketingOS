@@ -7,7 +7,7 @@
  */
 
 const { initEmail, verifyEmail, sendEmail } = require('../prospector/outreach-email');
-const { initWhatsApp, sendWhatsApp, destroyWhatsApp } = require('../prospector/outreach-whatsapp');
+const { initWhatsApp, sendWhatsApp, destroyWhatsApp, isRegistered } = require('../prospector/outreach-whatsapp');
 
 const SESSION = require('path').resolve(__dirname, '../../.whatsapp-session');
 
@@ -24,16 +24,27 @@ async function send(lead, message, channel = 'whatsapp') {
 
   try {
     if (channel === 'whatsapp' || channel === 'both') {
-      if (lead.whatsapp) {
+      // Telefone do Google Maps vale como candidato a WhatsApp —
+      // a validação real é o getNumberId abaixo, não a presença de link wa.me
+      const waNumber = lead.whatsapp || lead.phone;
+
+      if (waNumber) {
         await ensureWhatsAppReady();
-        const res = await sendWhatsApp(lead.whatsapp, message.whatsapp_version, 4000);
-        if (res.success) {
-          result.sent    = true;
-          result.channel = 'whatsapp';
-          console.log(`    ✓ WhatsApp enviado para ${lead.whatsapp}`);
+
+        const check = await isRegistered(waNumber);
+        if (!check.registered) {
+          result.error = 'Número sem WhatsApp ativo';
+          console.log(`    ✗ ${waNumber} não tem WhatsApp ativo — pulando WhatsApp`);
         } else {
-          result.error = res.error;
-          console.log(`    ✗ Falha no WhatsApp: ${res.error}`);
+          const res = await sendWhatsApp(waNumber, message.whatsapp_version, 4000);
+          if (res.success) {
+            result.sent    = true;
+            result.channel = 'whatsapp';
+            console.log(`    ✓ WhatsApp enviado para ${waNumber}`);
+          } else {
+            result.error = res.error;
+            console.log(`    ✗ Falha no WhatsApp: ${res.error}`);
+          }
         }
       } else {
         console.log(`    ⚠ WhatsApp não encontrado — pulando`);

@@ -136,23 +136,45 @@ npm run prospector -- \
   --dry-run                     # Testa sem enviar
 ```
 
-### Scraper Inteligente v2
+### Scraper Inteligente v3 — fluxo em duas etapas com aprovação
 
 ```bash
-# Diagnóstico + score + mensagem personalizada, sem enviar
-npm run scraper:dry -- "clínica estética Rio de Janeiro" --max=10 --score=6
+# ETAPA 1 — Gerar lote: diagnóstico + score + mensagem, NADA é enviado
+npm run scraper -- "clínica estética Tijuca" --max=10 --score=6 --channel=whatsapp
+# → salva em agency/leads/pending-approval.json
+# → revise o arquivo: edite mensagens, delete leads ruins
 
-# Rodar com opções explícitas
-npm run scraper -- \
-  "clínica estética Rio de Janeiro" \
-  --max=10 \                    # Máximo de leads qualificados
-  --score=6 \                   # Score mínimo para abordar
-  --channel=email \             # email | whatsapp | both
-  --dry-run                     # Gera mensagem sem enviar
+# ETAPA 2 — Enviar o lote aprovado (rodar o comando É a aprovação)
+npm run scraper:enviar
+
+# Simular envio sem enviar
+npm run scraper:dry
 ```
 
-**Pipeline:** Discovery → Analysis → Qualification → Message → Outreach  
-**Output:** `scripts/scraper/leads.json`
+**Pipeline:** Discovery → Dedupe → Analysis → Qualification → Message → Aprovação → Outreach
+**Store único:** `agency/leads/pipeline.json` — scraper, bot e follow-up compartilham o mesmo estado; ninguém é contactado duas vezes.
+**Anti-ban:** teto de 25 envios/dia (`WHATSAPP_DAILY_CAP`), janela 9h–18h seg–sáb (`--fora-do-horario` força), intervalo aleatório 1–5 min entre envios.
+**Validação:** telefone do Google Maps vira candidato a WhatsApp — `getNumberId` confirma antes de enviar.
+
+### Follow-up Engine — o funil não morre em "sent"
+
+```bash
+# Ver o plano: quem respondeu (reconcilia offline) + quem está em D+2/D+5
+npm run followup
+
+# Enviar follow-ups de verdade
+npm run followup:enviar
+```
+
+**Cadência:** D+2 sem resposta → followup_1 | D+5 → followup_2 | depois, silêncio.
+**Reconciliação:** varre as conversas e marca `replied` quem respondeu com o bot offline.
+
+### Migração dos stores antigos (rodar uma vez)
+
+```bash
+npm run pipeline:migrate
+# bot-state.json + contacted/*.json + scraper/leads.json → agency/leads/pipeline.json
+```
 
 ### Integração social-content-agents
 

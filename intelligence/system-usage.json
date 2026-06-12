@@ -2,10 +2,23 @@
   "_meta": {
     "description": "Log de uso das skills por sessão. Atualizado automaticamente pelo /fechar.",
     "updated_at": "2026-06-11",
-    "total_sessions": 5,
-    "total_operations": 17
+    "total_sessions": 6,
+    "total_operations": 18
   },
   "sessions": [
+    {
+      "date": "2026-06-11",
+      "client": "agency + system",
+      "skills_used": [
+        {
+          "skill": "scraper-pipeline-v3",
+          "group": "aquisicao",
+          "output_generated": "scripts/pipeline/ (store + migrate + guard + followup) + scraper v3 com gate de aprovação — store unificado agency/leads/pipeline.json, dedupe por telefone/domínio, telefone Maps→WhatsApp validado via getNumberId, follow-up D+2/D+5 com reconciliação de respostas, anti-ban (teto 25/dia, janela 9h-18h, delay aleatório 1-5min)",
+          "outcome": "aprovado"
+        }
+      ],
+      "notes": "Auditoria completa do sistema revelou: funil morria em 'sent' (15 contatos de maio sem follow-up), scraper e bot com stores separados (risco de re-contato), leads com telefone mas sem wa.me descartados. Implementado bloco 1→3→2→5→4. Migração rodada: 14 contatos únicos no pipeline, todos devidos para followup_1. Próxima ação comercial: npm run followup:enviar dentro da janela 9h-18h."
+    },
     {
       "date": "2026-06-11",
       "client": "felipe-proenca + system",

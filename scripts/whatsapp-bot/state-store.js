@@ -1,65 +1,36 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
+/**
+ * state-store.js — Adaptador para o pipeline unificado.
+ *
+ * O bot lia/escrevia agency/bot-state.json. Agora tudo vive em
+ * agency/leads/pipeline.json (scripts/pipeline/store.js) — o mesmo store
+ * que o scraper e o follow-up consultam. Um contato, um estado, um funil.
+ *
+ * Migração dos dados antigos: npm run pipeline:migrate
+ */
 
-const STATE_FILE = path.resolve(__dirname, '../../agency/bot-state.json');
-
-function load() {
-  try {
-    return JSON.parse(fs.readFileSync(STATE_FILE, 'utf8'));
-  } catch {
-    return {};
-  }
-}
-
-function save(state) {
-  fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2), 'utf8');
-}
+const pipeline = require('../pipeline/store');
 
 function get(chatId) {
-  return load()[chatId] || null;
+  return pipeline.get(chatId);
 }
 
 function set(chatId, data) {
-  const state = load();
-  state[chatId] = { ...state[chatId], ...data, updatedAt: new Date().toISOString() };
-  save(state);
+  // step muda via setStep (mantém histórico e timestamps do funil)
+  const { step, ...rest } = data;
+
+  if (Object.keys(rest).length > 0) pipeline.update(chatId, rest);
+
+  const current = pipeline.get(chatId);
+  if (step && current && current.step !== step) {
+    pipeline.setStep(chatId, step, 'bot de conversa');
+  }
 }
 
-// Importa todos os contatos enviados para o estado inicial
+// Importa contatos antigos do diretório contacted/ que ainda não estejam no pipeline
 function syncContacted(contactedDir) {
-  const state = load();
-  let added = 0;
-
-  const files = fs.readdirSync(contactedDir).filter(f => f.endsWith('.json'));
-  for (const file of files) {
-    const contacts = JSON.parse(fs.readFileSync(path.join(contactedDir, file), 'utf8'));
-    for (const c of contacts) {
-      const digits = String(c.phone || '').replace(/\D/g, '').replace(/^0/, '');
-      const chatId = digits.startsWith('55') && digits.length >= 12
-        ? `${digits}@c.us`
-        : digits.length >= 10 ? `55${digits}@c.us` : null;
-
-      if (!chatId) continue;
-      if (state[chatId]) continue;
-
-      state[chatId] = {
-        chatId,
-        name: c.name,
-        phone: c.phone,
-        website: c.website || null,
-        segment: c.segment || 'clinica',
-        step: 'sent',
-        sentAt: c.sentAt,
-        updatedAt: c.sentAt,
-      };
-      added++;
-    }
-  }
-
-  save(state);
-  return added;
+  return pipeline.importContactedDir(contactedDir);
 }
 
 module.exports = { get, set, syncContacted };

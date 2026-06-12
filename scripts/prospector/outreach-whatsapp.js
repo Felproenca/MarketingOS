@@ -65,6 +65,25 @@ function normalizePhone(phone) {
   return null;
 }
 
+/**
+ * Verifica se o número tem WhatsApp ativo antes de tentar enviar.
+ * Retorna { registered, chatId } — chatId é o id real retornado pelo WhatsApp
+ * (resolve casos de 9º dígito em que o número cadastrado difere do discado).
+ */
+async function isRegistered(phone) {
+  if (!client) throw new Error('WhatsApp não inicializado. Chame initWhatsApp() primeiro.');
+
+  const chatId = normalizePhone(phone);
+  if (!chatId) return { registered: false, chatId: null };
+
+  try {
+    const numberId = await client.getNumberId(chatId.replace('@c.us', ''));
+    return { registered: !!numberId, chatId: numberId ? numberId._serialized : chatId };
+  } catch {
+    return { registered: false, chatId };
+  }
+}
+
 async function sendWhatsApp(phone, message, delayMs = 3000) {
   if (!client) throw new Error('WhatsApp não inicializado. Chame initWhatsApp() primeiro.');
 
@@ -115,4 +134,8 @@ async function destroyWhatsApp() {
   }
 }
 
-module.exports = { initWhatsApp, sendWhatsApp, sendWhatsAppWithMedia, destroyWhatsApp };
+function getClient() {
+  return client;
+}
+
+module.exports = { initWhatsApp, sendWhatsApp, sendWhatsAppWithMedia, destroyWhatsApp, isRegistered, normalizePhone, getClient };

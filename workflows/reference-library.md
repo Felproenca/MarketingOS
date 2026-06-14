@@ -18,6 +18,7 @@ sistemas visuais, paletas por setor, benchmarks de sites e análises de concorre
 | Posicionamento contra players do nicho | `competitors/` |
 | Contexto de indústria (beauty, medical) | `industries/` |
 | Padrões de gancho | `copy/hooks.json` |
+| Prospecção, diagnóstico de funil ou conteúdo de aquisição | `frameworks/acquisition/` — diagnóstico 30 dias, modelo 70/20/10, mapa de 5 gargalos |
 
 ---
 
@@ -37,8 +38,10 @@ python -m src.query list          # tudo, agrupado por categoria
 python -m src.query stats         # totais por tipo e maturidade
 ```
 
-A API Python `search_for_agent({sector, style, mood, industry})` existe para
-integração programática (scripts, agents) — não para uso manual em skill.
+A API Python `search_for_agent({sector, style, mood, industry, acquisition_objective, bottleneck, stage})`
+existe para integração programática (scripts, agents) — não para uso manual em skill.
+Quando o brief é de aquisição (`acquisition_objective` ou `bottleneck` presentes),
+entradas com `acquisition_role` relevante recebem boost no ranking.
 
 ---
 

@@ -31,6 +31,21 @@
 
 ---
 
+## 2026-06-15 — Follow-up D+5 (silêncio) — Liliana Sierra
+
+**Contexto:** Prazo de decisão (15/06) chegou sem resposta da Liliana desde a reunião positiva de 10/06. Follow-up de reabertura.
+
+**O que foi feito:**
+- Redigida mensagem de follow-up para WhatsApp no ângulo de amplificação ("você já construiu a parte mais difícil") — sem cobrança.
+- Incorporada **escassez real e honesta**: implantação feita à mão pelo Felipe, só **2 vagas para subir ainda este mês**, leva fecha **dia 27**. Urgência pela emoção (cuidado/atenção), não pela pressão.
+- Estrutura: reconhecimento → transparência sobre capacidade → "se for você" (projeção da parceria) → pergunta binária com saída fácil para objeção.
+
+**Decisões tomadas:**
+- Escassez sustentada por limite operacional verdadeiro, nunca inventado — diferencial de confiança.
+- "Se for você, te dou a atenção que seu trabalho merece" — desejo antes da decisão; eleva o valor da vaga.
+
+**Próximo passo:** Enviar a mensagem. Se positivo → onboarding (skill-head-implantado) + setup WA provider, com janela de implantação até 27/06. Se silêncio persistir após esta → reavaliar prioridade do prospecto.
+
 ## 2026-06-10 — Reunião + envio do demo v2 — Liliana Sierra
 
 **Contexto:** Reunião de fechamento realizada. Resultado positivo — ficou de pensar.

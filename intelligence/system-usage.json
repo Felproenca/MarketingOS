@@ -1,11 +1,24 @@
 {
   "_meta": {
     "description": "Log de uso das skills por sessão. Atualizado automaticamente pelo /fechar.",
-    "updated_at": "2026-06-11",
-    "total_sessions": 6,
-    "total_operations": 18
+    "updated_at": "2026-06-15",
+    "total_sessions": 7,
+    "total_operations": 19
   },
   "sessions": [
+    {
+      "date": "2026-06-15",
+      "client": "agency",
+      "skills_used": [
+        {
+          "skill": "skill-venda",
+          "group": "venda",
+          "output_generated": "Follow-up D+5 para Liliana Sierra (silêncio após reunião positiva) — ângulo de amplificação + escassez real (2 vagas, implantação à mão fecha 27/06). Atualizado notes.md + estrategia.md da agency.",
+          "outcome": "pendente"
+        }
+      ],
+      "notes": "Prazo de decisão (15/06) chegou sem resposta. Redigida mensagem de reabertura sem cobrança: reconhecimento do que ela já construiu + transparência sobre capacidade limitada de implantação (2 vagas, leva fecha dia 27) como urgência pela emoção, não pela pressão. Princípio: escassez verdadeira > escassez inventada. Mensagem ainda não enviada."
+    },
     {
       "date": "2026-06-11",
       "client": "agency + system",

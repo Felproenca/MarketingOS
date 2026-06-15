@@ -27,8 +27,10 @@ Meta 3: Coletar primeiro depoimento real para prova social
 [x] Seção "O que acontece depois" — transparência sobre setup
 [x] Reunião de fechamento com Liliana — positiva, aguardando decisão
 [x] Link enviado — https://demo-omega-amber-71.vercel.app
-[ ] Aguardar resposta até 2026-06-15
-[ ] Follow-up no dia 15 se silêncio
+[x] Aguardar resposta até 2026-06-15 — silêncio
+[x] Follow-up D+5 redigido (amplificação + escassez real: 2 vagas, leva fecha 27/06)
+[ ] Enviar follow-up no WhatsApp
+[ ] Se positivo → onboarding com janela de implantação até 27/06
 [ ] Setup WA provider (Z-API ou WATI) — após assinatura
 [ ] Setup Google Calendar OAuth — após assinatura
 [ ] Primeiro conteúdo publicado — skill-carousel + skill-publicar
@@ -36,11 +38,9 @@ Meta 3: Coletar primeiro depoimento real para prova social
 
 ## Contexto da Ultima Reuniao
 ```txt
-Data: 2026-06-10
-Decisoes:
-  → Valor ajustado: 1º mês R$ 748 + 2º e 3º mês R$ 1.600/mês
-  → Reunião positiva — Liliana ficou de pensar
-  → Perguntas de perfil de cliente funcionaram bem para abrir escuta
-Pendencias: Decisão da Liliana até 2026-06-15
-Proximo contato: 2026-06-15 — follow-up se sem resposta
+Data: 2026-06-15 (follow-up — sem reunião)
+Situação: Prazo de decisão chegou em silêncio. Follow-up D+5 redigido.
+Ângulo: amplificação + escassez real (2 vagas, implantação fecha 27/06)
+Pendencias: Enviar mensagem e aguardar retorno
+Proximo contato: monitorar resposta; reavaliar prioridade se silêncio persistir
 ```

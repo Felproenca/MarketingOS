@@ -56,14 +56,19 @@ function enrichLeads(data) {
   contacts.forEach(c => { byKey[mkey(c)] = c; });
 
   pendings.forEach(pi => {
-    const msg = (pi.message && (pi.message.whatsapp_version || pi.message.body)) || '';
+    const m = pi.message || {};
+    const msg = m.whatsapp_version || m.body || '';
+    const variants = Array.isArray(m.variants) ? m.variants : null;
+    const recommended = m.recommended || null;
     const hit = byKey[mkey(pi)];
-    if (hit) { hit.message = msg; hit.pendingIndex = pi.index; hit.channel = pi.channel; }
-    else contacts.push({
+    if (hit) {
+      hit.message = msg; hit.messageVariants = variants; hit.recommended = recommended;
+      hit.pendingIndex = pi.index; hit.channel = pi.channel;
+    } else contacts.push({
       id: 'pending:' + pi.index, key: 'pending:' + pi.index, name: pi.name, domain: pi.domain,
       segment: pi.segment, whatsapp: pi.whatsapp, website: pi.website, score: pi.score,
       main_problem: pi.main_problem, step: 'pending_approval', tier: 'mass',
-      message: msg, pendingIndex: pi.index, channel: pi.channel,
+      message: msg, messageVariants: variants, recommended, pendingIndex: pi.index, channel: pi.channel,
     });
   });
   return contacts;
@@ -161,16 +166,39 @@ function renderDispatch() {
 // Estágio Descobertos: o que importa é a COPY do 1º contato — não o valor.
 function renderFirstContact(lead) {
   const gate = S.data.pipeline.canSend;
-  const outputs = plannedOutputs();
+  const variants = (lead.messageVariants && lead.messageVariants.length > 1) ? lead.messageVariants : null;
+  const rec = lead.recommended || {};
+  S._variantChosen = variants ? (variants[0].id || 'A') : null;
+
+  const copyBlock = variants
+    ? `<div class="dsp-lab">Copy de 1º contato <b>3 variantes · A/B</b></div>
+       <div class="vlist" id="copy-variants">
+         ${variants.map((v, i) => `
+           <div class="v${i === 0 ? ' on' : ''}" data-msg="${esc(v.whatsapp_version)}" data-id="${esc(v.id || '')}">
+             <div class="vrow"><span class="vt"><span class="mk"></span> ${esc(v.id || '·')} · ${esc(v.angle || '')}</span></div>
+             <div class="body-q">${esc(v.whatsapp_version)}</div>
+           </div>`).join('')}
+       </div>`
+    : `<div class="dsp-lab">Copy de 1º contato <b>do Copy Engine</b></div>
+       <div class="cpnote">Variante única — rode uma prospecção nova para gerar as 3.</div>`;
+
+  // Pacote = recomendação levantada na pesquisa (diagnóstico/vídeo) + defaults do painel.
+  const pkg = [];
+  if (rec.diagnosis) pkg.push('diagnóstico');
+  if (rec.video) pkg.push('vídeo');
+  plannedOutputs().forEach(o => { if (!pkg.includes(o)) pkg.push(o); });
+
+  const initial = variants ? variants[0].whatsapp_version : lead.message;
+
   $('#dispatch').innerHTML =
     dispatchHeader(lead, 'Despacho — 1º contato') +
     `<div class="dsp-b">
-      <div class="dsp-lab">Copy de 1º contato <b>do Copy Engine</b></div>
-      <div class="cpnote">Variantes (3) entram na próxima leva — por ora, 1 copy gerada na pesquisa.</div>
-      <textarea class="ed" id="f-copy" placeholder="Mensagem de primeiro contato — sem link, sem pitch, termina em pergunta.">${esc(lead.message || '')}</textarea>
-      <div class="dsp-lab" style="margin-top:16px">Pacote planejado · após resposta</div>
-      <div class="pkg">${outputs.length
-        ? outputs.map(o => `<span class="pkgtag on">${esc(o)}</span>`).join('')
+      ${copyBlock}
+      <div class="dsp-lab" style="margin-top:16px">Mensagem final · editável</div>
+      <textarea class="ed" id="f-copy" placeholder="Mensagem de primeiro contato — sem link, sem pitch, termina em pergunta.">${esc(initial || '')}</textarea>
+      <div class="dsp-lab" style="margin-top:16px">Pacote planejado · após resposta${rec.reason ? ` <b>${esc(rec.reason)}</b>` : ''}</div>
+      <div class="pkg">${pkg.length
+        ? pkg.map(o => `<span class="pkgtag on">${esc(o)}</span>`).join('')
         : '<span class="pkgtag">nenhum — só conversa</span>'}</div>
     </div>
     <div class="dsp-f">
@@ -178,6 +206,15 @@ function renderFirstContact(lead) {
       <button class="bsm" id="b-savecopy"${lead.pendingIndex == null ? ' disabled' : ''}>Salvar copy</button>
       <button class="bsm gold" id="b-approve">Aprovar lote →</button>
     </div>`;
+
+  const vEls = document.querySelectorAll('#copy-variants .v');
+  vEls.forEach(el => el.addEventListener('click', () => {
+    vEls.forEach(x => x.classList.remove('on'));
+    el.classList.add('on');
+    $('#f-copy').value = el.getAttribute('data-msg');
+    S._variantChosen = el.getAttribute('data-id');
+  }));
+
   if (lead.pendingIndex != null) $('#b-savecopy').addEventListener('click', () => saveCopy(lead));
   $('#b-approve').addEventListener('click', approveBatch);
 }
@@ -209,9 +246,9 @@ function renderDeal(lead) {
 
 async function saveCopy(lead) {
   try {
-    await api(`/api/pending/${lead.pendingIndex}`, {
-      method: 'PATCH', body: JSON.stringify({ message: { whatsapp_version: $('#f-copy').value } }),
-    });
+    const message = { whatsapp_version: $('#f-copy').value };
+    if (S._variantChosen) message.variantChosen = S._variantChosen; // carimba a escolha p/ o A/B
+    await api(`/api/pending/${lead.pendingIndex}`, { method: 'PATCH', body: JSON.stringify({ message }) });
     toast('Copy salva'); await refresh();
   } catch (e) { toast(e.message); }
 }

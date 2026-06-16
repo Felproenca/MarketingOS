@@ -10,7 +10,20 @@
  *   → followup_1 → followup_2 (sem resposta)
  *   → replied → demo_sent → call_offered → closed | dead
  *
- * Consultado por: scraper, whatsapp-bot, followup.
+ * Tier:
+ *   'mass'        → trilho automático D+2/D+5 com template
+ *   'high-touch'  → ação agendada à mão (nextActionAt + nextActionDraft),
+ *                   fora do trilho automático. Mora no MESMO pipeline.
+ *
+ * Valor:
+ *   value      → MRR do negócio (R$/mês) — soma em pipelineValue()
+ *   planValue  → total do plano (R$)
+ *
+ * A/B:
+ *   variant    → variante de copy carimbada no último envio (mede conversão)
+ *   abStage    → em qual etapa o A/B está sendo testado
+ *
+ * Consultado por: scraper, whatsapp-bot, followup, scraper-panel.
  * Nenhum módulo envia mensagem sem checar isContacted() aqui antes.
  */
 
@@ -37,7 +50,12 @@ function load() {
 
 function save(state) {
   fs.mkdirSync(path.dirname(PIPELINE_FILE), { recursive: true });
-  fs.writeFileSync(PIPELINE_FILE, JSON.stringify(state, null, 2), 'utf8');
+  // Escrita atômica (temp + rename): um crash no meio do write não pode
+  // truncar o pipeline — load() voltaria {} e isContacted() liberaria
+  // re-abordagem de todos os contatos.
+  const tmpFile = `${PIPELINE_FILE}.tmp`;
+  fs.writeFileSync(tmpFile, JSON.stringify(state, null, 2), 'utf8');
+  fs.renameSync(tmpFile, PIPELINE_FILE);
 }
 
 // ── Normalização ──────────────────────────────────────────────────────────────
@@ -130,6 +148,13 @@ function upsert(lead) {
     score:        lead.score        ?? existing.score        ?? null,
     label:        lead.label        ?? existing.label        ?? null,
     main_problem: lead.main_problem ?? existing.main_problem ?? null,
+    tier:            existing.tier || lead.tier || 'mass',
+    value:           lead.value           ?? existing.value           ?? null,
+    planValue:       lead.planValue       ?? existing.planValue       ?? null,
+    nextActionAt:    lead.nextActionAt    ?? existing.nextActionAt    ?? null,
+    nextActionDraft: lead.nextActionDraft ?? existing.nextActionDraft ?? null,
+    variant:         lead.variant         ?? existing.variant         ?? null,
+    abStage:         lead.abStage         ?? existing.abStage         ?? null,
     step:           existing.step || lead.step || 'discovered',
     sentAt:         existing.sentAt         || lead.sentAt || null,
     lastOutboundAt: existing.lastOutboundAt || lead.sentAt || null,
@@ -152,15 +177,22 @@ function update(key, data) {
   return state[key];
 }
 
-function setStep(key, step, detail = null) {
+function setStep(key, step, detail = null, meta = {}) {
   const state = load();
   if (!state[key]) return null;
 
   const now = new Date().toISOString();
   const contact = state[key];
 
+  const entry = { at: now, from: contact.step, to: step, detail };
+  if (meta.variant) {
+    entry.variant = meta.variant;
+    contact.variant = meta.variant;          // carimbo do A/B no lead
+    if (meta.abStage) contact.abStage = meta.abStage;
+  }
+
   contact.history = contact.history || [];
-  contact.history.push({ at: now, from: contact.step, to: step, detail });
+  contact.history.push(entry);
   contact.step = step;
   contact.updatedAt = now;
 
@@ -221,6 +253,61 @@ function awaitingReply() {
   return Object.entries(load())
     .filter(([, c]) => c.chatId && ['sent', 'followup_1', 'followup_2'].includes(c.step))
     .map(([key, contact]) => ({ key, contact }));
+}
+
+// Steps que tiram o negócio "do jogo" — não somam no valor em negociação
+const CLOSED_STEPS = ['closed', 'dead'];
+
+/** Soma do MRR (value) dos negócios ainda abertos — o "R$ em jogo" do funil */
+function pipelineValue(now = new Date()) {
+  const open = Object.values(load()).filter(c => !CLOSED_STEPS.includes(c.step));
+  return {
+    mrr:       open.reduce((sum, c) => sum + (Number(c.value) || 0), 0),
+    planTotal: open.reduce((sum, c) => sum + (Number(c.planValue) || 0), 0),
+    deals:     open.filter(c => Number(c.value) > 0).length,
+  };
+}
+
+/**
+ * High-touch cuja ação agendada já venceu (e que ainda não fechou nem morreu).
+ * É o trilho manual: a faixa "Hoje" lê isto. Sai com o rascunho aprovável.
+ */
+function dueHighTouch(now = new Date()) {
+  const today = now.toISOString().slice(0, 10);
+  const due = [];
+
+  for (const [key, c] of Object.entries(load())) {
+    if (c.tier !== 'high-touch') continue;
+    if (CLOSED_STEPS.includes(c.step)) continue;
+    if (c.nextActionAt && String(c.nextActionAt).slice(0, 10) <= today) {
+      due.push({ key, contact: c });
+    }
+  }
+  return due;
+}
+
+// ── Setters de negócio (tier, valor, ação agendada) ───────────────────────────
+
+/** Promove/rebaixa o tier de um lead (mass ⇄ high-touch) */
+function setTier(key, tier) {
+  if (!['mass', 'high-touch'].includes(tier)) return null;
+  return update(key, { tier });
+}
+
+/** Define o valor do negócio: value = MRR (R$/mês), planValue = total do plano */
+function setValue(key, { value, planValue } = {}) {
+  const patch = {};
+  if (value !== undefined) patch.value = value;
+  if (planValue !== undefined) patch.planValue = planValue;
+  return Object.keys(patch).length ? update(key, patch) : get(key);
+}
+
+/** Agenda a próxima ação de um high-touch (data + rascunho aprovável) */
+function setNextAction(key, { at, draft } = {}) {
+  const patch = {};
+  if (at !== undefined) patch.nextActionAt = at;
+  if (draft !== undefined) patch.nextActionDraft = draft;
+  return Object.keys(patch).length ? update(key, patch) : get(key);
 }
 
 // ── Importação (usada pela migração e pelo sync do bot) ───────────────────────
@@ -291,5 +378,8 @@ module.exports = {
   get, getByDomain, isContacted, exists,
   upsert, update, setStep,
   sentToday, dueFollowups, awaitingReply,
+  pipelineValue, dueHighTouch,
+  setTier, setValue, setNextAction,
+  CLOSED_STEPS,
   importContactedDir,
 };

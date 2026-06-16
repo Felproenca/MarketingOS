@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MarketingOS Scraper Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <a class="brand" href="#operacao" data-nav="operacao">
+        <span class="brand-mark">M<span>/</span><em>OS</em></span>
+        <span class="brand-copy">
+          <strong>Scraper Panel</strong>
+          <small>Aquisição observável</small>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Navegação principal">
+        <button class="nav-item active" type="button" data-nav="operacao">
+          <span>Leads</span>
+          <b id="nav-running">0</b>
+        </button>
+        <button class="nav-item" type="button" data-nav="aprovacao">
+          <span>Aprovação</span>
+          <b id="nav-pending">0</b>
+        </button>
+        <button class="nav-item" type="button" data-nav="pipeline">
+          <span>Pipeline</span>
+          <b id="nav-pipeline">0</b>
+        </button>
+        <button class="nav-item" type="button" data-nav="followup">
+          <span>Follow-up</span>
+          <b id="nav-followup">0</b>
+        </button>
+        <button class="nav-item" type="button" data-nav="envios">
+          <span>Envios</span>
+          <b id="nav-envios">auto</b>
+        </button>
+      </nav>
+
+      <div class="sidebar-status">
+        <span class="dot" id="status-dot"></span>
+        <div>
+          <strong id="status-label">Carregando</strong>
+          <small id="status-detail">sincronizando estado local</small>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">MarketingOS · aquisição</p>
+          <h1 id="page-title">Leads</h1>
+        </div>
+        <div class="top-actions">
+          <button class="ghost-button" type="button" id="focus-search-button">
+            <span class="button-icon">+</span>
+            Adicionar
+          </button>
+          <button class="ghost-button" type="button" id="csv-button">
+            <span class="button-icon">↓</span>
+            CSV
+          </button>
+          <button class="ghost-button" type="button" id="refresh-button">
+            <span class="button-icon">↻</span>
+            Atualizar
+          </button>
+        </div>
+      </header>
+
+      <section class="view active" id="view-operacao">
+        <div class="lead-tabs" aria-label="Filtros de leads">
+          <button class="lead-tab active" type="button" data-lead-filter="active">Ativos <span id="tab-active">0</span></button>
+          <button class="lead-tab" type="button" data-lead-filter="qualified">Qualificados <span id="tab-qualified">0</span></button>
+          <button class="lead-tab" type="button" data-lead-filter="contact">Em contato <span id="tab-contact">0</span></button>
+          <button class="lead-tab" type="button" data-lead-filter="clean">Com contato <span id="tab-clean">0</span></button>
+          <button class="lead-tab" type="button" data-lead-filter="archived">Arquivados <span id="tab-archived">0</span></button>
+        </div>
+
+        <form class="command-panel" id="campaign-form">
+          <div class="field search-field">
+            <label for="query">Buscar leads</label>
+            <input id="query" name="query" autocomplete="off" placeholder="clínica estética Tijuca" required>
+          </div>
+          <div class="field compact">
+            <label for="max-leads">Máx.</label>
+            <input id="max-leads" name="maxLeads" type="number" min="1" max="50" value="10">
+          </div>
+          <div class="field compact">
+            <label for="min-score">Score</label>
+            <input id="min-score" name="minScore" type="number" min="0" max="10" value="6">
+          </div>
+          <div class="field compact">
+            <label for="channel">Canal</label>
+            <select id="channel" name="channel">
+              <option value="whatsapp">WhatsApp</option>
+              <option value="email">Email</option>
+              <option value="both">Ambos</option>
+            </select>
+          </div>
+          <button class="primary-button" type="submit">
+            <span class="button-icon">▶</span>
+            Gerar lote
+          </button>
+        </form>
+
+        <div class="lead-tools">
+          <input class="lead-search" id="lead-search" autocomplete="off" placeholder="Buscar por nome, domínio, telefone...">
+          <select id="lead-type-filter" aria-label="Tipo de lead">
+            <option value="all">Todos os tipos</option>
+            <option value="site">Com site</option>
+            <option value="whatsapp">Com WhatsApp</option>
+            <option value="pending">Aguardando aprovação</option>
+          </select>
+          <select id="lead-status-filter" aria-label="Status do lead">
+            <option value="all">Todos os status</option>
+            <option value="pending_approval">Aprovação</option>
+            <option value="sent">Enviado</option>
+            <option value="followup">Follow-up</option>
+            <option value="replied">Respondeu</option>
+            <option value="dead">Morto</option>
+          </select>
+        </div>
+
+        <div class="presence-row" aria-label="Presença de dados">
+          <span>Presença:</span>
+          <button type="button" data-presence="phone">Tem telefone <b id="presence-phone">0</b></button>
+          <button type="button" data-presence="site">Tem site <b id="presence-site">0</b></button>
+          <button type="button" data-presence="instagram">Tem Instagram <b id="presence-instagram">0</b></button>
+          <button type="button" data-presence="empty">Sem dados <b id="presence-empty">0</b></button>
+        </div>
+
+        <div class="lead-table-wrap">
+          <table class="lead-table">
+            <thead>
+              <tr>
+                <th class="select-col"><input type="checkbox" aria-label="Selecionar todos"></th>
+                <th>Empresa</th>
+                <th>Tipo</th>
+                <th>Contato</th>
+                <th>Status</th>
+                <th>Score</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="lead-body"></tbody>
+          </table>
+        </div>
+
+        <section class="split-grid operation-drawer">
+          <article class="panel log-panel compact-log">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Render operacional</p>
+                <h2>Job atual</h2>
+              </div>
+              <span class="status-pill" id="job-status">sem job</span>
+            </div>
+            <pre class="terminal" id="job-log">Nenhum processo iniciado nesta sessão.</pre>
+          </article>
+
+          <article class="panel action-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Aprovação</p>
+                <h2>Lote pendente</h2>
+              </div>
+              <span class="count-pill" id="pending-count">0</span>
+            </div>
+            <div class="approval-actions">
+              <button class="secondary-button" type="button" id="dry-run-button">
+                <span class="button-icon">▷</span>
+                Simular envio
+              </button>
+              <button class="danger-button" type="button" id="send-button">
+                <span class="button-icon">→</span>
+                Enviar aprovado
+              </button>
+            </div>
+            <div class="gate-line" id="send-gate">Verificando janela de envio.</div>
+          </article>
+        </section>
+      </section>
+
+      <section class="view" id="view-aprovacao">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Revisão humana</p>
+            <h2>Mensagens antes do envio</h2>
+          </div>
+          <button class="secondary-button" type="button" id="approval-refresh">Atualizar lista</button>
+        </div>
+        <div class="pending-list" id="pending-list"></div>
+      </section>
+
+      <section class="view" id="view-pipeline">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Fonte única</p>
+            <h2>Pipeline de prospecção</h2>
+          </div>
+          <div class="mini-stats" id="pipeline-stats"></div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Lead</th>
+                <th>Etapa</th>
+                <th>Score</th>
+                <th>Gargalo</th>
+                <th>Atualizado</th>
+              </tr>
+            </thead>
+            <tbody id="pipeline-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="view" id="view-followup">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Continuidade</p>
+            <h2>Follow-ups e respostas</h2>
+          </div>
+        </div>
+        <div class="followup-grid">
+          <article class="panel">
+            <span class="metric-label">Follow-ups devidos</span>
+            <strong class="metric-value" id="due-followups">0</strong>
+          </article>
+          <article class="panel">
+            <span class="metric-label">Aguardando resposta</span>
+            <strong class="metric-value" id="awaiting-reply">0</strong>
+          </article>
+          <article class="panel followup-actions">
+            <button class="secondary-button" type="button" id="followup-plan-button">
+              <span class="button-icon">◇</span>
+              Ver plano
+            </button>
+            <button class="danger-button" type="button" id="followup-send-button">
+              <span class="button-icon">→</span>
+              Enviar follow-up
+            </button>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="view-envios">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Operação</p>
+            <h2>Envios e copies</h2>
+          </div>
+          <button class="primary-button" type="button" id="save-settings-button">
+            <span class="button-icon">✓</span>
+            Salvar configuração
+          </button>
+        </div>
+
+        <form class="settings-grid" id="settings-form">
+          <article class="panel settings-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Janela</p>
+                <h2>Horário de envio</h2>
+              </div>
+              <label class="switch-line">
+                <input type="checkbox" id="schedule-enabled">
+                <span>Usar horário personalizado</span>
+              </label>
+            </div>
+
+            <div class="schedule-grid">
+              <label class="field">
+                <span>Início</span>
+                <input type="time" id="schedule-start" value="09:00">
+              </label>
+              <label class="field">
+                <span>Fim</span>
+                <input type="time" id="schedule-end" value="18:00">
+              </label>
+            </div>
+
+            <div class="day-grid" aria-label="Dias permitidos">
+              <label><input class="day-check" type="checkbox" value="1"> Seg</label>
+              <label><input class="day-check" type="checkbox" value="2"> Ter</label>
+              <label><input class="day-check" type="checkbox" value="3"> Qua</label>
+              <label><input class="day-check" type="checkbox" value="4"> Qui</label>
+              <label><input class="day-check" type="checkbox" value="5"> Sex</label>
+              <label><input class="day-check" type="checkbox" value="6"> Sáb</label>
+              <label><input class="day-check" type="checkbox" value="0"> Dom</label>
+            </div>
+
+            <p class="settings-note">
+              Se a janela personalizada estiver ativa e o horário atual cair dentro dela, o painel autoriza uma exceção do horário padrão. O envio real ainda exige confirmação.
+            </p>
+          </article>
+
+          <article class="panel settings-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Outputs</p>
+                <h2>O que será preparado</h2>
+              </div>
+            </div>
+
+            <div class="output-grid">
+              <label><input type="checkbox" id="output-whatsapp"> WhatsApp</label>
+              <label><input type="checkbox" id="output-email"> Email</label>
+              <label><input type="checkbox" id="output-diagnosis"> Diagnóstico curto</label>
+              <label><input type="checkbox" id="output-demo"> Demo visual</label>
+              <label><input type="checkbox" id="output-landing"> Landing/proposta</label>
+              <label><input type="checkbox" id="output-followup"> Follow-up</label>
+            </div>
+
+            <p class="settings-note">
+              Esses outputs orientam a copy e a operação. O primeiro contato continua sem link, sem demo e sem pitch.
+            </p>
+          </article>
+
+          <article class="panel settings-panel copy-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Copy</p>
+                <h2>Direção das mensagens geradas</h2>
+              </div>
+            </div>
+
+            <div class="copy-grid">
+              <label class="field">
+                <span>Ângulo</span>
+                <input id="copy-angle" placeholder="gargalo observado no lead">
+              </label>
+              <label class="field">
+                <span>Tom</span>
+                <input id="copy-tone" placeholder="direto, humano, casual">
+              </label>
+              <label class="field">
+                <span>CTA</span>
+                <input id="copy-cta" placeholder="pergunta simples para gerar resposta">
+              </label>
+              <label class="field full">
+                <span>Modelo WhatsApp</span>
+                <textarea id="copy-whatsapp" rows="4"></textarea>
+              </label>
+              <label class="field">
+                <span>Assunto email</span>
+                <input id="copy-email-subject">
+              </label>
+              <label class="field full">
+                <span>Corpo email</span>
+                <textarea id="copy-email-body" rows="5"></textarea>
+              </label>
+              <label class="field full">
+                <span>Observações</span>
+                <textarea id="copy-notes" rows="4"></textarea>
+              </label>
+            </div>
+          </article>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="/app.js"></script>
+</body>
+</html>

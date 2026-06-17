@@ -51,7 +51,7 @@ const PENDING_FILE = path.resolve(__dirname, '../../agency/leads/pending-approva
 async function generateBatch(searchQuery, options = {}) {
   const {
     maxLeads = 10,
-    minScore = 6,
+    minScore = 4,
     channel  = 'whatsapp',
   } = options;
 
@@ -303,7 +303,7 @@ if (args.includes('--send-approved')) {
 } else if (query) {
   generateBatch(query, {
     maxLeads: parseInt(getArg('--max=')   || process.env.SCRAPER_MAX_LEADS || '10', 10),
-    minScore: parseInt(getArg('--score=') || '6', 10),
+    minScore: parseInt(getArg('--score=') || '4', 10),
     channel:  getArg('--channel=')        || 'whatsapp',
   }).catch(err => {
     console.error('\n✗ Erro fatal:', err.message);

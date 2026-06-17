@@ -350,7 +350,10 @@ function bind() {
   $('#btn-prospect').addEventListener('click', async () => {
     const query = window.prompt('Buscar leads (ex: "clínica odontológica rio de janeiro"):');
     if (!query) return;
-    try { await startJob('/api/campaigns/start', { query, maxLeads: 10, minScore: 6, channel: 'whatsapp' }); }
+    const scoreInput = window.prompt('Score mínimo para qualificar (0–10). Menor = mais leads passam:', '4');
+    if (scoreInput === null) return;
+    const minScore = Math.max(0, Math.min(10, Number(scoreInput) || 4));
+    try { await startJob('/api/campaigns/start', { query, maxLeads: 10, minScore, channel: 'whatsapp' }); }
     catch (e) { toast(e.message); }
   });
   $('#btn-followup-plan').addEventListener('click', async () => {

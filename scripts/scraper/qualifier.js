@@ -66,11 +66,14 @@ function score(analysis) {
 
   points = Math.min(Math.round(points * 10) / 10, 10);
 
+  // Régua recalibrada após remover o bônus fantasma de Instagram (+1.5):
+  // a escala real de um site que carrega mas tem gargalos mora em ~2.5–6.5.
+  // Mantém DESCARTAR só para quem quase não tem gap explorável.
   let label, priority;
-  if (points >= 7)      { label = 'QUENTE';    priority = 1; }
-  else if (points >= 5) { label = 'MORNO';     priority = 2; }
-  else if (points >= 3) { label = 'FRIO';      priority = 3; }
-  else                  { label = 'DESCARTAR'; priority = 4; }
+  if (points >= 5)        { label = 'QUENTE';    priority = 1; }
+  else if (points >= 3.5) { label = 'MORNO';     priority = 2; }
+  else if (points >= 2.5) { label = 'FRIO';      priority = 3; }
+  else                    { label = 'DESCARTAR'; priority = 4; }
 
   const main_problem = problems[0] || 'presença digital fraca';
 

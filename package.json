@@ -21,6 +21,7 @@
     "demo": "node scripts/demo-pipeline/index.js",
     "bot": "node scripts/whatsapp-bot/index.js",
     "scraper": "node scripts/scraper/index.js",
+    "scraper:panel": "node scripts/scraper-panel/server.js",
     "scraper:enviar": "node scripts/scraper/index.js --send-approved",
     "scraper:dry": "node scripts/scraper/index.js --send-approved --dry-run",
     "followup": "node scripts/pipeline/followup.js",

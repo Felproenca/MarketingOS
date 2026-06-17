@@ -1,103 +1,126 @@
-# Manual de Uso - MarketingOS
-> Guia operacional completo para instalar, abrir sessao, operar clientes, gerar outputs, prospectar, publicar e salvar aprendizados.
-> Fonte de verdade operacional: `CLAUDE.md`. Este manual explica o uso pratico sem substituir a constituicao do sistema.
+# Manual Geral de Uso - MarketingOS
+> Guia pratico para operar o MarketingOS no dia a dia.
+> Fonte de verdade: `CLAUDE.md`. Este manual explica como usar o sistema sem substituir suas regras.
 
 ---
 
 ## 1. O que e o MarketingOS
 
-MarketingOS e um sistema operacional de marketing orientado por IA para aquisicao, posicionamento e conversao.
+MarketingOS e um Sistema Operacional de Aquisicao.
 
-Ele combina:
+Ele existe para identificar, compreender e remover gargalos que impedem uma empresa de adquirir clientes de forma consistente.
 
-- `manifesto.md`: o porque de tudo.
-- `alma.md`: missao, visao, filtros e linguagem.
-- `CLAUDE.md`: regras operacionais completas.
-- `clients/`: contexto, estrategia, metricas e outputs por cliente.
-- `skills/`: capacidades isoladas por area.
-- `workflows/`: sequencias operacionais.
-- `scripts/`: automacoes de criacao, prospeccao, publicacao e inteligencia.
-- `intelligence/`: padroes, benchmarks e aprendizados cross-client.
+O sistema nao vende posts, sites, dashboards, IA ou automacao.
+Esses sao meios.
 
-O principio central:
+O que o sistema busca entregar:
 
-MarketingOS nao vende posts, gestao de redes ou ferramentas. Vende IA aplicada ao negocio para gerar leads, operar canais e dar controle em tempo real.
+- clareza
+- direcao
+- aquisicao observavel
+- aquisicao ajustavel
+- aquisicao progressivamente previsivel
+
+North Star:
+
+```text
+Como isso torna a aquisicao mais observavel, ajustavel ou previsivel?
+```
+
+Se uma acao nao contribui para isso, ela nao deveria existir.
 
 ---
 
-## 2. Regra de ouro
+## 2. Fundacao obrigatoria
 
-Antes de qualquer operacao criativa, estrategica ou comercial:
+Antes de qualquer operacao, o agente precisa ler:
 
-1. Ler `manifesto.md`.
-2. Ler `alma.md`.
-3. Ler `CLAUDE.md`.
-4. Seguir o fluxo da skill ou workflow correto.
+1. `manifesto.md`
+2. `alma.md`
+3. `virada-aquisicao.md`
+4. `CLAUDE.md`
 
-Antes de qualquer output para cliente:
+Na pratica:
 
-1. Abrir o cliente.
-2. Ler intelligence global.
-3. Ler contexto do cliente.
-4. Gerar output no diretorio certo.
-5. Registrar aprendizados ao final.
+- `manifesto.md` define o porque.
+- `alma.md` define a missao, os filtros e a linguagem.
+- `virada-aquisicao.md` define a doutrina de aquisicao.
+- `CLAUDE.md` define como operar.
+
+`AGENTS.md` apenas aponta para `CLAUDE.md`.
+
+---
+
+## 3. Regra de ouro
 
 Sem contexto, sem output.
 
----
+O fluxo base e sempre:
 
-## 3. Requisitos
-
-- Node.js 18 ou superior.
-- Git.
-- npm.
-- Playwright instalado via `npm install`.
-- Arquivo `.env` local quando usar APIs, e-mail, WhatsApp, publicacao ou upload.
-- Claude Code, Cursor ou outro agente capaz de seguir `CLAUDE.md`.
-
-No Windows, se o PowerShell bloquear `npm.ps1`, use:
-
-```bash
-npm.cmd run <script>
+```text
+/abrir [slug]
+  -> entender o cliente
+  -> escolher grupo
+  -> ler _admin.md do grupo
+  -> escolher uma skill
+  -> ler contexto minimo da skill
+  -> executar
+  -> salvar output no lugar certo
+/fechar
 ```
 
----
-
-## 4. Instalacao
-
-```bash
-git clone https://github.com/Felproenca/MarketingOS.git
-cd MarketingOS
-npm install
-```
-
-Copie o arquivo de exemplo de ambiente:
-
-```bash
-copy .env.example .env
-```
-
-No Linux/macOS:
-
-```bash
-cp .env.example .env
-```
-
-Preencha apenas as variaveis que forem necessarias para a operacao do dia.
+Nunca pule o fechamento quando a sessao produziu aprendizado, decisao ou output importante.
 
 ---
 
-## 5. Estrutura do repositorio
+## 4. Estrutura mental do sistema
+
+O MarketingOS opera em camadas:
+
+```text
+Fundacao
+  -> manifesto, alma, virada-aquisicao, CLAUDE
+
+Contexto
+  -> intelligence global + client.md + notes + metrics + estrategia
+
+Inteligencia
+  -> reunioes, sinais, hipoteses, gargalos
+
+Percepcao
+  -> perception.json, identidade, tensoes, verdade humana
+
+Direcao
+  -> branding, visual-dna.json, reference-context.json
+
+Creative Brief
+  -> acquisition_objective + tese + tension + CTA + regras
+
+Output
+  -> post, carrossel, site, anuncio, pitch, relatorio
+
+Critica e aprendizado
+  -> /inteligencia critica
+  -> approve | revise | reject
+  -> publicar com aprovacao
+  -> medir e aprender
+```
+
+Producao e consequencia da compreensao.
+Nunca o contrario.
+
+---
+
+## 5. Estrutura de pastas
 
 ```text
 /marketing-os
   manifesto.md
   alma.md
+  virada-aquisicao.md
   CLAUDE.md
   AGENTS.md
-  README.md
-  package.json
-  /agency
+
   /clients
     /_template
     /[slug]
@@ -105,180 +128,355 @@ Preencha apenas as variaveis que forem necessarias para a operacao do dia.
       notes.md
       estrategia.md
       campaigns.md
+      runs.md
       metrics.json
       brand-kit.json
-      runs.md
+      /inputs
+        /meetings
       /outputs
-  /docs
-  /intelligence
-  /scripts
+        /acquisition
+        /branding
+        /carousels
+        /critique
+        /dashboard
+        /demo
+        /images
+        /posts
+        /site
+        /strategy
+        /voice
+
   /skills
-  /templates
+    /analise
+    /aquisicao
+    /criacao
+    /inteligencia
+    /perception
+    /relacionamento
+    /venda
+
   /workflows
+  /scripts
+  /intelligence
+  /templates
+  /docs
 ```
 
-Arquivos dentro de `clients/[slug]/` sao privados por padrao e ficam fora do git, exceto o template.
+Cada cliente tem seu proprio contexto.
+Nunca misture arquivos, metricas ou outputs entre clientes.
 
 ---
 
-## 6. Arquivos fundamentais
+## 6. Criar novo cliente
 
-| Arquivo | Funcao |
-|---|---|
-| `manifesto.md` | Documento fundacional. Nao editar. |
-| `alma.md` | Constituicao do sistema, filtros de criacao e linguagem. |
-| `CLAUDE.md` | Fonte unica de instrucao operacional. |
-| `AGENTS.md` | Ponte para agentes que procuram instrucoes em `AGENTS.md`. |
-| `workflows/commands.md` | Referencia rapida de comandos. |
-| `docs/manual-de-uso.md` | Manual pratico completo. |
-
----
-
-## 7. Fluxo padrao de sessao
-
-Toda operacao segue este ciclo:
-
-```text
-/abrir [slug]
-  -> carregar intelligence
-  -> carregar contexto do cliente
-  -> executar skill ou workflow
-  -> salvar output em clients/[slug]/outputs/
-  -> registrar decisoes e aprendizados
-/fechar
-```
-
-### Abrir cliente
-
-```text
-/abrir toqueindiano
-```
-
-O sistema deve carregar:
-
-- `intelligence/patterns.md`
-- `intelligence/benchmarks.json`
-- `intelligence/experiments.md`, quando aplicavel
-- `clients/[slug]/client.md`
-- `clients/[slug]/notes.md`
-- `clients/[slug]/runs.md`
-- `clients/[slug]/metrics.json`
-- `clients/[slug]/brand-kit.json`, quando visual for relevante
-
-### Salvar checkpoint
-
-```text
-/salvar
-```
-
-Use quando houver uma entrega intermediaria importante.
-
-### Fechar sessao
-
-```text
-/fechar
-```
-
-Use sempre ao final. O fechamento deve registrar aprendizados, atualizar historico e commitar quando o workflow pedir.
-
----
-
-## 8. Criar novo cliente
-
-Via npm:
+Use:
 
 ```bash
-npm run novo -- toqueindiano
+npm run novo -- nome-do-cliente
 ```
 
-Ou diretamente:
+Ou:
 
 ```bash
-node scripts/create-client.js toqueindiano
+node scripts/create-client.js nome-do-cliente
 ```
 
 O script cria:
 
-- Estrutura em `clients/[slug]/`.
-- Arquivos base: `client.md`, `notes.md`, `campaigns.md`, `metrics.json`, `brand-kit.json`, `estrategia.md`.
-- Pastas de output.
-- Pastas de assets.
-- Onboarding interativo no terminal.
+- estrutura em `clients/[slug]/`
+- arquivos base do cliente
+- pastas de inputs
+- pastas de outputs
+- pastas de assets
+- onboarding interativo
 
 Depois de criar:
 
-1. Revise `clients/[slug]/client.md`.
-2. Revise `clients/[slug]/brand-kit.json`.
-3. Abra a sessao com `/abrir [slug]`.
+1. revisar `clients/[slug]/client.md`
+2. revisar `clients/[slug]/brand-kit.json`
+3. abrir sessao com `/abrir [slug]`
 
 ---
 
-## 9. Contexto por cliente
+## 7. Arquivos por cliente
 
 | Arquivo | Uso |
 |---|---|
-| `client.md` | Dados, ICP, tom, restricoes, objetivo e posicionamento. |
-| `notes.md` | Diario operacional, alertas e inteligencia acumulada. |
-| `estrategia.md` | Prioridades atuais e proximos movimentos. |
-| `campaigns.md` | Campanhas, conteudos e decisoes. |
+| `client.md` | Identidade, oferta, publico, tom, canais e metas. |
+| `notes.md` | Diario operacional e inteligencia acumulada. |
+| `estrategia.md` | Prioridades atuais e proximas decisoes. |
+| `campaigns.md` | Campanhas, publicacoes e historico de decisoes. |
 | `runs.md` | Historico de sessoes. |
-| `metrics.json` | Performance real por canal. |
-| `brand-kit.json` | Identidade visual e regras de imagem. |
-| `instagram-config.json` | Configuracao da Meta Graph API e upload de midia. |
-| `published.json` | Historico de publicacoes. |
+| `metrics.json` | Dados reais de performance. |
+| `brand-kit.json` | Identidade visual e restricoes. |
+| `published.json` | Historico de publicacoes, quando existir. |
+| `instagram-config.json` | Configuracao Meta Graph API, quando existir. |
 
-Nunca misture contexto entre clientes.
+Regra:
+
+```text
+client.md e sempre o minimo.
+metrics.json so decide performance se houver dado real.
+notes.md guarda o que nao pode se perder.
+```
 
 ---
 
-## 10. Onde salvar outputs
+## 8. Inputs e outputs
 
-Todo output deve ir para `clients/[slug]/outputs/`.
+Inputs sao insumos brutos ou semi-processados.
+
+```text
+clients/[slug]/inputs/meetings/
+```
+
+Exemplo:
+
+```text
+2026-06-14-transcript.md
+2026-06-14-signals.json
+```
+
+Outputs sao entregas, diagnosticos ou artefatos operacionais.
 
 | Tipo | Pasta |
 |---|---|
-| Posts | `outputs/posts/` |
+| Diagnostico de aquisicao | `outputs/acquisition/` |
+| Branding e percepcao | `outputs/branding/` |
 | Carrosseis | `outputs/carousels/` |
-| Sites | `outputs/site/` |
-| Branding | `outputs/branding/` |
-| Anuncios | `outputs/anuncios/` |
-| SEO | `outputs/seo/` |
-| Inteligencia | `outputs/inteligencia/` |
-| Demos | `outputs/demo/` ou `outputs/demos/` conforme script |
+| Criticas | `outputs/critique/` |
 | Dashboards | `outputs/dashboard/` |
+| Demos | `outputs/demo/` |
 | Imagens | `outputs/images/` |
+| Posts | `outputs/posts/` |
+| Sites | `outputs/site/` |
+| Estrategia e validacao | `outputs/strategy/` |
+| Voz/autoria | `outputs/voice/` |
 
 ---
 
-## 11. Skills por grupo
+## 9. Comandos principais
 
-### Analise
+### Sessao
+
+```text
+/abrir [slug]
+/salvar
+/fechar
+```
+
+### Grupos
+
+```text
+/inteligencia
+/perceber
+/analisar
+/criar
+/prospectar
+/vender
+/relacionar
+```
+
+### CLI
+
+```bash
+npm run novo -- [slug]
+npm run cmd -- /status
+npm run cmd -- /atualizar
+npm run salvar
+```
+
+Referencia completa:
+
+```text
+workflows/commands.md
+```
+
+---
+
+## 10. Como escolher o grupo certo
+
+| Situacao | Grupo |
+|---|---|
+| Tenho reuniao, hipotese ou sinais brutos | `/inteligencia` |
+| Preciso entender identidade, tensoes e percepcao | `/perceber` |
+| Preciso diagnosticar performance, funil, site ou SEO | `/analisar` |
+| Preciso criar post, carrossel, site, branding ou imagem | `/criar` |
+| Preciso gerar demanda, oferta, pitch, lead capture ou outbound | `/prospectar` |
+| Preciso abordar lead quente ou fechar | `/vender` |
+| Preciso reter, reativar ou operar head implantado | `/relacionar` |
+
+Se a tarefa envolve decisao antes de execucao, comece por `/inteligencia`.
+
+---
+
+## 11. Grupo Inteligencia
 
 Comando base:
 
 ```text
-/analisar
+/inteligencia
 ```
 
-Use para:
+Esse grupo reduz erro de decisao.
+Ele entra antes de produzir, publicar ou escalar.
 
-- Dashboard de performance.
-- Diagnostico de funil.
-- Investigacao de concorrente ou referencia.
-- Auditoria SEO.
-- Decisao estrategica.
+### Meeting Intelligence
 
-Arquivos:
+Use quando houver:
 
-- `skills/analise/_admin.md`
-- `skills/analise/skill-dashboard.md`
-- `skills/analise/skill-funnel-analysis.md`
-- `skills/analise/skill-site-audit.md`
-- `skills/analise/skill-investigar.md`
-- `skills/analise/skill-seo.md`
-- `skills/analise/skill-estrategista.md`
+- transcricao de reuniao
+- audio
+- video
+- notas de discovery
+- conversa de venda
+- alinhamento estrategico
 
-### Criacao
+Comando:
+
+```text
+/inteligencia reuniao [slug]
+```
+
+Saidas:
+
+```text
+clients/[slug]/inputs/meetings/YYYY-MM-DD-transcript.md
+clients/[slug]/inputs/meetings/YYYY-MM-DD-signals.json
+```
+
+O `signals.json` deve resumir:
+
+- dores
+- objecoes
+- desejos
+- canais atuais
+- gargalos
+- linguagem do cliente
+- frases repetidas
+- angulos de conteudo
+- pistas de oferta
+- tarefas de follow-up
+- hipoteses de aquisicao
+
+Regra:
+
+```text
+Outras skills devem consumir signals.json, nao a transcricao inteira.
+```
+
+### Acquisition Intelligence
+
+Use quando a pergunta for:
+
+```text
+Por que a aquisicao deste cliente nao e previsivel?
+```
+
+Comando:
+
+```text
+/inteligencia aquisicao [slug]
+```
+
+Saida:
+
+```text
+clients/[slug]/outputs/acquisition/acquisition-diagnosis.json
+```
+
+A skill deve comparar hipoteses:
+
+- visibilidade
+- conversao
+- comercial
+- posicionamento
+- conteudo
+- retencao/indicacao
+
+Regra:
+
+```text
+Nunca assumir que o problema e trafego, conteudo, SEO, automacao ou vendas.
+```
+
+Skills planejadas para proximas levas:
+
+- Office Hours
+- Thesis Validation
+- Humanizer / Voice Adapter
+- Visibility Intelligence
+
+### Creative Critique
+
+Use antes de publicar ou enviar qualquer output importante.
+
+Comando:
+
+```text
+/inteligencia critica [slug] [asset]
+```
+
+Entrada minima:
+
+- peca gerada
+- `creative-brief.[tipo].json`
+- `perception.json`
+- `visual-dna.json`
+- `reference-context.json`
+
+Saida:
+
+```text
+clients/[slug]/outputs/critique/[asset]-critique.json
+```
+
+Decisao:
+
+```text
+approve | revise | reject
+```
+
+Regra:
+
+```text
+Nenhum output deve ser publicado se parecer generico, template ou desconectado do Creative Brief.
+```
+
+---
+
+## 12. Grupo Percepcao
+
+Comando base:
+
+```text
+/perceber [slug]
+```
+
+Use antes de qualquer criacao relevante para cliente novo.
+
+Output principal:
+
+```text
+clients/[slug]/outputs/branding/perception.json
+```
+
+O Perception Engine responde:
+
+```text
+O que esta marca deseja que as pessoas sintam?
+Quais sinais produzem essa percepcao?
+```
+
+Regra:
+
+```text
+Sem percepcao, a criacao tende a virar template.
+```
+
+---
+
+## 13. Grupo Criacao
 
 Comando base:
 
@@ -288,28 +486,84 @@ Comando base:
 
 Use para:
 
-- Direcao criativa.
-- Carrossel.
-- Post.
-- Branding.
-- Site.
-- Imagem.
-- Publicacao.
+- branding
+- direcao criativa
+- site
+- carrossel
+- post
+- imagem
+- reel
+- copy
 
-Regra importante: antes de criar, a skill de criatividade deve encontrar a verdade humana e a direcao criativa. Conteudo sem verdade vira ruido.
+Fluxo obrigatorio para novo cliente:
 
-Arquivos:
+```text
+Objetivo de aquisicao
+  -> /perceber [slug]
+  -> /branding
+  -> /direcao-criativa
+  -> /criar [output]
+```
 
-- `skills/criacao/_admin.md`
-- `skills/criacao/skill-criatividade.md`
-- `skills/criacao/skill-carousel.md`
-- `skills/criacao/skill-post.md`
-- `skills/criacao/skill-branding.md`
-- `skills/criacao/skill-site-builder.md`
-- `skills/criacao/skill-image-generation.md`
-- `skills/criacao/skill-publicar.md`
+Arquivos importantes:
 
-### Aquisicao
+```text
+clients/[slug]/outputs/branding/perception.json
+clients/[slug]/outputs/branding/visual-dna.json
+clients/[slug]/outputs/branding/reference-context.json
+clients/[slug]/outputs/creative-direction/creative-brief.[tipo].json
+```
+
+Teste Supremo:
+
+```text
+Se removermos logo, nome e cores, alguem ainda reconheceria quem esta comunicando?
+```
+
+Se a resposta for nao, a peca nao esta pronta.
+
+---
+
+## 14. Grupo Analise
+
+Comando base:
+
+```text
+/analisar
+```
+
+Use para:
+
+- dashboard de performance
+- funil
+- site/landing
+- SEO
+- concorrente
+- estrategia
+- aprendizado por metricas
+
+Exemplos:
+
+```text
+/analisar dashboard
+/analisar funil
+/analisar site
+/analisar seo
+/analisar estrategia
+```
+
+Regra:
+
+```text
+Dado sem interpretacao e numero.
+Interpretacao sem dado e opiniao.
+```
+
+Quando nao houver dado real, sinalizar como estimativa ou inferencia.
+
+---
+
+## 15. Grupo Aquisicao
 
 Comando base:
 
@@ -319,24 +573,43 @@ Comando base:
 
 Use para:
 
-- Analise de mercado.
-- Prospecao.
-- Posicionamento de oferta.
-- Pitch deck.
-- Captura de leads.
-- Anuncios.
+- analisar mercado
+- qualificar prospectos
+- posicionar oferta
+- criar pitch
+- estruturar captura
+- criar anuncios
+- ativar parcerias
 
-Arquivos:
+Exemplos:
 
-- `skills/aquisicao/_admin.md`
-- `skills/aquisicao/skill-market-analyzer.md`
-- `skills/aquisicao/skill-prospector.md`
-- `skills/aquisicao/skill-offer-positioning.md`
-- `skills/aquisicao/skill-pitch-deck.md`
-- `skills/aquisicao/skill-lead-capture.md`
-- `skills/aquisicao/skill-anuncio.md`
+```text
+/prospectar mercado
+/prospectar prospector
+/prospectar oferta
+/prospectar pitch
+/prospectar captacao
+/prospectar anuncio
+/prospectar parcerias
+```
 
-### Venda
+Regra:
+
+```text
+Outbound inicia conversa sobre gargalo, nao sobre automacao.
+```
+
+A abordagem deve conter:
+
+1. sinal
+2. dor
+3. desejo
+4. prova
+5. proximo passo
+
+---
+
+## 16. Grupo Venda
 
 Comando base:
 
@@ -344,13 +617,23 @@ Comando base:
 /vender
 ```
 
-Use para abordagem, argumento, follow-up e fechamento.
+Use para:
 
-Arquivo:
+- abordagem de lead qualificado
+- argumento comercial
+- resposta a objecoes
+- follow-up
+- fechamento
 
-- `skills/venda/skill-venda.md`
+Regra:
 
-### Relacionamento
+```text
+Nao vender execucao antes de diagnosticar o gargalo.
+```
+
+---
+
+## 17. Grupo Relacionamento
 
 Comando base:
 
@@ -360,43 +643,83 @@ Comando base:
 
 Use para:
 
-- Retencao.
-- Reativacao.
-- Head de marketing implantado.
+- retencao
+- reativacao
+- head de marketing implantado
 
-Arquivos:
-
-- `skills/relacionamento/skill-retention.md`
-- `skills/relacionamento/skill-reactivation.md`
-- `skills/relacionamento/skill-head-implantado.md`
-
----
-
-## 12. Workflows
-
-| Workflow | Quando usar |
-|---|---|
-| `workflows/open-client.md` | Abrir cliente. |
-| `workflows/close-client.md` | Fechar sessao. |
-| `workflows/pipeline-runner.md` | Encadear varias skills. |
-| `workflows/onboarding-head.md` | Primeiro mes de head implantado. |
-| `workflows/reuniao-estrategica.md` | Reuniao estrategica recorrente. |
-| `workflows/relatorio-executivo.md` | Relatorio executivo mensal. |
-| `workflows/client-demo.md` | Demo personalizada para cliente/prospect. |
-
-Pipelines previstos:
+Exemplos:
 
 ```text
-/pipeline branding-completo
-/pipeline lancamento-conteudo
-/pipeline diagnostico
-/pipeline seo-completo
-/pipeline campanha-paga
+/relacionar retencao
+/relacionar reativacao
+/relacionar head
 ```
 
 ---
 
-## 13. CLI principal
+## 18. Workflows
+
+| Workflow | Uso |
+|---|---|
+| `workflows/open-client.md` | Abrir cliente. |
+| `workflows/close-client.md` | Fechar sessao. |
+| `workflows/pipeline-runner.md` | Encadear varias skills. |
+| `workflows/reference-library.md` | Consultar biblioteca de referencias. |
+| `workflows/client-demo.md` | Demo comercial pre-contratacao. |
+| `workflows/onboarding-head.md` | Primeiro mes de head implantado. |
+| `workflows/reuniao-estrategica.md` | Reuniao estrategica recorrente. |
+| `workflows/relatorio-executivo.md` | Relatorio mensal executivo. |
+| `workflows/relatorio-sistema.md` | Relatorio operacional do sistema. |
+| `workflows/token-economy.md` | Operacao economica de contexto. |
+
+Para mais de uma skill em sequencia:
+
+```text
+usar workflows/pipeline-runner.md
+```
+
+---
+
+## 19. Context Builder e Creative Brief
+
+O sistema ja possui uma cadeia de contexto:
+
+```text
+Intelligence
+  -> Context Builder
+  -> Creative Brief
+  -> Output
+```
+
+Scripts principais:
+
+```text
+scripts/context/context-builder.js
+scripts/context/knowledge-resolver.js
+scripts/context/reference-resolver.js
+scripts/context/creative-brief-builder.js
+scripts/context/creative-brief-schema.js
+```
+
+O Creative Brief precisa conter:
+
+- `acquisition_objective`
+- `bottleneck`
+- `stage`
+- `thesis`
+- `tension`
+- `content_goal`
+- `output_type`
+- `references`
+- `principles`
+- `tone`
+- `cta_strategy`
+
+O `acquisition_objective` orienta toda criacao.
+
+---
+
+## 20. Scripts principais
 
 ### Criar cliente
 
@@ -404,244 +727,115 @@ Pipelines previstos:
 npm run novo -- [slug]
 ```
 
-### Router de comandos
+### Status e router
 
 ```bash
-npm run cmd -- /novo [slug]
 npm run cmd -- /cliente [slug]
 npm run cmd -- /status
 npm run cmd -- /atualizar
-npm run cmd -- /carrossel --tema "tema do carrossel"
 ```
 
-### Salvar
+### Carrossel
 
 ```bash
-npm run salvar
-```
-
-### Testes
-
-```bash
-npm test
-```
-
-Hoje o teste configurado apenas informa que nao ha suite automatizada.
-
----
-
-## 14. Carrosseis
-
-Gerar carrossel:
-
-```bash
-npm run carousel:generate -- --slug toqueindiano --tema "Imagem bonita nao vende" --slides 7
-```
-
-Renderizar carrosseis padrao:
-
-```bash
+npm run carousel:generate -- --slug [slug] --tema "tema"
 npm run carousel:render
 ```
 
-Renderizar um HTML especifico:
+### Reel
 
 ```bash
-node scripts/render-carousel-file.js clients/toqueindiano/outputs/carousels/meu-carrossel.html
+npm run reel:render -- --html caminho/arquivo.html --out saida.webm
 ```
 
-Regra do sistema:
-
-- Carrossel deve sair em HTML direto.
-- Nao usar markdown intermediario.
-- Nao usar Python para converter carrossel.
-- PNGs devem ser gerados a partir do HTML.
-
----
-
-## 15. Branding
-
-Fluxo recomendado:
-
-```text
-/abrir [slug]
-/criar branding
-```
-
-Outputs esperados:
-
-- Direcao criativa.
-- Paleta.
-- Tipografia.
-- Regras visuais.
-- Possiveis telas/slides em `outputs/branding/`.
-
-Para a identidade da Toque Indiano existe um renderizador especifico:
+### Publicacao
 
 ```bash
-node scripts/render-branding.js
+npm run publicar -- --slug [slug] --file imagem.png --caption "legenda" --dry-run
 ```
 
-Ele le:
+### Insights e aprendizado
 
-```text
-clients/toqueindiano/outputs/branding/apresentacao-identidade.html
-```
-
-E exporta slides em:
-
-```text
-clients/toqueindiano/outputs/branding/slides/
+```bash
+npm run insights -- --slug [slug]
+npm run aprender -- --slug [slug]
 ```
 
 ---
 
-## 16. Site e landing page
+## 21. Prospecao e outbound
 
-Fluxo obrigatorio:
+### Prospector
+
+```bash
+npm run prospector -- --slug [slug] --query "clinica estetica" --city "Sao Paulo" --max 20 --channels whatsapp,email --dry-run
+```
+
+### Scraper em duas etapas
+
+Etapa 1: gerar lote, sem enviar.
+
+```bash
+npm run scraper -- "clinica estetica Tijuca" --max=10 --score=6 --channel=whatsapp
+```
+
+Revisar:
 
 ```text
-/abrir [slug]
-/criar branding
-/criar site
+agency/leads/pending-approval.json
+```
+
+Etapa 2: enviar lote aprovado.
+
+```bash
+npm run scraper:enviar
+```
+
+Simular envio:
+
+```bash
+npm run scraper:dry
+```
+
+Painel local:
+
+```bash
+npm run scraper:panel
+```
+
+Abre em:
+
+```text
+http://localhost:5173
+```
+
+### Follow-up
+
+```bash
+npm run followup
+npm run followup:enviar
 ```
 
 Regra:
 
-- Site depende de branding.
-- Output vai para `clients/[slug]/outputs/site/`.
-- Site ou landing deve falar de beneficio, medo e desejo antes de tecnologia.
-
----
-
-## 17. Imagens
-
-Fluxo:
-
 ```text
-/abrir [slug]
-/criar imagem
+Nunca enviar abordagem real sem revisar o lote.
 ```
-
-O sistema usa `brand-kit.json` para manter coerencia visual.
-
-Quando usar imagem gerada:
-
-- Conteudo precisa de apoio visual.
-- O cliente nao tem banco de imagens suficiente.
-- A imagem nao pode inventar prova, produto, depoimento ou dado.
-
-Quando nao usar:
-
-- Se houver foto real melhor.
-- Se a imagem gerada parecer perfeita demais e reduzir confianca.
-- Se o output exigir prova real.
 
 ---
 
-## 18. Prospecao classica
+## 22. Demo Pipeline
 
-Script:
-
-```bash
-npm run prospector -- --slug <slug> --query "clinica estetica" --city "Sao Paulo" --max 20 --channels whatsapp,email --sources maps,search --dry-run
-```
-
-O que faz:
-
-1. Busca leads no Google Maps e Google Search.
-2. Deduplica resultados.
-3. Enriquece com site, email e telefone.
-4. Salva leads em `clients/[slug]/outputs/inteligencia/`.
-5. Em modo normal, envia WhatsApp/e-mail conforme configurado.
-
-Use `--dry-run` antes de qualquer envio real.
-
-Opcoes:
-
-| Flag | Funcao |
-|---|---|
-| `--slug` | Cliente alvo. |
-| `--query` | Termo de busca. |
-| `--city` | Cidade. |
-| `--max` | Maximo de leads por fonte. |
-| `--channels` | `whatsapp,email`, `whatsapp` ou `email`. |
-| `--sources` | `maps,search`, `maps` ou `search`. |
-| `--dry-run` | Testa sem enviar. |
-| `--no-enrich` | Nao visitar sites para enriquecer contatos. |
-
----
-
-## 19. Scraper Inteligente v2
-
-Script:
-
-```bash
-npm run scraper -- "clinica estetica Rio de Janeiro" --dry-run --max=10 --score=6 --channel=email
-```
-
-Dry-run curto:
-
-```bash
-npm run scraper:dry -- "clinica estetica Rio de Janeiro" --max=10 --score=6
-```
-
-Pipeline:
-
-```text
-Discovery -> Analysis -> Qualification -> Message -> Outreach
-```
-
-Modulos:
-
-| Arquivo | Funcao |
-|---|---|
-| `scripts/scraper/discovery.js` | Busca e normaliza leads. |
-| `scripts/scraper/analyzer.js` | Analisa site, CTA, WhatsApp, form, SEO e Instagram. |
-| `scripts/scraper/qualifier.js` | Da score de oportunidade de 0 a 10. |
-| `scripts/scraper/message-builder.js` | Gera mensagem personalizada via Claude. |
-| `scripts/scraper/outreach.js` | Envia e-mail ou prepara WhatsApp. |
-
-Opcoes:
-
-| Flag | Padrao | Funcao |
-|---|---:|---|
-| `--max=N` | `10` | Maximo de leads qualificados. |
-| `--score=N` | `6` | Score minimo para abordagem. |
-| `--dry-run` | `false` | Gera mensagens sem enviar. |
-| `--channel=X` | `email` | `email`, `whatsapp` ou `both`. |
-
-Variaveis relevantes:
-
-```env
-ANTHROPIC_API_KEY=...
-EMAIL_USER=...
-EMAIL_PASS=...
-SCRAPER_DELAY_MS=2000
-SCRAPER_MAX_LEADS=10
-```
-
-Regra de uso:
-
-- Sempre rode com `--dry-run` primeiro.
-- Nunca envie abordagem sem revisar a mensagem.
-- Score alto significa oportunidade visivel, nao garantia de compra.
-- Nao invente dado, resultado ou prova.
-
----
-
-## 20. Demo Pipeline
-
-Script:
+Use para gerar demo comercial personalizada.
 
 ```bash
 npm run demo -- --query "clinica estetica" --city "Sao Paulo" --segment clinica --max 10 --dry-run
 ```
 
-Uso com cliente:
+Para cliente especifico:
 
 ```bash
-npm run demo -- --slug toqueindiano --query "..." --city "..." --segment b2b --only-demo
+npm run demo -- --slug [slug] --query "..." --city "..." --segment b2b --only-demo
 ```
 
 Segmentos:
@@ -650,173 +844,45 @@ Segmentos:
 - `b2b`
 - `diagnostico`
 
-O que faz:
-
-1. Busca leads.
-2. Enriquece contatos.
-3. Extrai sinais de marca.
-4. Gera demo personalizada.
-5. Opcionalmente envia outreach.
-
-Use:
-
-- `--dry-run` para gerar e simular envio.
-- `--only-demo` para salvar demo localmente sem enviar nada.
-
----
-
-## 20.1. Integracao social-content-agents
-
-Esta integracao conecta o MarketingOS ao motor `social-content-agents` via HTTP.
-
-Setup inicial, uma vez:
-
-```bash
-# Terminal 1 - social-content-agents
-cd social-content-agents
-pip install -e ".[dev]"
-python -m src.main
-# Servico em http://localhost:8000
-
-# Terminal 2 - MarketingOS
-cd MarketingOS
-echo "SOCIAL_AGENT_URL=http://localhost:8000" >> .env
-```
-
-Fluxo:
-
-```text
-MarketingOS -> monta brief do cliente
-MarketingOS -> envia brief para social-content-agents
-social-content-agents -> retorna conteudo/render/status
-MarketingOS -> baixa PNGs, publica e mede
-MarketingOS -> envia metricas de volta para aprendizado
-```
-
-Variaveis:
-
-```env
-SOCIAL_AGENT_URL=http://localhost:8000
-SOCIAL_AGENT_KEY=
-```
-
-Criar conteudo:
-
-```bash
-npm run criar-conteudo pontos-cardeais --objetivo autoridade --plataforma instagram --tema "o que sua apolice nao cobre"
-```
-
-Testar sem chamar o motor externo:
-
-```bash
-npm run criar-conteudo -- toqueindiano --tema="teste de brief" --dry-run
-```
-
-O comando:
-
-- le `client.md`, `brand-kit.json`, `estrategia.md`, `alma.md`, `manifesto.md` e `benchmarks.json`;
-- monta um brief JSON;
-- envia para `/api/brief`;
-- salva `brief.json` e `content-response.json` em `clients/[slug]/outputs/posts/YYYY-MM-DD/`;
-- baixa PNGs se o status voltar como `pronto_para_publicar`.
-
-Se o motor pedir imagens:
-
-```bash
-npm run upload-image -- --content pc-xxxxxxxx --slide 1 --file ~/Downloads/imagem.jpg
-```
-
-O `upload-image` lembra o cliente quando o `content_id` foi criado por `npm run criar-conteudo` na mesma maquina. Se estiver usando um `content_id` externo, informe `--slug toqueindiano`.
-
-Revisar slides:
-
-```text
-clients/pontos-cardeais/outputs/posts/YYYY-MM-DD/
-```
-
-Publicar:
-
-```bash
-npm run publicar
-```
-
-Enviar aprendizado depois de publicar e rodar insights:
-
-```bash
-npm run insights -- --slug pontos-cardeais --min-age-hours 48
-npm run aprender -- pontos-cardeais
-```
-
-Loop completo:
-
-```text
-MarketingOS le client.md + alma.md
-  -> buildBrief() monta contexto completo
-  -> POST /api/brief
-        |
-        v
-social-content-agents
-  -> NicheIntelligenceAgent aplica contexto de nicho
-  -> CopyAgent gera copy com alma
-  -> VisualSpecAgent define especificacao visual
-  -> HTMLRenderer monta HTML por slide
-  -> PuppeteerExporter exporta PNG
-  -> retorna status
-        |
-        v
-MarketingOS
-  -> baixa PNGs
-  -> salva em clients/[slug]/outputs/
-  -> publica
-  -> mede depois de 48h
-  -> POST /api/learn com metricas
-        |
-        v
-social-content-agents
-  -> atualiza inteligencia de nicho
-  -> proximo conteudo sai mais inteligente
-        |
-        v
-MarketingOS
-  -> intelligence/benchmarks.json segue como referencia operacional
-```
-
-Arquivos da integracao:
-
-| Arquivo | Funcao |
-|---|---|
-| `scripts/integration/brief-builder.js` | Monta o brief JSON do cliente. |
-| `scripts/integration/content-client.js` | Cliente HTTP para o motor externo. |
-| `scripts/integration/learn-sender.js` | Envia metricas de volta para aprendizado. |
-| `scripts/integration/criar-conteudo.js` | CLI principal de criacao. |
-| `scripts/integration/upload-image.js` | CLI para anexar imagem ao conteudo pausado. |
-| `scripts/integration/aprender.js` | CLI para fechar loop de aprendizado. |
-
 Regra:
 
-- `MarketingOS` continua sendo o cerebro: contexto, alma, estrategia e metricas.
-- `social-content-agents` e o motor: geracao visual e escala.
-- Nada deve ser publicado automaticamente sem aprovacao.
+```text
+Demo deve provar leitura especifica, nao parecer apresentacao generica.
+```
 
 ---
 
-## 21. Sherlock
+## 23. Site Prospect
 
-Script:
-
-```bash
-npm run sherlock -- --slug <slug> --target @handle --platform instagram
-```
-
-Exemplos:
+Use quando existe uma URL especifica de prospect.
 
 ```bash
-npm run sherlock -- --slug toqueindiano --target @concorrente --platform instagram
-npm run sherlock -- --slug toqueindiano --target https://youtube.com/@canal --platform youtube
-npm run sherlock -- --slug toqueindiano --target @empresa --platform linkedin
+npm run site-prospect -- --url https://exemplo.com.br --segment b2b --channels whatsapp,email --dry-run
 ```
 
-Use para investigar perfis e referencias.
+Forcar contato:
+
+```bash
+npm run site-prospect -- --url https://exemplo.com.br --phone 5511999999999 --email contato@exemplo.com.br --channels whatsapp,email
+```
+
+Apenas gerar demo:
+
+```bash
+npm run site-prospect -- --url https://exemplo.com.br --only-demo
+```
+
+---
+
+## 24. Sherlock
+
+Use para investigar presenca social de perfil, concorrente ou referencia.
+
+```bash
+npm run sherlock -- --slug [slug] --target @handle
+npm run sherlock -- --slug [slug] --target https://youtube.com/@canal
+npm run sherlock -- --slug [slug] --target @empresa --platform linkedin
+```
 
 Output:
 
@@ -826,30 +892,32 @@ clients/[slug]/outputs/inteligencia/YYYY-MM-DD-sherlock-[alvo].md
 
 ---
 
-## 22. Publicacao via Meta Graph API
+## 25. Publicacao
 
-Script:
-
-```bash
-npm run publicar -- --slug <slug> --file img.png --caption "legenda" --dry-run
-```
+Publicacao nunca e automatica sem aprovacao.
 
 Feed:
 
 ```bash
-npm run publicar -- --slug toqueindiano --file slide.png --caption "Legenda"
+npm run publicar -- --slug [slug] --file imagem.png --caption "legenda" --format feed
 ```
 
 Carrossel:
 
 ```bash
-npm run publicar -- --slug toqueindiano --file slide1.png --file slide2.png --file slide3.png --caption "Legenda" --format carousel
+npm run publicar -- --slug [slug] --file slide1.png --file slide2.png --file slide3.png --caption "legenda" --format carousel
 ```
 
 Reel:
 
 ```bash
-npm run publicar -- --slug toqueindiano --file video.mp4 --caption "Legenda" --format reel
+npm run publicar -- --slug [slug] --file video.mp4 --caption "legenda" --format reel
+```
+
+Sempre testar:
+
+```bash
+npm run publicar -- --slug [slug] --file imagem.png --caption "teste" --dry-run
 ```
 
 Pre-requisito:
@@ -858,183 +926,54 @@ Pre-requisito:
 clients/[slug]/instagram-config.json
 ```
 
-Campos esperados:
-
-- `accessToken`
-- `igUserId`
-- `imgbbApiKey`, quando precisar transformar arquivo local em URL publica
-
-Regra:
-
-- Nunca publicar sem aprovacao.
-- Sempre testar com `--dry-run`.
-- Registrar publicacao em `published.json`/`campaigns.md` quando aplicavel.
-
 ---
 
-## 23. WhatsApp
+## 26. Intelligence externa
 
-Scripts usam `whatsapp-web.js`.
+Os repertoire updaters trazem repertorio externo para dentro do MarketingOS.
+Eles nao substituem a alma do sistema.
 
-Sessao local:
-
-```text
-.whatsapp-session/
-```
-
-Essa pasta nao deve ir para o git.
-
-Primeiro uso:
-
-1. Rodar o script que inicializa WhatsApp.
-2. Escanear QR Code.
-3. Aguardar autenticacao.
-4. Enviar apenas depois de revisar mensagem e destinatario.
-
-Script especifico da Toque Indiano:
-
-```bash
-node scripts/send-identidade-toqueindiano.js
-```
-
-Ele envia os slides de identidade gerados em:
-
-```text
-clients/toqueindiano/outputs/branding/slides/
-```
-
----
-
-## 24. E-mail
-
-Configuracao no `.env`:
-
-```env
-EMAIL_USER=felipe@marketingos.com.br
-EMAIL_PASS=sua_senha_de_app
-EMAIL_FROM=Felipe Proenca <felipe@marketingos.com.br>
-```
-
-Para Gmail, use senha de app, nao a senha principal.
-
-Scripts que podem usar e-mail:
-
-- `scripts/prospector/index.js`
-- `scripts/scraper/outreach.js`
-- `scripts/demo-pipeline/index.js`
-
-Regra:
-
-- E-mail frio precisa ser especifico.
-- A primeira linha deve provar que houve analise.
-- Evitar mensagem generica, automatica ou corporativa.
-
----
-
-## 25. Variaveis de ambiente
-
-Exemplo de `.env`:
-
-```env
-ANTHROPIC_API_KEY=...
-
-EMAIL_USER=...
-EMAIL_PASS=...
-EMAIL_FROM=...
-
-IMGBB_API_KEY=...
-
-NEXT_PUBLIC_SUPABASE_URL=...
-NEXT_PUBLIC_SUPABASE_ANON_KEY=...
-SUPABASE_SERVICE_ROLE_KEY=...
-
-SCRAPER_DELAY_MS=2000
-SCRAPER_MAX_LEADS=10
-```
-
-Nunca commitar `.env`.
-
----
-
-## 26. Intelligence
-
-Arquivos principais:
-
-| Arquivo | Uso |
-|---|---|
-| `intelligence/patterns.md` | Padroes cross-client confirmados. |
-| `intelligence/benchmarks.json` | Benchmarks por canal/nicho. |
-| `intelligence/experiments.md` | Experimentos em andamento. |
-| `intelligence/skill-updates.md` | Log de melhorias de skills. |
-| `intelligence/system-usage.json` | Uso do sistema. |
-| `intelligence/market-opportunities.md` | Oportunidades de mercado. |
-
-Antes de operar um cliente, intelligence vem antes do contexto do cliente.
-
----
-
-## 26.1. Repertoire Updaters
-
-Os repertoire updaters trazem inteligencia externa para dentro do MarketingOS sem substituir `manifesto.md`, `alma.md` ou as regras de cliente.
-
-Eles rodam em duas etapas:
-
-### Etapa 1 - repertorio geral
+Etapa 1: repertorio geral.
 
 ```bash
 npm run repertoire:update
 ```
 
-Atualiza:
-
-- `intelligence/repertoire-updaters/marketingskills.md`
-- `intelligence/repertoire-updaters/ai-marketing-claude.md`
-- `intelligence/repertoire-updaters/claude-skills.md`
-- `intelligence/repertoire-updaters/ai-marketing-claude-code-skills.md`
-- `intelligence/repertoire-updaters/inventory.json`
-- `intelligence/repertoire-scan-report.md`
-
-Use primeiro para preservar o mapa completo dos quatro repertorios.
-
-### Etapa 2 - filtro de aquisicao
+Etapa 2: filtro de aquisicao.
 
 ```bash
 npm run repertoire:acquisition
 ```
 
-Depende da etapa 1. Atualiza:
-
-- `intelligence/repertoire-updaters/acquisition.md`
-
-Use depois da etapa geral para extrair apenas o que fortalece aquisicao de clientes: prospeccao, outbound, midia paga, funil, CRO, lead capture, prova, proposta, RevOps, parcerias e fechamento.
-
-Agenda:
+Regra:
 
 ```text
-intelligence/repertoire-updaters/schedule.md
-intelligence/repertoire-updaters/schedule.json
+Primeiro preservar repertorio completo.
+Depois filtrar aquisicao.
+Aplicar em uma skill por vez.
+Registrar em intelligence/skill-updates.md.
 ```
-
-Regra: repertorio externo e insumo. Antes de aplicar em uma skill interna, registre a melhoria em `intelligence/skill-updates.md` e passe pelos filtros de `alma.md`.
 
 ---
 
-## 27. Regras de conteudo para Felipe/MarketingOS
+## 27. Conteudo para Felipe / MarketingOS
 
-Antes de criar qualquer conteudo de marca para Felipe Proenca ou MarketingOS, parar e responder:
+Antes de criar qualquer conteudo para a marca do Felipe ou para o MarketingOS, pare.
 
-1. Para quem esse conteudo fala e o que essa pessoa sente antes de encontrar o Felipe?
+Perguntas obrigatorias:
+
+1. Para quem esse conteudo fala, e o que essa pessoa sente antes de encontrar o Felipe?
 2. O que o Felipe quer dizer que ninguem mais tem coragem de dizer?
 3. Esse conteudo serve para fechar cliente agora ou construir quem o Felipe e no mercado?
 4. O Felipe esta disposto a aparecer nisso?
 
-Sem essas respostas, nao criar estrutura.
+Sem essas respostas, nao estruturar conteudo.
 
 ---
 
 ## 28. Filtros de qualidade
 
-Antes de aprovar qualquer output:
+Antes de entregar qualquer coisa:
 
 1. Isso e autentico?
 2. Poderia ter sido dito so por essa marca?
@@ -1042,64 +981,62 @@ Antes de aprovar qualquer output:
 4. Conversa com o limbico?
 5. Tem substancia para o racional?
 6. Esta alinhado com o manifesto?
-7. Tem proximo passo claro?
-8. Evita promessa que nao pode provar?
+7. Torna aquisicao mais observavel, ajustavel ou previsivel?
+8. Tem proximo passo claro?
+9. Se ha dado, ele e real?
+10. Se ha inferencia, ela foi sinalizada?
 
 ---
 
 ## 29. O que nunca fazer
 
-- Publicar ou enviar conteudo automaticamente sem aprovacao.
-- Inventar metricas, dados ou depoimentos.
-- Gerar conteudo generico sem ler `client.md`.
-- Ignorar tom, persona ou restricoes do cliente.
-- Criar campanha sem objetivo declarado.
-- Sugerir acao sem justificativa baseada em dados ou contexto.
-- Misturar contexto entre clientes.
-- Comitar credenciais, sessoes de WhatsApp, cookies ou dados privados.
+- Publicar sem aprovacao explicita.
+- Enviar outreach sem revisar.
+- Inventar metricas, provas, faturamento ou depoimentos.
+- Gerar conteudo generico sem `client.md`.
+- Criar campanha sem objetivo de aquisicao declarado.
+- Sugerir acao sem evidencia, contexto ou hipotese clara.
+- Misturar clientes.
+- Carregar transcricao inteira quando existe `signals.json`.
+- Vender IA como produto.
+- Validar ideia ruim para ser agradavel.
 
 ---
 
-## 30. Git e versionamento
+## 30. Checklists rapidos
 
-Ver estado:
+### Antes de executar
 
-```bash
-git status --short
-```
+- [ ] Li fundacao necessaria?
+- [ ] Cliente correto esta aberto?
+- [ ] Objetivo de aquisicao esta claro?
+- [ ] Escolhi o grupo certo?
+- [ ] Li o `_admin.md` do grupo?
+- [ ] Li o contexto minimo da skill?
 
-Ver diff:
+### Antes de entregar output
 
-```bash
-git diff
-```
+- [ ] Output esta salvo em `clients/[slug]/outputs/`?
+- [ ] Dados reais e inferencias estao separados?
+- [ ] A peca nao parece generica?
+- [ ] Existe proximo passo claro?
+- [ ] A entrega ajuda aquisicao?
 
-Adicionar tudo que deve entrar:
+### Antes de publicar ou enviar
 
-```bash
-git add .
-```
+- [ ] Houve aprovacao explicita?
+- [ ] O conteudo passou por revisao?
+- [ ] O canal esta correto?
+- [ ] O arquivo/configuracao foi testado com `--dry-run` quando aplicavel?
+- [ ] A publicacao/envio sera registrado?
 
-Commit:
+### Ao fechar sessao
 
-```bash
-git commit -m "docs: add manual de uso"
-```
-
-Subir:
-
-```bash
-git push
-```
-
-Antes de commitar, confirme que nao existem:
-
-- `.env`
-- sessoes de WhatsApp
-- cookies de navegador
-- dados privados de cliente fora do `.gitignore`
-- chaves de API
-- senhas
+- [ ] Aprendizados relevantes foram registrados?
+- [ ] Decisoes foram anotadas?
+- [ ] Outputs estao no lugar certo?
+- [ ] Proximo passo esta claro?
+- [ ] Rodar `/fechar`.
 
 ---
 
@@ -1115,13 +1052,13 @@ npm.cmd run <script>
 
 ### Playwright falhou
 
-Instale os browsers:
+Instale browsers:
 
 ```bash
 npx playwright install
 ```
 
-No Windows com PowerShell bloqueado:
+No Windows:
 
 ```bash
 npx.cmd playwright install
@@ -1131,89 +1068,64 @@ npx.cmd playwright install
 
 Tente:
 
-- Termo mais amplo.
-- Cidade maior.
-- `--score` menor no Scraper v2.
-- Rodar so `maps` ou so `search`.
-- Aumentar `--max`.
+- termo mais amplo
+- cidade maior
+- `--score` menor
+- `--max` maior
+- fonte diferente
 
-### E-mail nao envia
+### Publicacao falhou
 
 Verifique:
 
-- `EMAIL_USER`.
-- `EMAIL_PASS`.
-- Senha de app do Gmail.
-- Bloqueio SMTP.
-- `verifyEmail()` no log.
+- `instagram-config.json`
+- token Meta Graph API
+- `igUserId`
+- URL publica da imagem/video
+- formato aceito pela API
 
 ### WhatsApp nao autentica
 
 Verifique:
 
-- QR Code escaneado.
-- Sessao local nao corrompida.
-- WhatsApp Web funcionando no navegador.
-- Numero de destino com DDI e DDD.
-
-### Publicacao Instagram falha
-
-Verifique:
-
-- `accessToken`.
-- `igUserId`.
-- Permissoes da Meta Graph API.
-- Se a imagem esta em URL publica.
-- Se o formato e aceito pela API.
+- QR Code
+- `.whatsapp-session/`
+- WhatsApp Web funcionando
+- telefone com DDI e DDD
 
 ---
 
-## 32. Checklist antes de entregar output
+## 32. Git e seguranca
 
-- Cliente correto aberto.
-- `client.md` lido.
-- `notes.md` lido.
-- `metrics.json` conferido quando houver performance envolvida.
-- `brand-kit.json` usado quando houver visual.
-- Output salvo em `clients/[slug]/outputs/`.
-- Conteudo passa pelos filtros de `alma.md`.
-- Proximo passo esta claro.
-- Nada foi publicado ou enviado sem aprovacao.
-- Aprendizado relevante registrado.
+Ver estado:
 
----
+```bash
+git status --short
+```
 
-## 33. Checklist de operacao de prospeccao
+Ver diff:
 
-Antes:
+```bash
+git diff
+```
 
-- Definir ICP.
-- Definir cidade/nicho.
-- Rodar dry-run.
-- Revisar mensagem.
-- Conferir limite diario.
+Nunca commitar:
 
-Durante:
-
-- Monitorar erros.
-- Nao forcar envio sem contato valido.
-- Evitar cadencia agressiva.
-
-Depois:
-
-- Salvar leads.
-- Registrar contatados.
-- Registrar respostas.
-- Ajustar abordagem com base no que respondeu.
+- `.env`
+- tokens
+- senhas
+- cookies
+- sessoes de WhatsApp
+- dados privados de cliente fora do que ja e esperado pelo repo
 
 ---
 
-## 34. Principio final
+## 33. Principio final
 
 MarketingOS opera com alma ou nao opera.
 
-Se o output nao ajuda o cliente a crescer, nao importa se esta bonito.
-Se a abordagem nao prova que houve cuidado, vira spam.
-Se a estrategia nao tem coragem, vira manutencao do mesmo.
+Se uma entrega nao ajuda o cliente a crescer, ela nao esta pronta.
+Se uma abordagem nao prova leitura especifica, ela vira spam.
+Se uma estrategia nao encara o gargalo real, ela so organiza o caos.
 
-O sistema existe para encontrar a verdade humana do negocio e multiplicar essa verdade ate ela virar resultado.
+O sistema existe para encontrar a verdade humana do negocio e transformar aquisicao em algo cada vez mais claro, observavel e previsivel.

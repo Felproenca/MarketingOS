@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cockpit de Aquisição — MarketingOS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --ink:#0a0908;            /* preto quente */
+  --ink-2:#100e0c;
+  --paper:#13110e;
+  --paper-2:#181511;
+  --line:#2a2620;
+  --line-2:#211d18;
+  --hair:rgba(201,165,92,.26);
+  --cream:#f3efe4;
+  --muted:#a39d8c;
+  --soft:#736c5d;
+  --gold:#c9a55c;
+  --gold-2:#e0c179;
+  --gold-soft:rgba(201,165,92,.10);
+  --green:#7fcf9c;
+  --red:#e8857f;
+  --blue:#86acdc;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased}
+body{
+  background:var(--ink);color:var(--cream);
+  font-family:Archivo,system-ui,sans-serif;font-size:14px;line-height:1.5;
+  background-image:
+    radial-gradient(1200px 600px at 78% -10%, rgba(201,165,92,.06), transparent 60%),
+    linear-gradient(rgba(255,255,255,.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.012) 1px, transparent 1px);
+  background-size:auto, 100% 34px, 34px 100%;
+  min-height:100vh;
+  position:relative;
+}
+/* grão */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.04;z-index:99;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.mono{font-family:"JetBrains Mono",monospace}
+.serif{font-family:"Playfair Display",Georgia,serif}
+em.g,.it{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:400;color:var(--gold)}
+::selection{background:rgba(201,165,92,.22)}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+
+.wrap{max-width:1280px;margin:0 auto;padding:0 38px 80px}
+
+/* ── Masthead ── */
+.masthead{display:flex;align-items:center;justify-content:space-between;gap:24px;
+  padding:20px 0 14px;border-bottom:1px solid var(--line)}
+.mh-left{display:flex;align-items:baseline;gap:16px}
+.logo{font-family:"Playfair Display",serif;font-weight:800;font-size:21px;letter-spacing:-.01em}
+.logo i{font-style:italic;color:var(--gold);font-weight:400}
+.mh-tag{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--soft)}
+.mh-right{display:flex;align-items:center;gap:22px;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted)}
+.mh-right .live{display:flex;align-items:center;gap:8px}
+.mh-right .live i{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 9px var(--green);animation:bl 2.4s infinite}
+@keyframes bl{50%{opacity:.35}}
+.rule-sub{display:flex;align-items:center;justify-content:space-between;
+  font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--soft);
+  padding:7px 0;border-bottom:1px solid var(--line-2)}
+
+/* reveal */
+.rise{opacity:0;transform:translateY(14px);animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.d1{animation-delay:.05s}.d2{animation-delay:.16s}.d3{animation-delay:.28s}.d4{animation-delay:.4s}.d5{animation-delay:.52s}
+
+/* ── Hero Hoje ── */
+.hero{display:grid;grid-template-columns:1.35fr 1fr;gap:50px;padding:42px 0 36px;border-bottom:1px solid var(--line)}
+.hero .kick{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+.hero h1{font-family:"Playfair Display",serif;font-weight:500;font-size:clamp(38px,5vw,62px);line-height:1.02;letter-spacing:-.02em}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero p{color:var(--muted);font-size:14.5px;max-width:430px;margin-top:22px;line-height:1.6}
+.hero .acts{display:flex;gap:14px;margin-top:28px}
+.lnk{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  padding:13px 20px;border:1px solid var(--line);color:var(--cream);transition:.18s;background:transparent}
+.lnk:hover{border-color:var(--gold);color:var(--gold)}
+.lnk.fill{background:var(--gold);color:#0c0a06;border-color:var(--gold);font-weight:700}
+.lnk.fill:hover{background:var(--gold-2);color:#0c0a06}
+
+/* briefing ledger */
+.brief{display:flex;flex-direction:column;justify-content:center;gap:0}
+.brief .row{display:grid;grid-template-columns:auto 1fr;align-items:baseline;gap:20px;
+  padding:16px 0;border-top:1px solid var(--line-2)}
+.brief .row:first-child{border-top:none}
+.brief .big{font-family:"Playfair Display",serif;font-weight:700;font-size:52px;line-height:.85;letter-spacing:-.02em;min-width:74px;text-align:right}
+.brief .big.alert{color:var(--red)}
+.brief .big.gold{color:var(--gold)}
+.brief .lab{display:flex;flex-direction:column;gap:3px}
+.brief .lab b{font-size:13.5px;font-weight:600;letter-spacing:.01em}
+.brief .lab span{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--soft);letter-spacing:.04em}
+
+/* agenda strip */
+.agenda{grid-column:1 / -1;display:flex;align-items:center;gap:0;margin-top:30px;
+  border:1px solid var(--line);background:linear-gradient(90deg,rgba(134,172,220,.05),transparent 40%)}
+.agenda .ah{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--blue);
+  padding:0 22px;border-right:1px solid var(--line);align-self:stretch;display:flex;align-items:center;gap:9px}
+.agenda .ah i{width:6px;height:6px;border-radius:50%;background:var(--blue)}
+.agenda .slot{display:flex;align-items:baseline;gap:11px;padding:15px 26px;border-right:1px solid var(--line-2)}
+.agenda .slot .t{font-family:"JetBrains Mono",monospace;font-size:14px;font-weight:700;color:var(--blue)}
+.agenda .slot .e{font-size:13px;color:var(--cream)}
+.agenda .slot .e small{display:block;color:var(--soft);font-size:11px}
+.agenda .sync{margin-left:auto;padding:0 22px;font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--soft);white-space:nowrap}
+
+/* ── Corpo: funil + dispatch ── */
+.body{display:grid;grid-template-columns:minmax(0,1fr) 384px;gap:46px;padding-top:38px}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:4px}
+.sec-h h2{font-family:"Playfair Display",serif;font-weight:600;font-size:25px;letter-spacing:-.01em}
+.sec-h h2 .no{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--gold);letter-spacing:.2em;vertical-align:super;margin-right:8px}
+.sec-h .meta{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
+
+/* funil ledger */
+.ledger{margin-top:22px;border-top:1px solid var(--gold);border-bottom:1px solid var(--line)}
+.led-cols{display:grid;grid-template-columns:repeat(5,1fr)}
+.led-col{border-right:1px solid var(--line-2);padding:0}
+.led-col:last-child{border-right:none}
+.led-top{padding:14px 14px 12px;border-bottom:1px solid var(--line-2);display:flex;align-items:baseline;justify-content:space-between}
+.led-top .nm{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.led-top .ct{font-family:"Playfair Display",serif;font-size:26px;font-weight:700;line-height:1;color:var(--cream)}
+.led-list{padding:8px}
+.entry{padding:11px 10px;cursor:pointer;border:1px solid transparent;border-radius:3px;transition:.16s;position:relative}
+.entry:hover{background:var(--paper);border-color:var(--line-2)}
+.entry.on{background:var(--paper-2);border-color:var(--hair)}
+.entry .en{font-size:13px;font-weight:600;display:flex;align-items:center;gap:7px;letter-spacing:-.005em}
+.entry .es{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--soft);margin-top:3px}
+.entry .eval{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--gold);margin-top:6px;letter-spacing:.01em}
+.entry .eval s{text-decoration:none;color:var(--soft)}
+.sec-h .val{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft)}
+.sec-h .val b{color:var(--gold);font-weight:700}
+.onestep{display:inline-flex;align-items:center;gap:6px;font-family:"JetBrains Mono",monospace;font-size:9.5px;
+  color:var(--green);margin-top:7px;letter-spacing:.04em}
+.onestep i{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green)}
+.entry .ef{display:flex;align-items:center;justify-content:space-between;margin-top:9px}
+.entry .ew{font-family:"JetBrains Mono",monospace;font-size:9.5px;color:var(--muted)}
+.entry .ew.due{color:var(--gold)}
+.entry .ew.ok{color:var(--green)}
+.abmark{font-family:"JetBrains Mono",monospace;font-size:9px;font-weight:700;letter-spacing:.06em;color:var(--soft);
+  border:1px solid var(--line);padding:1px 5px;border-radius:2px}
+.abmark.a{color:var(--gold);border-color:var(--hair)}
+.idx{font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--soft);position:absolute;top:8px;right:9px}
+/* high-touch lead story */
+.entry.lead{background:linear-gradient(150deg,rgba(201,165,92,.12),var(--paper-2));border:1px solid var(--gold);
+  padding:13px 12px;border-radius:3px;box-shadow:0 14px 40px rgba(0,0,0,.4)}
+.entry.lead .crown{color:var(--gold);font-size:11px}
+.entry.lead .pull{font-family:"Playfair Display",serif;font-style:italic;font-size:12.5px;color:var(--gold-2);
+  margin-top:8px;line-height:1.35;border-left:1px solid var(--hair);padding-left:9px}
+
+/* dispatch / variantes */
+.dispatch{align-self:start;position:sticky;top:24px;border:1px solid var(--line);background:var(--ink-2)}
+.dsp-h{padding:18px 20px 16px;border-bottom:1px solid var(--line)}
+.dsp-h .top{display:flex;align-items:center;justify-content:space-between;
+  font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--soft)}
+.dsp-h .who{display:flex;align-items:center;gap:13px;margin-top:14px}
+.seal{width:46px;height:46px;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;
+  font-family:"Playfair Display",serif;font-style:italic;font-size:22px;color:var(--gold);flex:0 0 auto;
+  background:radial-gradient(circle at 30% 25%,rgba(201,165,92,.16),transparent)}
+.who h3{font-family:"Playfair Display",serif;font-weight:600;font-size:19px;line-height:1.05}
+.who .sub{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--muted);margin-top:3px;letter-spacing:.03em}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}
+.chip{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;
+  padding:4px 8px;border:1px solid var(--line)}
+.chip.gold{color:var(--gold);border-color:var(--hair);background:var(--gold-soft)}
+.chip.green{color:var(--green);border-color:rgba(127,207,156,.3)}
+.chip.blue{color:var(--blue);border-color:rgba(134,172,220,.3)}
+
+.dsp-b{padding:18px 20px}
+.dsp-lab{display:flex;align-items:center;justify-content:space-between;
+  font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
+.dsp-lab b{color:var(--gold)}
+.vlist{margin:15px 0 6px;display:flex;flex-direction:column}
+.v{border-top:1px solid var(--line-2);padding:14px 2px;cursor:pointer;transition:.18s;position:relative}
+.v:first-child{border-top:none}
+.v:hover .vt{color:var(--cream)}
+.v .vrow{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.v .vt{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+  display:flex;align-items:center;gap:9px;transition:.18s}
+.v .mk{width:13px;height:13px;border:1px solid var(--soft);border-radius:50%;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.v.on .mk{border-color:var(--gold)}
+.v.on .mk::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.v.on .vt{color:var(--gold)}
+.aff{font-family:"JetBrains Mono",monospace;font-size:9.5px;font-weight:700;color:var(--green)}
+.aff.mid{color:var(--gold)}.aff.low{color:var(--soft)}
+.v .body-q{font-family:"Playfair Display",serif;font-size:14px;font-style:italic;line-height:1.5;color:var(--soft);
+  padding-left:13px;border-left:1px solid var(--line);transition:.18s}
+.v.on .body-q{color:var(--cream);border-color:var(--gold)}
+.v .from{font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--soft);margin-top:8px;padding-left:13px}
+
+.final{margin-top:18px}
+.final .dsp-lab{margin-bottom:9px}
+.ed{width:100%;min-height:84px;resize:vertical;background:var(--ink);border:1px solid var(--line);
+  padding:13px 14px;color:var(--cream);font-family:Archivo,sans-serif;font-size:13px;line-height:1.55}
+.ed:focus{outline:none;border-color:var(--gold)}
+.dsp-f{display:flex;align-items:center;gap:10px;padding:15px 20px;border-top:1px solid var(--line);background:var(--paper)}
+.gate{margin-right:auto;font-family:"JetBrains Mono",monospace;font-size:9.5px;color:var(--muted);display:flex;align-items:center;gap:7px}
+.gate i{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 7px var(--green)}
+.bsm{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  padding:11px 15px;border:1px solid var(--line);color:var(--cream);background:transparent;transition:.16s}
+.bsm:hover{border-color:var(--gold)}
+.bsm.gold{background:var(--gold);color:#0c0a06;border-color:var(--gold);font-weight:700}
+.bsm.gold:hover{background:var(--gold-2)}
+
+.colophon{margin-top:46px;padding-top:18px;border-top:1px solid var(--line-2);
+  font-family:"JetBrains Mono",monospace;font-size:10px;line-height:1.9;color:var(--soft);letter-spacing:.02em}
+.colophon b{color:var(--muted)}
+
+@media(max-width:1080px){
+  .hero{grid-template-columns:1fr;gap:32px}
+  .body{grid-template-columns:1fr;gap:34px}
+  .dispatch{position:static}
+  .agenda{flex-wrap:wrap}
+}
+@media(max-width:680px){
+  .wrap{padding:0 20px 60px}
+  .led-cols{grid-template-columns:1fr;}
+  .led-col{border-right:none;border-bottom:1px solid var(--line-2)}
+  .agenda .slot{border-right:none}
+  .mh-tag,.mh-right .clock{display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Masthead -->
+  <header class="masthead rise d1">
+    <div class="mh-left">
+      <div class="logo">Marketing<i>OS</i></div>
+      <div class="mh-tag">Cockpit de Aquisição</div>
+    </div>
+    <div class="mh-right">
+      <span class="clock">SEG · 15 JUN · 09:12</span>
+      <span class="live"><i></i> WHATSAPP · 18/25 ENVIOS</span>
+    </div>
+  </header>
+  <div class="rule-sub rise d1">
+    <span>Edição diária — operação Felipe Proença</span>
+    <span>Observável · Ajustável · Previsível</span>
+  </div>
+
+  <!-- Hero Hoje -->
+  <section class="hero">
+    <div class="rise d2">
+      <div class="kick">— A pauta de hoje</div>
+      <h1>O que precisa<br>de <em>você</em> hoje.</h1>
+      <p>O motor descobre, qualifica e prepara. Você lê, ajusta e dá o último clique. Nenhuma mensagem sai sem a sua aprovação — a ideia é saber de tudo.</p>
+      <div class="acts">
+        <button class="lnk">Rodar prospecção</button>
+        <button class="lnk fill">Revisar fila →</button>
+      </div>
+    </div>
+
+    <div class="brief rise d3">
+      <div class="row">
+        <div class="big alert num">2</div>
+        <div class="lab"><b>Respostas pra tratar</b><span>responderam · fora do trilho automático</span></div>
+      </div>
+      <div class="row">
+        <div class="big num">3</div>
+        <div class="lab"><b>Follow-ups devidos</b><span>2× d+2 · 1× d+5 · rascunhos prontos</span></div>
+      </div>
+      <div class="row">
+        <div class="big gold num">1</div>
+        <div class="lab"><b>High-touch em espera</b><span>reconexão agendada · volta em 5 dias</span></div>
+      </div>
+    </div>
+
+    <!-- Agenda -->
+    <div class="agenda rise d4">
+      <div class="ah"><i></i> Agenda</div>
+      <div class="slot"><span class="t">14:30</span><span class="e">Call diagnóstico<small>Studio Faro</small></span></div>
+      <div class="slot"><span class="t">17:00</span><span class="e">Retorno proposta<small>M. Andrade Adv.</small></span></div>
+      <div class="sync">Google Agenda · sincronizado há 4 min</div>
+    </div>
+  </section>
+
+  <!-- Corpo -->
+  <div class="body">
+
+    <!-- Funil -->
+    <section class="rise d4">
+      <div class="sec-h">
+        <h2><span class="no">I</span>O Funil</h2>
+        <span class="val">MRR em jogo · <b>R$ 20.400</b> · 11 negócios abertos</span>
+      </div>
+      <div class="ledger">
+        <div class="led-cols">
+
+          <div class="led-col">
+            <div class="led-top"><span class="nm">Descobertos</span><span class="ct num">12</span></div>
+            <div class="led-list">
+              <div class="entry"><span class="idx">01</span><div class="en">Clínica Vitalis</div><div class="es">Estética · Tijuca</div><div class="eval">R$ 1.997<s>/mês</s></div><div class="ef"><span class="ew">score 8.1</span><span class="abmark">—</span></div></div>
+              <div class="entry"><span class="idx">02</span><div class="en">Dr. Paulo Renck</div><div class="es">Odontologia</div><div class="eval">R$ 1.997<s>/mês</s></div><div class="ef"><span class="ew">score 7.4</span><span class="abmark">—</span></div></div>
+              <div class="entry"><span class="idx">03</span><div class="en">Espaço Lumiar</div><div class="es">Bem-estar</div><div class="eval">R$ 1.600<s>/mês</s></div><div class="ef"><span class="ew">score 7.0</span><span class="abmark">—</span></div></div>
+            </div>
+          </div>
+
+          <div class="led-col">
+            <div class="led-top"><span class="nm">Enviados</span><span class="ct num">9</span></div>
+            <div class="led-list">
+              <div class="entry"><span class="idx">01</span><div class="en">Studio Faro</div><div class="es">Arquitetura</div><div class="eval">R$ 2.400<s>/mês</s></div><div class="ef"><span class="ew">d+1 · silêncio</span><span class="abmark a">A</span></div></div>
+              <div class="entry"><span class="idx">02</span><div class="en">Bella Pelle</div><div class="es">Dermato</div><div class="eval">R$ 1.997<s>/mês</s></div><div class="ef"><span class="ew">d+1</span><span class="abmark">B</span></div></div>
+            </div>
+          </div>
+
+          <div class="led-col">
+            <div class="led-top"><span class="nm">Follow-up</span><span class="ct num">3</span></div>
+            <div class="led-list">
+              <div class="entry on"><span class="idx">01</span><div class="en">M. Andrade Adv.</div><div class="es">Advocacia</div><div class="eval">R$ 2.400<s>/mês</s></div><div class="ef"><span class="ew due">d+2 devido</span><span class="abmark a">A</span></div></div>
+              <div class="entry"><span class="idx">02</span><div class="en">Núcleo Fisio</div><div class="es">Fisioterapia</div><div class="eval">R$ 1.600<s>/mês</s></div><div class="ef"><span class="ew due">d+2 devido</span><span class="abmark">B</span></div></div>
+              <div class="entry"><span class="idx">03</span><div class="en">Ótica Central</div><div class="es">Varejo</div><div class="eval">R$ 1.200<s>/mês</s></div><div class="ef"><span class="ew due">d+5 devido</span><span class="abmark a">A</span></div></div>
+            </div>
+          </div>
+
+          <div class="led-col">
+            <div class="led-top"><span class="nm">Responderam</span><span class="ct num">2</span></div>
+            <div class="led-list">
+              <div class="entry lead"><div class="en"><span class="crown">♛</span> Liliana Sierra</div><div class="es">Hipnoterapia · high-touch</div><div class="eval">R$ 1.600<s>/mês · R$ 3.948 no plano</s></div><div class="pull">“Proposta clara, gostei muito.” — adiou por férias, não por dúvida.</div><div class="ef" style="margin-top:11px"><span class="ew due">reconexão · 20 jul</span><span class="abmark a">manual</span></div></div>
+              <div class="entry"><span class="idx">02</span><div class="en">Café Raiz</div><div class="es">Alimentação</div><div class="eval">R$ 1.200<s>/mês</s></div><div class="ef"><span class="ew ok">respondeu 2h</span><span class="abmark">—</span></div></div>
+            </div>
+          </div>
+
+          <div class="led-col">
+            <div class="led-top"><span class="nm">Fechamento</span><span class="ct num">1</span></div>
+            <div class="led-list">
+              <div class="entry"><span class="idx">01</span><div class="en">Studio Faro</div><div class="es">Arquitetura</div><div class="eval">R$ 2.400<s>/mês</s></div><div class="onestep"><i></i> a um passo · se quiser, reunião 14:30</div></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Dispatch -->
+    <aside class="dispatch rise d5">
+      <div class="dsp-h">
+        <div class="top"><span>Despacho — high-touch</span><span>♛ tier ouro</span></div>
+        <div class="who">
+          <div class="seal">L</div>
+          <div><h3>Liliana Sierra</h3><div class="sub">@lilianasierraoficial · hipnoterapia</div></div>
+        </div>
+        <div class="chips">
+          <span class="chip gold">high-touch</span>
+          <span class="chip green">proposta aprovada</span>
+          <span class="chip blue">reconexão 20 jul</span>
+        </div>
+      </div>
+
+      <div class="dsp-b">
+        <div class="dsp-lab">Copy Engine · 4 variantes <b>A/B vivo</b></div>
+        <div class="vlist" id="variants">
+
+          <div class="v on" data-msg="Oi Liliana, tudo bem? Como foram as férias? Fiquei pensando aqui — você já construiu a parte mais difícil. Quando bater a vontade de retomar, é só dizer; sigo à disposição, sem pressa.">
+            <div class="vrow"><span class="vt"><span class="mk"></span> A · Amplificação</span><span class="aff">▲ 71%</span></div>
+            <div class="body-q">Como foram as férias? Você já construiu a parte mais difícil. Quando bater a vontade de retomar, é só dizer — sem pressa.</div>
+            <div class="from">perception.json + tom validado</div>
+          </div>
+
+          <div class="v" data-msg="Liliana! Espero que as férias tenham sido ótimas. Sem compromisso nenhum: quando voltar ao ritmo, retomamos de onde paramos. Te explico em 2 min por áudio se preferir.">
+            <div class="vrow"><span class="vt"><span class="mk"></span> B · Leve</span><span class="aff mid">▲ 64%</span></div>
+            <div class="body-q">Quando voltar ao ritmo, retomamos de onde paramos. Te explico em 2 min por áudio se preferir.</div>
+            <div class="from">variação de tom — informal</div>
+          </div>
+
+          <div class="v" data-msg="Oi Liliana, bom te reencontrar por aqui. A proposta segue de pé exatamente como combinamos. No seu tempo — me avisa quando fizer sentido olhar de novo.">
+            <div class="vrow"><span class="vt"><span class="mk"></span> C · Direta</span><span class="aff low">▲ 58%</span></div>
+            <div class="body-q">A proposta segue de pé exatamente como combinamos. No seu tempo — me avisa quando fizer sentido.</div>
+            <div class="from">baixa pressão · sem pergunta</div>
+          </div>
+
+          <div class="v" data-msg="Liliana, como foi a viagem? Retomo só pra deixar a porta aberta: seu trabalho merece um sistema à altura, e ele continua pronto pra quando você estiver. Sem corre.">
+            <div class="vrow"><span class="vt"><span class="mk"></span> D · Emocional</span><span class="aff mid">▲ 66%</span></div>
+            <div class="body-q">Seu trabalho merece um sistema à altura, e ele continua pronto pra quando você estiver.</div>
+            <div class="from">ativa desejo · “merece”</div>
+          </div>
+
+        </div>
+
+        <div class="final">
+          <div class="dsp-lab">Mensagem final · editável</div>
+          <textarea class="ed" id="editor">Oi Liliana, tudo bem? Como foram as férias? Fiquei pensando aqui — você já construiu a parte mais difícil. Quando bater a vontade de retomar, é só dizer; sigo à disposição, sem pressa.</textarea>
+        </div>
+      </div>
+
+      <div class="dsp-f">
+        <span class="gate"><i></i> GATE OK · DENTRO DA JANELA</span>
+        <button class="bsm">Agendar</button>
+        <button class="bsm gold">Aprovar →</button>
+      </div>
+    </aside>
+
+  </div>
+
+  <div class="colophon rise d5">
+    <b>MOCKUP V2 — não funcional.</b> Direção: broadsheet de operação. Numeral serifado = grandeza editorial · monoespaçada = sinal de instrumento · fio dourado + grão = textura de marca.<br>
+    Evidencia · faixa Hoje com Google Agenda · funil em registro com A/B carimbado · tier high-touch como matéria de capa (♛) · 4 variantes do Copy Engine = braço do A/B · cada escolha alimenta a inteligência.
+  </div>
+
+</div>
+
+<script>
+  const vs = document.querySelectorAll('#variants .v');
+  const ed = document.getElementById('editor');
+  vs.forEach(v => v.addEventListener('click', () => {
+    vs.forEach(x => x.classList.remove('on'));
+    v.classList.add('on');
+    ed.value = v.getAttribute('data-msg');
+  }));
+  document.querySelectorAll('.led-list .entry:not(.lead)').forEach(e => {
+    e.addEventListener('click', () => {
+      document.querySelectorAll('.led-list .entry').forEach(x => x.classList.remove('on'));
+      e.classList.add('on');
+    });
+  });
+</script>
+</body>
+</html>

@@ -11,10 +11,11 @@
 3. [Slash Commands — Conteúdo](#3-conteúdo)
 4. [Slash Commands — Análise](#4-análise)
 5. [Slash Commands — Aquisição](#5-aquisição)
-6. [Slash Commands — Relacionamento](#6-relacionamento)
-7. [Slash Commands — Head Implantado](#7-head-implantado)
-8. [CLI — Scripts npm](#8-cli-npm)
-9. [Pipelines](#9-pipelines)
+6. [Slash Commands — Inteligencia](#6-inteligencia)
+7. [Slash Commands — Relacionamento](#7-relacionamento)
+8. [Slash Commands — Head Implantado](#8-head-implantado)
+9. [CLI — Scripts npm](#9-cli-npm)
+10. [Pipelines](#10-pipelines)
 
 ---
 
@@ -40,6 +41,7 @@
 | `/analisar` | Diagnóstico, performance, concorrente, SEO, estratégia |
 | `/criar` | Conteúdo, visual, site — carrega alma.md + criatividade |
 | `/prospectar` | Mercado, prospectos, oferta, pitch, captura, anúncio |
+| `/inteligencia` | Reuniões, diagnóstico de aquisição, crítica e validação |
 | `/vender` | Abordagem de lead qualificado e fechamento |
 | `/relacionar` | Retenção, reativação, head implantado |
 
@@ -89,11 +91,27 @@
 | `/prospectar pitch` | Apresentação comercial HTML | `aquisicao/skill-pitch-deck.md` |
 | `/prospectar captacao` | Estrutura de captura de leads | `aquisicao/skill-lead-capture.md` |
 | `/prospectar anuncio` | Campanha Google/Meta com copy e CSV | `aquisicao/skill-anuncio.md` |
+| `/prospectar parcerias` | Parceiros como multiplicadores — diagnóstico antes da execução deles | `aquisicao/skill-parcerias.md` |
 | `/demo [slug]` | Demo comercial pré-contratação — 9 etapas (diagnóstico + posicionamento + site + carrossel + dashboard) | `workflows/client-demo.md` |
 
 ---
 
-## 6. Relacionamento
+## 6. Inteligencia
+
+> Camada de crítica e validação antes da execução. Reduz erro de decisão e transforma sinais em aquisição observável.
+
+| Comando | O que faz | Skill |
+|---|---|---|
+| `/inteligencia reuniao [slug]` | Transforma transcrição/áudio de reunião em `signals.json` reutilizável | `inteligencia/skill-meeting-intelligence.md` |
+| `/inteligencia aquisicao [slug]` | Diagnostica gargalo principal de aquisição comparando hipóteses concorrentes | `inteligencia/skill-acquisition-intelligence.md` |
+
+| `/inteligencia critica [slug] [asset]` | Critica output antes de publicar, aprovando, revisando ou rejeitando | `inteligencia/skill-creative-critique.md` |
+
+Planejados para proximas levas: `/inteligencia office-hours`, `/inteligencia tese`, `/inteligencia voz`, `/inteligencia visibilidade`.
+
+---
+
+## 7. Relacionamento
 
 | Comando | O que faz | Skill |
 |---|---|---|
@@ -103,7 +121,7 @@
 
 ---
 
-## 7. Head Implantado
+## 8. Head Implantado
 
 | Comando | O que faz | Workflow |
 |---|---|---|
@@ -113,7 +131,7 @@
 
 ---
 
-## 8. CLI — Scripts npm
+## 9. CLI — Scripts npm
 
 > Executados no terminal. Independentes do contexto de sessão Claude.
 
@@ -149,6 +167,10 @@ npm run scraper:enviar
 
 # Simular envio sem enviar
 npm run scraper:dry
+
+# Painel local do scraper
+npm run scraper:panel
+# → abre em http://localhost:5173
 ```
 
 **Pipeline:** Discovery → Dedupe → Analysis → Qualification → Message → Aprovação → Outreach
@@ -369,7 +391,7 @@ npm run carousel:render         # Renderiza HTML → PNG
 
 ---
 
-## 9. Pipelines
+## 10. Pipelines
 
 ### Economia de Tokens
 

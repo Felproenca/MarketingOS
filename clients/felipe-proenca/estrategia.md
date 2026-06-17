@@ -31,6 +31,16 @@
 
 ## Princípios operacionais de conteúdo
 
+**Virada de Aquisição (2026-06-12) — `virada-aquisicao.md` na raiz:**
+O conteúdo existe para demonstrar capacidade de **diagnóstico**, não de produção.
+Não falamos para nichos — falamos para problemas: aquisição imprevisível, marketing
+desconectado, dependência de indicação, falhas de follow-up, ausência de sistema.
+
+**Distribuição editorial 70/20/10:**
+- 70% problemas universais — aquisição, crescimento, posicionamento, sistemas, previsibilidade
+- 20% build in public — evolução do MarketingOS, decisões, aprendizados, diagnósticos, bastidores
+- 10% casos específicos — clínicas, advogados, consultores, empresas analisadas
+
 **Rede social não é vitrine — é canal de distribuição, aquisição, conversão e retenção.**
 Cada publicação existe para mover alguém: atrair, ativar, converter ou reter. Se não tem objetivo declarado, não sai.
 

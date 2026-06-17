@@ -137,9 +137,17 @@ Objetivo: entender contexto real antes de propor.
 Ex: chamada curta, audio, WhatsApp, reuniao de diagnostico.
 
 Degrau 4 - Oferta principal
-Objetivo: apresentar o sistema no contexto do problema confirmado.
-Ex: IA aplicada a captacao, operacao integrada, funil, conteudo, tracking.
+Objetivo: apresentar o sistema no contexto do gargalo confirmado.
+Ex: diagnostico de aquisicao (30 dias) -> implementacao do gargalo encontrado (60 dias).
+O sistema se adapta ao gargalo, nao o contrario (virada-aquisicao.md).
 ```
+
+Promessa central da oferta (nunca "melhorar seu marketing"):
+"Descobrir por que sua aquisicao e imprevisivel — e construir o sistema que reduz isso."
+
+O diagnostico de 30 dias e vendido como o primeiro ato da correcao —
+cada semana entrega algo que ja muda a operacao do cliente.
+Nunca como "pagar para ser analisado".
 
 Toda adaptacao por canal deve indicar em qual degrau esta.
 

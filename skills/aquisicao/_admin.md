@@ -1,6 +1,7 @@
 # _admin.md — Grupo: Aquisição
 > Carregado quando o objetivo é encontrar e converter novos clientes.
 > Leia este arquivo. Escolha a skill. Carregue só ela.
+> Doutrina: `virada-aquisicao.md` (raiz) — o MarketingOS vende remoção de gargalos, não automação.
 
 ---
 
@@ -8,6 +9,14 @@
 
 Encontra as pessoas certas, no momento certo,
 com a mensagem certa para iniciar uma relação comercial.
+
+**A pergunta que abre conversa não é "posso automatizar seu processo?"**
+**É: "você sabe exatamente por que sua aquisição atual não é previsível?"**
+
+O outbound inicia conversas sobre gargalos. Nunca sobre tecnologia.
+Frameworks de apoio na Reference Library: `frameworks/acquisition/`
+(bottleneck-map = 5 gargalos com intervenções, acquisition-diagnostic = 30 dias).
+Consulta: `workflows/reference-library.md`.
 
 ---
 
@@ -45,6 +54,9 @@ Comando: `/prospectar`
 
 "Preciso de uma apresentação para prospectar"
 → skill-pitch-deck.md
+
+"Quero ativar parceiros (tráfego, social media, dev, designer, consultor)"
+→ skill-parcerias.md
 ```
 
 ---
@@ -64,6 +76,8 @@ skill-pitch-deck
   → gera a apresentação
 skill-lead-capture
   → estrutura a captura
+skill-parcerias
+  → multiplica via carteiras de parceiros (entra antes da execução deles)
 ```
 
 ---

@@ -1,6 +1,6 @@
 ---
 name: skill-carousel
-version: "2.0"
+version: "3.0"
 group: criacao
 command: /criar carousel
 inputs:
@@ -10,10 +10,11 @@ env: []
 ---
 
 # skill-carousel.md — Gerador de Carrossel Instagram
-> Skill isolada do MarketingOS. Versão 2.0.
+> Skill isolada do MarketingOS. Versão 3.0.
 > Leia este arquivo completo antes de executar.
 > Input obrigatório: `client.md` + `brand-kit.json`.
-> Output: HTML completo e funcional — sem etapa intermediária em .md ou Python.
+> **Saída primária: `slides-input.json` — a autoria da copy vive aqui, nunca no motor.**
+> O motor (`scripts/generate-carousel.js`) apenas valida, monta e renderiza o que esta skill escreve.
 
 ---
 
@@ -64,13 +65,12 @@ e adaptar o snippet ao visual-dna — protocolo em `workflows/reference-library.
 
 ## Objetivo
 
-Gerar um carrossel completo para Instagram em **uma única operação**:
-- Copy de cada slide baseado no `client.md`
-- HTML renderizado com identidade visual do `brand-kit.json`
-- Navegação entre slides funcional no browser
-- Legenda de publicação incluída como comentário no final do HTML
+Escrever a **autoria** do carrossel — copy e decisões criativas de cada slide — em um único
+artefato: `slides-input.json`. Esse arquivo é a fonte única de verdade da copy e alimenta:
+- o **preview navegável** (HTML com prev/next + dots) para aprovação;
+- o **motor** (`scripts/generate-carousel.js`) que faz o render final em PNG.
 
-**Zero etapas intermediárias. Zero conversão Python. Um arquivo HTML.**
+**O motor não escreve copy. Se faltar autoria, ele reprova — não preenche.**
 
 ---
 
@@ -99,6 +99,17 @@ Slide N-1    → VIRADA    → insight mais valioso, digno de salvar
 Slide N      → CTA       → ação clara, tom da marca
 ```
 
+Mapeamento narrativa → campo `role` do `slides-input.json`:
+
+| Slide | `role` | `type` |
+|---|---|---|
+| Gancho | `ruptura` | `GANCHO` |
+| Dor / contexto | `diagnostico` | `DIAGNOSTICO` |
+| Conteúdo (prova) | `prova operacional` | `PROVA` |
+| Conteúdo (desdobramento) | `desdobramento` | `DESDOBRAMENTO` |
+| Virada / insight | `virada` | `VIRADA` |
+| CTA | `acao` | `CTA` |
+
 ---
 
 ## Regras de Qualidade de Copy
@@ -113,12 +124,82 @@ Slide N      → CTA       → ação clara, tom da marca
 
 ---
 
-## Output: HTML Completo
+## Output primário: `slides-input.json`
 
-Gerar diretamente o arquivo com slides preenchidos, usando os valores do `brand-kit.json`.
-Salvar em: `clients/[slug]/outputs/carousels/carousel-[NN].html`
+A skill escreve este arquivo. Ele é o contrato com o motor — autoria fica aqui, render fica no motor.
 
-### Estrutura HTML obrigatória
+Salvar em: `clients/[slug]/outputs/carousels/inputs/[peca-slug].json`
+Formato de referência: `templates/slides-input.template.json`
+
+```json
+{
+  "client_slug": "[slug]",
+  "output_type": "carousel",
+  "theme": "[tema]",
+  "objective": "[Educação | Autoridade | Venda | Engajamento]",
+  "cta": "[CTA específico]",
+  "caption": "[legenda completa de publicação, com hashtags]",
+  "slides": [
+    {
+      "number": 1,
+      "role": "ruptura",
+      "type": "GANCHO",
+      "intention": "[o que este slide precisa provocar]",
+      "title": "[gancho — máx. 8 palavras, sem ponto final]",
+      "body": "[subtexto opcional — 1 linha]",
+      "reference": "[Referência influente — nome + tensão]",
+      "principle_applied": "[princípio transferível de reference-context.json visível aqui]",
+      "visual_rule": "[regra visual herdada do visual-dna — opcional, motor herda se vazio]",
+      "visual_motif": "[motivo visual nomeado, ex.: signal-radar — opcional]"
+    }
+  ]
+}
+```
+
+**Campos obrigatórios por slide (gate do motor reprova se faltar):**
+`role`, `title`, `body`, `principle_applied`.
+
+`visual_rule` é o único campo com fallback: se vazio, o motor herda a regra do `creative-brief.carousel.json`.
+Copy e princípio **nunca** têm fallback — são autoria, responsabilidade desta skill.
+
+`caption` carrega a legenda. Sem ela, o motor gera `legenda.md` marcada `[PENDENTE]`.
+
+**`visual_motif` — chamariz visual do slide 1 (só o GANCHO usa).**
+Escolher o motif pelo tema da peça. Vazio = sem chamariz (só o hook gigante).
+
+| `visual_motif` | Chamariz | Quando usar (tema) |
+|---|---|---|
+| `signal-radar` | Radar sinal/ruído | visibilidade, diagnóstico, sinal vs ruído |
+| `funnel` | Camadas afunilando até o gargalo | aquisição, funil, gargalo, conversão |
+| `grid-node` | Rede de nós conectados | sistema, infraestrutura, integração |
+| `ascent` | Barras subindo até o pico | crescimento, previsibilidade, escala |
+| `orbit` | Órbitas + núcleo com brilho | posicionamento, autoridade, gravidade de marca |
+
+Princípio: o motif é abstrato e fica atrás do hook — nunca compete com a copy.
+Novos motifs entram no registro `MOTIFS` em `scripts/generate-carousel.js`.
+
+### Render — invocar o motor
+
+Depois do `slides-input.json` aprovado (CP1):
+
+```bash
+node scripts/generate-carousel.js --input clients/[slug]/outputs/carousels/inputs/[peca-slug].json
+```
+
+O motor gera o job completo em `clients/[slug]/outputs/carousels/[data]-[tema]/`:
+`execution-brief.json`, `copy.md`, `legenda.md`, `carrossel.html`, `render.js`, `context-report.json`.
+Depois: `node <jobDir>/render.js` para gerar os PNGs em `instagram/`.
+
+---
+
+## Preview navegável (aprovação — CP1)
+
+Antes de invocar o motor, gerar um HTML navegável (prev/next + dots) a partir do **mesmo**
+`slides-input.json`, para aprovação visual da copy e da sequência. Este preview não substitui
+o render do motor — é só o artefato de aprovação. Salvar em:
+`clients/[slug]/outputs/carousels/inputs/[peca-slug].preview.html`
+
+### Estrutura HTML do preview
 
 ```html
 <!DOCTYPE html>
@@ -429,12 +510,13 @@ goTo(0);
 
 ## Checkpoints
 
-⏸ **CP1 — Copy dos slides**
-Copy de todos os slides gerado → apresentar para aprovação antes de gerar o HTML.
-Não avançar sem confirmação explícita de cada slide.
+⏸ **CP1 — Autoria (`slides-input.json` + preview)**
+Escrever `slides-input.json` completo e gerar o preview navegável a partir dele →
+apresentar para aprovação. Não invocar o motor sem confirmação explícita.
 
-⏸ **CP2 — Entrega**
-HTML gerado → confirmar slug do cliente e número do carrossel antes de salvar.
+⏸ **CP2 — Render e entrega**
+Após aprovação: invocar `node scripts/generate-carousel.js --input ...` e depois
+`node <jobDir>/render.js`. Confirmar slug do cliente antes de rodar.
 
 ---
 
@@ -447,27 +529,30 @@ HTML gerado → confirmar slug do cliente e número do carrossel antes de salvar
 - [ ] Ao menos 1 princípio de `reference-context.json` está explicitamente rastreável no output? Se não → o carrossel é raso. Revisar.
 
 **Checklist técnico:**
-- [ ] HTML abre e funciona no browser sem erros?
+- [ ] `slides-input.json` tem `role`, `title`, `body`, `principle_applied` em todos os slides?
+- [ ] `caption` preenchida (senão a legenda sai `[PENDENTE]`)?
+- [ ] Preview navegável abre no browser sem erros (prev/next + dots)?
 - [ ] Cores e fontes extraídas do `brand-kit.json`?
 - [ ] Gancho para no scroll sem contexto adicional?
 - [ ] Cada slide tem apenas 1 ideia central?
 - [ ] Tom alinhado ao `client.md`?
-- [ ] Legenda incluída como comentário no final do HTML?
-- [ ] Arquivo salvo em `clients/[slug]/outputs/carousels/`?
+- [ ] `slides-input.json` salvo em `clients/[slug]/outputs/carousels/inputs/`?
+- [ ] Motor invocado e PNGs gerados em `[jobDir]/instagram/`?
 
 ---
 
-## Diferença v1.0 → v2.0
+## Diferença entre versões
 
-| | v1.0 | v2.0 |
-|---|---|---|
-| Output | Markdown com briefing visual | HTML funcional completo |
-| Etapas | Copy → Python → HTML | Copy + HTML em uma operação |
-| Visual | Briefing para Canva | Renderizado direto no browser |
-| Legenda | Seção separada | Comentário no final do HTML |
+| | v1.0 | v2.0 | v3.0 |
+|---|---|---|---|
+| Autoria | Markdown | Embutida no HTML | `slides-input.json` (fonte única) |
+| Render | Python | HTML direto na skill | Motor (`generate-carousel.js`) |
+| Separação | — | — | Autoria na skill, render no motor |
+| Aprovação | Briefing | HTML | Preview navegável do mesmo input |
 
 ---
 
-*Skill v2.1 — MarketingOS*
+*Skill v3.0 — MarketingOS*
 *v2.0: HTML direto eliminando etapa intermediária de conversão.*
 *v2.1: reference-context.json integrado — gate de profundidade obrigatório antes de entregar.*
+*v3.0: autoria separada do render — a skill escreve `slides-input.json`; o motor valida e renderiza. O motor nunca escreve copy estratégica.*

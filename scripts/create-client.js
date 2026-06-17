@@ -16,6 +16,14 @@ const OUTPUT_DIRS = [
   'outputs/carousels',
   'outputs/dashboard',
   'outputs/images',
+  'outputs/acquisition',
+  'outputs/strategy',
+  'outputs/critique',
+  'outputs/voice',
+];
+
+const INPUT_DIRS = [
+  'inputs/meetings',
 ];
 
 const ASSET_DIRS = [
@@ -44,6 +52,9 @@ function ensureDir(dirPath) {
 
 function createDirectories(clientDir) {
   ensureDir(clientDir);
+  for (const inputDir of INPUT_DIRS) {
+    ensureDir(path.join(clientDir, inputDir));
+  }
   for (const outDir of OUTPUT_DIRS) {
     ensureDir(path.join(clientDir, outDir));
   }

@@ -1,0 +1,24 @@
+{
+  "_doc": "Contrato de autoria do carrossel. A skill (skill-carousel.md) escreve este arquivo; scripts/generate-carousel.js apenas valida, monta e renderiza. O motor nunca escreve copy estrategica. Campos obrigatorios por slide: role, title, body, principle_applied. Campos visuais ausentes (visual_rule) sao herdados do creative brief — fallback so visual, nunca textual.",
+  "_motifs_slide1": "visual_motif no slide GANCHO escolhe o chamariz visual. Opcoes: signal-radar (visibilidade/diagnostico), funnel (aquisicao/funil/gargalo), grid-node (sistema/infraestrutura), ascent (crescimento/previsibilidade), orbit (posicionamento/gravidade de marca). Vazio = sem chamariz. So o slide 1 usa motif.",
+  "client_slug": "",
+  "output_type": "carousel",
+  "theme": "",
+  "objective": "",
+  "cta": "",
+  "caption": "",
+  "slides": [
+    {
+      "number": 1,
+      "role": "ruptura",
+      "type": "GANCHO",
+      "intention": "",
+      "title": "",
+      "body": "",
+      "reference": "",
+      "principle_applied": "",
+      "visual_rule": "",
+      "visual_motif": ""
+    }
+  ]
+}

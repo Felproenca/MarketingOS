@@ -177,7 +177,8 @@ Custo da inacao:
 -> O que o prospect continua perdendo se nada mudar.
 
 Sistema recomendado:
--> Como IA aplicada a captacao resolve o problema no contexto dele.
+-> Como o sistema remove o gargalo confirmado no contexto dele.
+-> A IA e infraestrutura, nao o argumento — o argumento e aquisicao previsivel (virada-aquisicao.md).
 
 Prova:
 -> Case, demo, print, benchmark ou comparacao.

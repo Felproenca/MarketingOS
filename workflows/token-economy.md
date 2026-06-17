@@ -22,10 +22,17 @@ O MarketingOS deve operar por disclosure progressivo:
 Sempre:
 1. Ler `manifesto.md`.
 2. Ler `alma.md`.
-3. Ler `CLAUDE.md`.
+3. Ler `virada-aquisicao.md`.
+4. Ler `CLAUDE.md`.
+5. Consultar `docs/manual-de-uso.md`.
+
+Regra para o manual:
+- operacao completa, onboarding, criacao de cliente, fluxo novo ou decisao arquitetural: ler o manual inteiro;
+- microtarefa, ajuste pontual ou execucao de uma skill conhecida: ler apenas a secao relevante do manual;
+- se houver conflito, `CLAUDE.md` vence e o manual deve ser atualizado depois.
 
 Depois:
-1. Identificar grupo: analisar, criar, prospectar, vender, relacionar.
+1. Identificar grupo: inteligencia, perception, analisar, criar, prospectar, vender, relacionar.
 2. Ler apenas o `_admin.md` do grupo.
 3. Escolher uma skill.
 4. Ler apenas a skill escolhida.
@@ -79,4 +86,3 @@ Carregar implementacao somente para:
 - alterar contrato;
 - entender divergencia entre output esperado e output real;
 - escrever teste.
-

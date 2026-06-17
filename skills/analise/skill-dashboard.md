@@ -1,6 +1,6 @@
 ---
 name: skill-dashboard
-version: "1.0"
+version: "1.1"
 group: analise
 command: /analisar dashboard
 inputs:
@@ -48,11 +48,36 @@ Gerar análise completa de performance com:
 
 ---
 
+## Métrica principal — Aquisição Observável (virada-aquisicao.md)
+
+A métrica principal de qualquer relatório não é seguidores, curtidas, alcance ou views.
+É a capacidade de transformar aquisição em algo observável.
+
+Indicadores que lideram o relatório, nesta ordem:
+
+```text
+1. Conversas iniciadas      → com quem a aquisição começou
+2. Reuniões realizadas      → quem avançou
+3. Diagnósticos entregues   → onde o sistema provou leitura
+4. Oportunidades abertas    → o que está vivo no pipeline
+5. Fechamentos              → o que virou cliente
+6. Aprendizado acumulado    → o que o período ensinou sobre o gargalo
+```
+
+Métricas de canal (alcance, engajamento, CPL) explicam os indicadores acima.
+Nunca os substituem. Relatório que abre com vaidade está errado por definição.
+
+---
+
 ## Lógica de Análise
 
 Antes de gerar qualquer relatório, execute internamente esta sequência:
 
 ```
+0. Os 6 indicadores de aquisição observável têm dados no período?
+   → Preencher os disponíveis. Marcar os ausentes como "não rastreado ainda" —
+     ausência de rastreio É um achado do relatório.
+
 1. Quais canais estão com enabled: true no metrics.json?
    → Analise apenas esses. Ignore os desativados.
 
@@ -101,6 +126,19 @@ Em [X palavras ou menos]:
 - O que não funcionou
 - O que vem a seguir
 ```
+
+---
+
+#### Aquisição Observável
+
+| Indicador | Período | Anterior | Leitura |
+|---|---|---|---|
+| Conversas iniciadas | [ ] | [ ] | [ ] |
+| Reuniões realizadas | [ ] | [ ] | [ ] |
+| Diagnósticos entregues | [ ] | [ ] | [ ] |
+| Oportunidades abertas | [ ] | [ ] | [ ] |
+| Fechamentos | [ ] | [ ] | [ ] |
+| Aprendizado do período | [1 frase — o que se descobriu sobre o gargalo] | | |
 
 ---
 
@@ -269,13 +307,14 @@ Ação recomendada: [ ]
 
 ## Regras de Qualidade
 
-1. **Nunca analise canal com `enabled: false`** — dado ausente não é dado zero
-2. **Compare sempre com o período anterior quando disponível** — número absoluto sem contexto engana
-3. **CPL isolado não decide nada** — sempre cruzar com taxa de conversão e ticket médio
-4. **Insight sem ação recomendada é dado, não análise** — cada insight termina com "portanto, fazer X"
-5. **Relatório executivo em linguagem do cliente** — sem jargão técnico, sem siglas sem explicação
-6. **Priorizar ações de impacto imediato** — o cliente precisa saber o que fazer amanhã, não só no trimestre
-7. **Registrar no log de alterações do `campaigns.md`** toda decisão tomada com base neste relatório
+1. **Aquisição observável abre o relatório** — seguidores, curtidas e alcance nunca lideram (virada-aquisicao.md)
+2. **Nunca analise canal com `enabled: false`** — dado ausente não é dado zero
+3. **Compare sempre com o período anterior quando disponível** — número absoluto sem contexto engana
+4. **CPL isolado não decide nada** — sempre cruzar com taxa de conversão e ticket médio
+5. **Insight sem ação recomendada é dado, não análise** — cada insight termina com "portanto, fazer X"
+6. **Relatório executivo em linguagem do cliente** — sem jargão técnico, sem siglas sem explicação
+7. **Priorizar ações de impacto imediato** — o cliente precisa saber o que fazer amanhã, não só no trimestre
+8. **Registrar no log de alterações do `campaigns.md`** toda decisão tomada com base neste relatório
 
 ---
 

@@ -31,6 +31,24 @@
 
 ---
 
+## 2026-06-15 — Resposta da Liliana: adiamento por timing (não objeção)
+
+**Contexto:** Liliana respondeu ao follow-up D+5 no mesmo dia.
+
+**Resposta dela (literal):** "A proposta está muito clara e gostei muito, meu [problema] só é que eu vou sair de férias esta quinta feira e volto metade de julho, então não vou estar muito disponível para fazer o que se precisa, além que vou diminuir o orçamento no Google. Então, vamos deixar para mais enfrente."
+
+**Leitura:** NÃO é um não — é validação da proposta + adiamento por timing. Dois fatores: (1) férias até metade de julho, sem disponibilidade para a implantação; (2) vai reduzir orçamento de Google temporariamente.
+
+**Decisão:** Soltar a pressão. Deixar ela viajar tranquila e reconectar na volta. Sem escassez, sem cobrança — a proposta já foi aprovada no mérito, o gargalo agora é só o calendário dela.
+
+**O que muda:**
+- Prioridade da Liliana baixa temporariamente — não é frente ativa até meados de julho.
+- Lembrete em nuvem reagendado: 18/06 → **20/07** (segunda, 09:00 BRT) e reconteúdado de "follow-up no silêncio" para "reconexão pós-férias" (tom caloroso, pergunta das férias, retoma com leveza). Rotina: trig_018rbf6kZRrGUk7e7g1HwxSu.
+
+**Aprendizado:** Quando o prospecto valida o mérito mas adia por timing/orçamento, o erro é insistir. O movimento certo é registrar o "sim adiado" e reaparecer no momento dele — a venda está feita, falta a janela.
+
+**Próximo passo:** Reconectar ~20/07. Confirmar antes se houve contato dela no meio tempo.
+
 ## 2026-06-15 — Follow-up D+5 (silêncio) — Liliana Sierra
 
 **Contexto:** Prazo de decisão (15/06) chegou sem resposta da Liliana desde a reunião positiva de 10/06. Follow-up de reabertura.
@@ -44,7 +62,9 @@
 - Escassez sustentada por limite operacional verdadeiro, nunca inventado — diferencial de confiança.
 - "Se for você, te dou a atenção que seu trabalho merece" — desejo antes da decisão; eleva o valor da vaga.
 
-**Próximo passo:** Enviar a mensagem. Se positivo → onboarding (skill-head-implantado) + setup WA provider, com janela de implantação até 27/06. Se silêncio persistir após esta → reavaliar prioridade do prospecto.
+**Status:** ✅ Mensagem enviada via WhatsApp em 2026-06-15.
+
+**Próximo passo:** Aguardar resposta. Se positivo → onboarding (skill-head-implantado) + setup WA provider, com janela de implantação até 27/06. Se silêncio persistir após esta → reavaliar prioridade do prospecto.
 
 ## 2026-06-10 — Reunião + envio do demo v2 — Liliana Sierra
 

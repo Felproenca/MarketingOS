@@ -83,7 +83,8 @@ A linguagem de tudo que sai deste sistema:
 → Falar dos medos do cliente, não das certezas técnicas
 → Mostrar o real, não o perfeito
 → Desejo antes de necessidade — sempre
-→ "IA aplicada ao seu negócio" — não "gestão de marketing"
+→ "Aquisição previsível para o seu negócio" — não "gestão de marketing".
+  A IA é infraestrutura, não produto (virada-aquisicao.md)
 
 ---
 

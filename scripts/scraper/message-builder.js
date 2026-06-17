@@ -39,10 +39,16 @@ Critério de qualidade (cada variante):
 ✓ Não poderia ser enviada para outro negócio sem mudar
 ✓ Soa como pessoa real que passou pelo perfil deles
 
-GERE TRÊS VARIANTES, cada uma com um ÂNGULO distinto:
-- A · gargalo observado — nomeia um problema específico e a consequência dele.
-- B · amplificação — reconhece o que já funciona e levanta o risco de não escalar (nunca diagnóstico de falha).
-- C · curiosidade leve — observação + pergunta aberta, tom mais informal e curto.
+GERE TRÊS VARIANTES, cada uma ANCORADA NUM DETALHE DIFERENTE deste negócio
+(problema distinto da lista, a headline real, a cidade ou o nicho) — nunca as três no mesmo ponto:
+- A · gargalo observado — pega o problema mais concreto da lista e nomeia a consequência dele.
+- B · amplificação — reconhece o que já funciona e levanta o risco de OUTRO ponto não escalar (nunca diagnóstico de falha).
+- C · curiosidade leve — parte de um TERCEIRO ângulo (headline, cidade, nicho) com pergunta aberta, tom mais informal e curto.
+
+REGRA DE VARIÂNCIA (a mais importante):
+Se as três variantes pudessem ser enviadas para outro negócio trocando só o nome, REFAÇA.
+Cada uma ancora num detalhe específico e verificável deste lead. Especificidade > criatividade.
+Nunca afirme uma ausência que não está na lista de problemas (ex: "vocês não têm Instagram").
 
 RECOMENDAÇÃO DE PACOTE (para DEPOIS da resposta, nunca no 1º contato):
 Com base no que foi observado, recomende se vale enviar um diagnóstico e/ou um vídeo curto.
@@ -111,15 +117,19 @@ function normalizeRecommended(r = {}) {
 
 function buildLeadContext(lead, site, qualification) {
   const panelContext = buildPanelContext(loadPanelSettings());
+  const problemMenu = (qualification.problems || []).length
+    ? qualification.problems.map((p, i) => `  ${i + 1}. ${p}`).join('\n')
+    : '  (nenhum problema específico — ancore na headline ou no nicho)';
+
   return `NEGÓCIO ANALISADO:
   Nome: ${lead.name || 'não identificado'}
-  Instagram: ${lead.instagram ? '@' + lead.instagram : 'não encontrado'}
+  Instagram: ${lead.instagram ? '@' + lead.instagram : 'não verificado (não cite ausência)'}
   WhatsApp: ${lead.whatsapp || 'não encontrado'}
   Site carrega: ${site?.loads ? 'sim' : 'não'}
   Headline atual: "${site?.headline || 'não encontrada'}"
 
-PROBLEMA PRINCIPAL OBSERVADO: ${qualification.main_problem}
-OUTROS PROBLEMAS: ${qualification.problems.slice(1).join(' | ') || 'nenhum adicional'}
+PROBLEMAS OBSERVADOS (distribua um diferente por variante — A/B/C ancoram em pontos distintos):
+${problemMenu}
 
 ${panelContext}
 

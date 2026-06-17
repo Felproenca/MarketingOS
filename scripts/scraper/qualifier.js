@@ -49,6 +49,10 @@ function score(analysis) {
   }
 
   // ── INSTAGRAM ─────────────────────────────────────────────────────────────
+  // Só pontuamos o que VERIFICAMOS de fato. Instagram não encontrado no site,
+  // privado, bloqueado por login ou não analisado = DESCONHECIDO — não vira
+  // score nem observação. Evita afirmar uma ausência que não confirmamos
+  // (e que apareceria como observação falsa na copy de 1º contato).
   if (ig && ig.accessible) {
     if (!ig.has_bio_link) {
       points += 1;
@@ -58,9 +62,6 @@ function score(analysis) {
       points += 0.5;
       problems.push('Bio sem CTA');
     }
-  } else if (!ig || ig.problems.includes('instagram_nao_analisado')) {
-    points += 1.5;
-    problems.push('Sem Instagram ou não encontrado');
   }
 
   points = Math.min(Math.round(points * 10) / 10, 10);

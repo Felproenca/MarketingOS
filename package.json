@@ -15,6 +15,7 @@
     "publicar": "node scripts/publisher/index.js",
     "insights": "node scripts/insights/index.js",
     "insights:aquisicao": "node scripts/insights/acquisition.js",
+    "dm-engine": "node scripts/dm-engine/server.js",
     "backfill": "node scripts/insights/backfill.js",
     "aggregate": "node scripts/intelligence/aggregate.js",
     "repertoire:update": "node scripts/intelligence/repertoire-updater.js",

@@ -35,6 +35,9 @@ function parseArgs() {
     if (a[i] === '--slug') r.slug = a[++i];
     else if (a[i] === '--reels') r.reels = Number(a[++i]) || 8;
     else if (a[i] === '--dry-run') r.dryRun = true;
+    // Slug solto (ex.: `npm run insights:aquisicao felipe-proenca`, onde o npm
+    // engole o --slug). Aceita o 1º arg que não seja flag.
+    else if (!r.slug && !a[i].startsWith('--')) r.slug = a[i];
   }
   return r;
 }
@@ -79,8 +82,15 @@ async function tryInsight(nodePath, params, token) {
 }
 
 // ── Conta (grafo de interesse no nível do perfil) ────────────────────────────
+// A Meta exige metric_type=total_value + period=day para estas métricas
+// (days_28 é incompatível). Janela de 28d via since/until — total agregado real.
 async function accountMetrics(igUserId, token) {
   const out = {};
+  const DAY = 86400;
+  const until = Math.floor(Date.now() / 1000);
+  const since = until - 28 * DAY;
+  const window = { metric_type: 'total_value', period: 'day', since, until };
+  out._window = { since: new Date(since * 1000).toISOString(), until: new Date(until * 1000).toISOString(), days: 28 };
 
   // Follower count — nó do usuário, sempre confiável.
   try {
@@ -91,31 +101,26 @@ async function accountMetrics(igUserId, token) {
     out.followers = gap(`user-node falhou: ${e.message}`);
   }
 
-  // Alcance + quebra por tipo de seguidor (follower vs não-seguidor) — janela 28d.
-  let reachItem = await tryInsight(`/${igUserId}/insights`,
-    { metric: 'reach', metric_type: 'total_value', breakdown: 'follow_type', period: 'days_28' }, token);
-  if (reachItem && reachItem.__error) {
-    reachItem = await tryInsight(`/${igUserId}/insights`, { metric: 'reach', period: 'days_28' }, token);
-  }
-  const reach = readInsight(reachItem);
+  // Alcance + quebra por tipo de seguidor numa só chamada (total + não-seguidor).
+  const reach = readInsight(await tryInsight(`/${igUserId}/insights`,
+    { metric: 'reach', breakdown: 'follow_type', ...window }, token));
   if (reach) {
-    out.reach_28d = real(reach.total, 'graph:account-insights', { metric: 'reach', period: 'days_28' });
+    out.reach_28d = real(reach.total, 'graph:account-insights', { metric: 'reach', period: 'days(since/until 28d)' });
     const nonFollower = breakdownValue(reach, 'follow_type', 'NON_FOLLOWER');
     out.reach_non_followers_28d = nonFollower != null
-      ? real(nonFollower, 'graph:account-insights', { metric: 'reach/follow_type=NON_FOLLOWER', period: 'days_28' })
-      : gap('API não retornou breakdown follow_type para reach (métrica ou permissão indisponível nesta conta).');
+      ? real(nonFollower, 'graph:account-insights', { metric: 'reach/follow_type=NON_FOLLOWER', period: '28d' })
+      : gap('reach veio sem breakdown follow_type nesta janela.');
   } else {
-    out.reach_28d = gap(`reach indisponível: ${reachItem && reachItem.__error ? reachItem.__error : 'sem dado'}`);
+    out.reach_28d = gap('reach indisponível nesta janela.');
     out.reach_non_followers_28d = gap('depende de reach, que ficou indisponível.');
   }
 
   // Visitas ao perfil e toques no link da bio (o "checkout" do perfil).
   for (const [key, metric] of [['profile_views', 'profile_views'], ['bio_link_clicks', 'website_clicks']]) {
-    let item = await tryInsight(`/${igUserId}/insights`, { metric, metric_type: 'total_value', period: 'days_28' }, token);
-    if (item && item.__error) item = await tryInsight(`/${igUserId}/insights`, { metric, period: 'days_28' }, token);
+    const item = await tryInsight(`/${igUserId}/insights`, { metric, ...window }, token);
     const v = readInsight(item);
     out[key] = v
-      ? real(v.total, 'graph:account-insights', { metric, period: 'days_28' })
+      ? real(v.total, 'graph:account-insights', { metric, period: '28d' })
       : gap(`${metric} indisponível: ${item && item.__error ? item.__error : 'sem dado'}`);
   }
 
@@ -143,8 +148,8 @@ async function reelMetrics(posts, token, limit) {
       ? real(watch.total, 'graph:media-insights', { metric: 'ig_reels_avg_watch_time', doctrine: 'proxy real do teste de retenção de 5s' })
       : gap('ig_reels_avg_watch_time indisponível para este reel.');
 
-    // Alcance e quebra por não-seguidores neste reel.
-    let rItem = await tryInsight(`/${p.mediaId}/insights`, { metric: 'reach', metric_type: 'total_value', breakdown: 'follow_type' }, token);
+    // Alcance e quebra por não-seguidores neste reel (mídia: sem period).
+    let rItem = await tryInsight(`/${p.mediaId}/insights`, { metric: 'reach', breakdown: 'follow_type', metric_type: 'total_value' }, token);
     if (rItem && rItem.__error) rItem = await tryInsight(`/${p.mediaId}/insights`, { metric: 'reach' }, token);
     const r = readInsight(rItem);
     row.reach = r ? real(r.total, 'graph:media-insights', { metric: 'reach' }) : gap('reach indisponível para este reel.');

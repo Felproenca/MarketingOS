@@ -318,6 +318,16 @@ Status:       [ Aguardando confirmação em segundo cliente / Aguardando aprova�
 Prazo:        [ quando revisar ]
 ```
 
+### [PENDENTE] — skill-offer-positioning / virada-aquisicao / motor de conteúdo — Doutrina de Aquisição 2026
+Origem:       Protocolo estratégico externo trazido pelo Felipe (2026-06-17), capturado e filtrado em `intelligence/doctrine-aquisicao-2026.md`
+Status:       Aguardando decisão do Felipe — productizar oferta em escada de valor vs. manter done-for-you puro (é virada de modelo de negócio, não só de comunicação)
+Prazo:        Próxima sessão de estratégia
+Aplicar quando confirmado, um por vez:
+→ [FEITO 2026-06-17] Camada de métricas do grafo de interesse → `scripts/insights/acquisition.js` (`npm run insights:aquisicao`), dado real da Graph API com proveniência, regra "tudo é verdade". Pendente só: gerar token Meta novo (o atual expirou 08/06) para o 1º pull real.
+→ Funil Conteúdo→DM→próxima ação → alinhar com Motor de Aquisição + Motor de Follow-up
+→ "Oferta chata" ultra-específica → afinar `skill-offer-positioning` e ICP
+Não aplicar sem filtro: IG-first como dogma e perfil-como-página ferem observabilidade e a regra de parada do operador.
+
 ---
 
 *Última atualização: junho/2026*

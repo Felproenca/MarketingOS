@@ -173,6 +173,7 @@ async function getMediaInsights(mediaId, accessToken) {
 }
 
 module.exports = {
+  apiGet,
   validateToken,
   createFeedContainer,
   createCarouselItem,

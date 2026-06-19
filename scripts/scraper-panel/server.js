@@ -124,6 +124,38 @@ function collectAgendaFiles(item) {
     .map(file => path.relative(ROOT, file));
 }
 
+function agendaCopyDraft(item) {
+  const problema = String(item.problema || 'Aquisição imprevisível').trim();
+  const bucket = item.bucket || 'universal';
+  let hook;
+  let body;
+
+  if (bucket === 'build-in-public') {
+    hook = 'Uma decisão pequena do sistema muda a semana inteira.';
+    body = `Build in public: esta semana o ponto é ${problema}. O objetivo não é postar mais; é deixar a aquisição mais observável, com menos peça solta e mais decisão com rastro.`;
+  } else if (bucket === 'caso') {
+    hook = 'Agenda cheia não é a mesma coisa que aquisição previsível.';
+    body = `${problema}. Esse é o tipo de caso em que o marketing parece estar funcionando por fora, mas por dentro ainda falta sistema: origem clara, captura, follow-up e métrica real.`;
+  } else {
+    hook = `O problema não é postar pouco. É ${problema}.`;
+    body = `Quando a aquisição não tem sistema, cada semana começa do zero. ${problema}. O conteúdo certo não é decoração: ele precisa nomear o gargalo e abrir uma conversa real.`;
+  }
+
+  return {
+    hook,
+    caption: `${hook}\n\n${body}\n\nSe isso aparece no seu negócio, não é só "falta de marketing". É um ponto do sistema de aquisição pedindo diagnóstico.\n\nComente DIAGNOSTICO que eu te mando o teste de 2 minutos.`,
+  };
+}
+
+function prepareAgendaCopy(item) {
+  const draft = agendaCopyDraft(item);
+  if (!item.hook) item.hook = draft.hook;
+  if (!item.caption) item.caption = draft.caption;
+  const hasFiles = collectAgendaFiles(item).length > 0;
+  item.status = hasFiles ? 'prepared' : 'drafted';
+  item.prepareNote = hasFiles ? 'copy e arquivos prontos para validação' : 'copy pronta; falta draftPath/files para validar envio';
+}
+
 function cleanTime(value, fallback) {
   const text = String(value || '');
   return /^\d{2}:\d{2}$/.test(text) ? text : fallback;
@@ -627,7 +659,11 @@ async function handleApi(req, res, url) {
     if (!item) return sendJson(res, 404, { error: 'Item da agenda nao encontrado' });
     const ALLOWED = ['caption', 'hook', 'formato', 'scheduledAt', 'draftPath', 'problema'];
     for (const k of ALLOWED) if (body[k] !== undefined) item[k] = String(body[k]).slice(0, 4000);
-    if (body.status !== undefined) item.status = normalizeAgendaStatus(body.status, item.status);
+    if (body.status === 'prepared' || body.status === 'drafted') {
+      prepareAgendaCopy(item);
+    } else if (body.status !== undefined) {
+      item.status = normalizeAgendaStatus(body.status, item.status);
+    }
     item.updatedAt = new Date().toISOString();
     writeJson(agendaPath, agenda);
     return sendJson(res, 200, { item });

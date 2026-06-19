@@ -283,7 +283,7 @@ async function renderAgenda(){
   $('#agenda').innerHTML=items.map(i=>{ const w=agDay(i.scheduledAt);
     return `<div class="ag-item">
       <div class="ag-when"><div class="d">${esc(w.d)}</div>${esc(w.t)}<div class="ag-bucket ${esc(i.bucket)}">${esc(BK[i.bucket]||i.bucket)}</div></div>
-      <div class="ag-mid"><div class="hook">${esc(i.hook||i.problema||'—')}</div><div class="prob">${esc(i.problema||'')}</div><div class="fmt">${esc(i.formato||'')}${i.draftPath?' · rascunho pronto':''}</div></div>
+      <div class="ag-mid"><div class="hook">${esc(i.hook||i.problema||'—')}</div><div class="prob">${esc(i.problema||'')}</div><div class="fmt">${esc(i.formato||'')}${i.caption?' · legenda pronta':''}${i.draftPath?' · arquivo apontado':''}</div></div>
       <div class="ag-right"><span class="ag-status ${esc(i.status)}">${esc(ST[i.status]||i.status)}</span>
         <button class="ag-act" data-edit="${esc(i.id)}">Editar</button>
         ${i.status!=='prepared'&&i.status!=='published'&&i.status!=='measured'?`<button class="ag-act" data-prepare="${esc(i.id)}">Preparar</button>`:''}
@@ -318,7 +318,11 @@ async function saveAgendaEdit(row,id){
 }
 
 async function prepareAgendaItem(id){
-  try{ await api('/api/agenda/item',{method:'POST',body:JSON.stringify({id,status:'prepared'})}); toast('Item marcado como preparado'); await renderAgenda(); }
+  try{
+    const res=await api('/api/agenda/item',{method:'POST',body:JSON.stringify({id,status:'prepared'})});
+    toast(res.item&&res.item.status==='prepared'?'Item preparado para validação':'Legenda criada; falta arquivo/draftPath');
+    await renderAgenda();
+  }
   catch(e){ toast(e.message); }
 }
 

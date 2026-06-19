@@ -15,6 +15,8 @@ const PENDING_FILE = path.join(ROOT, 'agency/leads/pending-approval.json');
 const SETTINGS_FILE = path.join(ROOT, 'agency/leads/scraper-panel-settings.json');
 const SCRAPER_CLI = path.join(ROOT, 'scripts/scraper/index.js');
 const FOLLOWUP_CLI = path.join(ROOT, 'scripts/pipeline/followup.js');
+const AGENDA_SLUG = process.env.AGENDA_SLUG || 'felipe-proenca';
+const AGENDA_FILE = path.join(ROOT, 'clients', AGENDA_SLUG, 'agenda.json');
 
 const store = require('../pipeline/store');
 const guard = require('../pipeline/guard');
@@ -544,6 +546,22 @@ async function handleApi(req, res, url) {
     pending[index].updatedAt = new Date().toISOString();
     savePending(pending);
     return sendJson(res, 200, { item: { index, ...pending[index] } });
+  }
+
+  // Agenda de conteúdo (calendário editorial 70/20/10) — fonte: clients/<slug>/agenda.json
+  if (req.method === 'GET' && url.pathname === '/api/agenda') {
+    return sendJson(res, 200, readJson(AGENDA_FILE, { week: null, items: [] }));
+  }
+  if (req.method === 'POST' && url.pathname === '/api/agenda/item') {
+    const body = await readBody(req);
+    const agenda = readJson(AGENDA_FILE, { week: null, items: [] });
+    const item = (agenda.items || []).find(i => i.id === body.id);
+    if (!item) return sendJson(res, 404, { error: 'Item da agenda nao encontrado' });
+    const ALLOWED = ['status', 'caption', 'hook', 'formato', 'scheduledAt', 'draftPath', 'problema'];
+    for (const k of ALLOWED) if (body[k] !== undefined) item[k] = body[k];
+    item.updatedAt = new Date().toISOString();
+    writeJson(AGENDA_FILE, agenda);
+    return sendJson(res, 200, { item });
   }
 
   return sendJson(res, 404, { error: 'Rota nao encontrada' });

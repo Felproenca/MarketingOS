@@ -65,6 +65,7 @@ function setView(view){
   $$('.view').forEach(v=>v.classList.remove('on'));
   $('#view-'+view).classList.add('on');
   if(view==='pipeline'){ renderBoard(); renderDispatch(); }
+  if(view==='agenda') renderAgenda();
   if(view==='metrics') renderMetrics();
   if(view==='config') renderConfig();
   if(view==='prospect' && S.map) setTimeout(()=>S.map.invalidateSize(),200);
@@ -263,6 +264,29 @@ function renderMetrics(){
     {k:'Retenção média (reels)',v:'—',muted:1,src:'insights:aquisicao'},
   ];
   $('#mgrid').innerHTML=cards.map(c=>`<div class="mcard"><div class="k">${c.k}</div><div class="v${c.muted?' muted':''}">${esc(String(c.v))}</div><div class="src">fonte · ${esc(c.src)}</div></div>`).join('');
+}
+
+/* ── Agenda (calendário editorial 70/20/10) ── */
+function agDay(iso){
+  if(!iso) return {d:'—',t:''};
+  const dt=new Date(iso); if(Number.isNaN(dt.getTime())) return {d:'—',t:''};
+  return { d:new Intl.DateTimeFormat('pt-BR',{weekday:'short',day:'2-digit',month:'2-digit'}).format(dt).toUpperCase(),
+           t:new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit'}).format(dt) };
+}
+async function renderAgenda(){
+  let ag; try{ ag=await api('/api/agenda'); }catch(e){ $('#agenda').innerHTML='<div class="col-empty">agenda indisponível</div>'; return; }
+  S.agenda=ag; const items=ag.items||[];
+  const by=b=>items.filter(i=>i.bucket===b).length;
+  $('#ag-distrib').innerHTML=`semana <b>${esc(ag.week||'—')}</b> · ${items.length} peças · universal <b>${by('universal')}</b> · build-in-public <b>${by('build-in-public')}</b> · caso <b>${by('caso')}</b>`;
+  const BK={'universal':'universal','build-in-public':'build in public','caso':'caso'};
+  const ST={planned:'planejada',drafted:'rascunho',prepared:'preparada',published:'publicada',measured:'medida'};
+  $('#agenda').innerHTML=items.map(i=>{ const w=agDay(i.scheduledAt);
+    return `<div class="ag-item">
+      <div class="ag-when"><div class="d">${esc(w.d)}</div>${esc(w.t)}<div class="ag-bucket ${esc(i.bucket)}">${esc(BK[i.bucket]||i.bucket)}</div></div>
+      <div class="ag-mid"><div class="hook">${esc(i.hook||i.problema||'—')}</div><div class="prob">${esc(i.problema||'')}</div><div class="fmt">${esc(i.formato||'')}${i.draftPath?' · rascunho pronto':''}</div></div>
+      <div class="ag-right"><span class="ag-status ${esc(i.status)}">${esc(ST[i.status]||i.status)}</span>${i.status==='prepared'?`<button class="ag-act" data-pub="${esc(i.id)}">Aprovar →</button>`:''}</div></div>`;
+  }).join('') || '<div class="col-empty">Nenhuma peça na semana. A rotina planeja semanalmente.</div>';
+  $$('#agenda .ag-act').forEach(el=>el.addEventListener('click',()=>toast('Aprovação + publisher entram na Fase 3')));
 }
 
 /* ── Config ── */

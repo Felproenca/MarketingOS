@@ -190,6 +190,31 @@
   .note{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:18px 20px;color:var(--muted);font-size:13px;line-height:1.6;margin-top:18px}
   .note code{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:12px}
 
+  /* ── Agenda ── */
+  .ag-distrib{display:flex;gap:8px;margin-bottom:18px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)}
+  .ag-distrib b{color:var(--gold)}
+  .agenda{display:flex;flex-direction:column;gap:10px;max-width:940px}
+  .ag-item{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:15px 18px;display:grid;grid-template-columns:128px 1fr 150px;gap:18px;align-items:center;transition:border-color .3s var(--ease),transform .3s var(--ease)}
+  .ag-item:hover{border-color:var(--border2);transform:translateX(2px)}
+  .ag-when{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);line-height:1.5}
+  .ag-when .d{color:var(--text);font-size:13px}
+  .ag-bucket{display:inline-block;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:20px}
+  .ag-bucket.universal{background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-bd)}
+  .ag-bucket.build-in-public{color:var(--text);border:1px solid var(--border2)}
+  .ag-bucket.caso{color:var(--dim);border:1px solid var(--border)}
+  .ag-mid .hook{font-size:15px;font-weight:700;letter-spacing:-.01em;line-height:1.25}
+  .ag-mid .prob{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.4}
+  .ag-mid .fmt{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:7px}
+  .ag-right{display:flex;flex-direction:column;align-items:flex-end;gap:9px}
+  .ag-status{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:5px 11px;border-radius:6px;border:1px solid var(--border)}
+  .ag-status.planned{color:var(--dim)}
+  .ag-status.drafted{color:var(--text);border-color:var(--border2)}
+  .ag-status.prepared{color:var(--gold);border-color:var(--gold-bd)}
+  .ag-status.published{background:var(--gold-dim);color:var(--gold);border-color:var(--gold-bd)}
+  .ag-status.measured{background:var(--gold);color:#0a0a0a;border-color:var(--gold)}
+  .ag-act{font-family:inherit;font-size:11px;font-weight:600;padding:6px 12px;border-radius:6px;border:1px solid var(--border2);background:transparent;color:var(--text);cursor:pointer;transition:background .3s,transform .3s var(--ease-back)}
+  .ag-act:hover{background:var(--surface2);transform:translateY(-1px)}
+
   /* ── Config ── */
   .cfg{max-width:640px}
   .cfg-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border)}
@@ -212,6 +237,7 @@
       <div class="nav-ind" id="navInd"></div>
       <a data-view="prospect" class="on"><span class="ico">⊕</span> Prospectar</a>
       <a data-view="pipeline"><span class="ico">≡</span> Pipeline</a>
+      <a data-view="agenda"><span class="ico">▦</span> Agenda</a>
       <a data-view="metrics"><span class="ico">◈</span> Métricas</a>
       <a data-view="config"><span class="ico">⚙</span> Config</a>
     </nav>
@@ -280,6 +306,14 @@
           <div class="board" id="board"></div>
           <div class="dispatch" id="dispatch"></div>
         </div>
+      </section>
+
+      <!-- AGENDA -->
+      <section class="view" id="view-agenda">
+        <div class="vhead"><div class="eyebrow">Agenda</div><h1>A semana, <span class="ed">planejada</span>.</h1>
+          <p>70% problemas universais · 20% build in public · 10% casos. A rotina planeja, rascunha e prepara — você dá o OK. Nada publica sozinho.</p></div>
+        <div class="ag-distrib" id="ag-distrib"></div>
+        <div class="agenda" id="agenda"></div>
       </section>
 
       <!-- MÉTRICAS -->

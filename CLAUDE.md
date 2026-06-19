@@ -58,6 +58,13 @@ Antes de qualquer criação visual para um cliente:
 > "Se removermos o logo, o nome e as cores desta marca — alguém ainda reconheceria quem está se comunicando?"
 > Se não → a peça não sai.
 
+**Gate de Direção de Arte — anti-engessamento (obrigatório p/ toda criação visual):**
+Antes de gerar qualquer peça visual/motion, consultar `intelligence/doctrine-direcao-de-arte.md`.
+A IA é espelho: briefing de funcionalidade → output genérico. Exigir direção de arte + física.
+Gate (qualquer "não" → não sai): (1) quebra o default ou um dev mediano geraria igual? (2) tem UMA
+animação-herói? (3) o movimento tem peso/física (easing custom/spring, nunca linear/ease-in-out)?
+(4) restrição intencional (profundidade por opacidade/whitespace)? (5) ferramenta certa (CSS vs Canvas/shader)?
+
 **Hierarquia completa de criação (novo cliente):**
 ```
 Objetivo de aquisição  ← qual gargalo este trabalho remove? (virada-aquisicao.md)

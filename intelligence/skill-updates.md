@@ -328,6 +328,12 @@ Aplicar quando confirmado, um por vez:
 → "Oferta chata" ultra-específica → afinar `skill-offer-positioning` e ICP
 Não aplicar sem filtro: IG-first como dogma e perfil-como-página ferem observabilidade e a regra de parada do operador.
 
+### [FEITO 2026-06-18] — Doutrina de Direção de Arte (anti-engessamento)
+Origem:       Felipe trouxe o diagnóstico de outputs de IA "engessados" + referência Awwwards (Kaptar/Mux).
+O que mudou:  Criado `intelligence/doctrine-direcao-de-arte.md` (5 pilares: easing custom/spring, generative noise, restrição, framework de briefing, Canvas/WebGL/shader) + GATE anti-boilerplate no CLAUDE.md (junto do Teste Supremo).
+Aplicar nas skills (uma por vez, próximas sessões): reel-builder, reels, site-builder, creative-direction, carousel, image-generation, visual-spec consultam a doutrina antes de gerar.
+Por quê:      A IA é espelho — o gargalo de qualidade é direção de arte, não execução técnica (pipeline já faz Three.js/bloom/GSAP). Filtrado pela marca (gold único acento) e pela alma minimalista.
+
 ---
 
 *Última atualização: junho/2026*

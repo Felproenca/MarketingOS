@@ -26,6 +26,7 @@ O host te dá uma URL HTTPS pública, ex.: `https://dm.seudominio.com`.
 | Var | O que é |
 |---|---|
 | `INSTAGRAM_ACCESS_TOKEN` | token de 60 dias do passo 1 (ou deixa no config) |
+| `INSTAGRAM_USER_ID` | ID numérico da conta Instagram Business que vai enviar a resposta privada |
 | `META_APP_SECRET` | segredo do app — valida a assinatura do webhook |
 | `WEBHOOK_VERIFY_TOKEN` | uma senha que **você inventa** (usada no passo 4) |
 | `MAGNET_URL` | URL pública da isca (ex.: `https://dm.seudominio.com/`) |
@@ -45,6 +46,8 @@ DM_AUTO_SEND=true
 MAGNET_URL=https://dm.seudominio.com/
 META_APP_SECRET=<segredo_do_app>
 WEBHOOK_VERIFY_TOKEN=<token_que_voce_criou>
+INSTAGRAM_ACCESS_TOKEN=<token_instagram>
+INSTAGRAM_USER_ID=<id_instagram_business>
 ```
 
 Depois reinicie o serviço. Confirme:

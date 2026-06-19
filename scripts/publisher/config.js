@@ -13,6 +13,14 @@ function loadConfig(slug) {
   const configPath = path.resolve(__dirname, '../../clients', slug, 'instagram-config.json');
 
   if (!fs.existsSync(configPath)) {
+    if (process.env.INSTAGRAM_ACCESS_TOKEN && process.env.INSTAGRAM_USER_ID) {
+      return {
+        accessToken: process.env.INSTAGRAM_ACCESS_TOKEN,
+        igUserId: process.env.INSTAGRAM_USER_ID,
+        pageId: process.env.FACEBOOK_PAGE_ID || null,
+        imgbbApiKey: process.env.IMGBB_API_KEY || null,
+      };
+    }
     throw new Error(
       `Config não encontrado: clients/${slug}/instagram-config.json\n\n` +
       `Copie o template:\n` +

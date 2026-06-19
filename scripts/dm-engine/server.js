@@ -28,7 +28,7 @@
  *   DM_AUTO_SEND          'true' envia automático; senão só registra (rascunho)
  */
 
-require('dotenv').config();
+try { require('dotenv').config(); } catch {}
 const fs = require('fs');
 const http = require('http');
 const path = require('path');

@@ -1,0 +1,85 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "name": "case-study schema — Motor de Estudo do MarketingOS",
+    "rule": "A moeda única do sistema. Duas faces obrigatórias: structure (medido, buildável) + concept (extraído, percepção). Uma referência entra uma vez e alimenta construção/branding/diagnóstico para sempre.",
+    "produced_by": "scripts/synthesize-case-study.mjs (funde extract-structure + /reverter)",
+    "consumed_by": ["/construir", "/branding", "diagnóstico de concorrente", "prompt de reconstrução"],
+    "soul_gate": "Consumidores que GERAM devem re-vestir pela visual-dna. nunca_copiar é vinculante. Teste Supremo aplica."
+  },
+
+  "_schema": {
+    "id": "cs-[slug]",
+    "slug": "string — kebab-case do domínio/título",
+    "name": "string — nome legível",
+    "source_url": "string",
+    "source_type": "site | image | video | campaign | competitor",
+    "captured_at": "ISO 8601",
+    "role_in_library": "referência | anti-referência | benchmark | concorrente",
+
+    "physical": {
+      "_desc": "Camada 1 — captura física. Imutável após validação.",
+      "screenshots": ["string — caminho relativo a intelligence/reference-library/"],
+      "video": "string | null",
+      "stack": ["string"],
+      "stack_confidence": "detected | inferred"
+    },
+
+    "structure": {
+      "_desc": "FACE DE CONSTRUÇÃO — medido por extract-structure.mjs. O blueprint buildável.",
+      "palette": {
+        "backgrounds": [{ "value": "#hex", "count": 0 }],
+        "text": [{ "value": "#hex", "count": 0 }],
+        "accents": ["#hex"]
+      },
+      "typography": {
+        "fonts": [{ "value": "string", "count": 0 }],
+        "scale": [{ "value": "16px", "count": 0 }],
+        "weights": [{ "value": "400", "count": 0 }]
+      },
+      "radius": [{ "value": "string", "count": 0 }],
+      "grid": "string — observação de layout/colunas",
+      "sections": [{
+        "role": "header | hero | prova | servicos | cta | footer | string",
+        "headings": ["string"],
+        "ctas": ["string"],
+        "bg": "#hex | null",
+        "height": 0
+      }],
+      "components": ["navbar-pill | hero-foto | cards | marquee | carrossel | string"],
+      "motion": [{ "type": "string", "params": "string" }],
+      "copy": ["string — headings/ganchos relevantes"]
+    },
+
+    "concept": {
+      "_desc": "FACE DE PERCEPÇÃO — extraído pela engenharia reversa (/reverter). O porquê.",
+      "tension": "string — contradição perceptiva principal (taxonomy seção 1)",
+      "por_que_funciona": "string — 1-3 frases do mecanismo",
+      "principio_transferivel": "string — padrão abstrato reutilizável. Uma frase.",
+      "dimensoes": {
+        "tempo": "", "ritmo": "", "densidade": "", "profundidade": "",
+        "contraste": "", "temperatura": "", "movimento": "", "ornamentacao": ""
+      },
+      "tags": { "visual": [], "motion": [], "interaction": [], "emocao": [], "contexto": [] },
+      "absorver": ["string — padrões específicos transferíveis. Máx 5."],
+      "nunca_copiar": ["string — paleta, layout, copy, composição literal SEMPRE. + específicos."]
+    },
+
+    "index": {
+      "_desc": "CATÁLOGO — como o /construir e as skills encontram este caso.",
+      "sector": ["string"],
+      "mood": ["string"],
+      "style": ["string"],
+      "patterns": ["string — padrões buildáveis que este caso ensina"],
+      "use_for": ["string — quando puxar este caso"]
+    },
+
+    "system": {
+      "status": "draft | validated | active",
+      "validated_by": "string | null",
+      "validated_at": "ISO 8601 | null",
+      "used_in": ["string — outputs que consumiram este caso"],
+      "notes": "string | null"
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "_meta": {
+    "name": "Catálogo de Estudos de Caso — Motor de Estudo",
+    "built_at": "2026-06-19T01:52:09.904Z",
+    "count": 1,
+    "rule": "Anel 2. Consulta por setor/estilo/padrão/tensão. Alimenta /construir e qualquer skill de criação."
+  },
+  "entries": [
+    {
+      "id": "cs-itaplay",
+      "slug": "itaplay",
+      "name": "Itaplay — agência de marketing (concorrente)",
+      "source_url": "https://itaplay.com.br",
+      "source_type": "competitor",
+      "role_in_library": "anti-referência",
+      "status": "validated",
+      "tension": "promessa de estratégia que entrega lista de serviços",
+      "principio": "destacar uma só palavra do título com a cor de acento ancora a promessa inteira no ponto certo",
+      "sector": [
+        "marketing",
+        "agência",
+        "serviços B2B local"
+      ],
+      "style": [
+        "dark-clean",
+        "pílulas",
+        "acento-amarelo"
+      ],
+      "mood": [
+        "energético",
+        "profissional",
+        "acessível"
+      ],
+      "patterns": [
+        "keyword-highlight-h1",
+        "pill-system",
+        "dark-hero-foto",
+        "copy-reposicionamento-nao-e-X-e-Y"
+      ],
+      "use_for": [
+        "afiar posicionamento contra agência genérica (vendemos remoção de gargalo, não menu de serviços)",
+        "técnica de destaque de keyword no headline",
+        "anti-padrão: prometer estratégia e entregar lista de serviços"
+      ],
+      "stack": [
+        "swiper",
+        "jquery",
+        "wordpress",
+        "elementor",
+        "fontawesome"
+      ],
+      "file": "case-studies/itaplay.json"
+    }
+  ]
+}

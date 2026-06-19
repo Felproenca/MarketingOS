@@ -1,0 +1,495 @@
+{
+  "url": "https://itaplay.com.br",
+  "title": "Home - Itaplay",
+  "captured_at": "2026-06-18T19:25:21.495Z",
+  "palette": {
+    "backgrounds": [
+      {
+        "value": "#ffffff",
+        "count": 5
+      },
+      {
+        "value": "#1f1e32",
+        "count": 2
+      },
+      {
+        "value": "#000000",
+        "count": 1
+      },
+      {
+        "value": "#faac01",
+        "count": 1
+      }
+    ],
+    "text": [
+      {
+        "value": "#333333",
+        "count": 91
+      },
+      {
+        "value": "#1f1e32",
+        "count": 17
+      },
+      {
+        "value": "#ffffff",
+        "count": 15
+      },
+      {
+        "value": "#7a7a7a",
+        "count": 12
+      },
+      {
+        "value": "#54595f",
+        "count": 8
+      },
+      {
+        "value": "#69727d",
+        "count": 6
+      },
+      {
+        "value": "#990099",
+        "count": 2
+      },
+      {
+        "value": "#4b014a",
+        "count": 1
+      }
+    ]
+  },
+  "typography": {
+    "fonts": [
+      {
+        "value": "-apple-system",
+        "count": 250
+      },
+      {
+        "value": "Montserrat",
+        "count": 34
+      },
+      {
+        "value": "Roboto",
+        "count": 26
+      }
+    ],
+    "sizes": [
+      {
+        "value": "16px",
+        "count": 229
+      },
+      {
+        "value": "23px",
+        "count": 18
+      },
+      {
+        "value": "50px",
+        "count": 15
+      },
+      {
+        "value": "0px",
+        "count": 12
+      },
+      {
+        "value": "25px",
+        "count": 11
+      },
+      {
+        "value": "15px",
+        "count": 8
+      },
+      {
+        "value": "43px",
+        "count": 5
+      },
+      {
+        "value": "32px",
+        "count": 3
+      },
+      {
+        "value": "18px",
+        "count": 3
+      },
+      {
+        "value": "24px",
+        "count": 2
+      },
+      {
+        "value": "37px",
+        "count": 2
+      },
+      {
+        "value": "30px",
+        "count": 1
+      }
+    ],
+    "weights": [
+      {
+        "value": "400",
+        "count": 275
+      },
+      {
+        "value": "500",
+        "count": 23
+      },
+      {
+        "value": "600",
+        "count": 7
+      },
+      {
+        "value": "300",
+        "count": 3
+      },
+      {
+        "value": "700",
+        "count": 1
+      },
+      {
+        "value": "800",
+        "count": 1
+      }
+    ]
+  },
+  "radius": [
+    {
+      "value": "500px",
+      "count": 27
+    },
+    {
+      "value": "25px",
+      "count": 5
+    },
+    {
+      "value": "10%",
+      "count": 2
+    },
+    {
+      "value": "50px",
+      "count": 1
+    },
+    {
+      "value": "50%",
+      "count": 1
+    }
+  ],
+  "sections": [
+    {
+      "tag": "header",
+      "class": "elementor elementor-20 elementor-location-header",
+      "width": 1440,
+      "height": 66,
+      "bg": null,
+      "headings": [],
+      "ctas": [
+        "Home",
+        "Serviços",
+        "Trabalhe Conosco"
+      ]
+    },
+    {
+      "tag": "div",
+      "class": "elementor-element elementor-element-512a0ec e-flex e-con-boxed e-con e-parent el",
+      "width": 1440,
+      "height": 66,
+      "bg": "#ffffff",
+      "headings": [],
+      "ctas": [
+        "Home",
+        "Serviços",
+        "Trabalhe Conosco"
+      ]
+    },
+    {
+      "tag": "nav",
+      "class": "elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layou",
+      "width": 377,
+      "height": 46,
+      "bg": null,
+      "headings": [],
+      "ctas": [
+        "Home",
+        "Serviços",
+        "Trabalhe Conosco"
+      ]
+    },
+    {
+      "tag": "nav",
+      "class": "elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layou",
+      "width": 377,
+      "height": 46,
+      "bg": null,
+      "headings": [],
+      "ctas": [
+        "Home",
+        "Serviços",
+        "Trabalhe Conosco"
+      ]
+    },
+    {
+      "tag": "div",
+      "class": "page-content",
+      "width": 1440,
+      "height": 3388,
+      "bg": null,
+      "headings": [
+        "Acelere os resultados da sua empresa com\n\t\t\t\t\n\t\t\t\n\t\t\t\t\t\tredes que conv|",
+        "Alguns dos negócios que transformamos",
+        "Não é sobre contratar serviços.  É sobre seguir a estratégia certa na ordem certa.",
+        "Cobertura completa para o seu negócio!"
+      ],
+      "ctas": [
+        "Clique aqui",
+        "Whatsapp"
+      ]
+    },
+    {
+      "tag": "footer",
+      "class": "elementor elementor-98 elementor-location-footer",
+      "width": 1440,
+      "height": 408,
+      "bg": null,
+      "headings": [
+        "Nossas especialidades"
+      ],
+      "ctas": [
+        "Trabalhe Conosco",
+        "Instagram",
+        "Whatsapp"
+      ]
+    }
+  ],
+  "headings": [
+    {
+      "tag": "h3",
+      "text": "Acelere os resultados da sua empresa com\n\t\t\t\t\n\t\t\t\n\t\t\t\t\t\tredes que conv|"
+    },
+    {
+      "tag": "h2",
+      "text": "Alguns dos negócios que transformamos"
+    },
+    {
+      "tag": "h2",
+      "text": "Não é sobre contratar serviços.  É sobre seguir a estratégia certa na ordem certa."
+    },
+    {
+      "tag": "h2",
+      "text": "Cobertura completa para o seu negócio!"
+    },
+    {
+      "tag": "h2",
+      "text": "Identidade Visual"
+    },
+    {
+      "tag": "h2",
+      "text": "Gestão de redes sociais"
+    },
+    {
+      "tag": "h2",
+      "text": "Desenvolvimento de Sites"
+    },
+    {
+      "tag": "h2",
+      "text": "Materiais Gráficos"
+    },
+    {
+      "tag": "h2",
+      "text": "Tráfego Pago"
+    },
+    {
+      "tag": "h2",
+      "text": "Ficou com alguma dúvida?"
+    },
+    {
+      "tag": "h2",
+      "text": "Nossas especialidades"
+    }
+  ],
+  "images": [
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/09/Itaplay-Marketing-Digital-Copia-scaled-e1763569667769-1536x403.png",
+      "alt": "",
+      "w": 145,
+      "h": 38
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/09/Itaplay-Marketing-Digital-Copia-scaled-e1763569667769-1536x403.png",
+      "alt": "",
+      "w": 145,
+      "h": 38
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-copiar-9-150x150.jpg",
+      "alt": "edit1 copiar 9",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-copiar-10-150x150.jpg",
+      "alt": "edit1 copiar 10",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-copiar-11-150x150.jpg",
+      "alt": "edit1 copiar 11",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-copiar-12-150x150.jpg",
+      "alt": "edit1 copiar 12",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-150x150.jpg",
+      "alt": "edit1",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-copiar-2-150x150.jpg",
+      "alt": "edit1 copiar 2",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-copiar-3-150x150.jpg",
+      "alt": "edit1 copiar 3",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-copiar-6-150x150.jpg",
+      "alt": "edit1 copiar 6",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-copiar-150x150.jpg",
+      "alt": "edit1 copiar",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-copiar-4-150x150.jpg",
+      "alt": "edit1 copiar 4",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-copiar-7-150x150.jpg",
+      "alt": "edit1 copiar 7",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-copiar-5-150x150.jpg",
+      "alt": "edit1 copiar 5",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-copiar-8-150x150.jpg",
+      "alt": "edit1 copiar 8",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-copiar-9-150x150.jpg",
+      "alt": "edit1 copiar 9",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-copiar-10-150x150.jpg",
+      "alt": "edit1 copiar 10",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-copiar-11-150x150.jpg",
+      "alt": "edit1 copiar 11",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-copiar-12-150x150.jpg",
+      "alt": "edit1 copiar 12",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-150x150.jpg",
+      "alt": "edit1",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-copiar-2-150x150.jpg",
+      "alt": "edit1 copiar 2",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-copiar-3-150x150.jpg",
+      "alt": "edit1 copiar 3",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-copiar-6-150x150.jpg",
+      "alt": "edit1 copiar 6",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-copiar-150x150.jpg",
+      "alt": "edit1 copiar",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-copiar-4-150x150.jpg",
+      "alt": "edit1 copiar 4",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-copiar-7-150x150.jpg",
+      "alt": "edit1 copiar 7",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-copiar-5-150x150.jpg",
+      "alt": "edit1 copiar 5",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/edit1-copiar-8-150x150.jpg",
+      "alt": "edit1 copiar 8",
+      "w": 137,
+      "h": 137
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/11/NVEstrategia.png",
+      "alt": "",
+      "w": 550,
+      "h": 550
+    },
+    {
+      "src": "https://itaplay.com.br/wp-content/uploads/2025/09/Itaplay-Marketing-Digital-Copia-scaled-e1763569667769-1536x403.png",
+      "alt": "",
+      "w": 305,
+      "h": 80
+    }
+  ],
+  "stack": [
+    "swiper",
+    "jquery",
+    "wordpress",
+    "elementor",
+    "fontawesome"
+  ],
+  "pageHeight": 3912
+}

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NVEstrategia — o peão derruba o rei (wireframe vivo)</title>
+<style>
+  html,body{margin:0;height:100%;background:#1f1e32;overflow:hidden;}
+  #c{display:block;width:100vw;height:100vh;}
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;
+    background:radial-gradient(circle at 38% 60%, rgba(250,172,1,0.06), transparent 55%),
+               radial-gradient(circle at 50% 50%, transparent 58%, rgba(0,0,0,0.5) 100%);}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script src="https://unpkg.com/delaunator@5.0.1/delaunator.min.js"></script>
+<script type="importmap">
+{ "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
+</script>
+<script type="module">
+import * as THREE from 'three';
+
+const IMG = window.__IMG_DATA__ || 'NVEstrategia.png';
+const S = 260;                 // resolução de amostragem
+const ALPHA_MIN = 40;
+const MIN_DIST = 5.0;          // espaçamento entre vértices (px@S) → tamanho do triângulo
+const MAX_EDGE = 16;           // arestas maiores que isso são cortadas (não atravessa vazios)
+const WORLD = 9, scale = WORLD/S;
+
+const PAWN=0.0, KING=1.0, DEBRIS=2.0, GROUND=3.0;
+
+const canvas=document.getElementById('c');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.setSize(innerWidth,innerHeight);
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(50, innerWidth/innerHeight, 0.1, 100);
+camera.position.set(0,-0.3,14);
+const PIVOT=new THREE.Vector2((0.40-0.5)*WORLD, -(0.82-0.5)*WORLD);
+
+const img=new Image(); img.crossOrigin='anonymous'; img.src=IMG;
+img.onload=()=>build(img);
+img.onerror=()=>{document.body.style.background='#600';console.error('falha img');};
+
+function roleOf(nx,ny){
+  if(ny>0.80) return GROUND;        // base triangulada
+  if(nx<0.30) return PAWN;          // peão à esquerda
+  return KING;                      // rei = corpo + coroa/capa (uma peça só)
+}
+
+function build(image){
+  const cv=document.createElement('canvas'); cv.width=S; cv.height=S;
+  const ctx=cv.getContext('2d'); ctx.drawImage(image,0,0,S,S);
+  const data=ctx.getImageData(0,0,S,S).data;
+  const drawnAt=(x,y)=>{
+    x=Math.round(x); y=Math.round(y);
+    if(x<0||y<0||x>=S||y>=S) return false;
+    const i=(y*S+x)*4, a=data[i+3], lum=(data[i]+data[i+1]+data[i+2])/3;
+    return a>ALPHA_MIN && !(a>200 && lum>250);
+  };
+
+  // 1) coletar pixels desenhados
+  const cand=[];
+  for(let y=0;y<S;y++) for(let x=0;x<S;x++) if(drawnAt(x,y)) cand.push([x,y]);
+  // embaralhar
+  for(let i=cand.length-1;i>0;i--){const j=(Math.random()*(i+1))|0;[cand[i],cand[j]]=[cand[j],cand[i]];}
+
+  // 2) thinning por distância mínima (grid hash p/ velocidade)
+  const cell=MIN_DIST, gw=Math.ceil(S/cell), grid=new Map();
+  const key=(cx,cy)=>cx+'_'+cy;
+  const verts=[];
+  const d2=MIN_DIST*MIN_DIST;
+  for(const [x,y] of cand){
+    const cx=(x/cell)|0, cy=(y/cell)|0; let ok=true;
+    for(let ax=-1;ax<=1&&ok;ax++)for(let ay=-1;ay<=1&&ok;ay++){
+      const arr=grid.get(key(cx+ax,cy+ay)); if(!arr)continue;
+      for(const vi of arr){const dx=verts[vi][0]-x,dy=verts[vi][1]-y;if(dx*dx+dy*dy<d2){ok=false;break;}}
+    }
+    if(ok){const id=verts.length;verts.push([x,y]);const k=key(cx,cy);(grid.get(k)||grid.set(k,[]).get(k)).push(id);}
+  }
+
+  // role por vértice (antes das arestas — cada peça é malha independente)
+  const vrole=verts.map(([x,y])=>roleOf(x/S,y/S));
+
+  // 3) Delaunay
+  const del=window.Delaunator.from(verts);
+  const tri=del.triangles;
+  const edgeSet=new Set(), edges=[];
+  const addEdge=(a,b)=>{
+    const k=a<b?a*100000+b:b*100000+a;
+    if(edgeSet.has(k))return; edgeSet.add(k);
+    if(vrole[a]!==vrole[b])return;                   // só conecta mesmo papel → não estica entre peças
+    const [ax,ay]=verts[a],[bx,by]=verts[b];
+    const len=Math.hypot(ax-bx,ay-by);
+    if(len>MAX_EDGE)return;                          // não atravessa vazio
+    if(!drawnAt((ax+bx)/2,(ay+by)/2))return;        // gruda na forma
+    edges.push([a,b]);
+  };
+  for(let i=0;i<tri.length;i+=3){addEdge(tri[i],tri[i+1]);addEdge(tri[i+1],tri[i+2]);addEdge(tri[i+2],tri[i]);}
+
+  // 4) atributos POR VÉRTICE (semente/role/target/start determinísticos)
+  const vTarget=[],vStart=[],vSeed=[],vRole=[];
+  for(const [x,y] of verts){
+    const nx=x/S,ny=y/S;
+    vTarget.push((nx-0.5)*WORLD, -(ny-0.5)*WORLD, (Math.random()-0.5)*0.5);
+    const r=14+Math.random()*9, an=Math.random()*Math.PI*2, ph=Math.acos(2*Math.random()-1);
+    vStart.push(r*Math.sin(ph)*Math.cos(an), r*Math.sin(ph)*Math.sin(an), r*Math.cos(ph));
+    vSeed.push(Math.random());
+    vRole.push(vrole[vTarget.length/3 - 1]);
+  }
+
+  // 5) montar LineSegments (cada aresta = 2 endpoints, herdando do vértice)
+  const E=edges.length;
+  const pos=new Float32Array(E*2*3), tgt=new Float32Array(E*2*3), srt=new Float32Array(E*2*3);
+  const sd=new Float32Array(E*2), rl=new Float32Array(E*2);
+  let p=0,q=0;
+  for(const [a,b] of edges){
+    for(const v of [a,b]){
+      tgt[p]=vTarget[v*3];tgt[p+1]=vTarget[v*3+1];tgt[p+2]=vTarget[v*3+2];
+      srt[p]=vStart[v*3]; srt[p+1]=vStart[v*3+1]; srt[p+2]=vStart[v*3+2];
+      sd[q]=vSeed[v]; rl[q]=vRole[v];
+      p+=3;q+=1;
+    }
+  }
+  const geo=new THREE.BufferGeometry();
+  geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  geo.setAttribute('aTarget',new THREE.BufferAttribute(tgt,3));
+  geo.setAttribute('aStart',new THREE.BufferAttribute(srt,3));
+  geo.setAttribute('aSeed',new THREE.BufferAttribute(sd,1));
+  geo.setAttribute('aRole',new THREE.BufferAttribute(rl,1));
+
+  const uniforms={
+    uTime:{value:0},uAssemble:{value:0},uTopple:{value:0},uShatter:{value:0},
+    uPivot:{value:PIVOT},
+    uWhite:{value:new THREE.Color('#dfe4ff')}, uGold:{value:new THREE.Color('#faac01')},
+  };
+  const vert=`
+    uniform float uTime,uAssemble,uTopple,uShatter; uniform vec2 uPivot;
+    attribute vec3 aTarget,aStart; attribute float aSeed,aRole;
+    varying float vRole,vAlpha;
+    float ease(float t){return t<0.5?4.0*t*t*t:1.0-pow(-2.0*t+2.0,3.0)/2.0;}
+    float eob(float t){ float c=1.70158,c3=c+1.0; return 1.0+c3*pow(t-1.0,3.0)+c*pow(t-1.0,2.0); } // overshoot leve
+    vec3 disp(){
+      float d=aSeed*0.16;
+      float pa=ease(clamp((uAssemble-d)/(1.0-d),0.0,1.0));
+      vec3 pos=mix(aStart,aTarget,pa);
+      vAlpha=1.0;
+      if(aRole<0.5){                 // PEÃO — firme; empurrãozinho no início do tombo
+        float nudge=sin(clamp(uTopple,0.0,0.35)/0.35*3.14159)*0.12;
+        vec2 rel=pos.xy-vec2(uPivot.x-2.4, uPivot.y);
+        float a=-nudge; float c=cos(a),s=sin(a);
+        pos.xy=vec2(uPivot.x-2.4,uPivot.y)+vec2(rel.x*c-rel.y*s,rel.x*s+rel.y*c);
+        pos.x+=sin(uTime*1.1+aSeed*6.28)*0.01;
+      } else if(aRole<1.5){          // REI — tomba inteiro, depois estilhaça
+        float ang=ease(uTopple)*-1.5; vec2 rel=pos.xy-uPivot;
+        float c=cos(ang),s=sin(ang);
+        pos.xy=uPivot+vec2(rel.x*c-rel.y*s, rel.x*s+rel.y*c);
+        float sh=ease(uShatter);
+        float f=aTarget.x*1.3+aTarget.y*0.8;
+        vec3 dir=normalize(vec3(0.45,0.35,0.25)+vec3(sin(f)*0.5,cos(f*1.1)*0.45,sin(f*0.7)*0.4));
+        pos+=dir*sh*(2.6+aSeed*2.2);
+        pos+=vec3(sin(uTime*0.8+f),cos(uTime*0.7+f),0.0)*sh*0.2;
+        vAlpha=1.0-sh*0.92;
+      } else {                        // BASE — estática
+        pos.y+=sin(uTime*0.6+aSeed*6.28)*0.008;
+      }
+      return pos;
+    }
+    void main(){
+      vRole=aRole; vAlpha=1.0;
+      vec3 pos=disp();
+      gl_Position=projectionMatrix*modelViewMatrix*vec4(pos,1.0);
+    }`;
+  const frag=`
+    uniform vec3 uWhite,uGold; uniform float uShatter; varying float vRole,vAlpha;
+    void main(){
+      vec3 col = vRole<0.5 ? uGold : uWhite;
+      float a = 0.55*vAlpha;
+      if(vRole>=0.5 && vRole<1.5) a *= (1.0 - smoothstep(0.0,0.55,uShatter)); // linhas do rei somem ao estilhaçar
+      gl_FragColor=vec4(col, a);
+    }`;
+  const mat=new THREE.ShaderMaterial({uniforms,vertexShader:vert,fragmentShader:frag,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending});
+  const lines=new THREE.LineSegments(geo,mat); scene.add(lines);
+
+  // nós (vértices) como pontos sutis — reforça as junções
+  const npos=new Float32Array(verts.length*3),ntg=new Float32Array(verts.length*3),nst=new Float32Array(verts.length*3),nsd=new Float32Array(verts.length),nrl=new Float32Array(verts.length);
+  for(let i=0;i<verts.length;i++){ntg.set([vTarget[i*3],vTarget[i*3+1],vTarget[i*3+2]],i*3);nst.set([vStart[i*3],vStart[i*3+1],vStart[i*3+2]],i*3);nsd[i]=vSeed[i];nrl[i]=vRole[i];}
+  const ngeo=new THREE.BufferGeometry();
+  ngeo.setAttribute('position',new THREE.BufferAttribute(npos,3));
+  ngeo.setAttribute('aTarget',new THREE.BufferAttribute(ntg,3));
+  ngeo.setAttribute('aStart',new THREE.BufferAttribute(nst,3));
+  ngeo.setAttribute('aSeed',new THREE.BufferAttribute(nsd,1));
+  ngeo.setAttribute('aRole',new THREE.BufferAttribute(nrl,1));
+  const nmat=mat.clone(); nmat.uniforms=uniforms;
+  nmat.vertexShader=vert.replace('void main(){','void main(){ ').replace('gl_Position=projectionMatrix','gl_PointSize=2.6;\n      gl_Position=projectionMatrix');
+  nmat.fragmentShader=`uniform vec3 uWhite,uGold;varying float vRole,vAlpha;void main(){vec2 u=gl_PointCoord-0.5;if(length(u)>0.5)discard;vec3 col=vRole<0.5?uGold:uWhite;gl_FragColor=vec4(col,0.9*vAlpha);}`;
+  const nodes=new THREE.Points(ngeo,nmat); scene.add(nodes);
+
+  // timeline: monta → para em pé → TOMBA → ESTILHAÇA → peão só → reset
+  const T={ASSEMBLE:2.6,STAND:1.8,TOPPLE:1.8,SHATTER:1.6,AFTER:1.4,RESET:1.2};
+  const M={};M.a=T.ASSEMBLE;M.b=M.a+T.STAND;M.c=M.b+T.TOPPLE;M.d=M.c+T.SHATTER;M.e=M.d+T.AFTER;M.f=M.e+T.RESET;
+  const CYCLE=M.f; window.__CYCLE=CYCLE; const clock=new THREE.Clock(); let t=0;
+  function frame(){
+    if(window.__CAMZ) camera.position.z = window.__CAMZ;   // afasta p/ enquadrar vertical
+    t = (window.__FORCE_T!==undefined) ? (window.__FORCE_T%CYCLE) : (t+clock.getDelta())%CYCLE;
+    let asm=1,top=0,sh=0;
+    if(t<M.a)asm=t/T.ASSEMBLE;                              // montando
+    else if(t<M.b){}                                        // em pé
+    else if(t<M.c)top=(t-M.b)/T.TOPPLE;                     // tombando
+    else if(t<M.d){top=1;sh=(t-M.c)/T.SHATTER;}             // estilhaçando
+    else if(t<M.e){top=1;sh=1;}                             // peão só
+    else{const k=(t-M.e)/T.RESET;top=1.0-k;sh=1.0-k;}        // reset
+    uniforms.uAssemble.value=asm;uniforms.uTopple.value=top;uniforms.uShatter.value=sh;uniforms.uTime.value=clock.elapsedTime;
+    lines.rotation.y=nodes.rotation.y=Math.sin(clock.elapsedTime*0.12)*0.06;
+    renderer.render(scene,camera);
+    requestAnimationFrame(frame);
+  }
+  frame(); window.__ready=true;
+  console.log('vértices:',verts.length,'arestas:',E);
+}
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
+</script>
+</body>
+</html>

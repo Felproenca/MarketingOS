@@ -176,9 +176,22 @@ function internalMetrics(slug) {
     out.proof_stack_volume = notInstrumented(`Crie clients/${slug}/outputs/proof/ e salve prints/depoimentos reais. Sem pasta = sem prova contável (não estimamos).`);
   }
 
-  // Comentários de palavra-chave (Conteúdo→DM) — depende da automação de gatilho,
-  // ainda não construída. Honesto: não-instrumentado, não zero.
-  out.keyword_comments = notInstrumented('Automação de palavra-chave (comentário→DM) ainda não construída. Quando existir, ler do ledger do Motor de Aquisição.');
+  const dmLogPath = path.resolve(__dirname, '../../clients', slug, 'leads', 'dm-engine-log.json');
+  if (fs.existsSync(dmLogPath)) {
+    const logs = JSON.parse(fs.readFileSync(dmLogPath, 'utf8'));
+    const keywordHits = logs.filter(e => e.event === 'comment.keyword_hit').length;
+    const queued = logs.filter(e => e.event === 'dm.queued').length;
+    const sent = logs.filter(e => e.event === 'dm.sent').length;
+    const captured = logs.filter(e => e.event === 'lead.captured').length;
+    out.keyword_comments = real(keywordHits, 'ledger-interno:leads/dm-engine-log.json', {
+      queued,
+      sent,
+      captured,
+      keyword: logs.find(e => e.event === 'comment.keyword_hit')?.keyword || null,
+    });
+  } else {
+    out.keyword_comments = notInstrumented(`Motor de DM sem ledger ainda em clients/${slug}/leads/dm-engine-log.json.`);
+  }
 
   return out;
 }

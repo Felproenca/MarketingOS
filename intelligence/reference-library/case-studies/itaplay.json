@@ -1,0 +1,392 @@
+{
+  "id": "cs-itaplay",
+  "slug": "itaplay",
+  "name": "Itaplay — agência de marketing (concorrente)",
+  "source_url": "https://itaplay.com.br",
+  "source_type": "competitor",
+  "captured_at": "2026-06-18T19:25:21.495Z",
+  "role_in_library": "anti-referência",
+  "physical": {
+    "screenshots": [
+      "case-studies/assets/itaplay/hero.png",
+      "case-studies/assets/itaplay/full.png"
+    ],
+    "video": null,
+    "stack": [
+      "swiper",
+      "jquery",
+      "wordpress",
+      "elementor",
+      "fontawesome"
+    ],
+    "stack_confidence": "detected"
+  },
+  "structure": {
+    "palette": {
+      "backgrounds": [
+        {
+          "value": "#ffffff",
+          "count": 5
+        },
+        {
+          "value": "#1f1e32",
+          "count": 2
+        },
+        {
+          "value": "#000000",
+          "count": 1
+        },
+        {
+          "value": "#faac01",
+          "count": 1
+        }
+      ],
+      "text": [
+        {
+          "value": "#333333",
+          "count": 91
+        },
+        {
+          "value": "#1f1e32",
+          "count": 17
+        },
+        {
+          "value": "#ffffff",
+          "count": 15
+        },
+        {
+          "value": "#7a7a7a",
+          "count": 12
+        },
+        {
+          "value": "#54595f",
+          "count": 8
+        },
+        {
+          "value": "#69727d",
+          "count": 6
+        },
+        {
+          "value": "#990099",
+          "count": 2
+        },
+        {
+          "value": "#4b014a",
+          "count": 1
+        }
+      ],
+      "accents": [
+        "#faac01",
+        "#990099",
+        "#4b014a"
+      ]
+    },
+    "typography": {
+      "fonts": [
+        {
+          "value": "-apple-system",
+          "count": 250
+        },
+        {
+          "value": "Montserrat",
+          "count": 34
+        },
+        {
+          "value": "Roboto",
+          "count": 26
+        }
+      ],
+      "scale": [
+        {
+          "value": "16px",
+          "count": 229
+        },
+        {
+          "value": "23px",
+          "count": 18
+        },
+        {
+          "value": "50px",
+          "count": 15
+        },
+        {
+          "value": "0px",
+          "count": 12
+        },
+        {
+          "value": "25px",
+          "count": 11
+        },
+        {
+          "value": "15px",
+          "count": 8
+        },
+        {
+          "value": "43px",
+          "count": 5
+        },
+        {
+          "value": "32px",
+          "count": 3
+        },
+        {
+          "value": "18px",
+          "count": 3
+        },
+        {
+          "value": "24px",
+          "count": 2
+        },
+        {
+          "value": "37px",
+          "count": 2
+        },
+        {
+          "value": "30px",
+          "count": 1
+        }
+      ],
+      "weights": [
+        {
+          "value": "400",
+          "count": 275
+        },
+        {
+          "value": "500",
+          "count": 23
+        },
+        {
+          "value": "600",
+          "count": 7
+        },
+        {
+          "value": "300",
+          "count": 3
+        },
+        {
+          "value": "700",
+          "count": 1
+        },
+        {
+          "value": "800",
+          "count": 1
+        }
+      ]
+    },
+    "radius": [
+      {
+        "value": "500px",
+        "count": 27
+      },
+      {
+        "value": "25px",
+        "count": 5
+      },
+      {
+        "value": "10%",
+        "count": 2
+      },
+      {
+        "value": "50px",
+        "count": 1
+      },
+      {
+        "value": "50%",
+        "count": 1
+      }
+    ],
+    "grid": "Container centralizado ~1140px, seções empilhadas full-width; hero a 2 colunas (texto + foto de movimento).",
+    "sections": [
+      {
+        "role": "header",
+        "headings": [],
+        "ctas": [
+          "Home",
+          "Serviços",
+          "Trabalhe Conosco"
+        ],
+        "bg": null,
+        "height": 66
+      },
+      {
+        "role": "content",
+        "headings": [],
+        "ctas": [
+          "Home",
+          "Serviços",
+          "Trabalhe Conosco"
+        ],
+        "bg": "#ffffff",
+        "height": 66
+      },
+      {
+        "role": "header",
+        "headings": [],
+        "ctas": [
+          "Home",
+          "Serviços",
+          "Trabalhe Conosco"
+        ],
+        "bg": null,
+        "height": 46
+      },
+      {
+        "role": "header",
+        "headings": [],
+        "ctas": [
+          "Home",
+          "Serviços",
+          "Trabalhe Conosco"
+        ],
+        "bg": null,
+        "height": 46
+      },
+      {
+        "role": "content",
+        "headings": [
+          "Acelere os resultados da sua empresa com redes que conv|",
+          "Alguns dos negócios que transformamos",
+          "Não é sobre contratar serviços. É sobre seguir a estratégia certa na ordem certa.",
+          "Cobertura completa para o seu negócio!"
+        ],
+        "ctas": [
+          "Clique aqui",
+          "Whatsapp"
+        ],
+        "bg": null,
+        "height": 3388
+      },
+      {
+        "role": "footer",
+        "headings": [
+          "Nossas especialidades"
+        ],
+        "ctas": [
+          "Trabalhe Conosco",
+          "Instagram",
+          "Whatsapp"
+        ],
+        "bg": null,
+        "height": 408
+      }
+    ],
+    "components": [
+      "navbar-pill",
+      "hero-foto-escura",
+      "carrossel-logos",
+      "lista-servicos",
+      "cards-especialidade",
+      "footer-pill-links"
+    ],
+    "motion": [
+      {
+        "type": "carousel",
+        "params": "Swiper nos logos de clientes (jQuery)"
+      },
+      {
+        "type": "reveal",
+        "params": "fade-in básico de seção (Elementor)"
+      }
+    ],
+    "copy": [
+      "Acelere os resultados da sua empresa com redes que conv|",
+      "Alguns dos negócios que transformamos",
+      "Não é sobre contratar serviços. É sobre seguir a estratégia certa na ordem certa.",
+      "Cobertura completa para o seu negócio!",
+      "Identidade Visual",
+      "Gestão de redes sociais",
+      "Desenvolvimento de Sites",
+      "Materiais Gráficos",
+      "Tráfego Pago",
+      "Ficou com alguma dúvida?",
+      "Nossas especialidades"
+    ]
+  },
+  "concept": {
+    "tension": "promessa de estratégia que entrega lista de serviços",
+    "por_que_funciona": "Hero escuro + foto de movimento + destaque amarelo numa única palavra do H1 criam leitura imediata de energia e resultado; o sistema de pílulas e Montserrat dão credibilidade limpa e moderna. Converte por familiaridade e confiança de 'agência competente' — não por diferenciação real.",
+    "principio_transferivel": "destacar uma só palavra do título com a cor de acento ancora a promessa inteira no ponto certo",
+    "dimensoes": {
+      "tempo": "moderado",
+      "ritmo": "estático",
+      "densidade": "equilibrada",
+      "profundidade": "camadas",
+      "contraste": "médio",
+      "temperatura": "neutra",
+      "movimento": "sutil",
+      "ornamentacao": "funcional"
+    },
+    "tags": {
+      "visual": [
+        "dark-hero",
+        "keyword-highlight",
+        "pill-system",
+        "foto-movimento"
+      ],
+      "motion": [
+        "carousel-logos",
+        "fade-reveal"
+      ],
+      "interaction": [
+        "scroll",
+        "click-pill"
+      ],
+      "emocao": [
+        "energia",
+        "confiança"
+      ],
+      "contexto": [
+        "estudar concorrente agência genérica",
+        "técnica de destaque de keyword no H1"
+      ]
+    },
+    "absorver": [
+      "Destaque de UMA palavra-chave no H1 com cor de acento — ancora a promessa sem poluir",
+      "Sistema de pílulas (radius 500px) consistente como linguagem visual de marca",
+      "Copy de reposicionamento 'não é sobre X, é sobre Y' para elevar serviço a método",
+      "Hero escuro com foto de movimento para energia imediata acima da dobra"
+    ],
+    "nunca_copiar": [
+      "paleta literal (#1f1e32 / #faac01)",
+      "layout e composição exata",
+      "copy literal",
+      "a lista de serviços-commodity (Identidade Visual, Gestão de redes, Tráfego Pago) — esse é o anti-padrão central",
+      "foto de stock genérica de corredor"
+    ]
+  },
+  "index": {
+    "sector": [
+      "marketing",
+      "agência",
+      "serviços B2B local"
+    ],
+    "mood": [
+      "energético",
+      "profissional",
+      "acessível"
+    ],
+    "style": [
+      "dark-clean",
+      "pílulas",
+      "acento-amarelo"
+    ],
+    "patterns": [
+      "keyword-highlight-h1",
+      "pill-system",
+      "dark-hero-foto",
+      "copy-reposicionamento-nao-e-X-e-Y"
+    ],
+    "use_for": [
+      "afiar posicionamento contra agência genérica (vendemos remoção de gargalo, não menu de serviços)",
+      "técnica de destaque de keyword no headline",
+      "anti-padrão: prometer estratégia e entregar lista de serviços"
+    ]
+  },
+  "system": {
+    "status": "validated",
+    "validated_by": "felipe-proenca",
+    "validated_at": "2026-06-18",
+    "used_in": [],
+    "notes": "Primeiro case-study do Motor de Estudo. Vale como ESPELHO do que o MarketingOS NÃO é: promete estratégia, entrega menu de serviços."
+  }
+}

@@ -155,6 +155,7 @@ function printCommandHelp() {
   print('/cliente [slug]');
   print('/status');
   print('/atualizar');
+  print('/agenda');
   print('/demo /carrossel /post /imagem /branding /site /oferta /captacao /relatorio /funil /retencao /reativacao /salvar');
 }
 
@@ -171,6 +172,7 @@ function routeMappedCommand(command) {
     '/funil': 'skills/skill-funnel-analysis.md',
     '/retencao': 'skills/skill-retention.md',
     '/reativacao': 'skills/skill-reactivation.md',
+    '/agenda': 'workflows/agenda-semanal.md',
     '/salvar': 'scripts/save.js',
   };
 

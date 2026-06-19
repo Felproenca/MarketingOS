@@ -358,6 +358,7 @@ Planejadas para proximas levas: `skill-office-hours.md`, `skill-thesis-validatio
 |---|---|---|
 | `workflows/client-demo.md` | `/demo [slug]` | Demo comercial pre-contratacao — 9 etapas: diagnostico + posicionamento + site + carrossel + dashboard |
 | `workflows/relatorio-sistema.md` | `/relatorio-sistema` | Relatorio operacional do sistema — ranqueia skills por uso, identifica skills mortas |
+| `workflows/agenda-semanal.md` | `/agenda` | Rotina semanal de conteudo no Cockpit: 70/20/10, planejar, preparar, publicar com OK, medir |
 
 ---
 

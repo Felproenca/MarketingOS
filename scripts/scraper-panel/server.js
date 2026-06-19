@@ -15,8 +15,9 @@ const PENDING_FILE = path.join(ROOT, 'agency/leads/pending-approval.json');
 const SETTINGS_FILE = path.join(ROOT, 'agency/leads/scraper-panel-settings.json');
 const SCRAPER_CLI = path.join(ROOT, 'scripts/scraper/index.js');
 const FOLLOWUP_CLI = path.join(ROOT, 'scripts/pipeline/followup.js');
+const AGENDA_PLAN_CLI = path.join(ROOT, 'scripts/agenda/plan-week.js');
+const PUBLISHER_CLI = path.join(ROOT, 'scripts/publisher/index.js');
 const AGENDA_SLUG = process.env.AGENDA_SLUG || 'felipe-proenca';
-const AGENDA_FILE = path.join(ROOT, 'clients', AGENDA_SLUG, 'agenda.json');
 
 const store = require('../pipeline/store');
 const guard = require('../pipeline/guard');
@@ -73,6 +74,54 @@ function readJson(filePath, fallback) {
 function writeJson(filePath, value) {
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
   fs.writeFileSync(filePath, JSON.stringify(value, null, 2), 'utf8');
+}
+
+function agendaFileFor(slug = AGENDA_SLUG) {
+  return path.join(ROOT, 'clients', slug, 'agenda.json');
+}
+
+function normalizeAgendaStatus(value, fallback = 'planned') {
+  const allowed = ['planned', 'drafted', 'prepared', 'published', 'measured'];
+  return allowed.includes(value) ? value : fallback;
+}
+
+function formatForPublisher(format) {
+  if (format === 'carrossel') return 'carousel';
+  if (format === 'reel') return 'reel';
+  return 'feed';
+}
+
+function collectAgendaFiles(item) {
+  const explicit = Array.isArray(item.files) ? item.files : [];
+  if (explicit.length) return explicit;
+  if (!item.draftPath) return [];
+
+  const draftPath = path.resolve(ROOT, item.draftPath);
+  if (!draftPath.startsWith(ROOT)) return [];
+  if (!fs.existsSync(draftPath)) return [];
+
+  const mediaRx = /\.(png|jpe?g|webp|mp4|mov|webm)$/i;
+  const stat = fs.statSync(draftPath);
+  if (stat.isFile() && mediaRx.test(draftPath)) return [path.relative(ROOT, draftPath)];
+  if (!stat.isDirectory()) return [];
+
+  const files = [];
+  const walk = (dir) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walk(full);
+      } else if (mediaRx.test(entry.name)) {
+        files.push(full);
+      }
+    }
+  };
+  walk(draftPath);
+
+  const preferred = files.filter(file => file.split(path.sep).includes('instagram'));
+  return (preferred.length ? preferred : files)
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+    .map(file => path.relative(ROOT, file));
 }
 
 function cleanTime(value, fallback) {
@@ -550,18 +599,97 @@ async function handleApi(req, res, url) {
 
   // Agenda de conteúdo (calendário editorial 70/20/10) — fonte: clients/<slug>/agenda.json
   if (req.method === 'GET' && url.pathname === '/api/agenda') {
-    return sendJson(res, 200, readJson(AGENDA_FILE, { week: null, items: [] }));
+    const slug = String(url.searchParams.get('slug') || AGENDA_SLUG);
+    return sendJson(res, 200, readJson(agendaFileFor(slug), { week: null, items: [] }));
+  }
+  if (req.method === 'POST' && url.pathname === '/api/agenda/plan') {
+    const body = await readBody(req);
+    const slug = String(body.slug || AGENDA_SLUG);
+    const args = [AGENDA_PLAN_CLI, '--slug', slug];
+    if (body.week) args.push('--week', String(body.week));
+    if (body.n) args.push('--n', String(clampNumber(body.n, 3, 7, 5)));
+    if (body.dryRun === true) args.push('--dry-run');
+
+    const job = runJob({
+      type: 'agenda-plan',
+      label: `Agenda semanal ${slug}`,
+      args,
+    });
+
+    return sendJson(res, 201, job);
   }
   if (req.method === 'POST' && url.pathname === '/api/agenda/item') {
     const body = await readBody(req);
-    const agenda = readJson(AGENDA_FILE, { week: null, items: [] });
+    const slug = String(body.slug || AGENDA_SLUG);
+    const agendaPath = agendaFileFor(slug);
+    const agenda = readJson(agendaPath, { week: null, items: [] });
     const item = (agenda.items || []).find(i => i.id === body.id);
     if (!item) return sendJson(res, 404, { error: 'Item da agenda nao encontrado' });
-    const ALLOWED = ['status', 'caption', 'hook', 'formato', 'scheduledAt', 'draftPath', 'problema'];
-    for (const k of ALLOWED) if (body[k] !== undefined) item[k] = body[k];
+    const ALLOWED = ['caption', 'hook', 'formato', 'scheduledAt', 'draftPath', 'problema'];
+    for (const k of ALLOWED) if (body[k] !== undefined) item[k] = String(body[k]).slice(0, 4000);
+    if (body.status !== undefined) item.status = normalizeAgendaStatus(body.status, item.status);
     item.updatedAt = new Date().toISOString();
-    writeJson(AGENDA_FILE, agenda);
+    writeJson(agendaPath, agenda);
     return sendJson(res, 200, { item });
+  }
+  if (req.method === 'GET' && url.pathname === '/api/agenda/status') {
+    const slug = String(url.searchParams.get('slug') || AGENDA_SLUG);
+    const agenda = readJson(agendaFileFor(slug), { week: null, items: [] });
+    const items = agenda.items || [];
+    const counts = items.reduce((acc, item) => {
+      const status = item.status || 'planned';
+      acc[status] = (acc[status] || 0) + 1;
+      return acc;
+    }, {});
+    const blockers = items
+      .filter(item => ['drafted', 'prepared'].includes(item.status) && (!item.caption || !collectAgendaFiles(item).length))
+      .map(item => ({ id: item.id, status: item.status, missingCaption: !item.caption, missingFiles: !collectAgendaFiles(item).length }));
+    return sendJson(res, 200, {
+      ok: true,
+      slug,
+      week: agenda.week || null,
+      total: items.length,
+      counts,
+      next: items.filter(item => !['published', 'measured'].includes(item.status)).slice(0, 3),
+      blockers,
+    });
+  }
+  if (req.method === 'POST' && url.pathname === '/api/agenda/publish') {
+    const body = await readBody(req);
+    const slug = String(body.slug || AGENDA_SLUG);
+    const agendaPath = agendaFileFor(slug);
+    const agenda = readJson(agendaPath, { week: null, items: [] });
+    const item = (agenda.items || []).find(i => i.id === body.id);
+    if (!item) return sendJson(res, 404, { error: 'Item da agenda nao encontrado' });
+
+    const dryRun = body.dryRun !== false;
+    if (!dryRun && body.confirm !== 'PUBLICAR') {
+      return sendJson(res, 400, { error: 'Confirmacao PUBLICAR obrigatoria para publicacao real' });
+    }
+    if (!item.caption) return sendJson(res, 400, { error: 'Caption obrigatoria antes de publicar' });
+
+    const files = collectAgendaFiles(item);
+    if (!files.length) {
+      return sendJson(res, 400, { error: 'Nenhum arquivo renderizado encontrado em draftPath/files' });
+    }
+
+    const args = [PUBLISHER_CLI, '--slug', slug, '--format', formatForPublisher(item.formato)];
+    for (const file of files) args.push('--file', file);
+    args.push('--caption', item.caption, '--hook', item.hook || '', '--theme', item.problema || '');
+    if (dryRun) args.push('--dry-run');
+
+    const job = runJob({
+      type: dryRun ? 'agenda-publish-dry-run' : 'agenda-publish',
+      label: `${dryRun ? 'Validar' : 'Publicar'} ${item.id}`,
+      args,
+    });
+
+    item.lastPublishJob = job.id;
+    item.lastPublishDryRun = dryRun;
+    item.updatedAt = new Date().toISOString();
+    if (!dryRun) item.publishRequestedAt = item.updatedAt;
+    writeJson(agendaPath, agenda);
+    return sendJson(res, 201, job);
   }
 
   return sendJson(res, 404, { error: 'Rota nao encontrada' });

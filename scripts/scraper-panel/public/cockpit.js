@@ -284,9 +284,57 @@ async function renderAgenda(){
     return `<div class="ag-item">
       <div class="ag-when"><div class="d">${esc(w.d)}</div>${esc(w.t)}<div class="ag-bucket ${esc(i.bucket)}">${esc(BK[i.bucket]||i.bucket)}</div></div>
       <div class="ag-mid"><div class="hook">${esc(i.hook||i.problema||'—')}</div><div class="prob">${esc(i.problema||'')}</div><div class="fmt">${esc(i.formato||'')}${i.draftPath?' · rascunho pronto':''}</div></div>
-      <div class="ag-right"><span class="ag-status ${esc(i.status)}">${esc(ST[i.status]||i.status)}</span>${i.status==='prepared'?`<button class="ag-act" data-pub="${esc(i.id)}">Aprovar →</button>`:''}</div></div>`;
+      <div class="ag-right"><span class="ag-status ${esc(i.status)}">${esc(ST[i.status]||i.status)}</span>
+        <button class="ag-act" data-edit="${esc(i.id)}">Editar</button>
+        ${i.status!=='prepared'&&i.status!=='published'&&i.status!=='measured'?`<button class="ag-act" data-prepare="${esc(i.id)}">Preparar</button>`:''}
+        ${i.status==='prepared'?`<button class="ag-act gold" data-pub="${esc(i.id)}">Validar envio</button>`:''}</div></div>`;
   }).join('') || '<div class="col-empty">Nenhuma peça na semana. A rotina planeja semanalmente.</div>';
-  $$('#agenda .ag-act').forEach(el=>el.addEventListener('click',()=>toast('Aprovação + publisher entram na Fase 3')));
+  $$('#agenda [data-edit]').forEach(el=>el.addEventListener('click',()=>openAgendaEdit(el.dataset.edit)));
+  $$('#agenda [data-prepare]').forEach(el=>el.addEventListener('click',()=>prepareAgendaItem(el.dataset.prepare)));
+  $$('#agenda [data-pub]').forEach(el=>el.addEventListener('click',()=>publishAgendaItem(el.dataset.pub,true)));
+}
+
+function agendaItem(id){ return (S.agenda&&S.agenda.items||[]).find(i=>i.id===id); }
+function openAgendaEdit(id){
+  const item=agendaItem(id); if(!item) return;
+  const row=[...$$('#agenda .ag-item')].find(el=>{ const b=el.querySelector('[data-edit]'); return b&&b.dataset.edit===id; });
+  if(!row) return;
+  const current=row.querySelector('.ag-edit');
+  if(current){ current.remove(); return; }
+  row.insertAdjacentHTML('beforeend',`<div class="ag-edit" style="grid-column:1/-1">
+    <input data-f="hook" value="${esc(item.hook||'')}" placeholder="Hook">
+    <input data-f="draftPath" value="${esc(item.draftPath||'')}" placeholder="draftPath ou arquivo">
+    <textarea data-f="caption" placeholder="Legenda">${esc(item.caption||'')}</textarea>
+    <button class="ag-act gold" data-save="${esc(id)}">Salvar</button>
+  </div>`);
+  row.querySelector('[data-save]').addEventListener('click',()=>saveAgendaEdit(row,id));
+}
+
+async function saveAgendaEdit(row,id){
+  const body={id};
+  row.querySelectorAll('[data-f]').forEach(el=>body[el.dataset.f]=el.value);
+  try{ await api('/api/agenda/item',{method:'POST',body:JSON.stringify(body)}); toast('Item salvo'); await renderAgenda(); }
+  catch(e){ toast(e.message); }
+}
+
+async function prepareAgendaItem(id){
+  try{ await api('/api/agenda/item',{method:'POST',body:JSON.stringify({id,status:'prepared'})}); toast('Item marcado como preparado'); await renderAgenda(); }
+  catch(e){ toast(e.message); }
+}
+
+async function publishAgendaItem(id,dryRun=true){
+  const body={id,dryRun};
+  if(!dryRun){
+    if(window.prompt('Digite PUBLICAR para publicar de verdade:')!=='PUBLICAR') return;
+    body.confirm='PUBLICAR';
+  }
+  try{ await startJob('/api/agenda/publish',body); toast(dryRun?'Validacao de envio iniciada':'Publicacao iniciada'); }
+  catch(e){ toast(e.message); }
+}
+
+async function planAgenda(){
+  try{ await startJob('/api/agenda/plan',{slug:'felipe-proenca'}); toast('Planejamento semanal iniciado'); }
+  catch(e){ toast(e.message); }
 }
 
 /* ── Config ── */
@@ -360,11 +408,17 @@ function bindProspect(){
   $('#f-max').addEventListener('input',e=>$('#max-val').textContent=e.target.value);
 }
 
+function bindAgenda(){
+  const plan=$('#ag-plan'), refresh=$('#ag-refresh');
+  if(plan) plan.addEventListener('click',planAgenda);
+  if(refresh) refresh.addEventListener('click',renderAgenda);
+}
+
 function tick(){ $('#clock').textContent=new Intl.DateTimeFormat('pt-BR',{weekday:'short',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date()).toUpperCase(); }
 
 function init(){
   $$('.nav a').forEach(a=>a.addEventListener('click',()=>setView(a.dataset.view)));
-  renderSegments(); bindProspect(); initMap();
+  renderSegments(); bindProspect(); bindAgenda(); initMap();
   tick(); setInterval(tick,30000);
   refresh(); setInterval(refresh,5000);
 }

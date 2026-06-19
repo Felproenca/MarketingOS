@@ -194,6 +194,8 @@
   .ag-distrib{display:flex;gap:8px;margin-bottom:18px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)}
   .ag-distrib b{color:var(--gold)}
   .agenda{display:flex;flex-direction:column;gap:10px;max-width:940px}
+  .ag-tools{display:flex;gap:10px;align-items:center;margin-bottom:16px;max-width:940px}
+  .ag-tools .ag-act{padding:9px 14px}
   .ag-item{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:15px 18px;display:grid;grid-template-columns:128px 1fr 150px;gap:18px;align-items:center;transition:border-color .3s var(--ease),transform .3s var(--ease)}
   .ag-item:hover{border-color:var(--border2);transform:translateX(2px)}
   .ag-when{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);line-height:1.5}
@@ -214,6 +216,10 @@
   .ag-status.measured{background:var(--gold);color:#0a0a0a;border-color:var(--gold)}
   .ag-act{font-family:inherit;font-size:11px;font-weight:600;padding:6px 12px;border-radius:6px;border:1px solid var(--border2);background:transparent;color:var(--text);cursor:pointer;transition:background .3s,transform .3s var(--ease-back)}
   .ag-act:hover{background:var(--surface2);transform:translateY(-1px)}
+  .ag-act.gold{background:var(--gold);border-color:var(--gold);color:#0a0a0a}
+  .ag-edit{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+  .ag-edit textarea{grid-column:1/-1;min-height:76px}
+  .ag-edit .ag-act{justify-self:start}
 
   /* ── Config ── */
   .cfg{max-width:640px}
@@ -313,6 +319,10 @@
         <div class="vhead"><div class="eyebrow">Agenda</div><h1>A semana, <span class="ed">planejada</span>.</h1>
           <p>70% problemas universais · 20% build in public · 10% casos. A rotina planeja, rascunha e prepara — você dá o OK. Nada publica sozinho.</p></div>
         <div class="ag-distrib" id="ag-distrib"></div>
+        <div class="ag-tools">
+          <button class="ag-act gold" id="ag-plan">Planejar semana</button>
+          <button class="ag-act" id="ag-refresh">Atualizar</button>
+        </div>
         <div class="agenda" id="agenda"></div>
       </section>
 

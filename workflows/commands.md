@@ -29,6 +29,7 @@
 | `/fechar` | Encerra sessão — extrai aprendizados e faz commit |
 | `/salvar` | Checkpoint intermediário — commit sem encerrar sessão |
 | `/relatorio-sistema` | Relatório operacional do sistema — ranking de uso de skills, candidatas a aposentar |
+| `/agenda` | Rotina semanal de conteudo: planejar, rascunhar, preparar, publicar com OK e medir |
 
 ---
 
@@ -251,6 +252,21 @@ npm run bot -- --sync
 
 ---
 
+### Motor de DM - comentario DIAGNOSTICO
+
+```bash
+# Sobe o motor local: isca + captura + webhook
+npm run dm-engine
+
+# Testa comentario -> ledger -> captura (servidor precisa estar rodando)
+npm run dm:test -- --port 4280
+```
+
+Em producao, configurar `MAGNET_URL`, `META_APP_SECRET`, `WEBHOOK_VERIFY_TOKEN` e assinar o webhook `comments` no app Meta.
+Comecar com `DM_AUTO_SEND` vazio: o motor registra o comentario em `clients/[slug]/leads/dm-engine-log.json` sem enviar DM sozinho.
+
+---
+
 ### Renderização de Assets
 
 ```bash
@@ -261,6 +277,22 @@ npm run carousel:render     # renderiza HTML → PNGs com Playwright
 # Reel HTML → vídeo
 npm run reel:render -- --html <arquivo.html> --out <saida.webm> [--duration 30000]
 ```
+
+---
+
+### Agenda de Conteudo
+
+```bash
+# Planeja a semana 70/20/10 para o cliente
+npm run agenda:plan -- --slug felipe-proenca
+
+# Testa sem gravar
+npm run agenda:plan -- --slug felipe-proenca --dry-run
+```
+
+**Cockpit:** `npm run scraper:panel` -> aba Agenda.
+O painel permite planejar a semana, editar hook/caption/draftPath, marcar item como preparado e validar o publisher em dry-run.
+Publicacao real continua exigindo confirmacao humana.
 
 ---
 

@@ -384,6 +384,8 @@ function pipelineSummary(settings = loadSettings()) {
 function statePayload() {
   const pending = pendingList();
   const settings = loadSettings();
+  const metrics = readJson(path.join(ROOT, 'clients', AGENDA_SLUG, 'metrics.json'), null);
+  const acquisitionMetrics = readJson(path.join(ROOT, 'clients', AGENDA_SLUG, 'acquisition-metrics.json'), null);
   return {
     generatedAt: new Date().toISOString(),
     settings,
@@ -392,6 +394,8 @@ function statePayload() {
       items: pending.map((entry, index) => ({ index, ...entry })),
     },
     pipeline: pipelineSummary(settings),
+    metrics,
+    acquisitionMetrics,
     jobs: recentJobs(),
   };
 }

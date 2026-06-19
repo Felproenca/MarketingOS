@@ -252,6 +252,12 @@ function renderStats(){
 function renderMetrics(){
   if(!S.data) return; const pipe=S.data.pipeline; const val=pipe.value||{mrr:0,deals:0};
   const counts=pipe.counts||{};
+  const acq=S.data.acquisitionMetrics||{}; const account=acq.account||{}; const internal=acq.internal||{};
+  const metricVal=m=>m&&m.value!=null?m.value:'—';
+  const metricSrc=m=>m&&m.source?m.source:'indisponível';
+  const reels=Array.isArray(acq.reels)?acq.reels:[];
+  const watchVals=reels.map(r=>r.avg_watch_time_ms&&r.avg_watch_time_ms.value).filter(v=>v!=null);
+  const avgWatch=watchVals.length?`${Math.round(watchVals.reduce((a,b)=>a+b,0)/watchVals.length/100)/10}s`:'—';
   const cards=[
     {k:'Total no pipeline',v:pipe.total,src:'/api/state'},
     {k:'MRR em jogo',v:brl(val.mrr)||'R$ 0',src:'soma real'},
@@ -259,14 +265,17 @@ function renderMetrics(){
     {k:'Enviados',v:counts.sent||0,src:'pipeline'},
     {k:'Responderam',v:counts.replied||0,src:'pipeline'},
     {k:'Fechados',v:counts.closed||0,src:'pipeline'},
-    {k:'Alcance não-seguidores',v:'—',muted:1,src:'insights:aquisicao'},
-    {k:'Cliques no link da bio',v:'—',muted:1,src:'insights:aquisicao'},
-    {k:'Retenção média (reels)',v:'—',muted:1,src:'insights:aquisicao'},
+    {k:'Seguidores',v:metricVal(account.followers),src:metricSrc(account.followers),muted:metricVal(account.followers)==='—'},
+    {k:'Alcance 28d',v:metricVal(account.reach_28d),src:metricSrc(account.reach_28d),muted:metricVal(account.reach_28d)==='—'},
+    {k:'Alcance não-seguidores',v:metricVal(account.reach_non_followers_28d),src:metricSrc(account.reach_non_followers_28d),muted:metricVal(account.reach_non_followers_28d)==='—'},
+    {k:'Visitas ao perfil',v:metricVal(account.profile_views),src:metricSrc(account.profile_views),muted:metricVal(account.profile_views)==='—'},
+    {k:'Cliques no link da bio',v:metricVal(account.bio_link_clicks),src:metricSrc(account.bio_link_clicks),muted:metricVal(account.bio_link_clicks)==='—'},
+    {k:'Retenção média (reels)',v:avgWatch,src:watchVals.length?'graph:media-insights':'insights:aquisicao',muted:!watchVals.length},
+    {k:'Comentários-chave',v:metricVal(internal.keyword_comments),src:metricSrc(internal.keyword_comments),muted:metricVal(internal.keyword_comments)==='—'},
   ];
   $('#mgrid').innerHTML=cards.map(c=>`<div class="mcard"><div class="k">${c.k}</div><div class="v${c.muted?' muted':''}">${esc(String(c.v))}</div><div class="src">fonte · ${esc(c.src)}</div></div>`).join('');
 }
 
-/* ── Agenda (calendário editorial 70/20/10) ── */
 function agDay(iso){
   if(!iso) return {d:'—',t:''};
   const dt=new Date(iso); if(Number.isNaN(dt.getTime())) return {d:'—',t:''};

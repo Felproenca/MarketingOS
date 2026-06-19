@@ -48,6 +48,79 @@ Clientes beneficiados:
 
 ## Atualizações Aplicadas
 
+### U012 — Motor de DM DIAGNOSTICO operacional
+
+Data:             junho/2026
+Origem:           Publicacao Agenda w25-01 e CTA "Comente DIAGNOSTICO"
+Padrao associado: comentario -> DM -> lead magnet -> captura -> metricas
+
+O que mudou:
+→ `scripts/dm-engine/server.js` ganhou endpoints operacionais de teste e observabilidade: `/api/test-comment`, `/api/logs`, `/api/captures` e `/health` expandido.
+→ `scripts/dm-engine/test-flow.js` valida o funil localmente: comentario com palavra-chave, ledger, captura de lead.
+→ `npm run dm:test` entra como teste rapido do motor.
+→ `scripts/insights/acquisition.js` agora le `clients/[slug]/leads/dm-engine-log.json` e transforma comentarios-chave em metrica real, nao mais lacuna nao-instrumentada.
+→ `.env.example` e `scripts/dm-engine/DEPLOY.md` documentam variaveis e teste operacional.
+
+Por que mudou:
+→ O CTA publicado prometia entrega ao comentar DIAGNOSTICO. O sistema precisava ter rastro, captura e medicao antes de escalar auto-DM.
+
+Impacto esperado:
+→ O funil inbound fica observavel: comentario, DM em fila/enviada, captura e aprendizado entram no sistema sem depender de planilha manual.
+
+Clientes beneficiados:
+→ Felipe Proenca / MarketingOS agora; replicavel para outros clientes com lead magnet e webhook configurados.
+
+---
+
+### U011 — Agenda de Conteudo no Cockpit v1.0
+
+Data:             junho/2026
+Origem:           Plano `gostei-tem-detalhes-dde-quizzical-sky.md`
+Padrao associado: rotina semanal 70/20/10 + gate humano de publicacao
+
+O que mudou:
+→ A Agenda deixa de ser avulsa e vira rotina operacional no Cockpit.
+→ `clients/felipe-proenca/agenda.json` e a aba Agenda passam a ser a fonte de verdade semanal.
+→ `scripts/agenda/plan-week.js` planeja a semana 70/20/10 sem inventar performance.
+→ `scripts/scraper-panel/server.js` ganhou endpoints para planejar, editar/preparar item e validar publicacao via publisher em dry-run.
+→ `workflows/agenda-semanal.md` documenta o loop medir → aprender → planejar → rascunhar → preparar → publicar com OK → medir.
+→ `clients/felipe-proenca/brand-brief.md` satisfaz a regra de parada como brief permanente pendente de validacao humana.
+
+Por que mudou:
+→ O MarketingOS ja tinha outbound e metricas no Cockpit, mas faltava o lado inbound/conteudo como cadencia observavel.
+
+Impacto esperado:
+→ Conteudo deixa de ser demanda solta e passa a operar como sistema semanal de aquisicao, com aprovacao humana antes de qualquer publicacao real.
+
+Clientes beneficiados:
+→ Felipe Proenca / MarketingOS agora; padrao replicavel para outros clientes com `brand-brief.md` validado.
+
+---
+
+### U010 — Motor de Estudo (novo) + skill-construir v1.0
+
+Data:             junho/2026
+Origem:           Sessão 2026-06-18 com Felipe — ecossistema "coleta do conceito como produto"
+Padrão associado: análise estrutural + estudo de caso + construção re-vestida
+
+O que mudou:
+→ Novo eixo de EXECUÇÃO (complementar à percepção de `/reverter`/`/adquirir`), em 3 anéis:
+  - Anel 1 — `scripts/extract-structure.mjs` (mede tokens reais do DOM) + `scripts/synthesize-case-study.mjs` (funde estrutura + conceito num case-study) + schema `case-studies/_schema.json`.
+  - Anel 2 — `scripts/build-case-catalog.mjs` → `_catalog.json` (catálogo consultável por setor/padrão/tensão).
+  - Anel 3 — `scripts/construir.mjs` + `skills/criacao/skill-construir.md` (`/construir`): lê o catálogo, monta blueprint da ESTRUTURA dos casos e RE-VESTE pela `design-system.json` da marca; gate da alma rejeita o que viola `anti_dna` (observável).
+→ 1º case-study real: `case-studies/itaplay.json` (anti-referência).
+
+Por que mudou:
+→ Faltava o eixo que mede estrutura e a transforma em construção sem clonar. O conceito coletado vira a moeda única (estudo de caso) que alimenta site/branding/diagnóstico. Vídeo/animação ficam fora (consumidores do pipeline existente).
+
+Impacto esperado:
+→ Construção de sites/sistemas mais rápida e fundamentada em referências reais, sempre re-vestida pela alma da marca (Teste Supremo + anti_dna). Posicionamento afiado por estudo de concorrentes (anti-referências).
+
+Clientes beneficiados:
+→ Todos os que têm `design-system.json` (pós `/perceber`→`/branding`→`/direcao-criativa`).
+
+---
+
 ### U009 — Retenção/Reativação v1.0 → v1.1
 
 Data:             junho/2026
@@ -327,6 +400,18 @@ Aplicar quando confirmado, um por vez:
 → Funil Conteúdo→DM→próxima ação → alinhar com Motor de Aquisição + Motor de Follow-up
 → "Oferta chata" ultra-específica → afinar `skill-offer-positioning` e ICP
 Não aplicar sem filtro: IG-first como dogma e perfil-como-página ferem observabilidade e a regra de parada do operador.
+
+### [FEITO 2026-06-19] — Motor de DM / Diagnóstico — Pré-captura obrigatória
+Origem:       Felipe pediu que o fluxo tivesse coleta de dados antes do diagnóstico.
+O que mudou:  Lead magnet `diagnostico.html` agora coleta nome, WhatsApp, e-mail, site/Instagram e negócio antes do quiz; o resultado mantém os campos preenchidos para correção antes do envio.
+Operacional:  `/api/capture` passou a recusar captura incompleta; teste local cobre comentário `DIAGNOSTICO` + captura enriquecida.
+Por quê:      Comentário vira conversa, mas o ativo precisa capturar contato e contexto antes de entregar valor, reduzindo abandono sem perder observabilidade.
+
+### [FEITO 2026-06-19] — Motor de DM / Diagnóstico — Palavra-chave tolerante
+Origem:       Felipe apontou que comentários reais vêm com erro de digitação.
+O que mudou:  Detector de palavra-chave agora normaliza acentos, compacta texto e aceita distância curta de edição para `DIAGNOSTICO`.
+Operacional:  `dm:test` valida `diagnostco`, `diagnotico`, `diganostico`, `diag nostico`, `diagnósticoooo` e confirma que frase sem palavra-chave não dispara.
+Por quê:      O funil precisa responder intenção real, não só string perfeita.
 
 ### [FEITO 2026-06-18] — Doutrina de Direção de Arte (anti-engessamento)
 Origem:       Felipe trouxe o diagnóstico de outputs de IA "engessados" + referência Awwwards (Kaptar/Mux).

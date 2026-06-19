@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MarketingOS DM Keepalive</title>
+  <style>
+    :root { color-scheme: dark; font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #10100f; color: #f6f0e4; }
+    main { width: min(720px, calc(100vw - 32px)); }
+    h1 { margin: 0 0 12px; font-size: 28px; letter-spacing: 0; }
+    p { color: #bfb6a6; line-height: 1.5; }
+    label { display: block; margin: 22px 0 8px; color: #d8c28f; font-size: 13px; text-transform: uppercase; }
+    input { width: 100%; box-sizing: border-box; padding: 14px 16px; border: 1px solid #3c3528; background: #181715; color: #fff; font-size: 16px; border-radius: 8px; }
+    button { margin-top: 14px; margin-right: 8px; padding: 12px 16px; border: 0; border-radius: 8px; background: #d8b45f; color: #15120b; font-weight: 700; cursor: pointer; }
+    button.secondary { background: #2a2824; color: #f6f0e4; }
+    pre { min-height: 170px; max-height: 320px; overflow: auto; padding: 14px; background: #080807; border: 1px solid #2d2a24; border-radius: 8px; white-space: pre-wrap; }
+    .status { margin-top: 18px; color: #d8c28f; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>DM Keepalive</h1>
+    <p>Deixe esta pagina aberta durante testes no Render Free. Ela manda um pulso para <code>/ping</code> a cada 12 minutos e registra o resultado aqui.</p>
+
+    <label for="url">URL do servico Render</label>
+    <input id="url" placeholder="https://seu-servico.onrender.com" autocomplete="url">
+
+    <button id="start">Iniciar pulso</button>
+    <button class="secondary" id="stop">Parar</button>
+    <button class="secondary" id="once">Ping agora</button>
+
+    <div class="status" id="status">Parado.</div>
+    <pre id="log"></pre>
+  </main>
+
+  <script>
+    const urlInput = document.getElementById('url');
+    const statusEl = document.getElementById('status');
+    const logEl = document.getElementById('log');
+    const INTERVAL_MS = 12 * 60 * 1000;
+    let timer = null;
+
+    urlInput.value = localStorage.getItem('dmKeepaliveUrl') || '';
+
+    function line(message) {
+      const at = new Date().toLocaleString();
+      logEl.textContent = `[${at}] ${message}\n` + logEl.textContent;
+    }
+
+    function baseUrl() {
+      const value = urlInput.value.trim().replace(/\/+$/, '');
+      if (!value) throw new Error('Informe a URL do servico.');
+      localStorage.setItem('dmKeepaliveUrl', value);
+      return value;
+    }
+
+    async function ping() {
+      const target = `${baseUrl()}/ping?t=${Date.now()}`;
+      statusEl.textContent = 'Enviando pulso...';
+      try {
+        const res = await fetch(target, { cache: 'no-store', mode: 'cors' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        statusEl.textContent = 'Ativo. Proximo pulso em 12 minutos.';
+        line(`OK ${target}`);
+      } catch (err) {
+        statusEl.textContent = 'Falha no pulso. Confira URL/servico.';
+        line(`ERRO ${target} - ${err.message}`);
+      }
+    }
+
+    function start() {
+      if (timer) clearInterval(timer);
+      ping().catch((err) => line(`ERRO - ${err.message}`));
+      timer = setInterval(() => ping().catch((err) => line(`ERRO - ${err.message}`)), INTERVAL_MS);
+      statusEl.textContent = 'Ativo.';
+    }
+
+    function stop() {
+      if (timer) clearInterval(timer);
+      timer = null;
+      statusEl.textContent = 'Parado.';
+      line('Pulso parado.');
+    }
+
+    document.getElementById('start').addEventListener('click', start);
+    document.getElementById('stop').addEventListener('click', stop);
+    document.getElementById('once').addEventListener('click', () => ping().catch((err) => line(`ERRO - ${err.message}`)));
+  </script>
+</body>
+</html>

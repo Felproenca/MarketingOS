@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Diagnóstico de Aquisição — Marketing/OS</title>
+<meta name="description" content="Descubra em 2 minutos por que sua aquisição de clientes é imprevisível — e qual gargalo está travando seu crescimento." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Playfair+Display:ital@1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#080808; --surface:#111; --surface2:#1a1a1a;
+    --border:rgba(255,255,255,.07); --text:#fafafa; --muted:#888;
+    --dim:rgba(255,255,255,.3); --gold:#c9a55c;
+    --gold-dim:rgba(201,165,92,.14); --gold-border:rgba(201,165,92,.28);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg); color:var(--text); font-family:'Syne',sans-serif;
+    min-height:100vh; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+    display:flex; align-items:center; justify-content:center; padding:24px;
+  }
+  .grain{position:fixed;inset:0;pointer-events:none;opacity:.04;z-index:1;mix-blend-mode:overlay}
+  .wrap{width:100%;max-width:620px;position:relative;z-index:2}
+
+  /* Header / logo */
+  .brandbar{display:flex;align-items:center;gap:9px;margin-bottom:38px;justify-content:center}
+  .brandbar .dot{width:7px;height:7px;border-radius:50%;background:var(--gold)}
+  .brandbar .mk{font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:12px;color:var(--muted)}
+
+  .eyebrow{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.24em;color:var(--gold);margin-bottom:18px;display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--gold-border)}
+
+  /* Cards / screens */
+  .screen{display:none;animation:fade .5s ease}
+  .screen.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  h1{font-weight:800;font-size:clamp(30px,6vw,44px);line-height:1.05;letter-spacing:-.02em;margin-bottom:18px}
+  h1 .ed{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;color:var(--gold)}
+  .lead{color:var(--muted);font-size:16px;line-height:1.6;max-width:48ch;margin-bottom:34px}
+
+  .meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);letter-spacing:.05em;margin-bottom:8px}
+
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  .btn-gold{background:var(--gold);color:#0a0a0a;font-weight:700;font-size:15px;padding:16px 30px;border-radius:2px;letter-spacing:.01em;transition:transform .15s,box-shadow .15s;width:100%}
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 30px -10px var(--gold-dim)}
+  .btn-ghost{color:var(--muted);font-size:13px;margin-top:18px;letter-spacing:.03em;border-bottom:1px solid transparent;transition:color .2s}
+  .btn-ghost:hover{color:var(--text)}
+
+  /* Question */
+  .qtop{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:22px}
+  .qcount{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--gold)}
+  .qbar{height:2px;background:var(--surface2);border-radius:2px;overflow:hidden;margin-bottom:30px}
+  .qbar i{display:block;height:100%;background:var(--gold);width:0;transition:width .4s ease}
+  .qtext{font-weight:700;font-size:clamp(21px,4.5vw,27px);line-height:1.25;letter-spacing:-.01em;margin-bottom:26px}
+  .opts{display:flex;flex-direction:column;gap:11px}
+  .opt{text-align:left;border:1px solid var(--border);background:var(--surface);padding:17px 19px;border-radius:3px;font-size:15px;color:var(--text);transition:border-color .18s,background .18s,transform .12s;line-height:1.4}
+  .opt:hover{border-color:var(--gold-border);background:var(--surface2);transform:translateX(3px)}
+
+  /* Result */
+  .gauge{display:flex;align-items:baseline;gap:14px;margin-bottom:8px}
+  .gauge .num{font-family:'Syne',sans-serif;font-weight:800;font-size:78px;line-height:1;color:var(--gold);letter-spacing:-.03em}
+  .gauge .den{font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--dim)}
+  .gauge .lbl{font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:.12em;margin-left:auto;padding:6px 12px;border:1px solid var(--gold-border);border-radius:2px;color:var(--gold)}
+  .ix-name{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:var(--muted);margin-bottom:30px}
+
+  .gcard{border:1px solid var(--gold-border);background:linear-gradient(180deg,var(--gold-dim),transparent);border-radius:4px;padding:26px;margin-bottom:24px}
+  .gcard .tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+  .gcard h3{font-weight:800;font-size:24px;letter-spacing:-.01em;margin-bottom:12px}
+  .gcard p{color:#cfcfcf;font-size:15px;line-height:1.62}
+  .gcard p .ed{font-family:'Playfair Display',serif;font-style:italic;color:var(--gold)}
+
+  .seclist{list-style:none;margin-bottom:32px}
+  .seclist li{display:flex;gap:13px;padding:13px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--muted);align-items:center}
+  .seclist li .s{font-family:'JetBrains Mono',monospace;font-size:12px;min-width:54px}
+  .seclist li .s.low{color:#e0794f}.seclist li .s.mid{color:var(--gold)}.seclist li .s.ok{color:#6fae6f}
+  .seclist li b{color:var(--text);font-weight:600}
+
+  /* Capture */
+  .cap{border-top:1px solid var(--border);padding-top:30px}
+  .cap h2{font-weight:800;font-size:22px;margin-bottom:8px;letter-spacing:-.01em}
+  .cap .sub{color:var(--muted);font-size:14px;line-height:1.55;margin-bottom:24px}
+  .field{margin-bottom:13px}
+  .field input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:15px 16px;color:var(--text);font-family:inherit;font-size:15px;transition:border-color .18s}
+  .field input:focus{outline:none;border-color:var(--gold-border)}
+  .field input::placeholder{color:var(--dim)}
+  .privacy{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--dim);text-align:center;margin-top:16px;letter-spacing:.03em}
+  .err{color:#e0794f;font-size:13px;margin-top:8px;min-height:16px}
+
+  .done{text-align:center;padding:20px 0}
+  .done .ck{width:54px;height:54px;border:1px solid var(--gold-border);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 22px;color:var(--gold);font-size:24px}
+  .done h2{font-weight:800;font-size:26px;margin-bottom:12px}
+  .done p{color:var(--muted);font-size:15px;line-height:1.6;max-width:40ch;margin:0 auto}
+</style>
+</head>
+<body>
+<svg class="grain"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
+
+<div class="wrap">
+  <div class="brandbar"><span class="dot"></span><span class="mk">MARKETING/OS</span></div>
+
+  <!-- INTRO -->
+  <section class="screen active" id="intro">
+    <div class="eyebrow">Diagnóstico de Aquisição</div>
+    <h1>Por que seu próximo cliente é uma <span class="ed">surpresa</span>?</h1>
+    <p class="lead">6 perguntas. 2 minutos. No final, você vê exatamente qual gargalo torna sua aquisição de clientes imprevisível — e o que ele custa. Sem achismo: a leitura é a sua resposta, não a nossa opinião.</p>
+    <button class="btn-gold" onclick="show('precap')">Começar o diagnóstico →</button>
+    <div style="text-align:center"><button class="btn-ghost" onclick="document.getElementById('intro').scrollIntoView()">Leva 2 minutos · nenhum dado é inventado</button></div>
+  </section>
+
+  <!-- PRE CAPTURE -->
+  <section class="screen" id="precap">
+    <div class="eyebrow">Antes de começar</div>
+    <h1>Pra eu ler o gargalo, preciso saber <span class="ed">quem está falando</span>.</h1>
+    <p class="lead">Você recebe o resultado na tela. Se quiser o diagnóstico completo depois, eu já tenho o mínimo pra olhar seu negócio de verdade: contato, e-mail e presença digital.</p>
+    <form id="preform" onsubmit="return startWithLead(event)">
+      <div class="field"><input id="pre-nome" type="text" placeholder="Seu nome" autocomplete="name" required></div>
+      <div class="field"><input id="pre-wa" type="tel" placeholder="WhatsApp com DDD" autocomplete="tel" required></div>
+      <div class="field"><input id="pre-email" type="email" placeholder="E-mail" autocomplete="email" required></div>
+      <div class="field"><input id="pre-site" type="text" placeholder="Site ou Instagram do negócio" required></div>
+      <div class="field"><input id="pre-neg" type="text" placeholder="Nome do negócio" required></div>
+      <button class="btn-gold" type="submit">Ver meu diagnóstico →</button>
+      <div class="err" id="preerr"></div>
+    </form>
+    <div class="privacy">Sem lista vendida. Sem spam. Isso vira contexto do seu diagnóstico.</div>
+  </section>
+
+  <!-- QUESTION -->
+  <section class="screen" id="quiz">
+    <div class="qtop">
+      <span class="qcount" id="qcount">01 / 06</span>
+      <span class="meta" id="qdim">ORIGEM</span>
+    </div>
+    <div class="qbar"><i id="qprog"></i></div>
+    <div class="qtext" id="qtext"></div>
+    <div class="opts" id="opts"></div>
+    <div style="text-align:center"><button class="btn-ghost" id="qback" onclick="back()" style="display:none">← voltar</button></div>
+  </section>
+
+  <!-- RESULT -->
+  <section class="screen" id="result">
+    <div class="eyebrow">Seu resultado</div>
+    <div class="gauge">
+      <span class="num" id="rnum">0</span><span class="den">/100</span>
+      <span class="lbl" id="rlbl">—</span>
+    </div>
+    <div class="ix-name">Índice de Previsibilidade de Aquisição</div>
+
+    <div class="gcard">
+      <div class="tag">Gargalo principal</div>
+      <h3 id="gname">—</h3>
+      <p id="gdesc">—</p>
+    </div>
+
+    <ul class="seclist" id="seclist"></ul>
+
+    <div class="cap" id="cap">
+      <h2>Quer ver isso no <span style="color:var(--gold)">seu</span> negócio?</h2>
+      <p class="sub">Este foi o diagnóstico genérico. O completo lê o seu Instagram, seu site e seus números reais — e mostra onde está vazando cliente, com nome e tamanho. Te mando o seu.</p>
+      <form id="capform" onsubmit="return submitLead(event)">
+        <div class="field"><input id="f-nome" type="text" placeholder="Seu nome" autocomplete="name" required></div>
+        <div class="field"><input id="f-wa" type="tel" placeholder="WhatsApp com DDD" autocomplete="tel" required></div>
+        <div class="field"><input id="f-email" type="email" placeholder="E-mail" autocomplete="email" required></div>
+        <div class="field"><input id="f-site" type="text" placeholder="Site ou Instagram" required></div>
+        <div class="field"><input id="f-neg" type="text" placeholder="Nome do seu negócio" required></div>
+        <button class="btn-gold" type="submit" id="capbtn">Quero meu diagnóstico completo →</button>
+        <div class="err" id="caperr"></div>
+      </form>
+      <div class="privacy">Seus dados ficam com o Felipe. Sem spam, sem lista vendida.</div>
+    </div>
+  </section>
+
+  <!-- DONE -->
+  <section class="screen" id="done">
+    <div class="done">
+      <div class="ck">✓</div>
+      <h2>Recebido.</h2>
+      <p id="donemsg">Vou olhar seu negócio e te mandar o diagnóstico no WhatsApp. Fica de olho.</p>
+    </div>
+  </section>
+</div>
+
+<script>
+/* =========================================================================
+   Diagnóstico de Aquisição — lógica.
+   REGRA: o resultado reflage 100% as respostas. Nada é estimado ou inventado.
+   Cada opção carrega um score 0-100 por dimensão; o índice é a média real.
+   ========================================================================= */
+const QUESTIONS = [
+  { dim:'ORIGEM', key:'origem',
+    q:'De onde vêm seus clientes hoje?',
+    opts:[
+      {t:'Quase tudo é indicação / boca a boca', s:15},
+      {t:'Instagram e redes, mas sem previsibilidade', s:45},
+      {t:'Tenho canais que trazem cliente de forma constante', s:90},
+      {t:'Sinceramente, não sei de onde vêm', s:5},
+    ]},
+  { dim:'PREVISIBILIDADE', key:'prev',
+    q:'Você sabe quantos clientes novos vai ter mês que vem?',
+    opts:[
+      {t:'Sei com boa precisão', s:95},
+      {t:'Tenho uma ideia grosseira', s:50},
+      {t:'Chuto — varia demais', s:20},
+      {t:'Não faço a menor ideia', s:5},
+    ]},
+  { dim:'CAPTURA', key:'captura',
+    q:'Quando um estranho te encontra no Instagram, o que costuma acontecer?',
+    opts:[
+      {t:'Vira conversa no direct ou WhatsApp', s:90},
+      {t:'Curte, às vezes segue, e some', s:35},
+      {t:'Passa direto — não tenho como saber', s:15},
+      {t:'Não tenho presença que atraia estranho', s:5},
+    ]},
+  { dim:'FOLLOW-UP', key:'followup',
+    q:'Um lead que não fecha na hora — o que acontece com ele?',
+    opts:[
+      {t:'Entra num follow-up estruturado até decidir', s:95},
+      {t:'Mando mensagem quando lembro', s:35},
+      {t:'Geralmente esfria e some', s:10},
+      {t:'Não tenho controle de quem ficou pra trás', s:5},
+    ]},
+  { dim:'OBSERVABILIDADE', key:'obs',
+    q:'Você consegue ver o que está funcionando na sua aquisição?',
+    opts:[
+      {t:'Acompanho números em tempo real', s:95},
+      {t:'Olho alguma coisa no fim do mês', s:45},
+      {t:'Opero no escuro — sigo no feeling', s:10},
+      {t:'Nunca medi nada disso', s:5},
+    ]},
+  { dim:'HISTÓRICO', key:'hist',
+    q:'Você já investiu em marketing e não viu retorno claro?',
+    opts:[
+      {t:'Sim, mais de uma vez — me queimei', s:25},
+      {t:'Uma vez, resultado morno', s:45},
+      {t:'Nunca investi de verdade', s:35},
+      {t:'Já investi e funcionou', s:90},
+    ]},
+];
+
+/* Diagnóstico por gargalo (a dimensão de menor score). Texto = valor real. */
+const GARGALOS = {
+  'ORIGEM': { nome:'Dependência de indicação',
+    desc:'Sua agenda depende de quem te indica. <span class="ed">Isso não é um canal — é sorte recorrente.</span> Cresce no boca a boca dos outros, não no que você controla. No dia em que a indicação esfria, não há um segundo motor pra puxar cliente.' },
+  'PREVISIBILIDADE': { nome:'Aquisição às cegas',
+    desc:'Você não sabe de onde vem o próximo cliente. <span class="ed">Opera na esperança, não no sistema.</span> Sem previsibilidade, cada mês recomeça do zero — impossível planejar contratação, estoque ou expansão em cima de algo que você não consegue prever.' },
+  'CAPTURA': { nome:'Vitrine sem porta',
+    desc:'Gente te encontra, mas não vira conversa. <span class="ed">Alcance virando abandono.</span> Você paga o custo de aparecer e perde o lead no último metro — porque não há um caminho claro do "vi" pro "falei com você".' },
+  'FOLLOW-UP': { nome:'Lead que esfria',
+    desc:'Quem não compra na hora desaparece. <span class="ed">E o "não agora" quase nunca é "não".</span> Sem retorno estruturado, você está jogando fora a maioria dos leads que já levantaram a mão — os mais baratos que você terá.' },
+  'OBSERVABILIDADE': { nome:'Operação no escuro',
+    desc:'Você não enxerga o que funciona. <span class="ed">E o que não se mede, não se ajusta nem se prevê.</span> Sem observar a aquisição, toda decisão vira aposta — você não sabe o que cortar, o que dobrar, nem por quê o mês foi bom ou ruim.' },
+  'HISTÓRICO': { nome:'Confiança queimada',
+    desc:'Você já pagou por marketing e não viu retorno. <span class="ed">O problema não foi investir — foi investir sem sistema.</span> Esforço sem observabilidade é o que queima verba: ninguém conseguia ver o que estava ou não funcionando pra corrigir a rota.' },
+};
+
+let idx = 0;
+const answers = {};
+let leadData = {};
+
+function start(){ idx=0; show('quiz'); render(); }
+function show(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
+
+function val(id){ return document.getElementById(id).value.trim(); }
+
+function startWithLead(e){
+  e.preventDefault();
+  const err = document.getElementById('preerr');
+  err.textContent = '';
+  leadData = {
+    nome: val('pre-nome'),
+    whatsapp: val('pre-wa'),
+    email: val('pre-email'),
+    site: val('pre-site'),
+    negocio: val('pre-neg'),
+  };
+  if(!leadData.nome || !leadData.whatsapp || !leadData.email || !leadData.site || !leadData.negocio){
+    err.textContent = 'Preenche nome, WhatsApp, e-mail, site e negócio antes de continuar.';
+    return false;
+  }
+  document.getElementById('f-nome').value = leadData.nome;
+  document.getElementById('f-wa').value = leadData.whatsapp;
+  document.getElementById('f-email').value = leadData.email;
+  document.getElementById('f-site').value = leadData.site;
+  document.getElementById('f-neg').value = leadData.negocio;
+  start();
+  return false;
+}
+
+function render(){
+  const Q = QUESTIONS[idx];
+  document.getElementById('qcount').textContent = String(idx+1).padStart(2,'0')+' / 06';
+  document.getElementById('qdim').textContent = Q.dim;
+  document.getElementById('qprog').style.width = ((idx)/QUESTIONS.length*100)+'%';
+  document.getElementById('qtext').textContent = Q.q;
+  document.getElementById('qback').style.display = idx>0 ? 'inline' : 'none';
+  const box = document.getElementById('opts'); box.innerHTML='';
+  Q.opts.forEach(o=>{
+    const b=document.createElement('button'); b.className='opt'; b.textContent=o.t;
+    b.onclick=()=>{ answers[Q.key]={dim:Q.dim, s:o.s}; next(); };
+    box.appendChild(b);
+  });
+}
+function next(){ if(idx<QUESTIONS.length-1){ idx++; render(); } else { finish(); } }
+function back(){ if(idx>0){ idx--; render(); } }
+
+function finish(){
+  const vals = Object.values(answers);
+  const index = Math.round(vals.reduce((a,b)=>a+b.s,0)/vals.length);
+  // Gargalo = dimensão de MENOR score (empate: a primeira na ordem do funil).
+  let worst = vals[0];
+  for(const v of vals) if(v.s < worst.s) worst = v;
+  const g = GARGALOS[worst.dim];
+
+  document.getElementById('rnum').textContent = index;
+  let lbl,name;
+  if(index < 40){ lbl='Imprevisível'; }
+  else if(index < 70){ lbl='Frágil'; }
+  else { lbl='Encaminhado'; }
+  document.getElementById('rlbl').textContent = lbl;
+  document.getElementById('gname').textContent = g.nome;
+  document.getElementById('gdesc').innerHTML = g.desc;
+
+  // Mapa de todas as dimensões — transparência total das respostas.
+  const sl = document.getElementById('seclist'); sl.innerHTML='';
+  QUESTIONS.forEach(Q=>{
+    const a = answers[Q.key]; const s=a.s;
+    const cls = s<40?'low':(s<70?'mid':'ok');
+    const li=document.createElement('li');
+    li.innerHTML = `<span class="s ${cls}">${String(s).padStart(3,'0')}</span> <span><b>${Q.dim}</b></span>`;
+    sl.appendChild(li);
+  });
+
+  window.__diag = { index, label:lbl, gargalo:g.nome, dim:worst.dim, answers:Object.fromEntries(Object.entries(answers).map(([k,v])=>[k,v.s])) };
+  show('result');
+}
+
+async function submitLead(e){
+  e.preventDefault();
+  const btn=document.getElementById('capbtn'); const err=document.getElementById('caperr');
+  err.textContent='';
+  const payload = {
+    nome: document.getElementById('f-nome').value.trim() || leadData.nome || '',
+    whatsapp: document.getElementById('f-wa').value.trim() || leadData.whatsapp || '',
+    email: document.getElementById('f-email').value.trim() || leadData.email || '',
+    site: document.getElementById('f-site').value.trim() || leadData.site || '',
+    negocio: document.getElementById('f-neg').value.trim() || leadData.negocio || '',
+    diagnostico: window.__diag || null,
+    origem: 'lead-magnet:diagnostico-aquisicao',
+    capturedAt: new Date().toISOString(),
+  };
+  if(!payload.nome || !payload.whatsapp || !payload.email || !payload.site || !payload.negocio){ err.textContent='Preenche nome, WhatsApp, e-mail, site e negócio pra eu te mandar.'; return false; }
+  btn.disabled=true; btn.textContent='Enviando…';
+  try{
+    const r = await fetch('/api/capture', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
+    if(!r.ok) throw new Error('falha');
+    show('done');
+  }catch(_){
+    // Fallback honesto: sem backend, leva pro WhatsApp do Felipe com o resultado.
+    // (CONFIG abaixo — preencher com o número real antes de publicar.)
+    const WA = window.__WA_FELIPE || '';
+    if(WA){
+      const msg = encodeURIComponent(`Oi Felipe! Fiz o diagnóstico — índice ${payload.diagnostico?.index}/100, gargalo: ${payload.diagnostico?.gargalo}. Negócio: ${payload.negocio}. Site/Instagram: ${payload.site}. E-mail: ${payload.email}. Quero o completo.`);
+      window.location.href = `https://wa.me/${WA}?text=${msg}`;
+    } else {
+      err.textContent='Não consegui enviar agora. Tenta de novo em instantes.';
+      btn.disabled=false; btn.textContent='Quero meu diagnóstico completo →';
+    }
+  }
+  return false;
+}
+</script>
+</body>
+</html>

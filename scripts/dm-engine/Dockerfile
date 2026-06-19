@@ -13,11 +13,7 @@ RUN npm pkg delete dependencies.playwright dependencies.whatsapp-web.js 2>/dev/n
 COPY scripts/dm-engine ./scripts/dm-engine
 COPY scripts/publisher ./scripts/publisher
 
-# A isca (opcional servir aqui). Se preferir hospedar estática à parte,
-# aponte MAGNET_URL para lá e remova esta linha.
-COPY clients ./clients
-
-ENV DM_ENGINE_PORT=4280
+ENV PORT=4280
 EXPOSE 4280
 
 CMD ["node", "scripts/dm-engine/server.js"]

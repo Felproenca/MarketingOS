@@ -32,6 +32,7 @@ O host te dá uma URL HTTPS pública, ex.: `https://dm.seudominio.com`.
 | `MAGNET_URL` | URL pública da isca (ex.: `https://dm.seudominio.com/`) |
 | `DM_AUTO_SEND` | `true` = DM dispara sozinha; vazio = só registra p/ aprovação |
 | `DM_KEYWORD` | padrão `DIAGNOSTICO`; o detector aceita acento ausente e erros curtos de digitação |
+| `DM_KEYWORDS` | lista opcional separada por vírgula, ex.: `DIAGNOSTICO,DIAGNÓSTICO,DIAG,DIAGNOSTICAR` |
 
 > Comece com `DM_AUTO_SEND` vazio: o motor registra cada hit no log
 > (`clients/<slug>/leads/dm-engine-log.json`) sem enviar — você confere e só
@@ -156,6 +157,7 @@ GET  /health
 GET  /api/logs?limit=50
 GET  /api/captures?limit=50
 POST /api/test-comment
+GET  /api/match?text=diagnóstico
 GET  /ping
 ```
 

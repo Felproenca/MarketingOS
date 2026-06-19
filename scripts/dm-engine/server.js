@@ -23,7 +23,8 @@
  *   DM_SLUG               cliente (padrão felipe-proenca)
  *   META_APP_SECRET       segredo do app Meta — valida X-Hub-Signature-256
  *   WEBHOOK_VERIFY_TOKEN  token de verificação do webhook (você define)
- *   DM_KEYWORD            palavra-chave (padrão DIAGNOSTICO)
+ *   DM_KEYWORD            palavra-chave principal (padrão DIAGNOSTICO)
+ *   DM_KEYWORDS           lista opcional separada por vírgula (ex.: DIAGNOSTICO,DIAGNÓSTICO,DIAG)
  *   MAGNET_URL            URL pública da isca (o link que vai na DM)
  *   DM_AUTO_SEND          'true' envia automático; senão só registra (rascunho)
  */
@@ -42,6 +43,10 @@ const SLUG = process.env.DM_SLUG || 'felipe-proenca';
 const APP_SECRET = process.env.META_APP_SECRET || '';
 const VERIFY_TOKEN = process.env.WEBHOOK_VERIFY_TOKEN || '';
 const KEYWORD = (process.env.DM_KEYWORD || 'DIAGNOSTICO').toUpperCase();
+const KEYWORDS = (process.env.DM_KEYWORDS || KEYWORD)
+  .split(',')
+  .map(s => s.trim())
+  .filter(Boolean);
 const MAGNET_URL = process.env.MAGNET_URL || '';
 const AUTO_SEND = process.env.DM_AUTO_SEND === 'true';
 
@@ -102,11 +107,12 @@ function editDistance(a, b) {
   return rows[a.length][b.length];
 }
 
-function keywordMatch(text) {
-  const keyword = normalizeKeywordText(KEYWORD).replace(/[^A-Z0-9]/g, '');
+function matchOneKeyword(text, rawKeyword) {
+  const keyword = normalizeKeywordText(rawKeyword).replace(/[^A-Z0-9]/g, '');
   const normalized = normalizeKeywordText(text);
   const compact = normalized.replace(/[^A-Z0-9]/g, '');
-  if (compact.includes(keyword)) return { hit: true, mode: 'exact_compact', candidate: keyword, distance: 0 };
+  if (!keyword) return { hit: false, mode: 'empty', keyword: rawKeyword, candidate: null, distance: null };
+  if (compact.includes(keyword)) return { hit: true, keyword: rawKeyword, normalizedKeyword: keyword, mode: 'exact_compact', candidate: keyword, distance: 0 };
 
   const maxDistance = keyword.length >= 8 ? 2 : 1;
   const candidates = normalized
@@ -116,7 +122,7 @@ function keywordMatch(text) {
 
   for (const candidate of candidates) {
     const distance = editDistance(candidate, keyword);
-    if (distance <= maxDistance) return { hit: true, mode: 'fuzzy_token', candidate, distance };
+    if (distance <= maxDistance) return { hit: true, keyword: rawKeyword, normalizedKeyword: keyword, mode: 'fuzzy_token', candidate, distance };
   }
 
   const compactCandidate = squeezeRepeats(compact);
@@ -127,12 +133,22 @@ function keywordMatch(text) {
       for (let i = 0; i + size <= compactCandidate.length; i++) {
         const candidate = compactCandidate.slice(i, i + size);
         const distance = editDistance(candidate, keyword);
-        if (distance <= maxDistance) return { hit: true, mode: 'fuzzy_compact', candidate, distance };
+        if (distance <= maxDistance) return { hit: true, keyword: rawKeyword, normalizedKeyword: keyword, mode: 'fuzzy_compact', candidate, distance };
       }
     }
   }
 
-  return { hit: false, mode: 'none', candidate: null, distance: null };
+  return { hit: false, keyword: rawKeyword, normalizedKeyword: keyword, mode: 'none', candidate: null, distance: null };
+}
+
+function keywordMatch(text) {
+  const misses = [];
+  for (const keyword of KEYWORDS) {
+    const match = matchOneKeyword(text, keyword);
+    if (match.hit) return match;
+    misses.push(match.normalizedKeyword);
+  }
+  return { hit: false, keyword: null, keywords: misses, mode: 'none', candidate: null, distance: null };
 }
 
 // ── Resposta privada (a DM disparada pelo comentário) ────────────────────────
@@ -162,7 +178,7 @@ async function handleComment(change, cfg) {
   const match = keywordMatch(text);
   if (!match.hit) { log('comment.ignored', { commentId, from, note: 'sem palavra-chave' }); return { ok: true, matched: false, match }; }
 
-  log('comment.keyword_hit', { commentId, from, text, keyword: KEYWORD, matchMode: match.mode, matchCandidate: match.candidate, matchDistance: match.distance });
+  log('comment.keyword_hit', { commentId, from, text, keyword: match.keyword || KEYWORD, matchMode: match.mode, matchCandidate: match.candidate, matchDistance: match.distance });
 
   if (!AUTO_SEND) {
     log('dm.queued', { commentId, from, note: 'DM_AUTO_SEND=false — registrado para aprovação, não enviado' });
@@ -281,6 +297,11 @@ const server = http.createServer(async (req, res) => {
     return sendJson(res, 202, { ok: true, keyword: KEYWORD, autoSend: AUTO_SEND, result });
   }
 
+  if (req.method === 'GET' && url.pathname === '/api/match') {
+    const text = url.searchParams.get('text') || '';
+    return sendJson(res, 200, { ok: true, text, keywords: KEYWORDS, match: keywordMatch(text) });
+  }
+
   if (req.method === 'GET' && url.pathname === '/api/logs') {
     const limit = Math.max(1, Math.min(200, Number(url.searchParams.get('limit')) || 50));
     const logs = readJson(LOG_FILE, []);
@@ -311,6 +332,7 @@ const server = http.createServer(async (req, res) => {
       ok: true,
       slug: SLUG,
       keyword: KEYWORD,
+      keywords: KEYWORDS,
       autoSend: AUTO_SEND,
       magnet: !!MAGNET_URL,
       magnetUrl: MAGNET_URL || null,
@@ -329,7 +351,7 @@ const server = http.createServer(async (req, res) => {
 
 async function boot() {
   console.log('\n🛰️  MarketingOS — Motor de DM (comentário → DM)');
-  console.log(`   Cliente: ${SLUG} · palavra-chave: ${KEYWORD} · auto-send: ${AUTO_SEND}`);
+  console.log(`   Cliente: ${SLUG} · palavras-chave: ${KEYWORDS.join(', ')} · auto-send: ${AUTO_SEND}`);
   try {
     CFG = loadConfig(SLUG);
     const me = await validateToken(CFG.accessToken);

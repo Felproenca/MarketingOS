@@ -47,7 +47,19 @@ async function get(path) {
   console.log('comment:', JSON.stringify(comment, null, 2));
   if (!comment.result || !comment.result.matched) throw new Error('palavra-chave exata nao foi reconhecida');
 
-  const typoCases = ['diagnostco', 'diagnotico', 'diganostico', 'diag nostico', 'diagnósticoooo'];
+  const typoCases = [
+    'diagnóstico',
+    'Diagnóstico',
+    'DIAGNÓSTICO',
+    'diagnostico!',
+    'diagnostco',
+    'diagnotico',
+    'diganostico',
+    'diag nostico',
+    'diagnósticoooo',
+    'quero diagnostico',
+    'quero meu diagnóstico',
+  ];
   for (const text of typoCases) {
     const result = await post('/api/test-comment', {
       commentId: `typo-${Date.now()}-${text.replace(/\W+/g, '')}`,

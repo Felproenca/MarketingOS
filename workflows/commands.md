@@ -32,6 +32,7 @@
 | `/agenda` | Rotina semanal de conteudo: planejar, rascunhar, preparar, publicar com OK e medir |
 | `/creative-os` | Orquestra a criação: objetivo → percepção → referência → física → motor certo |
 | `/direcao-peca` | Direcao efetiva antes de criar: metafora → cena → beats → motion → engine → gate frame a frame |
+| `/repositorios` ou `/repositórios` | Mapa de repositórios externos: repertório, submodules, HyperFrames e regra de adoção |
 
 ---
 

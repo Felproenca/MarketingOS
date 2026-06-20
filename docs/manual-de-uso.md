@@ -53,6 +53,7 @@ intelligence/creative-direction-engine.md
 intelligence/motion-pattern-library.md
 intelligence/doctrine-direcao-de-arte.md
 templates/creative-direction-brief.json
+workflows/repositorios.md
 intelligence/reference-library/case-studies/_catalog.json
 workflows/agenda-semanal.md
 scripts/dm-engine/DEPLOY.md

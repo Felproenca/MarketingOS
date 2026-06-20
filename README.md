@@ -246,6 +246,7 @@ npm run novo -- [slug]
 npm run cmd -- /status
 npm run cmd -- /creative-os
 npm run cmd -- /direcao-peca
+npm run cmd -- /repositorios
 npm run cmd -- /construir
 npm run carousel:generate -- --slug [slug] --tema "tema"
 npm run carousel:render

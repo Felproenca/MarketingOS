@@ -455,6 +455,12 @@ O que mudou:  `animejs-waapi` entrou como runtime explicito no brief de direcao 
 Operacional:  Usar para transform/opacity, texto quebrado em caracteres, loops simples, stagger leve e micro-motion sobre Web Animation API; usar Anime.js completo quando houver SVG draw/morph/path ou toolkit mais amplo.
 Por quê:      Mantem a arquitetura leve: HyperFrames e engine; Anime.js/WAAPI e runtime escolhido pela cena.
 
+### [FEITO 2026-06-20] — /repositorios / Mapa operacional de repos externos
+Origem:       Felipe acionou `/repositorios` para organizar o ecossistema de repositórios externos.
+O que mudou:  Criado `workflows/repositorios.md` e registrado `/repositorios` no command-router e `workflows/commands.md`.
+Operacional:  O comando separa repositórios de repertório (`repertoire-updaters`) de infraestrutura conectada (`external/hyperframes`) e documenta restore de submodule/skills.
+Por quê:      Repositório externo entra como repertório ou infraestrutura, nunca como verdade final nem cópia em bloco.
+
 ### [FEITO 2026-06-18] — Doutrina de Direção de Arte (anti-engessamento)
 Origem:       Felipe trouxe o diagnóstico de outputs de IA "engessados" + referência Awwwards (Kaptar/Mux).
 O que mudou:  Criado `intelligence/doctrine-direcao-de-arte.md` (5 pilares: easing custom/spring, generative noise, restrição, framework de briefing, Canvas/WebGL/shader) + GATE anti-boilerplate no CLAUDE.md (junto do Teste Supremo).
@@ -464,5 +470,5 @@ Por quê:      A IA é espelho — o gargalo de qualidade é direção de arte, 
 ---
 
 *Última atualização: junho/2026*
-*Total de updates aplicados: 15*
+*Total de updates aplicados: 16*
 *Responsável pela curadoria: MarketingOS*

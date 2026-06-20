@@ -158,6 +158,7 @@ function printCommandHelp() {
   print('/agenda');
   print('/creative-os');
   print('/direcao-peca');
+  print('/repositorios ou /repositórios');
   print('/demo /carrossel /post /imagem /branding /site /oferta /captacao /relatorio /funil /retencao /reativacao /salvar');
 }
 
@@ -177,6 +178,8 @@ function routeMappedCommand(command) {
     '/agenda': 'workflows/agenda-semanal.md',
     '/creative-os': 'intelligence/creative-os.md',
     '/direcao-peca': 'intelligence/creative-direction-engine.md',
+    '/repositorios': 'workflows/repositorios.md',
+    '/repositórios': 'workflows/repositorios.md',
     '/construir': 'skills/criacao/skill-construir.md',
     '/salvar': 'scripts/save.js',
   };
@@ -185,7 +188,8 @@ function routeMappedCommand(command) {
     return false;
   }
 
-  if (command !== '/salvar') {
+  const systemCommands = new Set(['/salvar', '/creative-os', '/direcao-peca', '/repositorios', '/repositórios']);
+  if (!systemCommands.has(command)) {
     requireActiveClient();
   }
 
@@ -207,7 +211,7 @@ function runCarouselCommand(rawArgs) {
 
 function main() {
   const args = process.argv.slice(2);
-  const command = args[0];
+  const command = args[0]?.replace(/^\\/, '/');
   const value = args[1];
   const rawArgs = args.slice(1);
 

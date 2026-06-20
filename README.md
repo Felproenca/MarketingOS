@@ -69,6 +69,84 @@ node scripts/create-client.js meu-cliente
 
 ---
 
+## Estado operacional atual
+
+### Cockpit
+
+```bash
+npm run scraper:panel
+```
+
+Abre o painel local com Pipeline, Agenda, Metricas e Config.
+
+### Agenda de conteudo
+
+```bash
+npm run agenda:plan -- --slug felipe-proenca
+```
+
+Fluxo:
+
+```text
+Agenda -> Planejar semana -> Preparar -> Validar envio -> PUBLICAR
+```
+
+Nada publica sozinho. Publicacao real exige confirmacao `PUBLICAR`.
+
+### Motor de DM
+
+```bash
+npm run dm-engine
+npm run dm:test -- --port 4280
+```
+
+Fluxo:
+
+```text
+comentario DIAGNOSTICO
+-> DM com link
+-> lead magnet
+-> captura com nome, WhatsApp, e-mail, site/Instagram e negocio
+```
+
+Guia de deploy:
+
+```text
+scripts/dm-engine/DEPLOY.md
+```
+
+### Metricas de aquisicao
+
+```bash
+npm run insights:aquisicao -- --slug felipe-proenca
+```
+
+Grava:
+
+```text
+clients/[slug]/acquisition-metrics.json
+```
+
+O Cockpit le esse arquivo na aba Metricas.
+
+### Creative OS e construcao
+
+Antes de gerar site, reel, carrossel, imagem, motion ou `/construir`, consultar:
+
+```text
+intelligence/creative-os.md
+intelligence/motion-pattern-library.md
+intelligence/doctrine-direcao-de-arte.md
+```
+
+Gerar blueprint:
+
+```bash
+node scripts/construir.mjs --objetivo "site de aquisicao" --brand felipe-proenca --query "site marketing dark conversao"
+```
+
+---
+
 ## Estrutura
 
 ```
@@ -113,8 +191,14 @@ node scripts/create-client.js meu-cliente
 ```bash
 npm run novo -- [slug]
 npm run cmd -- /status
+npm run cmd -- /creative-os
+npm run cmd -- /construir
 npm run carousel:generate -- --slug [slug] --tema "tema"
 npm run carousel:render
+npm run agenda:plan -- --slug [slug]
+npm run dm-engine
+npm run dm:test -- --port 4280
+npm run insights:aquisicao -- --slug [slug]
 npm run prospector -- --slug [slug] --query "busca" --city "cidade" --dry-run
 npm run scraper -- "busca cidade" --dry-run
 npm run scraper:dry -- "busca cidade"

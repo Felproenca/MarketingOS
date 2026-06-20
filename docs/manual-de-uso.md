@@ -31,6 +31,31 @@ Se uma acao nao contribui para isso, ela nao deveria existir.
 
 ---
 
+## Atualizacao operacional - junho/2026
+
+Estado atual do MarketingOS:
+
+- **Cockpit**: painel operacional em `npm run scraper:panel`, com Pipeline, Agenda, Metricas e Config.
+- **Agenda**: rotina manual/assistida no Cockpit. Planeja semana 70/20/10, gera hook/legenda, marca rascunho/preparo, valida envio em dry-run e publica somente com confirmacao `PUBLICAR`.
+- **Motor de DM**: comentario `DIAGNOSTICO` ou variacoes proximas aciona o fluxo comentario -> DM -> lead magnet -> captura. Em teste sem custo pode rodar no Render Free com acordador local.
+- **Lead magnet de diagnostico**: coleta nome, WhatsApp, e-mail, site/Instagram e negocio antes do quiz.
+- **Metricas de aquisicao**: `npm run insights:aquisicao -- --slug [slug]` grava `clients/[slug]/acquisition-metrics.json`; o Cockpit le esse arquivo quando atualizado.
+- **/construir**: gera blueprint de site/sistema a partir do catalogo de estudos de caso + alma da marca.
+- **Creative OS**: camada obrigatoria antes de qualquer motor visual. Decide objetivo -> mudanca de percepcao -> referencia/catalogo -> fisica/motion -> motor certo.
+
+Arquivos centrais:
+
+```text
+intelligence/creative-os.md
+intelligence/motion-pattern-library.md
+intelligence/doctrine-direcao-de-arte.md
+intelligence/reference-library/case-studies/_catalog.json
+workflows/agenda-semanal.md
+scripts/dm-engine/DEPLOY.md
+```
+
+---
+
 ## 2. Fundacao obrigatoria
 
 Antes de qualquer operacao, o agente precisa ler:

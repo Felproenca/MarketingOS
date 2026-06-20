@@ -431,6 +431,12 @@ O que mudou:  Creative OS agora diferencia `render-reel.js`, HyperFrames, Remoti
 Operacional:  `render-reel.js` fica como bancada local; HyperFrames vira motor premium para motion autoral web (HTML/CSS/GSAP/Canvas/UI); Remotion vira motor de escala (series, templates, dados, React); Manim fica para diagramas e explicacoes tecnicas.
 Por quê:      Primeiro direcao, depois motor. Ferramenta nao decide a peca; a peca escolhe a ferramenta.
 
+### [FEITO 2026-06-20] — HyperFrames / Repositorio externo conectado
+Origem:       Felipe decidiu que o MarketingOS precisa ter o repositorio do HyperFrames por perto.
+O que mudou:  Adicionado submodule `external/hyperframes` apontando para `https://github.com/heygen-com/hyperframes`.
+Operacional:  README e manual registram `git submodule update --init --recursive`; clone foi feito com LFS smudge skip para evitar baixar baselines grandes de teste.
+Por quê:      HyperFrames vira referencia e motor premium local para video programavel sem copiar o repositorio para dentro do historico do MarketingOS.
+
 ### [FEITO 2026-06-18] — Doutrina de Direção de Arte (anti-engessamento)
 Origem:       Felipe trouxe o diagnóstico de outputs de IA "engessados" + referência Awwwards (Kaptar/Mux).
 O que mudou:  Criado `intelligence/doctrine-direcao-de-arte.md` (5 pilares: easing custom/spring, generative noise, restrição, framework de briefing, Canvas/WebGL/shader) + GATE anti-boilerplate no CLAUDE.md (junto do Teste Supremo).
@@ -440,5 +446,5 @@ Por quê:      A IA é espelho — o gargalo de qualidade é direção de arte, 
 ---
 
 *Última atualização: junho/2026*
-*Total de updates aplicados: 11*
+*Total de updates aplicados: 12*
 *Responsável pela curadoria: MarketingOS*

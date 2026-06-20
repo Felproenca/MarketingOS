@@ -1,0 +1,3 @@
+[submodule "external/hyperframes"]
+	path = external/hyperframes
+	url = https://github.com/heygen-com/hyperframes.git

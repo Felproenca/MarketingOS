@@ -793,6 +793,31 @@ Remotion       = escala, templates, dados, series, componentes React
 Manim          = diagramas e explicacoes tecnicas
 ```
 
+Repositorio local do HyperFrames:
+
+```text
+external/hyperframes
+```
+
+Origem:
+
+```text
+https://github.com/heygen-com/hyperframes
+```
+
+Ao clonar ou atualizar a maquina:
+
+```bash
+git submodule update --init --recursive
+```
+
+Requisitos:
+
+```text
+Node.js 22+
+FFmpeg
+```
+
 ### Publicacao
 
 ```bash

@@ -155,6 +155,20 @@ Remotion       = escala, templates, dados, series, componentes React
 Manim          = diagramas e explicacoes tecnicas
 ```
 
+Repositorio HyperFrames:
+
+```text
+external/hyperframes -> https://github.com/heygen-com/hyperframes
+```
+
+Ao clonar o MarketingOS em outra maquina:
+
+```bash
+git submodule update --init --recursive
+```
+
+Requisitos do HyperFrames: Node.js 22+ e FFmpeg.
+
 Gerar blueprint:
 
 ```bash

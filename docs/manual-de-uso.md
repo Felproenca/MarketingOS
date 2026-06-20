@@ -818,6 +818,18 @@ Node.js 22+
 FFmpeg
 ```
 
+Instalar as skills HyperFrames para Codex neste projeto:
+
+```bash
+npx.cmd skills add heygen-com/hyperframes --agent codex --skill '*' -y
+```
+
+Verificar:
+
+```bash
+npx.cmd skills list --json
+```
+
 ### Publicacao
 
 ```bash

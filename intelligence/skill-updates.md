@@ -437,6 +437,12 @@ O que mudou:  Adicionado submodule `external/hyperframes` apontando para `https:
 Operacional:  README e manual registram `git submodule update --init --recursive`; clone foi feito com LFS smudge skip para evitar baixar baselines grandes de teste.
 Por quê:      HyperFrames vira referencia e motor premium local para video programavel sem copiar o repositorio para dentro do historico do MarketingOS.
 
+### [FEITO 2026-06-20] — HyperFrames / Skills instaladas para Codex
+Origem:       Felipe pediu executar `npx skills add heygen-com/hyperframes`.
+O que mudou:  Instaladas 17 skills HyperFrames em `.agents/skills` com `npx.cmd skills add heygen-com/hyperframes --agent codex --skill '*' -y`; criado `skills-lock.json`.
+Operacional:  `npx.cmd skills list --json` confirma `hyperframes`, `hyperframes-animation`, `hyperframes-cli`, `hyperframes-core`, `hyperframes-creative`, `motion-graphics`, `product-launch-video`, `website-to-video` e demais skills do pacote no escopo do projeto.
+Por quê:      O motor premium agora tem conhecimento operacional local para Codex, não só o repositorio externo.
+
 ### [FEITO 2026-06-18] — Doutrina de Direção de Arte (anti-engessamento)
 Origem:       Felipe trouxe o diagnóstico de outputs de IA "engessados" + referência Awwwards (Kaptar/Mux).
 O que mudou:  Criado `intelligence/doctrine-direcao-de-arte.md` (5 pilares: easing custom/spring, generative noise, restrição, framework de briefing, Canvas/WebGL/shader) + GATE anti-boilerplate no CLAUDE.md (junto do Teste Supremo).
@@ -446,5 +452,5 @@ Por quê:      A IA é espelho — o gargalo de qualidade é direção de arte, 
 ---
 
 *Última atualização: junho/2026*
-*Total de updates aplicados: 12*
+*Total de updates aplicados: 13*
 *Responsável pela curadoria: MarketingOS*

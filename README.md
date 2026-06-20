@@ -169,6 +169,18 @@ git submodule update --init --recursive
 
 Requisitos do HyperFrames: Node.js 22+ e FFmpeg.
 
+Skills HyperFrames para agentes:
+
+```bash
+npx.cmd skills add heygen-com/hyperframes --agent codex --skill '*' -y
+```
+
+O lock fica em:
+
+```text
+skills-lock.json
+```
+
 Gerar blueprint:
 
 ```bash

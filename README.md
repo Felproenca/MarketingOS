@@ -261,6 +261,8 @@ npm run upload-image -- --content [id] --slide 1 --file imagem.png --slug [slug]
 npm run aprender -- --slug [slug]
 npm run demo -- --query "busca" --city "cidade" --segment clinica --dry-run
 npm run publicar -- --slug [slug] --file img.png --caption "legenda" --dry-run
+npm run case:catalog -- --query "site aquisicao"
+npm run construir -- --objetivo "site de aquisicao" --brand [slug] --query "site marketing conversao"
 npm run repertoire:update
 npm run repertoire:acquisition
 ```

@@ -37,7 +37,10 @@
     "criar-conteudo": "node scripts/integration/criar-conteudo.js",
     "upload-image": "node scripts/integration/upload-image.js",
     "aprender": "node scripts/integration/aprender.js",
-    "reel:render": "node scripts/render-reel.js"
+    "reel:render": "node scripts/render-reel.js",
+    "case:synthesize": "node scripts/synthesize-case-study.mjs",
+    "case:catalog": "node scripts/build-case-catalog.mjs",
+    "construir": "node scripts/construir.mjs"
   },
   "keywords": [],
   "author": "",

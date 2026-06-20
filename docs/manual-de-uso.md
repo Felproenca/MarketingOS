@@ -778,6 +778,18 @@ npm run cmd -- /direcao-peca
 npm run reel:render -- --html caminho/arquivo.html --out saida.webm
 ```
 
+### Motor de Estudo e /construir
+
+```bash
+npm run case:catalog
+npm run case:catalog -- --query "site aquisicao"
+npm run construir -- --objetivo "site de aquisicao" --brand [slug] --query "site marketing conversao"
+```
+
+O Motor de Estudo entrega estudo de caso e blueprint, nao obra final. O site-builder consome o blueprint depois do gate da alma.
+
+No PowerShell, se `npm` for bloqueado por execution policy, use `npm.cmd` nos mesmos comandos.
+
 Fluxo recomendado para video/animacao:
 
 ```text

@@ -26,7 +26,7 @@ INGESTÃO  (site · imagem · vídeo · campanha · concorrente)
 ║ 1. CAPTURA física        Playwright: screenshot/vídeo/HTML  [capture-reference.js]  ║
 ║ 2. MEDIÇÃO estrutural     tokens/seções/copy/stack          [extract-structure.mjs] ║
 ║ 3. EXTRAÇÃO de conceito   tensão · por que funciona · princípio  [/reverter]        ║
-║ 4. SÍNTESE                funde dados + conceito → ESTUDO DE CASO  [LACUNA real]     ║
+║ 4. SÍNTESE                funde dados + conceito → ESTUDO DE CASO  [synthesize]      ║
 ╚════════════════════════════════════════════════════════════════════╝
         ↓
 ╔══ ANEL 2 — CATÁLOGO (Biblioteca Viva consultável) ═════════════════╗
@@ -94,7 +94,9 @@ buildável. `extract-structure.mjs` dá o blueprint mas solto. A SÍNTESE une os
   - síntese: `scripts/synthesize-case-study.mjs` (funde structure + concept)
   - 1º case-study real: `case-studies/itaplay.json` (anti-referência)
 - ✅ **Catálogo consultável (Anel 2)** — `scripts/build-case-catalog.mjs` → `_catalog.json` (busca por setor/padrão/tensão)
-- 🔨 **`/construir`** — o consumidor de construção que lê o catálogo e monta (re-skin) — PRÓXIMO
+- ✅ **`/construir` / Anel 3** — `scripts/construir.mjs` + `skills/criacao/skill-construir.md`:
+  lê o catálogo, monta blueprint por estrutura dos estudos e re-veste pela `design-system.json`
+  da marca. O gate da alma rejeita conflitos estruturais (`anti_dna`) e mantém relatório observável.
 - 🔨 unir `extract-structure` + `/reverter` num comando único (`/estudar [url]`)
 
 ---
@@ -104,9 +106,13 @@ buildável. `extract-structure.mjs` dá o blueprint mas solto. A SÍNTESE une os
 1. **Schema do case-study** (o keystone) + pasta `case-studies/`.
 2. **Passo de síntese**: junta `extract-structure` (structure) + `/reverter` (concept) num case-study.
 3. **Índice/consulta** do catálogo (por setor/tensão/padrão).
-4. **`/construir`**: query → blueprint → re-skin pela visual-dna → /site-builder.
-5. Animação/motion permanece FORA — consumidor opcional do pipeline de Reels existente.
+4. **`/construir`**: query → blueprint → re-skin pela visual-dna → /site-builder. **Construído.**
+5. **`/estudar [url]`**: unir captura + medição + conceito + síntese em um comando único. **Próximo.**
+6. Animação/motion permanece FORA — consumidor opcional do pipeline de Reels existente.
 
 ## Provas já em mão (POC, `.poc/`)
 - Medição estrutural: `extract-structure.mjs` → `itaplay.json` (dados reais, leu até posicionamento).
+- Síntese: `synthesize-case-study.mjs` → `intelligence/reference-library/case-studies/itaplay.json`.
+- Catálogo: `build-case-catalog.mjs` → `_catalog.json`.
+- Construção: `construir.mjs` → blueprint re-vestido por marca em `clients/[slug]/outputs/site/blueprint.json`.
 - (O motion do peão foi só demo de UM consumidor — não é o motor.)

@@ -1,8 +1,8 @@
-# /repositorios — Repositórios Externos do MarketingOS
+# /repositorios - Repositorios Externos do MarketingOS
 
 > Status: comando operacional.
-> Função: mostrar quais repositórios externos alimentam o MarketingOS e como cada um deve ser usado.
-> Regra: repositório externo é repertório ou infraestrutura. Nunca vira verdade final nem cópia em bloco.
+> Funcao: mostrar quais repositorios externos alimentam o MarketingOS e como cada um deve ser usado.
+> Regra: repositorio externo e repertorio ou infraestrutura. Nunca vira verdade final nem copia em bloco.
 
 Aliases:
 
@@ -15,42 +15,42 @@ Aliases:
 
 ---
 
-## Princípio
+## Principio
 
-O MarketingOS usa repositórios externos em dois modos:
+O MarketingOS usa repositorios externos em dois modos:
 
 ```text
-1. Repertório filtrado
-   → entra em intelligence/repertoire-updaters
-   → atualiza método, padrões e oportunidades
-   → nunca copia linguagem genérica
+1. Repertorio filtrado
+   -> entra em intelligence/repertoire-updaters
+   -> atualiza metodo, padroes e oportunidades
+   -> nunca copia linguagem generica
 
 2. Infraestrutura conectada
-   → entra em external/
-   → vira dependência/submodule ou motor operacional
-   → só é usado quando fortalece o fluxo real
+   -> entra em external/
+   -> vira dependencia/submodule ou motor operacional
+   -> so e usado quando fortalece o fluxo real
 ```
 
 ---
 
-## Repositórios de Repertório
+## Repositorios de Repertorio
 
-Esses quatro são atualizados pelos repertoire updaters:
+Esses quatro sao atualizados pelos repertoire updaters:
 
-| Repositório | Papel | Onde consultar |
+| Repositorio | Papel | Onde consultar |
 |---|---|---|
 | `coreyhaines31/marketingskills` | CRO, copywriting, paid ads, SEO/AEO, analytics, prospecting, RevOps, retention | `intelligence/repertoire-updaters/marketingskills.md` |
-| `zubair-trabzada/ai-marketing-claude` | auditoria, proposta, landing CRO, competitor scan, relatório | `intelligence/repertoire-updaters/ai-marketing-claude.md` |
-| `alirezarezvani/claude-skills` | governança, autoria de skill, multiagentes, business ops | `intelligence/repertoire-updaters/claude-skills.md` |
+| `zubair-trabzada/ai-marketing-claude` | auditoria, proposta, landing CRO, competitor scan, relatorio | `intelligence/repertoire-updaters/ai-marketing-claude.md` |
+| `alirezarezvani/claude-skills` | governanca, autoria de skill, multiagentes, business ops | `intelligence/repertoire-updaters/claude-skills.md` |
 | `BrianRWagner/ai-marketing-claude-code-skills` | voz, autoridade, pesquisa, social proof, outreach | `intelligence/repertoire-updaters/ai-marketing-claude-code-skills.md` |
 
-Rodar atualização geral:
+Rodar atualizacao geral:
 
 ```bash
 npm.cmd run repertoire:update
 ```
 
-Depois filtrar aquisição:
+Depois filtrar aquisicao:
 
 ```bash
 npm.cmd run repertoire:acquisition
@@ -60,13 +60,13 @@ No PowerShell, usar `npm.cmd` se `npm` for bloqueado por execution policy.
 
 ---
 
-## Repositórios Conectados
+## Repositorios Conectados
 
 | Caminho | Origem | Papel |
 |---|---|---|
-| `external/hyperframes` | `https://github.com/heygen-com/hyperframes` | Motor premium de vídeo programável: HTML/CSS/GSAP/Anime.js/Canvas/FFmpeg |
+| `external/hyperframes` | `https://github.com/heygen-com/hyperframes` | Motor premium de video programavel: HTML/CSS/GSAP/Anime.js/Canvas/FFmpeg |
 
-Atualizar submodules após clone:
+Atualizar submodules apos clone:
 
 ```bash
 git submodule update --init --recursive
@@ -82,7 +82,7 @@ git submodule status
 
 ## Skills Instaladas de HyperFrames
 
-As skills do HyperFrames estão em:
+As skills do HyperFrames estao em:
 
 ```text
 .agents/skills/
@@ -103,94 +103,161 @@ npx.cmd skills add heygen-com/hyperframes --agent codex --skill '*' -y
 
 ---
 
-## Exércitos de IA — Candidatos
+## Exercitos de IA - Analise dos Links
 
-> Status: guardados como repertório candidato. Nada deve ser clonado sem URL real confirmada.
-> Conceito: repositórios Claude Code com múltiplos agentes, skills e recursos interconectados, operando como sistema em vez de agente isolado.
+> Status: URLs reais confirmadas em 2026-06-20.
+> Decisao: analisar e adaptar por pecas. Nao instalar/clonar em bloco sem uma demanda operacional clara.
 
-O MarketingOS já opera nessa lógica. A decisão não é "adotar arquitetura", é garimpar peças que tornem aquisição mais observável, ajustável ou previsível.
+Esses repositorios nao sao "motores de criacao". Eles sao sistemas de operacao para agentes, design, QA, memoria e disciplina de desenvolvimento. O valor para o MarketingOS esta em extrair mecanismos pequenos que melhorem aquisicao, criacao e confiabilidade.
 
-| Prioridade | Candidato | Papel provável | Veredito |
-|---|---|---|---|
-| 1 | `Ruflo` / `Ruufflo` | swarm com memória compartilhada, roteamento de modelo por complexidade, segurança contra vazamento de credenciais | Alto: arquitetura futura para Motor de Aquisição/Follow-up |
-| 2 | `Superpowers` | metodologia de build com multiagente, auto-revisão de código e ciclos de QA | Alto: incorporar padrão de auto-revisão nos gates de entrega |
-| 3 | `Open Design` | design systems, referências HTML e repertório visual | Médio-alto: usar mecânica visual, nunca identidade pronta |
-| 4 | `Everything Claude Code` | grande pacote de skills/agentes/comandos, memória, segurança e economia de tokens | Médio: minerar infra, rejeitar marketing genérico |
-| 5 | `CLAUDE.md do Karpathy` | filosofia de prompts mínimos e concisão | Princípio: régua para enxugar instruções |
+| Prioridade de aplicacao | Repositorio | Funcao real | Melhor encaixe no MarketingOS | Veredito |
+|---|---|---|---|---|
+| 1 | [`obra/Superpowers`](https://github.com/obra/Superpowers) | Metodologia agentic de especificacao, plano, TDD, simplicidade e auto-revisao | Gate de entrega para dev, site-builder, HyperFrames e Cockpit | Aplicar como workflow, sem instalar agora |
+| 2 | [`affaan-m/ecc`](https://github.com/affaan-m/ecc) | Otimizacao de harness: skills, instintos, memoria, seguranca, pesquisa e economia de contexto | Auditoria do proprio MarketingOS: skills, comandos, contexto, segredos, verificacao | Minerar padroes; evitar instalacao total |
+| 3 | [`nexu-io/open-design`](https://github.com/nexu-io/open-design) | Workspace agentic de design com plugins, skills e design systems em `DESIGN.md` | Bridge entre `visual-dna.json`, `design-system.json`, Creative OS e HyperFrames | Usar a mecanica de contrato visual, nunca identidade pronta |
+| 4 | [`ruvnet/ruflo`](https://github.com/ruvnet/ruflo) | Meta-harness multiagente: swarms, memoria, RAG, federacao, roteamento, seguranca e observabilidade | Arquitetura futura para agentes de aquisicao, follow-up, custos, memoria e testes | Estudar por modulos; grande demais para importar agora |
+| 5 | [`multica-ai/andrej-karpathy-skills/CLAUDE.md`](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md) | Regras compactas de comportamento: pensar antes, simplicidade, mudanca cirurgica e verificacao | Gate de concisao para `CLAUDE.md`, workflows e diffs | Aplicar como regua curta, nao como doutrina isolada |
 
-### 1. Ruflo / Ruufflo
+### 1. Superpowers
 
-O que buscar:
-- agentes em paralelo com estado/memória compartilhada;
-- roteamento automático de modelo por complexidade;
-- camada de segurança para não salvar credenciais;
-- padrões transferíveis para Motor de Aquisição e Follow-up.
+URL:
+`https://github.com/obra/Superpowers`
 
-Filtrar:
-- não importar CLAUDE.md gigante;
-- pegar mecanismo, não verbosidade;
-- adaptar à economia de tokens do MarketingOS.
+Funcao:
+- transforma "codar logo" em um ciclo: entender intencao, especificar, pedir aprovacao quando necessario, planejar, executar com TDD/QA e revisar;
+- valor principal nao e uma skill especifica, e disciplina operacional;
+- conversa diretamente com nosso problema recente: deploy quebrado, visual generico, fluxo que funciona mas falta gate antes de sair.
 
-### 2. Superpowers
+Aplicacao no MarketingOS:
+- criar um gate inspirado em Superpowers para tarefas substanciais:
+  1. objetivo do usuario;
+  2. criterio de sucesso;
+  3. menor mudanca possivel;
+  4. plano curto;
+  5. verificacao real;
+  6. auto-review antes do commit.
+- usar em `site-builder`, HyperFrames, Cockpit, DM automation e qualquer mudanca com deploy.
 
-O que buscar:
-- loop de planejamento, teste, execução e auto-revisão;
-- QA antes de entrega;
-- detecção de bug visual/UX antes do output sair.
+Nao fazer:
+- nao burocratizar microtarefas;
+- nao exigir aprovacao para tudo;
+- nao trocar o fluxo vivo do MarketingOS por metodologia de software pura.
 
-Filtrar:
-- é metodologia de software, não doutrina de aquisição;
-- adaptar para gates criativos e site-builder.
+### 2. ECC
+
+URL:
+`https://github.com/affaan-m/ecc`
+
+Funcao:
+- sistema de otimizacao de harness para agentes: skills, instintos, memoria, seguranca, pesquisa, verificacao e uso eficiente de contexto;
+- opera em varios ambientes, incluindo Codex;
+- e mais proximo de "como manter o operador bom" do que de "como gerar marketing".
+
+Aplicacao no MarketingOS:
+- criar uma rotina de auditoria do sistema:
+  - skills mortas ou duplicadas;
+  - comandos sem documentacao;
+  - arquivos pesados demais para contexto;
+  - instrucoes redundantes;
+  - riscos de segredos/token;
+  - lacunas de verificacao;
+  - resumo estrategico apos sessoes longas.
+- evoluir `workflows/relatorio-sistema.md` e `workflows/token-economy.md` com uma pegada mais operacional.
+
+Nao fazer:
+- nao instalar pacote completo junto do que ja existe;
+- nao empilhar frameworks de agente sem necessidade;
+- nao importar "271 skills" como se volume fosse maturidade.
 
 ### 3. Open Design
 
-O que buscar:
-- repertório de grid, tipografia, motion, componentes e design systems;
-- referências HTML úteis para direção criativa e site-builder.
+URL:
+`https://github.com/nexu-io/open-design`
 
-Filtrar:
-- nunca copiar estética de Apple/Stripe/Notion etc.;
-- usar como mecânica visual, não como identidade;
-- passar por Gate de Referências + Teste Supremo.
+Funcao:
+- workspace local-first para design agentic;
+- organiza plugins, skills e design systems;
+- usa `DESIGN.md` como contrato de marca/design;
+- cobre prototipos, slides, imagens, videos e HyperFrames.
 
-### 4. Everything Claude Code
+Aplicacao no MarketingOS:
+- criar um `DESIGN.md` por cliente gerado a partir de:
+  - `perception.json`;
+  - `visual-dna.json`;
+  - `design-system.json`;
+  - `reference-context.json`;
+  - restricoes de alma e anti-DNA.
+- esse arquivo vira ponte legivel para site, reel, carrossel, HyperFrames, landing e motion.
 
-O que buscar:
-- memória persistente;
-- economia de tokens;
-- security scan;
-- padrões de organização de skills/agentes.
+Nao fazer:
+- nao copiar estetica de design systems famosos;
+- nao virar biblioteca de templates;
+- toda aplicacao passa pelo Teste Supremo: se remover logo/nome/cores, ainda reconhece a marca?
 
-Filtrar:
-- descartar skills de "marketing genérico";
-- volume não é valor;
-- importar só infra que fecha loop operacional.
+### 4. Ruflo
+
+URL:
+`https://github.com/ruvnet/ruflo`
+
+Funcao:
+- meta-harness multiagente para Claude Code/Codex;
+- traz swarms, memoria, RAG, federacao, roteamento de modelo, seguranca, testes, browser automation, observabilidade e custo;
+- tem plugins pequenos e uma instalacao completa grande.
+
+Aplicacao no MarketingOS:
+- estudar por modulos, nesta ordem:
+  1. `cost-tracker` / orcamento de tokens;
+  2. `goals` / acompanhamento de objetivo;
+  3. `rag-memory` / memoria consultavel;
+  4. `security-audit` / segredos e PII;
+  5. `browser` / QA visual automatizado;
+  6. `testgen` / lacunas de teste.
+- futuro: agentes de aquisicao/follow-up com memoria e tarefas em background.
+
+Nao fazer:
+- nao rodar `init` completo sem branch/teste isolado;
+- nao substituir a governanca do MarketingOS;
+- nao deixar swarm decidir estrategia sem filtro de aquisicao e alma.
 
 ### 5. CLAUDE.md do Karpathy
 
-O que buscar:
-- concisão;
-- clareza de regra;
-- prompt mínimo com alto efeito.
+URL:
+`https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md`
 
-Filtrar:
-- não é um exército operacional;
-- usar como régua para enxugar `CLAUDE.md`, `_admin.md` e workflows.
+Funcao:
+- arquivo curto de comportamento para agentes;
+- reforca: pensar antes de codar, simplicidade, mudanca cirurgica, criterio de sucesso e verificacao.
 
-### Pendências
+Aplicacao no MarketingOS:
+- criar um "gate compacto" para desenvolvimento:
+  - qual hipotese estou assumindo?
+  - qual e a menor mudanca que resolve?
+  - que arquivo nao devo tocar?
+  - como vou verificar?
+  - o diff esta menor do que poderia estar?
 
-- [ ] URLs reais do GitHub dos 5 candidatos.
-- [ ] Confirmar grafias: `Superpowers`, `Ruflo/Ruufflo`, `Everything Claude Code`, `Open Design`, `CLAUDE.md do Karpathy`.
-- [ ] Integrar um por vez, começando por Ruflo ou Superpowers.
+Nao fazer:
+- nao usar como desculpa para perguntar demais;
+- MarketingOS executa com autonomia quando o objetivo esta claro.
 
 ---
 
-## Regra de Adoção
+## Ordem Recomendada de Integracao
+
+1. **Agora:** aplicar gate Superpowers/Karpathy em tarefas de dev relevantes.
+2. **Depois:** evoluir `relatorio-sistema` com auditoria ECC: skills, contexto, seguranca e verificacao.
+3. **Creative OS:** criar `DESIGN.md` por cliente no padrao Open Design, derivado dos arquivos reais do cliente.
+4. **Infra futura:** estudar Ruflo em branch isolada, comecando por custo, goals, memoria, security e browser QA.
+5. **So entao:** decidir se algum repo merece virar submodule ou dependencia real.
+
+---
+
+## Regra de Adocao
 
 Antes de aplicar qualquer aprendizado externo:
 
 1. Passar por `manifesto.md` e `alma.md`.
-2. Confirmar que aumenta aquisição, observabilidade ou qualidade real.
+2. Confirmar que aumenta aquisicao, observabilidade ou qualidade real.
 3. Registrar em `intelligence/skill-updates.md`.
 4. Aplicar em uma skill/workflow por vez.
-5. Nunca importar promessa genérica, estética sem alma ou mecânica que não fecha loop.
+5. Nunca importar promessa generica, estetica sem alma ou mecanica que nao fecha loop.

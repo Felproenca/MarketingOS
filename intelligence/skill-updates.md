@@ -467,8 +467,14 @@ O que mudou:  Criado `intelligence/doctrine-direcao-de-arte.md` (5 pilares: easi
 Aplicar nas skills (uma por vez, próximas sessões): reel-builder, reels, site-builder, creative-direction, carousel, image-generation, visual-spec consultam a doutrina antes de gerar.
 Por quê:      A IA é espelho — o gargalo de qualidade é direção de arte, não execução técnica (pipeline já faz Three.js/bloom/GSAP). Filtrado pela marca (gold único acento) e pela alma minimalista.
 
+### [FEITO 2026-06-20] - /repositorios / Analise dos exercitos de IA
+Origem:       Felipe enviou os links reais de Ruflo, Superpowers, Open Design, ECC e CLAUDE.md do Karpathy para analisar um por um.
+O que mudou:  `workflows/repositorios.md` agora registra funcao real, encaixe no MarketingOS, risco, nao-fazer e ordem de integracao.
+Operacional:  Superpowers/Karpathy viram gate leve de dev; ECC inspira auditoria de harness; Open Design inspira `DESIGN.md` por cliente; Ruflo fica para estudo modular de custo, goals, memoria, seguranca, browser QA e testgen.
+Por que:      O sistema ganha criterio para absorver repos externos sem virar Frankenstein: adaptar pecas pequenas que aumentem aquisicao, qualidade e confiabilidade.
+
 ---
 
 *Última atualização: junho/2026*
-*Total de updates aplicados: 16*
+*Total de updates aplicados: 17*
 *Responsável pela curadoria: MarketingOS*

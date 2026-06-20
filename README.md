@@ -160,6 +160,7 @@ Runtime dentro do HyperFrames:
 ```text
 GSAP        = timeline densa, sequenciamento e easing cinematografico
 Anime.js    = stagger, SVG draw/morph/path, motion leve e modular
+Anime WAAPI = Anime.js leve sobre Web Animation API para transform/opacity e stagger simples
 Three.js    = 3D, particulas, camera e profundidade real
 Lottie      = asset pronto de motion/design
 CSS/WAAPI   = microinteracao simples

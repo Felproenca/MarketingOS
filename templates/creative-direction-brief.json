@@ -71,7 +71,7 @@
     }
   },
   "animation_runtime": {
-    "selected": "gsap | animejs | threejs | lottie | css-waapi | none",
+    "selected": "gsap | animejs | animejs-waapi | threejs | lottie | css-waapi | none",
     "why": "",
     "role": ""
   },

@@ -105,7 +105,7 @@ Antes de criar qualquer peca visual/motion, preencher:
     }
   },
   "animation_runtime": {
-    "selected": "gsap | animejs | threejs | lottie | css-waapi | none",
+    "selected": "gsap | animejs | animejs-waapi | threejs | lottie | css-waapi | none",
     "why": "",
     "role": ""
   },
@@ -338,6 +338,7 @@ Runtime é a camada de animação dentro do engine.
 |---|---|
 | `GSAP` | timeline principal, cenas densas, sequenciamento preciso, easing customizado e controle cinematografico |
 | `Anime.js` | stagger, SVG morph/draw/path, timelines menores, motion leve e modular |
+| `Anime.js WAAPI` | alternativa ultraleve sobre Web Animation API para transform/opacity, texto quebrado, stagger simples e micro-motion |
 | `Three.js` | 3D, particulas espaciais, camera, luz e profundidade real |
 | `Lottie` | animacoes prontas vindas de design/motion externo |
 | `CSS/WAAPI` | transform/opacity simples e baixo custo |
@@ -345,6 +346,7 @@ Runtime é a camada de animação dentro do engine.
 Anime.js e uma boa escolha quando a peca precisa parecer viva e precisa, mas nao exige a complexidade de uma timeline GSAP completa.
 
 Se a peca pedir SVG path, line drawing, shape morphing ou stagger em grid, considerar Anime.js antes de GSAP.
+Se a peca pedir apenas transform/opacity, caracteres em loop, micro-motion ou stagger leve, considerar `animejs-waapi`.
 
 ---
 

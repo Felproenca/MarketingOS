@@ -161,6 +161,7 @@ Dentro do HyperFrames, o runtime também é consequência da cena:
 |---|---|---|
 | `GSAP` | Timelines densas, sequenciamento preciso, cenas com muitos beats e controle fino de easing | runtime principal de direção cinematográfica |
 | `Anime.js` | Stagger expressivo, SVG morph/draw/path, motion leve, timelines menores e efeitos web-native rápidos | runtime leve e modular para peças elegantes sem excesso |
+| `Anime.js WAAPI` | Transform/opacity, texto quebrado em caracteres, loops simples, stagger leve e animações que podem rodar sobre `Element.animate()` | alternativa ultraleve quando o toolkit completo não é necessário |
 | `Three.js` | 3D, partículas espaciais, câmeras, luz, profundidade real | runtime de cena espacial |
 | `Lottie` | Asset pronto vindo de design/motion externo | runtime de asset importado |
 | `CSS/WAAPI` | Microinterações simples, transform/opacity, baixo custo | runtime mínimo |
@@ -174,6 +175,14 @@ Anime.js entra especialmente quando a peça pede:
 - spring/draggable leve;
 - composição modular menor que GSAP;
 - efeitos rápidos em HTML/CSS sem cara de template.
+
+`animejs/waapi` entra quando a peça precisa da simplicidade do Anime.js, mas quer delegar a execução para a Web Animation API nativa:
+
+- transform/opacity com custo baixo;
+- texto em caracteres/palavras com `stagger`;
+- loops curtos e alternados;
+- micro-motion em UI;
+- animações seek-safe simples dentro de HyperFrames.
 
 ---
 

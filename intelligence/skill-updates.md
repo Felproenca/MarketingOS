@@ -449,6 +449,12 @@ O que mudou:  Creative OS e Creative Direction Engine agora separam engine de ru
 Operacional:  Anime.js entra para stagger, SVG draw/morph/path, motion leve e modular; GSAP segue como timeline principal para cenas densas e direcao cinematografica.
 Por quê:      Evita criar "mais um motor" solto. A metafora e os beats escolhem o runtime certo.
 
+### [FEITO 2026-06-20] — Creative OS / Anime.js WAAPI
+Origem:       Felipe trouxe a camada WAAPI do Anime.js (`waapi.animate`) como alternativa ainda mais leve.
+O que mudou:  `animejs-waapi` entrou como runtime explicito no brief de direcao criativa.
+Operacional:  Usar para transform/opacity, texto quebrado em caracteres, loops simples, stagger leve e micro-motion sobre Web Animation API; usar Anime.js completo quando houver SVG draw/morph/path ou toolkit mais amplo.
+Por quê:      Mantem a arquitetura leve: HyperFrames e engine; Anime.js/WAAPI e runtime escolhido pela cena.
+
 ### [FEITO 2026-06-18] — Doutrina de Direção de Arte (anti-engessamento)
 Origem:       Felipe trouxe o diagnóstico de outputs de IA "engessados" + referência Awwwards (Kaptar/Mux).
 O que mudou:  Criado `intelligence/doctrine-direcao-de-arte.md` (5 pilares: easing custom/spring, generative noise, restrição, framework de briefing, Canvas/WebGL/shader) + GATE anti-boilerplate no CLAUDE.md (junto do Teste Supremo).
@@ -458,5 +464,5 @@ Por quê:      A IA é espelho — o gargalo de qualidade é direção de arte, 
 ---
 
 *Última atualização: junho/2026*
-*Total de updates aplicados: 14*
+*Total de updates aplicados: 15*
 *Responsável pela curadoria: MarketingOS*

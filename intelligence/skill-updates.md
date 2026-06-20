@@ -443,6 +443,12 @@ O que mudou:  Instaladas 17 skills HyperFrames em `.agents/skills` com `npx.cmd 
 Operacional:  `npx.cmd skills list --json` confirma `hyperframes`, `hyperframes-animation`, `hyperframes-cli`, `hyperframes-core`, `hyperframes-creative`, `motion-graphics`, `product-launch-video`, `website-to-video` e demais skills do pacote no escopo do projeto.
 Por quê:      O motor premium agora tem conhecimento operacional local para Codex, não só o repositorio externo.
 
+### [FEITO 2026-06-20] — Creative OS / Anime.js como runtime de motion
+Origem:       Felipe trouxe Anime.js como referencia para ampliar a camada de animacao web-native.
+O que mudou:  Creative OS e Creative Direction Engine agora separam engine de runtime: HyperFrames e o motor; GSAP, Anime.js, Three.js, Lottie e CSS/WAAPI sao runtimes internos.
+Operacional:  Anime.js entra para stagger, SVG draw/morph/path, motion leve e modular; GSAP segue como timeline principal para cenas densas e direcao cinematografica.
+Por quê:      Evita criar "mais um motor" solto. A metafora e os beats escolhem o runtime certo.
+
 ### [FEITO 2026-06-18] — Doutrina de Direção de Arte (anti-engessamento)
 Origem:       Felipe trouxe o diagnóstico de outputs de IA "engessados" + referência Awwwards (Kaptar/Mux).
 O que mudou:  Criado `intelligence/doctrine-direcao-de-arte.md` (5 pilares: easing custom/spring, generative noise, restrição, framework de briefing, Canvas/WebGL/shader) + GATE anti-boilerplate no CLAUDE.md (junto do Teste Supremo).
@@ -452,5 +458,5 @@ Por quê:      A IA é espelho — o gargalo de qualidade é direção de arte, 
 ---
 
 *Última atualização: junho/2026*
-*Total de updates aplicados: 13*
+*Total de updates aplicados: 14*
 *Responsável pela curadoria: MarketingOS*

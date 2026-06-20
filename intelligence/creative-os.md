@@ -153,6 +153,30 @@ se prova rápida/local -> render-reel.js
 
 ---
 
+## Escolha do runtime de animação
+
+Dentro do HyperFrames, o runtime também é consequência da cena:
+
+| Runtime | Quando usar | Papel |
+|---|---|---|
+| `GSAP` | Timelines densas, sequenciamento preciso, cenas com muitos beats e controle fino de easing | runtime principal de direção cinematográfica |
+| `Anime.js` | Stagger expressivo, SVG morph/draw/path, motion leve, timelines menores e efeitos web-native rápidos | runtime leve e modular para peças elegantes sem excesso |
+| `Three.js` | 3D, partículas espaciais, câmeras, luz, profundidade real | runtime de cena espacial |
+| `Lottie` | Asset pronto vindo de design/motion externo | runtime de asset importado |
+| `CSS/WAAPI` | Microinterações simples, transform/opacity, baixo custo | runtime mínimo |
+
+Regra: runtime não decide conceito. A metáfora, os beats e a física escolhem o runtime.
+
+Anime.js entra especialmente quando a peça pede:
+
+- `stagger` visual claro;
+- SVG line drawing, morphing ou motion path;
+- spring/draggable leve;
+- composição modular menor que GSAP;
+- efeitos rápidos em HTML/CSS sem cara de template.
+
+---
+
 ## Relação com o Banco de Referências
 
 Referência não é inspiração estética.
@@ -228,6 +252,7 @@ brand_tokens
 reference_sources
 motion_pattern
 render_engine
+animation_runtime
 acceptance_gate
 ```
 

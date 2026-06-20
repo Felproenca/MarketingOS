@@ -793,6 +793,16 @@ Remotion       = escala, templates, dados, series, componentes React
 Manim          = diagramas e explicacoes tecnicas
 ```
 
+Runtime dentro do HyperFrames:
+
+```text
+GSAP        = timeline densa, sequenciamento e easing cinematografico
+Anime.js    = stagger, SVG draw/morph/path, motion leve e modular
+Three.js    = 3D, particulas, camera e profundidade real
+Lottie      = asset pronto de motion/design
+CSS/WAAPI   = microinteracao simples
+```
+
 Repositorio local do HyperFrames:
 
 ```text

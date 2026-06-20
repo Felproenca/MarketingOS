@@ -104,6 +104,11 @@ Antes de criar qualquer peca visual/motion, preencher:
       "manim": ""
     }
   },
+  "animation_runtime": {
+    "selected": "gsap | animejs | threejs | lottie | css-waapi | none",
+    "why": "",
+    "role": ""
+  },
   "references": {
     "composition": [],
     "motion": [],
@@ -322,6 +327,24 @@ Exploratorio, rapido, local -> render-reel.js
 ```
 
 Se a escolha do engine vier antes da metafora e dos beats, interromper. Isso e ferramenta dirigindo criacao.
+
+---
+
+## Regra de escolha do runtime
+
+Runtime é a camada de animação dentro do engine.
+
+| Runtime | Uso |
+|---|---|
+| `GSAP` | timeline principal, cenas densas, sequenciamento preciso, easing customizado e controle cinematografico |
+| `Anime.js` | stagger, SVG morph/draw/path, timelines menores, motion leve e modular |
+| `Three.js` | 3D, particulas espaciais, camera, luz e profundidade real |
+| `Lottie` | animacoes prontas vindas de design/motion externo |
+| `CSS/WAAPI` | transform/opacity simples e baixo custo |
+
+Anime.js e uma boa escolha quando a peca precisa parecer viva e precisa, mas nao exige a complexidade de uma timeline GSAP completa.
+
+Se a peca pedir SVG path, line drawing, shape morphing ou stagger em grid, considerar Anime.js antes de GSAP.
 
 ---
 

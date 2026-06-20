@@ -425,6 +425,12 @@ O que mudou:  Criados `intelligence/creative-direction-engine.md` e `templates/c
 Operacional:  CLAUDE.md exige metafora visivel, tensao criativa, storyboard por beats, linguagem visual/motion, referencias, lista do que nao pode parecer e gate frame a frame; command-router reconhece `/direcao-peca`.
 Por quê:      A peca deixa de ser "visual bonito" e passa a ser dirigida: percepcao -> metafora -> cena -> beats -> motion -> critica.
 
+### [FEITO 2026-06-20] — Creative OS / Matriz de engines de video e animacao
+Origem:       Felipe trouxe HyperFrames e Remotion como salto para formalizar a producao de video programavel.
+O que mudou:  Creative OS agora diferencia `render-reel.js`, HyperFrames, Remotion e Manim por papel operacional.
+Operacional:  `render-reel.js` fica como bancada local; HyperFrames vira motor premium para motion autoral web (HTML/CSS/GSAP/Canvas/UI); Remotion vira motor de escala (series, templates, dados, React); Manim fica para diagramas e explicacoes tecnicas.
+Por quê:      Primeiro direcao, depois motor. Ferramenta nao decide a peca; a peca escolhe a ferramenta.
+
 ### [FEITO 2026-06-18] — Doutrina de Direção de Arte (anti-engessamento)
 Origem:       Felipe trouxe o diagnóstico de outputs de IA "engessados" + referência Awwwards (Kaptar/Mux).
 O que mudou:  Criado `intelligence/doctrine-direcao-de-arte.md` (5 pilares: easing custom/spring, generative noise, restrição, framework de briefing, Canvas/WebGL/shader) + GATE anti-boilerplate no CLAUDE.md (junto do Teste Supremo).
@@ -434,5 +440,5 @@ Por quê:      A IA é espelho — o gargalo de qualidade é direção de arte, 
 ---
 
 *Última atualização: junho/2026*
-*Total de updates aplicados: 10*
+*Total de updates aplicados: 11*
 *Responsável pela curadoria: MarketingOS*

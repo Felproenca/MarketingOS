@@ -61,6 +61,7 @@ Antes de acionar qualquer motor visual, montar um **Creative OS Brief**:
   },
   "expressive_form": {
     "recommended_motor": "site | reel | carousel | post | image | animation | diagnosis | cockpit",
+    "render_engine": "render-reel | hyperframes | remotion | manim | site-builder | carousel-render | image-model",
     "reason": "",
     "motion_pattern": "",
     "primary_sensation": "clareza | tensão | urgência real | domínio | alívio | desejo | confiança",
@@ -115,6 +116,40 @@ O motor é consequência da percepção desejada:
 | "Confio porque vi prova" | prova/processo verificável | site/post/carrossel |
 
 Regra: se a forma escolhida não fortalece a percepção, escolher outra.
+
+---
+
+## Escolha do render engine
+
+Regra-mãe:
+
+```text
+Primeiro direção.
+Depois motor.
+Nunca o contrário.
+```
+
+O Creative OS escolhe o motor pela natureza expressiva da peça:
+
+| Caso | Engine | Quando usar | Evitar quando |
+|---|---|---|---|
+| Teste rápido/local | `render-reel.js` | Prototipar uma ideia em HTML/CSS/Canvas com render simples e verificável | A peça precisa virar motor de produção autoral |
+| Motion autoral/web | `HyperFrames` | Vídeos com HTML, CSS, GSAP, Canvas, layout web, produto, UI, Three.js leve e direção visual refinada | A peça é série parametrizada ou template em lote |
+| Série/template/dados | `Remotion` | Conteúdo com React, componentes reutilizáveis, props, dados dinâmicos, variações em escala | A peça é única e depende mais de direção de arte do que escala |
+| Diagrama/explicação formal | `Manim` | Sistemas, fluxos, matemática, arquitetura, estado, causa/efeito técnico | A peça precisa de estética editorial/web ou UI motion |
+| Site/landing | `site-builder + /construir` | A percepção depende de experiência navegável, copy, conversão e estrutura | A entrega é vídeo ou peça social |
+| Carrossel | `carousel-render` | A ideia precisa ser lida slide a slide, com ritmo editorial | A ideia depende de transformação contínua |
+
+Decisão operacional:
+
+```text
+se peça autoral/motion/web/GSAP/Canvas -> HyperFrames
+se série/template/dados/componentes -> Remotion
+se diagrama técnico/explicação formal -> Manim
+se prova rápida/local -> render-reel.js
+```
+
+`render-reel.js` continua válido como bancada de teste. HyperFrames vira o motor premium de motion dirigido. Remotion vira o motor de escala.
 
 ---
 
@@ -192,6 +227,7 @@ creative_direction_brief
 brand_tokens
 reference_sources
 motion_pattern
+render_engine
 acceptance_gate
 ```
 

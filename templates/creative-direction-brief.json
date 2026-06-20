@@ -60,6 +60,16 @@
     "tempo": "",
     "hero_animation": ""
   },
+  "engine_decision": {
+    "selected": "render-reel | hyperframes | remotion | manim",
+    "why": "",
+    "why_not_the_others": {
+      "render-reel": "",
+      "hyperframes": "",
+      "remotion": "",
+      "manim": ""
+    }
+  },
   "references": {
     "composition": [],
     "motion": [],

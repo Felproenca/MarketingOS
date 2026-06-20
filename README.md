@@ -143,7 +143,16 @@ intelligence/doctrine-direcao-de-arte.md
 Fluxo recomendado para video/animacao:
 
 ```text
-Creative OS -> Creative Direction Engine -> Motion Pattern Library -> render -> critica frame a frame
+Creative OS -> Creative Direction Engine -> Motion Pattern Library -> escolha do engine -> render -> critica frame a frame
+```
+
+Matriz de engine:
+
+```text
+render-reel.js = teste rapido/local
+HyperFrames    = peca autoral, motion web, GSAP, Canvas, UI, direcao visual
+Remotion       = escala, templates, dados, series, componentes React
+Manim          = diagramas e explicacoes tecnicas
 ```
 
 Gerar blueprint:

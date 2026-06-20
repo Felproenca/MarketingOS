@@ -94,6 +94,16 @@ Antes de criar qualquer peca visual/motion, preencher:
     "tempo": "",
     "hero_animation": ""
   },
+  "engine_decision": {
+    "selected": "render-reel | hyperframes | remotion | manim",
+    "why": "",
+    "why_not_the_others": {
+      "render-reel": "",
+      "hyperframes": "",
+      "remotion": "",
+      "manim": ""
+    }
+  },
   "references": {
     "composition": [],
     "motion": [],
@@ -272,6 +282,7 @@ O motor visual recebe:
 creative_os_brief
 creative_direction_brief
 motion_pattern
+engine_decision
 reference_sources
 brand_tokens
 acceptance_gate
@@ -290,6 +301,30 @@ metrics_to_watch
 
 ---
 
+## Regra de escolha do engine
+
+Primeiro direção. Depois motor.
+
+| Engine | Papel |
+|---|---|
+| `render-reel.js` | bancada local para teste rapido, HTML/Canvas simples, sem compromisso de virar framework |
+| `HyperFrames` | motor premium para peca autoral de motion/web: HTML, CSS, GSAP, Canvas, UI, produto, direcao visual refinada |
+| `Remotion` | motor de escala: series, templates, componentes React, props, dados e variacoes em lote |
+| `Manim` | motor tecnico: diagramas, arquiteturas, estados, formulas, causa/efeito formal |
+
+Escolha pratica:
+
+```text
+Autoral, web-native, motion dirigido -> HyperFrames
+Repetivel, parametrico, em lote -> Remotion
+Formal, tecnico, didatico -> Manim
+Exploratorio, rapido, local -> render-reel.js
+```
+
+Se a escolha do engine vier antes da metafora e dos beats, interromper. Isso e ferramenta dirigindo criacao.
+
+---
+
 ## Como aplicar em um teste de video
 
 Exemplo minimo:
@@ -305,4 +340,3 @@ Beat 8-10s: assinatura: "Criacao vira aquisicao quando ganha rastro."
 Motion: Caos -> Sistema + Mapa de rastro.
 Nao pode parecer: template de SaaS, dashboard generico, particula decorativa.
 ```
-

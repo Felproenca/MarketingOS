@@ -43,6 +43,7 @@ Estado atual do MarketingOS:
 - **/construir**: gera blueprint de site/sistema a partir do catalogo de estudos de caso + alma da marca.
 - **Creative OS**: camada obrigatoria antes de qualquer motor visual. Decide objetivo -> mudanca de percepcao -> referencia/catalogo -> fisica/motion -> motor certo.
 - **Direcao de peca**: gate antes de video, animacao, landing visual, carrossel ou imagem. Transforma percepcao em metafora, cena, beats, linguagem visual, motion e criterios frame a frame.
+- **Escolha de engine**: primeiro direcao, depois motor. `render-reel.js` testa rapido, HyperFrames dirige motion autoral web, Remotion escala series/templates, Manim explica sistemas tecnicos.
 
 Arquivos centrais:
 
@@ -780,7 +781,16 @@ npm run reel:render -- --html caminho/arquivo.html --out saida.webm
 Fluxo recomendado para video/animacao:
 
 ```text
-Creative OS -> Direcao de peca -> Motion Pattern Library -> render -> critica frame a frame
+Creative OS -> Direcao de peca -> Motion Pattern Library -> escolha do engine -> render -> critica frame a frame
+```
+
+Matriz de escolha:
+
+```text
+render-reel.js = teste rapido/local
+HyperFrames    = peca autoral, motion web, GSAP, Canvas, UI, direcao visual
+Remotion       = escala, templates, dados, series, componentes React
+Manim          = diagramas e explicacoes tecnicas
 ```
 
 ### Publicacao

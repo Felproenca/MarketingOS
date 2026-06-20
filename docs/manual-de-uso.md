@@ -42,13 +42,16 @@ Estado atual do MarketingOS:
 - **Metricas de aquisicao**: `npm run insights:aquisicao -- --slug [slug]` grava `clients/[slug]/acquisition-metrics.json`; o Cockpit le esse arquivo quando atualizado.
 - **/construir**: gera blueprint de site/sistema a partir do catalogo de estudos de caso + alma da marca.
 - **Creative OS**: camada obrigatoria antes de qualquer motor visual. Decide objetivo -> mudanca de percepcao -> referencia/catalogo -> fisica/motion -> motor certo.
+- **Direcao de peca**: gate antes de video, animacao, landing visual, carrossel ou imagem. Transforma percepcao em metafora, cena, beats, linguagem visual, motion e criterios frame a frame.
 
 Arquivos centrais:
 
 ```text
 intelligence/creative-os.md
+intelligence/creative-direction-engine.md
 intelligence/motion-pattern-library.md
 intelligence/doctrine-direcao-de-arte.md
+templates/creative-direction-brief.json
 intelligence/reference-library/case-studies/_catalog.json
 workflows/agenda-semanal.md
 scripts/dm-engine/DEPLOY.md
@@ -770,7 +773,14 @@ npm run carousel:render
 ### Reel
 
 ```bash
+npm run cmd -- /direcao-peca
 npm run reel:render -- --html caminho/arquivo.html --out saida.webm
+```
+
+Fluxo recomendado para video/animacao:
+
+```text
+Creative OS -> Direcao de peca -> Motion Pattern Library -> render -> critica frame a frame
 ```
 
 ### Publicacao

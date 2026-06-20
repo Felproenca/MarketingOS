@@ -31,6 +31,7 @@
 | `/relatorio-sistema` | Relatório operacional do sistema — ranking de uso de skills, candidatas a aposentar |
 | `/agenda` | Rotina semanal de conteudo: planejar, rascunhar, preparar, publicar com OK e medir |
 | `/creative-os` | Orquestra a criação: objetivo → percepção → referência → física → motor certo |
+| `/direcao-peca` | Direcao efetiva antes de criar: metafora → cena → beats → motion → gate frame a frame |
 
 ---
 

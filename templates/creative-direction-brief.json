@@ -1,0 +1,85 @@
+{
+  "asset_id": "",
+  "objective": "",
+  "desired_perception": "",
+  "audience_before": "",
+  "audience_after": "",
+  "emotional_temperature": "",
+  "central_metaphor": "",
+  "creative_tension": {
+    "before": "",
+    "after": "",
+    "enemy": ""
+  },
+  "scene_direction": {
+    "what_the_viewer_sees": "",
+    "what_changes_on_screen": "",
+    "what_must_be_understood_without_explanation": ""
+  },
+  "storyboard_beats": [
+    {
+      "time": "0-2s",
+      "function": "abrir tensao",
+      "visual": "",
+      "motion": "",
+      "copy": ""
+    },
+    {
+      "time": "2-5s",
+      "function": "materializar o problema",
+      "visual": "",
+      "motion": "",
+      "copy": ""
+    },
+    {
+      "time": "5-8s",
+      "function": "virada",
+      "visual": "",
+      "motion": "",
+      "copy": ""
+    },
+    {
+      "time": "8-10s",
+      "function": "assinatura",
+      "visual": "",
+      "motion": "",
+      "copy": ""
+    }
+  ],
+  "visual_language": {
+    "composition": "",
+    "type_behavior": "",
+    "texture": "",
+    "color_role": "",
+    "negative_space": ""
+  },
+  "motion_language": {
+    "pattern": "",
+    "physics": "",
+    "easing": "",
+    "tempo": "",
+    "hero_animation": ""
+  },
+  "references": {
+    "composition": [],
+    "motion": [],
+    "texture": [],
+    "rhythm": [],
+    "do_not_copy": []
+  },
+  "constraints": {
+    "must_not_feel_like": [],
+    "one_hero_animation": true,
+    "no_default_ease": true,
+    "no_stock_visual": true,
+    "brand_filter": []
+  },
+  "acceptance_gate": {
+    "has_clear_scene": false,
+    "has_transformation": false,
+    "motion_has_meaning": false,
+    "visual_metaphor_is_visible": false,
+    "not_template_like": false,
+    "can_be_critiqued_frame_by_frame": false
+  }
+}

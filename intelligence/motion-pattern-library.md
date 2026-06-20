@@ -8,6 +8,9 @@
 
 ## Como escolher um padrão
 
+Antes de escolher o padrão, consulte `intelligence/creative-direction-engine.md`.
+O padrão de motion deve nascer da metáfora e do storyboard, não do gosto visual.
+
 Escolha pelo que a pessoa precisa sentir/entender:
 
 ```text
@@ -208,4 +211,3 @@ Antes de entregar qualquer motion:
 7. A marca ainda é reconhecível sem logo/cor/nome?
 
 Se falhar, refazer.
-

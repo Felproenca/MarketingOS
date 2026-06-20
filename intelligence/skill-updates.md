@@ -419,6 +419,12 @@ O que mudou:  Criados `intelligence/creative-os.md` e `intelligence/motion-patte
 Operacional:  CLAUDE.md agora exige Creative OS antes de site-builder, reel-builder, carousel, motion, image-generation e `/construir`; command-router reconhece `/creative-os` e `/construir`.
 Por quê:      Site, reels, carrossel e animação passam a ser manifestações do mesmo sistema, não ferramentas isoladas.
 
+### [FEITO 2026-06-20] — Creative Direction Engine / Direcao efetiva de peca
+Origem:       Teste de video/animacao mostrou que, sem direcao de cena detalhada, a execucao fica correta mas generica.
+O que mudou:  Criados `intelligence/creative-direction-engine.md` e `templates/creative-direction-brief.json`; Creative OS agora passa por direcao de peca antes de renderizar video, animacao, landing visual, carrossel ou imagem.
+Operacional:  CLAUDE.md exige metafora visivel, tensao criativa, storyboard por beats, linguagem visual/motion, referencias, lista do que nao pode parecer e gate frame a frame; command-router reconhece `/direcao-peca`.
+Por quê:      A peca deixa de ser "visual bonito" e passa a ser dirigida: percepcao -> metafora -> cena -> beats -> motion -> critica.
+
 ### [FEITO 2026-06-18] — Doutrina de Direção de Arte (anti-engessamento)
 Origem:       Felipe trouxe o diagnóstico de outputs de IA "engessados" + referência Awwwards (Kaptar/Mux).
 O que mudou:  Criado `intelligence/doctrine-direcao-de-arte.md` (5 pilares: easing custom/spring, generative noise, restrição, framework de briefing, Canvas/WebGL/shader) + GATE anti-boilerplate no CLAUDE.md (junto do Teste Supremo).
@@ -428,5 +434,5 @@ Por quê:      A IA é espelho — o gargalo de qualidade é direção de arte, 
 ---
 
 *Última atualização: junho/2026*
-*Total de updates aplicados: 9*
+*Total de updates aplicados: 10*
 *Responsável pela curadoria: MarketingOS*

@@ -71,6 +71,14 @@ consultar `intelligence/creative-os.md` e escolher um padrão em `intelligence/m
 Todo motor recebe: objetivo de aquisição, mudança de percepção, marca, referência/catálogo,
 restrições da alma, padrão de física/motion e saída esperada. Se isso não estiver claro, não gerar.
 
+**Creative Direction Engine — direção de cena antes da execução:**
+Antes de renderizar vídeo, animação, landing visual, carrossel ou imagem, consultar
+`intelligence/creative-direction-engine.md` e preencher um brief de direção criativa
+(`templates/creative-direction-brief.json` ou `clients/[slug]/outputs/creative-direction/[asset-id].json`).
+O motor só executa se houver: metáfora central visível, tensão criativa, storyboard por beats,
+linguagem visual, linguagem de motion, referências calibradoras, lista do que não pode parecer e gate
+frame a frame. Sem direção de cena, não gerar.
+
 **Hierarquia completa de criação (novo cliente):**
 ```
 Objetivo de aquisição  ← qual gargalo este trabalho remove? (virada-aquisicao.md)

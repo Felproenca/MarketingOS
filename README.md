@@ -135,8 +135,15 @@ Antes de gerar site, reel, carrossel, imagem, motion ou `/construir`, consultar:
 
 ```text
 intelligence/creative-os.md
+intelligence/creative-direction-engine.md
 intelligence/motion-pattern-library.md
 intelligence/doctrine-direcao-de-arte.md
+```
+
+Fluxo recomendado para video/animacao:
+
+```text
+Creative OS -> Creative Direction Engine -> Motion Pattern Library -> render -> critica frame a frame
 ```
 
 Gerar blueprint:
@@ -192,6 +199,7 @@ node scripts/construir.mjs --objetivo "site de aquisicao" --brand felipe-proenca
 npm run novo -- [slug]
 npm run cmd -- /status
 npm run cmd -- /creative-os
+npm run cmd -- /direcao-peca
 npm run cmd -- /construir
 npm run carousel:generate -- --slug [slug] --tema "tema"
 npm run carousel:render

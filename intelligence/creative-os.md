@@ -18,6 +18,7 @@ objetivo de aquisição
 → percepção desejada
 → marca/alma
 → repertório/catálogo
+→ direção criativa de cena
 → padrão de física/motion
 → motor certo
 → asset
@@ -26,6 +27,10 @@ objetivo de aquisição
 ```
 
 Sem esta cadeia, a IA volta ao default.
+
+Para vídeo, animação, landing visual, carrossel ou imagem, o Creative OS não entrega direto para o motor.
+Ele entrega primeiro para `intelligence/creative-direction-engine.md`, que transforma percepção em metáfora,
+cena, beats, linguagem visual e gate frame a frame.
 
 ---
 
@@ -60,6 +65,13 @@ Antes de acionar qualquer motor visual, montar um **Creative OS Brief**:
     "motion_pattern": "",
     "primary_sensation": "clareza | tensão | urgência real | domínio | alívio | desejo | confiança",
     "hero_animation": ""
+  },
+  "creative_direction": {
+    "brief_path": "",
+    "central_metaphor": "",
+    "creative_tension": "",
+    "storyboard_beats": [],
+    "must_not_feel_like": []
   },
   "constraints": {
     "one_hero_animation": true,
@@ -176,6 +188,7 @@ Todo motor recebe:
 
 ```text
 creative_os_brief
+creative_direction_brief
 brand_tokens
 reference_sources
 motion_pattern
@@ -192,4 +205,3 @@ metrics_to_watch
 ```
 
 Isso transforma site, reels, carrossel e animação em manifestações do mesmo sistema.
-

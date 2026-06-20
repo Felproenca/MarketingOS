@@ -103,6 +103,88 @@ npx.cmd skills add heygen-com/hyperframes --agent codex --skill '*' -y
 
 ---
 
+## Exércitos de IA — Candidatos
+
+> Status: guardados como repertório candidato. Nada deve ser clonado sem URL real confirmada.
+> Conceito: repositórios Claude Code com múltiplos agentes, skills e recursos interconectados, operando como sistema em vez de agente isolado.
+
+O MarketingOS já opera nessa lógica. A decisão não é "adotar arquitetura", é garimpar peças que tornem aquisição mais observável, ajustável ou previsível.
+
+| Prioridade | Candidato | Papel provável | Veredito |
+|---|---|---|---|
+| 1 | `Ruflo` / `Ruufflo` | swarm com memória compartilhada, roteamento de modelo por complexidade, segurança contra vazamento de credenciais | Alto: arquitetura futura para Motor de Aquisição/Follow-up |
+| 2 | `Superpowers` | metodologia de build com multiagente, auto-revisão de código e ciclos de QA | Alto: incorporar padrão de auto-revisão nos gates de entrega |
+| 3 | `Open Design` | design systems, referências HTML e repertório visual | Médio-alto: usar mecânica visual, nunca identidade pronta |
+| 4 | `Everything Claude Code` | grande pacote de skills/agentes/comandos, memória, segurança e economia de tokens | Médio: minerar infra, rejeitar marketing genérico |
+| 5 | `CLAUDE.md do Karpathy` | filosofia de prompts mínimos e concisão | Princípio: régua para enxugar instruções |
+
+### 1. Ruflo / Ruufflo
+
+O que buscar:
+- agentes em paralelo com estado/memória compartilhada;
+- roteamento automático de modelo por complexidade;
+- camada de segurança para não salvar credenciais;
+- padrões transferíveis para Motor de Aquisição e Follow-up.
+
+Filtrar:
+- não importar CLAUDE.md gigante;
+- pegar mecanismo, não verbosidade;
+- adaptar à economia de tokens do MarketingOS.
+
+### 2. Superpowers
+
+O que buscar:
+- loop de planejamento, teste, execução e auto-revisão;
+- QA antes de entrega;
+- detecção de bug visual/UX antes do output sair.
+
+Filtrar:
+- é metodologia de software, não doutrina de aquisição;
+- adaptar para gates criativos e site-builder.
+
+### 3. Open Design
+
+O que buscar:
+- repertório de grid, tipografia, motion, componentes e design systems;
+- referências HTML úteis para direção criativa e site-builder.
+
+Filtrar:
+- nunca copiar estética de Apple/Stripe/Notion etc.;
+- usar como mecânica visual, não como identidade;
+- passar por Gate de Referências + Teste Supremo.
+
+### 4. Everything Claude Code
+
+O que buscar:
+- memória persistente;
+- economia de tokens;
+- security scan;
+- padrões de organização de skills/agentes.
+
+Filtrar:
+- descartar skills de "marketing genérico";
+- volume não é valor;
+- importar só infra que fecha loop operacional.
+
+### 5. CLAUDE.md do Karpathy
+
+O que buscar:
+- concisão;
+- clareza de regra;
+- prompt mínimo com alto efeito.
+
+Filtrar:
+- não é um exército operacional;
+- usar como régua para enxugar `CLAUDE.md`, `_admin.md` e workflows.
+
+### Pendências
+
+- [ ] URLs reais do GitHub dos 5 candidatos.
+- [ ] Confirmar grafias: `Superpowers`, `Ruflo/Ruufflo`, `Everything Claude Code`, `Open Design`, `CLAUDE.md do Karpathy`.
+- [ ] Integrar um por vez, começando por Ruflo ou Superpowers.
+
+---
+
 ## Regra de Adoção
 
 Antes de aplicar qualquer aprendizado externo:

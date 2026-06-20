@@ -156,6 +156,7 @@ function printCommandHelp() {
   print('/status');
   print('/atualizar');
   print('/agenda');
+  print('/creative-os');
   print('/demo /carrossel /post /imagem /branding /site /oferta /captacao /relatorio /funil /retencao /reativacao /salvar');
 }
 
@@ -173,6 +174,8 @@ function routeMappedCommand(command) {
     '/retencao': 'skills/skill-retention.md',
     '/reativacao': 'skills/skill-reactivation.md',
     '/agenda': 'workflows/agenda-semanal.md',
+    '/creative-os': 'intelligence/creative-os.md',
+    '/construir': 'skills/criacao/skill-construir.md',
     '/salvar': 'scripts/save.js',
   };
 

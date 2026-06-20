@@ -65,6 +65,12 @@ Gate (qualquer "não" → não sai): (1) quebra o default ou um dev mediano gera
 animação-herói? (3) o movimento tem peso/física (easing custom/spring, nunca linear/ease-in-out)?
 (4) restrição intencional (profundidade por opacidade/whitespace)? (5) ferramenta certa (CSS vs Canvas/shader)?
 
+**Creative OS — orquestração obrigatória antes dos motores visuais:**
+Antes de acionar site-builder, reel-builder, carousel, post visual, image-generation, motion ou `/construir`,
+consultar `intelligence/creative-os.md` e escolher um padrão em `intelligence/motion-pattern-library.md`.
+Todo motor recebe: objetivo de aquisição, mudança de percepção, marca, referência/catálogo,
+restrições da alma, padrão de física/motion e saída esperada. Se isso não estiver claro, não gerar.
+
 **Hierarquia completa de criação (novo cliente):**
 ```
 Objetivo de aquisição  ← qual gargalo este trabalho remove? (virada-aquisicao.md)

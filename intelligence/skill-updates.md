@@ -413,6 +413,12 @@ O que mudou:  Detector de palavra-chave agora normaliza acentos, compacta texto 
 Operacional:  `dm:test` valida `diagnostco`, `diagnotico`, `diganostico`, `diag nostico`, `diagnósticoooo` e confirma que frase sem palavra-chave não dispara.
 Por quê:      O funil precisa responder intenção real, não só string perfeita.
 
+### [FEITO 2026-06-19] — Creative OS / Orquestração dos motores visuais
+Origem:       Felipe nomeou o salto: parar de criar motores soltos e criar a camada que decide objetivo → percepção → física → motor.
+O que mudou:  Criados `intelligence/creative-os.md` e `intelligence/motion-pattern-library.md`.
+Operacional:  CLAUDE.md agora exige Creative OS antes de site-builder, reel-builder, carousel, motion, image-generation e `/construir`; command-router reconhece `/creative-os` e `/construir`.
+Por quê:      Site, reels, carrossel e animação passam a ser manifestações do mesmo sistema, não ferramentas isoladas.
+
 ### [FEITO 2026-06-18] — Doutrina de Direção de Arte (anti-engessamento)
 Origem:       Felipe trouxe o diagnóstico de outputs de IA "engessados" + referência Awwwards (Kaptar/Mux).
 O que mudou:  Criado `intelligence/doctrine-direcao-de-arte.md` (5 pilares: easing custom/spring, generative noise, restrição, framework de briefing, Canvas/WebGL/shader) + GATE anti-boilerplate no CLAUDE.md (junto do Teste Supremo).

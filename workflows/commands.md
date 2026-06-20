@@ -30,6 +30,7 @@
 | `/salvar` | Checkpoint intermediário — commit sem encerrar sessão |
 | `/relatorio-sistema` | Relatório operacional do sistema — ranking de uso de skills, candidatas a aposentar |
 | `/agenda` | Rotina semanal de conteudo: planejar, rascunhar, preparar, publicar com OK e medir |
+| `/creative-os` | Orquestra a criação: objetivo → percepção → referência → física → motor certo |
 
 ---
 
@@ -62,6 +63,7 @@
 | `/criar visual-spec` | Direção visual por slide/frame | `criacao/skill-visual-spec.md` |
 | `/criar prompt-engineer` | Decide HTML puro vs imagem externa | `criacao/skill-prompt-engineer.md` |
 | `/criar lancamento` | Sequência de lançamento para perfil zero — objetivos algorítmicos por peça | `criacao/skill-lancamento.md` |
+| `/construir` | Blueprint de site/sistema a partir do catálogo + alma da marca | `criacao/skill-construir.md` |
 | `/publicar` | Revisão + checklist + publicação via Meta Graph API | `criacao/skill-publicar.md` |
 
 ---

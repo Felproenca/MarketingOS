@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Noir Ink Studio — Tatuagem de Alta Arte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #080808;
+  --red: #C41E3A;
+  --cream: #F0EBE3;
+  --grey: #2A2A2A;
+  --f-display: 'Anton', sans-serif;
+  --f-serif: 'Cormorant Garamond', serif;
+  --f-mono: 'Space Mono', monospace;
+}
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body { background: var(--bg); color: var(--cream); font-family: var(--f-serif); -webkit-font-smoothing: antialiased; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 24px 48px;
+  display: flex; justify-content: space-between; align-items: center;
+  background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
+}
+.nav-logo { font-family: var(--f-display); font-size: 20px; letter-spacing: 0.08em; color: var(--cream); text-decoration: none; }
+.nav-logo span { color: var(--red); }
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a { font-family: var(--f-mono); font-size: 11px; color: rgba(240,235,227,0.45); text-decoration: none; letter-spacing: 0.1em; transition: color 0.2s; }
+.nav-links a:hover { color: var(--cream); }
+.nav-cta {
+  font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.08em;
+  padding: 10px 20px; border: 1px solid var(--red);
+  color: var(--red); text-decoration: none; transition: all 0.2s;
+}
+.nav-cta:hover { background: var(--red); color: #000; }
+
+/* HERO */
+.hero {
+  min-height: 100svh; position: relative;
+  display: flex; align-items: flex-end;
+  padding: 0 48px 80px;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 30%, rgba(196,30,58,0.12) 0%, transparent 55%),
+              radial-gradient(ellipse at 20% 80%, rgba(196,30,58,0.06) 0%, transparent 45%);
+}
+/* ink splash */
+.ink-splash {
+  position: absolute; top: 8%; right: 5%;
+  width: 520px; height: 520px;
+  background: radial-gradient(ellipse 55% 70% at 45% 42%, rgba(196,30,58,0.08) 0%, transparent 70%),
+              radial-gradient(ellipse 30% 40% at 70% 25%, rgba(196,30,58,0.05) 0%, transparent 60%);
+  filter: blur(2px);
+}
+.ink-num {
+  position: absolute; right: 48px; top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--f-display); font-size: clamp(220px, 30vw, 380px);
+  line-height: 1; color: rgba(240,235,227,0.03);
+  user-select: none; letter-spacing: -0.02em;
+}
+.hero-tag {
+  font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em;
+  color: var(--red); margin-bottom: 28px; display: block;
+}
+.hero h1 {
+  font-family: var(--f-display); font-size: clamp(64px, 10vw, 130px);
+  line-height: 0.95; letter-spacing: 0.01em; color: var(--cream);
+  max-width: 700px; position: relative; z-index: 1;
+}
+.hero h1 em { font-family: var(--f-serif); font-style: italic; color: var(--red); font-weight: 300; font-size: 0.85em; }
+.hero-sub {
+  margin-top: 28px; font-size: 18px; font-weight: 300;
+  color: rgba(240,235,227,0.5); line-height: 1.7; max-width: 400px;
+  font-style: italic;
+}
+.hero-cta { margin-top: 40px; display: flex; gap: 20px; align-items: center; }
+.btn-primary {
+  font-family: var(--f-display); font-size: 15px; letter-spacing: 0.06em;
+  padding: 16px 36px; background: var(--red); color: #fff; text-decoration: none;
+  transition: all 0.2s;
+}
+.btn-primary:hover { background: #a01530; }
+.btn-ghost {
+  font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.08em;
+  color: rgba(240,235,227,0.45); text-decoration: none; transition: color 0.2s;
+}
+.btn-ghost:hover { color: var(--cream); }
+
+.scroll-line {
+  position: absolute; bottom: 40px; right: 48px;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  font-family: var(--f-mono); font-size: 9px; color: rgba(240,235,227,0.25); letter-spacing: 0.12em;
+}
+.scroll-line::before {
+  content: ''; width: 1px; height: 60px;
+  background: linear-gradient(to bottom, transparent, rgba(196,30,58,0.6));
+  animation: pulse-line 2s ease-in-out infinite;
+}
+@keyframes pulse-line { 0%,100%{opacity:0.4} 50%{opacity:1} }
+
+/* DIVIDER */
+.divider { width: 100%; height: 1px; background: rgba(240,235,227,0.07); margin: 0 48px; width: calc(100% - 96px); }
+
+/* FLASH — portfolio grid */
+.flash {
+  padding: 100px 48px;
+}
+.flash-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; }
+.flash-header h2 {
+  font-family: var(--f-display); font-size: clamp(40px,5vw,72px);
+  letter-spacing: 0.02em; color: var(--cream); line-height: 1;
+}
+.flash-header p { font-size: 15px; font-style: italic; color: rgba(240,235,227,0.4); max-width: 280px; line-height: 1.7; }
+
+.flash-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; }
+.flash-item {
+  aspect-ratio: 3/4; position: relative; overflow: hidden;
+  background: #111; cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.flash-item:hover { transform: scale(1.02); z-index: 2; }
+
+/* Each flash art piece is unique CSS art */
+.flash-item:nth-child(1) { background: linear-gradient(160deg,#0a0a0a 0%,#120508 100%); }
+.flash-item:nth-child(1)::before {
+  content:''; position:absolute; inset:20px;
+  border:1px solid rgba(196,30,58,0.3);
+  background: radial-gradient(ellipse at 50% 40%, rgba(196,30,58,0.15) 0%, transparent 60%);
+}
+.flash-item:nth-child(1)::after {
+  content:'✦'; position:absolute; top:50%;left:50%;transform:translate(-50%,-50%);
+  font-size:80px; color:rgba(196,30,58,0.25); font-family:serif;
+}
+.flash-item:nth-child(2) { background: #0a0a0a; }
+.flash-item:nth-child(2)::before {
+  content:''; position:absolute; top:15%; left:50%; transform:translateX(-50%);
+  width:2px; height:70%;
+  background: linear-gradient(to bottom, transparent, rgba(240,235,227,0.6), transparent);
+}
+.flash-item:nth-child(2)::after {
+  content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:80px; height:80px; border-radius:50%;
+  border:1px solid rgba(196,30,58,0.4);
+  box-shadow: 0 0 30px rgba(196,30,58,0.1);
+}
+.flash-item:nth-child(3) { background: linear-gradient(180deg,#0d0505 0%,#080808 100%); }
+.flash-item:nth-child(3)::before {
+  content:'III'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  font-family:var(--f-display); font-size:90px; color:rgba(240,235,227,0.06);
+  letter-spacing:0.2em;
+}
+.flash-item:nth-child(3)::after {
+  content:''; position:absolute; bottom:20%; left:10%; right:10%; height:1px;
+  background: linear-gradient(to right, transparent, rgba(196,30,58,0.5), transparent);
+}
+.flash-item:nth-child(4) { background: #080808; }
+.flash-item:nth-child(4)::before {
+  content:''; position:absolute; inset:0;
+  background:
+    linear-gradient(45deg, transparent 45%, rgba(196,30,58,0.08) 45%, rgba(196,30,58,0.08) 55%, transparent 55%),
+    linear-gradient(-45deg, transparent 45%, rgba(196,30,58,0.08) 45%, rgba(196,30,58,0.08) 55%, transparent 55%);
+}
+
+.flash-label {
+  position: absolute; bottom: 16px; left: 16px; right: 16px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.flash-label span { font-family: var(--f-mono); font-size: 9px; color: rgba(240,235,227,0.3); letter-spacing: 0.1em; }
+.flash-label em { font-style: italic; font-family: var(--f-serif); font-size: 12px; color: rgba(240,235,227,0.5); }
+
+.flash-item:hover .flash-overlay { opacity: 1; }
+.flash-overlay {
+  position: absolute; inset: 0;
+  background: rgba(196,30,58,0.08);
+  opacity: 0; transition: opacity 0.3s;
+  display: flex; align-items: center; justify-content: center;
+}
+.flash-overlay span {
+  font-family: var(--f-mono); font-size: 10px;
+  color: var(--red); letter-spacing: 0.12em;
+  padding: 8px 16px; border: 1px solid var(--red);
+}
+
+/* MANIFESTO */
+.manifesto {
+  padding: 100px 48px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  border-top: 1px solid rgba(240,235,227,0.07);
+}
+.manifesto-text h2 {
+  font-family: var(--f-serif); font-size: clamp(36px,4vw,56px);
+  font-weight: 300; font-style: italic; line-height: 1.25; color: var(--cream);
+  margin-bottom: 28px;
+}
+.manifesto-text h2 strong { font-weight: 400; color: var(--red); font-style: normal; font-family: var(--f-display); font-size: 0.9em; letter-spacing: 0.04em; }
+.manifesto-text p { font-size: 16px; font-weight: 300; color: rgba(240,235,227,0.5); line-height: 1.85; margin-bottom: 16px; }
+
+.stats { display: flex; flex-direction: column; gap: 32px; }
+.stat { border-left: 1px solid rgba(196,30,58,0.4); padding-left: 24px; }
+.stat-num { font-family: var(--f-display); font-size: 56px; color: var(--cream); letter-spacing: 0.02em; line-height: 1; }
+.stat-label { font-family: var(--f-mono); font-size: 10px; color: rgba(240,235,227,0.35); letter-spacing: 0.12em; margin-top: 6px; }
+
+/* ARTISTAS */
+.artists {
+  padding: 100px 48px;
+  border-top: 1px solid rgba(240,235,227,0.07);
+}
+.artists h2 { font-family: var(--f-display); font-size: clamp(40px,5vw,68px); letter-spacing: 0.02em; color: var(--cream); margin-bottom: 48px; }
+.artists-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+.artist-card {
+  background: #101010; border: 1px solid rgba(240,235,227,0.06);
+  padding: 32px; position: relative; overflow: hidden;
+  transition: border-color 0.3s;
+}
+.artist-card:hover { border-color: rgba(196,30,58,0.3); }
+.artist-card::before {
+  content: attr(data-num);
+  position: absolute; right: 24px; top: 24px;
+  font-family: var(--f-display); font-size: 80px;
+  color: rgba(240,235,227,0.03); line-height: 1;
+}
+.artist-avatar {
+  width: 64px; height: 64px; border-radius: 50%;
+  margin-bottom: 20px; background: var(--grey);
+  display: flex; align-items: center; justify-content: center;
+}
+.artist-avatar span { font-family: var(--f-display); font-size: 24px; color: var(--red); }
+.artist-name { font-family: var(--f-display); font-size: 22px; letter-spacing: 0.02em; color: var(--cream); margin-bottom: 6px; }
+.artist-style { font-family: var(--f-mono); font-size: 10px; color: var(--red); letter-spacing: 0.1em; margin-bottom: 14px; }
+.artist-desc { font-size: 14px; font-weight: 300; color: rgba(240,235,227,0.4); line-height: 1.75; }
+
+/* CTA FINAL */
+.cta-section {
+  padding: 120px 48px;
+  text-align: center;
+  background: radial-gradient(ellipse at 50% 0%, rgba(196,30,58,0.1) 0%, transparent 60%);
+  border-top: 1px solid rgba(240,235,227,0.07);
+}
+.cta-section h2 { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); letter-spacing: 0.02em; color: var(--cream); line-height: 1; margin-bottom: 24px; }
+.cta-section h2 em { color: var(--red); font-style: normal; }
+.cta-section p { font-family: var(--f-serif); font-size: 18px; font-style: italic; color: rgba(240,235,227,0.45); margin-bottom: 48px; }
+.cta-group { display: flex; gap: 20px; justify-content: center; align-items: center; }
+
+footer {
+  padding: 32px 48px; border-top: 1px solid rgba(240,235,227,0.07);
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--f-mono); font-size: 10px; color: rgba(240,235,227,0.2); letter-spacing: 0.08em;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">NOIR<span>INK</span></a>
+  <ul class="nav-links">
+    <li><a href="#flash">FLASH</a></li>
+    <li><a href="#manifesto">ESTÚDIO</a></li>
+    <li><a href="#artists">ARTISTAS</a></li>
+  </ul>
+  <a class="nav-cta" href="#booking">AGENDAR</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="ink-splash"></div>
+  <div class="ink-num">N</div>
+  <div style="position:relative;z-index:1">
+    <span class="hero-tag">São Paulo · Est. 2019</span>
+    <h1>PELE É TELA.<br /><em>Arte é</em><br />PERMANENTE.</h1>
+    <p class="hero-sub">Tatuagem de alta arte. Cada traço carregado de intenção — nunca decoração, sempre obra.</p>
+    <div class="hero-cta">
+      <a class="btn-primary" href="#booking">AGENDAR SESSÃO</a>
+      <a class="btn-ghost" href="#flash">VER PORTFÓLIO →</a>
+    </div>
+  </div>
+  <div class="scroll-line">SCROLL</div>
+</section>
+
+<section class="flash" id="flash">
+  <div class="flash-header">
+    <h2>FLASH<br />ARCHIVE</h2>
+    <p>Obras disponíveis para aplicação imediata. Cada peça, única.</p>
+  </div>
+  <div class="flash-grid">
+    <div class="flash-item">
+      <div class="flash-label"><span>FL-001</span><em>Blackwork</em></div>
+      <div class="flash-overlay"><span>VER DETALHES</span></div>
+    </div>
+    <div class="flash-item">
+      <div class="flash-label"><span>FL-002</span><em>Fine Line</em></div>
+      <div class="flash-overlay"><span>VER DETALHES</span></div>
+    </div>
+    <div class="flash-item">
+      <div class="flash-label"><span>FL-003</span><em>Neo-Trad</em></div>
+      <div class="flash-overlay"><span>VER DETALHES</span></div>
+    </div>
+    <div class="flash-item">
+      <div class="flash-label"><span>FL-004</span><em>Geometric</em></div>
+      <div class="flash-overlay"><span>VER DETALHES</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="manifesto" id="manifesto">
+  <div class="manifesto-text">
+    <h2>Não fazemos <strong>TATUAGEM.</strong> Fazemos<br />memória permanente.</h2>
+    <p>Cada sessão começa com uma conversa longa. Queremos entender o que você quer guardar na pele — não o que está na moda.</p>
+    <p>Noir Ink existe para artistas que recusam mediocre e clientes que entendem que a pele é o suporte mais íntimo que existe.</p>
+  </div>
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">1.2K</div>
+      <div class="stat-label">OBRAS REALIZADAS</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">6</div>
+      <div class="stat-label">ARTISTAS RESIDENTES</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">98%</div>
+      <div class="stat-label">CLIENTES QUE VOLTAM</div>
+    </div>
+  </div>
+</section>
+
+<section class="artists" id="artists">
+  <h2>OS ARTISTAS</h2>
+  <div class="artists-grid">
+    <div class="artist-card" data-num="01">
+      <div class="artist-avatar"><span>R</span></div>
+      <div class="artist-name">RAFAEL MORI</div>
+      <div class="artist-style">BLACKWORK · DOTWORK</div>
+      <div class="artist-desc">Referência nacional em blackwork. Cada traço com propósito geométrico e simbólico. Agenda fechada por 6 meses.</div>
+    </div>
+    <div class="artist-card" data-num="02">
+      <div class="artist-avatar"><span>A</span></div>
+      <div class="artist-name">ANA TORRES</div>
+      <div class="artist-style">FINE LINE · BOTANICAL</div>
+      <div class="artist-desc">Minimalismo com profundidade. Fine line que resiste ao tempo com precisão cirúrgica e delicadeza editorial.</div>
+    </div>
+    <div class="artist-card" data-num="03">
+      <div class="artist-avatar"><span>L</span></div>
+      <div class="artist-name">LUCAS VEGA</div>
+      <div class="artist-style">NEO-TRADICIONAL · COLORISMO</div>
+      <div class="artist-desc">Colorismo denso com influências do movimento art nouveau. Composições que existem como quadros na pele.</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="booking">
+  <h2>SUA PELE.<br />NOSSA <em>ARTE.</em></h2>
+  <p>Agenda aberta para consultas — sem compromisso, com intenção.</p>
+  <div class="cta-group">
+    <a class="btn-primary" href="#">AGENDAR CONSULTA</a>
+    <a class="btn-ghost" href="#">WHATSAPP →</a>
+  </div>
+</section>
+
+<footer>
+  <span>NOIR INK STUDIO © 2025</span>
+  <span>SÃO PAULO · BRASIL</span>
+  <span>BUILT BY MARKETING/OS</span>
+</footer>
+
+</body>
+</html>

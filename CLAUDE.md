@@ -71,6 +71,20 @@ consultar `intelligence/creative-os.md` e escolher um padrão em `intelligence/m
 Todo motor recebe: objetivo de aquisição, mudança de percepção, marca, referência/catálogo,
 restrições da alma, padrão de física/motion e saída esperada. Se isso não estiver claro, não gerar.
 
+**Experience Continuity — gate obrigatório para sites e landing pages:**
+Antes de construir site/landing, consultar `intelligence/experience-continuity.md`.
+O hero pode ser o pico inicial, nunca a única parte dirigida. Toda seção declara função narrativa,
+mudança de crença, intensidade, orçamento de copy, papel do asset/motion, recompensa e ponte.
+Copy, arte, assets e movimento sustentam a mesma tese até o CTA. Se a página vira “hero + Word”,
+não existe respiração: existe quebra de percepção. Reprovar.
+
+**Topic Intelligence — pesquisa obrigatoria antes de tema novo:**
+Antes de criar pauta, post, carrossel, roteiro ou video sobre um tema ainda nao
+pesquisado, executar `skills/inteligencia/topic-intelligence/SKILL.md`. Pesquisar
+diretamente YouTube, TikTok, LinkedIn, Instagram e Google Trends em `pt-BR` e
+pelo menos dois idiomas de referencia. Sem dossie com evidencia rastreavel em
+`outputs/inteligencia/topic-dossiers/`, nao criar conteudo avulso.
+
 **Creative Direction Engine — direção de cena antes da execução:**
 Antes de renderizar vídeo, animação, landing visual, carrossel ou imagem, consultar
 `intelligence/creative-direction-engine.md` e preencher um brief de direção criativa
@@ -300,6 +314,7 @@ Use `workflows/token-economy.md` como regra operacional para reduzir contexto.
 | `inteligencia/skill-meeting-intelligence.md` | Transforma reunioes em `signals.json` reutilizavel (`/inteligencia reuniao`) |
 | `inteligencia/skill-acquisition-intelligence.md` | Diagnostica o gargalo principal de aquisicao comparando hipoteses (`/inteligencia aquisicao`) |
 | `inteligencia/skill-creative-critique.md` | Critica outputs antes de publicar (`/inteligencia critica`) |
+| `inteligencia/topic-intelligence/SKILL.md` | Pesquisa temas, linguagem e tensoes por canal e idioma antes de criar (`/inteligencia tema`) |
 
 Planejadas para proximas levas: `skill-office-hours.md`, `skill-thesis-validation.md`, `skill-humanizer.md`, `skill-visibility-intelligence.md`.
 
@@ -318,6 +333,7 @@ Planejadas para proximas levas: `skill-office-hours.md`, `skill-thesis-validatio
 | `criacao/skill-post.md` | Post (Feed, Reels, Story) |
 | `criacao/skill-branding.md` | Direcao criativa e design system |
 | `criacao/skill-site-builder.md` | Site ou landing page |
+| `criacao/motion-site-factory/SKILL.md` | Site cinematográfico multiagente, contratos, QA e documentação para vídeo (`/criar motion-site`) |
 | `criacao/skill-image-generation.md` | Prompts e imagens de apoio |
 | `criacao/skill-publicar.md` | Aprovacao, checklist e publicacao real via Meta Graph API (`npm run publicar`) |
 | `criacao/skill-content-engine.md` | ⚠️ DEPRECADA — motor Python removido do upstream; ver `workflows/reference-library.md` |
@@ -336,6 +352,7 @@ Planejadas para proximas levas: `skill-office-hours.md`, `skill-thesis-validatio
 | `aquisicao/skill-market-analyzer.md` | Analisa nichos com potencial (`/mercado`) |
 | `aquisicao/skill-prospector.md` | Qualifica e prioriza prospectos (`/prospector`) |
 | `aquisicao/skill-prospecting-agent.md` | ProspectingAgent como skill de sinais e abordagem |
+| `aquisicao/skill-signal-intelligence.md` | Eventos comerciais recentes com evidencia, validade temporal e aprendizado (`/sinais`) |
 | `aquisicao/skill-offer-positioning.md` | Posicionamento e copy de oferta |
 | `aquisicao/skill-pitch-deck.md` | Apresentacao comercial HTML (`/pitch`) |
 | `aquisicao/skill-lead-capture.md` | Estrutura de captura de leads |
@@ -371,6 +388,7 @@ Planejadas para proximas levas: `skill-office-hours.md`, `skill-thesis-validatio
 | Workflow | Comando | Quando usar |
 |---|---|---|
 | `workflows/client-demo.md` | `/demo [slug]` | Demo comercial pre-contratacao — 9 etapas: diagnostico + posicionamento + site + carrossel + dashboard |
+| `workflows/site-ready-prospecting.md` | `/site-pronto` | Site-mestre por nicho, preview personalizado de R$97 e escada para solucao total |
 | `workflows/relatorio-sistema.md` | `/relatorio-sistema` | Relatorio operacional do sistema — ranqueia skills por uso, identifica skills mortas |
 | `workflows/agenda-semanal.md` | `/agenda` | Rotina semanal de conteudo no Cockpit: 70/20/10, planejar, preparar, publicar com OK, medir |
 

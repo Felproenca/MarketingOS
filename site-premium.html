@@ -1,0 +1,2598 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Site Premium por R$97 | MarketingOS</title>
+<meta name="description" content="Uma página premium para colocar sua oferta no ar rápido. Primeira leva de validação do MarketingOS por R$97.">
+<meta property="og:title" content="Site Premium por R$97 | MarketingOS">
+<meta property="og:description" content="Para empresas, afiliados, vendedores digitais e prestadores que precisam de uma página bonita, direta e pronta para conversão.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mkos.online/site-premium">
+<link rel="canonical" href="https://mkos.online/site-premium">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,400&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+:root {
+  --bg: #080808;
+  --surface: #111111;
+  --surface-2: #171717;
+  --line: rgba(255,255,255,.08);
+  --line-strong: #242424;
+  --text: #fafafa;
+  --muted: #8a8a8a;
+  --dim: rgba(255,255,255,.34);
+  --gold: #c9a55c;
+  --gold-soft: rgba(201,165,92,.12);
+  --gold-line: rgba(201,165,92,.30);
+  --ok: #8fd19e;
+  --danger: #d78c8c;
+  --display: "Space Grotesk", sans-serif;
+  --body: "Manrope", sans-serif;
+  --mono: "JetBrains Mono", monospace;
+  --serif: "Playfair Display", serif;
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+  --ease-weight: cubic-bezier(.34, 1.56, .64, 1);
+}
+html { scroll-behavior: smooth; background: var(--bg); }
+body {
+  margin: 0;
+  font-family: var(--body);
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: .055;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.75'/%3E%3C/svg%3E");
+}
+a { color: inherit; }
+#system-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .82;
+}
+.page {
+  position: relative;
+  z-index: 2;
+}
+.wrap {
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+}
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  background: linear-gradient(180deg, rgba(8,8,8,.94), rgba(8,8,8,.62) 70%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,.04);
+}
+.nav-inner {
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.brand {
+  display: inline-flex;
+  align-items: baseline;
+  text-decoration: none;
+  letter-spacing: 0;
+}
+.brand strong { font-family: var(--display); font-size: 15px; font-weight: 700; }
+.brand span { font-family: var(--display); font-size: 15px; font-weight: 500; opacity: .42; margin: 0 2px; }
+.brand em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--gold);
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.nav-link {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .08em;
+  color: var(--muted);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color .28s var(--ease-out);
+}
+.nav-link:hover { color: var(--text); }
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--gold-line);
+  background: rgba(201,165,92,.08);
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-radius: 4px;
+  transition: transform .32s var(--ease-weight), background .28s var(--ease-out);
+}
+.nav-cta:hover { transform: translateY(-1px); background: var(--gold); color: #080808; }
+.nav-cta:active { transform: scale(.98); }
+.hero {
+  min-height: 100vh;
+  display: grid;
+  align-items: center;
+  padding: 118px 0 52px;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, .92fr) minmax(420px, .76fr);
+  gap: clamp(42px, 6vw, 86px);
+  align-items: center;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 26px;
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.eyebrow::before {
+  content: "";
+  width: 26px;
+  height: 2px;
+  background: var(--gold);
+}
+h1 {
+  margin: 0;
+  max-width: 720px;
+  font-family: var(--display);
+  font-size: clamp(46px, 6.1vw, 88px);
+  line-height: .91;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+h1 em,
+.serif {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+}
+.hero-copy {
+  max-width: 620px;
+  margin: 30px 0 0;
+  color: rgba(250,250,250,.62);
+  font-size: clamp(17px, 1.7vw, 21px);
+  line-height: 1.62;
+}
+.hero-word,
+.hero-price {
+  display: block;
+  transform-origin: left bottom;
+  animation: fallInReverse .92s var(--ease-out) both;
+}
+.hero-word:nth-child(2) { animation-delay: .10s; }
+.hero-price { animation-delay: .20s; }
+@keyframes fallInReverse {
+  0% { opacity: 0; transform: translateY(-34px) rotateX(24deg); filter: blur(8px); }
+  64% { opacity: 1; transform: translateY(4px) rotateX(0); filter: blur(0); }
+  100% { opacity: 1; transform: translateY(0) rotateX(0); filter: blur(0); }
+}
+.hero-copy strong { color: var(--text); font-weight: 600; }
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 42px;
+}
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  padding: 0 24px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform .32s var(--ease-weight), background .28s var(--ease-out), border-color .28s var(--ease-out), color .28s var(--ease-out);
+}
+.button.primary { background: var(--gold); color: #080808; }
+.button.secondary { border-color: var(--line); color: var(--muted); background: rgba(255,255,255,.02); }
+.button:hover { transform: translateY(-2px); }
+.button:active { transform: scale(.98); }
+.button.secondary:hover { color: var(--text); border-color: var(--gold-line); }
+.hero-panel {
+  position: relative;
+  border: 1px solid var(--line-strong);
+  background: linear-gradient(180deg, rgba(17,17,17,.78), rgba(8,8,8,.70));
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+}
+.hero-panel-inner {
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #0b0b0b;
+}
+.terminal-head {
+  height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--line);
+}
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--line-strong); }
+.dot.gold { background: var(--gold); box-shadow: 0 0 18px rgba(201,165,92,.45); }
+.terminal-title {
+  margin-left: 8px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .10em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.site-preview {
+  position: relative;
+  min-height: 440px;
+  padding: 26px;
+  overflow: hidden;
+}
+.browser-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 26px;
+}
+.fake-url {
+  flex: 1;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.025);
+  color: var(--dim);
+  border-radius: 4px;
+  padding: 10px 12px;
+  font-family: var(--mono);
+  font-size: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.slot-price {
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  border: 1px solid var(--gold-line);
+  background: var(--gold-soft);
+  border-radius: 4px;
+  padding: 10px 12px;
+}
+.mock-hero {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 30px;
+}
+.mock-kicker {
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.mock-title {
+  font-family: var(--display);
+  font-size: clamp(31px, 4vw, 48px);
+  line-height: .96;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+.mock-title span { color: var(--gold); font-family: var(--serif); font-style: italic; font-weight: 400; }
+.mock-lines {
+  display: grid;
+  gap: 10px;
+  margin-top: 22px;
+  max-width: 82%;
+}
+.mock-line {
+  height: 8px;
+  border-radius: 99px;
+  background: rgba(255,255,255,.10);
+}
+.mock-line:nth-child(2) { width: 76%; }
+.mock-line:nth-child(3) { width: 54%; background: rgba(201,165,92,.24); }
+.mock-sections {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 26px;
+}
+.mock-card {
+  min-height: 86px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+  background: rgba(255,255,255,.025);
+}
+.mock-card b {
+  display: block;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--gold-line);
+  background: var(--gold-soft);
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+.mock-card i {
+  display: block;
+  height: 7px;
+  width: 82%;
+  border-radius: 99px;
+  background: rgba(255,255,255,.12);
+}
+.mock-card i + i { width: 58%; margin-top: 8px; }
+.build-stamp {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  padding: 12px 14px;
+  border: 1px solid var(--gold-line);
+  background: rgba(8,8,8,.86);
+  color: var(--gold);
+  border-radius: 4px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+}
+.ticker {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+  background: rgba(255,255,255,.018);
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker 28s linear infinite;
+}
+.ticker span {
+  padding: 18px 30px;
+  color: var(--dim);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.ticker b { color: var(--gold); font-weight: 700; }
+@keyframes ticker { to { transform: translateX(-50%); } }
+section {
+  position: relative;
+  padding: 118px 0;
+  scroll-margin-top: 76px;
+  border-top: 1px solid var(--line);
+  background: rgba(8,8,8,.82);
+}
+.section-head {
+  display: grid;
+  grid-template-columns: minmax(0, .95fr) minmax(280px, .65fr);
+  gap: 56px;
+  align-items: end;
+  margin-bottom: 56px;
+}
+.section-title {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(36px, 5.4vw, 74px);
+  line-height: .94;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+.section-copy {
+  margin: 0;
+  color: rgba(250,250,250,.58);
+  font-size: 16px;
+  line-height: 1.72;
+}
+.section-copy strong { color: var(--text); }
+.proof-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.growth-panel {
+  position: relative;
+  min-height: 420px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 20%, rgba(201,165,92,.11), rgba(8,8,8,.02) 48%, rgba(8,8,8,.72));
+}
+.growth-panel canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.growth-caption {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 22px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+  z-index: 2;
+}
+.growth-caption p {
+  max-width: 300px;
+  margin: 0;
+  color: rgba(250,250,250,.62);
+  font-size: 13px;
+  line-height: 1.55;
+}
+.growth-caption span {
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.proof-cell {
+  background: var(--surface);
+  padding: clamp(26px, 4vw, 44px);
+  min-height: 270px;
+}
+.proof-cell.gold {
+  background: var(--gold);
+  color: #080808;
+}
+.proof-cell.gold .mini,
+.proof-cell.gold p { color: rgba(8,8,8,.68); }
+.mini {
+  display: block;
+  margin-bottom: 20px;
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.proof-cell h3 {
+  margin: 0;
+  max-width: 520px;
+  font-family: var(--display);
+  font-size: clamp(28px, 4vw, 52px);
+  line-height: .97;
+  letter-spacing: 0;
+}
+.proof-cell p {
+  max-width: 520px;
+  margin: 24px 0 0;
+  color: rgba(250,250,250,.54);
+  line-height: 1.7;
+}
+.deliver-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  border: 1px solid var(--line);
+  background: var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.deliver-item {
+  min-height: 240px;
+  padding: 28px;
+  background: var(--surface);
+}
+.deliver-item .num {
+  display: block;
+  margin-bottom: 38px;
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+}
+.deliver-item h3 {
+  margin: 0 0 14px;
+  font-family: var(--display);
+  font-size: 22px;
+  line-height: 1.1;
+}
+.deliver-item p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+  font-size: 14px;
+}
+.model-showcase {
+  background: linear-gradient(180deg, rgba(8,8,8,.92), rgba(12,12,12,.96));
+}
+.model-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 330px;
+  gap: 28px;
+  align-items: stretch;
+}
+.model-view {
+  position: relative;
+  min-height: 560px;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #070707;
+}
+.model-frame {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1.05fr .72fr;
+  gap: 0;
+  opacity: 0;
+  transform: scale(.985);
+  pointer-events: none;
+  transition: opacity .72s var(--ease-out), transform .72s var(--ease-out);
+}
+.model-frame.active {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+.model-copy {
+  position: relative;
+  z-index: 2;
+  padding: clamp(30px, 5vw, 62px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.model-tag {
+  display: inline-flex;
+  width: max-content;
+  border: 1px solid var(--gold-line);
+  background: var(--gold-soft);
+  color: var(--gold);
+  border-radius: 4px;
+  padding: 8px 10px;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.model-copy h3 {
+  max-width: 620px;
+  margin: 26px 0 0;
+  font-size: clamp(38px, 5.5vw, 78px);
+  line-height: .9;
+  letter-spacing: 0;
+}
+.model-copy p {
+  max-width: 470px;
+  margin: 22px 0 0;
+  color: rgba(250,250,250,.58);
+  line-height: 1.66;
+}
+.model-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 34px;
+}
+.model-metrics span {
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.025);
+  border-radius: 4px;
+  padding: 10px 12px;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.model-visual {
+  position: relative;
+  min-height: 100%;
+  border-left: 1px solid var(--line);
+  overflow: hidden;
+}
+.model-visual canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.model-browser {
+  position: absolute;
+  inset: 9%;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 10px;
+  background: rgba(8,8,8,.72);
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+}
+.model-browser::before {
+  content: "";
+  display: block;
+  height: 38px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(255,255,255,.025);
+}
+.model-shot {
+  padding: 24px;
+}
+.model-shot b {
+  display: block;
+  width: 58%;
+  height: 12px;
+  border-radius: 99px;
+  background: rgba(201,165,92,.48);
+  animation: modelPulse 2.8s var(--ease-out) infinite;
+}
+.model-shot i {
+  display: block;
+  width: 88%;
+  height: 9px;
+  margin-top: 16px;
+  border-radius: 99px;
+  background: rgba(255,255,255,.15);
+}
+.model-shot i:nth-child(3) { width: 64%; }
+.model-shot i:nth-child(4) { width: 38%; background: rgba(201,165,92,.22); }
+.model-tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 34px;
+}
+.model-tiles div {
+  min-height: 78px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255,255,255,.03);
+}
+.model-scan {
+  position: absolute;
+  left: 9%;
+  right: 9%;
+  top: 50%;
+  height: 1px;
+  background: var(--gold);
+  box-shadow: 0 0 24px rgba(201,165,92,.44);
+  animation: scanLine 3.8s var(--ease-out) infinite;
+}
+.model-tabs {
+  display: grid;
+  gap: 12px;
+}
+.model-tab {
+  min-height: 116px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px;
+  background: rgba(255,255,255,.018);
+  color: var(--muted);
+  text-align: left;
+  cursor: pointer;
+  transition: transform .32s var(--ease-weight), border-color .28s var(--ease-out), background .28s var(--ease-out);
+}
+.model-tab.active {
+  border-color: var(--gold-line);
+  background: var(--gold-soft);
+  transform: translateY(-1px);
+}
+.model-tab strong {
+  display: block;
+  color: var(--text);
+  font-size: 16px;
+  margin-bottom: 9px;
+}
+.model-tab span {
+  display: block;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+.model-note {
+  margin-top: 18px;
+  color: var(--dim);
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.6;
+}
+.motion-portfolio {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  min-height: 640px;
+}
+.motion-site-card {
+  position: relative;
+  min-height: 620px;
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #070707;
+  transform: translateY(0);
+  transition: transform .55s var(--ease-weight), border-color .35s var(--ease-out);
+}
+.motion-site-card:nth-child(2) { transform: translateY(42px); }
+.motion-site-card:nth-child(3) { transform: translateY(84px); }
+.motion-site-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  border-color: var(--gold-line);
+}
+.motion-site-card canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .82;
+}
+.site-card-ui {
+  position: absolute;
+  inset: 26px;
+  border: 1px solid rgba(255,255,255,.11);
+  border-radius: 12px;
+  background: rgba(8,8,8,.64);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+.site-card-top {
+  height: 42px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+}
+.site-card-top span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.14);
+}
+.site-card-top span:nth-child(3) { background: var(--gold); }
+.site-card-body {
+  position: relative;
+  min-height: calc(100% - 42px);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+.site-card-scene {
+  position: absolute;
+  inset: 76px 30px auto;
+  height: 180px;
+  pointer-events: none;
+}
+.local-map {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 10px;
+}
+.local-map::before {
+  content: "";
+  border: 1px solid rgba(201,165,92,.34);
+  border-radius: 50% 42% 54% 38%;
+  background:
+    radial-gradient(circle at 68% 38%, var(--gold) 0 4px, transparent 5px),
+    linear-gradient(136deg, transparent 46%, rgba(201,165,92,.45) 47% 49%, transparent 50%);
+  animation: mapBreathe 4.8s var(--ease-out) infinite;
+}
+.local-map span {
+  display: grid;
+  align-content: center;
+  gap: 10px;
+}
+.local-map i {
+  display: block;
+  height: 30px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: rgba(255,255,255,.035);
+}
+.digital-pulse {
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 50%;
+  width: 176px;
+  height: 176px;
+  margin: 0 auto;
+}
+.digital-pulse::before,
+.digital-pulse::after {
+  content: "";
+  position: absolute;
+  border: 1px solid rgba(201,165,92,.35);
+  border-radius: 50%;
+  animation: offerPulse 3.6s var(--ease-out) infinite;
+}
+.digital-pulse::before { width: 92px; height: 92px; }
+.digital-pulse::after { width: 138px; height: 138px; animation-delay: .5s; }
+.digital-pulse b {
+  position: relative;
+  z-index: 1;
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.premium-editorial {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 18px;
+  align-items: stretch;
+}
+.motion-site-card.premium .site-card-scene {
+  inset: 44px 30px auto;
+  height: 112px;
+}
+.premium-editorial strong {
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--gold-line);
+  color: var(--gold);
+  font-family: var(--display);
+  font-size: 32px;
+  font-weight: 500;
+}
+.premium-editorial span {
+  display: grid;
+  align-content: center;
+  gap: 12px;
+}
+.premium-editorial i {
+  display: block;
+  height: 1px;
+  background: rgba(255,255,255,.18);
+  transform-origin: left;
+  animation: editorialLine 4.2s var(--ease-out) infinite;
+}
+.premium-editorial i:nth-child(2) { width: 76%; animation-delay: .18s; }
+.premium-editorial i:nth-child(3) { width: 52%; animation-delay: .36s; }
+.motion-site-card.digital .site-card-body {
+  text-align: center;
+}
+.motion-site-card.digital .site-card-body::before {
+  left: 50%;
+  transform: translateX(-50%);
+}
+.motion-site-card.digital .site-card-grid {
+  grid-template-columns: 1fr;
+}
+.motion-site-card.digital .site-card-grid i {
+  height: 22px;
+  border-radius: 99px;
+}
+.motion-site-card.premium .site-card-body h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 500;
+}
+.motion-site-card.premium .site-card-grid {
+  grid-template-columns: 1.4fr .8fr;
+}
+.motion-site-card.premium .site-card-grid i:nth-child(3) {
+  display: none;
+}
+.site-card-body::before {
+  content: "";
+  position: absolute;
+  left: 30px;
+  top: 30px;
+  width: 54%;
+  height: 10px;
+  border-radius: 99px;
+  background: rgba(201,165,92,.48);
+  animation: modelPulse 3.8s var(--ease-out) infinite;
+}
+.site-card-body small {
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.site-card-body h3 {
+  margin: 16px 0 0;
+  font-family: var(--display);
+  font-size: clamp(30px, 3vw, 46px);
+  line-height: .96;
+  letter-spacing: 0;
+}
+.site-card-body p {
+  margin: 18px 0 0;
+  color: rgba(250,250,250,.62);
+  line-height: 1.56;
+  font-size: 14px;
+}
+.site-card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 9px;
+  margin-top: 28px;
+}
+.site-card-grid i {
+  height: 68px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255,255,255,.035);
+  animation: tileLift 4.6s var(--ease-out) infinite;
+}
+.site-card-grid i:nth-child(2) { animation-delay: .18s; }
+.site-card-grid i:nth-child(3) { animation-delay: .36s; }
+.motion-caption {
+  position: relative;
+  grid-column: 1 / -1;
+  justify-self: end;
+  margin-top: 84px;
+  width: min(430px, 100%);
+  border: 1px solid var(--gold-line);
+  border-radius: 8px;
+  background: rgba(8,8,8,.84);
+  padding: 18px 20px;
+}
+.motion-caption span {
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.motion-caption p {
+  margin: 8px 0 0;
+  color: rgba(250,250,250,.62);
+  line-height: 1.55;
+  font-size: 13px;
+}
+@keyframes tileLift {
+  0%, 100% { transform: translateY(0); opacity: .58; }
+  45% { transform: translateY(-12px); opacity: 1; }
+}
+@keyframes scanLine {
+  0%, 100% { transform: translateY(-170px); opacity: .12; }
+  40% { opacity: .88; }
+  70% { transform: translateY(170px); opacity: .18; }
+}
+@keyframes modelPulse {
+  0%, 100% { opacity: .42; transform: scaleX(.72); transform-origin: left; }
+  50% { opacity: 1; transform: scaleX(1); transform-origin: left; }
+}
+@keyframes mapBreathe {
+  0%, 100% { transform: scale(.96) rotate(-1deg); opacity: .62; }
+  52% { transform: scale(1) rotate(1deg); opacity: 1; }
+}
+@keyframes offerPulse {
+  0% { transform: scale(.72); opacity: 0; }
+  38% { opacity: .8; }
+  100% { transform: scale(1.34); opacity: 0; }
+}
+@keyframes editorialLine {
+  0%, 100% { transform: scaleX(.35); opacity: .35; }
+  48% { transform: scaleX(1); opacity: .9; }
+}
+.process {
+  display: grid;
+  grid-template-columns: .74fr 1fr;
+  gap: 70px;
+}
+.lab {
+  overflow: hidden;
+}
+.system-loop {
+  position: relative;
+  min-height: 390px;
+  margin-top: 34px;
+  border-top: 1px solid var(--line);
+  padding-top: 28px;
+}
+.system-rail {
+  position: absolute;
+  left: 25px;
+  right: 25px;
+  top: 88px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold), rgba(201,165,92,.08));
+}
+.system-packet {
+  position: absolute;
+  top: 76px;
+  left: 18px;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  background: #111;
+  box-shadow: 0 0 0 7px rgba(201,165,92,.06);
+  animation: packetTravel 8s var(--ease-out) infinite;
+}
+.system-stages {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.system-stage {
+  position: relative;
+  min-width: 0;
+  padding-top: 88px;
+  color: var(--dim);
+  font-family: var(--mono);
+  font-size: 9px;
+  line-height: 1.4;
+  text-align: center;
+  text-transform: uppercase;
+}
+.system-stage::before {
+  content: "";
+  position: absolute;
+  top: 54px;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #151515;
+  border: 1px solid var(--line-strong);
+  transform: translateX(-50%);
+  animation: stageSignal 8s var(--ease-out) infinite;
+}
+.system-stage:nth-child(2)::before { animation-delay: 2.15s; }
+.system-stage:nth-child(3)::before { animation-delay: 4.3s; }
+.system-output {
+  position: relative;
+  width: min(270px, 88%);
+  height: 202px;
+  margin: 36px auto 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 9px;
+  background: #080808;
+  overflow: hidden;
+  animation: homepageBuild 8s var(--ease-weight) infinite;
+}
+.system-output-top {
+  height: 25px;
+  border-bottom: 1px solid var(--line);
+}
+.system-output-top::before {
+  content: "make homepage";
+  display: block;
+  padding: 7px 10px;
+  color: var(--dim);
+  font-family: var(--mono);
+  font-size: 7px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.system-output-body {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 10px;
+  height: calc(100% - 25px);
+  padding: 16px;
+}
+.system-output-copy {
+  display: grid;
+  align-content: center;
+  gap: 7px;
+}
+.system-output-copy i {
+  display: block;
+  height: 6px;
+  border-radius: 99px;
+  background: rgba(255,255,255,.12);
+}
+.system-output-copy i:first-child { width: 84%; height: 10px; background: rgba(201,165,92,.52); }
+.system-output-copy i:nth-child(3) { width: 58%; }
+.system-output-copy b {
+  width: 48px;
+  height: 18px;
+  margin-top: 8px;
+  border-radius: 3px;
+  background: var(--gold);
+}
+.system-output-visual {
+  border: 1px solid var(--gold-line);
+  border-radius: 50% 50% 8px 8px;
+  background: radial-gradient(circle at 50% 34%, rgba(201,165,92,.6), rgba(201,165,92,.06) 48%, transparent 49%);
+}
+.system-status {
+  margin-top: 18px;
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-align: center;
+  text-transform: uppercase;
+}
+.system-status span {
+  animation: statusSwap 8s steps(1, end) infinite;
+}
+@keyframes packetTravel {
+  0%, 8% { left: 18px; opacity: 0; }
+  14% { opacity: 1; }
+  72% { left: calc(100% - 42px); opacity: 1; }
+  78%, 100% { left: calc(100% - 42px); opacity: 0; }
+}
+@keyframes stageSignal {
+  0%, 12%, 100% { background: #151515; box-shadow: none; }
+  20%, 38% { background: var(--gold); box-shadow: 0 0 0 7px rgba(201,165,92,.08); }
+  46% { background: #151515; box-shadow: none; }
+}
+@keyframes homepageBuild {
+  0%, 48% { opacity: .18; transform: translateY(10px) scale(.985); filter: grayscale(1); }
+  68%, 92% { opacity: 1; transform: translateY(0) scale(1); filter: grayscale(0); }
+  100% { opacity: .18; transform: translateY(-4px) scale(.985); filter: grayscale(1); }
+}
+@keyframes statusSwap {
+  0%, 24% { opacity: .45; }
+  25%, 54% { opacity: .78; }
+  55%, 100% { opacity: 1; }
+}
+.data-factory {
+  position: relative;
+  min-height: 500px;
+  margin-top: 30px;
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+}
+.factory-inputs {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+  z-index: 2;
+}
+.factory-input {
+  min-width: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 5px;
+  background: #0b0b0b;
+  padding: 9px 8px;
+  color: rgba(250,250,250,.6);
+  font-family: var(--mono);
+  font-size: 7px;
+  line-height: 1.35;
+  text-transform: uppercase;
+  animation: dataDrop 9s var(--ease-weight) infinite;
+}
+.factory-input::before {
+  content: "";
+  display: block;
+  width: 16px;
+  height: 2px;
+  margin-bottom: 6px;
+  background: var(--gold);
+}
+.factory-input:nth-child(2) { animation-delay: .28s; }
+.factory-input:nth-child(3) { animation-delay: .56s; }
+.factory-stream {
+  position: absolute;
+  top: 70px;
+  left: 50%;
+  width: 1px;
+  height: 80px;
+  background: linear-gradient(180deg, rgba(201,165,92,.08), var(--gold), rgba(201,165,92,.08));
+  overflow: visible;
+}
+.factory-stream::after {
+  content: "";
+  position: absolute;
+  left: -3px;
+  top: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 12px rgba(201,165,92,.7);
+  animation: streamParticle 1.4s var(--ease-out) infinite;
+}
+.factory-core {
+  position: relative;
+  width: 154px;
+  height: 58px;
+  margin: 66px auto 0;
+  border: 1px solid var(--gold-line);
+  border-radius: 8px;
+  background: #0a0a09;
+  display: grid;
+  place-items: center;
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  animation: coreWork 9s var(--ease-weight) infinite;
+}
+.factory-core::before,
+.factory-core::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(201,165,92,.12);
+  border-radius: 4px;
+}
+.factory-core::after {
+  inset: -8px;
+  border-color: rgba(201,165,92,.08);
+  animation: corePulse 2.2s var(--ease-out) infinite;
+}
+.factory-core b {
+  position: relative;
+  z-index: 1;
+  font-weight: 500;
+}
+.factory-core b::after {
+  content: "";
+  animation: processingText 9s steps(1, end) infinite;
+}
+.factory-output-line {
+  width: 1px;
+  height: 34px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, var(--gold), rgba(201,165,92,.08));
+}
+.factory-browser {
+  position: relative;
+  width: min(306px, 94%);
+  height: 250px;
+  margin: 0 auto;
+  border: 1px solid var(--line-strong);
+  border-radius: 9px;
+  background: #080808;
+  overflow: hidden;
+  transform-origin: 50% 0;
+  animation: browserBorn 9s var(--ease-weight) infinite;
+}
+.factory-browser-bar {
+  position: relative;
+  height: 27px;
+  border-bottom: 1px solid var(--line);
+  background: #0d0d0d;
+}
+.factory-browser-bar::before {
+  content: "•••";
+  position: absolute;
+  left: 10px;
+  top: 5px;
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: 3px;
+}
+.factory-browser-bar::after {
+  content: "suaempresa.com";
+  position: absolute;
+  left: 50%;
+  top: 8px;
+  color: var(--dim);
+  font-family: var(--mono);
+  font-size: 6px;
+  letter-spacing: .08em;
+  transform: translateX(-50%);
+}
+.factory-viewport {
+  height: 223px;
+  overflow: hidden;
+  background: #f1eee7;
+}
+.factory-home {
+  min-height: 410px;
+  color: #101010;
+  background: #f1eee7;
+  animation: homeScroll 9s var(--ease-weight) infinite;
+}
+.factory-home-nav {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(16,16,16,.12);
+  padding: 0 14px;
+  font-family: var(--mono);
+  font-size: 6px;
+  text-transform: uppercase;
+}
+.factory-home-nav strong { font-size: 8px; }
+.factory-home-hero {
+  min-height: 174px;
+  display: grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap: 12px;
+  align-items: center;
+  padding: 18px 15px;
+}
+.factory-home-copy small {
+  color: #8a6b2e;
+  font-family: var(--mono);
+  font-size: 6px;
+  text-transform: uppercase;
+}
+.factory-home-copy h4 {
+  margin: 7px 0 6px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 25px;
+  font-weight: 500;
+  line-height: .9;
+  letter-spacing: 0;
+}
+.factory-home-copy p {
+  width: 86%;
+  margin: 0;
+  color: rgba(16,16,16,.6);
+  font-size: 7px;
+  line-height: 1.45;
+}
+.factory-home-copy i {
+  display: block;
+  width: 54px;
+  height: 19px;
+  margin-top: 11px;
+  border-radius: 3px;
+  background: #101010;
+}
+.factory-home-visual {
+  position: relative;
+  aspect-ratio: .8;
+  border-radius: 50% 50% 5px 5px;
+  background:
+    radial-gradient(circle at 50% 33%, #e1bd6d 0 10%, transparent 11%),
+    linear-gradient(145deg, #171717 0 47%, #c9a55c 48% 52%, #2b2924 53%);
+}
+.factory-home-proof {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid rgba(16,16,16,.12);
+  border-bottom: 1px solid rgba(16,16,16,.12);
+}
+.factory-home-proof span {
+  padding: 12px 8px;
+  border-right: 1px solid rgba(16,16,16,.12);
+  font-family: var(--mono);
+  font-size: 6px;
+  text-align: center;
+  text-transform: uppercase;
+}
+.factory-home-proof span:last-child { border-right: 0; }
+.factory-home-section {
+  padding: 17px 15px;
+}
+.factory-home-section h5 {
+  margin: 0 0 10px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 15px;
+  font-weight: 500;
+}
+.factory-home-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+}
+.factory-home-cards i {
+  height: 54px;
+  border: 1px solid rgba(16,16,16,.14);
+  background: rgba(255,255,255,.34);
+}
+.factory-caption {
+  margin-top: 13px;
+  color: var(--dim);
+  font-family: var(--mono);
+  font-size: 7px;
+  letter-spacing: .12em;
+  text-align: center;
+  text-transform: uppercase;
+}
+@keyframes dataDrop {
+  0%, 8% { opacity: 0; transform: translateY(-18px); }
+  14%, 34% { opacity: 1; transform: translateY(0); }
+  44%, 100% { opacity: .18; transform: translateY(25px) scale(.94); }
+}
+@keyframes streamParticle {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(76px); opacity: 0; }
+}
+@keyframes coreWork {
+  0%, 30%, 100% { box-shadow: none; }
+  38%, 58% { box-shadow: 0 0 34px rgba(201,165,92,.18); }
+}
+@keyframes corePulse {
+  0%, 100% { transform: scale(.94); opacity: .2; }
+  50% { transform: scale(1.06); opacity: .9; }
+}
+@keyframes processingText {
+  0%, 24% { content: "aguardando dados"; }
+  25%, 54% { content: "interpretando oferta"; }
+  55%, 100% { content: "homepage pronta"; }
+}
+@keyframes browserBorn {
+  0%, 48% { opacity: .12; transform: perspective(500px) rotateX(-8deg) scaleY(.12); }
+  62%, 94% { opacity: 1; transform: perspective(500px) rotateX(0) scaleY(1); }
+  100% { opacity: .12; transform: translateY(-5px) scale(.985); }
+}
+@keyframes homeScroll {
+  0%, 68% { transform: translateY(0); }
+  88%, 96% { transform: translateY(-150px); }
+  100% { transform: translateY(0); }
+}
+.process-list {
+  border-top: 1px solid var(--line);
+}
+.process-step {
+  display: grid;
+  grid-template-columns: 82px 1fr;
+  gap: 22px;
+  padding: 27px 0;
+  border-bottom: 1px solid var(--line);
+}
+.process-step span {
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+}
+.process-step h3 {
+  margin: 0 0 8px;
+  font-size: 20px;
+}
+.process-step p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.58;
+}
+.lab {
+  position: sticky;
+  top: 104px;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  background: var(--surface);
+  padding: 28px;
+}
+.lab-code {
+  display: grid;
+  gap: 12px;
+  margin-top: 26px;
+}
+.code-line {
+  display: flex;
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+.code-line b {
+  color: var(--gold);
+  font-weight: 700;
+}
+.code-line.ok { color: rgba(250,250,250,.70); }
+.offer {
+  display: grid;
+  grid-template-columns: .85fr 1fr;
+  gap: 42px;
+  align-items: start;
+}
+.price-box {
+  border: 1px solid var(--gold-line);
+  background: linear-gradient(180deg, rgba(201,165,92,.12), rgba(17,17,17,.80));
+  border-radius: 12px;
+  padding: clamp(28px, 5vw, 50px);
+}
+.price-label {
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.price {
+  margin: 18px 0 8px;
+  font-family: var(--mono);
+  font-size: clamp(58px, 9vw, 118px);
+  line-height: .92;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0;
+}
+.price small {
+  font-size: .20em;
+  vertical-align: top;
+  color: var(--muted);
+}
+.price-box p {
+  margin: 0;
+  color: rgba(250,250,250,.62);
+  line-height: 1.65;
+}
+.included {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.included-row {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 22px;
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(255,255,255,.018);
+}
+.included-row:last-child { border-bottom: 0; }
+.included-row span {
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.included-row p {
+  margin: 0;
+  color: rgba(250,250,250,.62);
+  line-height: 1.55;
+}
+.included-row strong { color: var(--text); }
+.form-section {
+  background: #060606;
+}
+.form-layout {
+  display: grid;
+  grid-template-columns: .72fr 1fr;
+  gap: 54px;
+  align-items: start;
+}
+.form-intro {
+  position: sticky;
+  top: 104px;
+}
+.form-intro p {
+  color: rgba(250,250,250,.58);
+  line-height: 1.7;
+}
+.form-note {
+  margin-top: 32px;
+  border-left: 2px solid var(--gold);
+  padding-left: 18px;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.6;
+}
+form {
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  background: var(--surface);
+  padding: clamp(22px, 4vw, 38px);
+}
+.fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.field.full { grid-column: 1 / -1; }
+label {
+  display: grid;
+  gap: 8px;
+  color: rgba(250,250,250,.70);
+  font-size: 13px;
+  font-weight: 600;
+}
+input, select, textarea {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: #0b0b0b;
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 15px;
+  padding: 13px 14px;
+  outline: none;
+  transition: border-color .25s var(--ease-out), background .25s var(--ease-out);
+}
+textarea { min-height: 116px; resize: vertical; line-height: 1.45; }
+input:focus, select:focus, textarea:focus {
+  border-color: var(--gold);
+  background: #090909;
+}
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+.form-help {
+  color: var(--dim);
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.5;
+}
+.success {
+  display: none;
+  margin-top: 18px;
+  padding: 14px 16px;
+  border: 1px solid rgba(143,209,158,.38);
+  border-radius: 6px;
+  background: rgba(143,209,158,.08);
+  color: rgba(250,250,250,.78);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.success.show { display: block; }
+.faq {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.faq-reveal {
+  position: relative;
+  min-height: 360px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: radial-gradient(circle at 50% 25%, rgba(201,165,92,.12), rgba(8,8,8,.02) 44%, rgba(8,8,8,.74));
+  overflow: hidden;
+}
+.faq-layer {
+  position: absolute;
+  left: 50%;
+  width: min(370px, calc(100% - 46px));
+  min-height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(17,17,17,.84);
+  transform: translateX(-50%) translateY(var(--y)) scale(.94);
+  transition: transform .6s var(--ease-weight), border-color .35s var(--ease-out), background .35s var(--ease-out);
+}
+.faq-layer:nth-child(1) { --y: 42px; z-index: 4; }
+.faq-layer:nth-child(2) { --y: 112px; z-index: 3; }
+.faq-layer:nth-child(3) { --y: 182px; z-index: 2; }
+.faq-layer:nth-child(4) { --y: 252px; z-index: 1; }
+.faq-reveal:hover .faq-layer:nth-child(1) { transform: translateX(-50%) translateY(24px) scale(1); }
+.faq-reveal:hover .faq-layer:nth-child(2) { transform: translateX(-50%) translateY(104px) scale(1); }
+.faq-reveal:hover .faq-layer:nth-child(3) { transform: translateX(-50%) translateY(184px) scale(1); }
+.faq-reveal:hover .faq-layer:nth-child(4) { transform: translateX(-50%) translateY(264px) scale(1); }
+.faq-reveal:hover .faq-layer {
+  border-color: var(--gold-line);
+  background: rgba(201,165,92,.08);
+}
+.faq-layer span {
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.faq-layer strong {
+  font-size: 15px;
+  color: var(--text);
+}
+.faq-hint {
+  position: absolute;
+  left: 22px;
+  bottom: 18px;
+  color: var(--dim);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+}
+.faq-item {
+  padding: 30px;
+  background: var(--surface);
+}
+.faq-item h3 {
+  margin: 0 0 12px;
+  font-size: 18px;
+}
+.faq-item p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.62;
+}
+.final {
+  min-height: 70vh;
+  display: grid;
+  align-items: center;
+  text-align: center;
+}
+.final .section-title {
+  max-width: 920px;
+  margin: 0 auto;
+}
+.final p {
+  max-width: 660px;
+  margin: 26px auto 0;
+  color: rgba(250,250,250,.58);
+  line-height: 1.7;
+}
+footer {
+  border-top: 1px solid var(--line);
+  padding: 32px 0;
+  color: var(--dim);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .08em;
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .8s var(--ease-out), transform .8s var(--ease-out);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+@media (max-width: 980px) {
+  .hero-grid,
+  .section-head,
+  .proof-grid,
+  .model-stage,
+  .process,
+  .offer,
+  .form-layout {
+    grid-template-columns: 1fr;
+  }
+  .deliver-grid { grid-template-columns: 1fr 1fr; }
+  .hero-panel { max-width: 560px; }
+  .motion-portfolio { grid-template-columns: 1fr; min-height: auto; }
+  .motion-site-card,
+  .motion-site-card:nth-child(2),
+  .motion-site-card:nth-child(3) {
+    min-height: 540px;
+    transform: none;
+  }
+  .motion-caption { position: static; width: 100%; margin-top: 2px; }
+  .model-view { min-height: 760px; }
+  .model-frame { grid-template-columns: 1fr; }
+  .model-visual { min-height: 360px; border-left: 0; border-top: 1px solid var(--line); }
+  .lab,
+  .form-intro { position: static; }
+}
+@media (max-width: 680px) {
+  .wrap { width: min(100% - 32px, 1180px); }
+  .nav-inner { height: 68px; }
+  .nav-link { display: none; }
+  .nav-cta { min-height: 36px; padding: 0 12px; font-size: 10px; }
+  .hero { padding-top: 98px; }
+  .hero-grid { grid-template-columns: 1fr; }
+  h1 { font-size: clamp(48px, 15vw, 68px); }
+  .hero-copy { font-size: 16px; }
+  section { padding: 84px 0; }
+  .deliver-grid,
+  .faq,
+  .fields { grid-template-columns: 1fr; }
+  .model-view { min-height: 780px; }
+  .motion-site-card,
+  .motion-site-card:nth-child(2),
+  .motion-site-card:nth-child(3) { min-height: 520px; }
+  .site-card-ui { inset: 14px; }
+  .site-card-body { padding: 22px; }
+  .site-card-body h3 { font-size: 34px; }
+  .growth-panel,
+  .faq-reveal { min-height: 320px; }
+  .model-copy { padding: 28px; }
+  .model-copy h3 { font-size: 40px; }
+  .model-tabs { gap: 10px; }
+  .model-tab { min-height: 96px; }
+  .included-row { grid-template-columns: 1fr; gap: 8px; }
+  .process-step { grid-template-columns: 48px 1fr; }
+  .site-preview { min-height: 390px; padding: 18px; }
+  .mock-sections { grid-template-columns: 1fr; }
+  .footer-inner { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+<canvas id="system-canvas" aria-hidden="true"></canvas>
+<div class="page">
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top" aria-label="MarketingOS">
+        <strong>Marketing</strong><span>/</span><em>OS</em>
+      </a>
+      <div class="nav-links">
+        <a class="nav-link" href="#entrega">Entrega</a>
+        <a class="nav-link" href="#modelos">Modelos</a>
+        <a class="nav-link" href="#processo">Processo</a>
+        <a class="nav-link" href="#briefing">Briefing</a>
+        <a class="nav-cta" href="#briefing">Quero meu site</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow reveal">Primeira leva de validação</div>
+          <h1 class="reveal" style="transition-delay:.08s">
+            <span class="hero-word">Um site</span>
+            <span class="hero-word">premium por</span>
+            <em class="hero-price">R$97.</em>
+          </h1>
+          <p class="hero-copy reveal" style="transition-delay:.16s">
+            Para empresas, afiliados, vendedores digitais e prestadores que precisam colocar uma oferta no ar rápido, com uma página bonita, direta e pronta para levar a pessoa ao próximo passo certo.
+          </p>
+          <div class="hero-actions reveal" style="transition-delay:.24s">
+            <a class="button primary" href="#briefing">Preencher briefing</a>
+            <a class="button secondary" href="#entrega">Ver o que recebe</a>
+          </div>
+        </div>
+
+        <div class="hero-panel reveal" style="transition-delay:.18s" aria-label="Preview conceitual de site premium">
+          <div class="hero-panel-inner">
+            <div class="terminal-head">
+              <span class="dot"></span><span class="dot"></span><span class="dot gold"></span>
+              <span class="terminal-title">site-premium.build</span>
+            </div>
+            <div class="site-preview">
+              <div class="browser-top">
+                <div class="fake-url">mkos.online/preview/seu-negocio</div>
+                <div class="slot-price">R$97</div>
+              </div>
+              <div class="mock-hero">
+                <div class="mock-kicker">Oferta no ar</div>
+                <div class="mock-title">Sua página deixa de parecer <span>improviso.</span></div>
+                <div class="mock-lines">
+                  <div class="mock-line"></div>
+                  <div class="mock-line"></div>
+                  <div class="mock-line"></div>
+                </div>
+              </div>
+              <div class="mock-sections">
+                <div class="mock-card"><b></b><i></i><i></i></div>
+                <div class="mock-card"><b></b><i></i><i></i></div>
+              </div>
+              <div class="build-stamp">mobile + desktop</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span><b>Empresas locais</b> com WhatsApp</span>
+        <span><b>Afiliados</b> com link de venda</span>
+        <span><b>Vendedores digitais</b> com oferta</span>
+        <span><b>Prestadores</b> que dependem do direct</span>
+        <span><b>Infoprodutores</b> em validação</span>
+        <span><b>Empresas locais</b> com WhatsApp</span>
+        <span><b>Afiliados</b> com link de venda</span>
+        <span><b>Vendedores digitais</b> com oferta</span>
+        <span><b>Prestadores</b> que dependem do direct</span>
+        <span><b>Infoprodutores</b> em validação</span>
+      </div>
+    </div>
+
+    <section id="tese">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow reveal">A tese</div>
+            <h2 class="section-title reveal">Todo produto bom merece uma página que venda antes da conversa.</h2>
+          </div>
+          <div class="growth-panel reveal" style="transition-delay:.10s">
+            <canvas id="growth-canvas" aria-hidden="true"></canvas>
+            <div class="growth-caption">
+              <p>Interaja: as colunas sobem como se a oferta ganhasse estrutura, prova e próximo passo.</p>
+              <span>micro-portfólio vivo</span>
+            </div>
+          </div>
+        </div>
+        <div class="proof-grid">
+          <div class="proof-cell reveal">
+            <span class="mini">Antes</span>
+            <h3>Instagram solto, link frio, oferta sem palco.</h3>
+            <p>Você até tem algo para vender. Mas a pessoa cai em um perfil, PDF ou grupo sem contexto. A venda começa com desconfiança.</p>
+          </div>
+          <div class="proof-cell gold reveal" style="transition-delay:.12s">
+            <span class="mini">Depois</span>
+            <h3>Uma página enxuta que organiza desejo, prova e próximo passo.</h3>
+            <p>Uma narrativa curta, visual premium, CTA claro e estrutura suficiente para a pessoa entender o que você vende e preencher o briefing antes de qualquer pagamento.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="entrega">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow reveal">O que você recebe</div>
+            <h2 class="section-title reveal">Uma página. Sem reunião longa. Sem enrolação.</h2>
+          </div>
+          <p class="section-copy reveal" style="transition-delay:.10s">
+            Essa primeira leva é uma validação pública do MarketingOS. Por isso a entrega é objetiva: o suficiente para colocar sua oferta no ar com qualidade, sem prometer uma operação completa por preço de entrada.
+          </p>
+        </div>
+        <div class="deliver-grid">
+          <div class="deliver-item reveal"><span class="num">01</span><h3>Hero premium</h3><p>Primeira dobra com tese clara, promessa da oferta e direção visual profissional.</p></div>
+          <div class="deliver-item reveal" style="transition-delay:.06s"><span class="num">02</span><h3>Seções essenciais</h3><p>Benefícios, como funciona, prova/contexto e CTA final em uma narrativa de página única.</p></div>
+          <div class="deliver-item reveal" style="transition-delay:.12s"><span class="num">03</span><h3>Mobile primeiro</h3><p>Página pensada para quem vai receber o link no Instagram, WhatsApp ou anúncio.</p></div>
+          <div class="deliver-item reveal" style="transition-delay:.18s"><span class="num">04</span><h3>Funil correto</h3><p>Primeiro briefing. Depois confirmação no WhatsApp. Só então pagamento e produção.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="modelos" class="model-showcase">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow reveal">Modelos vivos</div>
+            <h2 class="section-title reveal">A pessoa precisa ver o que pode existir.</h2>
+          </div>
+          <p class="section-copy reveal" style="transition-delay:.10s">
+            Antes de explicar tecnologia, eu mostro direção. Esses modelos funcionam como vitrine da oferta e também como material para Reels, Stories e antes/depois da própria campanha.
+          </p>
+        </div>
+
+        <div class="motion-portfolio reveal" aria-label="Portfólio em movimento de modelos de site">
+          <article class="motion-site-card local">
+            <canvas class="model-webgl" data-tone="local" aria-hidden="true"></canvas>
+            <div class="site-card-ui">
+              <div class="site-card-top"><span></span><span></span><span></span></div>
+              <div class="site-card-body">
+                <div class="site-card-scene local-map" aria-hidden="true">
+                  <span><i></i><i></i><i></i></span>
+                </div>
+                <small>Negócio local</small>
+                <h3>Confiança antes do WhatsApp.</h3>
+                <p>Para clínicas, salões, lojas e serviços que precisam transformar visita em conversa.</p>
+                <div class="site-card-grid"><i></i><i></i><i></i></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="motion-site-card digital">
+            <canvas class="model-webgl" data-tone="digital" aria-hidden="true"></canvas>
+            <div class="site-card-ui">
+              <div class="site-card-top"><span></span><span></span><span></span></div>
+              <div class="site-card-body">
+                <div class="site-card-scene digital-pulse" aria-hidden="true"><b>oferta no ar</b></div>
+                <small>Oferta digital</small>
+                <h3>Contexto antes do clique final.</h3>
+                <p>Para afiliados, infoprodutores e vendedores digitais que precisam aquecer a decisão.</p>
+                <div class="site-card-grid"><i></i><i></i><i></i></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="motion-site-card premium">
+            <canvas class="model-webgl" data-tone="premium" aria-hidden="true"></canvas>
+            <div class="site-card-ui">
+              <div class="site-card-top"><span></span><span></span><span></span></div>
+              <div class="site-card-body">
+                <div class="site-card-scene premium-editorial" aria-hidden="true">
+                  <strong>A</strong><span><i></i><i></i><i></i></span>
+                </div>
+                <small>Prestador premium</small>
+                <h3>Autoridade para vender serviço.</h3>
+                <p>Para especialistas que precisam parecer tão fortes quanto a entrega que fazem.</p>
+                <div class="site-card-grid"><i></i><i></i><i></i></div>
+              </div>
+            </div>
+          </article>
+
+          <div class="motion-caption">
+            <span>Gravável em vídeo</span>
+            <p>Cada modelo pode virar Reel: tela em movimento, antes/depois e chamada para preencher o briefing.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="processo">
+      <div class="wrap process">
+        <aside class="lab reveal">
+          <div class="eyebrow">Marketing / OS Lab</div>
+          <h2 class="section-title" style="font-size:clamp(34px,4vw,56px)">Produção em massa, com direção.</h2>
+          <div class="data-factory" aria-label="Animação de dados entrando no sistema e virando uma homepage">
+            <div class="factory-inputs" aria-hidden="true">
+              <div class="factory-input">Oferta<br>Consultoria</div>
+              <div class="factory-input">Objetivo<br>Gerar leads</div>
+              <div class="factory-input">Ação<br>WhatsApp</div>
+            </div>
+            <div class="factory-stream" aria-hidden="true"></div>
+            <div class="factory-core" aria-hidden="true"><b></b></div>
+            <div class="factory-output-line" aria-hidden="true"></div>
+            <div class="factory-browser" aria-hidden="true">
+              <div class="factory-browser-bar"></div>
+              <div class="factory-viewport">
+                <div class="factory-home">
+                  <div class="factory-home-nav"><strong>Estúdio Norte</strong><span>Projetos · Contato</span></div>
+                  <div class="factory-home-hero">
+                    <div class="factory-home-copy">
+                      <small>Estratégia para crescer</small>
+                      <h4>Clareza muda o rumo.</h4>
+                      <p>Transforme uma boa oferta em uma decisão fácil de tomar.</p>
+                      <i></i>
+                    </div>
+                    <div class="factory-home-visual"></div>
+                  </div>
+                  <div class="factory-home-proof"><span>Direção</span><span>Presença</span><span>Conversão</span></div>
+                  <div class="factory-home-section">
+                    <h5>Uma página com intenção.</h5>
+                    <div class="factory-home-cards"><i></i><i></i></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="factory-caption">dados → interpretação → homepage com scroll</div>
+          </div>
+        </aside>
+        <div>
+          <div class="eyebrow reveal">Como funciona</div>
+          <h2 class="section-title reveal">Você manda o contexto. O sistema transforma em página.</h2>
+          <div class="process-list" style="margin-top:42px">
+            <div class="process-step reveal"><span>01</span><div><h3>Preencha o briefing</h3><p>Nome, nicho, oferta, link principal e objetivo da página. Leva menos de 5 minutos.</p></div></div>
+            <div class="process-step reveal"><span>02</span><div><h3>Receba a confirmação no WhatsApp</h3><p>Eu valido se a sua oferta entra na leva de R$97. Se fizer sentido, envio o pagamento por lá.</p></div></div>
+            <div class="process-step reveal"><span>03</span><div><h3>Produção do site</h3><p>Depois da confirmação, o MarketingOS monta a estrutura, copy, visual e versão responsiva da página.</p></div></div>
+            <div class="process-step reveal"><span>04</span><div><h3>Preview e ajuste simples</h3><p>Você recebe o preview e pode pedir uma rodada de ajuste objetivo.</p></div></div>
+            <div class="process-step reveal"><span>05</span><div><h3>Próximo degrau</h3><p>Se fizer sentido, a página vira uma landing completa, automação de WhatsApp ou operação de aquisição.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="oferta">
+      <div class="wrap offer">
+        <div class="price-box reveal">
+          <div class="price-label">Primeira leva</div>
+          <div class="price"><small>R$</small>97</div>
+          <p>Preço de validação para os primeiros projetos. Não é o preço final do produto. Primeiro você preenche o briefing; depois eu confirmo no WhatsApp se faz sentido entrar na leva.</p>
+          <div style="margin-top:28px">
+            <a class="button primary" href="#briefing">Entrar na leva</a>
+          </div>
+        </div>
+        <div class="included reveal" style="transition-delay:.12s">
+          <div class="included-row"><span>Inclui</span><p><strong>1 página premium</strong> com estrutura de conversão, visual responsivo e CTA principal.</p></div>
+          <div class="included-row"><span>Inclui</span><p><strong>1 rodada de ajuste simples</strong> para corrigir texto, link, ordem ou detalhe visual.</p></div>
+          <div class="included-row"><span>Limite</span><p><strong>Não inclui domínio, hospedagem paga, tráfego, automação, funil completo ou copy longa.</strong> Isso entra em outros degraus.</p></div>
+          <div class="included-row"><span>Ideal para</span><p>Quem precisa validar uma oferta, parecer mais profissional, captar leads ou mandar tráfego para uma página melhor do que uma bio solta.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="briefing" class="form-section">
+      <div class="wrap form-layout">
+        <div class="form-intro">
+          <div class="eyebrow reveal">Briefing</div>
+          <h2 class="section-title reveal">Entre na fila da primeira leva.</h2>
+          <p class="reveal" style="transition-delay:.08s">
+            O formulário abre uma mensagem pronta no WhatsApp com todos os dados. Essa é a primeira conversão da página: briefing, triagem e só depois pagamento.
+          </p>
+          <div class="form-note reveal" style="transition-delay:.16s">
+            Se a sua oferta ainda não estiver clara, tudo bem. O primeiro diagnóstico é justamente descobrir qual página faz sentido.
+          </div>
+        </div>
+
+        <form id="briefing-form" class="reveal" style="transition-delay:.12s">
+          <div class="fields">
+            <label>Seu nome
+              <input name="nome" required autocomplete="name" placeholder="Ex: Felipe">
+            </label>
+            <label>WhatsApp
+              <input name="whatsapp" required inputmode="tel" autocomplete="tel" placeholder="DDD + numero">
+            </label>
+            <label>Tipo de negócio
+              <select name="tipo" required>
+                <option value="">Selecione</option>
+                <option>Empresa local</option>
+                <option>Prestador de serviço</option>
+                <option>Afiliado</option>
+                <option>Vendedor digital</option>
+                <option>Infoprodutor</option>
+                <option>Outro</option>
+              </select>
+            </label>
+            <label>Objetivo da página
+              <select name="objetivo" required>
+                <option value="">Selecione</option>
+                <option>Levar para WhatsApp</option>
+                <option>Receber pedidos ou orçamentos</option>
+                <option>Captar leads</option>
+                <option>Apresentar serviço</option>
+                <option>Validar uma oferta</option>
+              </select>
+            </label>
+            <label class="full">Instagram, site atual ou link da oferta
+              <input name="link" required inputmode="url" placeholder="Cole aqui o link principal">
+            </label>
+            <label class="full">O que você vende?
+              <textarea name="oferta" required placeholder="Explique em poucas linhas sua oferta, produto ou serviço."></textarea>
+            </label>
+            <label class="full">Qual deve ser a ação principal depois da página?
+              <input name="cta" required placeholder="Ex: chamar no WhatsApp, pedir orçamento, entrar no grupo, preencher formulário.">
+            </label>
+            <label class="full">Alguma referência ou observação?
+              <textarea name="obs" placeholder="Opcional: cores, exemplos, prazo, estilo, público, restrições."></textarea>
+            </label>
+          </div>
+          <div class="form-actions">
+            <button class="button primary" type="submit">Enviar briefing</button>
+            <button class="button secondary" type="button" id="copy-briefing">Copiar mensagem</button>
+            <div class="form-help">O envio abre uma conversa no WhatsApp com o briefing preenchido. O pagamento vem só depois da confirmação.</div>
+          </div>
+          <div class="success" id="form-success">Briefing montado. Se o WhatsApp não abrir automaticamente, use o botão "Copiar mensagem" e envie para o Felipe.</div>
+        </form>
+      </div>
+    </section>
+
+    <section id="faq-section">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow reveal">Perguntas frequentes</div>
+            <h2 class="section-title reveal">O R$97 compra uma página. Não compra promessa vazia.</h2>
+          </div>
+          <div class="faq-reveal reveal" style="transition-delay:.10s" aria-label="Fluxo revelado do funil">
+            <div class="faq-layer"><span>01</span><strong>Briefing</strong></div>
+            <div class="faq-layer"><span>02</span><strong>Triagem</strong></div>
+            <div class="faq-layer"><span>03</span><strong>Pagamento</strong></div>
+            <div class="faq-layer"><span>04</span><strong>Produção</strong></div>
+            <div class="faq-hint">passe o mouse para revelar</div>
+          </div>
+        </div>
+        <div class="faq">
+          <div class="faq-item reveal"><h3>Serve para qualquer nicho?</h3><p>Serve para quem tem uma oferta minimamente clara e precisa de uma página para apresentar, captar ou vender. Se a oferta estiver confusa, eu aviso antes.</p></div>
+          <div class="faq-item reveal" style="transition-delay:.06s"><h3>Entrega com domínio próprio?</h3><p>Na leva de R$97, o foco é construir a página. Domínio, publicação avançada e configurações entram como upgrade.</p></div>
+          <div class="faq-item reveal" style="transition-delay:.12s"><h3>Posso pedir muitas alterações?</h3><p>Não nessa leva. Inclui uma rodada simples para ajuste objetivo. Projeto customizado entra em outro ticket.</p></div>
+          <div class="faq-item reveal" style="transition-delay:.18s"><h3>Por que tão barato?</h3><p>Porque é validação pública do MarketingOS. Você paga pouco, eu valido o processo em escala e gero prova real. Depois o valor sobe.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final">
+      <div class="wrap">
+        <div class="eyebrow reveal">Próximo passo</div>
+        <h2 class="section-title reveal">Se sua oferta é boa, ela precisa de um lugar digno para existir.</h2>
+        <p class="reveal" style="transition-delay:.10s">Preencha o briefing. Eu vejo se faz sentido entrar na primeira leva e te respondo pelo WhatsApp.</p>
+        <div class="hero-actions reveal" style="justify-content:center;transition-delay:.18s">
+          <a class="button primary" href="#briefing">Preencher briefing</a>
+          <a class="button secondary" target="_blank" rel="noreferrer" href="https://instagram.com/felipeproenca_marketingos">Ver bastidores</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span>2026 MarketingOS - validação Site Premium R$97</span>
+      <span>mkos.online</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  const canvas = document.getElementById("system-canvas");
+  const ctx = canvas.getContext("2d");
+  const gold = "rgba(201,165,92,";
+  const white = "rgba(250,250,250,";
+  let w = 0;
+  let h = 0;
+  let particles = [];
+  let mouse = { x: 0, y: 0 };
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = window.innerWidth;
+    h = window.innerHeight;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    seed();
+  }
+
+  function seed() {
+    const count = Math.max(38, Math.min(86, Math.floor(w / 18)));
+    particles = Array.from({ length: count }, (_, i) => {
+      const targetX = w * (.58 + (i % 9) * .042);
+      const targetY = h * (.20 + Math.floor(i / 9) * .075);
+      return {
+        x: Math.random() * w,
+        y: Math.random() * h,
+        tx: targetX,
+        ty: targetY,
+        vx: 0,
+        vy: 0,
+        r: i % 11 === 0 ? 2.2 : 1.25,
+        phase: Math.random() * Math.PI * 2
+      };
+    });
+  }
+
+  function animate(t) {
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = "rgba(8,8,8,.18)";
+    ctx.fillRect(0, 0, w, h);
+    const progress = Math.min(1, window.scrollY / Math.max(1, h * .75));
+
+    particles.forEach((p, i) => {
+      const driftX = Math.cos(t * .00035 + p.phase) * 18;
+      const driftY = Math.sin(t * .00042 + p.phase) * 16;
+      const targetX = p.x * (1 - progress) + (p.tx + driftX + mouse.x * 8) * progress;
+      const targetY = p.y * (1 - progress) + (p.ty + driftY + mouse.y * 6) * progress;
+      p.vx += (targetX - p.x) * .006;
+      p.vy += (targetY - p.y) * .006;
+      p.vx *= .92;
+      p.vy *= .92;
+      p.x += p.vx;
+      p.y += p.vy;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = i % 5 === 0 ? gold + ".72)" : white + ".22)";
+      ctx.fill();
+    });
+
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const a = particles[i];
+        const b = particles[j];
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 118) {
+          const alpha = (1 - dist / 118) * (.07 + progress * .24);
+          ctx.strokeStyle = gold + alpha + ")";
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  window.addEventListener("resize", resize);
+  window.addEventListener("mousemove", (e) => {
+    mouse.x = (e.clientX / Math.max(1, w) - .5);
+    mouse.y = (e.clientY / Math.max(1, h) - .5);
+  });
+  resize();
+  requestAnimationFrame(animate);
+})();
+
+(function () {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: .16, rootMargin: "0px 0px -40px 0px" });
+  document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+})();
+
+(function () {
+  const canvas = document.getElementById("growth-canvas");
+  if (!canvas) return;
+  let mx = 0.5;
+  let my = 0.5;
+  canvas.addEventListener("mousemove", (event) => {
+    const rect = canvas.getBoundingClientRect();
+    mx = (event.clientX - rect.left) / Math.max(1, rect.width);
+    my = (event.clientY - rect.top) / Math.max(1, rect.height);
+  });
+
+  if (!window.THREE) {
+    const ctx = canvas.getContext("2d");
+    function drawFallback(t) {
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      const w = canvas.clientWidth || 600;
+      const h = canvas.clientHeight || 420;
+      canvas.width = Math.floor(w * ratio);
+      canvas.height = Math.floor(h * ratio);
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      ctx.clearRect(0, 0, w, h);
+      for (let i = 0; i < 18; i++) {
+        const x = 34 + i * ((w - 68) / 17);
+        const lift = Math.sin(t * 0.001 + i * 0.55) * 28 + (1 - my) * 80;
+        const height = 44 + lift + (i / 18) * 90;
+        ctx.fillStyle = i % 4 === 0 ? "rgba(201,165,92,.55)" : "rgba(250,250,250,.12)";
+        ctx.fillRect(x, h - 58 - height, 12 + mx * 10, height);
+      }
+      requestAnimationFrame(drawFallback);
+    }
+    requestAnimationFrame(drawFallback);
+    return;
+  }
+
+  const THREE = window.THREE;
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+  camera.position.set(0, 5.5, 14);
+  scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+  const key = new THREE.PointLight(0xc9a55c, 2.4, 40);
+  key.position.set(3, 7, 7);
+  scene.add(key);
+
+  const columns = [];
+  const matGold = new THREE.MeshStandardMaterial({ color: 0xc9a55c, roughness: 0.34, metalness: 0.45 });
+  const matDark = new THREE.MeshStandardMaterial({ color: 0x27221a, roughness: 0.62, metalness: 0.22 });
+  for (let x = -4; x <= 4; x++) {
+    for (let z = -2; z <= 2; z++) {
+      const geo = new THREE.BoxGeometry(0.48, 1, 0.48);
+      const mesh = new THREE.Mesh(geo, (x + z) % 3 === 0 ? matGold : matDark);
+      mesh.position.set(x * 0.72, 0.5, z * 0.72);
+      scene.add(mesh);
+      columns.push({ mesh, x, z, base: 0.35 + (x + 5) * 0.13 + (z + 3) * 0.08 });
+    }
+  }
+
+  function resizeRenderer() {
+    const ratio = Math.min(window.devicePixelRatio || 1, 2);
+    const width = Math.max(1, canvas.clientWidth);
+    const height = Math.max(1, canvas.clientHeight);
+    renderer.setPixelRatio(ratio);
+    renderer.setSize(width, height, false);
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+  }
+
+  function animate(t) {
+    resizeRenderer();
+    const time = t * 0.001;
+    columns.forEach((item, index) => {
+      const distance = Math.abs(item.x - (mx - 0.5) * 10) + Math.abs(item.z - (my - 0.5) * 5);
+      const wave = Math.sin(time * 1.4 + index * 0.28) * 0.35;
+      const target = item.base + Math.max(0, 2.6 - distance * 0.34) + wave;
+      item.mesh.scale.y += (target - item.mesh.scale.y) * 0.06;
+      item.mesh.position.y = item.mesh.scale.y * 0.5;
+    });
+    scene.rotation.y += ((mx - 0.5) * 0.34 - scene.rotation.y) * 0.04;
+    scene.rotation.x += ((my - 0.5) * 0.18 - scene.rotation.x) * 0.04;
+    renderer.render(scene, camera);
+    requestAnimationFrame(animate);
+  }
+  requestAnimationFrame(animate);
+})();
+
+(function () {
+  const frames = Array.from(document.querySelectorAll(".model-frame"));
+  const tabs = Array.from(document.querySelectorAll(".model-tab"));
+  let active = 0;
+  let timer = null;
+
+  function setActive(index) {
+    active = index % frames.length;
+    frames.forEach((frame, i) => frame.classList.toggle("active", i === active));
+    tabs.forEach((tab, i) => tab.classList.toggle("active", i === active));
+    clearInterval(timer);
+    timer = setInterval(() => setActive(active + 1), 5200);
+  }
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => setActive(Number(tab.dataset.target || 0)));
+  });
+
+  if (frames.length) {
+    timer = setInterval(() => setActive(active + 1), 5200);
+  }
+
+  function compile(gl, type, source) {
+    const shader = gl.createShader(type);
+    gl.shaderSource(shader, source);
+    gl.compileShader(shader);
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+      gl.deleteShader(shader);
+      return null;
+    }
+    return shader;
+  }
+
+  function initWebgl(canvas, toneIndex) {
+    const gl = canvas.getContext("webgl", { antialias: false, alpha: true });
+    if (!gl) return;
+
+    const vertex = compile(gl, gl.VERTEX_SHADER, `
+      attribute vec2 p;
+      void main() {
+        gl_Position = vec4(p, 0.0, 1.0);
+      }
+    `);
+    const fragment = compile(gl, gl.FRAGMENT_SHADER, `
+      precision mediump float;
+      uniform vec2 r;
+      uniform float t;
+      uniform float tone;
+
+      float line(vec2 uv, float offset, float speed) {
+        float y = fract(uv.y * 5.0 + offset + t * speed);
+        return smoothstep(0.030, 0.0, abs(y - 0.5));
+      }
+
+      void main() {
+        vec2 uv = gl_FragCoord.xy / r.xy;
+        vec2 centered = uv - 0.5;
+        float dist = length(centered);
+        float wave = sin((uv.x * 8.0 + uv.y * 4.0 + t * 0.8 + tone) * 3.14159) * 0.5 + 0.5;
+        float grid = line(uv, tone * 0.17, 0.028) * 0.34;
+        float glow = smoothstep(0.72, 0.05, dist) * 0.36;
+        float beam = smoothstep(0.022, 0.0, abs(centered.x + sin(t * 0.35 + tone) * 0.18)) * 0.22;
+        float gold = grid + beam + glow * (0.32 + wave * 0.18);
+        vec3 base = vec3(0.025, 0.025, 0.023);
+        vec3 accent = vec3(0.788, 0.647, 0.360);
+        vec3 color = base + accent * gold;
+        gl_FragColor = vec4(color, 0.92);
+      }
+    `);
+    if (!vertex || !fragment) return;
+
+    const program = gl.createProgram();
+    gl.attachShader(program, vertex);
+    gl.attachShader(program, fragment);
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return;
+    gl.useProgram(program);
+
+    const buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, -1,1, 1,-1, 1,1]), gl.STATIC_DRAW);
+
+    const position = gl.getAttribLocation(program, "p");
+    gl.enableVertexAttribArray(position);
+    gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
+
+    const resolution = gl.getUniformLocation(program, "r");
+    const time = gl.getUniformLocation(program, "t");
+    const tone = gl.getUniformLocation(program, "tone");
+
+    function draw(now) {
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      const width = Math.max(1, Math.floor(canvas.clientWidth * ratio));
+      const height = Math.max(1, Math.floor(canvas.clientHeight * ratio));
+      if (canvas.width !== width || canvas.height !== height) {
+        canvas.width = width;
+        canvas.height = height;
+        gl.viewport(0, 0, width, height);
+      }
+      gl.useProgram(program);
+      gl.uniform2f(resolution, width, height);
+      gl.uniform1f(time, now * 0.001);
+      gl.uniform1f(tone, toneIndex);
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  }
+
+  document.querySelectorAll(".model-webgl").forEach((canvas, index) => initWebgl(canvas, index + 1));
+})();
+
+(function () {
+  const form = document.getElementById("briefing-form");
+  const success = document.getElementById("form-success");
+  const copyButton = document.getElementById("copy-briefing");
+  const phone = "5521965239011";
+
+  function getMessage() {
+    const data = new FormData(form);
+    const lines = [
+      "SITE97 - Briefing",
+      "",
+      "Nome: " + (data.get("nome") || ""),
+      "WhatsApp: " + (data.get("whatsapp") || ""),
+      "Tipo de negócio: " + (data.get("tipo") || ""),
+      "Objetivo da página: " + (data.get("objetivo") || ""),
+      "Link atual/oferta: " + (data.get("link") || ""),
+      "",
+      "O que vende:",
+      data.get("oferta") || "",
+      "",
+      "CTA principal:",
+      data.get("cta") || "",
+      "",
+      "Observacoes:",
+      data.get("obs") || "Sem observacoes.",
+      "",
+      "Quero entrar na primeira leva de sites por R$97."
+    ];
+    return lines.join("\n");
+  }
+
+  function openWhatsApp() {
+    const message = getMessage();
+    const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+    success.classList.add("show");
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+    openWhatsApp();
+  });
+
+  copyButton.addEventListener("click", async () => {
+    const message = getMessage();
+    try {
+      await navigator.clipboard.writeText(message);
+      success.textContent = "Mensagem copiada. Agora e so enviar no WhatsApp para o Felipe.";
+      success.classList.add("show");
+    } catch (error) {
+      success.textContent = message;
+      success.classList.add("show");
+    }
+  });
+})();
+</script>
+</body>
+</html>

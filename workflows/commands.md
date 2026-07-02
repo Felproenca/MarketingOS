@@ -60,6 +60,8 @@
 | `/criar imagem` | Prompts e imagens de apoio | `criacao/skill-image-generation.md` |
 | `/criar branding` | Direção criativa e design system | `criacao/skill-branding.md` |
 | `/criar site` | Site ou landing page | `criacao/skill-site-builder.md` |
+| `/criar motion-site [slug] [project-id]` | Site cinematográfico com agentes, QA e handoff para vídeo | `criacao/motion-site-factory/SKILL.md` |
+| `/motion-site [project-id]` | Atalho para a Motion Site Factory no cliente ativo | `criacao/motion-site-factory/SKILL.md` |
 | `/criar com-motor` | Conteúdo via motor social/API local | `criacao/skill-content-engine.md` |
 | `/criar copy-agent` | Copy por plataforma com contrato de agent | `criacao/skill-social-copy.md` |
 | `/criar visual-spec` | Direção visual por slide/frame | `criacao/skill-visual-spec.md` |
@@ -92,6 +94,8 @@
 | `/prospectar mercado` | Analisa nichos com potencial | `aquisicao/skill-market-analyzer.md` |
 | `/prospectar prospector` | Qualifica e prioriza prospectos | `aquisicao/skill-prospector.md` |
 | `/prospectar agent` | Sinais de compra e abordagem via contrato de agent | `aquisicao/skill-prospecting-agent.md` |
+| `/sinais` | Eventos comerciais recentes, evidencias e fila auditavel de outbound | `aquisicao/skill-signal-intelligence.md` |
+| `/site-pronto` | Preview personalizado de R$97, leitura do nicho e escada para solucao total | `workflows/site-ready-prospecting.md` |
 | `/prospectar oferta` | Posicionamento e copy de oferta | `aquisicao/skill-offer-positioning.md` |
 | `/prospectar pitch` | Apresentação comercial HTML | `aquisicao/skill-pitch-deck.md` |
 | `/prospectar captacao` | Estrutura de captura de leads | `aquisicao/skill-lead-capture.md` |
@@ -111,6 +115,7 @@
 | `/inteligencia aquisicao [slug]` | Diagnostica gargalo principal de aquisição comparando hipóteses concorrentes | `inteligencia/skill-acquisition-intelligence.md` |
 
 | `/inteligencia critica [slug] [asset]` | Critica output antes de publicar, aprovando, revisando ou rejeitando | `inteligencia/skill-creative-critique.md` |
+| `/tema [tema]` | Pesquisa YouTube, TikTok, LinkedIn, Instagram e Trends em varios idiomas | `inteligencia/topic-intelligence/SKILL.md` |
 
 Planejados para proximas levas: `/inteligencia office-hours`, `/inteligencia tese`, `/inteligencia voz`, `/inteligencia visibilidade`.
 

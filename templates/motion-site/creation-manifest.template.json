@@ -1,0 +1,171 @@
+{
+  "schema_version": "1.1",
+  "project_id": "replace-project-id",
+  "client_slug": "replace-client-slug",
+  "status": "draft",
+  "acquisition": {
+    "objective": "replace-objective",
+    "bottleneck": "replace-bottleneck",
+    "audience": "replace-audience",
+    "primary_cta": "replace-cta",
+    "success_signal": "replace-observable-signal"
+  },
+  "creative_direction": {
+    "perception_from": "replace-current-perception",
+    "perception_to": "replace-target-perception",
+    "central_metaphor": "replace-metaphor",
+    "creative_tension": "replace-tension",
+    "signature_motion": "replace-motion",
+    "must_not_look_like": ["generic-template"],
+    "reference_ids": []
+  },
+  "reaction_contract": {
+    "first_3_seconds": "replace-observable-reaction",
+    "first_15_seconds": "replace-observable-curiosity",
+    "before_primary_cta": "replace-required-belief",
+    "after_action": "replace-risk-reducing-feeling"
+  },
+  "narrative": {
+    "thesis": "replace-thesis",
+    "transformation": "replace-transformation",
+    "opening_tension": "replace-opening-tension",
+    "cta_resolution": "replace-how-cta-resolves-opening-tension",
+    "intensity_scale": "1-10",
+    "beats": [
+      {
+        "id": "hook",
+        "function": "attention",
+        "intensity": 9,
+        "start_state": "replace-start",
+        "action": "replace-action",
+        "end_state": "replace-end",
+        "reward": "replace-reward"
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "job": "Expressar a tese e abrir a ação principal.",
+      "narrative_function": "anchor",
+      "belief_before": "replace-belief-before",
+      "belief_after": "replace-belief-after",
+      "intensity": 9,
+      "copy_budget": {
+        "headline_max_words": 10,
+        "body_max_words": 45,
+        "reading_mode": "scan"
+      },
+      "visual_anchor": "replace-visual-anchor",
+      "asset_role": "replace-asset-role",
+      "motion_role": "replace-motion-role",
+      "reward": "replace-section-reward",
+      "bridge_to_next": "replace-bridge",
+      "capture_id": "hero-signature",
+      "video_beat": "hook",
+      "interaction": "scroll",
+      "desktop_state": "replace-desktop-state",
+      "mobile_state": "replace-mobile-state",
+      "reduced_motion_state": "replace-reduced-motion-state",
+      "cta": "replace-cta"
+    }
+  ],
+  "assets": [
+    {
+      "id": "hero-asset",
+      "type": "image",
+      "path": "assets/replace.ext",
+      "source": "generated|client|licensed|code",
+      "source_ref": "replace-source-reference",
+      "prompt_or_license": "replace-prompt-or-license",
+      "treatment": "replace-treatment",
+      "mobile_variant": "assets/replace-mobile.ext",
+      "narrative_role": "replace-what-this-asset-makes-visible",
+      "exclusive_to_project": true,
+      "layers": ["subject", "background", "shadow", "highlight"],
+      "motion_ready": true,
+      "optimization": {
+        "format": "webp",
+        "width": 1920,
+        "max_kb": 450
+      }
+    }
+  ],
+  "decisions": [
+    {
+      "id": "decision-001",
+      "question": "replace-question",
+      "choice": "replace-choice",
+      "reason": "replace-reason",
+      "evidence": ["replace-evidence"],
+      "owner_role": "experience-architect"
+    }
+  ],
+  "outputs": {
+    "source_root": "source/",
+    "public_url": null,
+    "desktop_capture": "captures/desktop.png",
+    "mobile_capture": "captures/mobile.png",
+    "qa_report": "qa/critique.json"
+  },
+  "video_handoff": {
+    "recommended_skill": "website-to-video",
+    "story": "replace-video-story",
+    "cta": "replace-video-cta",
+    "capture_plan": [
+      {
+        "id": "capture-hero-desktop",
+        "capture_id": "hero-signature",
+        "viewport": {"width": 1440, "height": 900},
+        "entry": "load",
+        "action": "scroll",
+        "duration_ms": 4500,
+        "end_condition": "replace-observable-end-state",
+        "output": "captures/hero-desktop.webm"
+      },
+      {
+        "id": "capture-hero-mobile",
+        "capture_id": "hero-signature",
+        "viewport": {"width": 390, "height": 844},
+        "entry": "load",
+        "action": "scroll",
+        "duration_ms": 3500,
+        "end_condition": "replace-observable-end-state",
+        "output": "captures/hero-mobile.webm"
+      }
+    ],
+    "angles": [
+      {
+        "id": "showcase",
+        "hook": "replace-hook",
+        "sequence": ["hook"],
+        "format": "9:16",
+        "duration_seconds": 15
+      }
+    ]
+  },
+  "measurement": {
+    "events": ["primary_cta_click"],
+    "baseline": null,
+    "results": [],
+    "results_are_observed": false
+  },
+  "quality_gate": {
+    "minimum_average": 8.5,
+    "minimum_dimension": 7,
+    "scores": {
+      "initial_reaction": 0,
+      "narrative_continuity": 0,
+      "copy_quality": 0,
+      "art_direction": 0,
+      "asset_coherence": 0,
+      "meaningful_motion": 0,
+      "proof_and_conversion": 0,
+      "mobile_experience": 0,
+      "performance": 0
+    },
+    "hero_quality_cliff": false,
+    "passed": false
+  },
+  "receipts": []
+}

@@ -42,6 +42,7 @@ Estado atual do MarketingOS:
 - **Metricas de aquisicao**: `npm run insights:aquisicao -- --slug [slug]` grava `clients/[slug]/acquisition-metrics.json`; o Cockpit le esse arquivo quando atualizado.
 - **/construir**: gera blueprint de site/sistema a partir do catalogo de estudos de caso + alma da marca.
 - **Creative OS**: camada obrigatoria antes de qualquer motor visual. Decide objetivo -> mudanca de percepcao -> referencia/catalogo -> fisica/motion -> motor certo.
+- **Experience Continuity**: gate de sites/landings. Distribui narrativa, copy, assets, motion, respiracao e recompensas ate o CTA; reprova o padrao "hero + Word".
 - **Direcao de peca**: gate antes de video, animacao, landing visual, carrossel ou imagem. Transforma percepcao em metafora, cena, beats, linguagem visual, motion e criterios frame a frame.
 - **Escolha de engine**: primeiro direcao, depois motor. `render-reel.js` testa rapido, HyperFrames dirige motion autoral web, Remotion escala series/templates, Manim explica sistemas tecnicos.
 
@@ -50,6 +51,7 @@ Arquivos centrais:
 ```text
 intelligence/creative-os.md
 intelligence/creative-direction-engine.md
+intelligence/experience-continuity.md
 intelligence/motion-pattern-library.md
 intelligence/doctrine-direcao-de-arte.md
 templates/creative-direction-brief.json

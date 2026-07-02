@@ -1,0 +1,30 @@
+{
+  "niche": "",
+  "market": "",
+  "entry_offer": {
+    "name": "Ativacao do site pronto",
+    "price_brl": 97,
+    "scope": [],
+    "exclusions": [],
+    "delivery_time": ""
+  },
+  "market_analysis": {
+    "public_summary": [],
+    "private_dossier_path": "",
+    "evidence_refs": []
+  },
+  "total_solution": {
+    "trigger": "gargalo identificado",
+    "modules": [],
+    "price": null,
+    "promise": ""
+  },
+  "metrics": {
+    "previews": 0,
+    "approaches": 0,
+    "replies": 0,
+    "activations": 0,
+    "diagnostics": 0,
+    "total_solution_sales": 0
+  }
+}

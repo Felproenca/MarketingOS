@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Apex Motors — Veículos Premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@300;400;500;600;700&family=Space+Mono:wght@400&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #060A12;
+  --bg2: #090E18;
+  --blue: #0057FF;
+  --blue-light: #3D7FFF;
+  --chrome: #C8D0DC;
+  --muted: #4A5568;
+  --f-display: 'Anton', sans-serif;
+  --f-cond: 'Barlow Condensed', sans-serif;
+  --f-mono: 'Space Mono', monospace;
+}
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body { background: var(--bg); color: var(--chrome); font-family: var(--f-cond); -webkit-font-smoothing: antialiased; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 20px 52px;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(6,10,18,0.95); backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0,87,255,0.15);
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo-text { font-family: var(--f-display); font-size: 22px; letter-spacing: 0.06em; color: var(--chrome); }
+.nav-logo-text span { color: var(--blue); }
+.nav-badge { font-family: var(--f-mono); font-size: 8px; color: var(--blue); letter-spacing: 0.12em; border: 1px solid rgba(0,87,255,0.4); padding: 2px 6px; }
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a { font-family: var(--f-cond); font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--chrome); }
+.nav-cta {
+  font-family: var(--f-cond); font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 10px 22px; background: var(--blue); color: #fff; text-decoration: none;
+  transition: background 0.2s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+}
+.nav-cta:hover { background: var(--blue-light); }
+
+/* HERO */
+.hero {
+  min-height: 100svh; padding: 0 52px;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding-bottom: 80px; position: relative; overflow: hidden;
+}
+/* speed lines */
+.hero-lines {
+  position: absolute; inset: 0; overflow: hidden;
+}
+.speed-line {
+  position: absolute; height: 1px;
+  background: linear-gradient(to right, transparent, rgba(0,87,255,0.15), transparent);
+  transform-origin: right center;
+}
+.sl-1 { top: 35%; left: -10%; right: 0; transform: rotate(-8deg); }
+.sl-2 { top: 45%; left: -10%; right: 0; transform: rotate(-6deg); opacity: 0.6; }
+.sl-3 { top: 55%; left: -10%; right: 0; transform: rotate(-4deg); opacity: 0.4; }
+.sl-4 { top: 65%; left: -10%; right: 0; transform: rotate(-6deg); opacity: 0.3; }
+
+/* car silhouette CSS art */
+.car-art {
+  position: absolute; right: -2%; top: 50%; transform: translateY(-50%);
+  width: 55%; height: 65%;
+}
+.car-body {
+  position: absolute; bottom: 30%; left: 5%; right: 5%;
+  height: 42%;
+  background: linear-gradient(160deg, rgba(0,87,255,0.08) 0%, rgba(0,87,255,0.03) 50%, transparent 100%);
+  border-top: 1px solid rgba(0,87,255,0.2);
+  clip-path: polygon(8% 100%, 0% 60%, 20% 20%, 45% 5%, 80% 8%, 95% 25%, 100% 60%, 100% 100%);
+}
+.car-roof {
+  position: absolute; bottom: 52%; left: 22%; width: 55%; height: 28%;
+  background: linear-gradient(160deg, rgba(200,208,220,0.05) 0%, transparent 100%);
+  clip-path: polygon(10% 100%, 18% 0%, 85% 0%, 100% 100%);
+  border-top: 1px solid rgba(200,208,220,0.1);
+}
+.car-wheel-l {
+  position: absolute; bottom: 18%; left: 14%;
+  width: 15%; aspect-ratio: 1; border-radius: 50%;
+  border: 1px solid rgba(0,87,255,0.3);
+  box-shadow: 0 0 20px rgba(0,87,255,0.1);
+}
+.car-wheel-l::after {
+  content:''; position:absolute; inset:15%; border-radius:50%;
+  border:1px solid rgba(0,87,255,0.5);
+}
+.car-wheel-r {
+  position: absolute; bottom: 18%; right: 10%;
+  width: 15%; aspect-ratio: 1; border-radius: 50%;
+  border: 1px solid rgba(0,87,255,0.3);
+  box-shadow: 0 0 20px rgba(0,87,255,0.1);
+}
+.car-wheel-r::after {
+  content:''; position:absolute; inset:15%; border-radius:50%;
+  border:1px solid rgba(0,87,255,0.5);
+}
+.car-light {
+  position: absolute; right: 5%; bottom: 42%;
+  width: 4%; height: 8%;
+  background: radial-gradient(ellipse, rgba(0,87,255,0.6) 0%, transparent 70%);
+  filter: blur(2px);
+}
+.car-glow {
+  position: absolute; bottom: 0; left: 10%; right: 10%; height: 30%;
+  background: radial-gradient(ellipse at 50% 100%, rgba(0,87,255,0.08) 0%, transparent 70%);
+}
+
+/* hero content */
+.hero-content { position: relative; z-index: 1; max-width: 580px; }
+.hero-tag-row { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+.hero-tag { font-family: var(--f-mono); font-size: 9px; letter-spacing: 0.14em; color: var(--blue); padding: 4px 10px; border: 1px solid rgba(0,87,255,0.3); }
+.hero-divider { width: 40px; height: 1px; background: rgba(0,87,255,0.4); }
+.hero h1 { font-family: var(--f-display); font-size: clamp(52px,9vw,120px); line-height: 0.92; letter-spacing: 0.01em; color: var(--chrome); margin-bottom: 28px; }
+.hero h1 .accent { color: var(--blue); }
+.hero h1 .ghost { color: rgba(200,208,220,0.08); }
+.hero-sub { font-family: var(--f-cond); font-size: 17px; font-weight: 300; color: var(--muted); line-height: 1.7; margin-bottom: 40px; max-width: 440px; }
+.hero-btns { display: flex; gap: 14px; align-items: center; }
+.btn-blue {
+  font-family: var(--f-cond); font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 16px 36px; background: var(--blue); color: #fff; text-decoration: none;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  transition: background 0.2s;
+}
+.btn-blue:hover { background: var(--blue-light); }
+.btn-outline {
+  font-family: var(--f-cond); font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 15px 36px; border: 1px solid rgba(200,208,220,0.15); color: var(--muted); text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-outline:hover { border-color: var(--blue); color: var(--blue-light); }
+
+/* SPECS BAR */
+.specs-bar {
+  padding: 24px 52px;
+  background: var(--bg2);
+  border-top: 1px solid rgba(0,87,255,0.15);
+  border-bottom: 1px solid rgba(0,87,255,0.1);
+  display: flex; justify-content: space-around;
+}
+.spec { text-align: center; }
+.spec-val { font-family: var(--f-display); font-size: 32px; color: var(--chrome); line-height: 1; }
+.spec-val span { font-size: 16px; color: var(--blue); }
+.spec-label { font-family: var(--f-mono); font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+
+/* FLEET */
+.fleet { padding: 100px 52px; }
+.fleet-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; }
+.fleet-header h2 { font-family: var(--f-display); font-size: clamp(40px,5vw,72px); letter-spacing: 0.02em; color: var(--chrome); line-height: 1; }
+.fleet-tabs { display: flex; gap: 4px; }
+.tab {
+  font-family: var(--f-cond); font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 10px 20px; background: transparent; border: 1px solid rgba(200,208,220,0.1);
+  color: var(--muted); cursor: pointer; transition: all 0.2s;
+}
+.tab.active, .tab:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+.fleet-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: rgba(0,87,255,0.1); }
+.car-card { background: var(--bg2); padding: 0; position: relative; overflow: hidden; cursor: pointer; transition: transform 0.3s; }
+.car-card:hover { transform: translateY(-4px); }
+.car-visual {
+  aspect-ratio: 16/9; position: relative; overflow: hidden;
+  background: linear-gradient(135deg, #080C14 0%, #0A1020 100%);
+}
+/* unique car silhouette per card */
+.car-card:nth-child(1) .car-visual {
+  background: linear-gradient(135deg, #060A12 0%, #0D1525 100%);
+}
+.car-card:nth-child(1) .car-visual::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(ellipse at 70% 60%, rgba(0,87,255,0.12) 0%, transparent 50%);
+}
+.car-card:nth-child(2) .car-visual {
+  background: linear-gradient(135deg, #080912 0%, #0C1020 100%);
+}
+.car-card:nth-child(2) .car-visual::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(ellipse at 30% 60%, rgba(0,87,255,0.08) 0%, transparent 50%);
+}
+.car-card:nth-child(3) .car-visual {
+  background: linear-gradient(135deg, #06080F 0%, #0A0E1A 100%);
+}
+.car-card:nth-child(3) .car-visual::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(ellipse at 50% 70%, rgba(0,87,255,0.1) 0%, transparent 50%);
+}
+
+.car-model-text {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  font-family: var(--f-display); font-size: 64px; color: rgba(200,208,220,0.04);
+  letter-spacing: 0.04em; white-space: nowrap;
+}
+.car-badge {
+  position: absolute; top: 14px; left: 14px;
+  font-family: var(--f-mono); font-size: 8px; letter-spacing: 0.12em;
+  padding: 4px 8px; background: rgba(0,87,255,0.9); color: #fff;
+}
+.car-info { padding: 24px 28px 28px; }
+.car-make { font-family: var(--f-mono); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); margin-bottom: 6px; }
+.car-name { font-family: var(--f-display); font-size: 26px; letter-spacing: 0.02em; color: var(--chrome); margin-bottom: 16px; }
+.car-specs-row { display: flex; gap: 20px; margin-bottom: 20px; }
+.car-spec { border-top: 1px solid rgba(200,208,220,0.08); padding-top: 10px; flex: 1; }
+.car-spec-val { font-family: var(--f-cond); font-size: 15px; font-weight: 600; color: var(--chrome); }
+.car-spec-key { font-family: var(--f-mono); font-size: 8px; color: var(--muted); letter-spacing: 0.1em; margin-top: 3px; }
+.car-price-row { display: flex; justify-content: space-between; align-items: center; }
+.car-price { font-family: var(--f-cond); font-size: 20px; font-weight: 700; color: var(--chrome); }
+.car-cta-btn {
+  font-family: var(--f-cond); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 10px 20px; background: transparent; border: 1px solid rgba(0,87,255,0.4);
+  color: var(--blue); cursor: pointer; text-decoration: none; transition: all 0.2s;
+  clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+}
+.car-cta-btn:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+/* DIFFERENTIALS */
+.diff { padding: 100px 52px; border-top: 1px solid rgba(0,87,255,0.1); }
+.diff h2 { font-family: var(--f-display); font-size: clamp(40px,5vw,72px); letter-spacing: 0.02em; color: var(--chrome); margin-bottom: 60px; line-height: 1; }
+.diff-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(0,87,255,0.1); }
+.diff-card { background: var(--bg2); padding: 36px 28px; border-top: 2px solid var(--blue); }
+.diff-icon { font-family: var(--f-display); font-size: 32px; color: var(--blue); margin-bottom: 20px; }
+.diff-title { font-family: var(--f-cond); font-size: 18px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--chrome); margin-bottom: 12px; }
+.diff-desc { font-family: var(--f-cond); font-size: 14px; font-weight: 300; color: var(--muted); line-height: 1.7; }
+
+/* CTA */
+.cta-section {
+  padding: 100px 52px; text-align: center;
+  background: linear-gradient(180deg, var(--bg) 0%, #04080F 100%);
+  border-top: 1px solid rgba(0,87,255,0.1);
+  position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 300px;
+  background: radial-gradient(ellipse, rgba(0,87,255,0.08) 0%, transparent 70%);
+}
+.cta-section h2 { font-family: var(--f-display); font-size: clamp(48px,7vw,96px); line-height: 0.95; color: var(--chrome); margin-bottom: 24px; position: relative; }
+.cta-section h2 .blue { color: var(--blue); }
+.cta-section p { font-family: var(--f-cond); font-size: 17px; font-weight: 300; color: var(--muted); margin-bottom: 44px; }
+.cta-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+footer {
+  padding: 24px 52px; border-top: 1px solid rgba(0,87,255,0.1);
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--f-mono); font-size: 9px; letter-spacing: 0.1em; color: var(--muted);
+}
+footer span:last-child { color: rgba(0,87,255,0.6); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-text">APEX<span>.</span></div>
+    <div class="nav-badge">MOTORS</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#fleet">Estoque</a></li>
+    <li><a href="#diff">Diferenciais</a></li>
+    <li><a href="#cta">Contato</a></li>
+  </ul>
+  <a class="nav-cta" href="#cta">AGENDAR TEST DRIVE</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-lines">
+    <div class="speed-line sl-1"></div>
+    <div class="speed-line sl-2"></div>
+    <div class="speed-line sl-3"></div>
+    <div class="speed-line sl-4"></div>
+  </div>
+  <div class="car-art">
+    <div class="car-glow"></div>
+    <div class="car-body"></div>
+    <div class="car-roof"></div>
+    <div class="car-wheel-l"></div>
+    <div class="car-wheel-r"></div>
+    <div class="car-light"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-tag-row">
+      <span class="hero-tag">EST. 2014 · SP</span>
+      <div class="hero-divider"></div>
+      <span class="hero-tag">VEÍCULOS PREMIUM</span>
+    </div>
+    <h1>CADA<br /><span class="accent">CURVA</span><br />TEM UM<br /><span class="ghost">PROPÓSITO.</span></h1>
+    <p class="hero-sub">Importados e semi-novos premium. Curadoria técnica, financiamento sem burocracia e entrega em todo Brasil.</p>
+    <div class="hero-btns">
+      <a class="btn-blue" href="#fleet">VER ESTOQUE</a>
+      <a class="btn-outline" href="#cta">TEST DRIVE</a>
+    </div>
+  </div>
+</section>
+
+<div class="specs-bar">
+  <div class="spec"><div class="spec-val">240<span>+</span></div><div class="spec-label">Veículos no estoque</div></div>
+  <div class="spec"><div class="spec-val">10<span>a</span></div><div class="spec-label">Anos no mercado</div></div>
+  <div class="spec"><div class="spec-val">4.8<span>★</span></div><div class="spec-label">Avaliação Google</div></div>
+  <div class="spec"><div class="spec-val">100<span>%</span></div><div class="spec-label">Garantia de procedência</div></div>
+</div>
+
+<section class="fleet" id="fleet">
+  <div class="fleet-header">
+    <h2>ESTOQUE<br />SELECIONADO</h2>
+    <div class="fleet-tabs">
+      <button class="tab active">Todos</button>
+      <button class="tab">SUVs</button>
+      <button class="tab">Sedans</button>
+      <button class="tab">Esportivos</button>
+    </div>
+  </div>
+  <div class="fleet-grid">
+    <div class="car-card">
+      <div class="car-visual">
+        <div class="car-model-text">BMW</div>
+        <div class="car-badge">DESTAQUE</div>
+      </div>
+      <div class="car-info">
+        <div class="car-make">BMW</div>
+        <div class="car-name">X5 xDrive 40i</div>
+        <div class="car-specs-row">
+          <div class="car-spec"><div class="car-spec-val">340</div><div class="car-spec-key">CV</div></div>
+          <div class="car-spec"><div class="car-spec-val">2022</div><div class="car-spec-key">ANO</div></div>
+          <div class="car-spec"><div class="car-spec-val">28k</div><div class="car-spec-key">KM</div></div>
+        </div>
+        <div class="car-price-row">
+          <div class="car-price">R$ 498.000</div>
+          <a class="car-cta-btn" href="#">VER MAIS</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="car-card">
+      <div class="car-visual">
+        <div class="car-model-text">PORSCHE</div>
+        <div class="car-badge">RESERVA</div>
+      </div>
+      <div class="car-info">
+        <div class="car-make">PORSCHE</div>
+        <div class="car-name">Cayenne GTS</div>
+        <div class="car-specs-row">
+          <div class="car-spec"><div class="car-spec-val">460</div><div class="car-spec-key">CV</div></div>
+          <div class="car-spec"><div class="car-spec-val">2023</div><div class="car-spec-key">ANO</div></div>
+          <div class="car-spec"><div class="car-spec-val">12k</div><div class="car-spec-key">KM</div></div>
+        </div>
+        <div class="car-price-row">
+          <div class="car-price">R$ 780.000</div>
+          <a class="car-cta-btn" href="#">VER MAIS</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="car-card">
+      <div class="car-visual">
+        <div class="car-model-text">AUDI</div>
+      </div>
+      <div class="car-info">
+        <div class="car-make">AUDI</div>
+        <div class="car-name">A7 Sportback 55</div>
+        <div class="car-specs-row">
+          <div class="car-spec"><div class="car-spec-val">340</div><div class="car-spec-key">CV</div></div>
+          <div class="car-spec"><div class="car-spec-val">2021</div><div class="car-spec-key">ANO</div></div>
+          <div class="car-spec"><div class="car-spec-val">41k</div><div class="car-spec-key">KM</div></div>
+        </div>
+        <div class="car-price-row">
+          <div class="car-price">R$ 389.000</div>
+          <a class="car-cta-btn" href="#">VER MAIS</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="diff" id="diff">
+  <h2>POR QUE A<br />APEX?</h2>
+  <div class="diff-grid">
+    <div class="diff-card">
+      <div class="diff-icon">01</div>
+      <div class="diff-title">Laudo Técnico Incluso</div>
+      <div class="diff-desc">Todo veículo passa por inspeção de 150 pontos. Laudo completo disponível antes da proposta.</div>
+    </div>
+    <div class="diff-card">
+      <div class="diff-icon">02</div>
+      <div class="diff-title">Financiamento Direto</div>
+      <div class="diff-desc">Parceria com 12 bancos. Aprovação em até 4 horas. Sem consulta prévia para clientes PJ.</div>
+    </div>
+    <div class="diff-card">
+      <div class="diff-icon">03</div>
+      <div class="diff-title">Entrega Nacional</div>
+      <div class="diff-desc">Logística especializada para todos os estados. Seguro de transporte incluso sem custo adicional.</div>
+    </div>
+    <div class="diff-card">
+      <div class="diff-icon">04</div>
+      <div class="diff-title">Garantia Apex</div>
+      <div class="diff-desc">12 meses de garantia em motor e câmbio. Assistência 24h e cobertura nacional de peças.</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="cta">
+  <h2>SEU PRÓXIMO<br /><span class="blue">VEÍCULO</span><br />ESTÁ AQUI.</h2>
+  <p>Test drive gratuito em São Paulo. Consultoria de financiamento sem compromisso.</p>
+  <div class="cta-row">
+    <a class="btn-blue" href="#">AGENDAR TEST DRIVE</a>
+    <a class="btn-outline" href="#">VER ESTOQUE COMPLETO</a>
+  </div>
+</section>
+
+<footer>
+  <span>APEX MOTORS © 2025 · CNPJ 00.000.000/0001-00</span>
+  <span>SÃO PAULO · SP</span>
+  <span>BUILT BY MARKETING/OS</span>
+</footer>
+
+<script>
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'))
+    t.classList.add('active')
+  })
+})
+</script>
+</body>
+</html>

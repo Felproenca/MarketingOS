@@ -69,6 +69,9 @@ a skill-criatividade é obrigatória antes de tudo.
 
 "Preciso de imagens"
 → skill-image-generation.md
+
+"Preciso de site cinematográfico, motion avançado, agentes paralelos ou documentação para vídeo"
+→ motion-site-factory/SKILL.md
 ```
 
 ---
@@ -89,6 +92,7 @@ a skill-criatividade é obrigatória antes de tudo.
 | skill-social-copy | /criar copy | Copy para posts e legendas |
 | skill-save-reference | /salvar-referencia | Captura e interpreta referências visuais |
 | skill-site-builder | /criar site | Construtor de sites e landing pages |
+| motion-site-factory | /criar motion-site | Site cinematográfico multiagente + documentação para vídeo |
 | skill-prompt-engineer | /criar prompt | Engenharia de prompts de imagem |
 | skill-lancamento | /lancamento | Estratégia de lançamento |
 | skill-niche-intelligence | /nicho | Inteligência de nicho |

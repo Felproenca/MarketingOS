@@ -48,6 +48,50 @@ Clientes beneficiados:
 
 ## Atualizações Aplicadas
 
+### U014 — Motion Site Factory v1.0 — orquestração e documentação para vídeo
+
+Data:             junho/2026
+Origem:           Benchmark Overclock + necessidade de produzir sites cinematográficos em escala
+Padrão associado: hierarquia → contratos → task graph → crítica → recibos → vídeo
+
+O que mudou:
+→ Criada `skills/criacao/motion-site-factory/SKILL.md` com papéis especializados, contexto isolado e gates independentes.
+→ Criados templates de `agent-roster.json`, `task-graph.json` e `creation-manifest.json`.
+→ Criado validador determinístico para papéis, dependências, ciclos, capture IDs, desktop/mobile e handoff de vídeo.
+→ Criado workflow `/motion-site` e integrado ao grupo de criação, command router, commands e site-builder.
+→ Criado o primeiro pacote válido em `clients/felipe-proenca/outputs/site/mkos-main/`.
+
+Por que mudou:
+→ Sites avançados exigem direção, assets, motion, frontend, QA e documentação. Um único agente com contexto total aumenta custo, mistura responsabilidades e faz a criação terminar sem material reutilizável.
+
+Impacto esperado:
+→ Mais paralelismo seguro, menor desperdício de contexto, QA independente e cada site pronto para gerar vídeos, cases e conteúdo sem reconstruir a história depois.
+
+Clientes beneficiados:
+→ Todos os projetos cinematográficos e a futura produção em escala da Motion Site Factory.
+
+### U013 — Design Taste Frontend — repertório externo instalado e filtrado
+
+Data:             junho/2026
+Origem:           Motion Site Factory — pesquisa de skills artísticas para elevar qualidade em escala
+Padrão associado: brief → direção por nicho → variação visual → construção → crítica
+
+O que mudou:
+→ Instalada globalmente a skill `design-taste-frontend`, do repositório `leonxlnx/taste-skill`.
+→ Entram no repertório: leitura declarada do briefing, dials de variação/motion/densidade, disciplina anti-default, preservação de identidade em redesigns e checklist de pre-flight.
+→ A skill opera depois de `perception.json`, `visual-dna.json` e Creative Direction; nunca substitui essas camadas.
+→ Proibições universais da skill externa são tratadas como alertas contextuais, não como lei. Brand kit, acessibilidade, objetivo de aquisição e direção do cliente vencem qualquer preferência estética importada.
+→ Não entram como default: estética pronta, rotação aleatória de arquétipos, fontes presumidas sem licença, dependências não verificadas ou regras que apaguem sinais autênticos da marca.
+
+Por que mudou:
+→ Produção de sites em escala precisa variar linguagem por nicho sem cair em templates de IA. O ganho real da skill é aumentar a qualidade da decisão e da crítica, não impor uma aparência única.
+
+Impacto esperado:
+→ Sites de hamburgueria, tatuador, produtos e outros nichos partem de leituras visuais distintas, com motion proporcional à proposta e QA mais rigoroso antes da entrega.
+
+Clientes beneficiados:
+→ Todos os novos projetos da Motion Site Factory.
+
 ### U012 — Motor de DM DIAGNOSTICO operacional
 
 Data:             junho/2026

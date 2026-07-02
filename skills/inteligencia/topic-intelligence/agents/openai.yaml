@@ -1,0 +1,4 @@
+interface:
+  display_name: "Topic Intelligence"
+  short_description: "Pesquisa temas e linguagem em varios canais"
+  default_prompt: "Use $topic-intelligence para pesquisar um tema em varios idiomas e canais antes de criar conteudo."

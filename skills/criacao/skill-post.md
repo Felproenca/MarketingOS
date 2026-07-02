@@ -29,6 +29,12 @@ env: []
 
 Antes de gerar qualquer post:
 
+0. Verificar se o tema ja possui dossie em
+   `clients/[slug]/outputs/inteligencia/topic-dossiers/`.
+   Se for tema novo e o dossie nao existir, interromper e executar
+   `skills/inteligencia/topic-intelligence/SKILL.md`. Conteudo avulso sem
+   pesquisa direta em YouTube, TikTok, LinkedIn, Instagram e Google Trends nao sai.
+
 1. Verificar se existe `clients/[slug]/outputs/branding/visual-dna.json`
 2. Se NÃO existir → interromper e instruir: "Execute /direcao-criativa antes de criar post para este cliente."
 3. Se existir → carregar:

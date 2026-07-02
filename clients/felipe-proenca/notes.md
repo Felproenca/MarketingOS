@@ -305,3 +305,14 @@ Estudo mostra que a maioria das empresas do segmento digital usa redes sociais m
 - Honesto. Único. Constrói credibilidade sem precisar de prova que ainda não existe.
 
 ---
+
+## 2026-06-29 - Conteúdo informativo dentro da operação
+
+**Decisão permanente:**
+- Topic Intelligence e prospecção com site pronto operam continuamente.
+- Conteúdo público informa, interpreta mercado e gera interesse.
+- Conteúdo não vende diretamente o site de R$97 ou a solução total por padrão.
+- Venda direta pertence a outbound, diagnóstico ou ativo explicitamente comercial.
+- CTAs preferidos: salvar, acompanhar, comparar, responder e pedir o estudo.
+
+---

@@ -1,0 +1,73 @@
+{
+  "id": "teste-cl-nica-mr2u982v",
+  "slug": "teste-cl-nica-mr2u982v",
+  "nome": "Site Prospecção — Teste Cl�nica",
+  "modo": "prospeccao",
+  "status": "done",
+  "createdAt": "2026-07-02T01:41:24.391Z",
+  "updatedAt": "2026-07-02T01:42:04.307Z",
+  "empresa": "Teste Cl�nica",
+  "nicho": "Cl�nica Est�tica",
+  "cidade": "Florian�polis/SC",
+  "oferta": "Harmoniza��o facial",
+  "publico": "Mulheres 28-45 anos",
+  "tom": "Premium",
+  "objetivo": "Gerar agendamentos via WhatsApp",
+  "steps": [
+    {
+      "id": "s1",
+      "label": "Research",
+      "status": "done",
+      "completedAt": "2026-07-02T01:42:00.804Z"
+    },
+    {
+      "id": "s2",
+      "label": "Brand Extraction",
+      "status": "done",
+      "completedAt": "2026-07-02T01:42:01.152Z"
+    },
+    {
+      "id": "s3",
+      "label": "Reference Selection",
+      "status": "done",
+      "completedAt": "2026-07-02T01:42:01.482Z"
+    },
+    {
+      "id": "s4",
+      "label": "Copy Strategy",
+      "status": "done",
+      "completedAt": "2026-07-02T01:42:02.073Z"
+    },
+    {
+      "id": "s5",
+      "label": "Page Structure",
+      "status": "done",
+      "completedAt": "2026-07-02T01:42:02.438Z"
+    },
+    {
+      "id": "s6",
+      "label": "Motion Direction",
+      "status": "done",
+      "completedAt": "2026-07-02T01:42:02.881Z"
+    },
+    {
+      "id": "s7",
+      "label": "Build",
+      "status": "done",
+      "completedAt": "2026-07-02T01:42:03.353Z"
+    },
+    {
+      "id": "s8",
+      "label": "QA",
+      "status": "done",
+      "completedAt": "2026-07-02T01:42:03.873Z"
+    },
+    {
+      "id": "s9",
+      "label": "Preview",
+      "status": "done",
+      "completedAt": "2026-07-02T01:42:04.305Z"
+    }
+  ],
+  "previewUrl": "/preview/teste-cl-nica-mr2u982v/site/index.html"
+}

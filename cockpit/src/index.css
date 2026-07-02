@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+/* ── MarketingOS Cockpit — Paleta Tática ─────────────────────── */
+:root {
+  /* Backgrounds */
+  --bg-base: #07070A;
+  --bg-panel: #0E0E16;
+  --bg-card: #141420;
+  --bg-hover: #1C1C2A;
+  --bg-active: #20202E;
+
+  /* Borders */
+  --border: #1E1E2C;
+  --border-bright: #2C2C40;
+  --border-accent: rgba(212, 255, 0, 0.3);
+
+  /* Accent — chartreuse elétrico (radar) */
+  --accent: #D4FF00;
+  --accent-dim: #A8CC00;
+  --accent-glow: rgba(212, 255, 0, 0.12);
+  --accent-glow-strong: rgba(212, 255, 0, 0.25);
+
+  /* Status */
+  --cyan: #00D4FF;
+  --red: #FF2D55;
+  --green: #00FF88;
+  --amber: #FFB800;
+
+  /* Typography */
+  --text: #F0EDE8;
+  --text-2: #8080A0;
+  --text-3: #44445A;
+
+  /* Fonts */
+  --f-display: 'Anton', sans-serif;
+  --f-body: 'Inter', system-ui, sans-serif;
+  --f-mono: 'JetBrains Mono', monospace;
+}
+
+/* ── Reset ───────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 14px; }
+
+body {
+  background: var(--bg-base);
+  color: var(--text);
+  font-family: var(--f-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100svh;
+  display: flex;
+}
+
+/* ── Tipografia ──────────────────────────────────────────────── */
+.display { font-family: var(--f-display); letter-spacing: 0.02em; }
+.mono { font-family: var(--f-mono); }
+
+/* ── Scrollbar ───────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-base); }
+::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-3); }
+
+/* ── Utilities ───────────────────────────────────────────────── */
+.accent-glow {
+  box-shadow: 0 0 24px var(--accent-glow-strong), 0 0 8px var(--accent-glow);
+}
+
+.card-border {
+  border: 1px solid var(--border);
+  transition: border-color 0.2s;
+}
+.card-border:hover {
+  border-color: var(--border-bright);
+}
+
+.tag {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 3px;
+}
+
+/* Step status colors */
+.step-pending  { color: var(--text-3); border-color: var(--border); }
+.step-running  { color: var(--accent); border-color: var(--accent); }
+.step-done     { color: var(--green);  border-color: var(--green); }
+.step-error    { color: var(--red);    border-color: var(--red); }
+
+/* Pulse animation for running steps */
+@keyframes pulse-accent {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.pulse { animation: pulse-accent 1.4s ease-in-out infinite; }
+
+/* Log stream animation */
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.log-line { animation: slide-in 0.25s ease forwards; }

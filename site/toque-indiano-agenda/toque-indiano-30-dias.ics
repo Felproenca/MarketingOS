@@ -1,0 +1,112 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//MarketingOS//Toque Indiano Conteudo//PT-BR
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Toque Indiano - Conteudo
+X-WR-TIMEZONE:America/Sao_Paulo
+BEGIN:VEVENT
+UID:20260630-reel-identidade@mkos.online
+DTSTAMP:20260629T120000Z
+DTSTART;TZID=America/Sao_Paulo:20260630T190000
+DTEND;TZID=America/Sao_Paulo:20260630T200000
+SUMMARY:[REEL] Roupa não é só o que cobre você
+DESCRIPTION:Vestir identidade. Reintroduzir a marca com posicionamento. Aprovação obrigatória.
+END:VEVENT
+BEGIN:VEVENT
+UID:20260702-carrossel-presenca@mkos.online
+DTSTAMP:20260629T120000Z
+DTSTART;TZID=America/Sao_Paulo:20260702T190000
+DTEND;TZID=America/Sao_Paulo:20260702T200000
+SUMMARY:[CARROSSEL] Como usar uma peça marcante
+DESCRIPTION:Base neutra\, repetição de cor e proporção. Aprovação obrigatória.
+END:VEVENT
+BEGIN:VEVENT
+UID:20260704-stories-escuta@mkos.online
+DTSTAMP:20260629T120000Z
+DTSTART;TZID=America/Sao_Paulo:20260704T110000
+DTEND;TZID=America/Sao_Paulo:20260704T120000
+SUMMARY:[STORIES] O que faz você escolher uma roupa diferente?
+DESCRIPTION:Enquete para capturar linguagem e preferência da audiência.
+END:VEVENT
+BEGIN:VEVENT
+UID:20260707-reel-raiz@mkos.online
+DTSTAMP:20260629T120000Z
+DTSTART;TZID=America/Sao_Paulo:20260707T190000
+DTEND;TZID=America/Sao_Paulo:20260707T200000
+SUMMARY:[REEL] O que dez anos escolhendo peças ensinam
+DESCRIPTION:Fundadora mostra um critério aprendido na prática.
+END:VEVENT
+BEGIN:VEVENT
+UID:20260709-carrossel-cuidado@mkos.online
+DTSTAMP:20260629T120000Z
+DTSTART;TZID=America/Sao_Paulo:20260709T190000
+DTEND;TZID=America/Sao_Paulo:20260709T200000
+SUMMARY:[CARROSSEL] O cuidado começa antes da primeira lavagem
+DESCRIPTION:Etiqueta\, tecido\, secagem e armazenamento.
+END:VEVENT
+BEGIN:VEVENT
+UID:20260711-stories-textura@mkos.online
+DTSTAMP:20260629T120000Z
+DTSTART;TZID=America/Sao_Paulo:20260711T110000
+DTEND;TZID=America/Sao_Paulo:20260711T120000
+SUMMARY:[STORIES] Toque de perto
+DESCRIPTION:Macros de textura e perguntas sobre sensação\, peso e movimento.
+END:VEVENT
+BEGIN:VEVENT
+UID:20260714-reel-contextos@mkos.online
+DTSTAMP:20260629T120000Z
+DTSTART;TZID=America/Sao_Paulo:20260714T190000
+DTEND;TZID=America/Sao_Paulo:20260714T200000
+SUMMARY:[REEL] Uma peça\, três presenças
+DESCRIPTION:A mesma peça em contexto casual\, trabalho e encontro.
+END:VEVENT
+BEGIN:VEVENT
+UID:20260716-carrossel-estampas@mkos.online
+DTSTAMP:20260629T120000Z
+DTSTART;TZID=America/Sao_Paulo:20260716T190000
+DTEND;TZID=America/Sao_Paulo:20260716T200000
+SUMMARY:[CARROSSEL] Como combinar estampas sem disputar atenção
+DESCRIPTION:Escala\, cor em comum e áreas de respiro.
+END:VEVENT
+BEGIN:VEVENT
+UID:20260718-stories-clientes@mkos.online
+DTSTAMP:20260629T120000Z
+DTSTART;TZID=America/Sao_Paulo:20260718T110000
+DTEND;TZID=America/Sao_Paulo:20260718T120000
+SUMMARY:[STORIES] A peça que mais rendeu conversa
+DESCRIPTION:Coletar relatos e prova social autorizável.
+END:VEVENT
+BEGIN:VEVENT
+UID:20260721-reel-curadoria@mkos.online
+DTSTAMP:20260629T120000Z
+DTSTART;TZID=America/Sao_Paulo:20260721T190000
+DTEND;TZID=America/Sao_Paulo:20260721T200000
+SUMMARY:[REEL] Como uma peça entra na Toque Indiano
+DESCRIPTION:Bastidor de seleção e curadoria.
+END:VEVENT
+BEGIN:VEVENT
+UID:20260723-carrossel-cultura@mkos.online
+DTSTAMP:20260629T120000Z
+DTSTART;TZID=America/Sao_Paulo:20260723T190000
+DTEND;TZID=America/Sao_Paulo:20260723T200000
+SUMMARY:[PESQUISA] Moda com referência não é fantasia
+DESCRIPTION:Publicar apenas após pesquisa e revisão cultural.
+END:VEVENT
+BEGIN:VEVENT
+UID:20260725-stories-escolha@mkos.online
+DTSTAMP:20260629T120000Z
+DTSTART;TZID=America/Sao_Paulo:20260725T110000
+DTEND;TZID=America/Sao_Paulo:20260725T120000
+SUMMARY:[STORIES] Escolha guiada da semana
+DESCRIPTION:Três peças para preferências reveladas nas enquetes.
+END:VEVENT
+BEGIN:VEVENT
+UID:20260728-reel-prova@mkos.online
+DTSTAMP:20260629T120000Z
+DTSTART;TZID=America/Sao_Paulo:20260728T190000
+DTEND;TZID=America/Sao_Paulo:20260728T200000
+SUMMARY:[REEL] A roupa que faz alguém perguntar onde você comprou
+DESCRIPTION:Fechar o ciclo com identidade e prova.
+END:VEVENT
+END:VCALENDAR

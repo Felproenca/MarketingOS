@@ -13,6 +13,8 @@ env: []
 > Skill isolada do MarketingOS.
 > Leia este arquivo completo antes de executar qualquer geração.
 > Input obrigatório: contexto do cliente via `client.md`.
+> Escalonamento: se houver motion guiado por scroll, Three.js/WebGL, agentes paralelos
+> ou documentação para vídeo, usar `motion-site-factory/SKILL.md`.
 
 ---
 
@@ -23,6 +25,7 @@ env: []
 → outputs/branding/design-system.json — sistema de design
 → outputs/branding/references.md — referências visuais
 → alma.md — filtros de criação
+→ intelligence/experience-continuity.md — continuidade entre hero, copy, assets, motion e CTA
 → NÃO carregar: metrics.json, campaigns.md, notes.md, estrategia.md, intelligence/
 
 ---
@@ -67,8 +70,10 @@ Consultar `../social-content-agents/index.json` — `sites/` para benchmark de l
 Gerar um site completo orientado a conversão com:
 - Estrutura de seções definida e justificada
 - Copy completa por seção (headline, subtítulo, corpo, CTA)
+- Contrato de reação e curva de intensidade do primeiro ao último scroll
 - SEO básico (title tag, meta description, estrutura de H1/H2)
 - Briefing visual por seção (para desenvolvimento no Cursor/Next.js ou Figma)
+- Inventário de assets com função narrativa, origem e variante mobile
 - Integração com WhatsApp e formulário de captura
 
 ## Pre-Requisito Obrigatorio
@@ -268,8 +273,8 @@ Defina o modo no momento da ativação.
 
 ## Estrutura de Seções — Home (Lead Gen)
 
-> Seções padrão para site focado em geração de leads.
-> Adicione, remova ou reordene conforme o `client.md`.
+> Repertório funcional para site focado em geração de leads; não é uma ordem
+> automática. A ordem nasce da curva em `intelligence/experience-continuity.md`.
 
 ```
 1. HERO
@@ -282,6 +287,43 @@ Defina o modo no momento da ativação.
 8. CTA FINAL
 9. RODAPÉ
 ```
+
+## Experience Continuity — contrato obrigatório
+
+Antes de escrever a primeira seção, declarar:
+
+```text
+Reação em 3s:
+Reação em 15s:
+Crença necessária antes do CTA:
+Tensão aberta no hero:
+Como o CTA resolve essa tensão:
+Curva: impacto -> tensão -> respiração -> prova -> recompensa -> decisão
+```
+
+Para cada seção, declarar no briefing:
+
+```text
+Função narrativa:
+Crença antes -> crença depois:
+Intensidade (1-10):
+Orçamento de copy:
+Âncora visual:
+Papel do asset:
+Papel do motion:
+Recompensa:
+Ponte para a próxima seção:
+```
+
+Regras:
+
+- o hero é o pico inicial, não a única seção dirigida;
+- duas seções consecutivas não podem ser blocos de texto sem progressão;
+- ao menos uma recompensa intermediária deve anteceder o CTA final;
+- copy, arte, assets e motion devem sustentar a mesma tese;
+- mobile preserva a narrativa, não apenas empilha componentes;
+- no modo premium/motion, exigir ao menos um asset exclusivo e documentado;
+- “hero memorável + restante genérico” reprova a entrega.
 
 ---
 
@@ -525,7 +567,8 @@ Briefing visual:
 ## Checkpoints
 
 ⏸ **CP1 — Estrutura aprovada**
-SEO + lista de seções + objetivos definidos → apresentar estrutura antes de gerar copy de cada seção.
+Contrato de reação + curva de intensidade + SEO + lista de seções + objetivos
+definidos → apresentar estrutura antes de gerar copy de cada seção.
 Mudança de estrutura após copy gerado requer reescrita completa.
 
 ⏸ **CP2 — Copy aprovado**
@@ -549,6 +592,14 @@ Rodar mentalmente o checklist de anti-padrões antes de entregar → sinalizar q
 
 **Gate de referência (obrigatório):**
 - [ ] Ao menos 1 princípio de `reference-context.json` é rastreável no output (layout, motion ou copy)? Se não → o site é raso. Revisar.
+
+**Gate de continuidade (obrigatório):**
+- [ ] A reação de 3s, 15s e pré-CTA está declarada?
+- [ ] Cada seção muda uma crença, entrega prova ou recompensa?
+- [ ] Existe respiração sem queda de qualidade após o hero?
+- [ ] Copy, arte, assets e motion contam a mesma história?
+- [ ] O CTA final resolve a tensão aberta no hero?
+- [ ] Mobile preserva a curva narrativa?
 
 **Taste:**
 - [ ] Dials declarados (VARIANCE / MOTION / DENSITY)?

@@ -158,6 +158,10 @@ function printCommandHelp() {
   print('/agenda');
   print('/creative-os');
   print('/direcao-peca');
+  print('/tema');
+  print('/site-pronto');
+  print('/motion-site');
+  print('/sinais');
   print('/repositorios ou /repositórios');
   print('/demo /carrossel /post /imagem /branding /site /oferta /captacao /relatorio /funil /retencao /reativacao /salvar');
 }
@@ -178,6 +182,10 @@ function routeMappedCommand(command) {
     '/agenda': 'workflows/agenda-semanal.md',
     '/creative-os': 'intelligence/creative-os.md',
     '/direcao-peca': 'intelligence/creative-direction-engine.md',
+    '/tema': 'skills/inteligencia/topic-intelligence/SKILL.md',
+    '/site-pronto': 'workflows/site-ready-prospecting.md',
+    '/motion-site': 'skills/criacao/motion-site-factory/SKILL.md',
+    '/sinais': 'workflows/signal-intelligence.md',
     '/repositorios': 'workflows/repositorios.md',
     '/repositórios': 'workflows/repositorios.md',
     '/construir': 'skills/criacao/skill-construir.md',

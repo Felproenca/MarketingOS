@@ -17,7 +17,7 @@
       "source": "heygen-com/hyperframes",
       "sourceType": "github",
       "skillPath": "skills/general-video/SKILL.md",
-      "computedHash": "3cbbb66533f948847b0f12bf5dc199b95a73635353ce4ed5679b73eeba927e8e"
+      "computedHash": "4a51a019fe5b120f94a23ca0eceefa165e09966591f7832a5400fef39fff3433"
     },
     "graphic-overlays": {
       "source": "heygen-com/hyperframes",
@@ -53,13 +53,13 @@
       "source": "heygen-com/hyperframes",
       "sourceType": "github",
       "skillPath": "skills/hyperframes-creative/SKILL.md",
-      "computedHash": "1b864f39032ccfb0c98590519888a3732343a916da08662f118a4f2483a7366d"
+      "computedHash": "b803c42cece83e471e749b6c81b560a44784f3928f3be56f9876bfd1972efb0b"
     },
     "hyperframes-media": {
       "source": "heygen-com/hyperframes",
       "sourceType": "github",
       "skillPath": "skills/hyperframes-media/SKILL.md",
-      "computedHash": "1e9f0e7be19167ca54f1746f428930b3dbcce19e7fe013a20dcc46dd1d70ae28"
+      "computedHash": "154d150b92db8a574e21accb7cf7cd065e05e1e2bb96ca2e5e9ca406a5431bfa"
     },
     "hyperframes-registry": {
       "source": "heygen-com/hyperframes",
@@ -73,6 +73,12 @@
       "skillPath": "skills/motion-graphics/SKILL.md",
       "computedHash": "a45939078652dfb46c524875457afe140c9b42912fee75aa39f9dd4908ae46ff"
     },
+    "music-to-video": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/music-to-video/SKILL.md",
+      "computedHash": "ee3d2780b78d94bc0486c6e8029356a02b0b48d6c36766fe90ff9a300157c3af"
+    },
     "pr-to-video": {
       "source": "heygen-com/hyperframes",
       "sourceType": "github",
@@ -83,7 +89,7 @@
       "source": "heygen-com/hyperframes",
       "sourceType": "github",
       "skillPath": "skills/product-launch-video/SKILL.md",
-      "computedHash": "ad9af5235ed2790466196ad55346c07e002b18ab98dfa12c6f21c036c1a91f8a"
+      "computedHash": "fef6eeddaeb994e000078566ee541f10392b611731300012580d0aa406876f3a"
     },
     "remotion-to-hyperframes": {
       "source": "heygen-com/hyperframes",

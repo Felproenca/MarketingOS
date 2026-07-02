@@ -19,6 +19,7 @@ objetivo de aquisição
 → marca/alma
 → repertório/catálogo
 → direção criativa de cena
+→ continuidade narrativa (para site/landing)
 → padrão de física/motion
 → motor certo
 → asset
@@ -31,6 +32,11 @@ Sem esta cadeia, a IA volta ao default.
 Para vídeo, animação, landing visual, carrossel ou imagem, o Creative OS não entrega direto para o motor.
 Ele entrega primeiro para `intelligence/creative-direction-engine.md`, que transforma percepção em metáfora,
 cena, beats, linguagem visual e gate frame a frame.
+
+Para sites e landings, a direção passa também por
+`intelligence/experience-continuity.md`: reação-alvo, curva de intensidade,
+mudança de crença por seção, orçamento de copy, recompensas distribuídas e
+coerência entre arte, assets, motion e CTA.
 
 ---
 

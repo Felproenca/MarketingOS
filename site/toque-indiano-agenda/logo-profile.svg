@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 56" fill="none">
+  <circle cx="28" cy="28" r="26" stroke="#C9763A" stroke-width="0.75" opacity="0.35"/>
+  <circle cx="28" cy="28" r="20" stroke="#C9763A" stroke-width="0.5" opacity="0.2"/>
+  <path d="M28 8 C31 16 31 20 28 22 C25 20 25 16 28 8Z" fill="#C9763A" opacity="0.75"/>
+  <path d="M28 48 C25 40 25 36 28 34 C31 36 31 40 28 48Z" fill="#C9763A" opacity="0.75"/>
+  <path d="M8 28 C16 25 20 25 22 28 C20 31 16 31 8 28Z" fill="#C9763A" opacity="0.75"/>
+  <path d="M48 28 C40 31 36 31 34 28 C36 25 40 25 48 28Z" fill="#C9763A" opacity="0.75"/>
+  <path d="M13.5 13.5 C19 17 20 21 18.5 23.5 C16 22 15 18 13.5 13.5Z" fill="#C9763A" opacity="0.38"/>
+  <path d="M42.5 42.5 C37 39 36 35 37.5 32.5 C40 34 41 38 42.5 42.5Z" fill="#C9763A" opacity="0.38"/>
+  <path d="M42.5 13.5 C39 19 35 20 32.5 18.5 C34 16 38 15 42.5 13.5Z" fill="#C9763A" opacity="0.38"/>
+  <path d="M13.5 42.5 C17 37 21 36 23.5 37.5 C22 40 18 41 13.5 42.5Z" fill="#C9763A" opacity="0.38"/>
+  <circle cx="28" cy="28" r="5" fill="#C9763A" opacity="0.9"/>
+  <circle cx="28" cy="28" r="2.5" fill="#1A1008"/>
+</svg>

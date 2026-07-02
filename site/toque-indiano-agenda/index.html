@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Agenda editorial e central de aprovação da Toque Indiano.">
+  <title>Toque Indiano | Conteúdo e Aprovação</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--ivory:#faf6ef;--peacock:#2b4a52;--saffron:#c9763a;--spice:#8b6b4a;--sand:#d4c5a9;--ink:#1a1008}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;background:var(--ivory);color:var(--peacock);font-family:Inter,sans-serif}body{margin:0;min-height:100vh}
+    button,a{font:inherit}.shell{width:min(1180px,calc(100% - 40px));margin:auto}
+    header{background:var(--ink);color:var(--ivory);padding:28px 0 64px;border-bottom:5px solid var(--saffron)}
+    .brand{display:flex;align-items:center;gap:16px}.brand-mark{width:58px;height:58px;flex:0 0 58px}.brand-name{font:600 clamp(25px,4vw,39px)/1 Cormorant Garamond,serif}
+    .hero{padding-top:56px}.eyebrow{color:var(--saffron);font-size:11px;font-weight:600;text-transform:uppercase}
+    h1{max-width:850px;margin:12px 0 16px;font:700 clamp(44px,7vw,82px)/.94 Cormorant Garamond,serif}
+    .intro{max-width:660px;color:var(--sand);line-height:1.7}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+    .button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 18px;border:1px solid var(--saffron);color:var(--ivory);text-decoration:none;font-size:13px;font-weight:600;background:transparent;cursor:pointer}
+    .button.primary{background:var(--saffron)}main{padding:54px 0 76px}.section-head{margin-bottom:24px}.section-head h2{max-width:740px;margin:8px 0;font:700 clamp(34px,5vw,56px)/1 Cormorant Garamond,serif}.section-head p{max-width:690px;color:#52686d;line-height:1.65}
+    .approval{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.65fr);gap:30px;align-items:start;margin-bottom:72px}
+    .approval>div{min-width:0}.preview{position:relative;overflow:hidden;width:100%;min-width:0;background:var(--ink);aspect-ratio:4/5;max-height:760px}.slides{display:flex;width:100%;height:100%;transition:transform .72s cubic-bezier(.16,1,.3,1)}
+    .slide{position:relative;flex:0 0 100%;min-width:0;height:100%;overflow:hidden;padding:9% 8%;display:flex;flex-direction:column;justify-content:flex-end}
+    .slide h3{position:relative;z-index:2;max-width:9ch;margin:8px 0 12px;font:700 clamp(40px,6vw,72px)/.9 Cormorant Garamond,serif}.slide p{position:relative;z-index:2;max-width:34ch;margin:0;line-height:1.55}.slide .kicker{font-size:10px;font-weight:600;text-transform:uppercase;color:var(--saffron)}
+    .slide.dark{color:var(--ivory);background:var(--ink)}.slide.ivory{background:var(--ivory)}.slide.peacock{color:var(--ivory);background:var(--peacock)}.slide.saffron{color:var(--ivory);background:var(--saffron)}
+    .slide.photo{color:var(--ivory);background:#172c31}.slide.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 18%;filter:saturate(.84) contrast(1.04)}.slide.photo:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,16,8,.02) 28%,rgba(26,16,8,.88) 100%)}
+    .slide.photo h3,.slide.photo p,.slide.photo .kicker{z-index:3}.woven{position:absolute;inset:0;opacity:.16;background:repeating-linear-gradient(35deg,transparent 0 28px,var(--saffron) 29px 30px),repeating-linear-gradient(145deg,transparent 0 28px,var(--sand) 29px 30px)}
+    .giant{position:absolute;right:-.05em;top:-.12em;font:700 min(62vw,460px)/1 Cormorant Garamond,serif;color:var(--saffron);opacity:.12}.mark-corner{position:absolute;right:7%;top:7%;width:54px;height:54px}
+    .approval-panel{border-top:3px solid var(--saffron);padding-top:22px}.approval-panel h3{margin:0 0 12px;font:700 30px/1 Cormorant Garamond,serif}.approval-panel p{color:#52686d;line-height:1.55;font-size:14px}.steps{margin:24px 0;display:grid;gap:12px}.step{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start}.step strong{color:var(--saffron)}.step span{font-size:13px;line-height:1.45}
+    .controls{display:flex;align-items:center;gap:10px;margin:18px 0}.icon-button{width:44px;height:44px;border:1px solid var(--peacock);background:transparent;color:var(--peacock);font-size:20px;cursor:pointer}.counter{min-width:54px;text-align:center;font-size:12px}.dots{display:flex;gap:6px}.dot{width:18px;height:3px;border:0;background:var(--sand);padding:0;cursor:pointer}.dot.active{background:var(--saffron)}
+    .decision{display:grid;grid-template-columns:1fr 1fr;gap:8px}.decision button{min-height:44px;border:1px solid var(--peacock);background:transparent;color:var(--peacock);font-weight:600;cursor:pointer}.decision .approve{background:var(--peacock);color:var(--ivory)}.status{min-height:44px;margin-top:12px;padding:12px;background:#f1e8da;color:var(--spice);font-size:12px;line-height:1.5}
+    .summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--sand);border:1px solid var(--sand);margin-bottom:44px}.stat{background:var(--ivory);padding:22px}.stat strong{display:block;color:var(--saffron);font:700 34px/1 Cormorant Garamond,serif}.stat span{display:block;margin-top:7px;color:var(--spice);font-size:12px}
+    .toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}.filter{border:1px solid var(--sand);background:transparent;color:var(--peacock);padding:10px 14px;cursor:pointer;font:600 12px Inter,sans-serif}.filter.active{background:var(--peacock);color:var(--ivory);border-color:var(--peacock)}
+    .agenda{border-top:1px solid var(--sand)}.event{display:grid;grid-template-columns:120px minmax(0,1fr) 150px;gap:28px;align-items:start;padding:28px 0;border-bottom:1px solid var(--sand)}.date strong{display:block;font:700 28px/1 Cormorant Garamond,serif}.date span,.meta{color:var(--spice);font-size:12px}.event h2{margin:0 0 8px;font:700 clamp(24px,3vw,34px)/1.05 Cormorant Garamond,serif}.event p{max-width:760px;margin:0;line-height:1.6;color:#52686d}.pill{display:inline-block;border-left:3px solid var(--saffron);background:#f1e8da;margin-top:15px;padding:7px 10px;color:var(--spice);font-size:11px;font-weight:600}.calendar-link{color:var(--saffron);font-size:12px;font-weight:600;text-decoration:none}
+    footer{background:var(--peacock);color:var(--ivory);padding:28px 0;font-size:12px}
+    @media(max-width:800px){.approval{grid-template-columns:1fr}.preview{max-height:none}.summary{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:86px 1fr;gap:16px}.event-action{grid-column:2}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.slides{transition:none}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="shell">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 56 56" aria-label="Símbolo Toque Indiano" role="img">
+        <circle cx="28" cy="28" r="26" stroke="#C9763A" stroke-width=".75" fill="none" opacity=".5"/><circle cx="28" cy="28" r="20" stroke="#C9763A" stroke-width=".5" fill="none" opacity=".3"/>
+        <g fill="#C9763A"><path d="M28 8c3 8 3 12 0 14-3-2-3-6 0-14Z"/><path d="M28 48c-3-8-3-12 0-14 3 2 3 6 0 14Z"/><path d="M8 28c8-3 12-3 14 0-2 3-6 3-14 0Z"/><path d="M48 28c-8 3-12 3-14 0 2-3 6-3 14 0Z"/><path opacity=".45" d="M13.5 13.5c5.5 3.5 6.5 7.5 5 10-2.5-1.5-3.5-5.5-5-10ZM42.5 42.5c-5.5-3.5-6.5-7.5-5-10 2.5 1.5 3.5 5.5 5 10ZM42.5 13.5c-3.5 5.5-7.5 6.5-10 5 1.5-2.5 5.5-3.5 10-5ZM13.5 42.5c3.5-5.5 7.5-6.5 10-5-1.5 2.5-5.5 3.5-10 5Z"/><circle cx="28" cy="28" r="5"/></g><circle cx="28" cy="28" r="2.5" fill="#1A1008"/>
+      </svg>
+      <div class="brand-name">TOQUE INDIANO</div>
+    </div>
+    <div class="hero">
+      <div class="eyebrow">Central compartilhada de conteúdo</div>
+      <h1>Veja, revise e aprove antes de publicar.</h1>
+      <p class="intro">Aqui a Toque Indiano acompanha o conteúdo em produção, confere cada tela e registra a decisão. Nada vai ao ar sem aprovação.</p>
+      <div class="actions"><a class="button primary" href="#aprovacao">Revisar carrossel</a><a class="button" href="./toque-indiano-30-dias.ics">Adicionar agenda</a></div>
+    </div>
+  </div>
+</header>
+<main class="shell">
+  <section id="aprovacao">
+    <div class="section-head"><div class="eyebrow">Em aprovação</div><h2>Carrossel 01: vestir quem você é</h2><p>Primeira peça do novo posicionamento da marca. Navegue pelas sete telas e registre a decisão ao lado.</p></div>
+    <div class="approval">
+      <div>
+        <div class="preview" id="preview">
+          <div class="slides" id="slides">
+            <article class="slide dark"><div class="woven"></div><div class="giant">V</div><span class="kicker">Toque Indiano</span><h3>Roupa também é identidade</h3><p>Antes de ser tendência, ela diz quem chegou.</p></article>
+            <article class="slide photo"><img src="./vestido-toque-indiano.webp" alt="Vestido longo estampado da Toque Indiano"><span class="kicker">Presença</span><h3>Você não precisa caber no comum</h3><p>Uma peça marcante não pede licença. Ela encontra quem sabe sustentá-la.</p></article>
+            <article class="slide ivory"><div class="giant">01</div><span class="kicker">Comece pelo que importa</span><h3>Escolha uma peça que tenha voz</h3><p>A roupa principal conduz o olhar. O restante cria espaço para ela respirar.</p></article>
+            <article class="slide peacock"><div class="woven"></div><span class="kicker">Equilíbrio</span><h3>Repita uma cor, não a estampa</h3><p>Encontre um tom da peça e leve-o para um acessório. A combinação ganha unidade sem perder força.</p></article>
+            <article class="slide ivory"><span class="kicker">Proporção</span><h3>Deixe o corpo participar</h3><p>Volume, cintura e comprimento mudam a leitura. O melhor caimento é o que acompanha sua presença.</p></article>
+            <article class="slide dark"><div class="woven"></div><span class="kicker">A virada</span><h3>Estilo não é chamar atenção</h3><p>É ser reconhecida antes mesmo de dizer seu nome.</p></article>
+            <article class="slide saffron">
+              <svg class="mark-corner" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="26" stroke="#FAF6EF" fill="none" opacity=".55"/><g fill="#FAF6EF"><path d="M28 8c3 8 3 12 0 14-3-2-3-6 0-14Z"/><path d="M28 48c-3-8-3-12 0-14 3 2 3 6 0 14Z"/><path d="M8 28c8-3 12-3 14 0-2 3-6 3-14 0Z"/><path d="M48 28c-8 3-12 3-14 0 2-3 6-3 14 0Z"/><circle cx="28" cy="28" r="5"/></g></svg>
+              <span class="kicker" style="color:#faf6ef">Sua vez</span><h3>Vista o que já existe em você</h3><p>Salve para consultar quando quiser montar um look com mais presença.</p>
+            </article>
+          </div>
+        </div>
+        <div class="controls"><button class="icon-button" id="prev" aria-label="Tela anterior">←</button><span class="counter" id="counter">1 / 7</span><button class="icon-button" id="next" aria-label="Próxima tela">→</button><div class="dots" id="dots" aria-label="Navegação do carrossel"></div></div>
+      </div>
+      <aside class="approval-panel">
+        <h3>Como aprovar</h3>
+        <p>Este é o ponto de conferência entre criação e publicação.</p>
+        <div class="steps">
+          <div class="step"><strong>1</strong><span>Navegue por todas as telas do carrossel.</span></div>
+          <div class="step"><strong>2</strong><span>Confira texto, imagem, cores e intenção.</span></div>
+          <div class="step"><strong>3</strong><span>Aprove ou solicite ajustes. A decisão fica registrada neste navegador.</span></div>
+        </div>
+        <div class="decision"><button class="approve" id="approve">Aprovar peça</button><button id="revise">Solicitar ajuste</button></div>
+        <div class="status" id="status">Status atual: aguardando revisão.</div>
+      </aside>
+    </div>
+  </section>
+  <section id="agenda">
+    <div class="section-head"><div class="eyebrow">Próximos 30 dias</div><h2>Agenda editorial</h2><p>O calendário organiza a operação. Cada pauta só avança para publicação depois da conferência.</p></div>
+    <div class="summary"><div class="stat"><strong>13</strong><span>conteúdos planejados</span></div><div class="stat"><strong>5</strong><span>pilares editoriais</span></div><div class="stat"><strong>30</strong><span>dias de operação</span></div><div class="stat"><strong>1</strong><span>aprovação antes de publicar</span></div></div>
+    <div class="toolbar"><button class="filter active" data-filter="Todos">Todos</button><button class="filter" data-filter="Reel">Reels</button><button class="filter" data-filter="Carrossel">Carrosséis</button><button class="filter" data-filter="Stories">Stories</button></div>
+    <div class="agenda" id="agenda-list" aria-live="polite"></div>
+  </section>
+</main>
+<footer><div class="shell">Toque Indiano · Moda · Tradição · Brasil · Operação MarketingOS</div></footer>
+<script>
+  const slideCount=7;let current=0;const slides=document.querySelector("#slides"),counter=document.querySelector("#counter"),dots=document.querySelector("#dots");
+  function goTo(index){current=Math.max(0,Math.min(slideCount-1,index));slides.style.transform=`translateX(-${current*100}%)`;counter.textContent=`${current+1} / ${slideCount}`;[...dots.children].forEach((dot,i)=>dot.classList.toggle("active",i===current))}
+  for(let i=0;i<slideCount;i++){const dot=document.createElement("button");dot.className="dot";dot.setAttribute("aria-label",`Ir para a tela ${i+1}`);dot.addEventListener("click",()=>goTo(i));dots.append(dot)}
+  document.querySelector("#prev").addEventListener("click",()=>goTo(current-1));document.querySelector("#next").addEventListener("click",()=>goTo(current+1));document.addEventListener("keydown",e=>{if(e.key==="ArrowLeft")goTo(current-1);if(e.key==="ArrowRight")goTo(current+1)});goTo(0);
+  const status=document.querySelector("#status");function setDecision(value,label){localStorage.setItem("toque-indiano-carousel-01",value);status.textContent=`Status atual: ${label}. Registrado em ${new Date().toLocaleString("pt-BR")}.`}
+  document.querySelector("#approve").addEventListener("click",()=>setDecision("aprovado","peça aprovada"));document.querySelector("#revise").addEventListener("click",()=>setDecision("ajustes","ajustes solicitados"));
+  const saved=localStorage.getItem("toque-indiano-carousel-01");if(saved==="aprovado")status.textContent="Status atual: peça aprovada neste navegador.";if(saved==="ajustes")status.textContent="Status atual: ajustes solicitados neste navegador.";
+  const events=[
+    ["2026-06-30","19:00","Reel","Vestir identidade","Roupa não é só o que cobre você","A diferença entre vestir tendência e vestir identidade.","Reintroduzir a marca com posicionamento."],
+    ["2026-07-02","19:00","Carrossel","Vestir identidade","Como usar uma peça marcante sem parecer fantasia","Base neutra, repetição de cor e proporção.","Gerar utilidade, salvamentos e confiança."],
+    ["2026-07-04","11:00","Stories","Escuta","O que faz você escolher uma roupa diferente?","Enquete sobre cor, estampa, caimento e exclusividade.","Capturar linguagem da audiência."],
+    ["2026-07-07","19:00","Reel","Dez anos de raiz","O que dez anos escolhendo peças ensinam","A fundadora mostra um critério aprendido na prática.","Construir autoridade humana."],
+    ["2026-07-09","19:00","Carrossel","Tecido, forma e cuidado","O cuidado começa antes da primeira lavagem","Etiqueta, tecido, secagem e armazenamento.","Entregar informação prática."],
+    ["2026-07-11","11:00","Stories","Tecido, forma e cuidado","Toque de perto","Macros de textura com perguntas sobre sensação, peso e movimento.","Criar experiência sensorial."],
+    ["2026-07-14","19:00","Reel","Produto vivo","Uma peça, três presenças","A mesma peça em contexto casual, trabalho e encontro.","Demonstrar versatilidade."],
+    ["2026-07-16","19:00","Carrossel","Vestir identidade","Como combinar estampas sem disputar atenção","Escala, cor em comum e áreas de respiro.","Posicionar a marca como curadora."],
+    ["2026-07-18","11:00","Stories","Clientes","A peça que mais rendeu conversa","Clientes contam quando perguntaram onde compraram.","Coletar prova social autorizável."],
+    ["2026-07-21","19:00","Reel","Dez anos de raiz","Como uma peça entra na Toque Indiano","O que faz uma peça ser escolhida ou recusada.","Demonstrar critério e processo."],
+    ["2026-07-23","19:00","Carrossel","Cultura com responsabilidade","Moda com referência não é fantasia","Inspiração, contexto e exotificação; exige revisão cultural.","Dar profundidade ao posicionamento."],
+    ["2026-07-25","11:00","Stories","Produto vivo","Escolha guiada da semana","Três peças para preferências reveladas nas enquetes.","Conduzir interesse ao WhatsApp."],
+    ["2026-07-28","19:00","Reel","Vestir identidade","A roupa que faz alguém perguntar onde você comprou","Presença, detalhe e relatos coletados durante o mês.","Fechar o ciclo com identidade e prova."]
+  ];const months=["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"],agenda=document.querySelector("#agenda-list");
+  function googleUrl(e){const[date,time,,pillar,title,angle,objective]=e,start=date.replaceAll("-","")+"T"+time.replace(":","")+"00",[h,m]=time.split(":").map(Number),end=date.replaceAll("-","")+"T"+String(h+1).padStart(2,"0")+String(m).padStart(2,"0")+"00",details=`${pillar}\n\n${angle}\n\nObjetivo: ${objective}\n\nAprovação obrigatória antes da publicação.`;return`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("[TOQUE INDIANO] "+title)}&dates=${start}/${end}&ctz=America/Sao_Paulo&details=${encodeURIComponent(details)}`}
+  function render(filter="Todos"){agenda.innerHTML=events.filter(e=>filter==="Todos"||e[2]===filter).map(e=>{const d=new Date(e[0]+"T12:00:00");return`<article class="event"><div class="date"><strong>${String(d.getDate()).padStart(2,"0")} ${months[d.getMonth()]}</strong><span>${e[1]}</span></div><div><div class="meta">${e[2]} · ${e[3]}</div><h2>${e[4]}</h2><p>${e[5]} Objetivo: ${e[6]}</p><span class="pill">Aprovação obrigatória</span></div><div class="event-action"><a class="calendar-link" target="_blank" rel="noopener" href="${googleUrl(e)}">Adicionar evento</a></div></article>`}).join("")}
+  document.querySelectorAll(".filter").forEach(button=>button.addEventListener("click",()=>{document.querySelectorAll(".filter").forEach(item=>item.classList.remove("active"));button.classList.add("active");render(button.dataset.filter)}));render();
+</script>
+</body>
+</html>

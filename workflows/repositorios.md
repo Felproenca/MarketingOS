@@ -261,3 +261,38 @@ Antes de aplicar qualquer aprendizado externo:
 3. Registrar em `intelligence/skill-updates.md`.
 4. Aplicar em uma skill/workflow por vez.
 5. Nunca importar promessa generica, estetica sem alma ou mecanica que nao fecha loop.
+
+---
+
+## Benchmark externo — Overclock
+
+URL:
+`https://www.overclock.sh/`
+
+Tipo:
+Produto comercial de orquestração multiagente; não é dependência nem repositório conectado.
+
+Mecanismos observados:
+
+- piloto que decompõe e delega;
+- scout, builders, reviewer e executor separados;
+- modelos roteados por função, custo e velocidade;
+- panes concorrentes;
+- estado e custo visíveis durante a missão.
+
+Aplicação no MarketingOS:
+
+- `motion-site-factory` usa papéis com autoridade limitada;
+- `task-graph.json` explicita dependências e paralelismo;
+- `receipt` registra resultado, arquivos, testes, risco e custo;
+- crítico não revisa o próprio trabalho;
+- documentarista transforma a criação em captura, vídeo, case e conteúdo;
+- estratégia de aquisição e percepção continuam acima da execução.
+
+Não fazer:
+
+- não multiplicar agentes quando um script basta;
+- não usar paralelismo em tarefas dependentes;
+- não aceitar alegações comerciais de economia sem medição própria;
+- não permitir que o orquestrador altere direção aprovada silenciosamente;
+- não terminar a operação no código entregue.

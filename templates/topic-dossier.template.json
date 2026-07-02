@@ -1,0 +1,36 @@
+{
+  "topic": "",
+  "client": "",
+  "researched_at": "",
+  "primary_market": "BR",
+  "languages": ["pt-BR", "en", "es"],
+  "acquisition_objective": "",
+  "query_map": {},
+  "google_trends": {
+    "terms": [],
+    "geo": "",
+    "timeframe": "",
+    "source_url": "",
+    "observed_at": "",
+    "interpretation": ""
+  },
+  "evidence": [],
+  "platform_grammar": {
+    "youtube": {},
+    "tiktok": {},
+    "linkedin": {},
+    "instagram": {}
+  },
+  "cross_language_frames": [],
+  "audience_tensions": [],
+  "repeated_claims": [],
+  "cliches": [],
+  "contradictions": [],
+  "whitespace": [],
+  "editorial_thesis": "",
+  "brand_authority": "",
+  "acquisition_relevance": "",
+  "channel_executions": {},
+  "verification_required": [],
+  "evidence_status": "insufficient_evidence"
+}

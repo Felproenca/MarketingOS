@@ -1,0 +1,177 @@
+{
+  "schema_version": "1.1",
+  "project_id": "replace-project-id",
+  "policy": {
+    "max_parallel_agents": 4,
+    "human_approval_gates": ["direction", "deploy", "publish"],
+    "critic_cannot_review_own_work": true,
+    "context_isolation": true
+  },
+  "roles": [
+    {
+      "id": "acquisition-director",
+      "mission": "Fixar objetivo de aquisição, público, promessa e ação comercial.",
+      "authority": {
+        "may": ["approve-acquisition-objective", "reject-vanity-output"],
+        "may_not": ["implement-ui", "invent-proof"]
+      },
+      "skills": ["offer-positioning", "lead-capture"],
+      "context_refs": ["client.md", "estrategia.md", "perception.json"],
+      "inputs": ["business-context"],
+      "outputs": ["acquisition-brief.json"],
+      "acceptance": ["one-primary-objective", "one-primary-cta", "claims-have-provenance"],
+      "model_tier": "reasoning",
+      "spawn": "always"
+    },
+    {
+      "id": "orchestrator",
+      "mission": "Decompor, delegar, controlar dependências, custo e checkpoints.",
+      "authority": {
+        "may": ["assign-tasks", "pause-task", "request-revision"],
+        "may_not": ["silently-change-approved-direction", "self-approve"]
+      },
+      "skills": ["pipeline-runner", "motion-site-factory"],
+      "context_refs": ["agent-roster.json", "task-graph.json", "creation-manifest.json"],
+      "inputs": ["approved-acquisition-brief"],
+      "outputs": ["task-graph.json", "run-status.json"],
+      "acceptance": ["all-tasks-have-owner", "dependencies-acyclic", "budgets-declared"],
+      "model_tier": "balanced",
+      "spawn": "always"
+    },
+    {
+      "id": "experience-architect",
+      "mission": "Transformar percepção em arquitetura, cenas, estados e fluxo responsivo sem concentrar toda a qualidade no hero.",
+      "authority": {
+        "may": ["define-sections", "define-interactions", "define-mobile-fallback"],
+        "may_not": ["change-business-claim", "approve-final-build"]
+      },
+      "skills": ["creative-direction", "design-taste-frontend", "site-builder"],
+      "context_refs": ["perception.json", "visual-dna.json", "reference-context.json"],
+      "inputs": ["acquisition-brief.json"],
+      "outputs": ["experience-blueprint.json"],
+      "acceptance": ["each-section-has-job", "one-hero-motion", "mobile-path-defined", "continuity-contract-defined"],
+      "model_tier": "reasoning",
+      "spawn": "on_demand"
+    },
+    {
+      "id": "narrative-director",
+      "mission": "Dirigir a curva da página para desacelerar sem perder velocidade, distribuindo tensão, respiração, prova, recompensa e resolução.",
+      "authority": {
+        "may": ["define-intensity-curve", "set-copy-budgets", "require-section-reward", "reject-hero-plus-word"],
+        "may_not": ["invent-proof", "change-primary-cta", "implement-ui"]
+      },
+      "skills": ["creative-direction", "site-builder"],
+      "context_refs": ["acquisition-brief.json", "experience-blueprint.json", "experience-continuity.md"],
+      "inputs": ["approved-experience-direction"],
+      "outputs": ["narrative-arc.json"],
+      "acceptance": ["reaction-contract-defined", "belief-shift-per-section", "rewards-distributed", "cta-resolves-opening-tension"],
+      "model_tier": "reasoning",
+      "spawn": "always"
+    },
+    {
+      "id": "copy-strategist",
+      "mission": "Escrever copy específica, verificável e alinhada à ação comercial.",
+      "authority": {
+        "may": ["write-copy", "flag-missing-proof"],
+        "may_not": ["invent-metrics", "change-cta"]
+      },
+      "skills": ["social-copy", "offer-positioning"],
+      "context_refs": ["client.md", "acquisition-brief.json", "experience-blueprint.json", "narrative-arc.json"],
+      "inputs": ["approved-narrative-arc"],
+      "outputs": ["site-copy.json"],
+      "acceptance": ["no-invented-proof", "pt-br-reviewed", "cta-consistent", "copy-budgets-respected", "bridges-preserve-momentum"],
+      "model_tier": "balanced",
+      "spawn": "on_demand"
+    },
+    {
+      "id": "visual-asset-director",
+      "mission": "Planejar, gerar, selecionar e documentar ativos visuais que materializam a tese e chegam prontos para a cena.",
+      "authority": {
+        "may": ["generate-assets", "reject-generic-image", "define-asset-treatment"],
+        "may_not": ["use-unlicensed-asset", "hide-provenance"]
+      },
+      "skills": ["imagegen", "image-generation"],
+      "context_refs": ["visual-dna.json", "creative-direction-brief.json", "narrative-arc.json"],
+      "inputs": ["asset-brief", "approved-narrative-arc"],
+      "outputs": ["asset-manifest.json", "assets/"],
+      "acceptance": ["every-asset-has-source", "web-optimized", "mobile-crop-defined", "one-exclusive-asset", "narrative-role-declared", "scene-layers-ready"],
+      "model_tier": "balanced",
+      "spawn": "on_demand"
+    },
+    {
+      "id": "motion-builder",
+      "mission": "Construir movimento com significado, física e fallback.",
+      "authority": {
+        "may": ["implement-motion", "choose-approved-runtime"],
+        "may_not": ["add-decorative-motion", "ignore-reduced-motion"]
+      },
+      "skills": ["hyperframes-animation", "threejs-webgl"],
+      "context_refs": ["creative-direction-brief.json", "experience-blueprint.json"],
+      "inputs": ["approved-motion-beats"],
+      "outputs": ["motion-source", "motion-notes.json"],
+      "acceptance": ["motion-shows-transformation", "gpu-first", "reduced-motion-tested"],
+      "model_tier": "balanced",
+      "spawn": "on_demand"
+    },
+    {
+      "id": "frontend-builder",
+      "mission": "Implementar a experiência responsiva e acessível sem alterar direção aprovada.",
+      "authority": {
+        "may": ["implement-ui", "refine-responsive-layout"],
+        "may_not": ["invent-copy", "remove-tracking", "self-approve"]
+      },
+      "skills": ["site-builder", "design-taste-frontend"],
+      "context_refs": ["experience-blueprint.json", "site-copy.json", "asset-manifest.json"],
+      "inputs": ["approved-build-package"],
+      "outputs": ["source/"],
+      "acceptance": ["no-overflow", "keyboard-accessible", "capture-ids-present"],
+      "model_tier": "balanced",
+      "spawn": "on_demand"
+    },
+    {
+      "id": "critic",
+      "mission": "Revisar percepção, conversão, consistência visual e completude.",
+      "authority": {
+        "may": ["approve", "request-revision", "reject"],
+        "may_not": ["review-own-task", "rewrite-without-receipt"]
+      },
+      "skills": ["creative-critique", "design-taste-frontend"],
+      "context_refs": ["creative-brief.json", "creation-manifest.json", "qa/"],
+      "inputs": ["capturable-build"],
+      "outputs": ["qa/critique.json"],
+      "acceptance": ["test-supreme-passed", "cta-observable", "no-generic-output", "continuity-score-passed", "no-hero-quality-cliff"],
+      "model_tier": "reasoning",
+      "spawn": "always"
+    },
+    {
+      "id": "performance-executor",
+      "mission": "Executar testes, medir performance e validar deploy.",
+      "authority": {
+        "may": ["run-tests", "block-deploy"],
+        "may_not": ["lower-quality-gate-without-record"]
+      },
+      "skills": ["web-perf", "browser"],
+      "context_refs": ["task-graph.json", "creation-manifest.json"],
+      "inputs": ["release-candidate"],
+      "outputs": ["qa/performance.json", "qa/deploy.json"],
+      "acceptance": ["desktop-tested", "mobile-tested", "no-page-errors"],
+      "model_tier": "economy",
+      "spawn": "on_demand"
+    },
+    {
+      "id": "creation-documentarian",
+      "mission": "Registrar decisões, cenas, capturas e ângulos para vídeo e case.",
+      "authority": {
+        "may": ["require-capture-id", "block-video-handoff"],
+        "may_not": ["invent-decision", "invent-result"]
+      },
+      "skills": ["website-to-video", "product-launch-video", "motion-graphics"],
+      "context_refs": ["creation-manifest.json", "task-receipts", "approved-build"],
+      "inputs": ["approved-scenes", "task-receipts"],
+      "outputs": ["creation-manifest.json", "captures/", "video/"],
+      "acceptance": ["capture-plan-complete", "video-angles-defined", "asset-provenance-complete"],
+      "model_tier": "balanced",
+      "spawn": "always"
+    }
+  ]
+}

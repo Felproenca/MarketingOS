@@ -1,0 +1,4 @@
+interface:
+  display_name: "Motion Site Factory"
+  short_description: "Orquestra sites cinematográficos e documentação"
+  default_prompt: "Use $motion-site-factory para planejar, construir, validar e documentar um site pronto para virar vídeo."

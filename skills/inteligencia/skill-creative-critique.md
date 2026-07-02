@@ -115,6 +115,23 @@ Existe uma frase, imagem, estrutura ou decisao lembravel?
 Algo sobreviveria depois do scroll?
 ```
 
+### Continuidade da experiência — sites e landings
+
+Carregar também `intelligence/experience-continuity.md` e o
+`creation-manifest.json`.
+
+```text
+O hero abre uma promessa que o restante sustenta?
+A intensidade respira ou a qualidade despenca?
+Cada seção muda uma crença, entrega prova ou oferece recompensa?
+Copy, arte, assets e motion contam a mesma história?
+O CTA final resolve a tensão aberta no hero?
+Mobile preserva a narrativa ou apenas empilha o desktop?
+```
+
+Se houver “hero memorável + restante genérico”, a decisão mínima é `revise`,
+independentemente da média.
+
 ### Aderencia ao DNA
 
 Verificar contra:
@@ -169,6 +186,14 @@ Schema operacional:
   "differentiation_score": 0,
   "genericity_risk": "low | medium | high | critical",
   "memorability_score": 0,
+  "experience_continuity": {
+    "score": 0,
+    "hero_quality_cliff": false,
+    "intensity_curve_evidence": [],
+    "copy_art_motion_alignment": [],
+    "distributed_rewards": [],
+    "cta_resolves_opening_tension": false
+  },
   "adherence_to_dna": {
     "score": 0,
     "evidence": []
@@ -201,6 +226,7 @@ Usar apenas quando:
 - o DNA da marca aparece sem depender de logo/cor;
 - nao ha problema critico de clareza, promessa ou prova;
 - a peca cumpre o objetivo de aquisicao do Creative Brief.
+- em sites/landings, continuidade da experiência >= 8 e sem queda de qualidade após o hero.
 
 ### revise
 
@@ -250,6 +276,8 @@ Regra soberana:
 
 ```text
 Mesmo com score alto, promessa sem prova ou genericidade critica exige revise ou reject.
+Para sites/landings, `hero_quality_cliff: true`, continuidade abaixo de 8 ou CTA
+desconectado da tensão inicial também impedem `approve`.
 ```
 
 ---

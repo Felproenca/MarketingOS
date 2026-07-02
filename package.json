@@ -40,7 +40,14 @@
     "reel:render": "node scripts/render-reel.js",
     "case:synthesize": "node scripts/synthesize-case-study.mjs",
     "case:catalog": "node scripts/build-case-catalog.mjs",
-    "construir": "node scripts/construir.mjs"
+    "construir": "node scripts/construir.mjs",
+    "signals": "node scripts/signal-intelligence/index.js",
+    "signals:test": "node scripts/signal-intelligence/test.js",
+    "topic:validate-agents": "node skills/inteligencia/topic-intelligence/scripts/validate-roster.mjs",
+    "cockpit": "cd cockpit && npm run dev:all",
+    "cockpit:build": "cd cockpit && npm run build",
+    "site": "cd site-mkos && npm run dev",
+    "site:build": "cd site-mkos && npm run build"
   },
   "keywords": [],
   "author": "",

@@ -1,0 +1,23 @@
+[
+  {
+    "id": "empresa-campanha-001",
+    "company": "Nome da empresa",
+    "segment": "segmento",
+    "city": "Cidade",
+    "website": "https://empresa.com.br",
+    "event-type": "active_ad",
+    "event-description": "a empresa esta anunciando uma oferta especifica",
+    "rupture-type": "no_campaign_page",
+    "rupture-description": "o anuncio nao possui uma pagina especifica para preparar a decisao",
+    "fit": "exact",
+    "capacity": "verified_spend",
+    "evidence-url": "https://fonte-publica.example",
+    "observed-at": "2026-06-28",
+    "confidence": "verified",
+    "evidence-note": "Descrever apenas o que foi observado.",
+    "offer": "uma pagina curta para essa campanha por R$97",
+    "contact-name": null,
+    "channel": "whatsapp",
+    "contact": null
+  }
+]

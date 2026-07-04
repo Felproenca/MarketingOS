@@ -1,11 +1,24 @@
 {
   "_meta": {
     "description": "Log de uso das skills por sessão. Atualizado automaticamente pelo /fechar.",
-    "updated_at": "2026-06-15",
-    "total_sessions": 7,
-    "total_operations": 19
+    "updated_at": "2026-07-03",
+    "total_sessions": 8,
+    "total_operations": 20
   },
   "sessions": [
+    {
+      "date": "2026-07-03",
+      "client": "toqueindiano",
+      "skills_used": [
+        {
+          "skill": "skill-carousel + skill-post + skill-reels (adaptada) + skill-social-copy",
+          "group": "criacao",
+          "output_generated": "Carrossel 'Boho litorâneo' (8 slides, aprovado) em outputs/carousels/; post 'Duas heranças' (aprovado) em outputs/posts/; story 'Duas heranças' + prompt de vídeo + narração ElevenLabs (composição feita pela cliente, aprovada) em outputs/stories/; roteiro de filmagem orgânica (fundadora + depoimento) em outputs/reels/roteiro-filmagem-organica.md; reel 'Camadas de identidade' produzido em código (Ken Burns + texto, render-reel.js modo precise) com prompts de vídeo de IA para composição futura em outputs/reels/reel-02-camadas-de-identidade/",
+          "outcome": "aprovado (carrossel, post, story) / pendente (reel 02 — aguarda clipes animados do cliente)"
+        }
+      ],
+      "notes": "Corrigido bug de renderização (scripts/render-carousel.js não esperava document.fonts.ready, quebrando acentos ê/ç em títulos grandes). Aprendizado de copy: reel com taglines isoladas por produto é raso — corrigir sempre para argumento único contínuo. Decisão de direção: filmagem orgânica real (fundadora + cliente) agora é prioridade sobre vídeo de IA."
+    },
     {
       "date": "2026-06-15",
       "client": "agency",

@@ -59,6 +59,8 @@ async function main() {
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 1080, height: 1350 } });
   await page.goto(`file://${htmlPath}`, { waitUntil: 'networkidle' });
+  await page.evaluate(() => document.fonts.ready);
+  await page.waitForTimeout(150);
 
   for (let i = 1; i <= slides; i += 1) {
     const selector = `#slide-${i}`;

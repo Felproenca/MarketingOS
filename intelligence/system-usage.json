@@ -1,11 +1,37 @@
 {
   "_meta": {
     "description": "Log de uso das skills por sessão. Atualizado automaticamente pelo /fechar.",
-    "updated_at": "2026-07-03",
-    "total_sessions": 8,
-    "total_operations": 20
+    "updated_at": "2026-07-10",
+    "total_sessions": 10,
+    "total_operations": 22
   },
   "sessions": [
+    {
+      "date": "2026-07-10",
+      "client": "forca-da-terra",
+      "skills_used": [
+        {
+          "skill": "workflow open-client/close-client + criação de peça de relacionamento pós-reunião (sem skill dedicada)",
+          "group": "relacionamento",
+          "output_generated": "notes.md/estrategia.md/runs.md atualizados com recap da apresentação formal (mensalidade R$500 + Pedido Assistido como brinde); OBS-001 registrada em intelligence/observations/observations.md; peça 'presente-reuniao-20260710.html' criada e publicada em https://forca-da-terra-presente.vercel.app",
+          "outcome": "aprovado"
+        }
+      ],
+      "notes": "Sinal validado: adesão emocional forte veio da promessa de transformação de percepção/legado (conceito ALMA), não da ferramenta técnica (Pedido Assistido), mesmo com o gargalo operacional já reconhecido pelo próprio cliente. Aguardando posicionamento do cliente sobre a mensalidade — provável segunda reunião de fechamento."
+    },
+    {
+      "date": "2026-07-10",
+      "client": "toqueindiano",
+      "skills_used": [
+        {
+          "skill": "narração de reel (sem skill dedicada — copy para ElevenLabs)",
+          "group": "criacao",
+          "output_generated": "outputs/reels/narracao-colecao-boho-23s.md — narração espontânea/descolada para reel de 23s da coleção boho litorâneo (versão principal + alternativa curta + config ElevenLabs)",
+          "outcome": "aprovado (texto) / pendente (geração de áudio)"
+        }
+      ],
+      "notes": "Correção de direção: primeira versão citava cor e peça ('terracota do deserto', 'verde-petróleo') — rejeitada pelo Felipe. Reescrita pra ficar só no território de sentimento/desejo, sem descrever produto. Aprendizado registrado em notes.md: narração falada de reel/story não deve descrever produto (isso é papel da copy visual)."
+    },
     {
       "date": "2026-07-03",
       "client": "toqueindiano",

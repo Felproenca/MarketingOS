@@ -1,11 +1,37 @@
 {
   "_meta": {
     "description": "Log de uso das skills por sessão. Atualizado automaticamente pelo /fechar.",
-    "updated_at": "2026-07-10",
-    "total_sessions": 10,
-    "total_operations": 22
+    "updated_at": "2026-07-13",
+    "total_sessions": 12,
+    "total_operations": 24
   },
   "sessions": [
+    {
+      "date": "2026-07-13",
+      "client": "toqueindiano",
+      "skills_used": [
+        {
+          "skill": "agenda semanal (sem skill dedicada) + geração de PDF (novo script scripts/generate-pdf.js)",
+          "group": "criacao",
+          "output_generated": "outputs/calendar/agenda-semana-2026-07-13.md (v2, replanejada do zero) + .pdf; outputs/strategy/protocolo-captacao-minima.md + .pdf; outputs/strategy/guia-captacao-loja.html + .pdf (visual, 2 páginas, pro operador da loja); scripts/generate-pdf.js reutilizável; content-calendar-30d.json com 3 entradas marcadas substituido",
+          "outcome": "aprovado (guia pronto pra enviar; check-in de segunda-feira é o próximo passo real)"
+        }
+      ],
+      "notes": "Nada do roteiro de filmagem estruturado foi entregue pela loja (falta de tempo/capacidade) — protocolo de captação rebaixado ao mínimo executável. Correção do Felipe: PDF técnico demais pro cliente final — refeito como guia visual com ícones/passos + pesquisa externa (pt-BR/en) de ideias de baixo esforço filtradas pela restrição real (sem rosto, sem tempo)."
+    },
+    {
+      "date": "2026-07-13",
+      "client": "fortunato",
+      "skills_used": [
+        {
+          "skill": "workflow open-client/close-client + criação de grade de conteúdo (sem skill dedicada) + skill-prompt-engineer (thumbnails)",
+          "group": "criacao",
+          "output_generated": "outputs/strategy/grade-conteudo-semana-2026-07-13.html + .pdf (série 'Fluxo Aberto': vídeo âncora + 3 Shorts + 2 Reels, eixo proximidade/alcance); outputs/strategy/thumbnails-titulos-semana-2026-07-13.md (títulos + prompts de thumbnail); estrategia.md/notes.md/runs.md/campaigns.md atualizados",
+          "outcome": "aprovado (pendente envio/gravação pelo cliente)"
+        }
+      ],
+      "notes": "Pesquisa rápida validou Shorts/Reels de gancho de curiosidade como formato de maior alcance no nicho antes de criar a nova pegada. Correção do operador: entrega deve ser autônoma, sem referenciar a grade anterior não executada — removidas todas as menções de 'semana passada'/'Nova Pegada' do documento final. QA de PDF feito via screenshot do HTML (pdftoppm indisponível no ambiente)."
+    },
     {
       "date": "2026-07-10",
       "client": "forca-da-terra",

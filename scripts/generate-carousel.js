@@ -3,6 +3,12 @@
 const fs = require('fs');
 const path = require('path');
 const { getCreativeBrief } = require('./context/creative-brief-builder');
+const {
+  FUNNEL_METADATA_FIELDS,
+  formatFunnelMetadataMarkdown,
+  normalizeFunnelMetadata,
+  validateFunnelMetadata,
+} = require('./funnel/metadata');
 
 const ROOT = path.resolve(__dirname, '..');
 const CLIENTS_DIR = path.join(ROOT, 'clients');
@@ -108,6 +114,16 @@ function enforceSlidesInputGate(input) {
   if (!String(input.client_slug || '').trim()) violations.push('arquivo: client_slug ausente');
   if (!String(input.theme || '').trim()) violations.push('arquivo: theme ausente');
 
+  const funnelMetadata = input.funnel_metadata && typeof input.funnel_metadata === 'object' && !Array.isArray(input.funnel_metadata)
+    ? input.funnel_metadata
+    : null;
+  if (!funnelMetadata) {
+    violations.push('arquivo: funnel_metadata ausente');
+  } else {
+    const validation = validateFunnelMetadata(funnelMetadata);
+    violations.push(...validation.missing.map((field) => `funnel_metadata: ${field} ausente`));
+  }
+
   if (!Array.isArray(input.slides) || !input.slides.length) {
     violations.push('arquivo: slides vazio');
   } else {
@@ -183,9 +199,11 @@ function buildCarouselExecutionBrief(meta, officialBrief, slidesInput) {
     gate: {
       status: 'passed',
       required_fields: REQUIRED_SLIDE_FIELDS,
+      required_funnel_fields: FUNNEL_METADATA_FIELDS,
       visual_fallbacks: visualFallbacks,
       checked_at: new Date().toISOString(),
     },
+    funnel_metadata: normalizeFunnelMetadata(slidesInput.funnel_metadata),
   };
 }
 
@@ -216,6 +234,10 @@ function buildCopyMd(meta, creativeBrief, officialBrief, briefResult) {
   lines.push(`- Nivel de silencio visual: ${creativeBrief.nivel_silencio_visual}`);
   lines.push(`- Gate: ${creativeBrief.gate.status}`);
   lines.push('');
+  if (creativeBrief.funnel_metadata) {
+    lines.push(formatFunnelMetadataMarkdown(creativeBrief.funnel_metadata));
+    lines.push('');
+  }
   if (officialBrief && officialBrief.source_report) {
     lines.push('## Context report');
     lines.push('');
@@ -584,7 +606,7 @@ Creative Brief:
     .slide-gancho p {
       font-size: 38px;
       line-height: 1.3;
-      color: rgba(250,250,250,.58);
+      color: var(--muted);
       max-width: 720px;
       margin-top: 6px;
     }
@@ -689,6 +711,14 @@ function main() {
   const meta = { slug, tema, objetivo, slides, cta, inputRelative };
   const briefResult = getOfficialCreativeBrief(slug);
   const officialBrief = briefResult.brief;
+  if (!briefResult.validation.valid) {
+    fail([
+      'GATE REPROVADO — creative brief oficial incompleto.',
+      `Arquivo: ${briefResult.relative_path}`,
+      ...briefResult.validation.missing.map((item) => `  - ${item}`),
+      'Regere ou complete o brief antes de renderizar a peca.',
+    ].join('\n'));
+  }
   const visual = getVisualFromCreativeBrief(officialBrief);
   const executionBrief = buildCarouselExecutionBrief(meta, officialBrief, slidesInput);
 

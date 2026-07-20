@@ -1,11 +1,24 @@
 {
   "_meta": {
     "description": "Log de uso das skills por sessão. Atualizado automaticamente pelo /fechar.",
-    "updated_at": "2026-07-13",
-    "total_sessions": 12,
-    "total_operations": 24
+    "updated_at": "2026-07-19",
+    "total_sessions": 13,
+    "total_operations": 25
   },
   "sessions": [
+    {
+      "date": "2026-07-18",
+      "client": "toqueindiano",
+      "skills_used": [
+        {
+          "skill": "skill-carousel (pesquisa histórica via WebSearch + copy) + generate-carousel.js + render-carousel.js --html",
+          "group": "criacao",
+          "output_generated": "outputs/carousels/2026-07-18-heranca-dos-tecidos-v2/ e .../2026-07-18-heranca-das-estampas-v2/ (4 slides cada, foto real full-bleed, 1080x1350) — enviados via WhatsApp",
+          "outcome": "aprovado (v1 texto-puro descartada por feedback; v2 com fotos aprovada para postagem)"
+        }
+      ],
+      "notes": "v1 (100% texto sobre gradiente) rejeitada: 'não gostei, está faltando imagens, cores estranhas'. Refeita com 4 fotos de catálogo inéditas de inputs/new/. Bug real corrigido em scripts/generate-carousel.js (cor de texto ilegível no slide-gancho sobre fundo claro). Follow-up 07-19: corte no Instagram ao publicar — arquivo confirmado correto (1080x1350), causa é crop automático do composer do Instagram, não o render."
+    },
     {
       "date": "2026-07-13",
       "client": "toqueindiano",

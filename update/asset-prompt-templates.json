@@ -1,0 +1,198 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "description": "Templates de prompt pra geração de assets visuais. O VisualSpecAgent usa a assinatura perceptiva do negócio pra preencher os campos. Nunca gerar prompt genérico.",
+    "flow": "Assinatura perceptiva → escolha de template → preenchimento dos campos → prompt final calibrado"
+  },
+
+  "image_generation": {
+    "hero_image": {
+      "description": "Imagem principal do site. Define o tom visual inteiro.",
+      "template": "{style_prefix}, {subject_description}, {environment}, {lighting}, {color_direction}, {texture_quality}, {mood}, {technical_specs}",
+      "fields": {
+        "style_prefix": "Estilo fotográfico ou artístico (ex: 'editorial photography', 'product photography on seamless', 'cinematic still life')",
+        "subject_description": "O que aparece na imagem, descrito com precisão sensorial",
+        "environment": "Onde o sujeito está, com detalhes materiais (ex: 'on raw concrete surface with flour dust')",
+        "lighting": "Tipo específico de luz (ex: 'soft side light from left, warm 3200K', 'harsh overhead noon sun')",
+        "color_direction": "Paleta dominante alinhada à assinatura perceptiva (ex: 'warm ivory and deep brown tones, desaturated')",
+        "texture_quality": "Qualidade tátil da imagem (ex: 'visible grain, soft focus background', 'sharp throughout, clinical')",
+        "mood": "Estado emocional que a imagem transmite (ex: 'calm precision', 'controlled intensity')",
+        "technical_specs": "aspect ratio 16:9, 8k, photorealistic"
+      },
+      "negative_prompt": "text, watermark, logo, stock photo look, oversaturated, HDR, generic, clipart, illustration style unless specified",
+      "example": "editorial photography, artisanal bread loaves with scoring patterns visible, on weathered wood surface with scattered flour, soft side light from left window warm 3200K, warm ivory and deep brown tones desaturated, visible grain and shallow depth of field, calm precision, aspect ratio 16:9, 8k, photorealistic"
+    },
+
+    "lifestyle_image": {
+      "description": "Imagens de contexto/uso. Mostram o mundo do cliente.",
+      "template": "{perspective}, {person_description}, {action}, {environment}, {lighting}, {color_direction}, {mood}, {technical_specs}",
+      "fields": {
+        "perspective": "Ângulo da câmera (ex: 'over the shoulder', 'wide establishing shot', 'close up hands')",
+        "person_description": "Se tem pessoa: descrição sem especificar etnia/gênero a menos que relevante pro nicho",
+        "action": "O que está acontecendo (ex: 'carefully piping decoration on cake', 'reviewing documents at desk')",
+        "environment": "Contexto espacial com materiais (ex: 'bright kitchen with marble counter', 'minimalist office')",
+        "lighting": "Tipo de luz que reforça o mood",
+        "color_direction": "Alinhada à paleta do site",
+        "mood": "O sentimento que a cena evoca",
+        "technical_specs": "aspect ratio 3:2, 8k, photorealistic, shallow depth of field"
+      }
+    },
+
+    "texture_background": {
+      "description": "Texturas pra fundo de seções ou overlays.",
+      "template": "seamless texture, {material}, {color_range}, {scale}, macro photography, 8k, tileable",
+      "fields": {
+        "material": "Material real alinhado ao nicho (ex: 'raw linen fabric', 'brushed concrete', 'kraft paper')",
+        "color_range": "Tons específicos (ex: 'warm off-white to light beige')",
+        "scale": "Close ou distante (ex: 'extreme macro showing fiber detail', 'medium showing full pattern repeat')"
+      }
+    },
+
+    "product_shot": {
+      "description": "Foto de produto quando o cliente não tem fotografia própria.",
+      "template": "{style}, {product_description}, {surface}, {props}, {lighting}, {color_direction}, {technical_specs}",
+      "fields": {
+        "style": "ex: 'commercial product photography', 'editorial flat lay', 'moody still life'",
+        "product_description": "Descrição detalhada do produto com materiais visíveis",
+        "surface": "Superfície onde o produto está (alinhada ao nicho)",
+        "props": "Elementos de contexto que reforçam a narrativa (ex: 'scattered coffee beans, steam rising')",
+        "lighting": "Setup de luz específico",
+        "color_direction": "Paleta dominante",
+        "technical_specs": "aspect ratio 1:1 or 4:5, 8k, photorealistic, sharp focus on product"
+      }
+    }
+  },
+
+  "video_generation": {
+    "background_loop": {
+      "description": "Loop de 5-10s pra fundo de seção. Atmosférico, não narrativo.",
+      "template": "cinematic slow motion, {subject}, {movement}, {lighting}, {color_grade}, smooth loop, 4K",
+      "fields": {
+        "subject": "O que se vê (ex: 'rising steam from coffee cup', 'hands kneading dough')",
+        "movement": "Tipo de movimento (ex: 'slow drift left to right', 'subtle zoom in', 'static with movement in subject')",
+        "lighting": "Alinhada ao hero image",
+        "color_grade": "Alinhada à paleta (ex: 'warm desaturated, lifted blacks')"
+      },
+      "post_production": {
+        "tool": "ffmpeg",
+        "commands": {
+          "trim": "ffmpeg -i input.mp4 -t 8 -c copy output.mp4",
+          "loop_seamless": "ffmpeg -i input.mp4 -filter_complex '[0]reverse[r];[0][r]concat=n=2:v=1:a=0' loop.mp4",
+          "color_grade": "ffmpeg -i input.mp4 -vf 'eq=saturation=0.8:brightness=0.05:contrast=1.1' graded.mp4",
+          "compress_web": "ffmpeg -i input.mp4 -c:v libx264 -crf 23 -preset slow -an -movflags +faststart web.mp4"
+        }
+      }
+    },
+
+    "scroll_frame_sequence": {
+      "description": "Sequência de frames pra scroll-driven animation.",
+      "flow": [
+        "1. Gerar imagem base com prompt de hero_image",
+        "2. Animar no Runway/Kling com motion brush (movimento sutil, 4s)",
+        "3. Extrair frames com ffmpeg",
+        "4. Converter pra WebP e otimizar"
+      ],
+      "ffmpeg_extract": {
+        "extract_frames": "ffmpeg -i video.mp4 -vf 'fps=15,scale=1920:-1' frames/frame_%04d.webp",
+        "optimize_size": "for f in frames/*.webp; do cwebp -q 75 \"$f\" -o \"$f\"; done"
+      },
+      "target_frames": "60-90 frames pra 3-5s de conteúdo visual",
+      "naming": "frame_0001.webp, frame_0002.webp, ..."
+    },
+
+    "stock_direction": {
+      "description": "Briefing pra buscar vídeo em bancos gratuitos (Pexels, Coverr).",
+      "template_search_terms": [
+        "{nicho} + {ação_principal}",
+        "{material_do_nicho} + close up",
+        "{ambiente} + {luz_natural_ou_artificial}",
+        "abstract + {textura_relacionada}"
+      ],
+      "quality_filters": {
+        "minimum_resolution": "1080p",
+        "movement": "slow, controlled — nada frenético",
+        "color": "desaturado ou com grade consistente — nunca oversaturated stock look",
+        "content": "sem rostos reconhecíveis, sem logos visíveis"
+      }
+    }
+  },
+
+  "pseudo_3d": {
+    "multi_angle_sprite": {
+      "description": "Gera o mesmo objeto em múltiplos ângulos pra simular rotação 3D via scroll.",
+      "prompt_template": "{product_description}, {surface}, {lighting}, studio photography, white background, {angle}, 8k, photorealistic, consistent lighting across all angles",
+      "angles": [
+        "front view, 0 degrees",
+        "slight angle, 15 degrees from left",
+        "30 degrees from left",
+        "45 degrees from left, three quarter view",
+        "60 degrees from left",
+        "side view, 90 degrees"
+      ],
+      "critical_rule": "Todas as imagens DEVEM ter o mesmo enquadramento, mesmo tamanho do objeto, mesma iluminação. Incluir 'identical framing and scale' no prompt.",
+      "implementation": {
+        "method": "Canvas sprite sheet com scroll trigger",
+        "total_sprites": "8-12 pra rotação suave",
+        "format": "PNG com fundo transparente ou WebP"
+      }
+    },
+
+    "css_3d_layers": {
+      "description": "Camadas 2D com transforms CSS 3D pra criar profundidade.",
+      "layers": [
+        { "name": "background", "z": -200, "scale": 1.4, "content": "textura ou cor sólida" },
+        { "name": "midground", "z": -100, "scale": 1.2, "content": "elemento decorativo ou imagem" },
+        { "name": "foreground", "z": 0, "scale": 1, "content": "conteúdo principal" },
+        { "name": "overlay", "z": 50, "scale": 0.9, "content": "texto ou elemento flutuante" }
+      ],
+      "container_css": {
+        "perspective": "1000px",
+        "transform-style": "preserve-3d"
+      },
+      "animation": "Rotacionar levemente o container com mousemove pra revelar profundidade"
+    },
+
+    "floating_elements": {
+      "description": "Elementos que flutuam com animação contínua sutil.",
+      "css_animation": {
+        "keyframes": "translateY(-10px) em 0%, translateY(10px) em 50%, translateY(-10px) em 100%",
+        "duration": "6s",
+        "timing": "ease-in-out",
+        "infinite": true
+      },
+      "variation": "Cada elemento com duration e delay diferentes pra não sincronizar",
+      "use": "Shapes decorativos, badges, ícones de feature ao redor de produto"
+    }
+  },
+
+  "image_post_production": {
+    "tools": {
+      "node_sharp": {
+        "description": "Já está no stack Node.js. Pós-produção em batch.",
+        "operations": {
+          "resize": "sharp(input).resize(1920, null, { withoutEnlargement: true })",
+          "grain": "sharp(input).modulate({ brightness: 1.02, saturation: 0.85 }).sharpen(0.5)",
+          "crop_aspect": "sharp(input).resize({ width: 1920, height: 1080, fit: 'cover' })",
+          "webp_convert": "sharp(input).webp({ quality: 80 }).toFile(output)",
+          "blur_background": "sharp(input).blur(15)"
+        }
+      },
+      "upscale": {
+        "description": "Real-ESRGAN pra upscale de imagens baixa resolução do Instagram/site do prospect.",
+        "install": "pip install realesrgan",
+        "usage": "realesrgan-ncnn-vulkan -i input.jpg -o output.jpg -s 4"
+      }
+    }
+  },
+
+  "curadoria_instagram": {
+    "description": "Fluxo pra curar assets do Instagram/site do prospect como base.",
+    "quality_assessment": {
+      "usable_as_is": "Resolução >= 1080px, boa composição, sem marca d'água pesada",
+      "needs_upscale": "Boa composição mas resolução baixa. Real-ESRGAN resolve.",
+      "needs_recolor": "Composição ok mas cores fora da paleta. Sharp recolore.",
+      "replace_with_generated": "Composição ruim, resolução irrecuperável. Gerar nova com prompt baseado no conceito original."
+    },
+    "extraction_note": "Imagens do Instagram via URL direta do post. Não automatizar scraping — curadoria manual selecionando as melhores."
+  }
+}

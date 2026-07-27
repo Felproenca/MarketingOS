@@ -26,6 +26,7 @@ Existe para impedir que o MarketingOS execute em cima de hipotese fraca, context
 ```text
 -> Para transformar reuniao em inteligencia comprimida
 -> Para diagnosticar o gargalo principal de aquisicao
+-> Para definir se a proxima decisao precisa virar arquitetura de funil antes da producao
 -> Para questionar uma hipotese antes de executar
 -> Para criticar uma peca antes de publicar
 -> Para validar uma tese, promessa ou afirmacao
@@ -45,6 +46,9 @@ Comando: `/inteligencia`
 
 "Quero descobrir o gargalo principal de aquisicao"
 -> skill-acquisition-intelligence.md
+
+"Quero transformar o gargalo em progressao comercial, friccao, CTA, qualificacao e roteamento"
+-> ../funnel-strategy/SKILL.md
 
 "Quero criticar uma peca antes de publicar"
 -> skill-creative-critique.md
@@ -75,6 +79,8 @@ Meeting Intelligence
   -> comprime reunioes em signals.json
 Acquisition Intelligence
   -> compara hipoteses e identifica gargalo
+Funnel Strategy
+  -> transforma gargalo em caminho comercial e Funnel Metadata
 Office Hours
   -> testa decisao antes de executar
 Perception / Branding / Creative Direction

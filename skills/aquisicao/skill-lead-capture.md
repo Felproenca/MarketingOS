@@ -1,6 +1,6 @@
 ---
 name: skill-lead-capture
-version: "1.1"
+version: "1.2"
 group: aquisicao
 command: /prospectar leads
 inputs:
@@ -19,7 +19,30 @@ env: []
 ## Contexto mínimo necessário
 → client.md — Blocos 1, 2 e 4 (negócio, persona, tom)
 → campaigns.md — para registrar o fluxo criado
+→ skills/funnel-strategy/SKILL.md — estratégia de fricção, qualificação e roteamento
+→ skills/funnel-strategy/qualification-engine.md — perguntas e classificação de lead
+→ skills/funnel-strategy/schemas/smart-form.schema.json — contrato de formulário inteligente
+→ skills/funnel-strategy/schemas/routing-rules.schema.json — rotas pós-captura
 → NÃO carregar: metrics.json, brand-kit.json, intelligence/, alma.md, notes.md, estrategia.md
+
+---
+
+## Funnel Strategy — gate comercial obrigatório
+
+Captura não é formulário. Captura é qualificação.
+
+Antes de criar qualquer fluxo, definir:
+
+```text
+Friction level:
+Expected lead signal:
+Qualification goal:
+Lead scoring:
+Routing destination:
+Next best action:
+```
+
+Regra: máximo 4 perguntas antes da primeira entrega de valor percebida.
 
 ---
 
@@ -107,6 +130,20 @@ Se nao houver ferramenta de analytics, registrar como pendencia tecnica.
 **Temperatura do lead:** [ frio / morno / quente ]
 **Evento principal:** [ ]
 
+#### FUNNEL METADATA
+
+```
+Funnel stage:
+Intent level:
+Friction level:
+Expected lead signal:
+Qualification goal:
+Primary CTA:
+Secondary CTA:
+Routing destination:
+Next best action:
+```
+
 ---
 
 #### OFERTA DE ENTRADA
@@ -176,6 +213,31 @@ CTA do e-mail:
 
 ---
 
+#### SEQUÊNCIA DE NUTRIÇÃO — E-MAIL (v1.2, quando o lead ainda não está pronto pra WhatsApp)
+
+Usar quando o lead entra frio/morno (não pede preço/urgência de cara) — e-mail
+nutre sem exigir presença humana em tempo real, poupando a capacidade de
+atendimento (útil sobretudo quando a operação do cliente tem pouca gente
+respondendo). Ver `skills/funnel-strategy/platform-playbooks/email.md` para a
+lógica completa.
+
+```
+Sequência de boas-vindas: 5-7 e-mails / 14 dias, 1 CTA comportamental por e-mail
+  (nunca "compre agora" logo de cara)
+
+Gatilho de saída da sequência → WhatsApp:
+  lead clicou, respondeu ou perguntou preço/urgência = intent level sobe pra
+  high → rotear pra WhatsApp/comercial imediatamente, não esperar a sequência
+  terminar
+
+E-mail 1 (imediato): [entrega o que foi prometido na captura + 1 pergunta leve]
+E-mail 2 (dia 2-3): [prova/case/exemplo relevante ao segmento do lead]
+E-mail 3 (dia 5-7): [conteúdo de valor, sem CTA de venda]
+E-mail 4-7 (até dia 14): [aprofunda + 1 CTA comportamental por e-mail]
+```
+
+---
+
 #### CONFIGURAÇÃO TÉCNICA
 
 ```
@@ -231,6 +293,13 @@ Status:            Ativo
 
 ---
 
+## Regras v1.2
+
+9. **Sequência de e-mail nunca substitui WhatsApp em intenção alta** — é nutrição de topo/meio de funil; no primeiro sinal de intenção alta (clique, resposta, pergunta de preço), rotear pra conversa humana.
+10. **Não empilhar mais gatilhos manuais do que a operação aguenta** — se a sequência de e-mail não puder rodar quase 100% automática depois de configurada 1x, ela vira mais uma tela pra checar e é abandonada.
+
+---
+
 ## Checkpoints
 
 ⏸ **CP1 — Fluxo aprovado**
@@ -249,6 +318,10 @@ Estrutura do fluxo de captura definida → aprovar lógica de qualificação e m
 - [ ] A temperatura do lead foi classificada?
 - [ ] O evento principal de tracking foi definido?
 - [ ] O handoff para venda esta claro?
+- [ ] Funnel Metadata foi preenchido?
+- [ ] O roteiro respeita máximo de 4 perguntas antes de valor percebido?
+- [ ] Lead scoring separa fit de intenção?
+- [ ] Existe rota para lead bom, lead frio, lead ruim e lead urgente?
 
 ---
 

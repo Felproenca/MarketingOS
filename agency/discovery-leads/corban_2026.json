@@ -1,0 +1,1127 @@
+{
+  "domain:solucaocorrespondente.com.br": {
+    "niche_id": "corban_2026",
+    "name": "Solução Correspondente (JC Serviços Cadastro e Cobrança)",
+    "domain": "solucaocorrespondente.com.br",
+    "cnpj": null,
+    "places": {
+      "place_id": "ChIJm1Y8oy72zpQRAIpaUumrmTA",
+      "name": "Solução Correspondente (JC Serviços Cadastro e Cobrança)",
+      "address": "Rua 24 de Maio, 77 - R. Darzan, 342 - sala 1001 - Santana, São Paulo - SP, 02034-030",
+      "rating": 5,
+      "num_avaliacoes": 969,
+      "categoria": "establishment",
+      "source": "google_places_text_search",
+      "query": "correspondente bancário em SP",
+      "phone": "(11) 3583-0400",
+      "opening_hours": [
+        "segunda-feira: 08:15 – 18:00",
+        "terça-feira: 08:15 – 18:00",
+        "quarta-feira: 08:15 – 18:00",
+        "quinta-feira: 08:15 – 18:00",
+        "sexta-feira: 08:15 – 18:00",
+        "sábado: Fechado",
+        "domingo: Fechado"
+      ]
+    },
+    "cnpj_enrichment": null,
+    "website_enrichment": {
+      "whatsapp_business_link": null,
+      "email_institucional": null,
+      "formulario_contato": true,
+      "redes_sociais_linkadas": {},
+      "cnpj_candidates": [],
+      "blocked_by_robots": false,
+      "error": null,
+      "url": "http://www.solucaocorrespondente.com.br/",
+      "loads": true
+    },
+    "qualification": {
+      "score": 25,
+      "tier": "C",
+      "breakdown": [
+        {
+          "signal_id": "cnpj_ativo_tempo",
+          "description": "Meses desde abertura do CNPJ",
+          "value": null,
+          "threshold_min": 12,
+          "passed": false,
+          "weight": 0.2
+        },
+        {
+          "signal_id": "presenca_digital",
+          "description": "Site ativo + pelo menos 1 rede social ativa",
+          "value": false,
+          "threshold_min": true,
+          "passed": false,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "volume_operacao_aparente",
+          "description": "Nº avaliações Google + menções de equipe no site/LinkedIn",
+          "value": 969,
+          "threshold_min": 5,
+          "passed": true,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "situacao_cadastral",
+          "description": "CNPJ ativo na Receita (não baixado/suspenso)",
+          "value": null,
+          "threshold_min": "ATIVA",
+          "passed": false,
+          "weight": 0.3
+        }
+      ]
+    },
+    "step": "pending_approval",
+    "createdAt": "2026-07-13T22:06:39.670Z",
+    "updatedAt": "2026-07-14T02:19:46.907Z",
+    "history": [
+      {
+        "at": "2026-07-13T22:06:39.675Z",
+        "from": "discovered",
+        "to": "pending_approval",
+        "detail": "canal sugerido: whatsapp_business"
+      },
+      {
+        "at": "2026-07-13T22:16:39.673Z",
+        "from": "pending_approval",
+        "to": "pending_approval",
+        "detail": "canal sugerido: whatsapp_business"
+      },
+      {
+        "at": "2026-07-14T02:05:41.091Z",
+        "from": "pending_approval",
+        "to": "pending_approval",
+        "detail": "canal sugerido: whatsapp_business"
+      },
+      {
+        "at": "2026-07-14T02:19:46.907Z",
+        "from": "pending_approval",
+        "to": "pending_approval",
+        "detail": "canal sugerido: whatsapp_business"
+      }
+    ]
+  },
+  "domain:rpcred.com.br": {
+    "niche_id": "corban_2026",
+    "name": "RP CRED - Correspondente Bancário",
+    "domain": "rpcred.com.br",
+    "cnpj": null,
+    "places": {
+      "place_id": "ChIJH-7ipb5fzpQRVLZE4cNuwt8",
+      "name": "RP CRED - Correspondente Bancário",
+      "address": "R. Antônio Juvenal, 367 - Conj 05 - Vila Matilde, São Paulo - SP, 03513-050",
+      "rating": 4.9,
+      "num_avaliacoes": 329,
+      "categoria": "establishment",
+      "source": "google_places_text_search",
+      "query": "correspondente bancário em SP",
+      "phone": "(11) 2306-4224",
+      "opening_hours": [
+        "segunda-feira: 07:30 – 17:30",
+        "terça-feira: 07:45 – 17:30",
+        "quarta-feira: 07:45 – 17:30",
+        "quinta-feira: 07:45 – 17:30",
+        "sexta-feira: 07:45 – 17:30",
+        "sábado: Fechado",
+        "domingo: Fechado"
+      ]
+    },
+    "cnpj_enrichment": null,
+    "website_enrichment": {
+      "whatsapp_business_link": null,
+      "email_institucional": null,
+      "formulario_contato": false,
+      "redes_sociais_linkadas": {},
+      "cnpj_candidates": [],
+      "blocked_by_robots": false,
+      "error": "page.goto: net::ERR_CERT_COMMON_NAME_INVALID at http://rpcred.com.br/\nCall log:\n\u001b[2m  - navigating to \"http://rpcred.com.br/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "url": "http://rpcred.com.br/",
+      "loads": false
+    },
+    "qualification": {
+      "score": 25,
+      "tier": "C",
+      "breakdown": [
+        {
+          "signal_id": "cnpj_ativo_tempo",
+          "description": "Meses desde abertura do CNPJ",
+          "value": null,
+          "threshold_min": 12,
+          "passed": false,
+          "weight": 0.2
+        },
+        {
+          "signal_id": "presenca_digital",
+          "description": "Site ativo + pelo menos 1 rede social ativa",
+          "value": false,
+          "threshold_min": true,
+          "passed": false,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "volume_operacao_aparente",
+          "description": "Nº avaliações Google + menções de equipe no site/LinkedIn",
+          "value": 329,
+          "threshold_min": 5,
+          "passed": true,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "situacao_cadastral",
+          "description": "CNPJ ativo na Receita (não baixado/suspenso)",
+          "value": null,
+          "threshold_min": "ATIVA",
+          "passed": false,
+          "weight": 0.3
+        }
+      ]
+    },
+    "step": "pending_approval",
+    "createdAt": "2026-07-13T22:06:58.455Z",
+    "updatedAt": "2026-07-14T02:19:10.920Z",
+    "history": [
+      {
+        "at": "2026-07-13T22:06:58.461Z",
+        "from": "discovered",
+        "to": "pending_approval",
+        "detail": "canal sugerido: whatsapp_business"
+      },
+      {
+        "at": "2026-07-13T22:17:41.459Z",
+        "from": "pending_approval",
+        "to": "pending_approval",
+        "detail": "canal sugerido: whatsapp_business"
+      },
+      {
+        "at": "2026-07-14T02:06:03.408Z",
+        "from": "pending_approval",
+        "to": "pending_approval",
+        "detail": "canal sugerido: whatsapp_business"
+      },
+      {
+        "at": "2026-07-14T02:19:10.920Z",
+        "from": "pending_approval",
+        "to": "pending_approval",
+        "detail": "canal sugerido: whatsapp_business"
+      }
+    ]
+  },
+  "place:ChIJB5bM58f3zpQRq7uXwVxPnMI": {
+    "niche_id": "corban_2026",
+    "name": "Correspondente Caixa Aqui",
+    "domain": null,
+    "cnpj": null,
+    "places": {
+      "place_id": "ChIJB5bM58f3zpQRq7uXwVxPnMI",
+      "name": "Correspondente Caixa Aqui",
+      "address": "R. Sete de Novembro, 102 B - Sl 01 - Parada Inglesa, São Paulo - SP, 02241-110",
+      "rating": 3.7,
+      "num_avaliacoes": 3,
+      "categoria": "establishment",
+      "source": "google_places_text_search",
+      "query": "correspondente bancario em SP",
+      "phone": null,
+      "opening_hours": null
+    },
+    "cnpj_enrichment": null,
+    "website_enrichment": null,
+    "qualification": {
+      "score": 0,
+      "tier": null,
+      "breakdown": [
+        {
+          "signal_id": "cnpj_ativo_tempo",
+          "description": "Meses desde abertura do CNPJ",
+          "value": null,
+          "threshold_min": 12,
+          "passed": false,
+          "weight": 0.2
+        },
+        {
+          "signal_id": "presenca_digital",
+          "description": "Site ativo + pelo menos 1 rede social ativa",
+          "value": false,
+          "threshold_min": true,
+          "passed": false,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "volume_operacao_aparente",
+          "description": "Nº avaliações Google + menções de equipe no site/LinkedIn",
+          "value": 3,
+          "threshold_min": 5,
+          "passed": false,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "situacao_cadastral",
+          "description": "CNPJ ativo na Receita (não baixado/suspenso)",
+          "value": null,
+          "threshold_min": "ATIVA",
+          "passed": false,
+          "weight": 0.3
+        }
+      ]
+    },
+    "step": "discarded",
+    "createdAt": "2026-07-13T22:06:59.381Z",
+    "updatedAt": "2026-07-13T22:06:59.386Z",
+    "history": [
+      {
+        "at": "2026-07-13T22:06:59.386Z",
+        "from": "discovered",
+        "to": "discarded",
+        "detail": "score abaixo do tier C"
+      }
+    ]
+  },
+  "domain:ribeiroegomessolucoes.com.br": {
+    "niche_id": "corban_2026",
+    "name": "Ribeiro & Gomes Soluções - Correspondente Bancário",
+    "domain": "ribeiroegomessolucoes.com.br",
+    "cnpj": null,
+    "places": {
+      "place_id": "ChIJKZY9rv1ZzpQRkLY1Xe8LwVk",
+      "name": "Ribeiro & Gomes Soluções - Correspondente Bancário",
+      "address": "R. Voluntários da Pátria, 654 - Santana, São Paulo - SP, 02010-000",
+      "rating": 5,
+      "num_avaliacoes": 39,
+      "categoria": "establishment",
+      "source": "google_places_text_search",
+      "query": "correspondente bancário em SP",
+      "phone": "(11) 95045-2344",
+      "opening_hours": [
+        "segunda-feira: 09:00 – 18:00",
+        "terça-feira: 09:00 – 18:00",
+        "quarta-feira: 09:00 – 18:00",
+        "quinta-feira: 09:00 – 18:00",
+        "sexta-feira: 09:00 – 18:00",
+        "sábado: Fechado",
+        "domingo: Fechado"
+      ]
+    },
+    "cnpj_enrichment": null,
+    "website_enrichment": {
+      "whatsapp_business_link": null,
+      "email_institucional": null,
+      "formulario_contato": false,
+      "redes_sociais_linkadas": {},
+      "cnpj_candidates": [],
+      "blocked_by_robots": false,
+      "error": "page.goto: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://ribeiroegomessolucoes.com.br/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "url": "https://ribeiroegomessolucoes.com.br/",
+      "loads": false
+    },
+    "qualification": {
+      "score": 25,
+      "tier": "C",
+      "breakdown": [
+        {
+          "signal_id": "cnpj_ativo_tempo",
+          "description": "Meses desde abertura do CNPJ",
+          "value": null,
+          "threshold_min": 12,
+          "passed": false,
+          "weight": 0.2
+        },
+        {
+          "signal_id": "presenca_digital",
+          "description": "Site ativo + pelo menos 1 rede social ativa",
+          "value": false,
+          "threshold_min": true,
+          "passed": false,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "volume_operacao_aparente",
+          "description": "Nº avaliações Google + menções de equipe no site/LinkedIn",
+          "value": 39,
+          "threshold_min": 5,
+          "passed": true,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "situacao_cadastral",
+          "description": "CNPJ ativo na Receita (não baixado/suspenso)",
+          "value": null,
+          "threshold_min": "ATIVA",
+          "passed": false,
+          "weight": 0.3
+        }
+      ]
+    },
+    "step": "pending_approval",
+    "createdAt": "2026-07-13T22:07:20.010Z",
+    "updatedAt": "2026-07-14T02:20:58.769Z",
+    "history": [
+      {
+        "at": "2026-07-13T22:07:20.016Z",
+        "from": "discovered",
+        "to": "pending_approval",
+        "detail": "canal sugerido: whatsapp_business"
+      },
+      {
+        "at": "2026-07-13T22:17:16.611Z",
+        "from": "pending_approval",
+        "to": "pending_approval",
+        "detail": "canal sugerido: whatsapp_business"
+      },
+      {
+        "at": "2026-07-14T02:07:07.602Z",
+        "from": "pending_approval",
+        "to": "pending_approval",
+        "detail": "canal sugerido: whatsapp_business"
+      },
+      {
+        "at": "2026-07-14T02:20:58.769Z",
+        "from": "pending_approval",
+        "to": "pending_approval",
+        "detail": "canal sugerido: whatsapp_business"
+      }
+    ]
+  },
+  "domain:unikconsultoria.com.br": {
+    "niche_id": "corban_2026",
+    "name": "Correspondente Bancário Caixa AQUI",
+    "domain": "unikconsultoria.com.br",
+    "cnpj": null,
+    "places": {
+      "place_id": "ChIJwxQSZXRhzpQRVVrMlM8lS7A",
+      "name": "Correspondente Bancário Caixa AQUI",
+      "address": "R. Jorge Augusto, 83 - 5º andar - sala 52 - Vila Centenario, São Paulo - SP, 03645-000",
+      "rating": 3.1,
+      "num_avaliacoes": 20,
+      "categoria": "bank",
+      "source": "google_places_text_search",
+      "query": "correspondente bancário em SP",
+      "phone": "(11) 3447-8866",
+      "opening_hours": [
+        "segunda-feira: 09:00 – 17:30",
+        "terça-feira: 09:00 – 17:30",
+        "quarta-feira: 09:00 – 17:30",
+        "quinta-feira: 09:00 – 17:30",
+        "sexta-feira: 09:00 – 17:30",
+        "sábado: Fechado",
+        "domingo: 09:00 – 17:30"
+      ]
+    },
+    "cnpj_enrichment": null,
+    "website_enrichment": {
+      "whatsapp_business_link": "https://wa.me/5511344788668",
+      "email_institucional": "contato.caixa@unikconsultoria.com.br",
+      "formulario_contato": false,
+      "redes_sociais_linkadas": {
+        "instagram": "https://instagram.com/caixaaqui_unik",
+        "linkedin": "https://linkedin.com/in/caixa-aqui-82060b46"
+      },
+      "cnpj_candidates": [],
+      "blocked_by_robots": false,
+      "error": null,
+      "url": "http://www.unikconsultoria.com.br/",
+      "loads": true
+    },
+    "qualification": {
+      "score": 50,
+      "tier": "B",
+      "breakdown": [
+        {
+          "signal_id": "cnpj_ativo_tempo",
+          "description": "Meses desde abertura do CNPJ",
+          "value": null,
+          "threshold_min": 12,
+          "passed": false,
+          "weight": 0.2
+        },
+        {
+          "signal_id": "presenca_digital",
+          "description": "Site ativo + pelo menos 1 rede social ativa",
+          "value": true,
+          "threshold_min": true,
+          "passed": true,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "volume_operacao_aparente",
+          "description": "Nº avaliações Google + menções de equipe no site/LinkedIn",
+          "value": 20,
+          "threshold_min": 5,
+          "passed": true,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "situacao_cadastral",
+          "description": "CNPJ ativo na Receita (não baixado/suspenso)",
+          "value": null,
+          "threshold_min": "ATIVA",
+          "passed": false,
+          "weight": 0.3
+        }
+      ]
+    },
+    "step": "pending_approval",
+    "createdAt": "2026-07-13T22:08:02.464Z",
+    "updatedAt": "2026-07-14T02:21:56.541Z",
+    "history": [
+      {
+        "at": "2026-07-13T22:08:02.469Z",
+        "from": "discovered",
+        "to": "pending_approval",
+        "detail": "canal sugerido: whatsapp_business"
+      },
+      {
+        "at": "2026-07-14T02:02:58.953Z",
+        "from": "pending_approval",
+        "to": "pending_approval",
+        "detail": "canal sugerido: whatsapp_business"
+      },
+      {
+        "at": "2026-07-14T02:21:56.541Z",
+        "from": "pending_approval",
+        "to": "pending_approval",
+        "detail": "canal sugerido: whatsapp_business"
+      }
+    ]
+  },
+  "place:ChIJadY4GU5YzpQR_SF4l5L1HXs": {
+    "niche_id": "corban_2026",
+    "name": "Mega Correspondente Bancário",
+    "domain": null,
+    "cnpj": null,
+    "places": {
+      "place_id": "ChIJadY4GU5YzpQR_SF4l5L1HXs",
+      "name": "Mega Correspondente Bancário",
+      "address": "8 342 - R. Sete de Abril, 89 - Centro Histórico de São Paulo, São Paulo - SP, 01044-000",
+      "rating": null,
+      "num_avaliacoes": null,
+      "categoria": "establishment",
+      "source": "google_places_text_search",
+      "query": "correspondente bancário em SP",
+      "phone": "(11) 4172-9956",
+      "opening_hours": [
+        "segunda-feira: 09:00 – 18:00",
+        "terça-feira: 09:00 – 18:00",
+        "quarta-feira: 09:00 – 18:00",
+        "quinta-feira: 09:00 – 18:00",
+        "sexta-feira: 09:00 – 18:00",
+        "sábado: Fechado",
+        "domingo: Fechado"
+      ]
+    },
+    "cnpj_enrichment": null,
+    "website_enrichment": null,
+    "qualification": {
+      "score": 0,
+      "tier": null,
+      "breakdown": [
+        {
+          "signal_id": "cnpj_ativo_tempo",
+          "description": "Meses desde abertura do CNPJ",
+          "value": null,
+          "threshold_min": 12,
+          "passed": false,
+          "weight": 0.2
+        },
+        {
+          "signal_id": "presenca_digital",
+          "description": "Site ativo + pelo menos 1 rede social ativa",
+          "value": false,
+          "threshold_min": true,
+          "passed": false,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "volume_operacao_aparente",
+          "description": "Nº avaliações Google + menções de equipe no site/LinkedIn",
+          "value": null,
+          "threshold_min": 5,
+          "passed": false,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "situacao_cadastral",
+          "description": "CNPJ ativo na Receita (não baixado/suspenso)",
+          "value": null,
+          "threshold_min": "ATIVA",
+          "passed": false,
+          "weight": 0.3
+        }
+      ]
+    },
+    "step": "discarded",
+    "createdAt": "2026-07-13T22:17:42.475Z",
+    "updatedAt": "2026-07-14T02:21:00.244Z",
+    "history": [
+      {
+        "at": "2026-07-13T22:17:42.480Z",
+        "from": "discovered",
+        "to": "discarded",
+        "detail": "score abaixo do tier C"
+      },
+      {
+        "at": "2026-07-14T02:21:00.244Z",
+        "from": "discarded",
+        "to": "discarded",
+        "detail": "score abaixo do tier C"
+      }
+    ]
+  },
+  "place:ChIJISnLDotezpQRJhvzUBi1DyM": {
+    "niche_id": "corban_2026",
+    "name": "Correspondente Bancário",
+    "domain": null,
+    "cnpj": null,
+    "places": {
+      "place_id": "ChIJISnLDotezpQRJhvzUBi1DyM",
+      "name": "Correspondente Bancário",
+      "address": "R. Serra de Bragança, Nº 1789 - Sala 01 - Vila Gomes Cardim, São Paulo - SP, 03318-000",
+      "rating": null,
+      "num_avaliacoes": null,
+      "categoria": "bank",
+      "source": "google_places_text_search",
+      "query": "correspondente bancário em SP",
+      "phone": "(11) 97434-5593",
+      "opening_hours": null
+    },
+    "cnpj_enrichment": null,
+    "website_enrichment": null,
+    "qualification": {
+      "score": 0,
+      "tier": null,
+      "breakdown": [
+        {
+          "signal_id": "cnpj_ativo_tempo",
+          "description": "Meses desde abertura do CNPJ",
+          "value": null,
+          "threshold_min": 12,
+          "passed": false,
+          "weight": 0.2
+        },
+        {
+          "signal_id": "presenca_digital",
+          "description": "Site ativo + pelo menos 1 rede social ativa",
+          "value": false,
+          "threshold_min": true,
+          "passed": false,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "volume_operacao_aparente",
+          "description": "Nº avaliações Google + menções de equipe no site/LinkedIn",
+          "value": null,
+          "threshold_min": 5,
+          "passed": false,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "situacao_cadastral",
+          "description": "CNPJ ativo na Receita (não baixado/suspenso)",
+          "value": null,
+          "threshold_min": "ATIVA",
+          "passed": false,
+          "weight": 0.3
+        }
+      ]
+    },
+    "step": "discarded",
+    "createdAt": "2026-07-13T22:17:43.022Z",
+    "updatedAt": "2026-07-13T22:17:43.027Z",
+    "history": [
+      {
+        "at": "2026-07-13T22:17:43.027Z",
+        "from": "discovered",
+        "to": "discarded",
+        "detail": "score abaixo do tier C"
+      }
+    ]
+  },
+  "domain:bancopan.com.br": {
+    "niche_id": "corban_2026",
+    "name": "Banco PAN",
+    "domain": "bancopan.com.br",
+    "cnpj": null,
+    "places": {
+      "place_id": "ChIJ5f2_5MhZzpQRRJV0MFDVKMs",
+      "name": "Banco PAN",
+      "address": "Av. Paulista, 1374 - Bela Vista, São Paulo - SP, 01310-100",
+      "rating": 2.5,
+      "num_avaliacoes": 648,
+      "categoria": "bank",
+      "source": "google_places_text_search",
+      "query": "correspondente bancário em SP",
+      "phone": "(11) 4003-0101",
+      "opening_hours": [
+        "segunda-feira: Atendimento 24 horas",
+        "terça-feira: Atendimento 24 horas",
+        "quarta-feira: Atendimento 24 horas",
+        "quinta-feira: Atendimento 24 horas",
+        "sexta-feira: Atendimento 24 horas",
+        "sábado: Atendimento 24 horas",
+        "domingo: Atendimento 24 horas"
+      ]
+    },
+    "cnpj_enrichment": null,
+    "website_enrichment": {
+      "whatsapp_business_link": null,
+      "email_institucional": null,
+      "formulario_contato": false,
+      "redes_sociais_linkadas": {},
+      "cnpj_candidates": [],
+      "blocked_by_robots": false,
+      "error": null,
+      "url": "https://www.bancopan.com.br/",
+      "loads": true
+    },
+    "qualification": {
+      "score": 25,
+      "tier": "C",
+      "breakdown": [
+        {
+          "signal_id": "cnpj_ativo_tempo",
+          "description": "Meses desde abertura do CNPJ",
+          "value": null,
+          "threshold_min": 12,
+          "passed": false,
+          "weight": 0.2
+        },
+        {
+          "signal_id": "presenca_digital",
+          "description": "Site ativo + pelo menos 1 rede social ativa",
+          "value": false,
+          "threshold_min": true,
+          "passed": false,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "volume_operacao_aparente",
+          "description": "Nº avaliações Google + menções de equipe no site/LinkedIn",
+          "value": 648,
+          "threshold_min": 5,
+          "passed": true,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "situacao_cadastral",
+          "description": "CNPJ ativo na Receita (não baixado/suspenso)",
+          "value": null,
+          "threshold_min": "ATIVA",
+          "passed": false,
+          "weight": 0.3
+        }
+      ]
+    },
+    "step": "pending_approval",
+    "createdAt": "2026-07-14T02:07:47.308Z",
+    "updatedAt": "2026-07-14T02:07:47.313Z",
+    "history": [
+      {
+        "at": "2026-07-14T02:07:47.313Z",
+        "from": "discovered",
+        "to": "pending_approval",
+        "detail": "canal sugerido: whatsapp_business"
+      }
+    ]
+  },
+  "domain:excelenciacca.com.br": {
+    "niche_id": "corban_2026",
+    "name": "excelência correspondente bancário",
+    "domain": "excelenciacca.com.br",
+    "cnpj": null,
+    "places": {
+      "place_id": "ChIJBVOhHQdYzpQR-cNcXJBzRFI",
+      "name": "excelência correspondente bancário",
+      "address": "Av. Marquês de S. Vicente, 405 - 15th floor room 1502 - Várzea da Barra Funda, São Paulo - SP, 01139-001",
+      "rating": 4.7,
+      "num_avaliacoes": 42,
+      "categoria": "establishment",
+      "source": "google_places_text_search",
+      "query": "correspondente bancário em SP",
+      "phone": null,
+      "opening_hours": null
+    },
+    "cnpj_enrichment": null,
+    "website_enrichment": {
+      "whatsapp_business_link": null,
+      "email_institucional": null,
+      "formulario_contato": false,
+      "redes_sociais_linkadas": {},
+      "cnpj_candidates": [],
+      "blocked_by_robots": false,
+      "error": null,
+      "url": "http://excelenciacca.com.br/",
+      "loads": true
+    },
+    "qualification": {
+      "score": 25,
+      "tier": "C",
+      "breakdown": [
+        {
+          "signal_id": "cnpj_ativo_tempo",
+          "description": "Meses desde abertura do CNPJ",
+          "value": null,
+          "threshold_min": 12,
+          "passed": false,
+          "weight": 0.2
+        },
+        {
+          "signal_id": "presenca_digital",
+          "description": "Site ativo + pelo menos 1 rede social ativa",
+          "value": false,
+          "threshold_min": true,
+          "passed": false,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "volume_operacao_aparente",
+          "description": "Nº avaliações Google + menções de equipe no site/LinkedIn",
+          "value": 42,
+          "threshold_min": 5,
+          "passed": true,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "situacao_cadastral",
+          "description": "CNPJ ativo na Receita (não baixado/suspenso)",
+          "value": null,
+          "threshold_min": "ATIVA",
+          "passed": false,
+          "weight": 0.3
+        }
+      ]
+    },
+    "step": "pending_approval",
+    "createdAt": "2026-07-14T02:23:51.588Z",
+    "updatedAt": "2026-07-14T02:23:51.598Z",
+    "history": [
+      {
+        "at": "2026-07-14T02:23:51.598Z",
+        "from": "discovered",
+        "to": "pending_approval",
+        "detail": "canal sugerido: nenhum disponível"
+      }
+    ]
+  },
+  "domain:maxfinanciamentos.com.br": {
+    "niche_id": "corban_2026",
+    "name": "Max Financiamentos Imobiliário | Correspondente Bancário",
+    "domain": "maxfinanciamentos.com.br",
+    "cnpj": null,
+    "places": {
+      "place_id": "ChIJHZR_Y0EdzpQRtOvRKZTmsDc",
+      "name": "Max Financiamentos Imobiliário | Correspondente Bancário",
+      "address": "Av. Giovanni Gronchi, 6195 - Vila Andrade, São Paulo - SP, 05724-003",
+      "rating": 5,
+      "num_avaliacoes": 9,
+      "categoria": "establishment",
+      "source": "google_places_text_search",
+      "query": "correspondente bancário em SP",
+      "phone": null,
+      "opening_hours": [
+        "segunda-feira: 09:00 – 17:00",
+        "terça-feira: 09:00 – 17:00",
+        "quarta-feira: 09:00 – 17:00",
+        "quinta-feira: 09:00 – 17:00",
+        "sexta-feira: 09:00 – 17:00",
+        "sábado: Fechado",
+        "domingo: Fechado"
+      ]
+    },
+    "cnpj_enrichment": null,
+    "website_enrichment": {
+      "whatsapp_business_link": "https://wa.me/5511997578611",
+      "email_institucional": null,
+      "formulario_contato": true,
+      "redes_sociais_linkadas": {
+        "instagram": "https://instagram.com/maxfinanciamentos_",
+        "facebook": "https://facebook.com/profile.php"
+      },
+      "cnpj_candidates": [],
+      "blocked_by_robots": false,
+      "error": null,
+      "url": "https://maxfinanciamentos.com.br/",
+      "loads": true
+    },
+    "qualification": {
+      "score": 50,
+      "tier": "B",
+      "breakdown": [
+        {
+          "signal_id": "cnpj_ativo_tempo",
+          "description": "Meses desde abertura do CNPJ",
+          "value": null,
+          "threshold_min": 12,
+          "passed": false,
+          "weight": 0.2
+        },
+        {
+          "signal_id": "presenca_digital",
+          "description": "Site ativo + pelo menos 1 rede social ativa",
+          "value": true,
+          "threshold_min": true,
+          "passed": true,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "volume_operacao_aparente",
+          "description": "Nº avaliações Google + menções de equipe no site/LinkedIn",
+          "value": 9,
+          "threshold_min": 5,
+          "passed": true,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "situacao_cadastral",
+          "description": "CNPJ ativo na Receita (não baixado/suspenso)",
+          "value": null,
+          "threshold_min": "ATIVA",
+          "passed": false,
+          "weight": 0.3
+        }
+      ]
+    },
+    "step": "pending_approval",
+    "createdAt": "2026-07-14T02:24:55.704Z",
+    "updatedAt": "2026-07-14T02:24:55.710Z",
+    "history": [
+      {
+        "at": "2026-07-14T02:24:55.710Z",
+        "from": "discovered",
+        "to": "pending_approval",
+        "detail": "canal sugerido: whatsapp_business"
+      }
+    ]
+  },
+  "place:ChIJDf9NYMr3zpQRxEU3OfZr4cg": {
+    "niche_id": "corban_2026",
+    "name": "CORRESPONDENTE BANCARIO BILLCRED",
+    "domain": null,
+    "cnpj": null,
+    "places": {
+      "place_id": "ChIJDf9NYMr3zpQRxEU3OfZr4cg",
+      "name": "CORRESPONDENTE BANCARIO BILLCRED",
+      "address": "METRO - Av. Dr. Antônio Maria Laet, 109 - Tucuruvi, São Paulo - SP, 02240-000",
+      "rating": 5,
+      "num_avaliacoes": 1,
+      "categoria": "establishment",
+      "source": "google_places_text_search",
+      "query": "correspondente bancário em SP",
+      "phone": "(11) 94730-2244",
+      "opening_hours": [
+        "segunda-feira: 08:00 – 18:00",
+        "terça-feira: 08:00 – 18:00",
+        "quarta-feira: 08:00 – 18:00",
+        "quinta-feira: 08:00 – 18:00",
+        "sexta-feira: 08:00 – 18:00",
+        "sábado: 08:00 – 17:00",
+        "domingo: Fechado"
+      ]
+    },
+    "cnpj_enrichment": null,
+    "website_enrichment": null,
+    "qualification": {
+      "score": 0,
+      "tier": null,
+      "breakdown": [
+        {
+          "signal_id": "cnpj_ativo_tempo",
+          "description": "Meses desde abertura do CNPJ",
+          "value": null,
+          "threshold_min": 12,
+          "passed": false,
+          "weight": 0.2
+        },
+        {
+          "signal_id": "presenca_digital",
+          "description": "Site ativo + pelo menos 1 rede social ativa",
+          "value": false,
+          "threshold_min": true,
+          "passed": false,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "volume_operacao_aparente",
+          "description": "Nº avaliações Google + menções de equipe no site/LinkedIn",
+          "value": 1,
+          "threshold_min": 5,
+          "passed": false,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "situacao_cadastral",
+          "description": "CNPJ ativo na Receita (não baixado/suspenso)",
+          "value": null,
+          "threshold_min": "ATIVA",
+          "passed": false,
+          "weight": 0.3
+        }
+      ]
+    },
+    "step": "discarded",
+    "createdAt": "2026-07-14T02:24:57.604Z",
+    "updatedAt": "2026-07-14T02:24:57.609Z",
+    "history": [
+      {
+        "at": "2026-07-14T02:24:57.609Z",
+        "from": "discovered",
+        "to": "discarded",
+        "detail": "score abaixo do tier C"
+      }
+    ]
+  },
+  "place:ChIJ0WUcftZXzpQRNVNmfAV5wxM": {
+    "niche_id": "corban_2026",
+    "name": "RM Correspondente Bancário",
+    "domain": null,
+    "cnpj": null,
+    "places": {
+      "place_id": "ChIJ0WUcftZXzpQRNVNmfAV5wxM",
+      "name": "RM Correspondente Bancário",
+      "address": "R. do Rocio, 288 - Conj 12 - Vila Olímpia, São Paulo - SP, 04552-000",
+      "rating": 5,
+      "num_avaliacoes": 1,
+      "categoria": "establishment",
+      "source": "google_places_text_search",
+      "query": "correspondente bancário em SP",
+      "phone": "(11) 4862-7700",
+      "opening_hours": [
+        "segunda-feira: 09:00 – 18:00",
+        "terça-feira: 09:00 – 18:00",
+        "quarta-feira: 09:00 – 18:00",
+        "quinta-feira: 09:00 – 18:00",
+        "sexta-feira: 09:00 – 18:00",
+        "sábado: Fechado",
+        "domingo: Fechado"
+      ]
+    },
+    "cnpj_enrichment": null,
+    "website_enrichment": null,
+    "qualification": {
+      "score": 0,
+      "tier": null,
+      "breakdown": [
+        {
+          "signal_id": "cnpj_ativo_tempo",
+          "description": "Meses desde abertura do CNPJ",
+          "value": null,
+          "threshold_min": 12,
+          "passed": false,
+          "weight": 0.2
+        },
+        {
+          "signal_id": "presenca_digital",
+          "description": "Site ativo + pelo menos 1 rede social ativa",
+          "value": false,
+          "threshold_min": true,
+          "passed": false,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "volume_operacao_aparente",
+          "description": "Nº avaliações Google + menções de equipe no site/LinkedIn",
+          "value": 1,
+          "threshold_min": 5,
+          "passed": false,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "situacao_cadastral",
+          "description": "CNPJ ativo na Receita (não baixado/suspenso)",
+          "value": null,
+          "threshold_min": "ATIVA",
+          "passed": false,
+          "weight": 0.3
+        }
+      ]
+    },
+    "step": "discarded",
+    "createdAt": "2026-07-14T02:24:58.215Z",
+    "updatedAt": "2026-07-14T02:24:58.221Z",
+    "history": [
+      {
+        "at": "2026-07-14T02:24:58.221Z",
+        "from": "discovered",
+        "to": "discarded",
+        "detail": "score abaixo do tier C"
+      }
+    ]
+  },
+  "place:ChIJP_bHiYdlzpQRTlFcHY1woKo": {
+    "niche_id": "corban_2026",
+    "name": "E&E Soluções Financeiras Correspondente Bancário Autorizado - Não cobramos taxas para realizar simulações ou empréstimos.",
+    "domain": null,
+    "cnpj": null,
+    "places": {
+      "place_id": "ChIJP_bHiYdlzpQRTlFcHY1woKo",
+      "name": "E&E Soluções Financeiras Correspondente Bancário Autorizado - Não cobramos taxas para realizar simulações ou empréstimos.",
+      "address": "Av. Nordestina, 5125 C - Vila Nova Curuca, São Paulo - SP, 08032-000",
+      "rating": 5,
+      "num_avaliacoes": 4,
+      "categoria": "bank",
+      "source": "google_places_text_search",
+      "query": "correspondente bancário em SP",
+      "phone": "(11) 4214-6862",
+      "opening_hours": [
+        "segunda-feira: 09:30 – 13:30",
+        "terça-feira: 09:30 – 13:30",
+        "quarta-feira: 09:30 – 13:30",
+        "quinta-feira: 09:30 – 13:30",
+        "sexta-feira: 09:30 – 13:30",
+        "sábado: Fechado",
+        "domingo: Fechado"
+      ]
+    },
+    "cnpj_enrichment": null,
+    "website_enrichment": null,
+    "qualification": {
+      "score": 0,
+      "tier": null,
+      "breakdown": [
+        {
+          "signal_id": "cnpj_ativo_tempo",
+          "description": "Meses desde abertura do CNPJ",
+          "value": null,
+          "threshold_min": 12,
+          "passed": false,
+          "weight": 0.2
+        },
+        {
+          "signal_id": "presenca_digital",
+          "description": "Site ativo + pelo menos 1 rede social ativa",
+          "value": false,
+          "threshold_min": true,
+          "passed": false,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "volume_operacao_aparente",
+          "description": "Nº avaliações Google + menções de equipe no site/LinkedIn",
+          "value": 4,
+          "threshold_min": 5,
+          "passed": false,
+          "weight": 0.25
+        },
+        {
+          "signal_id": "situacao_cadastral",
+          "description": "CNPJ ativo na Receita (não baixado/suspenso)",
+          "value": null,
+          "threshold_min": "ATIVA",
+          "passed": false,
+          "weight": 0.3
+        }
+      ]
+    },
+    "step": "discarded",
+    "createdAt": "2026-07-14T02:24:58.534Z",
+    "updatedAt": "2026-07-14T02:24:58.539Z",
+    "history": [
+      {
+        "at": "2026-07-14T02:24:58.539Z",
+        "from": "discovered",
+        "to": "discarded",
+        "detail": "score abaixo do tier C"
+      }
+    ]
+  }
+}

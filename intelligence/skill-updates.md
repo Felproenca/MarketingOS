@@ -22,6 +22,35 @@ notes.md do cliente
 
 ---
 
+## Repertório Externo Registrado (aguardando aplicação em skill)
+
+- **2026-07-23 / implantado 2026-07-27** — `intelligence/doutrina-instagram-operacao.md`
+  Sistema de crescimento e conversão para Instagram (fonte: `MarketingOS_Instagram_Operacao.md`)
+  + expansão P0 com mecanismos de Ásia (domínio privado CN, velocidade/SEO KR, processo JP)
+  e Europa (self-service, save/share, compliance). **Aplicado** em: CLAUDE.md (gate),
+  agenda-semanal, funnel-strategy (template/schema/playbook/SKILL), conversational-commerce,
+  skills de criação (post, carousel, reels, social-content-agent), criacao/_admin,
+  manual-de-uso, commands.md. Ver U018 abaixo.
+
+- **2026-07-03** — `intelligence/repertoire-externo/jonas-25-formas-crescer-com-conteudo.md`
+  Framework de 25 mecanismos de como conteúdo consistente cresce um negócio (alcance,
+  vendas, relacionamento, receita, institucional). Fonte: transcript de vídeo (Jonas,
+  Content Lead). Não contradiz manifesto.md/alma.md — reforça conteúdo como infraestrutura
+  de aquisição. Ainda não aplicado em nenhuma skill específica — candidatos:
+  `skills/aquisicao/skill-offer-positioning.md` (linguagem de justificativa de proposta) e
+  `skills/venda/skill-venda.md` (blocos 2 e 4 do framework).
+
+- **2026-07-04** — `intelligence/repertoire-externo/vlog-documentario-vs-ia.md`
+  Framework de 3 arcos (Maior / Episódio / Aprendizado) pra transformar documentação real
+  (vlog/série) em ativo que a IA não replica. Fonte: transcript de vídeo (criador de
+  conteúdo/educação). Não contradiz manifesto.md/alma.md — reforça verdade humana e
+  fundador(a) como ativo incopiável, já em uso no cliente Toque Indiano
+  (`clients/toqueindiano/outputs/reels/roteiro-filmagem-organica.md`). Candidato natural:
+  `skills/criacao/skill-reels.md` e `skills/criacao/skill-lancamento.md` (estruturar séries
+  documentais por arco, não só peças avulsas) — ainda não aplicado formalmente.
+
+---
+
 ## Formato de entrada
 
 ```
@@ -47,6 +76,130 @@ Clientes beneficiados:
 ---
 
 ## Atualizações Aplicadas
+
+### U018 — Doutrina Instagram Operação + wiring P0 (Ásia/Europa)
+
+Data:             2026-07-27
+Origem:           input `MarketingOS_Instagram_Operacao.md` (2026-07-23) + pesquisa de
+                  mecanismos CN/KR/JP/EU filtrados pela north star de aquisição
+Padrão associado: nenhum ainda — implantação de doutrina de canal
+
+O que mudou:
+→ `intelligence/doutrina-instagram-operacao.md` expandida com: camadas de domínio
+  privado, IG SEO + save/share/DM gate, handoff WhatsApp com origin tag/SLA,
+  self-service de entrada, compliance EU, indicadores P0, gate de qualidade 14 pontos.
+→ Gate obrigatório em `CLAUDE.md` e checklist em `docs/manual-de-uso.md`.
+→ `/agenda` (`workflows/agenda-semanal.md`) consulta doutrina, ciclo semanal por função
+  e métricas de domínio privado / origin tag.
+→ Funnel Metadata: template + schema (`instagram_channel` opcional) + playbook Instagram
+  + SKILL.md + conversational-commerce (SLA).
+→ Skills de criação (post, carousel, reels, social-content-agent) e `_admin.md` passam a
+  carregar a doutrina no contexto mínimo e exigir Instagram Channel Metadata.
+
+Por que mudou:
+→ A doutrina existia como arquivo solto; não era consultada pelo sistema. Sem wiring,
+  Instagram continuava produção de peça sem máquina de conversão observável.
+
+Impacto esperado:
+→ Toda peça de IG declara função, save/share/DM, handoff e origem — aquisição no canal
+  fica mais observável e ajustável; agenda deixa de ser só volume.
+
+Clientes beneficiados:
+→ Todos com operação Instagram (Felipe, Toque Indiano, Fortunato, demais)
+
+### U017 — skill-offer-positioning.md v1.1 → v1.2 — modelo híbrido de oferta
+
+Data:             julho/2026
+Origem:           decisão do Felipe (2026-07-10), resolvendo o item "Decisão aberta"
+                  registrado em `intelligence/doctrine-aquisicao-2026.md` desde
+                  2026-06-17 — Fase 4 do mandato de aquisição.
+Padrão associado: nenhum ainda — decisão de modelo, não padrão observado
+
+O que mudou:
+→ Nova seção "Modelo Híbrido de Oferta v1.2": entrada productizada (pacote fixo,
+  repetível, baixa fricção) + upsell done-for-you (customizado, depois que o
+  cliente já comprou e confia). Mapeado pra estrutura já existente (diagnóstico
+  30d = entrada, implementação 60d + R$497/mês = upsell).
+
+Por que mudou:
+→ Resolve a tensão entre o protocolo externo (escada productizada) e o
+  done-for-you que é a força atual do MarketingOS, sem virar de modelo de
+  negócio — só formaliza a entrada como mais padronizada/repetível.
+
+Impacto esperado:
+→ Desbloqueia produção de material de entrada padronizado (menos análise sob
+  medida por prospect desde o primeiro contato).
+
+Clientes beneficiados:
+→ MarketingOS/Felipe (oferta própria) — candidato a se propagar pra clientes
+  que também vendem em escada, se validado
+
+---
+
+### U016 — skill-seo.md v1.1 → v1.2 — checklist tático de AEO
+
+Data:             julho/2026
+Origem:           mandato do Felipe (2026-07-10): "sistema deve usar todas as ferramentas
+                  possíveis pra ser o melhor motor de aquisição digital" — Fase 1 (gap
+                  analysis) identificou que a camada AEO existente era teórica, sem tática
+                  concreta; Fase 2 (pesquisa multilingual pt-BR/en/es) trouxe fatores reais
+                  de citação por IA e ferramentas gratuitas.
+Padrão associado: nenhum ainda — primeira aplicação, monitorar em clientes futuros
+
+O que mudou:
+→ Checklist tático adicionado à Camada AEO (Google Business Profile, resposta a reviews
+  em 24h, schema LocalBusiness/JSON-LD, robots.txt pra crawlers de IA, ferramentas
+  gratuitas de checagem) + limite honesto explícito: ferramenta paga de GEO é prematura
+  pra cliente de pequeno varejo/nicho local, prioridade real costuma ser conversão.
+
+Por que mudou:
+→ Pesquisa (multilingual) mostrou que os fatores de maior impacto são de baixo custo/alta
+  higiene digital, não motor pesado — evita a skill recomendar investimento
+  desproporcional ao porte do cliente.
+
+Impacto esperado:
+→ `/analisar seo` passa a entregar ação concreta e gratuita de AEO, não só teoria
+  "busca tradicional vs. busca por IA".
+
+Clientes beneficiados:
+→ Todos os novos e existentes com auditoria de SEO/AEO
+
+---
+
+### U015 — skill-lead-capture.md v1.1 → v1.2 — sequência de nutrição por e-mail
+
+Data:             julho/2026
+Origem:           mandato do Felipe (2026-07-10) + caso Toque Indiano (capacidade de
+                  atendimento limitada a 1 pessoa). Fase 1 (gap analysis) identificou que
+                  o sistema não tinha skill de sequência de e-mail apesar de a própria
+                  doutrina (`doctrine-aquisicao-2026.md`) já recomendar "lista de e-mail
+                  como ativo proprietário imune a algoritmo". Fase 2 (pesquisa multilingual)
+                  trouxe estrutura de sequência (boas-vindas, reengajamento, qualificação
+                  com bifurcação) e o achado central: e-mail nutre demanda sem consumir
+                  capacidade de atendimento.
+Padrão associado: nenhum ainda — primeira aplicação, monitorar em clientes futuros
+
+O que mudou:
+→ Nova seção "Sequência de nutrição — e-mail" em `skill-lead-capture.md`, com gatilho
+  explícito de saída pra WhatsApp quando intent level sobe. Criado
+  `skills/funnel-strategy/platform-playbooks/email.md` (modelo de canal reutilizável) e
+  `skills/funnel-strategy/platform-playbooks/marketplace.md` (Shopee/ML/TikTok
+  Shop/IG Shopping, com o achado de que velocidade de resposta é fator de ranqueamento
+  algorítmico no marketplace, não só experiência do cliente).
+
+Por que mudou:
+→ Capacidade de atendimento é gargalo operacional recorrente em clientes pequenos
+  (1 pessoa só) — e-mail é o único canal levantado que gera aquisição sem tocar
+  nesse gargalo.
+
+Impacto esperado:
+→ Clientes com capacidade de atendimento limitada ganham um canal de aquisição
+  adicional que não compete pelo tempo de quem atende.
+
+Clientes beneficiados:
+→ Todos os novos e existentes, prioridade pra operações pequenas/solo
+
+---
 
 ### U014 — Motion Site Factory v1.0 — orquestração e documentação para vídeo
 
@@ -410,16 +563,16 @@ Clientes beneficiados:
 | `skill-post.md` | v1.0 | — | 0 |
 | `skill-site-builder.md` | v1.0 | — | 0 |
 | `skill-dashboard.md` | v1.0 | — | 0 |
-| `skill-lead-capture.md` | v1.1 | junho/2026 | 1 |
+| `skill-lead-capture.md` | v1.2 | julho/2026 | 2 |
 | `skill-funnel-analysis.md` | v1.0 | — | 0 |
 | `skill-retention.md` | v1.1 | junho/2026 | 1 |
 | `skill-reactivation.md` | v1.1 | junho/2026 | 1 |
-| `skill-offer-positioning.md` | v1.1 | junho/2026 | 1 |
+| `skill-offer-positioning.md` | v1.2 | julho/2026 | 2 |
 | `skill-prospecting-agent.md` | v1.1 | junho/2026 | 1 |
 | `skill-venda.md` | v1.1 | junho/2026 | 1 |
 | `skill-social-copy.md` | v1.1 | junho/2026 | 1 |
 | `skill-site-audit.md` | v1.0 | junho/2026 | 1 |
-| `skill-seo.md` | v1.1 | junho/2026 | 1 |
+| `skill-seo.md` | v1.2 | julho/2026 | 2 |
 | `skill-pitch-deck.md` | v2.2 | junho/2026 | 1 |
 
 ---

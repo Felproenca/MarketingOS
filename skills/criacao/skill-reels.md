@@ -20,7 +20,24 @@ env: []
 
 → client.md — Blocos 2, 3 e 4 (ICP, posicionamento, tom)
 → brand-kit.json — palette, typography (para cores e fontes do HTML)
+→ intelligence/doutrina-instagram-operacao.md — estrutura de peça, save/DM, handoff, SEO nativo
+→ skills/funnel-strategy/SKILL.md — Funnel Metadata e CTA proporcional
+→ skills/funnel-strategy/content-funnel-engine.md — função comercial do reel
+→ skills/funnel-strategy/platform-playbooks/instagram.md — sinais e fricção para Reels
+→ skills/funnel-strategy/templates/funnel-metadata.md — base + Instagram Channel Metadata
 → NÃO carregar: metrics.json, campaigns.md, notes.md, estrategia.md
+
+---
+
+## Funnel Strategy — gate comercial obrigatório
+
+Antes do roteiro, definir se o Reel é:
+
+```text
+tensão | diagnóstico | critério | prova | oferta | retenção | expansão
+```
+
+O roteiro salvo em `outputs/reels/` deve conter `## Funnel Metadata`.
 
 ---
 
@@ -281,6 +298,10 @@ Save esperado:       alto (insight salvável)
 - [ ] `--duration` inclui buffer de 2000ms além da animação?
 - [ ] MP4 gerado e abre corretamente?
 - [ ] Roteiro salvo em `outputs/reels/reel-[NN]-roteiro.md`?
+- [ ] Roteiro inclui Funnel Metadata + Instagram Channel Metadata?
+- [ ] Insight salvável (cena 9) e/ou CTA de DM/keyword definidos?
+- [ ] Keyword na 1ª linha da legenda + origin tag de handoff?
+- [ ] CTA e sinal esperado são proporcionais ao estágio do lead?
 
 ---
 

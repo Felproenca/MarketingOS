@@ -44,6 +44,86 @@ Essa marca tem gravidade para arrastar — ou precisa construir a ponte?
 
 ---
 
+## Funnel Strategy — gate transversal de progressão comercial
+
+Antes de criar qualquer ativo comercial (site, landing, post, carrossel, reel, campanha,
+lead magnet, formulário, outbound, automação, proposta ou dashboard), consultar
+`skills/funnel-strategy/SKILL.md`.
+
+Regra dura:
+
+```text
+Nenhum ativo comercial pode ser criado sem Funnel Metadata.
+Nenhum conteudo comercial pode sair sem funcao de aquisicao declarada.
+```
+
+Todo conteudo precisa existir para mover uma pessoa de um estado para outro:
+atenção -> percepção do problema -> intenção -> qualificação -> conversa -> compra.
+Se a peça nao define qual movimento espera provocar, ela nao pertence ao MarketingOS.
+
+Todo output comercial deve conter:
+
+```md
+## Funnel Metadata
+
+- Funnel stage:
+- Intent level:
+- Friction level:
+- Expected lead signal:
+- Qualification goal:
+- Primary CTA:
+- Secondary CTA:
+- Routing destination:
+- Next best action:
+```
+
+Peças de Instagram acrescentam **Instagram Channel Metadata** (discovery, conversion,
+trigger, first response asset, origin tag, save/share/DM, private domain) — ver
+`skills/funnel-strategy/templates/funnel-metadata.md`.
+
+Se algum dado estiver ausente, continuar apenas com hipótese explícita. Nunca inventar
+ICP, ticket, oferta, objeção, canal ou intenção como se fosse fato.
+
+---
+
+## Operação de Instagram — gate de crescimento e conversão
+
+Antes de planejar, rascunhar, preparar ou publicar conteúdo de Instagram (post, carrossel,
+reel, story, live, agenda semanal, bio, destaques ou campanha no canal), consultar
+`intelligence/doutrina-instagram-operacao.md` — junto com `virada-aquisicao.md` e
+`skills/funnel-strategy/SKILL.md` / playbook `skills/funnel-strategy/platform-playbooks/instagram.md`.
+
+Regra dura:
+
+```text
+Instagram não é fábrica de posts.
+É máquina: conhecimento → percepção → confiança → conversa → venda → prova → crescimento.
+```
+
+Gates obrigatórios da doutrina (qualquer "não" → não publica):
+
+1. Função no funil declarada (descoberta, identificação, autoridade, prova, objeção, conversão, relacionamento, retenção).
+2. A peça aumenta confiança?
+3. Próximo passo natural definido?
+4. Motivo de **SAVE**, **SHARE** ou **DM**?
+5. Peça de descoberta: keyword/SEO nativo mínimo + CTA de entrada no domínio privado?
+6. Handoff e `origin tag` definidos (Instagram → WhatsApp/DM)?
+7. Risco de promessa indevida? (sim → checklist de compliance antes do render)
+
+Peças de Instagram usam Funnel Metadata base **mais** campos de canal:
+
+```text
+Discovery channel / Conversion channel / Trigger /
+First response asset / Origin tag / Response SLA
+```
+
+Ver `skills/funnel-strategy/templates/funnel-metadata.md` (seção Instagram).
+
+Não copiar mecânica cultural cru (live commerce CN, cold DM, urgência falsa). Extrair
+mecanismo; filtrar por manifesto, alma e north star.
+
+---
+
 ## Regra de Percepção — pré-requisito de criação
 
 Antes de qualquer criação visual para um cliente:
@@ -147,6 +227,17 @@ Library** — não é "se precisar", é parte do fluxo:
 > (scripts/agents). Em operação manual de skill, o equivalente é o CLI `search` acima.
 > Lacuna identificada (nenhuma ref serve) → registrar em `intelligence/skill-updates.md`.
 
+**Repertório Externo (`intelligence/repertoire-externo/`) — consulta obrigatória antes de produzir conteúdo:**
+Antes de criar qualquer post, carrossel, reel, pitch ou proposta (para qualquer cliente),
+ler os arquivos de `intelligence/repertoire-externo/` e checar se a peça deveria estar
+alavancando algum dos mecanismos registrados ali — ex.: `jonas-25-formas-crescer-com-conteudo.md`
+(25 formas de conteúdo crescer um negócio: alcance, vendas, relacionamento, receita,
+institucional). Não é sobre citar o framework no conteúdo — é sobre a skill se perguntar
+"esse mecanismo já está sendo puxado aqui, ou tá faltando?" antes de finalizar. Novos
+arquivos podem ser adicionados a essa pasta ao longo do tempo — todos entram na mesma
+consulta obrigatória, sempre filtrados pela regra de adoção (não contradiz manifesto/alma,
+vocabulário adaptado ao nicho do cliente, nunca copiado cru).
+
 ---
 
 ## Linguagem de Posicionamento — MarketingOS
@@ -227,6 +318,7 @@ Só avançar depois de ter essas respostas. Estrutura sem essas respostas é ru�
       estrategia.md / runs.md
       /outputs
   /skills
+    /funnel-strategy   ← camada transversal de progressão comercial
     skill-abrir.md       ← sistema
     skill-salvar.md      ← sistema
     /analise             ← /analisar
@@ -278,6 +370,13 @@ Use `workflows/token-economy.md` como regra operacional para reduzir contexto.
 | `workflows/close-client.md` | `/fechar` | **SEMPRE AO FINAL** — extrai aprendizados, faz commit |
 | `skills/skill-salvar.md` | `/salvar` | Checkpoint intermediario — commit sem encerrar sessao |
 | `alma.md` (raiz) | — | Lido uma vez por sessao antes de qualquer criacao |
+
+### Camada Transversal: Funnel Strategy → `/funil`
+> Executa antes de qualquer output comercial. Não substitui análise de funil; define a progressão antes da produção.
+
+| Skill | Comando | Quando usar |
+|---|---|---|
+| `skills/funnel-strategy/SKILL.md` | `/funil` | Arquitetura comercial, Funnel Metadata, fricção, qualificação, roteamento e próxima melhor ação |
 
 ### Grupo: Percepção → `/perceber`
 > **Executa antes de qualquer criação para novo cliente.**
@@ -464,10 +563,14 @@ Para aquisicao, toda peca precisa responder:
 5. Nunca misturar contexto, metricas ou outputs entre clientes.
 6. Documentar novos comandos em `workflows/commands.md`.
 7. Para gerar site, executar branding antes (`/branding` → `/site`).
-8. Carrosseis: a autoria da copy vive em `slides-input.json` (escrito por `skill-carousel.md` v3.0); o motor `scripts/generate-carousel.js --input` valida, monta e renderiza — nunca escreve copy estrategica. Formato de referencia: `templates/slides-input.template.json`.
-9. Executar `/fechar` ao encerrar sessao — nunca apenas fechar o chat.
-10. Para workflows de mais de uma skill, usar `workflows/pipeline-runner.md`.
-11. Repertoire updaters rodam em duas etapas: primeiro `npm run repertoire:update`, depois `npm run repertoire:acquisition`.
+8. Todo output comercial precisa conter `## Funnel Metadata` usando `skills/funnel-strategy/templates/funnel-metadata.md`.
+9. Todo conteudo comercial precisa declarar funcao de aquisicao, sinal esperado, CTA proporcional, destino e proxima melhor acao antes da producao.
+10. Se a peca nao move atencao, percepcao, intencao, qualificacao, conversa ou compra, ela deve ser reprovada ou reformulada.
+10b. Conteudo de Instagram consulta `intelligence/doutrina-instagram-operacao.md` e preenche campos de handoff/origem quando aplicavel.
+11. Carrosseis: a autoria da copy vive em `slides-input.json` (escrito por `skill-carousel.md` v3.0); o motor `scripts/generate-carousel.js --input` valida, monta e renderiza — nunca escreve copy estrategica. Formato de referencia: `templates/slides-input.template.json`.
+12. Executar `/fechar` ao encerrar sessao — nunca apenas fechar o chat.
+13. Para workflows de mais de uma skill, usar `workflows/pipeline-runner.md`.
+14. Repertoire updaters rodam em duas etapas: primeiro `npm run repertoire:update`, depois `npm run repertoire:acquisition`.
 
 ---
 
@@ -483,6 +586,7 @@ Todo output vai para `clients/[slug]/outputs/`:
 - seo → `outputs/seo/`
 - inteligencia → `outputs/inteligencia/`
 - aquisicao → `outputs/acquisition/`
+- funil/estrategia de funil → `outputs/acquisition/`
 - estrategia/validacao → `outputs/strategy/`
 - critica → `outputs/critique/`
 - demos → `outputs/demo/`
@@ -581,3 +685,38 @@ node scripts/create-client.js [slug]
 - **Fase 1** (concluida) — Estrutura, templates, skills essenciais, comandos slash
 - **Fase 2** — Integracoes com canais por cliente, pipeline de dados e tracking
 - **Fase 3** — Consolidacao de aprendizados em `intelligence/`, feedback de performance
+
+---
+
+## Premium Site Production Kit
+
+Skill de produção de sites premium com qualidade de estúdio criativo.
+Localização: `skills/premium-site/`
+
+### Quando ativar
+- Pedidos de criação de site pra prospect ou cliente
+- Pedidos de landing page, site institucional, one-page
+- Referências a "site premium", "site de prospecção", "low-ticket site"
+
+### Como usar
+1. Ler `skills/premium-site/SKILL.md` (que referencia os demais arquivos)
+2. Seguir o fluxo de 5 fases (Leitura → Interpretação → Assets → Montagem → Review)
+3. O VisualSpecAgent (`skill-visual-spec.md`) é ESTENDIDO com campos adicionais pra sites
+4. Sites de prospects vão em `agency/demos/[slug]/site/`
+5. Sites de clientes vão em `clients/[slug]/site/`
+
+### Conexões com skills existentes
+- Herda assinatura perceptiva de `skill-creative-direction.md`
+- Usa `skill-visual-spec.md` como motor de direção (estendido)
+- Usa `skill-image-generation.md` pra gerar assets
+- Consulta `intelligence/visual-references.json` e `copy-references.json`
+
+## graphify
+
+This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.
+
+Rules:
+- For codebase questions, first run `graphify query "<question>"` when graphify-out/graph.json exists. Use `graphify path "<A>" "<B>"` for relationships and `graphify explain "<concept>"` for focused concepts. These return a scoped subgraph, usually much smaller than GRAPH_REPORT.md or raw grep output.
+- If graphify-out/wiki/index.md exists, use it for broad navigation instead of raw source browsing.
+- Read graphify-out/GRAPH_REPORT.md only for broad architecture review or when query/path/explain do not surface enough context.
+- After modifying code, run `graphify update .` to keep the graph current (AST-only, no API cost).

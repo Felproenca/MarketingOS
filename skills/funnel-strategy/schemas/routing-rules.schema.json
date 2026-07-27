@@ -1,0 +1,39 @@
+{
+  "routes": [
+    {
+      "segment": "hot_qualified",
+      "destination": "sales_or_diagnosis",
+      "actions": [
+        "notify_owner",
+        "create_diagnosis_task",
+        "send_confirmation_message",
+        "prepare_client_context"
+      ]
+    },
+    {
+      "segment": "strategic_nurture",
+      "destination": "nurture_sequence",
+      "actions": [
+        "send_proof_content",
+        "send_problem_content",
+        "invite_to_low_friction_diagnosis"
+      ]
+    },
+    {
+      "segment": "urgent_bad_fit",
+      "destination": "disqualification_or_low_ticket",
+      "actions": [
+        "send_boundary_message",
+        "offer_low_ticket_or_free_resource"
+      ]
+    },
+    {
+      "segment": "low_priority",
+      "destination": "general_content_pool",
+      "actions": [
+        "tag_general_lead",
+        "send_educational_content"
+      ]
+    }
+  ]
+}

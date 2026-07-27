@@ -30,8 +30,12 @@ Comando: `/criar`
 ```
 1. Ler alma.md
 2. Ler skill-criatividade.md
-3. Ler skill-niche-intelligence.md quando não houver mapa de nicho/ângulo
-4. Só então executar a skill de conteúdo
+3. Ler `../funnel-strategy/SKILL.md` quando o output tiver função comercial
+4. Se o canal for Instagram (post, carrossel, reel, story, agenda):
+   ler `intelligence/doutrina-instagram-operacao.md`
+   + `../funnel-strategy/platform-playbooks/instagram.md`
+5. Ler skill-niche-intelligence.md quando não houver mapa de nicho/ângulo
+6. Só então executar a skill de conteúdo
 ```
 
 Se o cliente não tem verdade humana identificada ainda,
@@ -46,7 +50,9 @@ a skill-criatividade é obrigatória antes de tudo.
 → skill-criatividade.md
 
 "Preciso de um carrossel / post / site"
-→ PRIMEIRO: skill-niche-intelligence.md (se não há mapa)
+→ PRIMEIRO: ../funnel-strategy/SKILL.md (Funnel Metadata + CTA proporcional)
+→ SE INSTAGRAM: intelligence/doutrina-instagram-operacao.md (save/share/DM + handoff)
+→ DEPOIS:   skill-niche-intelligence.md (se não há mapa)
 → DEPOIS:   skill-carousel.md / skill-post.md / skill-site-builder.md
 
 "Quero usar o motor automatizado / agents"
@@ -108,6 +114,15 @@ a skill-criatividade é obrigatória antes de tudo.
 
 Conteúdo que poderia ser de qualquer marca não é conteúdo.
 É ruído.
+
+Conteúdo sem Funnel Metadata pode ser bonito, mas não pertence ao sistema de aquisição.
+
+---
+
+Regra operacional:
+conteudo sem funcao de aquisicao declarada nao sai. Antes de executar qualquer
+skill de criacao, a peca precisa dizer qual movimento provoca: atencao, percepcao
+do problema, intencao, qualificacao, conversa ou compra.
 
 ---
 

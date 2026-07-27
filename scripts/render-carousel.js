@@ -56,7 +56,7 @@ async function main() {
     fail('Playwright nao encontrado. Rode: npm i -D playwright');
   }
 
-  const browser = await chromium.launch();
+  const browser = await chromium.launch({ args: ['--disable-lcd-text', '--font-render-hinting=none'] });
   const page = await browser.newPage({ viewport: { width: 1080, height: 1350 } });
   await page.goto(`file://${htmlPath}`, { waitUntil: 'networkidle' });
   await page.evaluate(() => document.fonts.ready);

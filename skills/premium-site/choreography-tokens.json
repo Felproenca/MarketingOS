@@ -1,0 +1,346 @@
+{
+  "_meta": {
+    "version": "2.0",
+    "description": "Sistema completo de animação e interação. O Claude APLICA, não inventa. Cada padrão tem implementação pronta.",
+    "dependencies": {
+      "gsap": "3.12.5",
+      "scrolltrigger": "3.12.5",
+      "lenis": "1.1.18",
+      "split-type": "latest"
+    },
+    "cdns": {
+      "gsap": "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js",
+      "scrolltrigger": "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js",
+      "lenis": "https://unpkg.com/lenis@1.1.18/dist/lenis.min.js",
+      "split_type": "https://unpkg.com/split-type"
+    }
+  },
+
+  "global": {
+    "scroll_library": "lenis",
+    "lenis_config": {
+      "lerp": 0.1,
+      "smoothWheel": true,
+      "wheelMultiplier": 1,
+      "touchMultiplier": 2
+    },
+    "base_duration": 0.8,
+    "base_ease": "power3.out",
+    "stagger_unit": 0.08,
+    "scroll_trigger_defaults": {
+      "start": "top 85%",
+      "end": "bottom 20%",
+      "toggleActions": "play none none none"
+    },
+    "init_code": "const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });\nlenis.on('scroll', ScrollTrigger.update);\ngsap.ticker.add((time) => lenis.raf(time * 1000));\ngsap.ticker.lagSmoothing(0);\ngsap.registerPlugin(ScrollTrigger);"
+  },
+
+  "patterns": {
+    "reveal_up": {
+      "name": "Reveal Up",
+      "use": "Elementos individuais: títulos, parágrafos, imagens, cards",
+      "data_attr": "data-anim='reveal-up'",
+      "properties": {
+        "y": { "from": 60, "to": 0 },
+        "opacity": { "from": 0, "to": 1 },
+        "duration": 0.9,
+        "ease": "power3.out"
+      },
+      "js": "gsap.from(el, { y: 60, opacity: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 85%' } });"
+    },
+
+    "reveal_clip": {
+      "name": "Reveal Clip",
+      "use": "Imagens e blocos visuais. Revela com clip-path.",
+      "data_attr": "data-anim='reveal-clip'",
+      "directions": {
+        "up": { "from": "inset(100% 0% 0% 0%)", "to": "inset(0%)" },
+        "down": { "from": "inset(0% 0% 100% 0%)", "to": "inset(0%)" },
+        "left": { "from": "inset(0% 100% 0% 0%)", "to": "inset(0%)" },
+        "right": { "from": "inset(0% 0% 0% 100%)", "to": "inset(0%)" },
+        "center": { "from": "inset(50% 50% 50% 50%)", "to": "inset(0%)" }
+      },
+      "properties": {
+        "duration": 1.2,
+        "ease": "power4.inOut"
+      },
+      "js": "gsap.from(el, { clipPath: 'inset(100% 0% 0% 0%)', duration: 1.2, ease: 'power4.inOut', scrollTrigger: { trigger: el, start: 'top 85%' } });"
+    },
+
+    "stagger_children": {
+      "name": "Stagger Children",
+      "use": "Grupos: lista de features, grid de cards, navegação, gallery",
+      "data_attr": "data-anim='stagger'",
+      "properties": {
+        "y": { "from": 40, "to": 0 },
+        "opacity": { "from": 0, "to": 1 },
+        "duration": 0.7,
+        "ease": "power2.out",
+        "stagger": 0.08
+      },
+      "js": "gsap.from(container.children, { y: 40, opacity: 0, duration: 0.7, ease: 'power2.out', stagger: 0.08, scrollTrigger: { trigger: container, start: 'top 85%' } });"
+    },
+
+    "split_text_chars": {
+      "name": "Split Text (Chars)",
+      "use": "Headlines principais. Cada caractere anima individualmente.",
+      "data_attr": "data-anim='split-chars'",
+      "properties": {
+        "yPercent": { "from": 100, "to": 0 },
+        "duration": 0.6,
+        "ease": "power3.out",
+        "stagger": 0.03
+      },
+      "wrapper_css": "overflow: hidden; display: inline-block;",
+      "js": "const split = new SplitType(el, { types: 'chars' });\nel.style.overflow = 'hidden';\ngsap.from(split.chars, { yPercent: 100, duration: 0.6, ease: 'power3.out', stagger: 0.03, scrollTrigger: { trigger: el, start: 'top 85%' } });"
+    },
+
+    "split_text_words": {
+      "name": "Split Text (Words)",
+      "use": "Subtítulos, statements. Cada palavra anima.",
+      "data_attr": "data-anim='split-words'",
+      "properties": {
+        "yPercent": { "from": 100, "to": 0 },
+        "opacity": { "from": 0, "to": 1 },
+        "duration": 0.5,
+        "ease": "power3.out",
+        "stagger": 0.05
+      },
+      "js": "const split = new SplitType(el, { types: 'words' });\ngsap.from(split.words, { yPercent: 100, opacity: 0, duration: 0.5, ease: 'power3.out', stagger: 0.05, scrollTrigger: { trigger: el, start: 'top 85%' } });"
+    },
+
+    "split_text_lines": {
+      "name": "Split Text (Lines)",
+      "use": "Parágrafos longos. Cada linha anima.",
+      "data_attr": "data-anim='split-lines'",
+      "properties": {
+        "yPercent": { "from": 100, "to": 0 },
+        "opacity": { "from": 0, "to": 1 },
+        "duration": 0.6,
+        "ease": "power3.out",
+        "stagger": 0.1
+      },
+      "js": "const split = new SplitType(el, { types: 'lines' });\nsplit.lines.forEach(line => { const wrapper = document.createElement('div'); wrapper.style.overflow = 'hidden'; line.parentNode.insertBefore(wrapper, line); wrapper.appendChild(line); });\ngsap.from(split.lines, { yPercent: 100, opacity: 0, duration: 0.6, ease: 'power3.out', stagger: 0.1, scrollTrigger: { trigger: el, start: 'top 85%' } });"
+    },
+
+    "parallax_slow": {
+      "name": "Parallax Slow",
+      "use": "Imagens de fundo, seções hero",
+      "data_attr": "data-anim='parallax-slow'",
+      "container_css": "overflow: hidden;",
+      "element_css": "scale: 1.3; will-change: transform;",
+      "js": "gsap.fromTo(el, { yPercent: -15 }, { yPercent: 15, ease: 'none', scrollTrigger: { trigger: el.parentElement, start: 'top bottom', end: 'bottom top', scrub: 1 } });"
+    },
+
+    "parallax_fast": {
+      "name": "Parallax Fast",
+      "use": "Textos decorativos grandes, números de acento",
+      "data_attr": "data-anim='parallax-fast'",
+      "js": "gsap.fromTo(el, { yPercent: -30 }, { yPercent: 30, ease: 'none', scrollTrigger: { trigger: el.parentElement, start: 'top bottom', end: 'bottom top', scrub: 0.5 } });"
+    },
+
+    "horizontal_scroll": {
+      "name": "Horizontal Scroll",
+      "use": "Galeria de trabalhos, showcase, timeline horizontal",
+      "data_attr": "data-anim='horizontal-scroll'",
+      "container_css": "display: flex; flex-wrap: nowrap; width: fit-content;",
+      "wrapper_css": "overflow: hidden;",
+      "js": "const container = el;\nconst wrapper = container.parentElement;\nconst totalWidth = container.scrollWidth - window.innerWidth;\ngsap.to(container, { x: -totalWidth, ease: 'none', scrollTrigger: { trigger: wrapper, start: 'top top', end: () => `+=${totalWidth}`, scrub: 1, pin: true, anticipatePin: 1 } });"
+    },
+
+    "scroll_frame_sequence": {
+      "name": "Scroll Frame Sequence",
+      "use": "Sequência de imagens que avança com scroll. Efeito vídeo interativo.",
+      "data_attr": "data-anim='scroll-frames'",
+      "properties": {
+        "target_frames": 60,
+        "frame_format": "webp",
+        "preload_first": 10
+      },
+      "js": "const canvas = el.querySelector('canvas');\nconst ctx = canvas.getContext('2d');\nconst frameCount = parseInt(el.dataset.frames);\nconst frames = [];\nconst currentFrame = { value: 0 };\n\nfunction loadFrame(i) {\n  return new Promise(resolve => {\n    const img = new Image();\n    img.onload = () => resolve(img);\n    img.src = `${el.dataset.framePath}/frame_${String(i+1).padStart(4,'0')}.webp`;\n  });\n}\n\nasync function preload() {\n  for (let i = 0; i < Math.min(10, frameCount); i++) {\n    frames[i] = await loadFrame(i);\n  }\n  render();\n  for (let i = 10; i < frameCount; i++) {\n    frames[i] = await loadFrame(i);\n  }\n}\n\nfunction render() {\n  if (frames[Math.round(currentFrame.value)]) {\n    canvas.width = frames[0].width;\n    canvas.height = frames[0].height;\n    ctx.drawImage(frames[Math.round(currentFrame.value)], 0, 0);\n  }\n}\n\ngsap.to(currentFrame, {\n  value: frameCount - 1,\n  ease: 'none',\n  onUpdate: render,\n  scrollTrigger: { trigger: el, start: 'top top', end: '+=300%', scrub: 0.3, pin: true }\n});\n\npreload();"
+    },
+
+    "counter": {
+      "name": "Counter",
+      "use": "Números e métricas animadas",
+      "data_attr": "data-anim='counter'",
+      "js": "const target = parseInt(el.dataset.target);\nconst suffix = el.dataset.suffix || '';\ngsap.to(el, { textContent: target, duration: 2, ease: 'power2.out', snap: { textContent: 1 }, onUpdate: function() { el.textContent = Math.round(parseFloat(el.textContent)) + suffix; }, scrollTrigger: { trigger: el, start: 'top 80%' } });"
+    },
+
+    "marquee": {
+      "name": "Marquee / Ticker",
+      "use": "Texto horizontal infinito. Frases de impacto, lista de serviços, nomes de clientes.",
+      "data_attr": "data-anim='marquee'",
+      "html_structure": "<div class='marquee' data-anim='marquee' data-speed='1' data-direction='left'>\n  <div class='marquee-inner'>\n    <span>TEXTO AQUI — </span>\n    <span>TEXTO AQUI — </span>\n    <span>TEXTO AQUI — </span>\n    <span>TEXTO AQUI — </span>\n  </div>\n</div>",
+      "css": ".marquee { overflow: hidden; white-space: nowrap; }\n.marquee-inner { display: inline-flex; will-change: transform; }\n.marquee-inner span { display: inline-block; padding-right: 2rem; }",
+      "js": "const inner = el.querySelector('.marquee-inner');\nconst speed = parseFloat(el.dataset.speed) || 1;\nconst dir = el.dataset.direction === 'right' ? 1 : -1;\nconst spanWidth = inner.children[0].offsetWidth;\n\ngsap.to(inner, {\n  x: dir * -spanWidth,\n  duration: 20 / speed,\n  ease: 'none',\n  repeat: -1,\n  modifiers: { x: gsap.utils.unitize(x => parseFloat(x) % spanWidth) }\n});\n\n// Acelera com scroll\nlenis.on('scroll', ({ velocity }) => {\n  gsap.to(inner, { timeScale: 1 + Math.abs(velocity) * 0.1, duration: 0.3 });\n});"
+    },
+
+    "magnetic_hover": {
+      "name": "Magnetic Hover",
+      "use": "Botões, links, elementos interativos",
+      "data_attr": "data-anim='magnetic'",
+      "properties": {
+        "range": 15,
+        "duration": 0.3,
+        "ease": "power2.out",
+        "reset_duration": 0.5,
+        "reset_ease": "elastic.out(1, 0.3)"
+      },
+      "js": "const range = parseInt(el.dataset.magnetRange) || 15;\nel.addEventListener('mousemove', (e) => {\n  const rect = el.getBoundingClientRect();\n  const x = e.clientX - rect.left - rect.width / 2;\n  const y = e.clientY - rect.top - rect.height / 2;\n  gsap.to(el, { x: x * 0.3, y: y * 0.3, duration: 0.3, ease: 'power2.out' });\n});\nel.addEventListener('mouseleave', () => {\n  gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.3)' });\n});"
+    },
+
+    "text_mask": {
+      "name": "Text Mask",
+      "use": "Texto grande com imagem/vídeo como fill. Hero ou statement de impacto.",
+      "data_attr": "data-anim='text-mask'",
+      "css": ".text-mask {\n  font-size: clamp(5rem, 15vw, 12rem);\n  font-weight: 700;\n  -webkit-text-fill-color: transparent;\n  -webkit-background-clip: text;\n  background-clip: text;\n  background-size: cover;\n  background-position: center;\n}",
+      "note": "background-image via inline style com URL da imagem/vídeo poster. Pra vídeo real, usar SVG clipPath com <text> e <foreignObject> com <video>."
+    },
+
+    "svg_line_draw": {
+      "name": "SVG Line Draw",
+      "use": "Ícones, logos, separadores que se desenham ao aparecer.",
+      "data_attr": "data-anim='line-draw'",
+      "setup": "SVG paths devem ter stroke e fill='none'. Calcular getTotalLength() de cada path.",
+      "js": "const paths = el.querySelectorAll('path');\npaths.forEach(path => {\n  const length = path.getTotalLength();\n  gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });\n  gsap.to(path, {\n    strokeDashoffset: 0,\n    duration: 1.5,\n    ease: 'power2.inOut',\n    scrollTrigger: { trigger: el, start: 'top 80%' }\n  });\n});"
+    },
+
+    "image_distortion_hover": {
+      "name": "Image Distortion Hover",
+      "use": "Hover em imagens de galeria ou portfolio. Efeito de displacement.",
+      "data_attr": "data-anim='distort-hover'",
+      "method": "CSS filter only (sem WebGL pra manter leve)",
+      "css": ".distort-hover img {\n  transition: filter 0.4s ease, transform 0.4s ease;\n}\n.distort-hover:hover img {\n  filter: saturate(1.2) contrast(1.1);\n  transform: scale(1.03);\n}",
+      "advanced_method": "Pra distorção real com displacement map, usar canvas com displacement filter. Exige imagem de displacement (noise map). Reservar pra tier premium."
+    },
+
+    "scale_on_scroll": {
+      "name": "Scale on Scroll",
+      "use": "Imagem ou vídeo que começa pequeno e cresce até fullscreen com scroll.",
+      "data_attr": "data-anim='scale-scroll'",
+      "js": "gsap.fromTo(el, \n  { scale: 0.7, borderRadius: '2rem' },\n  { scale: 1, borderRadius: '0rem', ease: 'none',\n    scrollTrigger: { trigger: el, start: 'top 80%', end: 'top 20%', scrub: 1 }\n  }\n);"
+    },
+
+    "rotate_on_scroll": {
+      "name": "Rotate on Scroll",
+      "use": "Badges, selos, elementos decorativos que giram com scroll contínuo.",
+      "data_attr": "data-anim='rotate-scroll'",
+      "js": "gsap.to(el, { rotation: 360, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 1 } });"
+    }
+  },
+
+  "ui_elements": {
+    "preloader": {
+      "name": "Preloader / Loading Screen",
+      "use": "OBRIGATÓRIO em todo site premium. Esconde o carregamento e cria expectativa.",
+      "html": "<div class='preloader' id='preloader'>\n  <div class='preloader-inner'>\n    <span class='preloader-text display'>{{business_name}}</span>\n    <div class='preloader-bar'><div class='preloader-progress'></div></div>\n  </div>\n</div>",
+      "css": ".preloader {\n  position: fixed;\n  inset: 0;\n  z-index: 9999;\n  background: var(--color-bg);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.preloader-inner { text-align: center; }\n.preloader-text { font-size: var(--text-h2); }\n.preloader-bar {\n  width: 200px;\n  height: 2px;\n  background: var(--color-border);\n  margin-top: 2rem;\n  overflow: hidden;\n}\n.preloader-progress {\n  height: 100%;\n  width: 0%;\n  background: var(--color-text);\n}",
+      "js": "const preloader = document.getElementById('preloader');\nconst progress = preloader.querySelector('.preloader-progress');\nlet loaded = 0;\nconst total = document.images.length || 1;\n\nfunction updateProgress() {\n  loaded++;\n  const pct = (loaded / total) * 100;\n  gsap.to(progress, { width: pct + '%', duration: 0.3 });\n  if (loaded >= total) closePreloader();\n}\n\nfunction closePreloader() {\n  gsap.to(progress, { width: '100%', duration: 0.3, onComplete: () => {\n    gsap.to(preloader, {\n      yPercent: -100,\n      duration: 0.8,\n      ease: 'power3.inOut',\n      delay: 0.3,\n      onComplete: () => {\n        preloader.remove();\n        document.body.classList.add('loaded');\n        // Trigger hero animation sequence\n      }\n    });\n  }});\n}\n\nArray.from(document.images).forEach(img => {\n  if (img.complete) updateProgress();\n  else { img.addEventListener('load', updateProgress); img.addEventListener('error', updateProgress); }\n});\n\nsetTimeout(() => closePreloader(), 5000); // Fallback"
+    },
+
+    "custom_cursor": {
+      "name": "Custom Cursor",
+      "use": "Cursor personalizado que segue o mouse com delay. Muda de estado em hovers.",
+      "html": "<div class='cursor' id='cursor'>\n  <div class='cursor-dot'></div>\n  <div class='cursor-ring'></div>\n</div>",
+      "css": ".cursor { position: fixed; top: 0; left: 0; z-index: 9998; pointer-events: none; mix-blend-mode: difference; }\n.cursor-dot {\n  width: 8px; height: 8px;\n  background: #fff;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n}\n.cursor-ring {\n  position: absolute; top: -16px; left: -16px;\n  width: 40px; height: 40px;\n  border: 1px solid rgba(255,255,255,0.5);\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  transition: width 0.3s, height 0.3s, top 0.3s, left 0.3s;\n}\n.cursor.hover .cursor-ring {\n  width: 60px; height: 60px;\n  top: -26px; left: -26px;\n  border-color: rgba(255,255,255,0.8);\n}\n.cursor.click .cursor-dot { transform: translate(-50%, -50%) scale(0.5); }\n@media (hover: none) { .cursor { display: none; } }",
+      "js": "const cursor = document.getElementById('cursor');\nlet mouseX = 0, mouseY = 0;\nlet cursorX = 0, cursorY = 0;\n\ndocument.addEventListener('mousemove', (e) => {\n  mouseX = e.clientX; mouseY = e.clientY;\n});\n\ngsap.ticker.add(() => {\n  cursorX += (mouseX - cursorX) * 0.15;\n  cursorY += (mouseY - cursorY) * 0.15;\n  gsap.set(cursor, { x: cursorX, y: cursorY });\n});\n\n// Hover states\ndocument.querySelectorAll('a, button, [data-cursor=\"hover\"]').forEach(el => {\n  el.addEventListener('mouseenter', () => cursor.classList.add('hover'));\n  el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));\n});\n\n// Click state\ndocument.addEventListener('mousedown', () => cursor.classList.add('click'));\ndocument.addEventListener('mouseup', () => cursor.classList.remove('click'));\n\n// Hide default cursor\ndocument.body.style.cursor = 'none';\ndocument.querySelectorAll('a, button').forEach(el => el.style.cursor = 'none');"
+    },
+
+    "grain_overlay": {
+      "name": "Grain / Noise Overlay",
+      "use": "Textura de film grain sutil sobre o site inteiro. Tira o aspecto digital/limpo demais.",
+      "html": "<div class='grain' aria-hidden='true'></div>",
+      "css": ".grain {\n  position: fixed;\n  inset: -50%;\n  width: 200%;\n  height: 200%;\n  z-index: 9997;\n  pointer-events: none;\n  opacity: 0.04;\n  background-image: url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\");\n  animation: grain 8s steps(10) infinite;\n}\n@keyframes grain {\n  0%, 100% { transform: translate(0, 0); }\n  10% { transform: translate(-5%, -10%); }\n  20% { transform: translate(-15%, 5%); }\n  30% { transform: translate(7%, -25%); }\n  40% { transform: translate(-5%, 25%); }\n  50% { transform: translate(-15%, 10%); }\n  60% { transform: translate(15%, 0%); }\n  70% { transform: translate(0%, 15%); }\n  80% { transform: translate(3%, 35%); }\n  90% { transform: translate(-10%, 10%); }\n}",
+      "note": "Opacity entre 0.03 e 0.06. Mais que isso fica sujo. Menos fica imperceptível. Ajustar por projeto."
+    },
+
+    "smooth_images": {
+      "name": "Responsive Image Strategy",
+      "use": "OBRIGATÓRIO em toda imagem. Carregamento otimizado por viewport.",
+      "html_template": "<picture>\n  <source srcset='{{img}}-mobile.webp' media='(max-width: 768px)' type='image/webp'>\n  <source srcset='{{img}}-tablet.webp' media='(max-width: 1200px)' type='image/webp'>\n  <source srcset='{{img}}-desktop.webp' type='image/webp'>\n  <img src='{{img}}-desktop.jpg' alt='{{alt}}' loading='lazy' decoding='async'>\n</picture>",
+      "sizes": {
+        "mobile": { "width": 768, "quality": 75 },
+        "tablet": { "width": 1200, "quality": 80 },
+        "desktop": { "width": 1920, "quality": 85 }
+      },
+      "sharp_batch_command": "const sharp = require('sharp');\nconst sizes = [{ suffix: 'mobile', w: 768 }, { suffix: 'tablet', w: 1200 }, { suffix: 'desktop', w: 1920 }];\nsizes.forEach(s => sharp(input).resize(s.w).webp({ quality: s.suffix === 'mobile' ? 75 : 80 }).toFile(`${name}-${s.suffix}.webp`));"
+    },
+
+    "video_background": {
+      "name": "Video Background",
+      "use": "Vídeo de fundo em seções. Autoplay, muted, loop.",
+      "html": "<div class='video-bg'>\n  <video autoplay muted loop playsinline preload='metadata' poster='{{poster}}'>\n    <source src='{{video}}-compressed.mp4' type='video/mp4'>\n  </video>\n</div>",
+      "css": ".video-bg { position: absolute; inset: 0; overflow: hidden; z-index: -1; }\n.video-bg video { width: 100%; height: 100%; object-fit: cover; }",
+      "compression": {
+        "desktop": "ffmpeg -i input.mp4 -c:v libx264 -crf 25 -preset slow -vf scale=1920:-2 -an -movflags +faststart desktop.mp4",
+        "mobile": "ffmpeg -i input.mp4 -c:v libx264 -crf 28 -preset slow -vf scale=768:-2 -an -movflags +faststart mobile.mp4"
+      },
+      "js_mobile_fallback": "// Em mobile, substituir vídeo por poster image pra performance\nif (window.innerWidth < 768) {\n  document.querySelectorAll('.video-bg video').forEach(v => {\n    const poster = v.getAttribute('poster');\n    const img = document.createElement('img');\n    img.src = poster; img.style.cssText = 'width:100%;height:100%;object-fit:cover;';\n    v.replaceWith(img);\n  });\n}"
+    }
+  },
+
+  "sequences": {
+    "_description": "Combinações de padrões que funcionam juntas. Usar como receita. O delay entre steps cria o ritmo.",
+
+    "page_load": {
+      "name": "Page Load Sequence",
+      "use": "OBRIGATÓRIO. Sequência completa de entrada do site.",
+      "steps": [
+        { "what": "Preloader fecha", "delay": 0 },
+        { "target": ".nav", "pattern": "reveal_up", "delay": 0.1 },
+        { "target": ".hero-media", "pattern": "reveal_clip", "delay": 0.2 },
+        { "target": ".hero-title", "pattern": "split_text_chars", "delay": 0.5 },
+        { "target": ".hero-subtitle", "pattern": "reveal_up", "delay": 0.9 },
+        { "target": ".hero-cta", "pattern": "reveal_up", "delay": 1.1 },
+        { "target": ".hero-scroll-indicator", "pattern": "reveal_up", "delay": 1.4 }
+      ],
+      "total_duration": "~2.3s"
+    },
+
+    "section_reveal": {
+      "name": "Section Reveal",
+      "use": "Qualquer seção ao scrollar. Padrão de entrada.",
+      "steps": [
+        { "target": ".eyebrow", "pattern": "reveal_up", "delay": 0 },
+        { "target": ".section-title", "pattern": "split_text_words", "delay": 0.1 },
+        { "target": ".section-body", "pattern": "split_text_lines", "delay": 0.2 },
+        { "target": ".section-items", "pattern": "stagger_children", "delay": 0.3 }
+      ]
+    },
+
+    "media_reveal": {
+      "name": "Media Reveal",
+      "use": "Seção com imagem/vídeo como centro.",
+      "steps": [
+        { "target": ".label", "pattern": "reveal_up", "delay": 0 },
+        { "target": ".media", "pattern": "reveal_clip", "delay": 0.15 },
+        { "target": ".media img", "pattern": "parallax_slow", "delay": 0 },
+        { "target": ".caption", "pattern": "reveal_up", "delay": 0.6 }
+      ]
+    },
+
+    "stats_reveal": {
+      "name": "Stats Reveal",
+      "use": "Seção de números/métricas.",
+      "steps": [
+        { "target": ".stat", "pattern": "stagger_children", "delay": 0 },
+        { "target": ".stat-number", "pattern": "counter", "delay": 0.3 }
+      ]
+    }
+  },
+
+  "meta_tags": {
+    "og_and_favicon": {
+      "description": "Meta tags obrigatórias pra compartilhamento social e identidade.",
+      "required_files": [
+        { "file": "og-image.jpg", "size": "1200x630", "format": "jpg", "note": "Imagem de compartilhamento. Gerar com a paleta e tipografia do site." },
+        { "file": "favicon.svg", "format": "svg", "note": "Favicon em SVG. Escala pra qualquer tamanho." },
+        { "file": "apple-touch-icon.png", "size": "180x180", "format": "png" },
+        { "file": "favicon-32x32.png", "size": "32x32", "format": "png" },
+        { "file": "favicon-16x16.png", "size": "16x16", "format": "png" }
+      ],
+      "html": "<meta property='og:title' content='{{title}}'>\n<meta property='og:description' content='{{description}}'>\n<meta property='og:image' content='{{url}}/og-image.jpg'>\n<meta property='og:url' content='{{url}}'>\n<meta name='twitter:card' content='summary_large_image'>\n<link rel='icon' href='/favicon.svg' type='image/svg+xml'>\n<link rel='apple-touch-icon' href='/apple-touch-icon.png'>"
+    }
+  }
+}

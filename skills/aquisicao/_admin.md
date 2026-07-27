@@ -24,6 +24,7 @@ Consulta: `workflows/reference-library.md`.
 
 ```
 → Para encontrar prospectos em um nicho
+→ Para desenhar progressão comercial, fricção, qualificação e roteamento
 → Para estruturar como capturar leads
 → Para posicionar e comunicar a oferta
 → Para criar a apresentação comercial
@@ -47,9 +48,11 @@ Comando: `/prospectar`
 → skill-prospecting-agent.md
 
 "Como estruturo a captura de leads?"
+→ primeiro ../funnel-strategy/SKILL.md
 → skill-lead-capture.md
 
 "Como posiciono e comunico a oferta?"
+→ primeiro ../funnel-strategy/SKILL.md
 → skill-offer-positioning.md
 
 "Preciso de uma apresentação para prospectar"
@@ -70,6 +73,8 @@ skill-prospector
   → encontra os clientes
 skill-prospecting-agent
   → qualifica sinais de compra e prioriza abordagem
+../funnel-strategy/SKILL.md
+  → define friccao, oferta de entrada, qualificacao e roteamento
 skill-offer-positioning
   → define a mensagem
 skill-pitch-deck

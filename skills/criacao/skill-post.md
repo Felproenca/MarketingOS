@@ -20,8 +20,25 @@ env: []
 → client.md — Blocos 2 e 4 (persona e tom da marca)
 → brand-kit.json — palette, typography (para briefing visual)
 → alma.md — filtros de criação (5 perguntas)
+→ intelligence/doutrina-instagram-operacao.md — função no funil, save/share/DM, domínio privado, handoff
+→ skills/funnel-strategy/SKILL.md — Funnel Metadata e CTA proporcional
+→ skills/funnel-strategy/content-funnel-engine.md — função comercial do conteúdo
+→ skills/funnel-strategy/platform-playbooks/instagram.md — fricção e sinal por canal
+→ skills/funnel-strategy/templates/funnel-metadata.md — base + Instagram Channel Metadata
 → intelligence/benchmarks.json — APENAS `content_performance` do formato em jogo (feed_image / reels / stories): best_hook_type e métricas para calibrar gancho e formato
 → NÃO carregar: metrics.json, campaigns.md, notes.md, estrategia.md, system-usage.json, experiments.md, patterns.md
+
+---
+
+## Funnel Strategy — gate comercial obrigatório
+
+Antes de escrever o post, classificar a peça como:
+
+```text
+Conteúdo de tensão | diagnóstico | critério | prova | oferta | retenção | expansão
+```
+
+Todo post com função comercial deve sair com `## Funnel Metadata`.
 
 ---
 
@@ -165,6 +182,35 @@ Cada frame:
 
 ---
 
+#### FUNNEL METADATA
+
+```
+Funnel stage:
+Intent level:
+Friction level:
+Expected lead signal:
+Qualification goal:
+Primary CTA:
+Secondary CTA:
+Routing destination:
+Next best action:
+```
+
+#### INSTAGRAM CHANNEL METADATA
+
+```
+Discovery channel: instagram (feed | reels | story)
+Conversion channel: whatsapp | dm | link | form | shop
+Trigger:
+First response asset:
+Origin tag:
+Response SLA:
+Save / Share / DM motive:
+Private domain entry:
+```
+
+---
+
 #### VISUAL / ROTEIRO
 
 **[Para Feed]**
@@ -295,6 +341,13 @@ Se formato não foi especificado no comando (Feed / Reels / Story), perguntar an
 - [ ] O gancho do visual/roteiro funciona isolado?
 - [ ] A legenda complementa sem repetir o visual?
 - [ ] O CTA é específico e alinhado ao objetivo?
+- [ ] O post tem Funnel Metadata + Instagram Channel Metadata?
+- [ ] Motivo de SAVE, SHARE ou DM declarado?
+- [ ] Keyword/SEO nativo na 1ª linha da caption (peça de descoberta)?
+- [ ] Handoff, origin tag e first response asset definidos?
+- [ ] O CTA é proporcional à fricção do lead?
+- [ ] O sinal esperado está claro (salvar, comentar, DM, clique, resposta)?
+- [ ] Existe próximo ativo ou próxima ação definida?
 - [ ] O briefing visual é acionável no Canva sem explicação adicional?
 - [ ] O tom está alinhado ao `client.md`?
 - [ ] Para Reels: os primeiros 3s estão fortes?

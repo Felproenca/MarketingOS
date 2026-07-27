@@ -16,8 +16,10 @@ O sistema pode planejar, rascunhar e preparar. Publicacao real exige confirmacao
 ## Pre-requisitos
 
 - Ler `manifesto.md`, `alma.md`, `virada-aquisicao.md`, `CLAUDE.md`.
-- Abrir `clients/felipe-proenca/client.md`.
-- Ler `clients/felipe-proenca/brand-brief.md`.
+- Ler `intelligence/doutrina-instagram-operacao.md` — ciclo semanal, funcoes no funil, dominio privado, save/share/DM gate e handoff.
+- Consultar `skills/funnel-strategy/SKILL.md` e `platform-playbooks/instagram.md` para Funnel Metadata da semana.
+- Abrir `clients/felipe-proenca/client.md` (ou o slug ativo).
+- Ler `clients/felipe-proenca/brand-brief.md` quando o cliente for o Felipe.
 - Se `brand-brief.md` estiver pendente, usar apenas como direcao provisoria e pedir validacao antes de conteudo sensivel.
 
 ## Fonte de verdade
@@ -53,6 +55,9 @@ Perguntas:
 - Qual formato gerou alcance util?
 - Qual tema trouxe sinal comercial?
 - O que deve ser repetido, cortado ou aprofundado?
+- Save rate / share rate / dm_start_rate subiram em qual formato?
+- Origin tag coverage: quantos leads da semana tem origem rastreavel?
+- Join rate de dominio privado (Broadcast, Close Friends, lista WA, e-mail)?
 
 ## Etapa 3 - Planejar
 
@@ -70,16 +75,40 @@ Agenda -> Planejar semana
 
 Distribuicao padrao: 70% universal, 20% build in public, 10% caso.
 
+Ciclo semanal de referencia (`doutrina-instagram-operacao.md`) — funcoes, nao templates:
+
+| Dia | Funcao |
+|---|---|
+| Segunda | diagnostico / opiniao (autoridade + identificacao) |
+| Terca | educacao aplicada |
+| Quarta | prova / caso real |
+| Quinta | bastidor |
+| Sexta | oferta |
+| Sabado | lifestyle / produto / comunidade |
+| Domingo | leve / interacao |
+
+Uma ideia central por semana gera derivados (Reels, carrossel, posts, stories) — nao dez ideias soltas.
+Toda peca de descoberta declara entrada no dominio privado + handoff WhatsApp/DM.
+
 ## Etapa 4 - Rascunhar
 
 Para cada item `planned`, escolher a skill adequada:
 
 - carrossel: `skills/criacao/skill-carousel.md`
-- reel: `skills/criacao/skill-reel-builder.md`
+- reel: `skills/criacao/skill-reel-builder.md` ou `skill-reels.md`
 - post: `skills/criacao/skill-post.md`
 - conteudo integrado: `skills/criacao/skill-social-content-agent.md`
 
-Todo rascunho deve herdar `brand-brief.md` e responder ao gate de aquisicao.
+Todo rascunho deve herdar `brand-brief.md`, a doutrina de Instagram e o Funnel Metadata
+(base + campos de canal: discovery, conversion, trigger, first response asset, origin tag).
+
+Gate antes de marcar `drafted`:
+
+- [ ] Funcao no funil declarada
+- [ ] Motivo de SAVE, SHARE ou DM
+- [ ] CTA de dominio privado (se descoberta)
+- [ ] Handoff + origin tag
+- [ ] Keyword/SEO nativo minimo na caption (linha 1)
 
 Atualizar o item:
 

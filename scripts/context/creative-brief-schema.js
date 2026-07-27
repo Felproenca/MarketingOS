@@ -1,6 +1,13 @@
 'use strict';
 
+const {
+  createEmptyFunnelMetadata,
+  normalizeFunnelMetadata,
+  validateFunnelMetadata,
+} = require('../funnel/metadata');
+
 function createEmptyCreativeBrief(clientSlug, outputType) {
+  const funnelMetadata = createEmptyFunnelMetadata();
   return {
     client_slug: clientSlug || '',
     generated_at: new Date().toISOString(),
@@ -18,6 +25,8 @@ function createEmptyCreativeBrief(clientSlug, outputType) {
     visual_rules: [],
     creative_constraints: [],
     cta_strategy: '',
+    funnel_metadata: funnelMetadata,
+    ...funnelMetadata,
     reasoning: [],
     source_report: {
       loaded: [],
@@ -29,8 +38,12 @@ function createEmptyCreativeBrief(clientSlug, outputType) {
 }
 
 function normalizeCreativeBrief(raw, fallback = {}) {
+  raw = raw || {};
   const brief = createEmptyCreativeBrief(fallback.client_slug, fallback.output_type);
   const sourceReport = raw && raw.source_report ? raw.source_report : {};
+  const funnelMetadata = normalizeFunnelMetadata(raw.funnel_metadata || raw, {
+    defaults: fallback.funnel_metadata || fallback,
+  });
   return {
     ...brief,
     ...raw,
@@ -50,6 +63,16 @@ function normalizeCreativeBrief(raw, fallback = {}) {
     visual_rules: normalizeVisualRules(raw.visual_rules || raw.regras_visuais),
     creative_constraints: arrayFrom(raw.creative_constraints || raw.restricoes_criativas),
     cta_strategy: raw.cta_strategy || raw.estrategia_cta || '',
+    funnel_metadata: funnelMetadata,
+    funnel_stage: funnelMetadata.funnel_stage,
+    intent_level: funnelMetadata.intent_level,
+    friction_level: funnelMetadata.friction_level,
+    lead_signal_expected: funnelMetadata.lead_signal_expected,
+    qualification_goal: funnelMetadata.qualification_goal,
+    primary_cta: funnelMetadata.primary_cta,
+    secondary_cta: funnelMetadata.secondary_cta,
+    routing_destination: funnelMetadata.routing_destination,
+    next_best_action: funnelMetadata.next_best_action,
     reasoning: arrayFrom(raw.reasoning || raw.raciocinio),
     source_report: {
       loaded: arrayFrom(sourceReport.loaded),
@@ -67,9 +90,12 @@ function validateCreativeBrief(brief) {
   if (!brief.references || !brief.references.length) missing.push('references');
   if (!brief.principles || !brief.principles.length) missing.push('principles');
   if (!brief.visual_rules || !brief.visual_rules.length) missing.push('visual_rules');
+  const funnelValidation = validateFunnelMetadata(brief.funnel_metadata || brief);
+  missing.push(...funnelValidation.missing.map((field) => `funnel_metadata.${field}`));
   return {
     valid: missing.length === 0,
     missing,
+    funnel_metadata: funnelValidation,
   };
 }
 

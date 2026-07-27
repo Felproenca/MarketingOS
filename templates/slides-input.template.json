@@ -6,6 +6,17 @@
   "theme": "",
   "objective": "",
   "cta": "",
+  "funnel_metadata": {
+    "funnel_stage": "",
+    "intent_level": "",
+    "friction_level": "",
+    "lead_signal_expected": "",
+    "qualification_goal": "",
+    "primary_cta": "",
+    "secondary_cta": "",
+    "routing_destination": "",
+    "next_best_action": ""
+  },
   "caption": "",
   "slides": [
     {

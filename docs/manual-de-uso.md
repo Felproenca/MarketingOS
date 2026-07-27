@@ -78,6 +78,9 @@ Na pratica:
 - `alma.md` define a missao, os filtros e a linguagem.
 - `virada-aquisicao.md` define a doutrina de aquisicao.
 - `CLAUDE.md` define como operar.
+- `intelligence/doutrina-instagram-operacao.md` define operacao de Instagram
+  (crescimento + conversao, dominio privado, handoff, gates de peca) — obrigatorio
+  antes de planejar ou criar conteudo no canal.
 
 `AGENTS.md` apenas aponta para `CLAUDE.md`.
 
@@ -118,6 +121,9 @@ Contexto
 
 Inteligencia
   -> reunioes, sinais, hipoteses, gargalos
+
+Funnel Strategy
+  -> estagio, intencao, friccao, sinal, qualificacao, roteamento, proxima acao
 
 Percepcao
   -> perception.json, identidade, tensoes, verdade humana
@@ -179,6 +185,7 @@ Nunca o contrario.
         /voice
 
   /skills
+    /funnel-strategy
     /analise
     /aquisicao
     /criacao
@@ -301,6 +308,7 @@ Outputs sao entregas, diagnosticos ou artefatos operacionais.
 
 ```text
 /inteligencia
+/funil
 /perceber
 /analisar
 /criar
@@ -331,6 +339,7 @@ workflows/commands.md
 | Situacao | Grupo |
 |---|---|
 | Tenho reuniao, hipotese ou sinais brutos | `/inteligencia` |
+| Preciso definir progressao comercial, friccao, qualificacao ou roteamento antes de criar | `/funil` |
 | Preciso entender identidade, tensoes e percepcao | `/perceber` |
 | Preciso diagnosticar performance, funil, site ou SEO | `/analisar` |
 | Preciso criar post, carrossel, site, branding ou imagem | `/criar` |
@@ -338,7 +347,9 @@ workflows/commands.md
 | Preciso abordar lead quente ou fechar | `/vender` |
 | Preciso reter, reativar ou operar head implantado | `/relacionar` |
 
-Se a tarefa envolve decisao antes de execucao, comece por `/inteligencia`.
+Se a tarefa envolve diagnostico de causa antes de execucao, comece por `/inteligencia`.
+Se a tarefa envolve criar ou revisar ativo comercial, passe por `/funil` antes da producao.
+Se a tarefa envolve conteudo comercial, a peca precisa declarar qual movimento de aquisicao provoca antes de ir para `/criar`.
 
 ---
 
@@ -718,6 +729,7 @@ O sistema ja possui uma cadeia de contexto:
 
 ```text
 Intelligence
+  -> Funnel Architect
   -> Context Builder
   -> Creative Brief
   -> Output
@@ -737,6 +749,12 @@ O Creative Brief precisa conter:
 
 - `acquisition_objective`
 - `bottleneck`
+- `funnel_stage`
+- `intent_level`
+- `friction_level`
+- `lead_signal_expected`
+- `routing_destination`
+- `next_best_action`
 - `stage`
 - `thesis`
 - `tension`
@@ -748,6 +766,18 @@ O Creative Brief precisa conter:
 - `cta_strategy`
 
 O `acquisition_objective` orienta toda criacao.
+
+Rotina operacional de funil:
+
+```bash
+/funil metadata --type carousel --objective "autoridade"
+/funil audit
+npm run funnel -- audit --slug [slug]
+```
+
+O audit grava `clients/[slug]/outputs/acquisition/funnel-operational-audit.json` e aponta pecas sem `funnel_metadata` completo.
+
+Quando existir `clients/[slug]/outputs/acquisition/funnel-baseline.json`, arquivos anteriores a `activated_at` sao tratados como legado descartado e nao bloqueiam a operacao nova.
 
 ---
 
@@ -1091,8 +1121,10 @@ Antes de entregar qualquer coisa:
 6. Esta alinhado com o manifesto?
 7. Torna aquisicao mais observavel, ajustavel ou previsivel?
 8. Tem proximo passo claro?
-9. Se ha dado, ele e real?
-10. Se ha inferencia, ela foi sinalizada?
+9. O conteudo declara sua funcao no funil?
+10. O sinal esperado do lead esta claro?
+11. Se ha dado, ele e real?
+12. Se ha inferencia, ela foi sinalizada?
 
 ---
 
@@ -1102,6 +1134,7 @@ Antes de entregar qualquer coisa:
 - Enviar outreach sem revisar.
 - Inventar metricas, provas, faturamento ou depoimentos.
 - Gerar conteudo generico sem `client.md`.
+- Gerar conteudo comercial sem funcao de aquisicao, sinal esperado e proxima acao.
 - Criar campanha sem objetivo de aquisicao declarado.
 - Sugerir acao sem evidencia, contexto ou hipotese clara.
 - Misturar clientes.
@@ -1129,6 +1162,8 @@ Antes de entregar qualquer coisa:
 - [ ] A peca nao parece generica?
 - [ ] Existe proximo passo claro?
 - [ ] A entrega ajuda aquisicao?
+- [ ] Se for conteudo comercial, existe Funnel Metadata e funcao de aquisicao declarada?
+- [ ] Se for Instagram: doutrina consultada + save/share/DM + handoff/origin tag?
 
 ### Antes de publicar ou enviar
 

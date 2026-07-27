@@ -1,6 +1,6 @@
 ---
 name: skill-offer-positioning
-version: "1.1"
+version: "1.2"
 group: aquisicao
 command: /prospectar oferta
 inputs:
@@ -19,6 +19,9 @@ env: []
 ## Contexto mínimo necessário
 → client.md — Blocos 1, 2, 3 e 4 (negócio, persona, concorrência, tom)
 → alma.md — filtros de autenticidade (o que não é verdadeiro não sai)
+→ skills/funnel-strategy/SKILL.md — fricção, oferta de entrada e Funnel Metadata
+→ skills/funnel-strategy/offer-ladder.md — escada de oferta proporcional ao lead
+→ skills/funnel-strategy/friction-map.md — CTA por nível de fricção
 → intelligence/benchmarks.json — APENAS `offer_benchmarks` (cta_performance, discount_vs_value) para escolher CTA e ângulo de oferta com o que já converteu
 → NÃO carregar: metrics.json, campaigns.md, brand-kit.json, notes.md, estrategia.md, system-usage.json, experiments.md
 
@@ -35,6 +38,26 @@ Estruturar e comunicar a oferta principal do cliente de forma que ela seja:
 - Diferenciada da concorrência
 - Clara o suficiente para converter sem precisar de explicação adicional
 - Adaptável para diferentes canais (site, ads, WhatsApp, Instagram)
+
+---
+
+## Funnel Strategy — gate comercial obrigatório
+
+Oferta regula fricção.
+
+Antes de escrever copy de oferta, escolher:
+
+```text
+Nivel da escada:
+Friction level:
+Oferta de entrada:
+Oferta principal:
+Prova necessária:
+CTA proporcional:
+Roteamento:
+```
+
+Toda oferta deve declarar Funnel Metadata.
 
 ---
 
@@ -79,6 +102,30 @@ Antes de gerar qualquer copy, responda internamente:
 ---
 
 ## Estrutura da Oferta
+
+---
+
+## Modelo Híbrido de Oferta v1.2 (decisão do Felipe, 2026-07-10)
+
+Padrão adotado como default quando o objetivo é gerar caixa rápido pra depois
+escalar (ex.: financiar contratação, mídia paga, influencer): **entrada
+productizada, upsell done-for-you.**
+
+```text
+Entrada productizada:
+-> Pacote fixo, baixa friccao, repetivel sem analise sob medida por prospect.
+   Objetivo: fechar rapido e gerar caixa. Ex.: diagnostico 30 dias.
+
+Upsell done-for-you:
+-> Depois que o cliente comprou a entrada e confia, oferta customizada,
+   maior ticket, mao na massa. Ex.: implementacao 60 dias + recorrencia mensal.
+```
+
+Regra: a entrada só funciona como entrada se for de fato padronizada — não tratar
+o primeiro contato como consultoria sob medida. Deixar a customização pra depois
+que o cliente já comprou e a confiança está estabelecida. Ver `offer-ladder.md`
+pra escada completa e `intelligence/doctrine-aquisicao-2026.md` pra origem da
+decisão.
 
 ---
 
@@ -163,6 +210,22 @@ Toda adaptacao por canal deve indicar em qual degrau esta.
 Antes:   [como o cliente ideal se sente / qual problema enfrenta antes da oferta]
 Depois:  [como ele se sente / qual resultado tem depois da oferta]
 Ponte:   [o que a oferta faz para levar do antes ao depois]
+```
+
+---
+
+#### Funnel Metadata
+
+```
+Funnel stage:
+Intent level:
+Friction level:
+Expected lead signal:
+Qualification goal:
+Primary CTA:
+Secondary CTA:
+Routing destination:
+Next best action:
 ```
 
 ---
@@ -351,6 +414,9 @@ Mudança de posicionamento aqui requer reescrita do copy.
 - [ ] Se for aquisicao fria, o sinal observado esta explicito?
 - [ ] O primeiro proximo passo e pequeno o suficiente para gerar resposta?
 - [ ] Existe prova, diagnostico ou microvalor antes da oferta principal?
+- [ ] Funnel Metadata foi preenchido?
+- [ ] O nível da escada de oferta é compatível com a maturidade do lead?
+- [ ] O CTA não pede mais fricção do que o lead aceita agora?
 
 ---
 

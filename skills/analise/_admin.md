@@ -16,6 +16,7 @@ e o que precisa mudar para o resultado aparecer.
 ```
 → Para entender a performance atual antes de qualquer ação
 → Para diagnosticar por que o funil não converte
+→ Para medir vazamentos depois que a estratégia de funil já existe
 → Para analisar concorrente ou referência de mercado
 → Para planejar ou auditar SEO
 → Para gerar relatório de métricas
@@ -34,6 +35,9 @@ Comando: `/analisar`
 
 "O funil não está convertendo — quero entender por quê"
 → skill-funnel-analysis.md
+
+"Preciso desenhar o funil antes de criar ativos"
+→ ../funnel-strategy/SKILL.md
 
 "Quero auditar um site ou landing para entender vazamento de lead"
 → skill-site-audit.md
@@ -61,6 +65,9 @@ Comando: `/analisar`
 Dado sem interpretação é número.
 Interpretação sem dado é opinião.
 Este grupo entrega os dois juntos.
+
+`/analisar funil` diagnostica o que já existe.
+`/funil` desenha a progressão comercial antes da produção.
 
 ---
 

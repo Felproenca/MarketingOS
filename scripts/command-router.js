@@ -162,6 +162,7 @@ function printCommandHelp() {
   print('/site-pronto');
   print('/motion-site');
   print('/sinais');
+  print('/funil audit|metadata');
   print('/repositorios ou /repositórios');
   print('/demo /carrossel /post /imagem /branding /site /oferta /captacao /relatorio /funil /retencao /reativacao /salvar');
 }
@@ -169,16 +170,19 @@ function printCommandHelp() {
 function routeMappedCommand(command) {
   const map = {
     '/demo': 'workflows/client-demo.md',
-    '/post': 'skills/skill-post.md',
-    '/imagem': 'skills/skill-image-generation.md',
-    '/branding': 'skills/skill-branding.md',
-    '/site': 'skills/skill-site-builder.md',
-    '/oferta': 'skills/skill-offer-positioning.md',
-    '/captacao': 'skills/skill-lead-capture.md',
-    '/relatorio': 'skills/skill-dashboard.md',
-    '/funil': 'skills/skill-funnel-analysis.md',
-    '/retencao': 'skills/skill-retention.md',
-    '/reativacao': 'skills/skill-reactivation.md',
+    '/post': 'skills/criacao/skill-post.md',
+    '/imagem': 'skills/criacao/skill-image-generation.md',
+    '/branding': 'skills/criacao/skill-branding.md',
+    '/site': 'skills/criacao/skill-site-builder.md',
+    '/oferta': 'skills/aquisicao/skill-offer-positioning.md',
+    '/captacao': 'skills/aquisicao/skill-lead-capture.md',
+    '/relatorio': 'skills/analise/skill-dashboard.md',
+    '/funil': 'skills/funnel-strategy/SKILL.md',
+    '/funnel': 'skills/funnel-strategy/SKILL.md',
+    '/funnel-strategy': 'skills/funnel-strategy/SKILL.md',
+    '/estrategia-funil': 'skills/funnel-strategy/SKILL.md',
+    '/retencao': 'skills/relacionamento/skill-retention.md',
+    '/reativacao': 'skills/relacionamento/skill-reactivation.md',
     '/agenda': 'workflows/agenda-semanal.md',
     '/creative-os': 'intelligence/creative-os.md',
     '/direcao-peca': 'intelligence/creative-direction-engine.md',
@@ -215,6 +219,35 @@ function runCarouselCommand(rawArgs) {
 
   const args = ['--slug', slug, ...rawArgs];
   runScript('generate-carousel.js', args);
+}
+
+function runFunnelCommand(rawArgs) {
+  const slug = requireActiveClient();
+  const action = rawArgs[0];
+
+  if (!action || action === 'help' || action === 'skill') {
+    print('Comando reconhecido: /funil');
+    print('Skill: skills/funnel-strategy/SKILL.md');
+    print('Uso continuo:');
+    print('/funil audit');
+    print('/funil metadata --type carousel --objective "autoridade"');
+    print('npm run funnel -- audit --slug [slug]');
+    return;
+  }
+
+  if (action === 'audit') {
+    const hasSlug = rawArgs.includes('--slug');
+    const args = hasSlug ? rawArgs : ['audit', '--slug', slug, ...rawArgs.slice(1)];
+    runScript(path.join('funnel', 'audit.js'), args);
+    return;
+  }
+
+  if (action === 'metadata') {
+    runScript(path.join('funnel', 'metadata.js'), rawArgs);
+    return;
+  }
+
+  fail('Uso: /funil audit | /funil metadata --type [tipo] --objective [objetivo]');
 }
 
 function main() {
@@ -257,6 +290,11 @@ function main() {
 
   if (command === '/carrossel') {
     runCarouselCommand(rawArgs);
+    return;
+  }
+
+  if (['/funil', '/funnel', '/funnel-strategy', '/estrategia-funil'].includes(command)) {
+    runFunnelCommand(rawArgs);
     return;
   }
 

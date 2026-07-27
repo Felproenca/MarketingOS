@@ -8,6 +8,7 @@
 
 1. [Comandos de Sessão](#1-sessão)
 2. [Slash Commands — Grupos](#2-grupos)
+2.1. [Slash Commands — Funnel Strategy](#21-funnel-strategy)
 3. [Slash Commands — Conteúdo](#3-conteúdo)
 4. [Slash Commands — Análise](#4-análise)
 5. [Slash Commands — Aquisição](#5-aquisição)
@@ -29,7 +30,7 @@
 | `/fechar` | Encerra sessão — extrai aprendizados e faz commit |
 | `/salvar` | Checkpoint intermediário — commit sem encerrar sessão |
 | `/relatorio-sistema` | Relatório operacional do sistema — ranking de uso de skills, candidatas a aposentar |
-| `/agenda` | Rotina semanal de conteudo: planejar, rascunhar, preparar, publicar com OK e medir |
+| `/agenda` | Rotina semanal de conteudo: planejar, rascunhar, preparar, publicar com OK e medir (consulta `intelligence/doutrina-instagram-operacao.md`) |
 | `/creative-os` | Orquestra a criação: objetivo → percepção → referência → física → motor certo |
 | `/direcao-peca` | Direcao efetiva antes de criar: metafora → cena → beats → motion → engine → gate frame a frame |
 | `/repositorios` ou `/repositórios` | Mapa de repositórios externos: repertório, submodules, HyperFrames e regra de adoção |
@@ -43,6 +44,7 @@
 | Comando | O que faz |
 |---|---|
 | `/analisar` | Diagnóstico, performance, concorrente, SEO, estratégia |
+| `/funil` | Estratégia transversal de funil: Funnel Metadata, fricção, qualificação, roteamento e próxima ação |
 | `/criar` | Conteúdo, visual, site — carrega alma.md + criatividade |
 | `/prospectar` | Mercado, prospectos, oferta, pitch, captura, anúncio |
 | `/inteligencia` | Reuniões, diagnóstico de aquisição, crítica e validação |
@@ -51,7 +53,33 @@
 
 ---
 
+## 2.1 Funnel Strategy
+
+| Comando | O que faz | Skill |
+|---|---|---|
+| `/funil` | Define progressão comercial antes de qualquer ativo: estágio, intenção, fricção, sinal esperado, qualificação, CTA, roteamento e próxima melhor ação | `funnel-strategy/SKILL.md` |
+
+Regra: nenhum ativo comercial sai sem `## Funnel Metadata`.
+Conteudo comercial sem funcao de aquisicao declarada nao sai.
+
+Operacao continua:
+
+```bash
+/funil metadata --type carousel --objective "autoridade"
+/funil audit
+npm run funnel -- audit --slug [slug]
+```
+
+O audit grava `clients/[slug]/outputs/acquisition/funnel-operational-audit.json`.
+
+Se existir `clients/[slug]/outputs/acquisition/funnel-baseline.json`, o audit descarta da cobranca os outputs anteriores a `activated_at`.
+
+---
+
 ## 3. Conteúdo
+
+> Conteúdo de Instagram: consultar `intelligence/doutrina-instagram-operacao.md` antes de planejar ou criar.
+> Funnel Metadata base + Instagram Channel Metadata (handoff, origin tag, save/share/DM).
 
 | Comando | O que faz | Skill |
 |---|---|---|
@@ -187,6 +215,46 @@ npm run scraper:panel
 **Store único:** `agency/leads/pipeline.json` — scraper, bot e follow-up compartilham o mesmo estado; ninguém é contactado duas vezes.
 **Anti-ban:** teto de 25 envios/dia (`WHATSAPP_DAILY_CAP`), janela 9h–18h seg–sáb (`--fora-do-horario` força), intervalo aleatório 1–5 min entre envios.
 **Validação:** telefone do Google Maps vira candidato a WhatsApp — `getNumberId` confirma antes de enviar.
+
+### Discovery Engine — motor de descoberta B2B niche-agnostic
+
+```bash
+node scripts/discovery-engine/index.js --niche=corban_2026 --max=20
+# ou: npm run discovery -- --niche=corban_2026 --max=20
+```
+
+Motor genérico de descoberta/qualificação, config-driven via `niche_profile`
+(`scripts/discovery-engine/niche-profiles/*.json`). Fontes 100% compliant:
+Google Places (busca real por categoria+região) + BrasilAPI/ReceitaWS
+(validação de CNPJ encontrado no site) + site institucional (respeita
+robots.txt). Nunca toca grupo fechado, DM não solicitada ou perfil pessoal.
+
+Requer `GOOGLE_PLACES_API_KEY` no `.env`. Resultado fica em
+`agency/discovery-leads/<niche_id>.json`, com dedupe cruzado contra o pipeline
+legado do scraper (nunca contata duas vezes o mesmo negócio). Aprovação e
+disparo continuam manuais — ver `scripts/discovery-engine/README.md`.
+
+Adicionar nicho novo: criar `niche-profiles/<slug>.json` seguindo
+`schemas/niche-profile.schema.json` (detalhes no README do módulo).
+
+**Outreach do Discovery Engine (WhatsApp + LinkedIn):**
+
+```bash
+# Gerar rascunho de mensagem pros leads em pending_approval (não envia nada)
+node scripts/discovery-engine/prepare-outreach.js --niche=corban_2026
+
+# Revisar agency/discovery-leads/corban_2026.json, marcar approved:true
+# nos leads que quer contatar por WhatsApp
+
+# Enviar (só WhatsApp, só approved:true, sessão própria/separada do scraper)
+npm run discovery:dry -- --niche=corban_2026
+npm run discovery:enviar -- --niche=corban_2026
+```
+
+LinkedIn nunca é enviado por automação (InMail é sempre manual/individual —
+compliance do `niche_profile`). A oferta real pra CORBAN ainda não está
+definida — `send-approved.js` recusa enviar qualquer mensagem marcada como
+placeholder, mesmo aprovada.
 
 ### Follow-up Engine — o funil não morre em "sent"
 

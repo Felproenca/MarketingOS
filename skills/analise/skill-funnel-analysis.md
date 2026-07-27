@@ -20,6 +20,8 @@ env: []
 → metrics.json — completo (tráfego, leads, conversões por canal)
 → client.md — Bloco 1 (ticket médio, canais) + Bloco 7 (metas)
 → campaigns.md — campanhas ativas e histórico recente
+→ skills/funnel-strategy/funnel-health-score.md — score operacional de maturidade do funil
+→ skills/funnel-strategy/funnel-gate.md — validação de próximos ativos recomendados
 → NÃO carregar: brand-kit.json, alma.md, notes.md, estrategia.md, intelligence/
 
 ---
@@ -31,6 +33,9 @@ Mapear e analisar o funil completo de aquisição do cliente, identificando:
 - Em qual etapa o funil quebra (maior ponto de queda)
 - Qual etapa tem maior potencial de melhoria
 - Ações concretas para aumentar conversão em cada etapa
+
+Esta skill mede e diagnostica o funil existente.
+`skills/funnel-strategy/SKILL.md` desenha a arquitetura antes da produção.
 
 ---
 
@@ -127,6 +132,18 @@ PÓS-FUNIL
   Conversões (vendas):      [ ]
   Ticket médio:             R$ [ ]
   Receita gerada:           R$ [ ]
+```
+
+---
+
+#### Funnel Health Score
+
+```
+Score geral: [0-100]
+Faixa: [funil quebrado / inconsistente / funcional fraco / bom / otimizado]
+Principal vazamento:
+Próxima correção:
+Evento que precisa ser medido:
 ```
 
 ---
@@ -235,6 +252,8 @@ Permite ao operador corrigir dados ou prioridades antes de receber o plano de a�
 - [ ] O comparativo por canal está preenchido?
 - [ ] O plano de ação tem priorização clara?
 - [ ] Dados estimados foram sinalizados como tal?
+- [ ] Funnel Health Score foi calculado?
+- [ ] Recomendações de novos ativos indicam Funnel Metadata ou encaminham para `/funil`?
 
 ---
 

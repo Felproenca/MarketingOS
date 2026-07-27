@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://marketingos.internal/schemas/niche-profile.schema.json",
+  "title": "niche_profile",
+  "description": "Config que instancia o Discovery Engine para um nicho específico. O motor é genérico; cada arquivo em niche-profiles/ é uma instância.",
+  "type": "object",
+  "required": ["niche_id", "niche_label", "version", "status", "discovery", "enrichment", "qualification", "contact_channels", "compliance"],
+  "properties": {
+    "niche_id": { "type": "string", "pattern": "^[a-z0-9_]+$", "description": "slug único, ex: corban_2026" },
+    "niche_label": { "type": "string", "description": "nome interno, não exposto ao cliente final" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["draft", "active", "archived"] },
+
+    "discovery": {
+      "type": "object",
+      "required": ["cnae_codes", "region_scope"],
+      "properties": {
+        "cnae_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "region_scope": {
+          "type": "object",
+          "required": ["type", "values"],
+          "properties": {
+            "type": { "type": "string", "enum": ["nacional", "uf", "municipio", "raio_km"] },
+            "values": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "google_places_categories": { "type": "array", "items": { "type": "string" } },
+        "min_results_per_run": { "type": "integer", "minimum": 0 },
+        "max_results_per_run": { "type": "integer", "minimum": 1, "maximum": 5000 }
+      }
+    },
+
+    "enrichment": {
+      "type": "object",
+      "properties": {
+        "website_scraping_targets": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["whatsapp_business_link", "email_institucional", "formulario_contato", "redes_sociais_linkadas"]
+          }
+        },
+        "gmb_fields": { "type": "array", "items": { "type": "string" } },
+        "respect_robots_txt": { "type": "boolean", "default": true },
+        "timeout_seconds": { "type": "integer", "minimum": 1, "maximum": 60 }
+      }
+    },
+
+    "qualification": {
+      "type": "object",
+      "required": ["framework", "signals", "tier_thresholds"],
+      "properties": {
+        "framework": { "type": "string", "enum": ["FAINT", "SPICED", "MEDDIC"] },
+        "signals": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["signal_id", "description", "weight"],
+            "properties": {
+              "signal_id": { "type": "string" },
+              "description": { "type": "string" },
+              "weight": { "type": "number", "minimum": 0, "maximum": 1 },
+              "threshold_min": {}
+            }
+          }
+        },
+        "tier_thresholds": {
+          "type": "object",
+          "required": ["A", "B", "C"],
+          "properties": {
+            "A": { "type": "number" },
+            "B": { "type": "number" },
+            "C": { "type": "number" }
+          }
+        }
+      }
+    },
+
+    "contact_channels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["channel", "automation_level"],
+        "properties": {
+          "channel": { "type": "string" },
+          "condition": { "type": "string" },
+          "automation_level": { "type": "string", "enum": ["manual_approval_required", "human_in_the_loop"] }
+        }
+      }
+    },
+
+    "compliance": {
+      "type": "object",
+      "required": ["legal_basis", "excluded_sources"],
+      "properties": {
+        "legal_basis": { "type": "string" },
+        "excluded_sources": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+
+    "outreach_script_ref": { "type": "string" }
+  }
+}

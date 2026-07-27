@@ -22,6 +22,11 @@ env: []
 Carregar apenas:
 - `client.md` — blocos 2 e 4 (persona, tom, restrições)
 - `brand-kit.json` — paleta, tipografia, estilo, proibições
+- `intelligence/doutrina-instagram-operacao.md` — operação IG: funil, domínio privado, handoff
+- `skills/funnel-strategy/SKILL.md` — Funnel Metadata e progressão comercial
+- `skills/funnel-strategy/content-funnel-engine.md` — função comercial da peça
+- `skills/funnel-strategy/platform-playbooks/instagram.md` — sinais e CTAs do canal
+- `skills/funnel-strategy/templates/funnel-metadata.md` — base + Instagram Channel Metadata
 - `intelligence/benchmarks.json` — somente bloco `content_performance` do formato em jogo
 
 Não carregar: metrics.json, campaigns.md, notes.md, estrategia.md, system-usage.json
@@ -65,6 +70,25 @@ CTA:        [ WhatsApp | Link na bio | Salvar | Comentar | DM | nenhum ]
 ```
 
 Se algum campo estiver ausente, pergunte antes de executar.
+
+---
+
+## Funnel Strategy — gate comercial obrigatório
+
+Antes do Estágio 1, definir:
+
+```text
+content_type:
+funnel_stage:
+intent_level:
+friction_level:
+lead_signal_expected:
+qualification_goal:
+routing_destination:
+next_best_action:
+```
+
+O pacote final deve conter `funnel_metadata`.
 
 ---
 
@@ -151,6 +175,27 @@ Montar o pacote completo que o operador entrega ao sistema.
   "pilar": "[pilar]",
   "nicho": "[nicho]",
   "objetivo": "[objetivo]",
+  "funnel_metadata": {
+    "funnel_stage": "[awareness | problem-aware | solution-aware | comparison | decision | retention | expansion]",
+    "intent_level": "[low | medium | high]",
+    "friction_level": "[0 | 1 | 2 | 3 | 4]",
+    "lead_signal_expected": "[salvar | comentar | DM | clique | formulario]",
+    "qualification_goal": "[o que esta peca precisa descobrir]",
+    "primary_cta": "[CTA principal]",
+    "secondary_cta": "[CTA secundario]",
+    "routing_destination": "[para onde o lead vai]",
+    "next_best_action": "[proxima acao comercial]",
+    "instagram_channel": {
+      "discovery_channel": "[instagram-post | instagram-reel | instagram-story]",
+      "conversion_channel": "[whatsapp | dm | link | form | shop]",
+      "trigger": "[gatilho]",
+      "first_response_asset": "[asset em <60s]",
+      "origin_tag": "[tag]",
+      "response_sla": "[SLA ou Hipotese]",
+      "save_share_dm_motive": "[SAVE | SHARE | DM]",
+      "private_domain_entry": "[entrada no dominio privado]"
+    }
+  },
 
   "copy": {
     "visual_headline": "[texto que aparece NA imagem — máx 10 palavras]",
@@ -214,6 +259,10 @@ Operador executa o prompt no Nano Banana e injeta a imagem no sistema HTML.
 - [ ] brand-kit.json do cliente foi lido?
 - [ ] O pilar está claro e o nicho do exemplo foi definido?
 - [ ] O hook funciona isolado — sem contexto?
+- [ ] `funnel_metadata` + `instagram_channel` estão completos?
+- [ ] Motivo de SAVE/SHARE/DM e handoff com origin tag?
+- [ ] O CTA é proporcional ao estágio e fricção do lead?
+- [ ] O sinal esperado e a próxima ação estão claros?
 - [ ] O prompt de imagem NÃO contém texto, logo ou watermark?
 - [ ] As dimensões estão corretas para o formato?
 - [ ] O JSON está completo e sem campos vazios?

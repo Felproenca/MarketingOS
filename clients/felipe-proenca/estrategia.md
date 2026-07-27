@@ -74,6 +74,25 @@ Prioridade: site com SEO correto + tráfego orgânico consistente (lento, mas co
 
 ---
 
+## Posicionamento do perfil pessoal (doc externo 2026-07-23, ver `intelligence/doutrina-instagram-operacao.md`)
+
+**Mensagem central:** Felipe transforma negócios que parecem comuns em marcas que
+são percebidas, lembradas e compradas. Percepção desejada: "esse cara realmente sabe
+o que está fazendo" — não um catálogo de serviços, e sim documentação pública de
+alguém que entende percepção, posicionamento, conteúdo, conversão e construção de
+negócios, executando em clientes reais.
+
+**Rosto no sistema (não negociável):** design escuro e textos fortes são apoio, nunca
+substituto — o perfil precisa de rosto, voz, opiniões, raciocínio, decisões,
+bastidores, erros, mudanças de direção, análises e resultados reais.
+
+**5 pilares:** (1) Percepção — por que negócios parecem valiosos ou genéricos; (2)
+Estratégia — como Felipe pensa (análise de perfis, funis, oferta, critérios de
+publicação); (3) Execução real — documentar clientes em andamento (problema →
+decisão → teste → erro → correção → número), sem expor dado confidencial; (4) Prova —
+antes/depois, caso, depoimento, bastidor de entrega; (5) Convite — oferta como
+consequência lógica do conteúdo, nunca todo post virando venda.
+
 ## Direção atual — Build in Public
 
 **Ângulo novo:** parar de vender resultado, começar a mostrar processo em tempo real.

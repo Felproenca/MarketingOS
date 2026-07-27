@@ -22,8 +22,31 @@ env: []
 → client.md — Blocos 2, 3 e 4 (persona, posicionamento, tom)
 → brand-kit.json — palette, typography
 → alma.md — filtros de criação (5 perguntas)
+→ intelligence/doutrina-instagram-operacao.md — 1 ideia/semana, save gate, handoff, domínio privado
+→ skills/funnel-strategy/SKILL.md — Funnel Metadata e progressão comercial
+→ skills/funnel-strategy/content-funnel-engine.md — papel do carrossel no funil
+→ skills/funnel-strategy/platform-playbooks/instagram.md — CTA e sinal esperados no Instagram
+→ skills/funnel-strategy/templates/funnel-metadata.md — base + Instagram Channel Metadata
 → intelligence/benchmarks.json — APENAS `content_performance.carousel` (best_hook_type, best_slide_count, avg_saves_rate) para calibrar gancho e nº de slides com o que já performou
 → NÃO carregar: metrics.json, campaigns.md, notes.md, estrategia.md, system-usage.json, experiments.md, patterns.md
+
+---
+
+## Funnel Strategy — gate comercial obrigatório
+
+Antes de escrever `slides-input.json`, definir:
+
+```text
+Tipo de conteúdo:
+Funnel stage:
+Intent level:
+Friction level:
+Expected lead signal:
+CTA proporcional:
+Next asset:
+```
+
+Se o carrossel não move o lead para uma ação ou sinal, ele é apenas conteúdo bonito.
 
 ---
 
@@ -138,6 +161,27 @@ Formato de referência: `templates/slides-input.template.json`
   "theme": "[tema]",
   "objective": "[Educação | Autoridade | Venda | Engajamento]",
   "cta": "[CTA específico]",
+  "funnel_metadata": {
+    "funnel_stage": "[awareness | problem-aware | solution-aware | comparison | decision | retention | expansion]",
+    "intent_level": "[low | medium | high]",
+    "friction_level": "[0 | 1 | 2 | 3 | 4]",
+    "lead_signal_expected": "[salvar | comentar | DM | clique | formulario]",
+    "qualification_goal": "[o que este carrossel precisa descobrir]",
+    "primary_cta": "[CTA principal]",
+    "secondary_cta": "[CTA secundario]",
+    "routing_destination": "[para onde o lead vai]",
+    "next_best_action": "[proxima acao comercial]",
+    "instagram_channel": {
+      "discovery_channel": "instagram-carousel",
+      "conversion_channel": "[whatsapp | dm | link | form | shop]",
+      "trigger": "[ex.: comente MAPA]",
+      "first_response_asset": "[o que o lead recebe em <60s]",
+      "origin_tag": "[ex.: CAR-MAPA-0726]",
+      "response_sla": "[hot <15 min | Hipotese]",
+      "save_share_dm_motive": "[SAVE | SHARE | DM — motivo]",
+      "private_domain_entry": "[Broadcast | CF | WA | email | hipotese]"
+    }
+  },
   "caption": "[legenda completa de publicação, com hashtags]",
   "slides": [
     {
@@ -536,6 +580,11 @@ Após aprovação: invocar `node scripts/generate-carousel.js --input ...` e dep
 - [ ] Gancho para no scroll sem contexto adicional?
 - [ ] Cada slide tem apenas 1 ideia central?
 - [ ] Tom alinhado ao `client.md`?
+- [ ] `funnel_metadata` + `instagram_channel` estão preenchidos no `slides-input.json`?
+- [ ] Slide N-1 é digno de SAVE e/ou há motivo de SHARE/DM?
+- [ ] Caption com keyword na 1ª linha + handoff/origin tag?
+- [ ] CTA final é proporcional à fricção do lead?
+- [ ] O sinal esperado e o próximo ativo estão claros?
 - [ ] `slides-input.json` salvo em `clients/[slug]/outputs/carousels/inputs/`?
 - [ ] Motor invocado e PNGs gerados em `[jobDir]/instagram/`?
 

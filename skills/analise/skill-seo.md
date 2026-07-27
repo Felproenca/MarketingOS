@@ -1,6 +1,6 @@
 ---
 name: skill-seo
-version: "1.1"
+version: "1.2"
 group: analise
 command: /analisar seo
 inputs:
@@ -89,6 +89,33 @@ Schema basico quando houver site
 Paginas comparativas ou locais quando fizer sentido
 Diretorios relevantes quando forem fonte de descoberta
 ```
+
+## Camada AEO v1.2 — checklist tático (baseado em pesquisa multilingual 2026-07-10)
+
+Fatores confirmados que influenciam se um negócio pequeno é citado por um LLM
+(ChatGPT, Perplexity, Gemini, AI Overviews) — todos de baixo custo, cabem como
+higiene digital básica mesmo pra negócio pequeno/local:
+
+```text
+Google Business Profile completo (horário, categoria, área de atendimento)
+Responder reviews em ate 24h (correlaciona com melhor posicionamento em AI Overviews)
+Schema LocalBusiness / JSON-LD no site (se houver site)
+robots.txt liberando crawlers de IA: GPTBot, Google-Extended, PerplexityBot, ClaudeBot
+Mencao em fontes terceiras que LLMs priorizam: diretorios, imprensa, Reddit
+Autoridade tematica de nicho > tamanho generico (especialista de nicho e citado mais que concorrente maior generico)
+```
+
+**Ferramentas gratuitas pra medir (não recomendar ferramenta paga de GEO
+enterprise nesta fase):** Google Search Console, checagem manual de citação
+perguntando direto ao ChatGPT/Perplexity/Gemini "quem é [marca]" ou "onde comprar
+[categoria] em [cidade]", auditoria de Google Business Profile.
+
+**Limite honesto:** isso é item de checklist de baixo custo, não motor/skill
+pesado. Ferramenta paga de GEO (monitoramento contínuo multi-modelo) é prematura
+pra cliente de pequeno varejo/nicho local — prioridade real costuma estar em
+gargalo de conversão (funil, capacidade de atendimento), não em citação por IA.
+Só subir a prioridade disso se o cliente já tiver os básicos de conversão
+resolvidos.
 
 ---
 

@@ -233,7 +233,7 @@ FECHAR SESSÃO
 | Comando | Skill / Workflow |
 |---|---|
 | `/relatorio` | skill-dashboard.md |
-| `/funil` | skill-funnel-analysis.md |
+| `/funil` | skills/funnel-strategy/SKILL.md |
 | `/analisar site` | skill-site-audit.md |
 | `/investigar [@perfil]` | skill-investigar.md |
 | `/seo` | skill-seo.md |

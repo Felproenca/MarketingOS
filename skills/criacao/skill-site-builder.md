@@ -25,8 +25,30 @@ env: []
 → outputs/branding/design-system.json — sistema de design
 → outputs/branding/references.md — referências visuais
 → alma.md — filtros de criação
+→ skills/funnel-strategy/SKILL.md — Funnel Metadata, fricção, qualificação e roteamento
+→ skills/funnel-strategy/friction-map.md — CTA proporcional ao estágio do lead
+→ skills/funnel-strategy/templates/funnel-metadata.md — bloco obrigatório do output
 → intelligence/experience-continuity.md — continuidade entre hero, copy, assets, motion e CTA
 → NÃO carregar: metrics.json, campaigns.md, notes.md, estrategia.md, intelligence/
+
+---
+
+## Funnel Strategy — gate comercial obrigatório
+
+Antes de definir estrutura, copy ou CTA do site, declarar:
+
+```text
+Funnel stage:
+Intent level:
+Friction level:
+Expected lead signal:
+Qualification goal:
+Routing destination:
+Next best action:
+```
+
+Site premium não é vitrine. É ambiente de conversão.
+Se o site não captura sinal, não qualifica e não roteia, ele está incompleto.
 
 ---
 
@@ -339,6 +361,22 @@ Regras:
 
 ---
 
+#### Funnel Metadata
+
+```
+Funnel stage:
+Intent level:
+Friction level:
+Expected lead signal:
+Qualification goal:
+Primary CTA:
+Secondary CTA:
+Routing destination:
+Next best action:
+```
+
+---
+
 #### SEO
 
 ```
@@ -600,6 +638,13 @@ Rodar mentalmente o checklist de anti-padrões antes de entregar → sinalizar q
 - [ ] Copy, arte, assets e motion contam a mesma história?
 - [ ] O CTA final resolve a tensão aberta no hero?
 - [ ] Mobile preserva a curva narrativa?
+
+**Gate de funil (obrigatório):**
+- [ ] O site declara Funnel Metadata?
+- [ ] O CTA é proporcional ao estágio e fricção do lead?
+- [ ] Existe captura de sinal, não apenas botão de contato?
+- [ ] Formulário/WhatsApp qualifica antes de jogar o lead para venda?
+- [ ] O destino e a próxima melhor ação estão claros?
 
 **Taste:**
 - [ ] Dials declarados (VARIANCE / MOTION / DENSITY)?

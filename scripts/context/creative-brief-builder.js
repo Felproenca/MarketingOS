@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const { buildContext } = require('./context-builder');
 const { normalizeCreativeBrief, validateCreativeBrief } = require('./creative-brief-schema');
+const { inferFunnelMetadata, normalizeFunnelMetadata } = require('../funnel/metadata');
 
 function getCreativeBrief(options = {}) {
   const rootDir = options.rootDir || process.cwd();
@@ -34,6 +35,7 @@ function getCreativeBrief(options = {}) {
     acquisition_objective: options.acquisition_objective || options.acquisitionObjective || '',
     bottleneck: options.bottleneck || '',
     stage: options.stage || '',
+    funnel_metadata: options.funnel_metadata || options.funnelMetadata || funnelOptionsFrom(options),
   });
 
   ensureDir(path.dirname(briefPath));
@@ -65,6 +67,14 @@ function buildCreativeBrief(options = {}) {
   const antiDna = collectAntiDna(context, referenceSummary);
   const tension = signature.tensao_principal || signature.principal || referenceSummary.tensions && referenceSummary.tensions[0] || 'clareza contra ruido';
   const contentGoal = options.content_goal || defaultContentGoal(outputType);
+  const ctaStrategy = buildCtaStrategy(outputType, direction);
+  const funnelMetadata = normalizeFunnelMetadata(options.funnel_metadata || options.funnelMetadata || funnelOptionsFrom(options), {
+    defaults: inferFunnelMetadata({
+      output_type: outputType,
+      objective: options.acquisition_objective || contentGoal,
+      cta: ctaStrategy,
+    }),
+  });
 
   const rawBrief = {
     client_slug: clientSlug,
@@ -82,7 +92,17 @@ function buildCreativeBrief(options = {}) {
     tone: buildTone(direction, perception, context.branding),
     visual_rules: buildVisualRules(context.branding, visualDna, context.visual_dna || {}),
     creative_constraints: buildCreativeConstraints(direction, antiDna, referenceSummary),
-    cta_strategy: buildCtaStrategy(outputType, direction),
+    cta_strategy: ctaStrategy,
+    funnel_metadata: funnelMetadata,
+    funnel_stage: funnelMetadata.funnel_stage,
+    intent_level: funnelMetadata.intent_level,
+    friction_level: funnelMetadata.friction_level,
+    lead_signal_expected: funnelMetadata.lead_signal_expected,
+    qualification_goal: funnelMetadata.qualification_goal,
+    primary_cta: funnelMetadata.primary_cta,
+    secondary_cta: funnelMetadata.secondary_cta,
+    routing_destination: funnelMetadata.routing_destination,
+    next_best_action: funnelMetadata.next_best_action,
     reasoning: buildReasoning(perception, referenceSummary, visualDna),
     source_report: {
       loaded: context.context_report.loaded || [],
@@ -103,6 +123,20 @@ function buildCreativeBrief(options = {}) {
     brief,
     context_report: context.context_report,
     validation: validateCreativeBrief(brief),
+  };
+}
+
+function funnelOptionsFrom(options) {
+  return {
+    funnel_stage: options.funnel_stage || options.funnelStage,
+    intent_level: options.intent_level || options.intentLevel,
+    friction_level: options.friction_level || options.frictionLevel,
+    lead_signal_expected: options.lead_signal_expected || options.leadSignal || options.expected_lead_signal,
+    qualification_goal: options.qualification_goal || options.qualificationGoal,
+    primary_cta: options.primary_cta || options.primaryCta,
+    secondary_cta: options.secondary_cta || options.secondaryCta,
+    routing_destination: options.routing_destination || options.routingDestination || options.routing,
+    next_best_action: options.next_best_action || options.nextBestAction,
   };
 }
 
@@ -261,6 +295,15 @@ if (require.main === module) {
     acquisition_objective: typeof args.objective === 'string' ? args.objective : '',
     bottleneck: typeof args.bottleneck === 'string' ? args.bottleneck : '',
     stage: typeof args.stage === 'string' ? args.stage : '',
+    funnel_stage: args['funnel-stage'] || args.funnel_stage,
+    intent_level: args['intent-level'] || args.intent_level,
+    friction_level: args['friction-level'] || args.friction_level,
+    lead_signal_expected: args['lead-signal'] || args.lead_signal_expected || args.expected_lead_signal,
+    qualification_goal: args['qualification-goal'] || args.qualification_goal,
+    primary_cta: args['primary-cta'] || args.primary_cta,
+    secondary_cta: args['secondary-cta'] || args.secondary_cta,
+    routing_destination: args.routing || args['routing-destination'] || args.routing_destination,
+    next_best_action: args['next-action'] || args.next_best_action,
   });
   console.log(JSON.stringify({
     path: path.relative(process.cwd(), result.path).replace(/\\/g, '/'),

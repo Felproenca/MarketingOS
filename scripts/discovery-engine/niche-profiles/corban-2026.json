@@ -1,0 +1,96 @@
+{
+  "niche_id": "corban_2026",
+  "niche_label": "CORBAN — Correspondentes Bancários (PJ pequeno/médio)",
+  "version": "0.2.0",
+  "status": "draft",
+  "cnae_validation_note": "Validado em 2026-07-13 contra 5 CNPJs reais de empresas nomeadas 'Correspondente Bancário' via BrasilAPI: 6619-3/02 é o CNAE principal em 3/5 (Creditoja, Divi, Soberana) — código específico 'Correspondentes de instituições financeiras'. 6619-3/99 (o único código que estava na lista original) apareceu só como CNAE SECUNDÁRIO em 2/5 (Creditoja, Direto), nunca como principal — é um balde genérico, não o identificador correto. 64.99-9-99 não apareceu em nenhuma das 5 amostras — removido por falta de evidência. Amostra pequena (5 empresas, 1 UF verificada via nome) — vale ampliar antes de travar status:active.",
+
+  "discovery": {
+    "cnae_codes": ["6619-3-02", "6619-3-99"],
+    "region_scope": {
+      "type": "uf",
+      "values": ["SP"]
+    },
+    "google_places_categories": ["correspondente bancário", "correspondente bancario", "banco", "financeira"],
+    "min_results_per_run": 0,
+    "max_results_per_run": 500
+  },
+
+  "enrichment": {
+    "website_scraping_targets": [
+      "whatsapp_business_link",
+      "email_institucional",
+      "formulario_contato",
+      "redes_sociais_linkadas"
+    ],
+    "gmb_fields": ["telefone", "site", "categoria", "rating", "num_avaliacoes", "horario"],
+    "respect_robots_txt": true,
+    "timeout_seconds": 10
+  },
+
+  "qualification": {
+    "framework": "FAINT",
+    "signals": [
+      {
+        "signal_id": "cnpj_ativo_tempo",
+        "description": "Meses desde abertura do CNPJ",
+        "weight": 0.2,
+        "threshold_min": 12
+      },
+      {
+        "signal_id": "presenca_digital",
+        "description": "Site ativo + pelo menos 1 rede social ativa",
+        "weight": 0.25,
+        "threshold_min": true
+      },
+      {
+        "signal_id": "volume_operacao_aparente",
+        "description": "Nº avaliações Google + menções de equipe no site/LinkedIn",
+        "weight": 0.25,
+        "threshold_min": 5
+      },
+      {
+        "signal_id": "situacao_cadastral",
+        "description": "CNPJ ativo na Receita (não baixado/suspenso)",
+        "weight": 0.3,
+        "threshold_min": "ATIVA"
+      }
+    ],
+    "tier_thresholds": {
+      "A": 75,
+      "B": 50,
+      "C": 25
+    }
+  },
+
+  "contact_channels": [
+    {
+      "channel": "whatsapp_business",
+      "condition": "apenas se publicado no site ou GMB",
+      "automation_level": "manual_approval_required"
+    },
+    {
+      "channel": "linkedin_sales_navigator",
+      "condition": "InMail individual, sem automação de disparo",
+      "automation_level": "human_in_the_loop"
+    },
+    {
+      "channel": "formulario_site",
+      "condition": "quando disponível",
+      "automation_level": "manual_approval_required"
+    }
+  ],
+
+  "compliance": {
+    "legal_basis": "dado publicado pela própria empresa para fins de contato comercial (interesse legítimo institucional, não dado pessoal de terceiro não relacionado)",
+    "excluded_sources": [
+      "grupos_fechados_whatsapp",
+      "grupos_fechados_facebook",
+      "perfis_pessoais_scraping",
+      "dm_nao_solicitada_instagram",
+      "automacao_inmail_massa"
+    ]
+  },
+
+  "outreach_script_ref": "corban_2026_default"
+}

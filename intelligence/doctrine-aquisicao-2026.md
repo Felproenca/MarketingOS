@@ -60,10 +60,27 @@ Não postar mais. Focar em três:
 
 ---
 
-## Decisão aberta (do Felipe — não do sistema)
+## Decisão resolvida — modelo de oferta (Felipe, 2026-07-10)
 
-**O MarketingOS adota uma escada de oferta productizada, ou permanece done-for-you puro?**
+**Híbrido: entrada productizada, upsell done-for-you.**
 
-O protocolo empurra para *productizar a especificidade* (oferta chata ultra-específica + escada de ticket). Isso é coerente com a tese, mas é uma **virada de modelo de negócio** — muda o que se vende, não só como se comunica. Antes de eu mexer em qualquer skill (`skill-offer-positioning`, `virada-aquisicao.md`, motor de conteúdo), preciso dessa definição.
+Um pacote de entrada padronizado (baixa fricção, fecha rápido, gera caixa) qualifica o
+cliente e financia a operação — depois evolui pra implementação customizada
+(done-for-you) pros clientes que crescerem e precisarem de mão na massa. Isso resolve
+a tensão do protocolo externo (escada productizada $27→$197→$497) sem abandonar o
+done-for-you que já é a força do MarketingOS (diagnóstico 30d → implementação 60d →
+R$497/mês).
+
+**Mapeamento pra estrutura já existente:**
+- Entrada productizada = diagnóstico 30 dias (já existe, baixa fricção)
+- Upsell done-for-you = implementação 60 dias + sistema R$497/mês (já existe)
+- O que muda: a entrada precisa virar mais padronizada/repetível (menos análise
+  sob medida por prospect, mais pacote fixo) pra realmente funcionar como entrada de
+  baixa fricção e alto volume — hoje `skill-offer-positioning.md` trata cada oferta
+  como sob medida desde o primeiro contato.
+
+**Próximo passo (Fase 4 do mandato de aquisição, 2026-07-10):** revisar
+`skills/aquisicao/skill-offer-positioning.md` pra formalizar essa entrada
+productizada como um pacote padrão, mantendo o done-for-you como camada de expansão.
 
 Ver: `virada-aquisicao.md`, `clients/felipe-proenca/icp.md`, memória `project-virada-aquisicao` e `project-followup-engine`.

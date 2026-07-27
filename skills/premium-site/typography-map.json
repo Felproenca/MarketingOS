@@ -1,0 +1,344 @@
+{
+  "_meta": {
+    "version": "2.0",
+    "description": "Sistema tipográfico completo. Combinações curadas, regras de rendering, variable font support, font features.",
+    "rule": "NUNCA usar: Inter, Poppins, Montserrat, Raleway, Roboto, Open Sans, Lato como display. São invisíveis. NUNCA combinar duas sans-serif. SEMPRE usar display + body de categorias diferentes."
+  },
+
+  "rendering": {
+    "_description": "CSS obrigatório em TODOS os projetos pra rendering tipográfico premium.",
+    "css": "html {\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  text-rendering: optimizeLegibility;\n  font-feature-settings: 'kern' 1;\n  font-kerning: normal;\n}\n\n::selection {\n  background: var(--color-accent);\n  color: var(--color-bg);\n}",
+    "loading": {
+      "strategy": "swap pra body, optional pra display (evita flash em headline grande)",
+      "preconnect": "<link rel='preconnect' href='https://fonts.googleapis.com'>\n<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>"
+    }
+  },
+
+  "combinations": {
+    "editorial_precision": {
+      "name": "Editorial Precision",
+      "personality": "Sofisticado, editorial, confiança intelectual. Revistas, consultorias, negócios de expertise.",
+      "best_for": ["consultoria", "advocacia", "arquitetura", "design de interiores", "editorial", "educação premium"],
+      "display": {
+        "family": "Instrument Serif",
+        "category": "serif",
+        "weights": [400],
+        "has_italic": true,
+        "variable": false,
+        "import": "Instrument+Serif:ital@0;1",
+        "font_features": "font-feature-settings: 'liga' 1, 'kern' 1;",
+        "use": "Títulos grandes, hero headlines, citações destacadas",
+        "character": "Serifas finas, contraste alto, elegância sem peso"
+      },
+      "body": {
+        "family": "Space Grotesk",
+        "category": "sans-serif",
+        "weights": [300, 400, 500, 700],
+        "variable": true,
+        "variable_range": "300..700",
+        "import": "Space+Grotesk:wght@300;400;500;700",
+        "font_features": "font-feature-settings: 'ss01' 1, 'kern' 1;",
+        "use": "Corpo, navegação, labels, UI",
+        "character": "Geométrica com personalidade, curvas no g e no a"
+      },
+      "utility": {
+        "family": "Space Mono",
+        "category": "monospace",
+        "weights": [400, 700],
+        "import": "Space+Mono:wght@400;700",
+        "use": "Números em destaque, código, labels técnicos",
+        "optional": true
+      },
+      "scale": {
+        "hero": "clamp(3rem, 8vw, 7rem)",
+        "h1": "clamp(2.5rem, 5vw, 4.5rem)",
+        "h2": "clamp(1.8rem, 3vw, 3rem)",
+        "h3": "clamp(1.2rem, 2vw, 1.8rem)",
+        "body": "clamp(1rem, 1.2vw, 1.125rem)",
+        "body_large": "clamp(1.1rem, 1.4vw, 1.25rem)",
+        "small": "clamp(0.75rem, 1vw, 0.875rem)",
+        "caption": "0.75rem",
+        "eyebrow": "0.6875rem"
+      },
+      "spacing": {
+        "display_letter_spacing": "-0.03em",
+        "body_letter_spacing": "-0.01em",
+        "caption_letter_spacing": "0.1em",
+        "eyebrow_letter_spacing": "0.15em",
+        "display_line_height": 1.0,
+        "body_line_height": 1.6,
+        "display_word_spacing": "-0.02em"
+      },
+      "transforms": {
+        "eyebrow": "uppercase",
+        "caption": "uppercase",
+        "nav": "uppercase"
+      },
+      "css_vars": "--font-display: 'Instrument Serif', Georgia, serif;\n--font-body: 'Space Grotesk', system-ui, sans-serif;\n--font-mono: 'Space Mono', monospace;\n--ls-display: -0.03em;\n--ls-body: -0.01em;\n--ls-caption: 0.1em;\n--lh-display: 1.0;\n--lh-body: 1.6;"
+    },
+
+    "tech_warmth": {
+      "name": "Tech Warmth",
+      "personality": "Moderno mas acessível. Técnico sem frieza. Humano sem ser infantil.",
+      "best_for": ["saas", "startup", "fintech", "healthtech", "edtech", "app", "tecnologia acessível"],
+      "display": {
+        "family": "Syne",
+        "category": "sans-serif (display)",
+        "weights": [400, 500, 600, 700, 800],
+        "variable": true,
+        "variable_range": "400..800",
+        "import": "Syne:wght@400;500;600;700;800",
+        "font_features": "font-feature-settings: 'kern' 1;",
+        "use": "Títulos com personalidade forte, pesos variados pra hierarquia",
+        "character": "Geométrica com excêntricidades nos terminais, não é neutra"
+      },
+      "body": {
+        "family": "Source Serif 4",
+        "category": "serif",
+        "weights": [300, 400, 500, 600],
+        "has_italic": true,
+        "variable": true,
+        "variable_range": "200..900",
+        "import": "Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400",
+        "font_features": "font-feature-settings: 'liga' 1, 'onum' 1, 'kern' 1; font-optical-sizing: auto;",
+        "use": "Corpo com legibilidade alta, descrições longas",
+        "character": "Serif contemporâneo, optical sizing automático"
+      },
+      "scale": {
+        "hero": "clamp(3rem, 8vw, 6rem)",
+        "h1": "clamp(2.2rem, 5vw, 4rem)",
+        "h2": "clamp(1.6rem, 3vw, 2.5rem)",
+        "h3": "clamp(1.2rem, 2vw, 1.6rem)",
+        "body": "clamp(1rem, 1.2vw, 1.125rem)",
+        "body_large": "clamp(1.1rem, 1.4vw, 1.25rem)",
+        "small": "clamp(0.8rem, 1vw, 0.875rem)",
+        "caption": "0.75rem",
+        "eyebrow": "0.6875rem"
+      },
+      "spacing": {
+        "display_letter_spacing": "-0.02em",
+        "body_letter_spacing": "0",
+        "caption_letter_spacing": "0.08em",
+        "eyebrow_letter_spacing": "0.12em",
+        "display_line_height": 1.05,
+        "body_line_height": 1.7,
+        "display_word_spacing": "normal"
+      },
+      "transforms": {
+        "eyebrow": "uppercase",
+        "caption": "none",
+        "nav": "none"
+      },
+      "css_vars": "--font-display: 'Syne', system-ui, sans-serif;\n--font-body: 'Source Serif 4', Georgia, serif;\n--ls-display: -0.02em;\n--ls-body: 0;\n--ls-caption: 0.08em;\n--lh-display: 1.05;\n--lh-body: 1.7;"
+    },
+
+    "raw_elegance": {
+      "name": "Raw Elegance",
+      "personality": "Bruto e refinado ao mesmo tempo. Contraste entre o rústico e o polido.",
+      "best_for": ["moda", "gastronomia premium", "arte", "galeria", "arquitetura", "fotografia", "vinhos", "café especial"],
+      "display": {
+        "family": "Newsreader",
+        "category": "serif (transitional)",
+        "weights": [300, 400, 500, 600],
+        "has_italic": true,
+        "variable": true,
+        "variable_range": "200..800",
+        "import": "Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400",
+        "font_features": "font-feature-settings: 'liga' 1, 'kern' 1; font-optical-sizing: auto;",
+        "use": "Títulos com presença clássica, itálico como recurso expressivo",
+        "character": "Serifas com contraste alto, eixo vertical, presença editorial"
+      },
+      "body": {
+        "family": "DM Sans",
+        "category": "sans-serif",
+        "weights": [300, 400, 500, 700],
+        "has_italic": true,
+        "variable": true,
+        "variable_range": "100..1000",
+        "import": "DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400",
+        "font_features": "font-feature-settings: 'ss01' 1, 'kern' 1;",
+        "use": "Corpo limpo, navegação, UI. Neutralidade que não compete com o display.",
+        "character": "Neo-grotesca com detalhes geométricos sutis"
+      },
+      "scale": {
+        "hero": "clamp(3.5rem, 9vw, 8rem)",
+        "h1": "clamp(2.5rem, 6vw, 5rem)",
+        "h2": "clamp(1.8rem, 3.5vw, 3rem)",
+        "h3": "clamp(1.3rem, 2vw, 1.8rem)",
+        "body": "clamp(0.95rem, 1.1vw, 1.0625rem)",
+        "body_large": "clamp(1.05rem, 1.3vw, 1.1875rem)",
+        "small": "clamp(0.75rem, 0.9vw, 0.8125rem)",
+        "caption": "0.6875rem",
+        "eyebrow": "0.625rem"
+      },
+      "spacing": {
+        "display_letter_spacing": "-0.04em",
+        "body_letter_spacing": "0",
+        "caption_letter_spacing": "0.12em",
+        "eyebrow_letter_spacing": "0.18em",
+        "display_line_height": 0.95,
+        "body_line_height": 1.65,
+        "display_word_spacing": "-0.02em"
+      },
+      "transforms": {
+        "eyebrow": "uppercase",
+        "caption": "uppercase",
+        "nav": "uppercase"
+      },
+      "italic_usage": "Usar itálico de Newsreader pra: ênfase em statements, subtítulos de hero, citações, nomes próprios em contexto editorial",
+      "css_vars": "--font-display: 'Newsreader', 'Times New Roman', serif;\n--font-body: 'DM Sans', system-ui, sans-serif;\n--ls-display: -0.04em;\n--ls-body: 0;\n--ls-caption: 0.12em;\n--lh-display: 0.95;\n--lh-body: 1.65;"
+    },
+
+    "geometric_bold": {
+      "name": "Geometric Bold",
+      "personality": "Impactante, direto, confiante. Sem decoração, sem dúvida.",
+      "best_for": ["fitness", "construção", "indústria", "agência", "esportes", "automotivo", "segurança"],
+      "display": {
+        "family": "Space Grotesk",
+        "category": "sans-serif (geometric)",
+        "weights": [500, 700],
+        "variable": true,
+        "variable_range": "300..700",
+        "import": "Space+Grotesk:wght@500;700",
+        "font_features": "font-feature-settings: 'ss01' 1, 'kern' 1;",
+        "use": "Títulos impactantes, curtos e grandes. Uppercase quando ≤ 4 palavras.",
+        "character": "Geométrica com personalidade nos cortes"
+      },
+      "body": {
+        "family": "Outfit",
+        "category": "sans-serif (geometric)",
+        "weights": [300, 400, 500, 600],
+        "variable": true,
+        "variable_range": "100..900",
+        "import": "Outfit:wght@300;400;500;600",
+        "font_features": "font-feature-settings: 'kern' 1;",
+        "use": "Corpo acessível, labels, navegação",
+        "character": "Geométrica suave, boa legibilidade em peso leve"
+      },
+      "scale": {
+        "hero": "clamp(3rem, 9vw, 7rem)",
+        "h1": "clamp(2.5rem, 5.5vw, 4.5rem)",
+        "h2": "clamp(1.8rem, 3.5vw, 2.8rem)",
+        "h3": "clamp(1.3rem, 2vw, 1.7rem)",
+        "body": "clamp(1rem, 1.2vw, 1.125rem)",
+        "body_large": "clamp(1.1rem, 1.4vw, 1.25rem)",
+        "small": "clamp(0.8rem, 1vw, 0.875rem)",
+        "caption": "0.75rem",
+        "eyebrow": "0.6875rem"
+      },
+      "spacing": {
+        "display_letter_spacing": "-0.03em",
+        "display_uppercase_letter_spacing": "0.05em",
+        "body_letter_spacing": "0",
+        "caption_letter_spacing": "0.1em",
+        "eyebrow_letter_spacing": "0.15em",
+        "display_line_height": 1.0,
+        "body_line_height": 1.6
+      },
+      "transforms": {
+        "eyebrow": "uppercase",
+        "caption": "uppercase",
+        "nav": "uppercase",
+        "hero_short": "uppercase (quando ≤ 4 palavras)"
+      },
+      "css_vars": "--font-display: 'Space Grotesk', system-ui, sans-serif;\n--font-body: 'Outfit', system-ui, sans-serif;\n--ls-display: -0.03em;\n--ls-body: 0;\n--ls-caption: 0.1em;\n--lh-display: 1.0;\n--lh-body: 1.6;"
+    },
+
+    "organic_craft": {
+      "name": "Organic Craft",
+      "personality": "Artesanal, humano, tátil. Imperfeição controlada.",
+      "best_for": ["confeitaria", "padaria", "cerâmica", "produtos naturais", "bem-estar", "yoga", "floricultura", "loja artesanal", "café"],
+      "display": {
+        "family": "Fraunces",
+        "category": "serif (old-style, variable)",
+        "weights": [300, 400, 500, 700],
+        "has_italic": true,
+        "variable": true,
+        "variable_range": "100..900",
+        "variable_axes": {
+          "wght": "100..900",
+          "opsz": "9..144",
+          "SOFT": "0..100",
+          "WONK": "0..1"
+        },
+        "import": "Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300,0,0;0,9..144,400,50,1;0,9..144,500,0,0;0,9..144,700,0,0;1,9..144,400,50,1",
+        "font_features": "font-variation-settings: 'SOFT' 50, 'WONK' 1; font-optical-sizing: auto;",
+        "use": "Títulos com personalidade orgânica. SOFT axis controla suavidade das curvas. WONK ativa alternates.",
+        "character": "Serifas wonky, curvas expressivas, personalidade forte"
+      },
+      "body": {
+        "family": "Nunito Sans",
+        "category": "sans-serif (rounded)",
+        "weights": [300, 400, 600],
+        "variable": true,
+        "variable_range": "200..1000",
+        "import": "Nunito+Sans:wght@300;400;600",
+        "font_features": "font-feature-settings: 'kern' 1;",
+        "use": "Corpo suave, navegação amigável",
+        "character": "Terminais arredondados, acolhedora sem ser infantil"
+      },
+      "scale": {
+        "hero": "clamp(2.8rem, 7vw, 5.5rem)",
+        "h1": "clamp(2.2rem, 4.5vw, 3.8rem)",
+        "h2": "clamp(1.6rem, 3vw, 2.5rem)",
+        "h3": "clamp(1.2rem, 2vw, 1.6rem)",
+        "body": "clamp(1rem, 1.2vw, 1.125rem)",
+        "body_large": "clamp(1.1rem, 1.4vw, 1.25rem)",
+        "small": "clamp(0.8rem, 1vw, 0.875rem)",
+        "caption": "0.75rem",
+        "eyebrow": "0.6875rem"
+      },
+      "spacing": {
+        "display_letter_spacing": "-0.02em",
+        "body_letter_spacing": "0.005em",
+        "caption_letter_spacing": "0.06em",
+        "eyebrow_letter_spacing": "0.1em",
+        "display_line_height": 1.1,
+        "body_line_height": 1.7
+      },
+      "transforms": {
+        "eyebrow": "none",
+        "caption": "none",
+        "nav": "none"
+      },
+      "special_notes": "Fraunces tem eixo óptico. Em tamanhos grandes (hero), usar opsz baixo (9-24) pra contraste máximo. Em tamanhos pequenos, opsz alto (72-144) pra legibilidade. Eixo SOFT controla quão suaves são as curvas — usar SOFT 50-80 pra artesanal, SOFT 0 pra mais sério.",
+      "css_vars": "--font-display: 'Fraunces', Georgia, serif;\n--font-body: 'Nunito Sans', system-ui, sans-serif;\n--ls-display: -0.02em;\n--ls-body: 0.005em;\n--ls-caption: 0.06em;\n--lh-display: 1.1;\n--lh-body: 1.7;"
+    }
+  },
+
+  "spacing_system": {
+    "_description": "Sistema de espaçamento que cria ritmo. NÃO ALTERAR valores sem justificativa.",
+    "section_padding": "clamp(6rem, 12vh, 10rem)",
+    "section_gap_large": "clamp(4rem, 8vh, 7rem)",
+    "section_gap_medium": "clamp(2rem, 4vh, 3.5rem)",
+    "element_gap": "clamp(1rem, 2vh, 1.5rem)",
+    "container_max_width": "1400px",
+    "container_narrow": "900px",
+    "container_wide": "1600px",
+    "container_padding": "clamp(1.5rem, 5vw, 4rem)",
+    "grid_gap": "clamp(1rem, 2vw, 2rem)",
+    "paragraph_spacing": "1.5em",
+    "css": ":root {\n  --section-pad: clamp(6rem, 12vh, 10rem);\n  --gap-l: clamp(4rem, 8vh, 7rem);\n  --gap-m: clamp(2rem, 4vh, 3.5rem);\n  --gap-s: clamp(1rem, 2vh, 1.5rem);\n  --max-w: 1400px;\n  --max-w-narrow: 900px;\n  --max-w-wide: 1600px;\n  --pad-x: clamp(1.5rem, 5vw, 4rem);\n  --grid-gap: clamp(1rem, 2vw, 2rem);\n}"
+  },
+
+  "color_rules": {
+    "_description": "Regras pra paleta. A IA não escolhe cores aleatórias — segue estas restrições.",
+    "palette_structure": {
+      "bg": "Cor de fundo principal. Nunca branco puro (#fff) nem preto puro (#000). Sempre com sutil temperatura.",
+      "text": "Cor de texto principal. Contraste mínimo 7:1 com bg (WCAG AAA).",
+      "text_muted": "Texto secundário. Contraste mínimo 4.5:1 com bg.",
+      "accent": "Uma cor de acento. UMA. Não duas. Usada com parcimônia: CTAs, destaques, links hover.",
+      "surface": "Cor de superfície pra cards, blocos elevados. Sutil diferença do bg.",
+      "border": "Cor de linhas e separadores. Sutil. Nunca gritante."
+    },
+    "anti_patterns": [
+      "Gradiente azul-roxo em qualquer lugar",
+      "Mais de 2 cores vibrantes na mesma página",
+      "Accent color em mais de 3 elementos por viewport",
+      "Background com opacidade < 0.95 sobre imagem (fica sujo)",
+      "Cores neon sem justificativa do nicho",
+      "Preto puro (#000) como texto em fundo claro (usar #1a1a1a ou similar)"
+    ],
+    "derivation": "As cores DEVEM ser derivadas da assinatura perceptiva. Se a assinatura é 'precisão que não mata o carinho', a paleta é warm neutral (não clínica) com accent sutil (não gritante). A cor conta uma história."
+  }
+}

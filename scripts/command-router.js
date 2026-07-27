@@ -163,6 +163,8 @@ function printCommandHelp() {
   print('/motion-site');
   print('/sinais');
   print('/funil audit|metadata');
+  print('/brand-intel');
+  print('/idioma [idioma] [tipo]');
   print('/repositorios ou /repositórios');
   print('/demo /carrossel /post /imagem /branding /site /oferta /captacao /relatorio /funil /retencao /reativacao /salvar');
 }
@@ -193,6 +195,8 @@ function routeMappedCommand(command) {
     '/repositorios': 'workflows/repositorios.md',
     '/repositórios': 'workflows/repositorios.md',
     '/construir': 'skills/criacao/skill-construir.md',
+    '/brand-intel': 'skills/brand-intelligence/SKILL.md',
+    '/idioma': 'skills/brand-intelligence/multi-lang.md',
     '/salvar': 'scripts/save.js',
   };
 

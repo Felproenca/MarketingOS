@@ -30,12 +30,15 @@ Comando: `/criar`
 ```
 1. Ler alma.md
 2. Ler skill-criatividade.md
-3. Ler `../funnel-strategy/SKILL.md` quando o output tiver função comercial
-4. Se o canal for Instagram (post, carrossel, reel, story, agenda):
+3. Verificar se clients/[slug]/outputs/branding/brand-intelligence.json existe
+   - Se existe → carregar como contexto de voz/estilo/audiência
+   - Se não existe → gerar com /brand-intel ANTES de qualquer output
+4. Ler `../funnel-strategy/SKILL.md` quando o output tiver função comercial
+5. Se o canal for Instagram (post, carrossel, reel, story, agenda):
    ler `intelligence/doutrina-instagram-operacao.md`
    + `../funnel-strategy/platform-playbooks/instagram.md`
-5. Ler skill-niche-intelligence.md quando não houver mapa de nicho/ângulo
-6. Só então executar a skill de conteúdo
+6. Ler skill-niche-intelligence.md quando não houver mapa de nicho/ângulo
+7. Só então executar a skill de conteúdo
 ```
 
 Se o cliente não tem verdade humana identificada ainda,
@@ -48,6 +51,9 @@ a skill-criatividade é obrigatória antes de tudo.
 ```
 "Qual a verdade humana desse negócio?"
 → skill-criatividade.md
+
+"Qual a voz/estilo/audiência dessa marca?"
+→ ../brand-intelligence/SKILL.md
 
 "Preciso de um carrossel / post / site"
 → PRIMEIRO: ../funnel-strategy/SKILL.md (Funnel Metadata + CTA proporcional)
@@ -86,6 +92,7 @@ a skill-criatividade é obrigatória antes de tudo.
 
 | Skill | Comando | Função |
 |---|---|---|
+| brand-intelligence | /brand-intel | Cérebro de marca unificado — injeta voz/estilo/audiência |
 | skill-creative-direction | /direcao-criativa | Motor de direção criativa — executa antes de tudo |
 | skill-branding | /branding | Identidade visual e posicionamento |
 | skill-social-content-agent | /criar conteudo | Orquestrador de conteúdo social |
@@ -104,9 +111,10 @@ a skill-criatividade é obrigatória antes de tudo.
 | skill-niche-intelligence | /nicho | Inteligência de nicho |
 
 **Ordem obrigatória para novo cliente:**
-1. /branding → define identidade
-2. /direcao-criativa → gera visual-dna.json
-3. Qualquer outra skill → herda o DNA
+1. /brand-intel → consolida identidade de marca
+2. /branding → define identidade visual
+3. /direcao-criativa → gera visual-dna.json
+4. Qualquer outra skill → herda o DNA + a voz
 
 ---
 

@@ -124,6 +124,24 @@ mecanismo; filtrar por manifesto, alma e north star.
 
 ---
 
+## Brand Intelligence — gate de coerência (transversal)
+
+Antes de qualquer output de conteúdo para um cliente:
+
+1. Verificar se `clients/[slug]/outputs/branding/brand-intelligence.json` existe
+2. Se NÃO existir → executar `/brand-intel [slug]` ANTES de qualquer output
+3. Se existir → carregar como contexto de voz, estilo, audiência e restrições
+4. Todo output deve passar pelo teste de consistência:
+   - Soa como esta marca? (voz)
+   - É apropriado para o canal? (plataforma)
+   - Respeita as restrições? (compliance)
+   - A audiência falaria assim? (linguagem)
+   - Seria reconhecível sem logo? (teste supreme)
+
+**Nenhum output de conteúdo sai sem brand-intelligence ativo.**
+
+---
+
 ## Regra de Percepção — pré-requisito de criação
 
 Antes de qualquer criação visual para um cliente:
@@ -377,6 +395,14 @@ Use `workflows/token-economy.md` como regra operacional para reduzir contexto.
 | Skill | Comando | Quando usar |
 |---|---|---|
 | `skills/funnel-strategy/SKILL.md` | `/funil` | Arquitetura comercial, Funnel Metadata, fricção, qualificação, roteamento e próxima melhor ação |
+
+### Camada Transversal: Brand Intelligence + Multi-Language
+> Opera antes de qualquer output de conteúdo. Garante coerência de marca e adaptação cultural.
+
+| Skill | Comando | Quando usar |
+|---|---|---|
+| `skills/brand-intelligence/SKILL.md` | `/brand-intel` | Cérebro de marca — consolida voz, estilo, audiência e restrições em brand-intelligence.json |
+| `skills/brand-intelligence/multi-lang.md` | `/idioma [idioma] [tipo]` | Adaptação cultural — gera conteúdo adaptado (não traduzido) para mercados internacionais |
 
 ### Grupo: Percepção → `/perceber`
 > **Executa antes de qualquer criação para novo cliente.**

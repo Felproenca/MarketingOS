@@ -62,6 +62,9 @@ Comando: `/analisar`
 
 "Quero criar testes A/B para otimizar conteúdo"
 → skill-ab-testing.md
+
+"Quero otimizar performance em tempo real"
+→ skill-realtime-optimizer.md
 ```
 
 ---

@@ -404,6 +404,13 @@ Use `workflows/token-economy.md` como regra operacional para reduzir contexto.
 | `skills/brand-intelligence/SKILL.md` | `/brand-intel` | Cérebro de marca — consolida voz, estilo, audiência e restrições em brand-intelligence.json |
 | `skills/brand-intelligence/multi-lang.md` | `/idioma [idioma] [tipo]` | Adaptação cultural — gera conteúdo adaptado (não traduzido) para mercados internacionais |
 
+### Camada Transversal: Agent Builder → `/agente`
+> Cria agentes de IA customizados para cada cliente. Fábrica de skills sob medida.
+
+| Skill | Comando | Quando usar |
+|---|---|---|
+| `skills/agent-builder/SKILL.md` | `/agente criar [tipo]` | Criar agente customizado: atendente, vendedor, suporte, agendador, nutridor |
+
 ### Grupo: Percepção → `/perceber`
 > **Executa antes de qualquer criação para novo cliente.**
 > Leia `skills/perception/_admin.md` → escolha uma skill → carregue so ela.
@@ -430,6 +437,7 @@ Use `workflows/token-economy.md` como regra operacional para reduzir contexto.
 | `analise/skill-performance-learning.md` | Aprendizado por metricas e feedback para o motor |
 | `analise/skill-aeo-monitor.md` | Monitor de presenca em AI-generated answers (ChatGPT, Gemini, Perplexity) — AEO/GEO |
 | `analise/skill-ab-testing.md` | Testes A/B com IA — gerar variacoes, medir, analisar vencedor |
+| `analise/skill-realtime-optimizer.md` | Otimizacao em tempo real — fecha loop metricas → ajuste automatico |
 
 ### Grupo: Inteligencia → `/inteligencia`
 > Camada de critica, validacao e diagnostico antes da execucao.
@@ -469,6 +477,7 @@ Planejadas para proximas levas: `skill-office-hours.md`, `skill-thesis-validatio
 | `criacao/skill-prompt-engineer.md` | Decisao HTML puro vs imagem externa |
 | `criacao/skill-social-content-agent.md` | **Orquestrador** — copy + spec + prompt Nano Banana + pacote HTML (`/criar conteudo`) |
 | `criacao/skill-reels.md` | Reels de texto revelado — pesquisa + roteiro + HTML + Playwright → MP4 (`/criar reel`) |
+| `criacao/skill-video-ai.md` | Geração de vídeo com IA — talking head, voiceover, motion, demo (`/criar video`) |
 | `criacao/skill-reel-builder.md` | Construtor multi-tipo — text, motion, particles, 3d-abstrato, shader, physics (`/criar reel --tipo`) |
 
 ### Grupo: Aquisicao → `/prospectar`

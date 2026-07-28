@@ -165,7 +165,9 @@ function printCommandHelp() {
   print('/funil audit|metadata');
   print('/brand-intel');
   print('/idioma [idioma] [tipo]');
-  print('/analisar aeo|ab');
+  print('/analisar aeo|ab|realtime');
+  print('/agente');
+  print('/criar video [tipo]');
   print('/repositorios ou /repositórios');
   print('/demo /carrossel /post /imagem /branding /site /oferta /captacao /relatorio /funil /retencao /reativacao /salvar');
 }
@@ -198,6 +200,9 @@ function routeMappedCommand(command) {
     '/construir': 'skills/criacao/skill-construir.md',
     '/brand-intel': 'skills/brand-intelligence/SKILL.md',
     '/idioma': 'skills/brand-intelligence/multi-lang.md',
+    '/agente': 'skills/agent-builder/SKILL.md',
+    '/realtime': 'skills/analise/skill-realtime-optimizer.md',
+    '/video': 'skills/criacao/skill-video-ai.md',
     '/salvar': 'scripts/save.js',
   };
 

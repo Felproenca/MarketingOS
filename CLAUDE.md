@@ -428,6 +428,8 @@ Use `workflows/token-economy.md` como regra operacional para reduzir contexto.
 | `analise/skill-estrategista.md` | Decisao estrategica e priorizacao |
 | `analise/skill-trend-research.md` | Tendencias, maturidade e oportunidade editorial |
 | `analise/skill-performance-learning.md` | Aprendizado por metricas e feedback para o motor |
+| `analise/skill-aeo-monitor.md` | Monitor de presenca em AI-generated answers (ChatGPT, Gemini, Perplexity) — AEO/GEO |
+| `analise/skill-ab-testing.md` | Testes A/B com IA — gerar variacoes, medir, analisar vencedor |
 
 ### Grupo: Inteligencia → `/inteligencia`
 > Camada de critica, validacao e diagnostico antes da execucao.

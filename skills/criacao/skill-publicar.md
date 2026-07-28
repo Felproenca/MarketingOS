@@ -79,6 +79,80 @@ Antes de qualquer aprovação, verifique contra os critérios da marca:
 Revisão de qualidade concluída → apresentar resumo completo e aguardar [A], [E] ou [C].
 **Não avançar sem resposta. Esta skill não publica automaticamente.**
 
+---
+
+### Passo 1.5 — Gate de Compliance (obrigatório antes da aprovação)
+
+Antes de apresentar para aprovação, verificar conformidade legal e de plataformas:
+
+#### Compliance Jurisdicional
+
+```text
+Para cada mercado onde o conteúdo será publicado, verificar:
+
+1. DADOS PESSOAIS
+   - Brasil (LGPD): consentimento explícito para dados pessoais?
+   - Europa (GDPR): base legal documentada? direito ao esquecido?
+   - EUA (CCPA): opt-out de venda de dados disponível?
+   - México (LFPDPPP): aviso de privacidade publicado?
+
+2. CONTEÚDO REGULADO
+   - Saúde: Disclaimer obrigatório? (ex: "não substitui orientação médica")
+   - Financeiro: Aviso de risco? (ex: "investimentos envolvem risco")
+   - Cosméticos: Teste animal declarado? registro ANVISA?
+   - Alimentos: Informação nutricional? claims aprovados?
+
+3. PROPRIEDADE INTELECTUAL
+   - Imagens: licença verificada? (Pollinations = OK, outras = checar)
+   - Músicas: direitos autorais confirmados?
+   - Marcas registradas: uso autorizado?
+   - Fontes tipográficas: licença para uso comercial?
+
+4. PUBLICIDADE
+   - Instagram/Meta: política de anúncios revisada?
+   - Google Ads: políticas de conteúdo revisadas?
+   - Indicação de publipost: #publi ou #ad quando aplicável?
+   - Prova social: depoimentos com consentimento?
+```
+
+#### Compliance por Plataforma
+
+```text
+Instagram/Meta:
+- Texto na imagem < 20% da área?
+- Sem promessas de resultado garantido?
+- Sem clickbait enganoso?
+- Sem conteúdo sexualizado explícito?
+- Sem discriminação?
+
+Google Ads:
+- Sem palavras proibidas no nicho?
+- URL de destino funcional e relevante?
+- Sem redirecionamentos enganosos?
+- Disclaimer obrigatório presente?
+
+WhatsApp:
+- Sem spam (opt-in verificado)?
+- Sem mensagens automáticas sem identificação?
+- Horário de envio respeitado (8h-22h)?
+```
+
+#### Checklist de Compliance
+
+```
+- [ ] LGPD/GDPR/CCPA: dados pessoais tratados corretamente?
+- [ ] Conteúdo regulado: disclaimers presentes?
+- [ ] Propriedade intelectual: licenças verificadas?
+- [ ] Publicidade: indicação de publipost quando aplicável?
+- [ ] Plataforma: políticas revisadas?
+- [ ] Prova social: consentimento de depoimentos?
+- [ ] Acessibilidade: alt text, legendas, contraste?
+```
+
+**Se qualquer item falhar → NÃO avançar para aprovação. Corrigir primeiro.**
+
+---
+
 ⏸ **CP2 — Registro confirmado**
 Após publicação: confirmar que entrada foi criada em campaigns.md.
 

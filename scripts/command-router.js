@@ -165,6 +165,7 @@ function printCommandHelp() {
   print('/funil audit|metadata');
   print('/brand-intel');
   print('/idioma [idioma] [tipo]');
+  print('/analisar aeo|ab');
   print('/repositorios ou /repositórios');
   print('/demo /carrossel /post /imagem /branding /site /oferta /captacao /relatorio /funil /retencao /reativacao /salvar');
 }

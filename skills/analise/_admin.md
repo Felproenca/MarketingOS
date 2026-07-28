@@ -56,6 +56,12 @@ Comando: `/analisar`
 
 "Quero transformar métricas em aprendizado reutilizável"
 → skill-performance-learning.md
+
+"Quero monitorar como a marca aparece em respostas de IA (ChatGPT, Gemini, Perplexity)"
+→ skill-aeo-monitor.md
+
+"Quero criar testes A/B para otimizar conteúdo"
+→ skill-ab-testing.md
 ```
 
 ---

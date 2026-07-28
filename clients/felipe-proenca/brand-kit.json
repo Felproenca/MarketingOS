@@ -1,0 +1,145 @@
+{
+  "_meta": {
+    "client": "felipe-proenca",
+    "version": "3.0",
+    "status": "rebranding — identidade unificada pós-rebriefing (2026-07-27)",
+    "updated_at": "2026-07-27",
+    "note": "Consolida identidade pessoal + agency. Refinamento pós Brand Intelligence Layer."
+  },
+
+  "palette": {
+    "background":      "#080808",
+    "surface":         "#111111",
+    "surface_2":       "#1a1a1a",
+    "border":          "rgba(255,255,255,0.07)",
+    "border_solid":    "#1e1e1e",
+    "text":            "#fafafa",
+    "muted":           "#888888",
+    "dim":             "rgba(255,255,255,0.3)",
+    "gold":            "#c9a55c",
+    "gold_dim":        "rgba(201,165,92,0.14)",
+    "gold_border":     "rgba(201,165,92,0.28)",
+    "note": "Gold #c9a55c é o único acento cromático. Nunca violet, nunca azul, nunca degradê."
+  },
+
+  "typography": {
+    "logo_mark":        "Marketing/OS",
+    "logo_marketing":   "Syne 800, #fafafa",
+    "logo_slash":       "Syne 200, opacity 0.28",
+    "logo_os":          "Playfair Display italic 400, #c9a55c",
+
+    "headline":         "Syne 800 — slides e feeds",
+    "subheadline":      "Syne 600",
+    "body":             "Syne 400",
+    "eyebrow":          "Syne 500, uppercase, letter-spacing 0.2em, gold",
+    "editorial":        "Playfair Display italic — reservado para UMA frase de impacto por peça",
+    "mono":             "JetBrains Mono — dados, terminal, numeração, metadados",
+
+    "weights": {
+      "black": 900,
+      "bold":  800,
+      "semi":  600,
+      "med":   500,
+      "reg":   400,
+      "thin":  200
+    }
+  },
+
+  "logo": {
+    "construction":   "Marketing (Syne 800 #fafafa) + / (Syne 200 op.0.28) + OS (Playfair Display italic #c9a55c)",
+    "bar_compact":    "dot 8px gold + 'MARKETINGOS' Syne 700 uppercase muted — usado em slides",
+    "grain":          "SVG feTurbulence baseFrequency 0.65, numOctaves 3, opacity 0.04 — sobre todo slide escuro",
+    "personal":       "Felipe Proença — Syne 600 #fafafa, subtitle: 'Sistema Operacional de Marketing' Syne 400 #888"
+  },
+
+  "layout_patterns": {
+    "ghost_number": {
+      "desc":   "Número de fundo fantasma — elemento estrutural, não decorativo",
+      "style":  "Syne 900, 260-320px, gold opacity 0.04-0.06, posição: bottom-right ou top-right",
+      "use":    "Slide de gancho (01), CTA final"
+    },
+    "eyebrow_line": {
+      "desc":   "Eyebrow com linha antes — padrão de seção",
+      "style":  "::before width 24px height 2px gold + Syne 500 uppercase gold letter-spacing 0.2em",
+      "use":    "Toda seção que precisa de contexto antes do headline"
+    },
+    "terminal_block": {
+      "desc":   "Bloco terminal como prova — mostra o sistema em funcionamento real",
+      "style":  "bg surface_2, border border_solid, border-radius 12px, JetBrains Mono 14-15px",
+      "header": "3 dots: #ef4444 · #eab308 · #22c55e",
+      "use":    "Slides de bastidores, prova de processo, build in public"
+    },
+    "stat_boxes": {
+      "desc":   "Grid de métricas com número grande",
+      "style":  "bg surface_2, border border_solid, border-radius 8px, número em JetBrains Mono gold",
+      "use":    "Slides de resultado, prova quantitativa"
+    },
+    "color_flip_slide": {
+      "desc":   "Slide com fundo gold sólido — quebra o ritmo, alto impacto",
+      "style":  "background gold #c9a55c, text #080808, eyebrow rgba(0,0,0,0.4)",
+      "use":    "Slide de insight/princípio — sempre um por carrossel"
+    },
+    "color_chip": {
+      "desc":   "Chip colorido de identidade de lead",
+      "style":  "56px × 56px, border-radius 8px, cor extraída do lead",
+      "use":    "Slides de prova personalizada no demo pipeline"
+    },
+    "progress_dots": {
+      "desc":   "Indicador de progresso no rodapé",
+      "style":  "dots 6px border_solid, ativo: gold width 20px border-radius 3px",
+      "use":    "Todo carrossel — rodapé direito"
+    },
+    "slide_counter": {
+      "desc":   "Numeração de slide",
+      "style":  "JetBrains Mono 12px muted, bottom-right ou integrado ao progress",
+      "use":    "Todo carrossel"
+    }
+  },
+
+  "slide_structure": {
+    "width":   1080,
+    "height":  1080,
+    "padding": 72,
+    "render":  "viewport 540px + deviceScaleFactor 2 → 1080×1080",
+    "slots": [
+      "01 — Gancho: headline bold + sub + ghost number + eyebrow",
+      "02 — Prova/Processo: terminal block ou stat boxes",
+      "03 — Detalhe: grid de resultados ou antes/depois",
+      "04 — Insight: color flip slide (gold bg) + Playfair italic",
+      "05 — CTA: headline + cta-pill + handle + progress dots"
+    ]
+  },
+
+  "feeds": {
+    "tag_top":        "— MARKETINGOS — · Syne 500 uppercase muted · topo de todo feed",
+    "keyword_accent": "palavra-chave da frase em gold, mesma linha, sem quebra",
+    "icon_style":     "SVG stroke 1.5px gold — nunca emoji nas peças de feed"
+  },
+
+  "rules": {
+    "never": [
+      "violet, azul, vermelho ou qualquer acento além do gold",
+      "gradientes coloridos",
+      "emojis nas peças de feed (apenas no terminal block como texto)",
+      "fontes além de Syne / Playfair Display / JetBrains Mono",
+      "border-radius > 12px em cards",
+      "elementos decorativos sem função",
+      "Inter — a identidade usa Syne"
+    ],
+    "always": [
+      "grain overlay em slides escuros (op. 0.04)",
+      "gold como único acento — usar com critério",
+      "Playfair italic reservado para UMA frase por peça",
+      "ghost number em slides de gancho e CTA",
+      "progress dots em todo carrossel",
+      "Funnel Metadata em todo output comercial"
+    ]
+  },
+
+  "style": {
+    "direction": "Editorial técnico com prova operacional. Dark com textura de grain. Gold como único acento.",
+    "feel":      "Construtor com opinião. Rigor sem frieza. Sistema sem burocracia.",
+    "reference": "Documentação de produto bem feita — não portfólio de agência criativa",
+    "rebrand_note": "v3.0 — Consolida identidade pessoal + agency. Antes: 'Marketing/OS como produto'. Agora: 'Felipe Proença como construtor do MarketingOS'. O rosto é parte da marca."
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "slug": "felipe-proenca",
+  "generated_at": "2026-07-27T02:00:00.000Z",
+  "version": "1.0",
+  "generated_by": "brand-intelligence-layer",
+
+  "voz": {
+    "personalidade": "Construtor técnico com opinião. Rigor sem frieza. Documentação de produto que provoca.",
+    "registro": "Técnico-consultivo com provocação cirúrgica. Nunca guru. Nunca agência. Sempre construtor.",
+    "ritmo": "Frases médias a curtas. Dados antes de adjetivos. Perguntas que incomodam.",
+    "gatilhos": [
+      "sistema",
+      "operação",
+      "aquisição",
+      "previsibilidade",
+      "diagnóstico",
+      "gargalo",
+      "conversa",
+      "próximo cliente",
+      "lógica unificada",
+      "inteligência antes de produção"
+    ],
+    "anti_gatilhos": [
+      "agência",
+      "pacote de posts",
+      "gestão de redes",
+      "IA como produto",
+      "viralizar",
+      "hack",
+      "segredo",
+      "fórmula",
+      "guru",
+      "explosivo",
+      "engajamento pelo engajamento"
+    ],
+    "exemplo_fala": "Se o dono não sabe de onde vem o próximo cliente, ele não tem marketing — tem sorte."
+  },
+
+  "audiencia": {
+    "icp_resumo": "Fundador ou CEO de negócio em crescimento (R$1M-R$10M) que opera marketing há 12+ meses sem lógica unificada. Já passou por agência/freelancer. Tem resultado inconsistente que não consegue explicar.",
+    "nivel_formalidade": "Técnico sem ser corporativo. Consultivo sem ser vendedor. Próximo sem ser informal.",
+    "gatilhos_desejo": [
+      "Entender meu marketing — não só delegar",
+      "Sistema que o time executa e que fica mais inteligente",
+      "Previsibilidade de clientes",
+      "Ser referência no meu mercado",
+      "Operar com direção, não com esperança"
+    ],
+    "gatilhos_medo": [
+      "Investir em marketing e não entender por que funciona quando funciona",
+      "Concorrente crescendo enquanto eu fico parado",
+      "Agência sair e o conhecimento ir junto",
+      "Automatizar confusão em vez de direção",
+      "Pagar por resultado que não consegue medir"
+    ],
+    "linguagem_interna": "Meu marketing funciona às vezes. Não sei por quê. Cada parte foi construída por uma pessoa diferente — e quando saem, o conhecimento vai junto."
+  },
+
+  "conhecimento": {
+    "promessa_nao_declarada": "Você vai entender seu marketing pela primeira vez. Não vai depender de ninguém — nem de mim.",
+    "verdade_humana": "O problema raramente é 'falta de marketing'. É aquisição imprevisível operando sem sistema.",
+    "diferencial_invisivel": [
+      "O sistema é o argumento — mostra o perception.json, não descreve método",
+      "Percepção antes de produção — inteligência é pré-requisito, não bônus",
+      "Build in public como prova — o próprio Instagram é construído pelo sistema",
+      "Não é agência, não é ferramenta, não é consultoria — é o sistema que começa pela inteligência"
+    ],
+    "contexto_historico": "MarketingOS nasceu da frustração do Felipe com o mercado de marketing. Começou como projeto pessoal em maio/2026, evoluiu para operação completa com 65+ skills, discovery engine, funnel strategy, e presence em 6 mercados culturais. Primeiro cliente externo ainda não fechado — prioridade absoluta.",
+    "produtos_chave": [
+      "Serviço: Operação de marketing completa para negócios em crescimento",
+      "Sistema: MarketingOS — framework de aquisição orientado por IA",
+      "Futuro: Licenciamento do MarketingOS para agências e builders"
+    ],
+    "objecoes_comuns": [
+      "Preconceito com agência — 'já tentei e não funcionou'",
+      "Não acredita que IA pode ajudar no negócio dele",
+      "Não vê valor agregado no marketing — 'qualquer um posta'",
+      "Quer resultado em 30 dias sem mudar a lógica",
+      "Acha que é caro demais para o estágio do negócio"
+    ]
+  },
+
+  "restricoes": {
+    "nunca_fazer": [
+      "Parecer agência — nunca vender 'pacote de posts' ou 'gestão de redes'",
+      "Parecer guru — nunca usar 'método secreto', 'fórmula', 'hack'",
+      "Prometer resultado sem provar processo",
+      "Falar de IA sem mostrar o sistema funcionando",
+      "Copiar tom de outros marketers — o tom é único do Felipe",
+      "Usar emojis excessivos ou linguagem de influencer",
+      "Criar conteúdo sem Funnel Metadata declarado"
+    ],
+    "sempre_fazer": [
+      "Mostrar o sistema funcionando (perception.json, visual-dna, outputs reais)",
+      "Começar por diagnóstico — nunca por solução",
+      "Ter CTA claro em toda peça",
+      "Respeitar a regra 10x: entregar antes de vender",
+      "Manter coerência com brand-intelligence.json em todo output",
+      "Documentar erros e aprendizados (build in public)"
+    ],
+    "compliance": [
+      "Nenhuma promessa de resultado garantido",
+      "Dados de clientes reais nunca expostos sem consentimento",
+      "Depoimentos sempre com autorização",
+      "Disclaimer quando usar dados estimados"
+    ],
+    "concorrencia": [
+      "Agências tradicionais — vendem entrega, não sistema",
+      "Ferramentas de automação — entregam capacidade sem direção",
+      "Consultores de marketing — entregam documento, não operação",
+      "Cursos e mentors — ensinam sem operar",
+      "O próprio dono tentando fazer tudo sozinho"
+    ]
+  },
+
+  "adaptacao_plataforma": {
+    "instagram": {
+      "tom": "Técnico-visual. Dados em carrosséis. Provas em reels. Bastidores em stories.",
+      "extensao_copy": "Carrosséis: 5-7 slides, copy curta por slide. Reels: 15-60s, hook nos primeiros 3s. Posts: legenda longa com dado/insight.",
+      "formatos_preferidos": ["carrossel", "reel_texto_revelado", "post_estatico_com_dado"],
+      "hashtags_tone": "Nunca genéricas. Sempre específicas do nicho. Máximo 10. Ex: #marketingos #aquisicaodigital #sistemademarketing"
+    },
+    "whatsapp": {
+      "tom": "Direto e consultivo. Sem floreios. Pergunta diagnóstica primeiro.",
+      "extensao_mensagem": "Máximo 3 frases. Uma pergunta por mensagem. Aguardar resposta antes de enviar próxima.",
+      "emoji_usage": "Mínimo. Apenas para quebra de texto. Nunca em seqüência.",
+      "horario_tipico": "8h-20h"
+    },
+    "linkedin": {
+      "tom": "Técnico-profissional. Artigos de opinião. Dados e frameworks.",
+      "extensao_post": "Posts longos funcionam (1000-2000 caracteres). Começar com gancho forte.",
+      "formalismo": "Médio — profissional sem ser corporativo",
+      "hashtag_strategy": "3-5 hashtags. Foco em #marketing #aquisição #inteligênciaartificial"
+    },
+    "email": {
+      "tom": "Pessoal e direto. Como se fosse um email de alguém que entende do assunto.",
+      "assunto_pattern": "Pergunta direta | Dado impactante | Curiosidade técnica",
+      "extensao_corpo": "Curto. 3-5 parágrafos. Um CTA por email.",
+      "cta_tone": "Suave mas claro. 'Quer ver como isso funciona no seu negócio?' em vez de 'Compre agora'"
+    },
+    "site": {
+      "tom": "Documentação de produto bem feita. Terminal como elemento visual. Dados como prova.",
+      "hero_mensagem": "Sistema Operacional de Marketing — não agência, não ferramenta, não consultoria",
+      "cta_principal": "Ver o sistema funcionando",
+      "extensao_secao": "Curta. Dado + insight + próximo passo. Nunca texto longo sem quebra visual."
+    }
+  }
+}

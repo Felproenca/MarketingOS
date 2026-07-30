@@ -1,5 +1,4 @@
 import { useRef } from 'react'
-import { useInView } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import ModulePage from '../../components/ModulePage'
 
@@ -11,7 +10,6 @@ const SHOWCASE = [
 
 function ShowcaseStrip() {
   const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true })
 
   return (
     <section ref={ref} style={{ padding: '80px 6vw', borderBottom: '1px solid var(--border)' }}>

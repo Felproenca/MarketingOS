@@ -1,5 +1,5 @@
 import { useRef, useState, useCallback } from 'react'
-import { motion, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { motion, useInView, useMotionValue, useSpring } from 'framer-motion'
 
 /* ─── Magnetic button ─── */
 function MagneticCTA() {

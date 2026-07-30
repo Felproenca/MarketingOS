@@ -1,4 +1,5 @@
-import { ReactNode, useEffect } from 'react'
+import { useEffect } from 'react'
+import type { ReactNode } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useLenis } from '../lib/useLenis'
 import { useCursorSpotlight } from '../lib/useMousePosition'

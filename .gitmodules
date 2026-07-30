@@ -1,3 +1,6 @@
 [submodule "external/hyperframes"]
 	path = external/hyperframes
 	url = https://github.com/heygen-com/hyperframes.git
+[submodule "outputs/fizzi-reference"]
+	path = outputs/fizzi-reference
+	url = https://github.com/prismicio-community/course-fizzi-next.git

@@ -3,6 +3,7 @@ import {
   motion, useMotionValue, useSpring, useTransform,
   useScroll, AnimatePresence,
 } from 'framer-motion'
+import type { Variants } from 'framer-motion'
 
 const HEADLINE_LINES = ['SEU SITE', 'NÃO DEVERIA', 'APENAS EXISTIR.']
 
@@ -100,7 +101,7 @@ export default function Hero() {
     return () => el.removeEventListener('mousemove', onMove)
   }, [mouseX, mouseY])
 
-  const wordVariant = {
+  const wordVariant: Variants = {
     initial: { y: '105%', opacity: 0 },
     animate: { y: '0%', opacity: 1, transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1] } },
   }

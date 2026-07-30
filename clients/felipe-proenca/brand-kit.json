@@ -1,10 +1,10 @@
 {
   "_meta": {
     "client": "felipe-proenca",
-    "version": "3.0",
-    "status": "rebranding — identidade unificada pós-rebriefing (2026-07-27)",
-    "updated_at": "2026-07-27",
-    "note": "Consolida identidade pessoal + agency. Refinamento pós Brand Intelligence Layer."
+    "version": "3.2",
+    "status": "corrigido — motor de conteúdo-isca (2026-07-28)",
+    "updated_at": "2026-07-28",
+    "note": "v3.1 (mesmo dia) tentou empurrar pra lo-fi/baixo-volume — ERRADO, revertido. Direção correta (Felipe, 2026-07-28, com 3 referências reais de carrossel que engajam): conteúdo-isca — ativo real e usável entregue com autenticidade + alto volume + design que chama atenção — não conteúdo sobre o sistema, conteúdo que ENSINA O MEIO pra chegar num objetivo do ICP. O sistema/MarketingOS não é o herói do slide; o método é. Base dark/gold (identidade de marca, bio, site, peças de autoridade) continua v3.0. Novo: layout_patterns.tutorial_isca — formato separado, deliberadamente fora do dark/gold, pra conteúdo prático tipo tutorial. Ver outputs/carousels/inputs/ para o primeiro exemplo."
   },
 
   "palette": {
@@ -19,7 +19,7 @@
     "gold":            "#c9a55c",
     "gold_dim":        "rgba(201,165,92,0.14)",
     "gold_border":     "rgba(201,165,92,0.28)",
-    "note": "Gold #c9a55c é o único acento cromático. Nunca violet, nunca azul, nunca degradê."
+    "note": "Gold #c9a55c é o único acento cromático em peças de marca (identidade, bio, site). Nunca violet, nunca azul, nunca degradê. Peças de tutorial_isca (ver abaixo) usam paleta própria — branco/preto + 1 acento funcional por peça."
   },
 
   "typography": {
@@ -48,7 +48,7 @@
   "logo": {
     "construction":   "Marketing (Syne 800 #fafafa) + / (Syne 200 op.0.28) + OS (Playfair Display italic #c9a55c)",
     "bar_compact":    "dot 8px gold + 'MARKETINGOS' Syne 700 uppercase muted — usado em slides",
-    "grain":          "SVG feTurbulence baseFrequency 0.65, numOctaves 3, opacity 0.04 — sobre todo slide escuro",
+    "grain":          "SVG feTurbulence baseFrequency 0.65, numOctaves 3, opacity 0.04 — sobre todo slide escuro de marca",
     "personal":       "Felipe Proença — Syne 600 #fafafa, subtitle: 'Sistema Operacional de Marketing' Syne 400 #888"
   },
 
@@ -56,7 +56,7 @@
     "ghost_number": {
       "desc":   "Número de fundo fantasma — elemento estrutural, não decorativo",
       "style":  "Syne 900, 260-320px, gold opacity 0.04-0.06, posição: bottom-right ou top-right",
-      "use":    "Slide de gancho (01), CTA final"
+      "use":    "Slide de gancho (01), CTA final — peças de marca"
     },
     "eyebrow_line": {
       "desc":   "Eyebrow com linha antes — padrão de seção",
@@ -93,6 +93,12 @@
       "desc":   "Numeração de slide",
       "style":  "JetBrains Mono 12px muted, bottom-right ou integrado ao progress",
       "use":    "Todo carrossel"
+    },
+    "tutorial_isca": {
+      "desc":   "Formato separado do dark/gold — pra conteúdo-isca prático (tutorial, prompt, checklist, passo a passo). Referência: 3 carrosséis reais analisados 2026-07-28 (design.deb — ativo bonito+numerado; ecommerce — foto real+tipografia elegante; @renatoduran07 — fundo branco, texto preto bold, print real de tela, anotação à mão, prompt entregue dentro do carrossel).",
+      "style":  "Fundo branco ou preto sólido (sem grain, sem gradiente). Texto bold sans-serif grande (Syne 800/900) preto sobre branco ou branco sobre preto — sem gold como base, gold pode aparecer só como 1 acento funcional (ex: destacar 1 palavra). Avatar circular + handle no canto superior esquerdo (não o logo Marketing/OS formal — a peça fala como pessoa, não como marca). Prints reais do MEIO usado (ChatGPT, planilha, app) quando houver — nunca simular print como se fosse real; se for mockup/ilustração, deixar claramente estilizado, não fingir captura de tela.",
+      "use":    "Carrossel-isca: ensina um método replicável (o MEIO pra chegar num objetivo do ICP) e entrega um ativo real dentro do próprio carrossel (prompt, checklist, template) — não mostra o MarketingOS como sistema/dashboard, mostra o caminho.",
+      "structure": "01 Gancho (afirmação ousada + promessa, ex.: 'Colei isso no ChatGPT e descobri X — e vou te dar o prompt') → 02-04 Passo 1/2/3 numerados, 1 ação por slide → 05 O ativo em si, completo e copiável (prompt/checklist) → 06 O que isso revela/desbloqueia → 07 CTA de comentário pra próximo nível (dados reais do negócio do lead, não genérico)"
     }
   },
 
@@ -101,45 +107,51 @@
     "height":  1080,
     "padding": 72,
     "render":  "viewport 540px + deviceScaleFactor 2 → 1080×1080",
-    "slots": [
+    "slots_marca": [
       "01 — Gancho: headline bold + sub + ghost number + eyebrow",
       "02 — Prova/Processo: terminal block ou stat boxes",
       "03 — Detalhe: grid de resultados ou antes/depois",
       "04 — Insight: color flip slide (gold bg) + Playfair italic",
       "05 — CTA: headline + cta-pill + handle + progress dots"
-    ]
+    ],
+    "slots_tutorial_isca": "ver layout_patterns.tutorial_isca.structure",
+    "content_mix": "Alto volume, não corte. Conteúdo-isca (tutorial_isca) é o motor principal — ativo real entregue a cada peça, cadência sustentável mas frequente (não 1x/semana). Peças de marca (dark/gold) seguem pontuando autoridade e bastidor, em menor volume."
   },
 
   "feeds": {
-    "tag_top":        "— MARKETINGOS — · Syne 500 uppercase muted · topo de todo feed",
+    "tag_top":        "— MARKETINGOS — · Syne 500 uppercase muted · topo de todo feed de marca",
     "keyword_accent": "palavra-chave da frase em gold, mesma linha, sem quebra",
-    "icon_style":     "SVG stroke 1.5px gold — nunca emoji nas peças de feed"
+    "icon_style":     "SVG stroke 1.5px gold — nunca emoji nas peças de feed de marca"
   },
 
   "rules": {
     "never": [
-      "violet, azul, vermelho ou qualquer acento além do gold",
+      "violet, azul, vermelho ou qualquer acento além do gold em peças de marca",
       "gradientes coloridos",
-      "emojis nas peças de feed (apenas no terminal block como texto)",
+      "emojis nas peças de feed de marca (apenas no terminal block como texto)",
       "fontes além de Syne / Playfair Display / JetBrains Mono",
       "border-radius > 12px em cards",
       "elementos decorativos sem função",
-      "Inter — a identidade usa Syne"
+      "Inter — a identidade usa Syne",
+      "carrossel-isca prometendo ativo que não é entregue de verdade — se anunciar prompt/checklist, tem que estar completo e funcional no carrossel",
+      "print de tela forjado — se não for captura real, precisa parecer claramente ilustração"
     ],
     "always": [
-      "grain overlay em slides escuros (op. 0.04)",
-      "gold como único acento — usar com critério",
+      "grain overlay em slides escuros de marca (op. 0.04)",
+      "gold como único acento em peças de marca — usar com critério",
       "Playfair italic reservado para UMA frase por peça",
-      "ghost number em slides de gancho e CTA",
+      "ghost number em slides de gancho e CTA (peças de marca)",
       "progress dots em todo carrossel",
-      "Funnel Metadata em todo output comercial"
+      "Funnel Metadata em todo output comercial",
+      "no carrossel-isca: o ativo prometido no gancho aparece de verdade, copiável, dentro do próprio carrossel — o valor não fica preso atrás do CTA"
     ]
   },
 
   "style": {
-    "direction": "Editorial técnico com prova operacional. Dark com textura de grain. Gold como único acento.",
+    "direction": "Dois sistemas visuais coexistindo por job: peças de marca = editorial técnico dark/gold com prova operacional. Peças de conteúdo-isca = tutorial_isca, raw e prático, fora do dark/gold.",
     "feel":      "Construtor com opinião. Rigor sem frieza. Sistema sem burocracia.",
-    "reference": "Documentação de produto bem feita — não portfólio de agência criativa",
-    "rebrand_note": "v3.0 — Consolida identidade pessoal + agency. Antes: 'Marketing/OS como produto'. Agora: 'Felipe Proença como construtor do MarketingOS'. O rosto é parte da marca."
+    "reference": "Peças de marca: documentação de produto bem feita. Peças de isca: tutorial direto ao ponto — ver @renatoduran07 como calibre de clareza e entrega real.",
+    "rebrand_note": "v3.0 — Consolida identidade pessoal + agency. Antes: 'Marketing/OS como produto'. Agora: 'Felipe Proença como construtor do MarketingOS'. O rosto é parte da marca.",
+    "editorial_note_2026_07_28": "v3.2 — Corrigido após feedback direto do Felipe com 3 referências reais. O erro da v3.1 foi tratar 'menos produção' como a virada certa. A virada certa é: conteúdo-isca autêntico e de alto volume, que ensina o método (não exibe o sistema) e entrega um ativo real dentro da peça. Motor de comentário→DM (scripts/dm-engine/) é o próximo passo pra escalar captura — bloqueado em deploy (token60 + Dockerfile + webhook Meta, passos do Felipe)."
   }
 }

@@ -29,7 +29,42 @@
 
 - [x] Grade 1 — Posts 01—09 publicados (2026-05-22)
 - [x] Grade 2 — Posts 10—18 publicados
-- [ ] Grade 3 — Posts baseados em brand-intelligence.json
+- [ ] Grade 3 — descontinuada no formato antigo. Substituída pela linha editorial pós-pesquisa de campo (2026-07-28) — ver abaixo. Histórico de posts permanece publicado, não é excluído.
+
+---
+
+## Linha editorial — motor de conteúdo-isca (2026-07-28, corrigida)
+
+**Correção do mesmo dia:** a primeira versão desta seção (pesquisa de campo genérica de
+mercado) empurrou pra baixo volume/lo-fi — errado, revertido. Felipe trouxe 3 referências
+reais de carrossel que engajam e geram resultado (`design.deb`, ecommerce de moda,
+`@renatoduran07`) e a leitura certa é outra: **conteúdo-isca**.
+
+**O que é conteúdo-isca:** um ativo real e usável (prompt, checklist, template, mini-ferramenta)
+entregue com autenticidade, em alto volume, com design que chama atenção — não conteúdo
+*sobre* o MarketingOS, conteúdo que *ensina o método* pra resolver um problema real do ICP.
+O sistema não é o herói do slide. O caminho é. Ver `brand-kit.json` →
+`layout_patterns.tutorial_isca` para a especificação visual (fora do dark/gold, formato
+próprio pra esse tipo de peça).
+
+**Mecanismo (já batido com a Doutrina de Aquisição 2026, `intelligence/doctrine-aquisicao-2026.md`):**
+Carrossel-isca → CTA de palavra-chave no comentário → DM automática entrega o próximo nível
+→ conversa humana → oferta. Motor técnico já existe: `scripts/dm-engine/` (comentário→DM,
+webhook Meta, captura de lead) — testado localmente, **bloqueado em deploy** (token 60d,
+Dockerfile, webhook no app Meta — 4 passos só o Felipe faz, ver `scripts/dm-engine/DEPLOY.md`).
+Isso é o gargalo real pra essa linha gerar lead de verdade, não o formato do conteúdo.
+
+**Primeiro ativo (2026-07-28):** prompt de diagnóstico de aquisição — versão em prompt do
+`outputs/lead-magnet/diagnostico.html` já existente (6 perguntas, score real por dimensão,
+gargalo = menor score — mesma lógica, sem inventar nada novo). Entregue completo e copiável
+dentro do próprio carrossel, formato tutorial_isca inspirado em `@renatoduran07`
+(passo a passo numerado, fundo cru, ativo exposto na tela, não escondido atrás do CTA).
+
+**O que evitar:**
+- Mostrar o MarketingOS/dashboard como prova em vez de mostrar o método funcionando
+- Prometer ativo no gancho e não entregar completo dentro do carrossel
+- Print de tela forjado — se não for captura real, estilizar como ilustração, nunca fingir
+- Volume baixo por "pureza" de formato — o motor de isca pede cadência alta, sustentável
 
 ---
 

@@ -173,6 +173,18 @@ Planejados para proximas levas: `/inteligencia office-hours`, `/inteligencia tes
 
 > Executados no terminal. Independentes do contexto de sessão Claude.
 
+### Integração do ecossistema
+
+```bash
+npm run ecosystem:export -- \
+  --contract ../analises-unificacao/pilots/felipe-proenca/contracts/02-campaign-brief.json \
+  --mailbox-root ../analises-unificacao/pilots/felipe-proenca/mailboxes
+```
+
+Entrega um `client_truth` ou `campaign_brief` já versionado ao mailbox do
+EcosystemCore. Não cria estratégia, não altera métricas e não executa publicação
+ou outreach. O Core valida fonte, versão e correlação antes de roteá-lo.
+
 ### Clientes
 
 ```bash

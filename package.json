@@ -54,7 +54,8 @@
     "cockpit": "cd cockpit && npm run dev:all",
     "cockpit:build": "cd cockpit && npm run build",
     "site": "cd site-mkos && npm run dev",
-    "site:build": "cd site-mkos && npm run build"
+    "site:build": "cd site-mkos && npm run build",
+    "ecosystem:export": "node scripts/ecosystem/export-contract.mjs"
   },
   "keywords": [],
   "author": "",

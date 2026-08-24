@@ -166,7 +166,27 @@ function runVideo(job) {
   const inputFile = path.join(marketingRoot, "tmp", "mediaos", `${job.id}.json`);
   const output = path.dirname(inputFile);
   mkdirSync(output, { recursive: true });
-  writeFileSync(inputFile, JSON.stringify({ ...(job.input || {}), job_id: job.id, output_dir: path.join(marketingRoot, "outputs", "mediaos", job.client_id, job.id) }));
+  const baseInput = { ...(job.input || {}), job_id: job.id, output_dir: path.join(marketingRoot, "outputs", "mediaos", job.client_id, job.id) };
+  // Caminho local direto no prompt (ex.: operador cola o path do vídeo na solicitação)
+  if (!baseInput.source_path) {
+    const promptText = String(baseInput.prompt || baseInput.objective || "").trim();
+    if (promptText && (promptText.includes("\\") || promptText.includes("/")) && existsSync(promptText)) baseInput.source_path = promptText;
+  }
+  // EditorOS exige um arquivo local (source_path). Se o pedido veio com URL (upload/storage
+  // ou link do cliente), baixa para tmp/mediaos antes de despachar — sem isso o job
+  // falhava sempre com "source_path inexistente".
+  const sourceUrl = baseInput.source_url || baseInput.reference_url || String(baseInput.prompt || baseInput.objective || "").match(/https?:\/\/[^\s"']+/)?.[0] || "";
+  if (!baseInput.source_path && sourceUrl) {
+    const ext = /youtube|youtu\.be/i.test(sourceUrl) ? ".mp4" : path.extname(new URL(sourceUrl).pathname).slice(0, 6) || ".mp4";
+    const local = path.join(marketingRoot, "tmp", "mediaos", `${job.id}.source${ext}`);
+    mkdirSync(path.dirname(local), { recursive: true });
+    const fetched = spawnSync(process.execPath, ["-e", `fetch(process.argv[1]).then(r=>{if(!r.ok)throw Error('http_'+r.status);return r.arrayBuffer()}).then(b=>require('node:fs').writeFileSync(process.argv[2],Buffer.from(b))).catch(e=>{console.error(e.message);process.exit(1)})`, sourceUrl, local], { cwd: marketingRoot, encoding: "utf8", timeout: 90000 });
+    if (fetched.status !== 0 || !existsSync(local)) {
+      throw Object.assign(new Error(`Video edit bloqueado: nao foi possivel baixar a fonte (${fetched.stdout || fetched.stderr || "erro de rede"}). Use um link direto de arquivo.`), { retryable: false, blocked: true });
+    }
+    baseInput.source_path = local;
+  }
+  writeFileSync(inputFile, JSON.stringify(baseInput));
   const args = [videoExecutor, "--input-json", inputFile];
     const result = spawnExecutor(process.execPath, args);
   try { unlinkSync(inputFile); } catch {}
@@ -396,9 +416,9 @@ async function processJob(job) {
       await patchJob(job.id, { input: { ...(job.input || {}), context_gate: contextGate } });
     }
     if (!contextGate.ok) throw Object.assign(new Error(`Context Gate bloqueou o job: ${contextGate.errors.join(" | ")}`), { retryable: false, blocked: true });
-    if (!["carousel", "post", "image", "image_generate", "research", "ads", "automation", "video", "generative_video", "analysis", "strategy", "funnel", "data_sync", "prospecting", "publish"].includes(job.job_type)) throw Object.assign(new Error(`Executor ainda nao conectado para job_type=${job.job_type}.`), { retryable: false });
+    if (!["carousel", "post", "image", "image_generate", "research", "ads", "automation", "video", "video_edit", "generative_video", "analysis", "strategy", "funnel", "data_sync", "prospecting", "publish"].includes(job.job_type)) throw Object.assign(new Error(`Executor ainda nao conectado para job_type=${job.job_type}.`), { retryable: false });
     job.input = { ...(job.input || {}), context_gate: contextGate };
-    const videoExecution = job.job_type === "video" ? runVideo(job) : null;
+    const videoExecution = ["video", "video_edit"].includes(job.job_type) ? runVideo(job) : null;
     const generatedVideoExecution = job.job_type === "generative_video" ? await generateVideo({ clientId: job.client_id, job }) : null;
     const imageExecution = ["image", "image_generate"].includes(job.job_type) ? await generateImage({ clientId: job.client_id, job }) : null;
     const postExecution = job.job_type === "post" ? runPost({ ...job, reference_snapshot: request.reference_snapshot }) : null;

@@ -473,6 +473,8 @@ const EXECUTION_FAMILIES = {
 
 // Dispatcher: capabilities de OS não são executadas inline no Cockpit.
 // Elas viram um dispatch para o mailbox do OS dono; o worker local recolhe.
+// ⚠️ video_edit NÃO vai para o mailbox EditorOS (ninguém consome → job preso):
+//    vai para o mediaos-worker local (que roda o EditorOS nesta máquina, com ffmpeg+venvs).
 const OS_TARGET = {
   generate_image: 'DesingOS',
   generate_video: 'EditorOS',
@@ -481,6 +483,9 @@ const OS_TARGET = {
   data_sync: 'GrowthOS',
   agentic_code: 'local-code-agent',
 }
+
+// OSs cuja execução acontece no worker local (mediaos-worker), não via mailbox.
+const LOCAL_EXECUTOR_TARGETS = new Set(['EditorOS'])
 
 export async function executeCapability(capability, input, route, clientId, jobId) {
   const family = EXECUTION_FAMILIES[capability] || 'text'
@@ -596,6 +601,13 @@ export async function executeJob(job, route) {
   try {
     const result = await executeCapability(capability, job.input || {}, r, job.client_id, job.id)
     if (result.kind === 'dispatch') {
+      // OS com executor local (ex.: EditorOS via mediaos-worker): deixa o job queued
+      // com executor local:* para o mediaos-worker claimar e processar nesta máquina.
+      if (LOCAL_EXECUTOR_TARGETS.has(result.targetSystem)) {
+        await patchJob(job.id, { status: 'queued', executor: 'local:editoros', priority: 'high', input: { ...(job.input || {}), ...(result.input || {}) }, result: { dispatch: result } })
+        await db('media_job_events', { method: 'POST', headers: { Prefer: 'return=minimal' }, body: JSON.stringify({ job_id: job.id, event_type: 'dispatched_local', from_status: 'running', to_status: 'queued', message: 'Despachado para o executor local (EditorOS via mediaos-worker).', metadata: { capability, target_system: result.targetSystem } }) }).catch(() => null)
+        return { ok: true, queued: true, targetSystem: 'local:editoros', dispatch: result }
+      }
       await patchJob(job.id, { status: 'routed', executor: `ecosystem:${result.targetSystem}`, result: { dispatch: result } })
       await db('media_job_events', { method: 'POST', headers: { Prefer: 'return=minimal' }, body: JSON.stringify({ job_id: job.id, event_type: 'dispatched', from_status: 'running', to_status: 'routed', message: `Despachado para ${result.targetSystem} via mailbox.`, metadata: { capability, target_system: result.targetSystem } }) }).catch(() => null)
       return { ok: true, queued: true, targetSystem: result.targetSystem, dispatch: result }

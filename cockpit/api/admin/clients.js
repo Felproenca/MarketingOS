@@ -89,7 +89,7 @@ async function createClient(request, response) {
     const base = process.env.SUPABASE_URL.replace(/\/$/, '').replace(/\/rest\/v1$/, '')
     const key = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY
     if (!key) throw new Error('SUPABASE_SECRET_KEY ausente para enviar convite.')
-    const inviteResponse = await fetch(`${base}/auth/v1/admin/invite`, { method: 'POST', headers: { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ email, data: { client_id: clientId, display_name: displayName } }) })
+    const inviteResponse = await fetch(`${base}/auth/v1/admin/invite`, { method: 'POST', headers: { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ email, redirect_to: `${process.env.CLIENT_PORTAL_URL || 'https://marketingos-frontend.vercel.app'}/login/cliente?slug=${encodeURIComponent(clientId)}`, data: { client_id: clientId, display_name: displayName } }) })
     const inviteBody = await inviteResponse.json().catch(() => ({}))
     if (!inviteResponse.ok) throw new Error(inviteBody.msg || inviteBody.message || 'Não foi possível enviar o convite.')
     invitation = { email, sent: true }

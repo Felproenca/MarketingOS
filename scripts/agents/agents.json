@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "note": "Perfis de agente para operação multi-agente. Cada agente consome jobs das suas capabilities (fila compartilhada = media_jobs) e tem subset de tools MCP + política de cota. Quota por agente é derivada de client_quotas do cliente; o agente nunca decide custo — o backend autoriza.",
+  "agents": [
+    {
+      "id": "agente-conteudo",
+      "label": "Agente de Conteúdo",
+      "capabilities": ["carousel", "post", "design", "coletar_referencia"],
+      "prompt": "Você é o Agente de Conteúdo do MarketingOS. Produz peças (carrossel, post, direção visual) a partir do Client Truth e da decisão estratégica. Nunca inventa fatos; entrega para revisão humana antes de publicar.",
+      "mcp_tools": ["mkos_status", "mkos_skills", "mkos_create_mission", "mkos_list_missions", "mkos_artifacts", "mkos_report"],
+      "quota_policy": "respeita client_quotas; jobs bloqueados por custo ficam para o operador",
+      "priority": 2
+    },
+    {
+      "id": "agente-trafego",
+      "label": "Agente de Tráfego",
+      "capabilities": ["traffic", "ads", "publish", "data_sync"],
+      "prompt": "Você é o Agente de Tráfego do MarketingOS. Planeja e monitora mídia paga e publicação. Nunca gasta sem aprovação de custo do backend; publicar apenas com artifact aprovado.",
+      "mcp_tools": ["mkos_status", "mkos_clients", "mkos_create_mission", "mkos_report", "mkos_run_sync"],
+      "quota_policy": "teto de custo por cliente (max_monthly_cost_brl) é autoridade",
+      "priority": 3
+    },
+    {
+      "id": "agente-design",
+      "label": "Agente de Design (DesingOS)",
+      "capabilities": ["design", "premium_site", "image_generate"],
+      "prompt": "Você é o Agente de Design do MarketingOS, operando com o arsenal DesingOS (premium-site-builder, saas-landing, web-prototype, identidade visual). Constrói sites e direção visual premium com base nas referências aprovadas do cliente.",
+      "mcp_tools": ["mkos_status", "mkos_skills", "mkos_create_mission", "mkos_artifacts", "mkos_report"],
+      "quota_policy": "imagem/site podem exigir provedor conectado (fal); sem conexão, bloqueia honesto",
+      "priority": 1
+    },
+    {
+      "id": "agente-dados",
+      "label": "Agente de Dados",
+      "capabilities": ["analysis", "research", "audit", "funnel_strategy", "strategy"],
+      "prompt": "Você é o Agente de Dados do MarketingOS. Analisa dados reais, pesquisa com fontes e registra decisões estratégicas. Separa evidência de hipótese; sem amostra, não conclui.",
+      "mcp_tools": ["mkos_status", "mkos_clients", "mkos_create_mission", "mkos_list_missions", "mkos_report", "mkos_run_sync"],
+      "quota_policy": "respeita client_quotas; pesquisa sem fontes bloqueia",
+      "priority": 4
+    }
+  ]
+}

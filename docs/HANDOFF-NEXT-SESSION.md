@@ -19,6 +19,16 @@
 
 **Validação E2E (job real)**: carrossel forca-da-terra → DeepSeek real → SVG no storage → QA (score 7) → artifact `review` com preview + 6 assets. O caminho crítico request→job→executor→artifact→aprovação funciona.
 
+## 0.1 NOVAS CAPACIDADES CONSTRUÍDAS (24/08 — segunda rodada)
+
+| Capacidade | Como funciona | Validado |
+|---|---|---|
+| **Agenda por cliente** | Operador cria itens (`action=agenda` subAction=create no `/api/admin/operations`; itens = work_requests `agenda_item`, status proposta→aprovado/recusado→gerado). Cliente aprova/recusa no portal (`POST /api/client/:slug` com `action: approve_agenda/reject_agenda`). `generate` converte aprovados em solicitações reais de produção | ✅ criar 3 → aprovar 2 → gerar → 2 solicitações na fila |
+| **Upload de vídeo para o editor** | Frontend (intent Editar vídeo) envia arquivo → `/api/admin/ai/upload` (aceita mp4/mov/webm; grava storage + `input.source_url` no job) → worker baixa → EditorOS (whisper/cortes/legendas) → artifact `video_edit` review com MP4 | ✅ mp4 real ponta a ponta |
+| **Link de acesso do cliente** | Botão no ClienteDetail → `POST /api/admin/clients?action=access_link` → Supabase `generate_link` (magic link) com redirect p/ `/login/cliente?slug=` → copia o link | ✅ endpoint + UI |
+| **EditorOS no worker local** | `video_edit` NÃO vai mais ao mailbox morto: rota `local:editoros` (executor.js LOCAL_EXECUTOR_TARGETS); worker claima e roda com ffmpeg+EditorOS (venvs whisper/vision). `MEDIAOS_EXECUTOR_TIMEOUT_MS=600000` no `.env` | ✅ 2 vídeos reais editados |
+| **DesingOS no front** | Intents novos: Construir site/página (design), Criar imagem | ✅ build |
+
 ## 1. Estado do sistema (verdade, sem exagero)
 
 ### Backend — ORQUESTRAÇÃO 100% funcional ✅

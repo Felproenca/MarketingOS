@@ -1,0 +1,11 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/login/cliente", "destination": "/" },
+    { "source": "/dados/:slug", "destination": "/" },
+    { "source": "/(.*)", "destination": "/" }
+  ]
+}

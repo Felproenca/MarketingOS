@@ -4,6 +4,21 @@
 > Leia inteiro antes de agir. Docs-chave: `docs/PLANO-BACKEND.md`, `docs/PLANO-FRONTEND.md`,
 > `docs/BRIEF-FRONTEND-MVP.md`, `docs/contrato-execucao.md`, `docs/FRONTEND_REFERENCIAS.md`.
 
+## 0. AUDITORIA REAL (24/08 — o que estava travando a operação e o que foi feito)
+
+> A sessão anterior validou o que estava PRONTO, mas não o que estava QUEBRADO. Auditoria direta no Supabase/workers/logs:
+
+| # | Problema encontrado | Correção aplicada | Status |
+|---|---|---|---|
+| 1 | **Context Gate DEADLOCK**: exigia `outputs/strategy/strategy-decision.json` até para jobs de `strategy`; nada gerava o arquivo; formato legado era `estrategia.md` → 6 jobs blocked | `strategy/funnel` removidos da exigência; `scripts/context/bootstrap-strategy.mjs` converte `estrategia.md`→`strategy-decision.json` (12 clientes validados no schema); `scripts/context/ensure-client-context.mjs` materializa contexto local a partir do `client_references` (Supabase) para clientes criados pelo frontend | ✅ |
+| 2 | **Artifacts nascendo `draft` sem preview** → fila de aprovação do front sempre vazia = “nada funciona de verdade” | `executor.js saveArtifact`: artifact com conteúdo nasce `review` + `preview_url` + `assets`; 5 drafts antigos migrados | ✅ (deployado no app.mkos.online) |
+| 3 | **Frontend duplicava requests** no “Gerar estratégia” (5x o mesmo) | `unblock()` com idempotência (checa strategy pendente do mesmo pedido) | ✅ (deployado marketingos-frontend.vercel.app) |
+| 4 | **20 sync_schedules sem conexão real** (só existe felipe-proenca/meta) → `connection_not_found` a cada 24h | schedules sem conexão desabilitados | ✅ |
+| 5 | **Hermes OFF**: gateway não rodava, bot Telegram desconectado | `hermes gateway start` → Telegram conectado (polling, 57 cmds); MCP `marketingos` validado (`hermes mcp test` → 8 tools). ⚠️ token no `.env` = **@systemmkosbot** (não @Hermesmkosbot como o handoff antigo dizia) | ✅ rodando |
+| 6 | Worker antigo `marketingos-worker` com `poll error: fetch failed` intermitente (rede/Supabase) | observado; não interfere no fluxo novo (mediaos-worker processa `status=queued`) | ⚠️ monitorar |
+
+**Validação E2E (job real)**: carrossel forca-da-terra → DeepSeek real → SVG no storage → QA (score 7) → artifact `review` com preview + 6 assets. O caminho crítico request→job→executor→artifact→aprovação funciona.
+
 ## 1. Estado do sistema (verdade, sem exagero)
 
 ### Backend — ORQUESTRAÇÃO 100% funcional ✅
@@ -37,7 +52,7 @@
 
 ## 3. Conexão PI ↔ Hermes
 - **PI** (este agente) = constrói/mantém o sistema (código, deploy, auditoria).
-- **Hermes** = agente de OPERAÇÃO (Telegram @Hermesmkosbot + MCP 8 tools: status, clients, skills, create_mission, list_missions, artifacts, report, run_sync).
+- **Hermes** = agente de OPERAÇÃO (Telegram **@systemmkosbot** — gateway UP desde 24/08 — + MCP 8 tools: status, clients, skills, create_mission, list_missions, artifacts, report, run_sync).
 - A ponte é o MCP (`marketingos-mcp/server.mjs`) — Hermes chama o backend com secret (MEDIAOS_EXECUTION_INGEST_SECRET), nunca vê as chaves.
 - Comandos: `hermes mcp list` · `hermes mcp test marketingos` · worker via pm2.
 
@@ -51,7 +66,12 @@ Visão: múltiplos agentes especializados operando em paralelo no sistema:
 
 ## 5. Pendências (ordem)
 1. ~~**Frontend**~~ ✅ MVP completo: fluxo crítico, Command Center, portal do cliente, login separado, conexões Meta/Google, seletor de cliente e redesign das telas legadas (`Missoes`, `MissaoDetail`, `Aquisicao`, `Conteudo`, `Biblioteca`, `Logs`) — `npm run build` passa.
-2. **Vídeo produção**: decidir EditorOS vs escopo menor.
+2. ~~**Operação real**~~ ✅ destravada: context gate (bootstrap estratégia + auto-contexto), artifacts `review` com preview, idempotência no front, sync honesto, Hermes UP. E2E validado (carrossel forca-da-terra → artifact review com preview).
+3. **Vídeo produção**: decidir EditorOS vs escopo menor (executor video existe; requer ffmpeg/EditorOS).
+4. **POT/YouTube**: cookies ou continuar tuning (bloqueio 403 no download).
+5. **Multi-agente**: definir agentes + perfis MCP + cotas por agente.
+6. **Imagem**: quando um cliente fornecer conexão fal → o executor já usa.
+7. **Imagem/vídeo com preview**: artifacts de `image`/`image_generate` ficam com preview "texto" — quando fal conectado, vira URL real.
 3. **POT/YouTube**: cookies ou continuar tuning.
 4. **Multi-agente**: definir agentes + perfis MCP + cotas por agente.
 5. **Imagem**: quando um cliente fornecer conexão fal → o executor já usa.

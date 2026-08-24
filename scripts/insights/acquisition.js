@@ -25,6 +25,7 @@ const fs = require('fs');
 const path = require('path');
 const { loadConfig } = require('../publisher/config');
 const { apiGet, validateToken, getMediaInfo } = require('../publisher/instagram');
+const { writeInstagramSync } = require('../../../GrowthOS/data-now/src/instagram');
 
 const NOW = () => new Date().toISOString();
 
@@ -258,6 +259,14 @@ async function main() {
 
   const outPath = path.resolve(__dirname, '../../clients', args.slug, 'acquisition-metrics.json');
   fs.writeFileSync(outPath, JSON.stringify(report, null, 2), 'utf8');
+  const dataNowStatus = writeInstagramSync({
+    dataNowRoot: path.resolve(__dirname, '../../../GrowthOS/data-now'),
+    clientId: args.slug,
+    sourceAccountId: cfg.igUserId,
+    observedAt: report.generatedAt,
+    acquisition: report,
+  });
+  console.log(`DATA NOW: ${dataNowStatus.last_sync_status} (${dataNowStatus.normalized_records} registros normalizados).`);
   console.log(`\n   ✓ Gravado: clients/${args.slug}/acquisition-metrics.json`);
 }
 

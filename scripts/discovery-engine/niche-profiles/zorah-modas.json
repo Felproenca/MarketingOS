@@ -1,0 +1,34 @@
+{
+  "niche_id": "zorah_modas",
+  "niche_label": "Zorah Modas — Moda Boho/Praia (Niterói RJ)",
+  "version": "0.1.0",
+  "status": "draft",
+  "cnae_validation_note": "Cliente manual (não via CNAE): loja de moda identificada em análise Hermes 2026-08-02 (Instagram @zorahmodas, ~18k seguidores, site Wix sem loja, WhatsApp +5521972256655 público no Linktree).",
+  "discovery": {
+    "sources": ["analise_manual_hermes"],
+    "region_scope": { "type": "city", "values": ["Niterói"] },
+    "min_results_per_run": 0,
+    "max_results_per_run": 1
+  },
+  "enrichment": {
+    "website_scraping_targets": ["whatsapp_business_link", "redes_sociais_linkadas"],
+    "respect_robots_txt": true,
+    "timeout_seconds": 10
+  },
+  "qualification": {
+    "framework": "MANUAL",
+    "signals": [
+      { "signal_id": "publico_instagram", "description": "Base de seguidores no Instagram", "weight": 0.35, "threshold_min": 5000, "value": 18000, "passed": true },
+      { "signal_id": "atividade_social", "description": "Perfil ativo com reels/stories", "weight": 0.25, "threshold_min": true, "value": true, "passed": true },
+      { "signal_id": "ausencia_loja", "description": "Sem e-commerce ativo (oportunidade de oferta)", "weight": 0.25, "threshold_min": true, "value": true, "passed": true },
+      { "signal_id": "canal_contato_publico", "description": "WhatsApp publicado em canal oficial (Linktree)", "weight": 0.15, "threshold_min": true, "value": true, "passed": true }
+    ],
+    "tier_thresholds": { "A": 75, "B": 50, "C": 0 }
+  },
+  "contact_channels": ["whatsapp"],
+  "compliance": {
+    "legal_basis": "Contato comercial com número publicado pela própria empresa em canal oficial (Linktree) — interesse legítimo institucional.",
+    "excluded_sources": ["grupos_fechados_whatsapp", "grupos_fechados_facebook", "perfis_pessoais_scraping", "dm_nao_solicitada_instagram", "automacao_inmail_massa"]
+  },
+  "outreach_script_ref": "Oferta definida em campaign-brief-zorah-modas-001 (correlação zorah-modas-ciclo-001); apresentação em DesingOS/artifacts/zorah-modas/apresentacao-zorah-modas.pdf"
+}

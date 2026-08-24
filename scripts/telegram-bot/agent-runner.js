@@ -12,21 +12,15 @@ const TIMEOUT_MS = Number(process.env.TELEGRAM_AGENT_TIMEOUT_MS || 15 * 60 * 100
 const queue = [];
 let processing = false;
 
-function findCodexExecutable() {
-  if (process.env.CODEX_EXECUTABLE) return process.env.CODEX_EXECUTABLE;
-  if (process.platform !== 'win32') return 'codex';
-  const extensionsDir = path.join(process.env.USERPROFILE || '', '.vscode', 'extensions');
-  if (fs.existsSync(extensionsDir)) {
-    const installations = fs.readdirSync(extensionsDir)
-      .filter((name) => name.startsWith('openai.chatgpt-'))
-      .sort()
-      .reverse();
-    for (const installation of installations) {
-      const executable = path.join(extensionsDir, installation, 'bin', 'windows-x86_64', 'codex.exe');
-      if (fs.existsSync(executable)) return executable;
-    }
-  }
-  throw new Error('Executavel nativo do Codex nao encontrado. Configure CODEX_EXECUTABLE.');
+const PI_CLI = process.env.PI_CLI_PATH
+  || path.join(
+      process.env.USERPROFILE || '',
+      'AppData', 'Roaming', 'npm', 'node_modules',
+      '@earendil-works', 'pi-coding-agent', 'dist', 'cli.js',
+    );
+
+function findNodeExecutable() {
+  return process.env.NODE_EXECUTABLE || 'node';
 }
 
 function buildPrompt(job) {
@@ -56,28 +50,39 @@ function execute(job) {
     fs.mkdirSync(JOBS_DIR, { recursive: true });
     const outputFile = path.join(JOBS_DIR, `${job.taskId}.md`);
     const logFile = path.join(JOBS_DIR, `${job.taskId}.log`);
-    const executable = findCodexExecutable();
+    const promptFile = path.join(JOBS_DIR, `${job.taskId}.prompt.txt`);
+
+    if (!fs.existsSync(PI_CLI)) {
+      return reject(new Error(`PI CLI nao encontrado em ${PI_CLI}. Configure PI_CLI_PATH.`));
+    }
+    fs.writeFileSync(promptFile, buildPrompt(job), 'utf8');
+
     const args = [
-      'exec', '-',
-      '--cd', ROOT,
-      '--sandbox', 'workspace-write',
-      '--color', 'never',
-      '--output-last-message', outputFile,
+      PI_CLI,
+      '-p', `@${promptFile}`,
+      '--provider', process.env.PI_PROVIDER || 'deepseek',
+      '--model', process.env.PI_MODEL || 'deepseek-v4-pro',
+      '--no-session',
     ];
-    const child = spawn(executable, args, {
+
+    const child = spawn(findNodeExecutable(), args, {
       cwd: ROOT,
-      env: { ...process.env, CODEX_NON_INTERACTIVE: '1' },
       windowsHide: true,
-      stdio: ['pipe', 'pipe', 'pipe'],
+      stdio: ['ignore', 'pipe', 'pipe'],
     });
-    let logs = '';
-    const collect = (chunk) => {
-      logs += chunk.toString();
-      if (logs.length > 100000) logs = logs.slice(-100000);
+
+    let stdout = '';
+    let stderr = '';
+    const collectOut = (chunk) => {
+      stdout += chunk.toString();
+      if (stdout.length > 200000) stdout = stdout.slice(-200000);
     };
-    child.stdout.on('data', collect);
-    child.stderr.on('data', collect);
-    child.stdin.end(buildPrompt(job), 'utf8');
+    const collectErr = (chunk) => {
+      stderr += chunk.toString();
+      if (stderr.length > 100000) stderr = stderr.slice(-100000);
+    };
+    child.stdout.on('data', collectOut);
+    child.stderr.on('data', collectErr);
 
     const timer = setTimeout(() => {
       child.kill();
@@ -90,13 +95,14 @@ function execute(job) {
     });
     child.on('close', (code) => {
       clearTimeout(timer);
-      fs.writeFileSync(logFile, logs, 'utf8');
+      fs.writeFileSync(logFile, `STDOUT:\n${stdout}\n\nSTDERR:\n${stderr}`, 'utf8');
       if (code !== 0) {
-        reject(new Error(`Codex encerrou com codigo ${code}. Consulte ${path.relative(ROOT, logFile)}.`));
+        reject(new Error(`PI encerrou com codigo ${code}. Consulte ${path.relative(ROOT, logFile)}.`));
         return;
       }
-      const result = fs.existsSync(outputFile) ? fs.readFileSync(outputFile, 'utf8').trim() : '';
-      if (!result) return reject(new Error('Codex terminou sem mensagem final.'));
+      const result = stdout.trim();
+      if (!result) return reject(new Error('PI terminou sem resposta.'));
+      fs.writeFileSync(outputFile, result, 'utf8');
       resolve({ result, outputFile: path.relative(ROOT, outputFile) });
     });
   });

@@ -23,9 +23,11 @@
 require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const { loadConfig } = require('../publisher/config');
-const { validateToken, getMediaInfo, getMediaInsights } = require('../publisher/instagram');
+const { validateToken, getMediaInfoRaw, getMediaInsightsRaw } = require('../publisher/instagram');
 const ledger = require('../publisher/ledger');
+const { writeInstagramSync } = require('../../../GrowthOS/data-now/src/instagram');
 
 // ── Args ─────────────────────────────────────────────────────────────────────
 
@@ -60,6 +62,47 @@ function computeEngagement(info, ins) {
     : likes + comments + saved + shares;
   const engagement_rate = reach > 0 ? Number((interactions / reach).toFixed(4)) : 0;
   return { reach, likes, comments, saved, shares, interactions, engagement_rate };
+}
+
+function decryptConnection(value) {
+  const key = Buffer.from(process.env.DATA_ENCRYPTION_KEY || '', 'base64');
+  const [ivText, tagText, dataText] = String(value || '').split('.');
+  if (key.length !== 32 || !ivText || !tagText || !dataText) return null;
+  try {
+    const decipher = crypto.createDecipheriv('aes-256-gcm', key, Buffer.from(ivText, 'base64'));
+    decipher.setAuthTag(Buffer.from(tagText, 'base64'));
+    return Buffer.concat([decipher.update(Buffer.from(dataText, 'base64')), decipher.final()]).toString('utf8');
+  } catch { return null; }
+}
+
+async function loadModernMetaConfig(slug) {
+  const base = String(process.env.SUPABASE_URL || '').replace(/\/$/, '').replace(/\/rest\/v1$/, '');
+  const key = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!base || !key) return null;
+  const url = `${base}/rest/v1/connections?client_id=eq.${encodeURIComponent(slug)}&source=eq.meta&select=source_account_id,access_token_encrypted&limit=1`;
+  try {
+    const response = await fetch(url, { headers: { apikey: key, Authorization: `Bearer ${key}` } });
+    if (!response.ok) return null;
+    const row = (await response.json())?.[0];
+    if (row) {
+      const accessToken = decryptConnection(row.access_token_encrypted);
+      return accessToken && row.source_account_id
+        ? { accessToken, igUserId: row.source_account_id, authSource: 'supabase-oauth' }
+        : { unavailable: true, authSource: 'supabase-oauth' };
+    }
+    return null;
+  } catch { return null; }
+}
+
+async function runRemoteSync(slug) {
+  const cockpit = String(process.env.MARKETINGOS_COCKPIT_URL || '').replace(/\/$/, '');
+  const secret = process.env.MEDIAOS_EXECUTION_INGEST_SECRET;
+  if (!cockpit || !secret) return null;
+  try {
+    const response = await fetch(`${cockpit}/api/admin/operations`, { method: 'POST', headers: { 'content-type': 'application/json', 'x-mediaos-execution-secret': secret }, body: JSON.stringify({ action: 'run_sync', clientId: slug, source: 'instagram' }) });
+    const body = await response.json().catch(() => ({}));
+    return response.ok ? body : null;
+  } catch { return null; }
 }
 
 // ── Agregação em metrics.json ────────────────────────────────────────────────
@@ -120,7 +163,17 @@ async function main() {
   console.log(`   Idade mín.: ${args.force ? 'ignorada (--force)' : args.minAgeHours + 'h'}`);
   if (args.dryRun) console.log('   ⚠️  DRY RUN — não grava');
 
-  const cfg = loadConfig(args.slug);
+  const legacyCfg = loadConfig(args.slug);
+  const modernCfg = await loadModernMetaConfig(args.slug);
+  if (modernCfg?.unavailable) {
+    const remote = await runRemoteSync(args.slug);
+    if (remote?.ok) {
+      console.log(`   Insights executados pelo backend OAuth: ${remote.rawRecords || 0} registro(s) bruto(s).`);
+      return;
+    }
+  }
+  const cfg = modernCfg && !modernCfg.unavailable ? modernCfg : legacyCfg;
+  console.log(`   Fonte da conexão: ${cfg.authSource || 'arquivo local'}`);
 
   // Preflight: valida o token antes de iterar (mensagem clara se expirou).
   try {
@@ -156,11 +209,17 @@ async function main() {
   }
 
   let ok = 0, failed = 0;
+  const rawResponses = [];
   for (const post of candidates) {
     process.stdout.write(`\n  ${post.mediaId} (${post.format || '?'})...`);
     try {
-      const info = await getMediaInfo(post.mediaId, cfg.accessToken);
-      const ins = await getMediaInsights(post.mediaId, cfg.accessToken);
+      const info = await getMediaInfoRaw(post.mediaId, cfg.accessToken);
+      const rawInsights = await getMediaInsightsRaw(post.mediaId, cfg.accessToken);
+      const ins = Object.fromEntries((rawInsights.data || []).map((item) => [item.name, item.values?.[0]?.value ?? null]));
+      if (!args.dryRun) {
+        rawResponses.push({ entity_id: post.mediaId, entity_type: 'content', endpoint: `/${post.mediaId}`, kind: 'media-info', payload: info, source_updated_at: info.timestamp, period_start: post.publishedAt, period_end: new Date().toISOString(), metrics: {} });
+        rawResponses.push({ entity_id: post.mediaId, entity_type: 'content', endpoint: `/${post.mediaId}/insights`, kind: 'media-insights', payload: rawInsights, period_start: post.publishedAt, period_end: new Date().toISOString(), metrics: ins });
+      }
       const eng = computeEngagement(info, ins);
       post.insights = {
         fetchedAt: new Date().toISOString(),
@@ -179,6 +238,15 @@ async function main() {
     ledger.save(args.slug, data);
     console.log(`\n  ✓ Ledger atualizado: clients/${args.slug}/published.json`);
     aggregateMetrics(args.slug, data.posts);
+    const dataNowStatus = writeInstagramSync({
+      dataNowRoot: path.resolve(__dirname, '../../../GrowthOS/data-now'),
+      clientId: args.slug,
+      sourceAccountId: cfg.igUserId,
+      observedAt: new Date().toISOString(),
+      rawResponses,
+      posts: data.posts,
+    });
+    console.log(`  DATA NOW: ${dataNowStatus.last_sync_status} (${dataNowStatus.normalized_records} registros normalizados).`);
   } else {
     console.log('\n  [DRY-RUN] nada gravado.');
   }

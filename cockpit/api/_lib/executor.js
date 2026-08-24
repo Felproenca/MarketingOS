@@ -515,17 +515,30 @@ async function saveArtifact(job, capability, result) {
     automation: 'automation', carousel: 'carousel', post: 'post', image_generate: 'image',
     video_generate: 'video', publish: 'publication', data_sync: 'sync_report', video_edit: 'video',
   }[capability] || 'text'
+  // O artifact só existe se o job produziu conteúdo real (texto ou mídia renderizada).
+  // Com conteúdo: vai direto para REVIEW (aparece na fila de aprovação do front).
+  // Sem conteúdo (ex.: job apenas despachado): fica draft, sem enganar ninguém.
+  const structured = result?.structured || null
+  const renderedUrls = structured && Array.isArray(structured.rendered_urls) ? structured.rendered_urls.map(String).filter(Boolean) : []
+  const hasContent = Boolean(renderedUrls.length || result?.text)
+  const previewUrl = renderedUrls[0] || null
+  const metadata = {
+    capability,
+    result,
+    ...(previewUrl ? { preview_url: previewUrl } : {}),
+    ...(renderedUrls.length ? { assets: renderedUrls.map(url => ({ kind: 'image', url })) } : {}),
+  }
   const created = await db('artifacts', {
     method: 'POST',
     headers: { Prefer: 'return=representation' },
-    body: JSON.stringify({ client_id: job.client_id, job_id: job.id, artifact_type: artifactType, title: result.title || job.job_type, status: 'draft', metadata: { capability, result } }),
+    body: JSON.stringify({ client_id: job.client_id, job_id: job.id, artifact_type: artifactType, title: result.title || job.job_type, status: hasContent ? 'review' : 'draft', metadata }),
   }).catch(() => null)
   const artifact = created?.[0]
   if (artifact?.id) {
     await db('artifact_versions', {
       method: 'POST',
       headers: { Prefer: 'return=minimal' },
-      body: JSON.stringify({ artifact_id: artifact.id, version: 1, kind: artifactType, manifest: { capability, text: result.text || null, structured: result.structured || null, prompt: result.prompt || null, provider: result.provider, model: result.model } }),
+      body: JSON.stringify({ artifact_id: artifact.id, version: 1, kind: artifactType, preview_url: previewUrl, manifest: { capability, text: result.text || null, structured, prompt: result.prompt || null, provider: result.provider, model: result.model, assets: metadata.assets || [] } }),
     }).catch(() => null)
   }
   return artifact

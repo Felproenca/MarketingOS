@@ -6,9 +6,15 @@ const BASE_FILES = [
 ];
 
 const BRANDING_OUTPUTS = [
+  { key: 'brand_intelligence', path: 'clients/{slug}/outputs/branding/brand-intelligence.json', type: 'json', required: false },
   { key: 'perception', path: 'clients/{slug}/outputs/branding/perception.json', type: 'json', required: false },
   { key: 'visual_dna', path: 'clients/{slug}/outputs/branding/visual-dna.json', type: 'json', required: false },
   { key: 'reference_context', path: 'clients/{slug}/outputs/branding/reference-context.json', type: 'json', required: false },
+];
+
+const STRATEGY_OUTPUTS = [
+  { key: 'strategy_decision', path: 'clients/{slug}/outputs/strategy/strategy-decision.json', type: 'json', required: false },
+  { key: 'acquisition_diagnosis', path: 'clients/{slug}/outputs/acquisition/acquisition-diagnosis.json', type: 'json', required: false },
 ];
 
 const GLOBAL_FILES = [
@@ -20,6 +26,7 @@ const PROFILES = {
     files: [
       ...BASE_FILES,
       ...BRANDING_OUTPUTS,
+      ...STRATEGY_OUTPUTS,
       { key: 'benchmarks', path: 'intelligence/benchmarks.json', type: 'json', required: false, pick: 'content_performance.carousel' },
       ...GLOBAL_FILES,
     ],
@@ -39,23 +46,23 @@ const PROFILES = {
     reference_limit: 3,
   },
   post: {
-    files: [...BASE_FILES, ...BRANDING_OUTPUTS, ...GLOBAL_FILES],
+    files: [...BASE_FILES, ...BRANDING_OUTPUTS, ...STRATEGY_OUTPUTS, ...GLOBAL_FILES],
     reference_limit: 3,
   },
   site: {
-    files: [...BASE_FILES, ...BRANDING_OUTPUTS, ...GLOBAL_FILES],
+    files: [...BASE_FILES, ...BRANDING_OUTPUTS, ...STRATEGY_OUTPUTS, ...GLOBAL_FILES],
     reference_limit: 5,
   },
   reel: {
-    files: [...BASE_FILES, ...BRANDING_OUTPUTS, ...GLOBAL_FILES],
+    files: [...BASE_FILES, ...BRANDING_OUTPUTS, ...STRATEGY_OUTPUTS, ...GLOBAL_FILES],
     reference_limit: 3,
   },
   image: {
-    files: [...BASE_FILES, ...BRANDING_OUTPUTS, ...GLOBAL_FILES],
+    files: [...BASE_FILES, ...BRANDING_OUTPUTS, ...STRATEGY_OUTPUTS, ...GLOBAL_FILES],
     reference_limit: 3,
   },
   default: {
-    files: [...BASE_FILES, ...BRANDING_OUTPUTS, ...GLOBAL_FILES],
+    files: [...BASE_FILES, ...BRANDING_OUTPUTS, ...STRATEGY_OUTPUTS, ...GLOBAL_FILES],
     reference_limit: 3,
   },
 };

@@ -25,6 +25,14 @@ function createEmptyCreativeBrief(clientSlug, outputType) {
     visual_rules: [],
     creative_constraints: [],
     cta_strategy: '',
+    strategic_basis: {
+      approved_strategy_decision: false,
+      decision_question: '',
+      primary_bottleneck: '',
+      market_thesis: '',
+      evidence_ids: [],
+      hypothesis_ids: [],
+    },
     funnel_metadata: funnelMetadata,
     ...funnelMetadata,
     reasoning: [],
@@ -63,6 +71,7 @@ function normalizeCreativeBrief(raw, fallback = {}) {
     visual_rules: normalizeVisualRules(raw.visual_rules || raw.regras_visuais),
     creative_constraints: arrayFrom(raw.creative_constraints || raw.restricoes_criativas),
     cta_strategy: raw.cta_strategy || raw.estrategia_cta || '',
+    strategic_basis: normalizeStrategicBasis(raw.strategic_basis || raw.base_estrategica),
     funnel_metadata: funnelMetadata,
     funnel_stage: funnelMetadata.funnel_stage,
     intent_level: funnelMetadata.intent_level,
@@ -90,12 +99,35 @@ function validateCreativeBrief(brief) {
   if (!brief.references || !brief.references.length) missing.push('references');
   if (!brief.principles || !brief.principles.length) missing.push('principles');
   if (!brief.visual_rules || !brief.visual_rules.length) missing.push('visual_rules');
+  if (!brief.strategic_basis || !brief.strategic_basis.approved_strategy_decision) {
+    missing.push('strategic_basis.approved_strategy_decision');
+  }
+  if (!brief.strategic_basis || !brief.strategic_basis.evidence_ids || brief.strategic_basis.evidence_ids.length < 3) {
+    missing.push('strategic_basis.evidence_ids');
+  }
+  if (!brief.strategic_basis || !brief.strategic_basis.hypothesis_ids || brief.strategic_basis.hypothesis_ids.length < 2) {
+    missing.push('strategic_basis.hypothesis_ids');
+  }
   const funnelValidation = validateFunnelMetadata(brief.funnel_metadata || brief);
   missing.push(...funnelValidation.missing.map((field) => `funnel_metadata.${field}`));
   return {
     valid: missing.length === 0,
     missing,
     funnel_metadata: funnelValidation,
+  };
+}
+
+function normalizeStrategicBasis(value) {
+  const raw = value && typeof value === 'object' ? value : {};
+  return {
+    approved_strategy_decision: Boolean(raw.approved_strategy_decision),
+    decision_question: raw.decision_question || '',
+    primary_bottleneck: raw.primary_bottleneck || '',
+    market_thesis: raw.market_thesis || '',
+    evidence_ids: arrayFrom(raw.evidence_ids),
+    hypothesis_ids: arrayFrom(raw.hypothesis_ids),
+    diagnosis_area: raw.diagnosis_area || '',
+    confidence: raw.confidence || '',
   };
 }
 

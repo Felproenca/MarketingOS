@@ -5,6 +5,7 @@ const path = require('path');
 const { buildContext } = require('./context-builder');
 const { normalizeCreativeBrief, validateCreativeBrief } = require('./creative-brief-schema');
 const { inferFunnelMetadata, normalizeFunnelMetadata } = require('../funnel/metadata');
+const { validateStrategyDecision } = require('../strategy/decision-record');
 
 function getCreativeBrief(options = {}) {
   const rootDir = options.rootDir || process.cwd();
@@ -58,6 +59,9 @@ function buildCreativeBrief(options = {}) {
   });
 
   const perception = context.perception || {};
+  const strategyDecision = context.strategy_decision || {};
+  const strategyValidation = validateStrategyDecision(strategyDecision, clientSlug);
+  const strategicBasis = buildStrategicBasis(strategyDecision, strategyValidation, context.acquisition_diagnosis || {});
   const signature = perception.camada_3_assinatura || {};
   const direction = perception.camada_6_direcao_criativa || {};
   const visualDna = context.visual_dna && context.visual_dna.visual_dna ? context.visual_dna.visual_dna : {};
@@ -68,7 +72,7 @@ function buildCreativeBrief(options = {}) {
   const tension = signature.tensao_principal || signature.principal || referenceSummary.tensions && referenceSummary.tensions[0] || 'clareza contra ruido';
   const contentGoal = options.content_goal || defaultContentGoal(outputType);
   const ctaStrategy = buildCtaStrategy(outputType, direction);
-  const funnelMetadata = normalizeFunnelMetadata(options.funnel_metadata || options.funnelMetadata || funnelOptionsFrom(options), {
+  const funnelMetadata = normalizeFunnelMetadata(options.funnel_metadata || options.funnelMetadata || strategyDecision.funnel_metadata || funnelOptionsFrom(options), {
     defaults: inferFunnelMetadata({
       output_type: outputType,
       objective: options.acquisition_objective || contentGoal,
@@ -79,10 +83,10 @@ function buildCreativeBrief(options = {}) {
   const rawBrief = {
     client_slug: clientSlug,
     generated_at: new Date().toISOString(),
-    acquisition_objective: options.acquisition_objective || defaultAcquisitionObjective(outputType),
-    bottleneck: options.bottleneck || '',
+    acquisition_objective: options.acquisition_objective || strategyDecision.acquisition_objective || defaultAcquisitionObjective(outputType),
+    bottleneck: options.bottleneck || strategyDecision.primary_bottleneck || strategicBasis.diagnosis_area || '',
     stage: options.stage || '',
-    thesis: buildThesis(outputType, tension, direction),
+    thesis: strategyDecision.market_thesis || buildThesis(outputType, tension, direction),
     tension,
     content_goal: contentGoal,
     output_type: outputType,
@@ -93,6 +97,7 @@ function buildCreativeBrief(options = {}) {
     visual_rules: buildVisualRules(context.branding, visualDna, context.visual_dna || {}),
     creative_constraints: buildCreativeConstraints(direction, antiDna, referenceSummary),
     cta_strategy: ctaStrategy,
+    strategic_basis: strategicBasis,
     funnel_metadata: funnelMetadata,
     funnel_stage: funnelMetadata.funnel_stage,
     intent_level: funnelMetadata.intent_level,
@@ -114,6 +119,9 @@ function buildCreativeBrief(options = {}) {
         'visual-dna.json',
         'reference-context.json',
         'brand-kit.json',
+        'brand-intelligence.json',
+        'strategy-decision.json',
+        'acquisition-diagnosis.json',
       ],
     },
   };
@@ -123,6 +131,22 @@ function buildCreativeBrief(options = {}) {
     brief,
     context_report: context.context_report,
     validation: validateCreativeBrief(brief),
+  };
+}
+
+function buildStrategicBasis(decision, validation, diagnosis) {
+  const evidence = Array.isArray(decision.evidence) ? decision.evidence : [];
+  const hypotheses = Array.isArray(decision.hypotheses) ? decision.hypotheses : [];
+  const primary = diagnosis && diagnosis.primary_bottleneck ? diagnosis.primary_bottleneck : {};
+  return {
+    approved_strategy_decision: validation.valid,
+    decision_question: decision.decision_question || '',
+    primary_bottleneck: decision.primary_bottleneck || '',
+    market_thesis: decision.market_thesis || '',
+    evidence_ids: evidence.map((item) => item && item.id).filter(Boolean),
+    hypothesis_ids: hypotheses.map((item) => item && item.id).filter(Boolean),
+    diagnosis_area: primary.area || '',
+    confidence: diagnosis && diagnosis._meta ? diagnosis._meta.confidence_score || '' : '',
   };
 }
 
@@ -183,14 +207,19 @@ function buildThesis(outputType, tension, direction) {
 function buildTone(direction, perception, branding) {
   const words = direction && Array.isArray(direction.palavras_de_marca) ? direction.palavras_de_marca.slice(0, 8).join(', ') : '';
   const feel = branding && branding.style && branding.style.feel ? branding.style.feel : '';
+  const brandTone = branding && typeof branding.tone === 'string' ? branding.tone : '';
+  const personality = branding && branding.identity && Array.isArray(branding.identity.personality)
+    ? branding.identity.personality.slice(0, 6).join(', ')
+    : '';
+  const tagline = branding && typeof branding.tagline === 'string' ? branding.tagline : '';
   const desired = perception.camada_1_leitura_de_alma && perception.camada_1_leitura_de_alma.tom_desejado
     ? perception.camada_1_leitura_de_alma.tom_desejado
     : '';
-  return [desired, feel, words ? `palavras de marca: ${words}` : ''].filter(Boolean).join(' | ');
+  return [desired, brandTone, feel, personality ? `personalidade: ${personality}` : '', tagline ? `tagline: ${tagline}` : '', words ? `palavras de marca: ${words}` : ''].filter(Boolean).join(' | ');
 }
 
 function buildVisualRules(branding, visualDna, visualDnaRoot) {
-  const palette = branding && branding.palette ? branding.palette : {};
+  const palette = branding && (branding.palette || branding.colors) ? (branding.palette || branding.colors) : {};
   const typography = branding && branding.typography ? branding.typography : {};
   return [
     { type: 'palette', value: normalizePalette(palette) },
@@ -230,12 +259,12 @@ function buildReasoning(perception, referenceSummary, visualDna) {
 
 function normalizePalette(palette) {
   return {
-    background: colorValue(palette.background),
+    background: colorValue(palette.background || palette['off-black'] || palette.surface),
     surface: colorValue(palette.surface || palette.neutral),
-    text: colorValue(palette.text || palette.primary),
-    accent: colorValue(palette.gold || palette.accent),
-    muted: colorValue(palette.muted || palette.neutral),
-    secondary: colorValue(palette.surface_2 || palette.secondary),
+    text: colorValue(palette.text || palette.primary || palette['warm-white']),
+    accent: colorValue(palette.gold || palette.accent || palette.terracota),
+    muted: colorValue(palette.muted || palette.neutral || palette.nude),
+    secondary: colorValue(palette.surface_2 || palette.secondary || palette.nude),
   };
 }
 

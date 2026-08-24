@@ -172,6 +172,27 @@ async function getMediaInsights(mediaId, accessToken) {
   throw lastErr || new Error('Falha ao obter insights');
 }
 
+async function getMediaInfoRaw(mediaId, accessToken) {
+  return apiGet(`/${mediaId}`, {
+    fields: 'media_type,media_product_type,timestamp,permalink,like_count,comments_count',
+    access_token: accessToken,
+  });
+}
+
+async function getMediaInsightsRaw(mediaId, accessToken) {
+  const metricSets = [
+    'reach,saved,total_interactions,shares',
+    'reach,saved,total_interactions',
+    'reach',
+  ];
+  let lastErr = null;
+  for (const metric of metricSets) {
+    try { return await apiGet(`/${mediaId}/insights`, { metric, access_token: accessToken }); }
+    catch (e) { lastErr = e; }
+  }
+  throw lastErr || new Error('Falha ao obter insights');
+}
+
 module.exports = {
   apiGet,
   apiPost,
@@ -188,4 +209,6 @@ module.exports = {
   getPermalink,
   getMediaInfo,
   getMediaInsights,
+  getMediaInfoRaw,
+  getMediaInsightsRaw,
 };

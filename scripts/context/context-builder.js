@@ -89,6 +89,18 @@ function assignContextValue(context, key, value) {
     context.branding = value || {};
     return;
   }
+  if (key === 'brand_intelligence') {
+    context.brand_intelligence = value || {};
+    return;
+  }
+  if (key === 'strategy_decision') {
+    context.strategy_decision = value || {};
+    return;
+  }
+  if (key === 'acquisition_diagnosis') {
+    context.acquisition_diagnosis = value || {};
+    return;
+  }
   if (key === 'perception') {
     context.perception = value || {};
     return;

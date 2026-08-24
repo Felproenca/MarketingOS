@@ -716,6 +716,7 @@ function main() {
       'GATE REPROVADO — creative brief oficial incompleto.',
       `Arquivo: ${briefResult.relative_path}`,
       ...briefResult.validation.missing.map((item) => `  - ${item}`),
+      'Antes de regerar, crie e aprove clients/[slug]/outputs/strategy/strategy-decision.json usando templates/strategy-decision.template.json.',
       'Regere ou complete o brief antes de renderizar a peca.',
     ].join('\n'));
   }
@@ -759,7 +760,7 @@ function findRoot(startDir) {
 }
 
 const root = findRoot(__dirname);
-const script = path.join(root, 'scripts', 'render-carousel.js');
+  const script = path.join(root, 'scripts', 'render-commercial-carousel.js');
 const html = path.resolve(__dirname, 'carrossel.html');
 const outDir = path.resolve(__dirname, 'instagram');
 const count = ${slides};

@@ -52,7 +52,7 @@ function helpText() {
     '/evidencia texto - registra uma entrega ou resultado',
     '/acessos - checklist seguro de acessos',
     '',
-    'Pedidos em linguagem natural acionam o executor local do Codex.',
+    'Pedidos em linguagem natural acionam o PI local (DeepSeek v4).',
     'Tambem aceito audio: salvo no cliente ativo para transcricao e analise.',
     'Nunca envie senhas pelo Telegram; use acesso delegado.',
   ].join('\n');
@@ -233,7 +233,7 @@ async function handleNaturalMessage(message) {
   return api.sendMessage(chatId, [
     `Solicitacao ${task.id} recebida para ${CLIENTS[client].label}.`,
     `Posicao de processamento: ${position}.`,
-    'O Codex local vai executar e devolver a entrega aqui. Acoes externas permanecem bloqueadas.',
+    'O PI local (DeepSeek v4) vai executar e devolver a entrega aqui. Acoes externas permanecem bloqueadas.',
   ].join('\n'));
 }
 

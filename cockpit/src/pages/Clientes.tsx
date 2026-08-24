@@ -1,87 +1,15 @@
-import { Link } from 'react-router-dom'
-import { Plus } from 'lucide-react'
-import { MOCK_CLIENTS } from '../data/mockData'
+import { useEffect, useState } from 'react'
+import type { FormEvent } from 'react'
+import { ExternalLink, RefreshCw, Users, AlertCircle, Plus, X, Send, Database } from 'lucide-react'
+import { apiFetch } from '../lib/auth'
 
-const STATUS_COLOR: Record<string, { color: string; bg: string }> = {
-  ativo:     { color: 'var(--green)', bg: 'rgba(0,255,136,0.08)' },
-  prospecto: { color: 'var(--accent)', bg: 'var(--accent-glow)' },
-  demo:      { color: 'var(--cyan)', bg: 'rgba(0,212,255,0.08)' },
-  inativo:   { color: 'var(--text-3)', bg: 'var(--bg-hover)' },
-}
+type Client = { client_id: string; display_name: string; company_name?: string; status: string; updated_at: string; sources: { source: string; username?: string; connectedAt?: string }[]; aiConnections?: { provider: string; connectionType: string; status: string; scopes: string[]; billingOwner: string }[]; members: number }
 
 export default function Clientes() {
-  return (
-    <div style={{ flex: 1, overflowY: 'auto', padding: '28px 32px', maxWidth: 900 }}>
-      <div className="flex items-start justify-between mb-8">
-        <div>
-          <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, color: 'var(--text-3)', letterSpacing: '0.08em', marginBottom: 6 }}>CRM</div>
-          <h1 className="display" style={{ fontSize: 32, color: 'var(--text)', lineHeight: 1 }}>CLIENTES</h1>
-        </div>
-        <button
-          style={{
-            display: 'flex', alignItems: 'center', gap: 8,
-            background: 'var(--bg-card)', border: '1px solid var(--border)',
-            color: 'var(--text-2)', fontFamily: 'var(--f-mono)', fontSize: 11,
-            padding: '9px 16px', borderRadius: 8, cursor: 'pointer',
-          }}
-        >
-          <Plus size={13} /> NOVO CLIENTE
-        </button>
-      </div>
-
-      <div className="flex flex-col gap-3">
-        {MOCK_CLIENTS.map(c => {
-          const { color, bg } = STATUS_COLOR[c.status] || STATUS_COLOR.inativo
-          return (
-            <div
-              key={c.slug}
-              style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 10, padding: '16px 20px' }}
-            >
-              <div className="flex items-center gap-4">
-                {/* Avatar placeholder */}
-                <div
-                  className="display flex-shrink-0"
-                  style={{
-                    width: 44, height: 44, borderRadius: 10, background: 'var(--bg-hover)',
-                    border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: 18, color: color,
-                  }}
-                >
-                  {c.nome.charAt(0)}
-                </div>
-                <div style={{ flex: 1 }}>
-                  <div className="flex items-center gap-3 mb-1">
-                    <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--text)' }}>{c.nome}</div>
-                    <span className="tag" style={{ color, background: bg, border: `1px solid ${color}30` }}>
-                      {c.status.toUpperCase()}
-                    </span>
-                  </div>
-                  <div style={{ fontSize: 12, color: 'var(--text-2)' }}>
-                    {c.nicho}{c.cidade ? ` · ${c.cidade}` : ''}
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className="display" style={{ fontSize: 22, color: 'var(--text)', lineHeight: 1 }}>{c.missoes}</div>
-                  <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, color: 'var(--text-3)' }}>
-                    {c.missoes === 1 ? 'MISSÃO' : 'MISSÕES'}
-                  </div>
-                </div>
-                <Link
-                  to={`/clientes/${c.slug}`}
-                  style={{
-                    fontFamily: 'var(--f-mono)', fontSize: 10, color: 'var(--accent)',
-                    background: 'var(--accent-glow)', border: '1px solid var(--border-accent)',
-                    borderRadius: 6, padding: '6px 12px', textDecoration: 'none',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  ABRIR →
-                </Link>
-              </div>
-            </div>
-          )
-        })}
-      </div>
-    </div>
-  )
+  const [clients, setClients] = useState<Client[]>([]); const [loading, setLoading] = useState(true); const [error, setError] = useState(''); const [showForm, setShowForm] = useState(false); const [saving, setSaving] = useState(false); const [syncing, setSyncing] = useState(''); const [form, setForm] = useState({ clientId: '', displayName: '', companyName: '', email: '' })
+  async function load() { setLoading(true); try { const response = await apiFetch('/api/admin/clients'); const body = await response.json(); if (!response.ok) throw new Error(body.error || 'Acesso restrito ou falha ao carregar clientes.'); setClients(body.clients || []) } catch (e) { setError(e instanceof Error ? e.message : 'Falha ao carregar clientes.') } finally { setLoading(false) } }
+  useEffect(() => { void load() }, [])
+  async function createClient(event: FormEvent) { event.preventDefault(); setSaving(true); setError(''); try { const response = await apiFetch('/api/admin/clients', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form) }); const body = await response.json(); if (!response.ok) throw new Error(body.error || 'Não foi possível criar cliente.'); setShowForm(false); setForm({ clientId: '', displayName: '', companyName: '', email: '' }); await load() } catch (e) { setError(e instanceof Error ? e.message : 'Falha ao criar cliente.') } finally { setSaving(false) } }
+  async function syncClient(clientId: string) { setSyncing(clientId); setError(''); try { const response = await apiFetch(`/api/admin/clients/${encodeURIComponent(clientId)}/sync`, { method: 'POST' }); const body = await response.json(); if (!response.ok) throw new Error(body.error || 'Falha na sincronização.'); await load() } catch (e) { setError(e instanceof Error ? e.message : 'Falha na sincronização.') } finally { setSyncing('') } }
+  return <div className="admin-clients-page"><header className="admin-page-header"><div><div className="portal-kicker"><Users size={13} /> CENTRO DE CONTROLE</div><h1>Clientes</h1><p>Saúde das conexões, dados e espaços ativos da MK/OS.</p></div><div className="admin-actions"><button className="portal-refresh" onClick={() => void load()}><RefreshCw size={15} className={loading ? 'spin' : ''} /> Atualizar</button><button className="admin-new-button" onClick={() => setShowForm(true)}><Plus size={15} /> Novo cliente</button></div></header>{error && <div className="portal-error"><AlertCircle size={15} /> {error}</div>}<div className="admin-summary"><div><strong>{clients.length}</strong><span>clientes cadastrados</span></div><div><strong>{clients.filter(client => client.sources.length > 0).length}</strong><span>com fonte conectada</span></div><div><strong>{clients.reduce((total, client) => total + client.sources.length, 0)}</strong><span>conexões ativas</span></div></div><section className="admin-client-list"><div className="admin-list-head"><span>CLIENTE</span><span>FONTES</span><span>ACESSO</span><span>ATUALIZAÇÃO</span><span /></div>{loading && <div className="admin-empty">Carregando clientes...</div>}{!loading && !clients.length && <div className="admin-empty">Nenhum cliente foi conectado ainda.</div>}{clients.map(client => <div className="admin-client-row" key={client.client_id}><div className="admin-client-name"><div className="admin-avatar">{client.display_name.slice(0, 2).toUpperCase()}</div><div><b>{client.display_name}</b><span>{client.client_id}{client.company_name ? ` · ${client.company_name}` : ''}</span></div></div><div className="admin-sources">{client.sources.map(source => <span key={source.source}><i className="source-live" /> {source.source === 'meta' ? `Meta${source.username ? ` · @${source.username}` : ''}` : source.source}</span>)}{!client.sources.length && <span className="source-muted">Nenhuma fonte</span>}</div><div className="admin-access"><Users size={13} /> {client.members}</div><div className="admin-updated">{client.updated_at ? new Date(client.updated_at).toLocaleDateString('pt-BR') : '—'}</div><div className="admin-row-actions"><button className="admin-sync" title="Sincronizar Instagram" onClick={() => void syncClient(client.client_id)} disabled={syncing === client.client_id}><Database size={13} className={syncing === client.client_id ? 'spin' : ''} /></button><a className="admin-open" href={`/portal?client_id=${encodeURIComponent(client.client_id)}`} target="_blank" rel="noreferrer"><ExternalLink size={14} /></a></div></div>)}</section>{showForm && <div className="admin-modal-backdrop"><form className="admin-modal" onSubmit={createClient}><button type="button" className="modal-close" onClick={() => setShowForm(false)}><X size={17} /></button><div className="portal-kicker"><Users size={13} /> NOVO ESPAÇO</div><h2>Cadastrar cliente</h2><p>Crie o espaço e, opcionalmente, envie o convite de acesso.</p><label>Identificador interno<input required value={form.clientId} onChange={e => setForm({ ...form, clientId: e.target.value.toLowerCase().replace(/[^a-z0-9_-]/g, '-') })} placeholder="cliente-001" /></label><label>Nome do cliente<input required value={form.displayName} onChange={e => setForm({ ...form, displayName: e.target.value })} placeholder="Nome ou marca" /></label><label>Empresa (opcional)<input value={form.companyName} onChange={e => setForm({ ...form, companyName: e.target.value })} placeholder="Empresa Ltda." /></label><label>E-mail para convite (opcional)<input type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} placeholder="cliente@email.com" /></label><button className="admin-save-button" disabled={saving}>{saving ? 'Salvando...' : <><Send size={15} /> Criar espaço</>}</button></form></div>}</div>
 }

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Onboarding de Cliente"
+  short_description: "Constrói e valida o Client Truth antes de produzir."
+  default_prompt: "Use $client-onboarding para completar e validar o contexto operacional deste cliente."

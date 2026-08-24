@@ -1,0 +1,150 @@
+---
+name: skill-abrir
+version: "1.0"
+group: sistema
+command: /abrir [slug]
+inputs:
+  required: [.marketingos/state.json, intelligence/patterns.md]
+  optional: []
+env: []
+---
+
+# skill-abrir.md — Carregador de Sessão
+> Skill isolada do MarketingOS.
+> Execute SEMPRE no início de cada sessão antes de qualquer operação.
+> Garante que Claude opera com contexto completo do cliente ativo.
+
+---
+
+## Contexto mínimo necessário
+→ .marketingos/state.json — cliente ativo
+→ intelligence/patterns.md — padrões cross-client
+→ intelligence/benchmarks.json — benchmarks do nicho
+→ client.md — completo
+→ notes.md — alertas e inteligência acumulada
+→ runs.md — últimas sessões
+→ estrategia.md — foco e prioridades atuais
+→ NÃO carregar: brand-kit.json, campaigns.md, metrics.json
+
+---
+
+## Objetivo
+
+Carregar e confirmar o contexto completo do cliente ativo antes de qualquer trabalho.
+Sem `/abrir`, você está operando sem identidade, tom ou estado — não faça isso.
+
+---
+
+## Protocolo de Execução
+
+### Passo 1 — Identificar cliente ativo
+
+Leia `.marketingos/state.json`.
+
+```json
+{ "activeClient": "slug-do-cliente" }
+```
+
+Se `activeClient` estiver vazio ou ausente: pare e peça ao usuário para executar `/cliente [slug]`.
+
+---
+
+### Passo 2 — Carregar inteligência global (ANTES do cliente)
+
+Leia na ordem abaixo antes de qualquer contexto específico do cliente.
+Padrões de intelligence têm prioridade sobre intuição do modelo:
+
+| Arquivo | O que carrega |
+|---|---|
+| `intelligence/patterns.md` | Padrões confirmados cross-client |
+| `intelligence/benchmarks.json` | Benchmarks de performance por canal e nicho |
+| `intelligence/experiments.md` | Experimentos ativos e resultados |
+
+---
+
+### Passo 3 — Carregar arquivos de contexto do cliente
+
+Leia na ordem abaixo. Se algum estiver ausente, sinalize mas continue com o que tiver:
+
+| Arquivo | O que carrega |
+|---|---|
+| `clients/[slug]/client.md` | Identidade, persona, tom, metas, restrições |
+| `clients/[slug]/brand-kit.json` | Cores, tipografia, estilo visual |
+| `clients/[slug]/estrategia.md` | Foco atual, prioridades desta semana |
+| `clients/[slug]/notes.md` | Diário operacional, aprendizados, alertas |
+| `clients/[slug]/runs.md` | Últimas 3 sessões — o que foi feito e aprendido |
+
+---
+
+### Passo 4 — Verificar sinais de parada
+
+Antes de confirmar contexto, cheque:
+
+- [ ] `client.md` existe e tem tom + persona definidos?
+- [ ] `metrics.json` foi atualizado nos últimos 30 dias?
+- [ ] `estrategia.md` tem foco declarado para o período atual?
+- [ ] Há algum alerta crítico em `notes.md`?
+
+Se qualquer item estiver incompleto, sinalize com `⚠️` mas não bloqueie — apenas avise.
+
+---
+
+### Passo 5 — Confirmar contexto em voz alta
+
+Após carregar, exiba exatamente neste formato:
+
+```
+✅ MarketingOS — Sessão iniciada
+
+Cliente ativo: [Nome do Cliente] ([slug])
+Tom da marca: [tom extraído do client.md]
+Foco atual: [foco do estrategia.md — ou "Não definido ⚠️"]
+Última sessão: [data + resumo de 1 linha do runs.md — ou "Sem histórico"]
+
+Intelligence carregada:
+  ✓ patterns.md    → [N padrões ativos | nenhum aplicável ao nicho]
+  ✓ benchmarks.json
+  ✓ experiments.md
+
+Arquivos do cliente carregados:
+  ✓ client.md
+  ✓ brand-kit.json
+  ✓ estrategia.md
+  ✓ notes.md
+  ✓ runs.md
+
+Alertas:
+  [Listar ⚠️ encontrados — ou "Nenhum"]
+
+Pronto. Qual operação vamos executar?
+```
+
+---
+
+## Regras
+
+1. Nunca pule este passo imaginando que o contexto já está carregado — leia os arquivos.
+2. Intelligence global é lida ANTES do contexto do cliente — sempre.
+3. Se `estrategia.md` não tiver foco definido, sugira que o usuário atualize antes de continuar.
+4. Sempre leia `runs.md` para evitar repetir trabalho já feito na sessão anterior.
+5. Se `brand-kit.json` estiver ausente, execute `/branding` antes de qualquer skill visual.
+6. Para protocolo completo de abertura, ver `workflows/open-client.md`.
+
+---
+
+## Exemplo de Ativação
+
+```
+/abrir
+```
+
+Ou ao iniciar uma nova tarefa sem sessão aberta:
+
+```
+Antes de continuar, execute /abrir para carregar o contexto do cliente.
+```
+
+---
+
+*Skill v2.0 — MarketingOS*
+*v2.0: adicionado carregamento de intelligence/ antes do contexto do cliente.*

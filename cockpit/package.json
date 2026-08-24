@@ -8,10 +8,15 @@
     "server": "node server.cjs",
     "dev:all": "concurrently \"npm run dev\" \"npm run server\"",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node --test \"tests/**/*.test.js\"",
+    "registry:validate": "node --input-type=module -e \"import { validateSkillRegistry } from './api/_lib/skill-registry.js'; const r = validateSkillRegistry(); if (!r.ok) { console.error(r.errors.join('\\n')); process.exit(1) } console.log('registry OK:', r.registry.skills.length, 'skills |', r.registry.skills.filter(s => s.status === 'operational').length, 'operational')\"",
+    "worker": "node scripts/worker.mjs",
+    "worker:once": "node scripts/worker.mjs --once"
   },
   "dependencies": {
     "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "framer-motion": "^12.42.2",
     "lucide-react": "^1.23.0",

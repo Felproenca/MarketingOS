@@ -1,0 +1,66 @@
+{
+  "slug": "",
+  "generated_at": "",
+  "version": "1.0",
+  "voz": {
+    "personalidade": "",
+    "registro": "",
+    "ritmo": "",
+    "gatilhos": [],
+    "anti_gatilhos": [],
+    "exemplo_fala": ""
+  },
+  "audiencia": {
+    "icp_resumo": "",
+    "nivel_formalidade": "",
+    "gatilhos_desejo": [],
+    "gatilhos_medo": [],
+    "linguagem_interna": ""
+  },
+  "conhecimento": {
+    "promessa_nao_declarada": "",
+    "verdade_humana": "",
+    "diferencial_invisivel": [],
+    "contexto_historico": "",
+    "produtos_chave": [],
+    "objecoes_comuns": []
+  },
+  "restricoes": {
+    "nunca_fazer": [],
+    "sempre_fazer": [],
+    "compliance": [],
+    "concorrencia": []
+  },
+  "adaptacao_plataforma": {
+    "instagram": {
+      "tom": "",
+      "extensao_copy": "",
+      "formatos_preferidos": [],
+      "hashtags_tone": ""
+    },
+    "whatsapp": {
+      "tom": "",
+      "extensao_mensagem": "",
+      "emoji_usage": "",
+      "horario_tipico": ""
+    },
+    "linkedin": {
+      "tom": "",
+      "extensao_post": "",
+      "formalismo": "",
+      "hashtag_strategy": ""
+    },
+    "email": {
+      "tom": "",
+      "assunto_pattern": "",
+      "extensao_corpo": "",
+      "cta_tone": ""
+    },
+    "site": {
+      "tom": "",
+      "hero_mensagem": "",
+      "cta_principal": "",
+      "extensao_secao": ""
+    }
+  }
+}

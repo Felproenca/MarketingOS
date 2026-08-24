@@ -1,0 +1,2354 @@
+{
+  "version": "3.0",
+  "contract_version": "1",
+  "policy": "Uma skill so e operacional quando possui contexto (requires), executor, output, QA, aprovacao e regra de fallback. O AI Router resolve capability -> skill -> executor/provider -> QA a partir deste registro. Skills com selectable=false sao de sistema e nao aparecem como opcao de trabalho no Cockpit. path pode ser null quando a skill e definida por executor e nao possui arquivo de instrucao local.",
+  "skills": [
+    {
+      "skill_id": "acquisition",
+      "label": "Prospecção e Ads",
+      "description": "Descoberta e qualificação de leads, além de plano de ads.",
+      "category": "aquisicao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/aquisicao/skill-prospecting-agent.md",
+      "status": "operational",
+      "capability": "ads",
+      "request_types": [
+        "ads",
+        "prospecting",
+        "acquisition"
+      ],
+      "requires": [
+        "objective",
+        "audience",
+        "consent"
+      ],
+      "executor": "mediaos-structured-acquisition-v1",
+      "output": [
+        "leads",
+        "campaign_structure",
+        "queue"
+      ],
+      "qa": [
+        "consent",
+        "approval"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked",
+      "canonical": true
+    },
+    {
+      "skill_id": "agent-builder",
+      "label": "Agent Builder",
+      "description": "Cada cliente tem necessidades únicas:",
+      "category": "sistema",
+      "owner": "MarketingOS",
+      "selectable": false,
+      "path": "skills/agent-builder/SKILL.md",
+      "status": "available",
+      "capability": null,
+      "request_types": [
+        "other"
+      ],
+      "requires": [
+        "context"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [],
+      "approval_required": false,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "ai-orchestration",
+      "label": "Orquestração de IA",
+      "description": "Roteia solicitações por capability, conexão do cliente, provider, orçamento e executor.",
+      "category": "orquestracao",
+      "owner": "MarketingOS",
+      "selectable": false,
+      "path": "skills/ai-orchestration/SKILL.md",
+      "status": "operational",
+      "capability": null,
+      "request_types": [],
+      "requires": [
+        "tenant_context",
+        "client_truth",
+        "budget_policy"
+      ],
+      "executor": "ai-router",
+      "output": [
+        "route"
+      ],
+      "qa": [
+        "policy",
+        "tenant_isolation"
+      ],
+      "approval_required": false,
+      "providers_allowed": [],
+      "fallback": "blocked",
+      "canonical": true
+    },
+    {
+      "skill_id": "artifact-qa",
+      "label": "QA de artifacts",
+      "description": "Revisa outputs de imagem, carrossel, post, vídeo, pesquisa e estratégia antes da aprovação.",
+      "category": "qualidade",
+      "owner": "MediaOS",
+      "selectable": false,
+      "path": "skills/artifact-qa/SKILL.md",
+      "status": "operational",
+      "capability": null,
+      "request_types": [],
+      "requires": [
+        "artifact",
+        "quality_criteria"
+      ],
+      "executor": "artifact-qa-runner",
+      "output": [
+        "qa_verdict",
+        "version"
+      ],
+      "qa": [
+        "artifact",
+        "quality"
+      ],
+      "approval_required": false,
+      "providers_allowed": [],
+      "fallback": "blocked",
+      "canonical": true
+    },
+    {
+      "skill_id": "auditoria-profunda",
+      "label": "Auditoria Profunda (perfil/site)",
+      "description": "Curadoria real do site/perfil: posicionamento, oferta, prova social, objeções, tom, entidades, gaps e benchmarks.",
+      "category": "analise",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/estrategia/skill-auditoria-profunda.md",
+      "status": "operational",
+      "capability": "audit",
+      "request_types": [
+        "audit",
+        "analysis"
+      ],
+      "requires": [
+        "client_truth",
+        "site_url"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "diagnostico",
+        "gaps",
+        "benchmarks",
+        "recomendacoes"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline",
+        "deepseek",
+        "anthropic"
+      ],
+      "fallback": "prompt_and_upload"
+    },
+    {
+      "skill_id": "brand-intelligence",
+      "label": "Inteligência de marca",
+      "description": "Posicionamento, percepção, voz, audiência e restrições da marca.",
+      "category": "estrategia",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/brand-intelligence/SKILL.md",
+      "status": "operational",
+      "capability": "strategy",
+      "request_types": [
+        "strategy"
+      ],
+      "requires": [
+        "client_truth",
+        "brand_profile"
+      ],
+      "executor": "strategy-decision-validator-v1",
+      "output": [
+        "decision",
+        "hypotheses",
+        "plan"
+      ],
+      "qa": [
+        "decision_validation"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline",
+        "anthropic"
+      ],
+      "fallback": "blocked",
+      "canonical": true
+    },
+    {
+      "skill_id": "client-onboarding",
+      "label": "Onboarding de cliente",
+      "description": "Valida o Client Truth e bloqueia produção sem contexto obrigatório.",
+      "category": "onboarding",
+      "owner": "MarketingOS",
+      "selectable": false,
+      "path": "skills/client-onboarding/SKILL.md",
+      "status": "operational",
+      "capability": null,
+      "request_types": [],
+      "requires": [
+        "client_profile",
+        "brand_profile",
+        "voice_profile"
+      ],
+      "executor": "client-truth-gate",
+      "output": [
+        "client_truth"
+      ],
+      "qa": [
+        "truth_completeness"
+      ],
+      "approval_required": false,
+      "providers_allowed": [],
+      "fallback": "blocked",
+      "canonical": true
+    },
+    {
+      "skill_id": "code-agent",
+      "label": "Code Agent (code mode)",
+      "description": "Escreve e executa um programa Node.js que resolve a tarefa — reduz tokens para tarefas determinísticas/repetitivas e é eficaz para código.",
+      "category": "orquestracao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": null,
+      "status": "operational",
+      "capability": "agentic_code",
+      "request_types": [
+        "agentic_code",
+        "code"
+      ],
+      "requires": [
+        "task",
+        "context"
+      ],
+      "executor": "local-code-agent",
+      "output": [
+        "program",
+        "output"
+      ],
+      "qa": [
+        "execution_check"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "deepseek"
+      ],
+      "fallback": "prompt_and_upload"
+    },
+    {
+      "skill_id": "coletor-referencia",
+      "label": "Coletor de Referência",
+      "description": "Baixa e disseciona vídeo/carrossel de referência e gera/aprimora skill ou inteligência para o sistema.",
+      "category": "percepcao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/coletor/SKILL.md",
+      "status": "operational",
+      "capability": "coletar_referencia",
+      "request_types": [
+        "coletar_referencia",
+        "reference"
+      ],
+      "requires": [
+        "reference_url",
+        "client_truth"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "analysis",
+        "skill_proposal",
+        "benchmark_updates"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline",
+        "deepseek",
+        "anthropic"
+      ],
+      "fallback": "prompt_and_upload"
+    },
+    {
+      "skill_id": "criacao-carousel",
+      "label": "Carrossel",
+      "description": "Gera copy, direção visual, HTML e PNGs de carrossel para Instagram.",
+      "category": "criacao",
+      "owner": "FluxOS + DesingOS",
+      "selectable": true,
+      "path": "skills/criacao/skill-carousel.md",
+      "status": "operational",
+      "capability": "carousel",
+      "request_types": [
+        "carousel"
+      ],
+      "requires": [
+        "client_truth",
+        "campaign_brief",
+        "brand_profile"
+      ],
+      "executor": "carousel-local-pipeline",
+      "output": [
+        "html",
+        "png",
+        "copy",
+        "caption",
+        "artifact"
+      ],
+      "qa": [
+        "visual",
+        "copy",
+        "brand"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked",
+      "canonical": true
+    },
+    {
+      "skill_id": "criacao-image-generation",
+      "label": "Geração de imagem",
+      "description": "Gera imagem de campanha via fal/KIE com a conexão do cliente.",
+      "category": "criacao",
+      "owner": "DesingOS + MediaOS",
+      "selectable": true,
+      "path": "skills/criacao/skill-image-generation.md",
+      "status": "available",
+      "capability": "image_generate",
+      "request_types": [
+        "image",
+        "image_generate"
+      ],
+      "requires": [
+        "visual_brief",
+        "client_truth",
+        "provider_connection"
+      ],
+      "executor": "desingos-fal-kie-adapter",
+      "output": [
+        "image",
+        "prompt",
+        "artifact"
+      ],
+      "qa": [
+        "mime",
+        "storage",
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "fal",
+        "kie"
+      ],
+      "fallback": "prompt_and_upload",
+      "canonical": true
+    },
+    {
+      "skill_id": "criacao-post",
+      "label": "Post visual",
+      "description": "Renderiza post 1080x1350 com manifesto e QA.",
+      "category": "criacao",
+      "owner": "MediaOS",
+      "selectable": true,
+      "path": "skills/criacao/skill-post.md",
+      "status": "operational",
+      "capability": "post",
+      "request_types": [
+        "post"
+      ],
+      "requires": [
+        "client_truth",
+        "brief"
+      ],
+      "executor": "mediaos-post-renderer-v1",
+      "output": [
+        "png",
+        "manifest",
+        "copy"
+      ],
+      "qa": [
+        "renderer_qa"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked",
+      "canonical": true
+    },
+    {
+      "skill_id": "criacao-video-ai",
+      "label": "Vídeo generativo",
+      "description": "Gera vídeo curto via provider configurado (fal).",
+      "category": "criacao",
+      "owner": "EditorOS + MediaOS",
+      "selectable": true,
+      "path": "skills/criacao/skill-video-ai.md",
+      "status": "available",
+      "capability": "video_generate",
+      "request_types": [
+        "generative_video"
+      ],
+      "requires": [
+        "video_request",
+        "provider_connection"
+      ],
+      "executor": "generative-video-fal-adapter",
+      "output": [
+        "mp4",
+        "storyboard",
+        "prompt"
+      ],
+      "qa": [
+        "provider_qa",
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "fal"
+      ],
+      "fallback": "prompt_and_upload",
+      "canonical": true
+    },
+    {
+      "skill_id": "data-analysis",
+      "label": "Análise de dados",
+      "description": "Consolida métricas e gera diagnóstico com recomendações.",
+      "category": "dados",
+      "owner": "GrowthOS",
+      "selectable": true,
+      "path": null,
+      "status": "operational",
+      "capability": "analysis",
+      "request_types": [
+        "analysis"
+      ],
+      "requires": [
+        "data_connection",
+        "period"
+      ],
+      "executor": "mediaos-analysis-executor-v1",
+      "output": [
+        "metrics",
+        "diagnosis",
+        "recommendations"
+      ],
+      "qa": [
+        "source_verified"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked",
+      "canonical": true
+    },
+    {
+      "skill_id": "data-sync",
+      "label": "Sincronização de dados",
+      "description": "Sincroniza dados externos para o GrowthOS.",
+      "category": "dados",
+      "owner": "GrowthOS",
+      "selectable": true,
+      "path": null,
+      "status": "available",
+      "capability": "data_sync",
+      "request_types": [
+        "data_sync"
+      ],
+      "requires": [
+        "connection"
+      ],
+      "executor": "mediaos-data-sync-v1",
+      "output": [
+        "raw",
+        "normalized",
+        "sync_report"
+      ],
+      "qa": [
+        "schema",
+        "source_verified"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked",
+      "canonical": true
+    },
+    {
+      "skill_id": "design-premium",
+      "label": "Design Premium",
+      "description": "Blueprint de design de alta qualidade: sistema de design, layout, motion/animações e dados como lentes.",
+      "category": "design",
+      "owner": "DesingOS",
+      "selectable": true,
+      "path": "skills/design/skill-design-premium.md",
+      "status": "operational",
+      "capability": "design",
+      "request_types": [
+        "design",
+        "site"
+      ],
+      "requires": [
+        "client_truth",
+        "audit",
+        "brief"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "design_system",
+        "layout",
+        "motion",
+        "dados_lentes"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline",
+        "deepseek",
+        "anthropic"
+      ],
+      "fallback": "prompt_and_upload"
+    },
+    {
+      "skill_id": "estrategia-funil",
+      "label": "Estratégia por Funil",
+      "description": "Gera estratégia ligada aos 4 funis (aquisição, vendas, conteúdo, ampliação de marca) a partir da auditoria.",
+      "category": "estrategia",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/estrategia/skill-estrategia-funil.md",
+      "status": "operational",
+      "capability": "funnel_strategy",
+      "request_types": [
+        "funnel",
+        "strategy"
+      ],
+      "requires": [
+        "audit",
+        "client_truth"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "estrategia",
+        "funis",
+        "sequencia"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline",
+        "deepseek",
+        "anthropic"
+      ],
+      "fallback": "prompt_and_upload"
+    },
+    {
+      "skill_id": "external-output-recovery",
+      "label": "Recuperação de output externo",
+      "description": "Gera prompt externo e retoma o job por upload quando não há provider disponível.",
+      "category": "qualidade",
+      "owner": "MediaOS",
+      "selectable": false,
+      "path": "skills/external-output-recovery/SKILL.md",
+      "status": "operational",
+      "capability": null,
+      "request_types": [],
+      "requires": [
+        "job_context",
+        "prompt"
+      ],
+      "executor": "external-prompt",
+      "output": [
+        "external_prompt",
+        "upload"
+      ],
+      "qa": [],
+      "approval_required": false,
+      "providers_allowed": [],
+      "fallback": "prompt_and_upload",
+      "canonical": true
+    },
+    {
+      "skill_id": "funnel-strategy",
+      "label": "Funil",
+      "description": "Mapa de funil, mensagens, métricas e roteamento de leads.",
+      "category": "estrategia",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/funnel-strategy/SKILL.md",
+      "status": "operational",
+      "capability": "strategy",
+      "request_types": [
+        "funnel"
+      ],
+      "requires": [
+        "funnel_brief",
+        "client_truth"
+      ],
+      "executor": "mediaos-structured-funnel-v1",
+      "output": [
+        "map",
+        "messages",
+        "metrics"
+      ],
+      "qa": [
+        "funnel_consistency"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked",
+      "canonical": true
+    },
+    {
+      "skill_id": "gestor-trafego",
+      "label": "Gestor de Tráfego",
+      "description": "Plano de mídia com matemática real (verba, split, CPA/ROAS, projeções), campanhas por funil e ideias de criativos.",
+      "category": "trafego",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/trafego/skill-gestor-trafego.md",
+      "status": "operational",
+      "capability": "traffic",
+      "request_types": [
+        "traffic",
+        "ads"
+      ],
+      "requires": [
+        "client_truth",
+        "audit",
+        "orcamento",
+        "funil_alvo"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "plano_midia",
+        "campanhas",
+        "projecao",
+        "testes"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline",
+        "deepseek",
+        "anthropic"
+      ],
+      "fallback": "prompt_and_upload"
+    },
+    {
+      "skill_id": "inteligencia-admin",
+      "label": "_admin.md - Grupo: Inteligencia",
+      "description": "Transforma sinais brutos em decisao operacional.",
+      "category": "pesquisa",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/inteligencia/_admin.md",
+      "status": "available",
+      "capability": "research",
+      "request_types": [
+        "research"
+      ],
+      "requires": [
+        "research_brief",
+        "client_truth"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline",
+        "deepseek"
+      ],
+      "fallback": "prompt_and_upload"
+    },
+    {
+      "skill_id": "motion-site-factory",
+      "label": "Motion Site Factory",
+      "description": "Transformar contexto de marca em site, recibos de execução e handoff para vídeo. Tratar agentes como funções com contratos, não como conversas livres.",
+      "category": "criacao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/criacao/motion-site-factory/SKILL.md",
+      "status": "available",
+      "capability": null,
+      "request_types": [
+        "site"
+      ],
+      "requires": [
+        "context"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [],
+      "approval_required": false,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "multi-lang",
+      "label": "Multi-Language Motor",
+      "description": "O MarketingOS já possui:",
+      "category": "system",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/brand-intelligence/multi-lang.md",
+      "status": "available",
+      "capability": "strategy",
+      "request_types": [
+        "strategy"
+      ],
+      "requires": [
+        "client_truth",
+        "brief"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "premium-site",
+      "label": "Site premium",
+      "description": "Kit de produção de sites e landing pages premium.",
+      "category": "criacao",
+      "owner": "DesingOS",
+      "selectable": true,
+      "path": "skills/premium-site/SKILL.md",
+      "status": "available",
+      "capability": null,
+      "request_types": [
+        "site"
+      ],
+      "requires": [
+        "client_truth",
+        "brand_profile",
+        "site_brief"
+      ],
+      "executor": "premium-site-builder",
+      "output": [
+        "site",
+        "landing_page",
+        "experience"
+      ],
+      "qa": [
+        "experience_contract",
+        "responsive",
+        "visual_critique"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline",
+        "anthropic"
+      ],
+      "fallback": "blocked",
+      "canonical": true
+    },
+    {
+      "skill_id": "publish",
+      "label": "Publicação",
+      "description": "Publica artifact aprovado no canal autorizado.",
+      "category": "distribuicao",
+      "owner": "MediaOS + FluxOS",
+      "selectable": true,
+      "path": null,
+      "status": "available",
+      "capability": "publish",
+      "request_types": [
+        "publish"
+      ],
+      "requires": [
+        "approved_artifact",
+        "connection",
+        "caption"
+      ],
+      "executor": "mediaos-publisher-v1",
+      "output": [
+        "publication_receipt"
+      ],
+      "qa": [
+        "approval",
+        "channel_ready"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "platform"
+      ],
+      "fallback": "blocked",
+      "canonical": true
+    },
+    {
+      "skill_id": "relationship",
+      "label": "Automação e relacionamento",
+      "description": "Filas de automação e retenção com consentimento e roteamento.",
+      "category": "relacionamento",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/relacionamento/skill-retention.md",
+      "status": "operational",
+      "capability": "automation",
+      "request_types": [
+        "automation",
+        "relationship"
+      ],
+      "requires": [
+        "trigger",
+        "consent",
+        "routing"
+      ],
+      "executor": "mediaos-structured-automation-v1",
+      "output": [
+        "conversation",
+        "task",
+        "log"
+      ],
+      "qa": [
+        "consent",
+        "action_policy"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked",
+      "canonical": true
+    },
+    {
+      "skill_id": "skill-ab-testing",
+      "label": "skill-ab-testing.md",
+      "description": "A maioria das equipes de marketing decide por intuição:",
+      "category": "dados",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/analise/skill-ab-testing.md",
+      "status": "available",
+      "capability": "analysis",
+      "request_types": [
+        "analysis"
+      ],
+      "requires": [
+        "client_truth",
+        "brief"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-abrir",
+      "label": "skill-abrir.md",
+      "description": "Carregar e confirmar o contexto completo do cliente ativo antes de qualquer trabalho.",
+      "category": "sistema",
+      "owner": "MarketingOS",
+      "selectable": false,
+      "path": "skills/skill-abrir.md",
+      "status": "available",
+      "capability": null,
+      "request_types": [],
+      "requires": [
+        "context"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [],
+      "approval_required": false,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-acquisition-intelligence",
+      "label": "skill-acquisition-intelligence.md - Acquisition Intelligence",
+      "description": "Carregar apenas:",
+      "category": "pesquisa",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/inteligencia/skill-acquisition-intelligence.md",
+      "status": "available",
+      "capability": "research",
+      "request_types": [
+        "research"
+      ],
+      "requires": [
+        "research_brief",
+        "client_truth"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline",
+        "deepseek"
+      ],
+      "fallback": "prompt_and_upload"
+    },
+    {
+      "skill_id": "skill-aeo-monitor",
+      "label": "skill-aeo-monitor.md",
+      "description": "Compradores estão migrando de Google para IAs conversacionais. Estudos mostram que:",
+      "category": "dados",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/analise/skill-aeo-monitor.md",
+      "status": "available",
+      "capability": "analysis",
+      "request_types": [
+        "analysis"
+      ],
+      "requires": [
+        "client_truth",
+        "brief"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-anuncio",
+      "label": "skill-anuncio.md",
+      "description": "Criar campanhas de anúncios pagos prontas para subir — com copy, segmentação sugerida,",
+      "category": "aquisicao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/aquisicao/skill-anuncio.md",
+      "status": "available",
+      "capability": "ads",
+      "request_types": [
+        "ads"
+      ],
+      "requires": [
+        "objective",
+        "audience",
+        "client_truth"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-branding",
+      "label": "skill-branding.md - Direcao Criativa e Branding",
+      "description": "```",
+      "category": "criacao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/criacao/skill-branding.md",
+      "status": "available",
+      "capability": "strategy",
+      "request_types": [
+        "strategy"
+      ],
+      "requires": [
+        "client_truth",
+        "brief"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-construir",
+      "label": "skill-construir.md",
+      "description": "O Motor de Estudo (`/reverter` + `extract-structure` + `synthesize-case-study`) acumula",
+      "category": "criacao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/criacao/skill-construir.md",
+      "status": "available",
+      "capability": "strategy",
+      "request_types": [
+        "strategy"
+      ],
+      "requires": [
+        "client_truth",
+        "brief"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-content-engine",
+      "label": "skill-content-engine.md - Motor Social de Conteudo",
+      "description": "Carregar apenas:",
+      "category": "criacao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/criacao/skill-content-engine.md",
+      "status": "available",
+      "capability": "strategy",
+      "request_types": [
+        "strategy"
+      ],
+      "requires": [
+        "client_truth",
+        "brief"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-creative-critique",
+      "label": "skill-creative-critique.md - Creative Critique",
+      "description": "Carregar apenas:",
+      "category": "pesquisa",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/inteligencia/skill-creative-critique.md",
+      "status": "available",
+      "capability": "research",
+      "request_types": [
+        "research"
+      ],
+      "requires": [
+        "research_brief",
+        "client_truth"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline",
+        "deepseek"
+      ],
+      "fallback": "prompt_and_upload"
+    },
+    {
+      "skill_id": "skill-creative-direction",
+      "label": "skill-creative-direction.md",
+      "description": "Se a resposta for não — a direção criativa não está pronta.",
+      "category": "criacao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/criacao/skill-creative-direction.md",
+      "status": "available",
+      "capability": "strategy",
+      "request_types": [
+        "strategy"
+      ],
+      "requires": [
+        "client_truth",
+        "brief"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-criar-conteudo",
+      "label": "skill-criar-conteudo.md",
+      "description": "Gerar conteúdo completo para um cliente usando o pipeline de integração:",
+      "category": "criacao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/criacao/skill-criar-conteudo.md",
+      "status": "available",
+      "capability": "post",
+      "request_types": [
+        "post"
+      ],
+      "requires": [
+        "client_truth",
+        "brief"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-criatividade",
+      "label": "skill-criatividade.md",
+      "description": "```",
+      "category": "criacao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/criacao/skill-criatividade.md",
+      "status": "available",
+      "capability": "strategy",
+      "request_types": [
+        "strategy"
+      ],
+      "requires": [
+        "client_truth",
+        "brief"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-dashboard",
+      "label": "skill-dashboard.md",
+      "description": "Gerar análise completa de performance com:",
+      "category": "dados",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/analise/skill-dashboard.md",
+      "status": "available",
+      "capability": "analysis",
+      "request_types": [
+        "analysis"
+      ],
+      "requires": [
+        "client_truth",
+        "brief"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-demo-pipeline",
+      "label": "skill-demo-pipeline.md",
+      "description": "Gerar uma demonstração comercial automatizada que prova valor antes da contratação:",
+      "category": "aquisicao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/aquisicao/skill-demo-pipeline.md",
+      "status": "available",
+      "capability": "ads",
+      "request_types": [
+        "ads"
+      ],
+      "requires": [
+        "objective",
+        "audience",
+        "client_truth"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-estrategista",
+      "label": "skill-estrategista.md",
+      "description": "Analisar o contexto completo do cliente e gerar um plano estratégico claro:",
+      "category": "estrategia",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/analise/skill-estrategista.md",
+      "status": "available",
+      "capability": "strategy",
+      "request_types": [
+        "strategy"
+      ],
+      "requires": [
+        "client_truth",
+        "brief"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-funnel-analysis",
+      "label": "skill-funnel-analysis.md",
+      "description": "Mapear e analisar o funil completo de aquisição do cliente, identificando:",
+      "category": "dados",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/analise/skill-funnel-analysis.md",
+      "status": "available",
+      "capability": "analysis",
+      "request_types": [
+        "analysis"
+      ],
+      "requires": [
+        "client_truth",
+        "brief"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-head-implantado",
+      "label": "skill-head-implantado.md",
+      "description": "Definir o papel, as responsabilidades e o protocolo operacional do Head de Marketing Implantado — o modelo em que Felipe atua como o responsável pelo marketing do cliente, não como",
+      "category": "relacionamento",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/relacionamento/skill-head-implantado.md",
+      "status": "available",
+      "capability": "automation",
+      "request_types": [
+        "automation"
+      ],
+      "requires": [
+        "trigger",
+        "routing",
+        "client_truth"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-investigar",
+      "label": "skill-investigar.md",
+      "description": "Extrair padrões de conteúdo, posicionamento e estratégia de um perfil externo para:",
+      "category": "pesquisa",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/analise/skill-investigar.md",
+      "status": "available",
+      "capability": "research",
+      "request_types": [
+        "research"
+      ],
+      "requires": [
+        "research_brief",
+        "client_truth"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline",
+        "deepseek"
+      ],
+      "fallback": "prompt_and_upload"
+    },
+    {
+      "skill_id": "skill-lancamento",
+      "label": "skill-lancamento.md",
+      "description": "Carregar apenas:",
+      "category": "criacao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/criacao/skill-lancamento.md",
+      "status": "available",
+      "capability": "strategy",
+      "request_types": [
+        "strategy"
+      ],
+      "requires": [
+        "client_truth",
+        "brief"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-lead-capture",
+      "label": "skill-lead-capture.md",
+      "description": "Captura não é formulário. Captura é qualificação.",
+      "category": "aquisicao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/aquisicao/skill-lead-capture.md",
+      "status": "available",
+      "capability": "ads",
+      "request_types": [
+        "ads"
+      ],
+      "requires": [
+        "objective",
+        "audience",
+        "client_truth"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-market-analyzer",
+      "label": "skill-market-analyzer.md",
+      "description": "Identificar mercados e nichos com maior potencial para o MarketingOS,",
+      "category": "aquisicao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/aquisicao/skill-market-analyzer.md",
+      "status": "available",
+      "capability": "ads",
+      "request_types": [
+        "ads"
+      ],
+      "requires": [
+        "objective",
+        "audience",
+        "client_truth"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-meeting-intelligence",
+      "label": "skill-meeting-intelligence.md - Meeting Intelligence",
+      "description": "Carregar apenas:",
+      "category": "pesquisa",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/inteligencia/skill-meeting-intelligence.md",
+      "status": "available",
+      "capability": "research",
+      "request_types": [
+        "research"
+      ],
+      "requires": [
+        "research_brief",
+        "client_truth"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline",
+        "deepseek"
+      ],
+      "fallback": "prompt_and_upload"
+    },
+    {
+      "skill_id": "skill-offer-positioning",
+      "label": "skill-offer-positioning.md",
+      "description": "Estruturar e comunicar a oferta principal do cliente de forma que ela seja:",
+      "category": "aquisicao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/aquisicao/skill-offer-positioning.md",
+      "status": "available",
+      "capability": "ads",
+      "request_types": [
+        "ads"
+      ],
+      "requires": [
+        "objective",
+        "audience",
+        "client_truth"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-parcerias",
+      "label": "skill-parcerias.md",
+      "description": "Estruturar a prospecção e a proposta para parceiros que já atendem empresas",
+      "category": "aquisicao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/aquisicao/skill-parcerias.md",
+      "status": "available",
+      "capability": "ads",
+      "request_types": [
+        "ads"
+      ],
+      "requires": [
+        "objective",
+        "audience",
+        "client_truth"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-perception-engine",
+      "label": "skill-perception-engine.md",
+      "description": "Toda produção é consequência da compreensão. Este skill é a compreensão.",
+      "category": "pesquisa",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/perception/skill-perception-engine.md",
+      "status": "available",
+      "capability": "research",
+      "request_types": [
+        "research"
+      ],
+      "requires": [
+        "research_brief",
+        "client_truth"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline",
+        "deepseek"
+      ],
+      "fallback": "prompt_and_upload"
+    },
+    {
+      "skill_id": "skill-performance-learning",
+      "label": "skill-performance-learning.md - Performance Agent como Skill",
+      "description": "Carregar apenas:",
+      "category": "dados",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/analise/skill-performance-learning.md",
+      "status": "available",
+      "capability": "analysis",
+      "request_types": [
+        "analysis"
+      ],
+      "requires": [
+        "client_truth",
+        "brief"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-pitch-deck",
+      "label": "skill-pitch-deck.md",
+      "description": "Gerar uma apresentação HTML standalone com:",
+      "category": "aquisicao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/aquisicao/skill-pitch-deck.md",
+      "status": "available",
+      "capability": "ads",
+      "request_types": [
+        "ads"
+      ],
+      "requires": [
+        "objective",
+        "audience",
+        "client_truth"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-prompt-engineer",
+      "label": "skill-prompt-engineer.md - Prompt Engineer Agent como Skill",
+      "description": "Carregar apenas:",
+      "category": "criacao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/criacao/skill-prompt-engineer.md",
+      "status": "available",
+      "capability": "strategy",
+      "request_types": [
+        "strategy"
+      ],
+      "requires": [
+        "client_truth",
+        "brief"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-prospector",
+      "label": "skill-prospector.md",
+      "description": "Encontrar, qualificar e priorizar potenciais clientes dentro de um nicho,",
+      "category": "aquisicao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/aquisicao/skill-prospector.md",
+      "status": "available",
+      "capability": "ads",
+      "request_types": [
+        "ads"
+      ],
+      "requires": [
+        "objective",
+        "audience",
+        "client_truth"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-publicar",
+      "label": "skill-publicar.md",
+      "description": "Garantir que nenhum conteúdo vai ao ar sem:",
+      "category": "distribuicao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/criacao/skill-publicar.md",
+      "status": "available",
+      "capability": "publish",
+      "request_types": [
+        "publish"
+      ],
+      "requires": [
+        "client_truth",
+        "brief"
+      ],
+      "executor": "mediaos-publisher-v1",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-reactivation",
+      "label": "skill-reactivation.md",
+      "description": "Estruturar e executar campanhas de reativação de clientes que pararam de comprar ou responder, cobrindo:",
+      "category": "relacionamento",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/relacionamento/skill-reactivation.md",
+      "status": "available",
+      "capability": "automation",
+      "request_types": [
+        "automation"
+      ],
+      "requires": [
+        "trigger",
+        "routing",
+        "client_truth"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-realtime-optimizer",
+      "label": "skill-realtime-optimizer.md",
+      "description": "O loop atual funciona assim:",
+      "category": "dados",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/analise/skill-realtime-optimizer.md",
+      "status": "available",
+      "capability": "analysis",
+      "request_types": [
+        "analysis"
+      ],
+      "requires": [
+        "client_truth",
+        "brief"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-reel-builder",
+      "label": "skill-reel-builder",
+      "description": "**Comando:** `/criar reel [--tipo text|motion|particles|3d-abstrato|shader|physics]`",
+      "category": "criacao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/criacao/skill-reel-builder.md",
+      "status": "available",
+      "capability": "video_edit",
+      "request_types": [
+        "video_edit"
+      ],
+      "requires": [
+        "client_truth",
+        "brief"
+      ],
+      "executor": "editoros-video-edit-v1",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-reels",
+      "label": "skill-reels.md",
+      "description": "Antes do roteiro, definir se o Reel é:",
+      "category": "criacao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/criacao/skill-reels.md",
+      "status": "available",
+      "capability": "video_edit",
+      "request_types": [
+        "video_edit"
+      ],
+      "requires": [
+        "client_truth",
+        "brief"
+      ],
+      "executor": "editoros-video-edit-v1",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-reference-acquisition",
+      "label": "skill-reference-acquisition.md",
+      "description": "O operador fornece uma URL.",
+      "category": "pesquisa",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/perception/skill-reference-acquisition.md",
+      "status": "available",
+      "capability": "research",
+      "request_types": [
+        "research"
+      ],
+      "requires": [
+        "research_brief",
+        "client_truth"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline",
+        "deepseek"
+      ],
+      "fallback": "prompt_and_upload"
+    },
+    {
+      "skill_id": "skill-reverse-engineering",
+      "label": "skill-reverse-engineering.md",
+      "description": "O objetivo não é copiar.",
+      "category": "pesquisa",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/perception/skill-reverse-engineering.md",
+      "status": "available",
+      "capability": "research",
+      "request_types": [
+        "research"
+      ],
+      "requires": [
+        "research_brief",
+        "client_truth"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline",
+        "deepseek"
+      ],
+      "fallback": "prompt_and_upload"
+    },
+    {
+      "skill_id": "skill-salvar",
+      "label": "skill-salvar.md",
+      "description": "Fechar a sessão com:",
+      "category": "sistema",
+      "owner": "MarketingOS",
+      "selectable": false,
+      "path": "skills/skill-salvar.md",
+      "status": "available",
+      "capability": null,
+      "request_types": [],
+      "requires": [
+        "context"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [],
+      "approval_required": false,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-save-reference",
+      "label": "skill-save-reference.md",
+      "description": "**Quando usar esta skill vs skill-reference-acquisition:**",
+      "category": "criacao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/criacao/skill-save-reference.md",
+      "status": "available",
+      "capability": "strategy",
+      "request_types": [
+        "strategy"
+      ],
+      "requires": [
+        "client_truth",
+        "brief"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-seo",
+      "label": "skill-seo.md",
+      "description": "Desenvolver uma estratégia de SEO baseada no negócio real do cliente — não templates genéricos.",
+      "category": "pesquisa",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/analise/skill-seo.md",
+      "status": "available",
+      "capability": "research",
+      "request_types": [
+        "research"
+      ],
+      "requires": [
+        "research_brief",
+        "client_truth"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline",
+        "deepseek"
+      ],
+      "fallback": "prompt_and_upload"
+    },
+    {
+      "skill_id": "skill-site-audit",
+      "label": "skill-site-audit.md - Auditoria Comercial de Site",
+      "description": "Carregar apenas:",
+      "category": "pesquisa",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/analise/skill-site-audit.md",
+      "status": "available",
+      "capability": "research",
+      "request_types": [
+        "research"
+      ],
+      "requires": [
+        "research_brief",
+        "client_truth"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline",
+        "deepseek"
+      ],
+      "fallback": "prompt_and_upload"
+    },
+    {
+      "skill_id": "skill-site-builder",
+      "label": "skill-site-builder.md",
+      "description": "Antes de definir estrutura, copy ou CTA do site, declarar:",
+      "category": "criacao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/criacao/skill-site-builder.md",
+      "status": "available",
+      "capability": null,
+      "request_types": [
+        "site"
+      ],
+      "requires": [
+        "context"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [],
+      "approval_required": false,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-social-content-agent",
+      "label": "skill-social-content-agent.md",
+      "description": "Carregar apenas:",
+      "category": "criacao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/criacao/skill-social-content-agent.md",
+      "status": "available",
+      "capability": "strategy",
+      "request_types": [
+        "strategy"
+      ],
+      "requires": [
+        "client_truth",
+        "brief"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-social-copy",
+      "label": "skill-social-copy.md - Copy Agent como Skill",
+      "description": "Carregar apenas:",
+      "category": "criacao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/criacao/skill-social-copy.md",
+      "status": "available",
+      "capability": "post",
+      "request_types": [
+        "post"
+      ],
+      "requires": [
+        "client_truth",
+        "brief"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-tension-map",
+      "label": "skill-tension-map.md",
+      "description": "Assunto é categoria. Tensão é conflito.",
+      "category": "pesquisa",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/perception/skill-tension-map.md",
+      "status": "available",
+      "capability": "research",
+      "request_types": [
+        "research"
+      ],
+      "requires": [
+        "research_brief",
+        "client_truth"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline",
+        "deepseek"
+      ],
+      "fallback": "prompt_and_upload"
+    },
+    {
+      "skill_id": "skill-trend-research",
+      "label": "skill-trend-research.md - Trend/Research Agents como Skill",
+      "description": "Carregar apenas:",
+      "category": "pesquisa",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/analise/skill-trend-research.md",
+      "status": "available",
+      "capability": "research",
+      "request_types": [
+        "research"
+      ],
+      "requires": [
+        "research_brief",
+        "client_truth"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline",
+        "deepseek"
+      ],
+      "fallback": "prompt_and_upload"
+    },
+    {
+      "skill_id": "skill-venda",
+      "label": "skill-venda.md",
+      "description": "Marketing cria contexto e desejo.",
+      "category": "estrategia",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/venda/skill-venda.md",
+      "status": "available",
+      "capability": "strategy",
+      "request_types": [
+        "strategy"
+      ],
+      "requires": [
+        "client_truth",
+        "brief"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "skill-visual-spec",
+      "label": "skill-visual-spec.md - Visual Spec Agent como Skill",
+      "description": "Carregar apenas:",
+      "category": "criacao",
+      "owner": "MarketingOS",
+      "selectable": true,
+      "path": "skills/criacao/skill-visual-spec.md",
+      "status": "available",
+      "capability": "strategy",
+      "request_types": [
+        "strategy"
+      ],
+      "requires": [
+        "client_truth",
+        "brief"
+      ],
+      "executor": "marketingos-local-executor",
+      "output": [
+        "artifact"
+      ],
+      "qa": [
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked"
+    },
+    {
+      "skill_id": "topic-intelligence",
+      "label": "Pesquisa de temas",
+      "description": "Pesquisa multilíngue com fontes explícitas para validar uma tese editorial.",
+      "category": "pesquisa",
+      "owner": "MarketingOS + GrowthOS",
+      "selectable": true,
+      "path": "skills/inteligencia/topic-intelligence/SKILL.md",
+      "status": "operational",
+      "capability": "research",
+      "request_types": [
+        "research",
+        "market_research"
+      ],
+      "requires": [
+        "research_brief",
+        "sources"
+      ],
+      "executor": "mediaos-research-executor-v1",
+      "output": [
+        "report",
+        "evidence",
+        "recommendations"
+      ],
+      "qa": [
+        "source_verification"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline",
+        "anthropic",
+        "deepseek"
+      ],
+      "fallback": "prompt_and_upload",
+      "canonical": true
+    },
+    {
+      "skill_id": "video-edit",
+      "label": "Vídeo curto (edição)",
+      "description": "Edita, corta, legenda e renderiza vídeo curto a partir de mídia existente.",
+      "category": "criacao",
+      "owner": "EditorOS",
+      "selectable": true,
+      "path": null,
+      "status": "available",
+      "capability": "video_edit",
+      "request_types": [
+        "video"
+      ],
+      "requires": [
+        "source_video",
+        "brief"
+      ],
+      "executor": "editoros-video-edit-v1",
+      "output": [
+        "mp4",
+        "manifest",
+        "qa"
+      ],
+      "qa": [
+        "ffprobe",
+        "human_review"
+      ],
+      "approval_required": true,
+      "providers_allowed": [
+        "pipeline"
+      ],
+      "fallback": "blocked",
+      "canonical": true
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "QA de Artifacts"
+  short_description: "Valida qualidade, versão, aprovação e publicação de outputs."
+  default_prompt: "Use $artifact-qa para revisar este artifact antes de liberar para o cliente ou publicar."

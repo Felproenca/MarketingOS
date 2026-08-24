@@ -1,0 +1,409 @@
+---
+name: skill-creative-direction
+version: "2.0"
+group: criacao
+command: /direcao-criativa
+inputs:
+  required: [client.md, brand-kit.json, alma.md]
+  optional: [notes.md, intelligence/reference-library/index.json]
+env: []
+---
+
+# skill-creative-direction.md — Motor de Direção Criativa
+> Skill mestre de coerência visual do MarketingOS.
+> Não é "mais uma skill". É a camada de identidade que todas as outras herdam.
+> Nenhuma peça visual pode ser criada sem passar pelo teste final desta skill.
+> Output obrigatório: `clients/[slug]/outputs/branding/visual-dna.json`
+
+---
+
+## Regra sistêmica — antes de tudo
+
+> **"A marca continuaria reconhecível sem logo, nome e cores principais?"**
+
+Se a resposta for não — a direção criativa não está pronta.
+Nenhuma skill de criação avança sem que esse teste seja respondido com sim.
+
+---
+
+## Contexto mínimo necessário
+
+Carregar apenas:
+- `alma.md` (raiz) — missão, valores, critérios do sistema
+- `client.md` — blocos 1, 2, 3 e 4 completos
+- `brand-kit.json` — estado atual da identidade visual
+- `notes.md` — inteligência acumulada e decisões visuais anteriores (se existir)
+- `intelligence/reference-library/index.json` — índice leve da Biblioteca Viva (se existir)
+
+NÃO carregar: metrics.json, campaigns.md, estrategia.md, runs.md
+
+---
+
+## Estágio 1 — Leitura de Alma
+
+Antes de qualquer decisão visual, extrair o que o cliente quer que as pessoas **sintam**.
+Não o que ele vende. Não o que ele é. O que ele quer **provocar**.
+
+Perguntas que guiam a leitura:
+- O que essa marca deixa no corpo de quem a encontra?
+- Se ela fosse uma textura, qual seria?
+- Se fosse um ritmo musical, qual tempo?
+- O que ela nunca poderia dizer ou mostrar sem trair o que é?
+- Qual é a promessa não declarada dessa marca?
+
+Output do estágio:
+```
+alma_percebida: [2-3 frases que capturam a essência emocional]
+promessa_nao_declarada: [o que a marca promete sem dizer]
+o_que_nunca_trair: [lista de 3-5 elementos inegociáveis]
+```
+
+Sinalizar se `client.md` estiver incompleto — não avançar sem os blocos 2 e 3.
+
+---
+
+## Estágio 2 — Vetores de Percepção
+
+Mapear a marca em múltiplas dimensões simultâneas.
+Não produzir um arquétipo único — produzir um mapa de tensões.
+
+Dimensões obrigatórias (escala 0.0 a 1.0):
+```json
+{
+  "authority": 0.0,
+  "warmth": 0.0,
+  "innovation": 0.0,
+  "playfulness": 0.0,
+  "luxury": 0.0,
+  "precision": 0.0,
+  "energy": 0.0,
+  "transparency": 0.0,
+  "boldness": 0.0,
+  "subtlety": 0.0
+}
+```
+
+Regras de calibração:
+- Valores acima de 0.7 são dominantes — máximo 3 por marca
+- Valores abaixo de 0.3 são ausentes — registrar no Anti-DNA
+- Tensões entre dimensões próximas são o diferencial (ex: authority 0.8 + warmth 0.6 = autoridade acessível)
+- Nunca produzir mapa simétrico — marcas reais têm tensões assimétricas
+
+---
+
+## Estágio 3 — Assinatura Perceptiva
+
+Com o mapa de vetores, identificar as tensões que tornam essa marca inconfundível.
+
+Formato:
+```json
+{
+  "tensoes_primarias": [
+    "[dimensão alta] que parece [dimensão inesperada]",
+    "[dimensão alta] que parece [dimensão inesperada]"
+  ],
+  "assinatura": [
+    "[3 a 5 frases curtas que descrevem como a marca se move no mundo]"
+  ],
+  "teste_de_reconhecimento": "[se alguém visse essa marca sem logo, o que reconheceria?]"
+}
+```
+
+Exemplos de tensão bem formulada:
+- "precisão que parece espontânea" (Linear)
+- "simplicidade que esconde obsessão" (Apple)
+- "cuidado que nunca pede atenção" (clínica de alto padrão)
+- "autoridade que não precisa de volume" (escritório jurídico premium)
+
+Critério de qualidade: se a tensão puder descrever outra marca sem ajuste, reescrever.
+
+---
+
+## Estágio 4 — Consulta à Biblioteca Viva
+
+Com a assinatura perceptiva definida, consultar `intelligence/reference-library/index.json`.
+
+**Passo 1 — Matching no índice**
+
+O `index.json` contém uma linha por referência com: `tension`, `principio_transferivel`, `dimensoes` e `emocao`.
+Cruzar a assinatura perceptiva do Estágio 3 com os campos:
+- `tension` — compatível com as tensões primárias da marca?
+- `dimensoes.tempo`, `dimensoes.densidade`, `dimensoes.temperatura` — convergem com o DNA emergente?
+- `emocao` — a referência evoca o que a marca quer provocar?
+
+Selecionar 3 a 5 referências compatíveis. Nunca selecionar referência com `tension` incompatível, mesmo que o stack seja igual.
+
+**Passo 2 — Carregar os JSONs completos**
+
+Para cada referência selecionada, carregar o JSON completo:
+- `intelligence/reference-library/seed/[slug].json` — referências da biblioteca de semente
+- `intelligence/reference-library/acquired/[slug].json` — referências capturadas com /adquirir
+
+Os JSONs completos contêm campos que o índice não tem: `components`, `what_to_steal`, `what_not_to_copy`, `transferable_principle`.
+
+**Passo 3 — Reference Library externa (código e benchmarks)**
+
+Consultar também `../social-content-agents/index.json` — biblioteca externa com
+código real (motion), sistemas visuais, paletas por setor e benchmarks de sites.
+Protocolo completo: `workflows/reference-library.md`.
+
+Cruzar `tags` e `tensions` das entries com a assinatura perceptiva, igual ao Passo 1.
+Selecionar no máximo 3. As referências daqui alimentam o `reference-context.json`
+com a vantagem de já carregarem implementação (`code`, `adaptation_notes`) — citar
+o `id` da entry no campo `references_used`.
+
+Se o banco estiver vazio ou insuficiente:
+- Registrar lacuna em `intelligence/skill-updates.md`
+- Prosseguir com direção criativa baseada nos estágios anteriores
+- Sinalizar ao operador que o banco precisa ser alimentado com `/adquirir [url]`
+
+---
+
+## Estágio 5 — Engenharia Reversa das Referências
+
+Cada referência retornada deve ser decomposta. Referência não entra crua. Entra interpretada.
+
+Schema obrigatório por referência:
+```json
+{
+  "reference": "",
+  "source": "",
+  "url": "",
+  "tension": "",
+  "why_it_matches": [],
+  "what_to_steal": [],
+  "what_not_to_copy": [],
+  "components": {
+    "motion": "",
+    "3d": "",
+    "scroll": "",
+    "interaction": "",
+    "typography": "",
+    "color_behavior": ""
+  },
+  "transferable_principle": ""
+}
+```
+
+Campo `tension` — obrigatório. Sem tensão identificada, a referência não entra.
+Campo `transferable_principle` — o mais importante. É o padrão que pode ser reutilizado sem copiar a obra.
+Campo `what_not_to_copy` — evita plágio estético. Paleta, layout, copy e composição literal nunca são transferíveis.
+
+Exemplos de `transferable_principle` bem formulado:
+- "usar movimento mínimo para aumentar percepção de controle"
+- "silêncio visual como sinal de confiança"
+- "densidade baixa como declaração de valor"
+- "transições lentas que fazem o tempo parecer um privilégio"
+
+---
+
+## Estágio 6 — DNA Visual
+
+Output central da skill. Arquivo consumido por todas as outras skills de criação.
+
+```json
+{
+  "client": "[slug]",
+  "version": "1.0",
+  "generated": "[data]",
+  "visual_dna": {
+    "tempo": "lento | médio | rápido",
+    "densidade": "baixa | média | alta",
+    "contraste": "baixo | médio | alto",
+    "movimento": "mínimo | preciso | expressivo | ausente",
+    "profundidade": "plana | média | imersiva",
+    "temperatura": "fria | neutra | quente",
+    "ornamentação": "mínima | moderada | rica",
+    "ritmo_tipográfico": "comprimido | equilibrado | aberto",
+    "presença_branca": "densa | equilibrada | generosa",
+    "textura": "lisa | sutil | presente"
+  },
+  "motion_principles": [
+    "[princípio de movimento que define a marca]",
+    "[princípio de movimento que define a marca]"
+  ],
+  "typography_behavior": "[como a tipografia se comporta — não qual fonte, mas como ela age]",
+  "color_behavior": "[como a cor é usada — não quais cores, mas como elas operam]",
+  "spatial_logic": "[como o espaço vazio é tratado — como luxo, como respiro, como silêncio]"
+}
+```
+
+Regra de herança:
+- `skill-site-builder.md` lê `visual_dna` + `spatial_logic` + `color_behavior`
+- `skill-reels.md` lê `motion_principles` + `visual_dna.tempo` + `visual_dna.movimento`
+- `skill-reel-builder.md` lê `motion_principles` + `visual_dna` completo
+- `skill-carousel.md` lê `densidade` + `ritmo_tipográfico` + `presença_branca`
+- `skill-social-content-agent.md` lê `visual_dna` completo
+- `skill-pitch-deck.md` lê `spatial_logic` + `color_behavior`
+- `skill-image-generation.md` lê `temperatura` + `profundidade` + `textura`
+- `skill-prompt-engineer.md` lê `temperatura` + `textura`
+- `skill-post.md` lê `visual_dna` completo
+- `skill-visual-spec.md` lê `densidade` + `contraste` + `ritmo_tipográfico`
+
+---
+
+## Estágio 7 — Anti-DNA
+
+O que nunca pode aparecer em nenhuma peça dessa marca.
+Tão importante quanto o DNA. É o que impede a marca de virar colagem de tendências.
+
+```json
+{
+  "never_use": {
+    "visual": [],
+    "motion": [],
+    "typography": [],
+    "color": [],
+    "interaction": [],
+    "tone": []
+  },
+  "reasoning": "[por que esses elementos contradizem a assinatura perceptiva]"
+}
+```
+
+Critério de entrada no Anti-DNA:
+- Elemento que contradiz uma tensão primária da marca
+- Elemento que tornaria a marca intercambiável com outra
+- Elemento que viola o `o_que_nunca_trair` do Estágio 1
+- Tendência visual do momento que não serve à alma da marca
+
+---
+
+## Estágio 8 — Direção Criativa por Peça
+
+Com DNA e Anti-DNA definidos, traduzir para linguagem operacional por tipo de entrega.
+
+Para cada peça solicitada, responder:
+- Qual elemento do DNA domina essa peça?
+- Qual tensão precisa ser visível?
+- O que do Anti-DNA precisa ser explicitamente evitado aqui?
+- Se alguém visse apenas essa peça, reconheceria a marca?
+
+Formato por peça:
+```
+[tipo de peça]
+→ Princípio dominante: [do DNA Visual]
+→ Tensão a expressar: [da Assinatura Perceptiva]
+→ Stack recomendado: [tecnologia/ferramentas]
+→ Referência principal: [da Engenharia Reversa]
+→ Princípio transferível: [o que roubar da referência]
+→ Anti-DNA a vigiar: [o que nunca fazer aqui]
+→ Teste: [como saber se essa peça passou no teste de reconhecimento]
+```
+
+---
+
+## Estágio 6.5 — Contexto de Referências (reference-context.json)
+
+Output intermediário gerado após o DNA Visual e antes da Direção por Peça.
+É o arquivo que todas as skills de criação herdam para provar influência de referência.
+
+```json
+{
+  "client": "[slug]",
+  "generated": "[data]",
+  "references_used": [
+    {
+      "id": "ref-[slug]",
+      "name": "[nome da referência]",
+      "tension": "[tensão identificada]"
+    }
+  ],
+  "why_these_references": [
+    "[por que esta referência foi escolhida para esta marca — conexão com a assinatura perceptiva]"
+  ],
+  "principles_applied": [
+    "[princípio transferível extraído — não a obra, o padrão]"
+  ],
+  "what_to_steal": [
+    "[o que roubar — específico e acionável]"
+  ],
+  "what_not_to_copy": [
+    "[o que nunca copiar — paleta, layout, copy, composição literal]"
+  ],
+  "translation_for_this_brand": {
+    "[princípio]": "[como esse princípio se traduz na linguagem desta marca específica]"
+  }
+}
+```
+
+**Gate de completude:** Se `principles_applied` ou `translation_for_this_brand` estiverem vazios, o arquivo não está pronto e nenhuma skill de criação pode ser iniciada.
+
+Salvar em: `clients/[slug]/outputs/branding/reference-context.json`
+
+---
+
+## Output obrigatório
+
+Salvar em `clients/[slug]/outputs/branding/`:
+
+```
+visual-dna.json            ← consumido por todas as skills de criação
+reference-context.json     ← contexto de referências — herdado por todas as skills de criação
+creative-direction.md      ← narrativa completa dos estágios
+references-decomposed.json ← referências após engenharia reversa (detalhe técnico)
+```
+
+Atualizar `brand-kit.json` do cliente com o campo `visual_dna` se ainda não existir.
+Registrar execução em `notes.md` com data e principais decisões.
+
+---
+
+## Checklist antes de entregar
+
+- [ ] `alma.md` foi lido antes de qualquer decisão?
+- [ ] O mapa de vetores tem no máximo 3 dimensões acima de 0.7?
+- [ ] As tensões primárias são específicas o suficiente para não descrever outra marca?
+- [ ] Cada referência tem `tension` e `transferable_principle` preenchidos?
+- [ ] O `what_not_to_copy` inclui paleta, layout, copy e composição?
+- [ ] O Anti-DNA tem justificativa (`reasoning`) preenchida?
+- [ ] O `visual-dna.json` foi salvo e está pronto para ser herdado?
+- [ ] O `reference-context.json` foi gerado com `principles_applied` e `translation_for_this_brand` preenchidos?
+- [ ] O teste final foi aplicado: "reconhecível sem logo, nome e cores?"
+
+---
+
+## Sinais de parada
+
+Interromper e sinalizar se:
+- `client.md` blocos 2 ou 3 estiverem incompletos
+- A assinatura perceptiva puder descrever outra marca sem ajuste
+- O banco de referências retornar obras com `tension` incompatível
+- O Anti-DNA contradizer o DNA (sinal de briefing confuso — resolver antes de continuar)
+
+---
+
+## Posição na arquitetura do MarketingOS
+
+```
+/direcao-criativa
+      ↓
+Leitura de Alma
+      ↓
+Vetores de Percepção
+      ↓
+Assinatura Perceptiva
+      ↓
+Consulta à Biblioteca Viva    ← intelligence/reference-library/index.json (matching)
+      ↓                            ↓ carregar JSONs completos seed/ ou acquired/
+Engenharia Reversa
+      ↓
+DNA Visual
+      ↓
+reference-context.json        → clients/[slug]/outputs/branding/  [GATE: principles_applied obrigatório]
+      ↓
+Anti-DNA
+      ↓
+Direção Criativa por Peça
+      ↓
+visual-dna.json               → clients/[slug]/outputs/branding/
+```
+
+Todas as skills de criação carregam `visual-dna.json` + `reference-context.json` antes de executar.
+Se os arquivos não existirem para o cliente, executar `/direcao-criativa` antes de qualquer criação.
+
+---
+
+*Skill v2.0 — MarketingOS*
+*Motor de coerência visual. Não é opcional — é o que separa presença de produção.*
+*v2.0: Biblioteca Viva integrada. reference-context.json é gate obrigatório — sem ele, nenhuma skill de criação avança.*

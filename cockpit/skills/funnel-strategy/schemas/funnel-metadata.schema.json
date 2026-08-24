@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MarketingOS Funnel Metadata",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "funnel_stage",
+    "intent_level",
+    "friction_level",
+    "lead_signal_expected",
+    "qualification_goal",
+    "primary_cta",
+    "secondary_cta",
+    "routing_destination",
+    "next_best_action"
+  ],
+  "properties": {
+    "funnel_stage": {
+      "type": "string",
+      "enum": [
+        "awareness",
+        "problem-aware",
+        "solution-aware",
+        "comparison",
+        "decision",
+        "retention",
+        "expansion"
+      ]
+    },
+    "intent_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "friction_level": {
+      "type": "string",
+      "enum": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    "lead_signal_expected": {
+      "type": "string",
+      "minLength": 1
+    },
+    "qualification_goal": {
+      "type": "string",
+      "minLength": 1
+    },
+    "primary_cta": {
+      "type": "string",
+      "minLength": 1
+    },
+    "secondary_cta": {
+      "type": "string"
+    },
+    "routing_destination": {
+      "type": "string",
+      "minLength": 1
+    },
+    "next_best_action": {
+      "type": "string",
+      "minLength": 1
+    },
+    "instagram_channel": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Obrigatorio quando a peca e de Instagram. Ver doutrina-instagram-operacao.md",
+      "properties": {
+        "discovery_channel": {
+          "type": "string",
+          "enum": [
+            "instagram-reel",
+            "instagram-carousel",
+            "instagram-post",
+            "instagram-story",
+            "instagram-live",
+            "instagram-broadcast"
+          ]
+        },
+        "conversion_channel": {
+          "type": "string",
+          "enum": [
+            "whatsapp",
+            "dm",
+            "link",
+            "form",
+            "shop"
+          ]
+        },
+        "trigger": {
+          "type": "string",
+          "minLength": 1
+        },
+        "first_response_asset": {
+          "type": "string",
+          "minLength": 1
+        },
+        "origin_tag": {
+          "type": "string",
+          "minLength": 1
+        },
+        "response_sla": {
+          "type": "string"
+        },
+        "save_share_dm_motive": {
+          "type": "string",
+          "description": "Pelo menos um: save | share | dm — com motivo"
+        },
+        "private_domain_entry": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "discovery_channel",
+        "conversion_channel",
+        "trigger",
+        "first_response_asset",
+        "origin_tag",
+        "save_share_dm_motive"
+      ]
+    }
+  }
+}

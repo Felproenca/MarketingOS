@@ -3,16 +3,83 @@ const cors = require('cors')
 const fs = require('fs')
 const path = require('path')
 const { exec } = require('child_process')
+const { spawn } = require('child_process')
+require('dotenv').config({ path: path.join(__dirname, '..', '.env') })
 
 const app = express()
 const PORT = 4201
 const DATA_DIR = path.join(__dirname, 'generated-sites')
+const LEGACY_META_OAUTH_ENABLED = process.env.ALLOW_LEGACY_META_OAUTH === 'true'
+let legacyMetaOAuth = null
+
+function getLegacyMetaOAuth() {
+  if (!LEGACY_META_OAUTH_ENABLED) {
+    const error = new Error('Legacy Meta OAuth desativado. Use o backend serverless em /api/integrations/meta/*.')
+    error.statusCode = 410
+    throw error
+  }
+  if (!legacyMetaOAuth) legacyMetaOAuth = require('../scripts/integrations/meta-oauth')
+  return legacyMetaOAuth
+}
+
+function sendLegacyOAuthError(res, error) {
+  res.status(error.statusCode || 500).json({ error: error.message })
+}
 
 app.use(cors())
 app.use(express.json({ limit: '2mb', type: 'application/json' }))
 // Garante que arquivos são sempre escritos em UTF-8
 process.env.CHCP = '65001'
 app.use('/preview', express.static(DATA_DIR))
+
+app.get('/api/integrations/meta/connect/:clientId', (req, res) => {
+  try {
+    const metaOAuth = getLegacyMetaOAuth()
+    const auth = metaOAuth.start(req.params.clientId)
+    res.redirect(auth.url)
+  } catch (error) {
+    sendLegacyOAuthError(res, error)
+  }
+})
+
+app.get('/api/integrations/meta/callback', async (req, res) => {
+  try {
+    const metaOAuth = getLegacyMetaOAuth()
+    const result = await metaOAuth.callback(req.query)
+    const target = process.env.COCKPIT_WEB_URL || 'https://app.mkos.online'
+    res.redirect(`${target}/conectar?meta=connected&client_id=${encodeURIComponent(result.clientId)}`)
+  } catch (error) {
+    res.status(400).send(`<h1>Conexão Meta não concluída</h1><p>${String(error.message).replace(/[<&>]/g, '')}</p><p>Volte ao Cockpit e tente novamente.</p>`)
+  }
+})
+
+app.get('/api/integrations/meta/status/:clientId', (req, res) => {
+  try {
+    const metaOAuth = getLegacyMetaOAuth()
+    res.json(metaOAuth.status(req.params.clientId))
+  } catch (error) {
+    sendLegacyOAuthError(res, error)
+  }
+})
+
+app.post('/api/integrations/meta/sync/:clientId', async (req, res) => {
+  const clientId = req.params.clientId
+  const root = path.join(__dirname, '..')
+  if (!/^[a-z0-9][a-z0-9_-]{1,80}$/i.test(clientId)) return res.status(400).json({ error: 'client_id inválido' })
+  const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm'
+  const run = (script) => new Promise((resolve) => {
+    const child = spawn(npm, ['run', script, '--', '--slug', clientId], { cwd: root, env: process.env })
+    let output = ''
+    child.stdout.on('data', (chunk) => { output += chunk.toString() })
+    child.stderr.on('data', (chunk) => { output += chunk.toString() })
+    child.on('close', (code) => resolve({ script, code, output }))
+  })
+  const results = []
+  results.push(await run('insights'))
+  if (results[0].code === 0) results.push(await run('insights:aquisicao'))
+  const ok = results.every((result) => result.code === 0)
+  res.status(ok ? 200 : 502).json({ clientId, ok, runs: results.map((result) => ({ script: result.script, exitCode: result.code, output: result.output.slice(-8000) })) })
+})
 
 // ── helpers ──────────────────────────────────────────────────────
 

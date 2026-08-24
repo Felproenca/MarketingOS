@@ -1,0 +1,4 @@
+interface:
+  display_name: "Recuperação de Output Externo"
+  short_description: "Gera prompt externo e retoma o job via upload seguro."
+  default_prompt: "Use $external-output-recovery quando não houver saldo, provider ou conexão para gerar o output."

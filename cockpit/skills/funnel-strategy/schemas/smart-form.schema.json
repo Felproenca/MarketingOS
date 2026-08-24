@@ -1,0 +1,101 @@
+{
+  "form_name": "diagnostico_aquisicao",
+  "max_questions_before_contact": 4,
+  "rules": {
+    "no_generic_questions": true,
+    "ask_only_one_thing_per_question": true,
+    "route_by_answer": true,
+    "capture_contact_after_value_signal": true
+  },
+  "nodes": [
+    {
+      "id": "q1_business_type",
+      "question": "Qual melhor descreve seu negocio hoje?",
+      "type": "single_choice",
+      "options": [
+        "Servico local",
+        "Infoproduto ou educacao",
+        "E-commerce",
+        "Clinica ou saude",
+        "Consultoria ou B2B",
+        "Outro"
+      ],
+      "scoring": {
+        "fit": 5
+      },
+      "next": "q2_main_problem"
+    },
+    {
+      "id": "q2_main_problem",
+      "question": "Onde voce sente que mais perde vendas hoje?",
+      "type": "single_choice",
+      "options": [
+        "As pessoas nao entendem minha oferta",
+        "Meu site ou pagina nao passa confianca",
+        "Tenho trafego mas pouca conversao",
+        "Recebo leads ruins",
+        "Nao tenho um funil claro",
+        "Nao sei diagnosticar"
+      ],
+      "scoring": {
+        "intent": 10
+      },
+      "next": "q3_current_channel"
+    },
+    {
+      "id": "q3_current_channel",
+      "question": "Qual canal mais gera oportunidade hoje?",
+      "type": "single_choice",
+      "options": [
+        "Instagram",
+        "WhatsApp",
+        "Google",
+        "Indicacao",
+        "Trafego pago",
+        "Nenhum canal consistente"
+      ],
+      "scoring": {
+        "fit": 5
+      },
+      "next": "q4_urgency"
+    },
+    {
+      "id": "q4_urgency",
+      "question": "O quanto isso e prioridade agora?",
+      "type": "single_choice",
+      "options": [
+        "Preciso resolver agora",
+        "Quero resolver nos proximos 30 dias",
+        "Estou pesquisando opcoes",
+        "So quero entender"
+      ],
+      "scoring_map": {
+        "Preciso resolver agora": {
+          "intent": 15
+        },
+        "Quero resolver nos proximos 30 dias": {
+          "intent": 10
+        },
+        "Estou pesquisando opcoes": {
+          "intent": 5
+        },
+        "So quero entender": {
+          "intent": 0
+        }
+      },
+      "next": "contact_capture"
+    },
+    {
+      "id": "contact_capture",
+      "question": "Para onde envio sua analise inicial?",
+      "type": "contact",
+      "fields": [
+        "name",
+        "email",
+        "whatsapp",
+        "website_or_instagram"
+      ],
+      "next": "route_result"
+    }
+  ]
+}

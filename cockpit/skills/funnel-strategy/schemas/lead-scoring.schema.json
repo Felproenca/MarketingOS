@@ -1,0 +1,92 @@
+{
+  "model": "fit_intent_scoring",
+  "version": "1.0",
+  "dimensions": {
+    "fit": {
+      "max_points": 50,
+      "criteria": [
+        {
+          "name": "business_model_clear",
+          "description": "O negocio tem oferta clara e possibilidade real de venda.",
+          "points": 10
+        },
+        {
+          "name": "has_existing_revenue",
+          "description": "O negocio ja vende ou tem demanda ativa.",
+          "points": 10
+        },
+        {
+          "name": "ticket_compatible",
+          "description": "O ticket permite pagar por implementacao de marketing/site/funil.",
+          "points": 10
+        },
+        {
+          "name": "decision_access",
+          "description": "O contato e decisor ou tem acesso direto ao decisor.",
+          "points": 10
+        },
+        {
+          "name": "expansion_potential",
+          "description": "Existe potencial para recorrencia, automacao, conteudo ou novas campanhas.",
+          "points": 10
+        }
+      ]
+    },
+    "intent": {
+      "max_points": 50,
+      "criteria": [
+        {
+          "name": "requested_diagnosis",
+          "description": "Pediu diagnostico, analise ou avaliacao.",
+          "points": 15
+        },
+        {
+          "name": "shared_asset",
+          "description": "Enviou site, Instagram, campanha, oferta ou material para analise.",
+          "points": 10
+        },
+        {
+          "name": "visited_offer_page",
+          "description": "Visitou pagina de oferta, preco, diagnostico ou implementacao.",
+          "points": 10
+        },
+        {
+          "name": "declared_urgency",
+          "description": "Declarou prazo, meta, lancamento ou necessidade imediata.",
+          "points": 10
+        },
+        {
+          "name": "budget_signal",
+          "description": "Indicou verba, faixa de investimento ou disposicao de compra.",
+          "points": 5
+        }
+      ]
+    }
+  },
+  "segments": [
+    {
+      "name": "hot_qualified",
+      "fit_min": 35,
+      "intent_min": 35,
+      "action": "send_to_diagnosis_or_sales"
+    },
+    {
+      "name": "strategic_nurture",
+      "fit_min": 35,
+      "intent_max": 34,
+      "action": "nurture_with_proof_and_problem_content"
+    },
+    {
+      "name": "urgent_bad_fit",
+      "fit_max": 34,
+      "intent_min": 35,
+      "action": "disqualify_or_offer_low_ticket"
+    },
+    {
+      "name": "low_priority",
+      "fit_max": 34,
+      "intent_max": 34,
+      "action": "keep_in_general_content_pool"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "workflow": "topic-intelligence",
+  "version": 1,
+  "agents": [
+    {
+      "id": "channel-researcher",
+      "contract": "agents/channel-researcher.md",
+      "produces": "evidence-ledger.json",
+      "status": "new"
+    },
+    {
+      "id": "cross-market-analyst",
+      "contract": "agents/cross-market-analyst.md",
+      "produces": "cross-market-analysis.json",
+      "status": "new"
+    },
+    {
+      "id": "editorial-strategist",
+      "contract": "agents/editorial-strategist.md",
+      "produces": "editorial-strategy.json",
+      "status": "new"
+    },
+    {
+      "id": "copy-agent",
+      "contract": "../../criacao/skill-social-copy.md",
+      "produces": "copy-package.json",
+      "status": "existing"
+    },
+    {
+      "id": "creative-agent",
+      "contract": "../../criacao/skill-social-content-agent.md",
+      "produces": "creative-package.json",
+      "status": "existing"
+    },
+    {
+      "id": "critic-agent",
+      "contract": "../skill-creative-critique.md",
+      "produces": "critique.json",
+      "status": "existing"
+    }
+  ],
+  "execution_order": [
+    "channel-researcher",
+    "cross-market-analyst",
+    "editorial-strategist",
+    "copy-agent",
+    "creative-agent",
+    "critic-agent"
+  ]
+}

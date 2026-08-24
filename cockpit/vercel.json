@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/api/health", "destination": "/api/admin/operations?health=1" },
+    { "source": "/((?!api(?:/|$)).*)", "destination": "/index.html" }
+  ]
+}

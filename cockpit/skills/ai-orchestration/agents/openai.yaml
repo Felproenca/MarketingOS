@@ -1,0 +1,4 @@
+interface:
+  display_name: "Orquestração de IA"
+  short_description: "Roteia IA, custo e executor por cliente"
+  default_prompt: "Use $ai-orchestration para rotear esta solicitação com isolamento por cliente, orçamento e fallback seguro."

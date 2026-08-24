@@ -6,7 +6,7 @@ export type Client = { client_id: string; display_name: string; company_name?: s
 export type Operation = { id: string; title: string; client_id: string; request_type: string; status: string; objective?: string; target_system?: string; created_at: string; route?: string[] }
 export type Job = { id: string; request_id?: string; client_id: string; job_type: string; capability?: string; status: string; error?: string; input?: Record<string, any>; result?: Record<string, any>; created_at: string; completed_at?: string }
 export type Artifact = { id: string; job_id?: string; client_id: string; title: string; artifact_type: string; status: string; current_version: number; metadata?: Record<string, any>; qa?: { status?: string; checks?: string[] } | null; preview_url?: string | null; updated_at: string }
-export type ClientPortal = { client_id?: string; display_name?: string; company_name?: string; proximos_passos?: any[]; resultados_reais?: any[]; metricas?: any[]; previsao?: Record<string, any>; cota?: any; quota?: any; connections?: any[] }
+export type ClientPortal = { client_id?: string; display_name?: string; company_name?: string; proximos_passos?: any[]; resultados_reais?: any[]; metricas?: any[]; previsao?: Record<string, any>; cota?: any; quota?: any; connections?: any[]; agenda?: any[] }
 export type SocialConnection = { clientId:string; connected:boolean; source?:string; username?:string|null; connectedAt?:string|null; expiresAt?:string|null; sources?:string[] }
 export type AIConnection = { id:string; client_id:string; provider:string; connection_type:string; capabilities:string[]; execution_mode:string; scopes:string[]; status:string; billing_owner:string; monthly_budget?:number|null; monthly_spend?:number|null; last_validated_at?:string|null; created_at:string; updated_at:string }
 
@@ -71,3 +71,17 @@ export async function aiConnections(clientId:string) { return (await api<{connec
 export async function saveAIConnection(body:Record<string,unknown>) { return api<{connection:AIConnection}>('/api/admin/ai/connections',{method:'POST',body:JSON.stringify(body)}) }
 export async function retryJob(jobId:string) { return api('/api/admin/operations',{method:'PATCH',body:JSON.stringify({action:'retry',jobId})}) }
 export async function hermesChat(body:{message:string;clientId?:string}) { return api<{reply:string;scope:'operator'|'client';assistant:string}>('/api/admin/operations',{method:'POST',body:JSON.stringify({...body,action:'hermes'})}) }
+
+// ── Agenda editorial por cliente ────────────────────────────────────────────────
+export type AgendaItem = { id:string; client_id:string; title:string; status:'proposta'|'aprovado'|'recusado'|'gerado'|string; type:string; objective:string; due_date?:string|null; production_request_id?:string|null; created_at:string }
+export async function agendaList(clientId?:string) { return api<{items:AgendaItem[]}>(`/api/admin/operations`,{method:'POST',body:JSON.stringify({action:'agenda',subAction:'list',clientId:clientId||''})}) }
+export async function agendaCreate(clientId:string, items:{title:string;type:string;objective?:string;due_date?:string|null}[]) { return api<{ok:boolean;created:{id:string;title:string;type:string}[]}>(`/api/admin/operations`,{method:'POST',body:JSON.stringify({action:'agenda',subAction:'create',clientId,items})}) }
+export async function agendaApprove(itemIds:string[]) { return api<{ok:boolean;updated:number}>(`/api/admin/operations`,{method:'POST',body:JSON.stringify({action:'agenda',subAction:'approve',itemIds})}) }
+export async function agendaReject(itemIds:string[]) { return api<{ok:boolean;updated:number}>(`/api/admin/operations`,{method:'POST',body:JSON.stringify({action:'agenda',subAction:'reject',itemIds})}) }
+export async function agendaGenerate(clientId:string) { return api<{ok:boolean;generated:{agenda_item_id:string;production_request_id:string|null;title:string}[]}>(`/api/admin/operations`,{method:'POST',body:JSON.stringify({action:'agenda',subAction:'generate',clientId})}) }
+
+// Cliente aprova/recusa a agenda pelo portal
+ export async function clientAgendaDecide(slug:string, action:'approve_agenda'|'reject_agenda', itemIds:string[]) { return api<{ok:boolean;updated:number}>(`/api/client/${encodeURIComponent(slug)}`,{method:'POST',body:JSON.stringify({action,itemIds})}) }
+
+// Link de acesso mágico do cliente (operador gera e envia)
+export async function accessLink(clientId:string, email:string) { return api<{ok:boolean;url:string;email:string;note?:string}>(`/api/admin/clients?action=access_link&clientId=${encodeURIComponent(clientId)}`,{method:'POST',body:JSON.stringify({email})}) }

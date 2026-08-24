@@ -13,6 +13,8 @@ export default async function handler(request, response) {
   try {
     const user = await requireUser(request)
     if (String(request.query.action || '') === 'reference') return handleReference(request, response, user)
+    // Link de acesso mágico para o cliente (o operador gera e envia pelo canal que preferir)
+    if (String(request.query.action || '') === 'access_link') return generateAccessLink(request, response, user)
     const admins = String(process.env.ADMIN_EMAILS || '').split(',').map(value => value.trim().toLowerCase()).filter(Boolean)
     const isAdmin = Boolean(user.email && admins.includes(user.email.toLowerCase()))
     if (request.method === 'POST') {
@@ -69,6 +71,32 @@ async function handleReference(request, response, user) {
   }
   const rows = await db('client_references?on_conflict=client_id', { method: 'POST', headers: { Prefer: 'resolution=merge-duplicates,return=representation' }, body: JSON.stringify(payload) })
   return response.status(200).json({ reference: rows?.[0] || null })
+}
+
+async function generateAccessLink(request, response, user) {
+  try {
+    const body = request.body || {}
+    const clientId = String(request.query.clientId || body.clientId || '').trim().toLowerCase()
+    const email = String(body.email || request.query.email || '').trim().toLowerCase()
+    if (!clientId || !email) return response.status(400).json({ error: 'clientId e email do cliente são obrigatórios para gerar o link de acesso.' })
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return response.status(400).json({ error: 'E-mail inválido.' })
+    const base = process.env.SUPABASE_URL.replace(/\/$/, '').replace(/\/rest\/v1$/, '')
+    const key = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY
+    if (!key) return response.status(500).json({ error: 'SUPABASE_SECRET_KEY ausente.' })
+    const portalUrl = process.env.CLIENT_PORTAL_URL || 'https://marketingos-frontend.vercel.app'
+    const res = await fetch(`${base}/auth/v1/admin/generate_link`, {
+      method: 'POST',
+      headers: { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'magiclink', email, options: { redirect_to: `${portalUrl}/login/cliente?slug=${encodeURIComponent(clientId)}` } }),
+    })
+    const data = await res.json().catch(() => ({}))
+    if (!res.ok) return response.status(res.status || 500).json({ error: data.msg || data.message || 'Não foi possível gerar o link.' })
+    const magicUrl = data.properties?.action_link || data.properties?.email_otp || null
+    if (!magicUrl) return response.status(500).json({ error: 'Supabase não retornou o link. Confirme se o e-mail já foi convidado.' })
+    return response.status(200).json({ ok: true, clientId, email, url: magicUrl, note: 'O link expira. Envie ao cliente; ele cairá direto no portal com os dados do espaço.' })
+  } catch (error) {
+    return authError(response, error)
+  }
 }
 
 async function createClient(request, response) {

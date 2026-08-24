@@ -4,7 +4,7 @@ import { authError, requireClientAccess } from './auth.js'
 
 const PROVIDERS = new Set(['anthropic', 'openai', 'deepseek', 'qwen', 'fal', 'kie', 'canva', 'meta', 'local'])
 const MODES = new Set(['oauth_subscription', 'api_key_customer', 'subscription_assisted', 'local', 'platform_api'])
-const MIME_EXT = { 'image/png': 'png', 'image/jpeg': 'jpg', 'image/webp': 'webp' }
+const MIME_EXT = { 'image/png': 'png', 'image/jpeg': 'jpg', 'image/webp': 'webp', 'video/mp4': 'mp4', 'video/quicktime': 'mov', 'video/webm': 'webm' }
 
 export async function connections(request, response) {
   try {
@@ -46,7 +46,9 @@ export async function upload(request, response) {
     const externalAsset = { kind: 'image', url: previewUrl, fileName: String(body.fileName || '').slice(0, 180), uploadedAt: new Date().toISOString() }
     if (['queued', 'routed', 'running'].includes(job.status)) {
       const input = job.input && typeof job.input === 'object' ? job.input : {}
-      await db(`media_jobs?id=eq.${encodeURIComponent(jobId)}`, { method: 'PATCH', headers: { Prefer: 'return=minimal' }, body: JSON.stringify({ input: { ...input, external_assets: [...(Array.isArray(input.external_assets) ? input.external_assets : []), externalAsset] }, updated_at: new Date().toISOString() }) })
+      // Se for vídeo (ex.: fonte para o editor), também expõe source_url para o worker baixar e processar.
+      const videoPatch = /^video\//.test(contentType) ? { source_url: previewUrl } : {}
+      await db(`media_jobs?id=eq.${encodeURIComponent(jobId)}`, { method: 'PATCH', headers: { Prefer: 'return=minimal' }, body: JSON.stringify({ input: { ...input, external_assets: [...(Array.isArray(input.external_assets) ? input.external_assets : []), externalAsset], ...videoPatch }, updated_at: new Date().toISOString() }) })
       return response.status(201).json({ ok: true, jobId, previewUrl, attachedToInput: true })
     }
     const artifacts = await db(`artifacts?job_id=eq.${encodeURIComponent(jobId)}&select=id&limit=1`); const artifact = artifacts?.[0] ? (await db(`artifacts?id=eq.${encodeURIComponent(artifacts[0].id)}`, { method: 'PATCH', headers: { Prefer: 'return=representation' }, body: JSON.stringify({ status: 'review', current_version: 1, metadata: { preview_url: previewUrl, source: 'external_upload', assets: [externalAsset] }, updated_at: new Date().toISOString() }) }))?.[0] : (await db('artifacts', { method: 'POST', headers: { Prefer: 'return=representation' }, body: JSON.stringify({ client_id: clientId, job_id: jobId, artifact_type: 'image', title: body.title || 'Imagem enviada externamente', status: 'review', current_version: 1, metadata: { preview_url: previewUrl, source: 'external_upload', assets: [externalAsset] } }) }))?.[0]

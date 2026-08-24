@@ -56,6 +56,22 @@ export default async function handler(request, response) {
 
     if (request.method === 'POST') {
       const body = request.body || {}
+      const action = String(body.action || '').toLowerCase()
+      // Agenda: o cliente aprova/recusa itens propostos pelo operador
+      if (action === 'approve_agenda' || action === 'reject_agenda') {
+        const itemIds = Array.isArray(body.itemIds) ? body.itemIds.map(String) : []
+        if (!itemIds.length) return response.status(400).json({ error: 'itemIds obrigatorio' })
+        const next = action === 'approve_agenda' ? 'aprovado' : 'recusado'
+        let updated = 0
+        for (const id of itemIds) {
+          const rows = await db(`work_requests?id=eq.${encodeURIComponent(id)}&client_id=eq.${encodeURIComponent(slug)}&request_type=eq.agenda_item&select=id,status&limit=1`).catch(() => [])
+          if (!rows?.[0]) continue
+          if (rows[0].status !== 'proposta') continue
+          await db(`work_requests?id=eq.${encodeURIComponent(id)}`, { method: 'PATCH', headers: { Prefer: 'return=minimal' }, body: JSON.stringify({ status: next, updated_at: new Date().toISOString() }) })
+          updated++
+        }
+        return response.status(200).json({ ok: true, updated, action })
+      }
       const result = await createMission({ body: { ...body, clientId: slug, title: body.title || 'Solicitação do cliente', requestType: body.requestType || 'strategy' }, user })
       return response.status(201).json(result)
     }
@@ -67,6 +83,7 @@ export default async function handler(request, response) {
     const metrics = (await db(`data_now_normalized?client_id=eq.${encodeURIComponent(slug)}&select=source,entity_type,entity_id,metrics,metadata,observed_at&order=observed_at.desc&limit=200`).catch(() => [])) || []
     const artifacts = (await db(`artifacts?client_id=eq.${encodeURIComponent(slug)}&select=id,artifact_type,title,status,metadata,created_at&order=created_at.desc&limit=50`).catch(() => [])) || []
     const connections = (await db(`connections?client_id=eq.${encodeURIComponent(slug)}&select=source,username,connected_at,expires_at&order=source.asc`).catch(() => [])) || []
+    const agendaRows = (await db(`work_requests?request_type=eq.agenda_item&client_id=eq.${encodeURIComponent(slug)}&select=id,title,status,payload,created_at&order=created_at.desc&limit=30`).catch(() => [])) || []
 
     return response.status(200).json({
       ...report,
@@ -76,6 +93,7 @@ export default async function handler(request, response) {
       previsao: computeForecast(metrics),
       insights_aquisicao: computeAcquisitionInsights(metrics),
       connections: (connections || []).map(connection => ({ source: connection.source, username: connection.username || null, connected: true, connectedAt: connection.connected_at || null, expiresAt: connection.expires_at || null })),
+      agenda: (agendaRows || []).map(item => ({ id: item.id, titulo: item.title, status: item.status, tipo: item.payload?.agenda?.type || 'conteudo', objetivo: item.payload?.agenda?.objective || '', production_request_id: item.payload?.agenda?.production_request_id || null, criado_em: item.created_at })),
     })
   } catch (error) {
     return authError(response, error)

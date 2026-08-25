@@ -96,6 +96,13 @@ Visão: múltiplos agentes especializados operando em paralelo no sistema:
 - Rodar: `cd MarketingOS/frontend && npm run build` ✓ · deploy: `npx vercel --prod`.
 - Última sessão: corrigido `publishArtifact` → `POST /api/admin/artifacts { action: 'publish' }`; adicionado **“Pedir ajuste”** (`changes_requested`) na fila do operador e no portal do cliente.
 
+### AGENTE ORQUESTRADOR DE SISTEMA — `MarketingOS/scripts/orchestrator/` ✅ rodando
+
+- **Papel**: administra a construção — audita o estado real, decide a solução, repara o seguro, verifica o efeito. Rodando no pm2 (`marketingos-orchestrator`, loop a cada 10min).
+- **Comandos**: `node scripts/orchestrator/orchestrator.mjs --audit|--decide|--fix|--report` · `pm2 logs marketingos-orchestrator`
+- **Diretrizes**: `rules.md` (honestidade/sem simular, segurança/secrets, verificação antes de declarar pronto, conclusão sem falhas).
+- **Fluxo**: audit (jobs/requests/artifacts/conexões/schedules/workers/serviços HTTP) → decide (regras em `DECISIONS` + LLM DeepSeek com contexto real) → fix (restart worker, promover drafts com conteúdo, desabilitar sync sem conexão, liberar jobs presos, reprocessar erros retentáveis — cada reparo verifica o efeito) → grava status em `audit_events` → **Hermes responde com a auditoria real**.
+
 ## 6. Como continuar
 - Rodar: `npm run build` (cockpit) · `npm test` (21) · `vercel --prod` · `npm run registry:validate` · worker pm2 (restart após mudanças).
 - Migrações pendentes de rodar no Supabase SQL Editor (se não rodaram): `009` (has_assets), `010` (cota custo).

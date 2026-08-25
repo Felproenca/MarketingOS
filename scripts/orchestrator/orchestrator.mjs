@@ -26,9 +26,10 @@ const DECISIONS = [
   { match: p => p.tipo === 'artifact_draft_com_conteudo', acao: 'promover_review', desc: () => 'Promover artifacts draft com conteúdo para review (preview = rendered_urls ou texto).' },
   { match: p => p.tipo === 'sync_sem_conexao', acao: 'desabilitar', desc: () => 'Desabilitar sync_schedules sem conexão real (estado honesto).' },
   { match: p => p.tipo === 'job_preso', acao: 'liberar', desc: p => `Jobs ${p.jobs.length ? '' : ''}presos: devolver para queued com erro claro ou marcar stale, conforme histórico.` },
+  { match: p => p.tipo === 'jobs_com_erro' && /Context Gate|strategy-decision|client\.md/i.test(p.detalhe), acao: 'reprocessar_contexto', desc: () => 'Jobs bloqueados por Context Gate: o gate foi corrigido e o bootstrap gerou estratégias — verificar se o contexto agora existe e reprocessar.' },
   { match: p => p.tipo === 'jobs_com_erro', acao: 'analisar_erros', desc: p => `Analisar erros de jobs (ex.: ${p.detalhe.slice(0, 100)}) e reprocessar os re-tentáveis.` },
   { match: p => p.tipo === 'servico_fora', acao: 'escalar', desc: p => `Serviço fora do ar (${p.detalhe}) — requer ação do operador (deploy/config).` },
-  { match: p => p.tipo === 'review_sem_preview', acao: 'escalar', desc: () => 'Artifacts review sem preview: investigar origem antes de agir.' },
+  { match: p => p.tipo === 'review_sem_preview', acao: 'promover_preview_texto', desc: () => 'Entregas de texto sem preview: gerar HTML legível no storage e ligar preview_url.' },
 ]
 
 function decide(problema) {
@@ -79,6 +80,42 @@ async function reparar(env, plano, estado) {
           promovidos++
         }
         log.push({ acao: 'promover_review', alvo: 'artifacts', resultado: promovidos ? 'ok' : 'nada_a_fazer', verificacao: `${promovidos} artifact(s) promovidos para review` })
+      }
+      if (decisao.acao === 'reprocessar_contexto') {
+        // Context Gate foi corrigido + bootstrap gerou estratégias: reprocessa jobs bloqueados
+        // cujo contexto (strategy-decision.json / client.md) agora existe localmente.
+        const errados = await supabase(env, 'media_jobs?status=eq.blocked&select=id,client_id,error&limit=50').catch(() => [])
+        let reprocessados = 0
+        for (const j of errados || []) {
+          if (!/Context Gate|strategy-decision|client\.md/i.test(String(j.error || ''))) continue
+          const strategyFile = path.join(marketingRoot, 'clients', j.client_id, 'outputs', 'strategy', 'strategy-decision.json')
+          const clientMd = path.join(marketingRoot, 'clients', j.client_id, 'client.md')
+          if (fs.existsSync(strategyFile) || fs.existsSync(clientMd)) {
+            await supabase(env, `media_jobs?id=eq.${encodeURIComponent(j.id)}`, { method: 'PATCH', headers: { Prefer: 'return=minimal' }, body: JSON.stringify({ status: 'queued', error: null, locked_at: null, locked_by: null, lease_expires_at: null, updated_at: new Date().toISOString() }) })
+            reprocessados++
+          }
+        }
+        log.push({ acao: 'reprocessar_contexto', alvo: 'media_jobs', resultado: reprocessados ? 'ok' : 'nada_a_fazer', verificacao: `${reprocessados} job(s) com contexto válido reprocessados` })
+      }
+      if (decisao.acao === 'promover_preview_texto') {
+        // Entregas de texto (strategy/auditoria/análise/imagem sem provider) sem preview:
+        // gera um HTML legível no storage e liga o preview — o operador/cliente conseguem ler.
+        const arts = await supabase(env, 'artifacts?status=eq.review&select=id,client_id,title,artifact_type,metadata&limit=50').catch(() => [])
+        let gerados = 0
+        for (const a of arts || []) {
+          if (a.metadata?.preview_url) continue
+          const text = String(a.metadata?.result?.text || a.metadata?.result?.structured ? JSON.stringify(a.metadata.result.structured, null, 2) : '')
+          if (!text) continue
+          const html = `<!doctype html><html><head><meta charset="utf-8"><title>${escapeHtml(String(a.title || a.artifact_type))}</title><style>body{font-family:system-ui;max-width:760px;margin:40px auto;padding:0 20px;color:#1a1a1a;line-height:1.6}pre{white-space:pre-wrap;font-size:14px}</style></head><body><h1>${escapeHtml(String(a.title || a.artifact_type))}</h1><p style="color:#777">${escapeHtml(a.client_id)} · ${escapeHtml(a.artifact_type)}</p><pre>${escapeHtml(text.slice(0, 40000))}</pre></body></html>`
+          const pathname = `artifacts/${a.client_id}/preview-${a.id.slice(0, 8)}.html`
+          const up = await fetch(`${(env.SUPABASE_URL || '').replace(/\/$/, '')}/storage/v1/object/media/${pathname.split('/').map(encodeURIComponent).join('/')}`, { method: 'POST', headers: { apikey: env.SUPABASE_SERVICE_ROLE_KEY || env.SUPABASE_SECRET_KEY, Authorization: `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY || env.SUPABASE_SECRET_KEY}`, 'Content-Type': 'text/html; charset=utf-8', 'x-upsert': 'true' }, body: html }).catch(() => null)
+          if (up?.ok) {
+            const url = `${(env.SUPABASE_URL || '').replace(/\/$/, '')}/storage/v1/object/public/media/${pathname}`
+            await supabase(env, `artifacts?id=eq.${encodeURIComponent(a.id)}`, { method: 'PATCH', headers: { Prefer: 'return=minimal' }, body: JSON.stringify({ metadata: { ...(a.metadata || {}), preview_url: url }, updated_at: new Date().toISOString() }) })
+            gerados++
+          }
+        }
+        log.push({ acao: 'promover_preview_texto', alvo: 'artifacts', resultado: gerados ? 'ok' : 'nada_a_fazer', verificacao: `${gerados} preview(s) de texto gerados` })
       }
       if (decisao.acao === 'liberar') {
         const presos = await supabase(env, 'media_jobs?status=in.(running,routed)&select=id,status,updated_at&limit=50').catch(() => [])
@@ -205,3 +242,7 @@ async function main() {
 }
 
 main().catch(e => { console.error('[orquestrador] falha:', e.message); process.exit(1) })
+
+function escapeHtml(text) {
+  return String(text || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+}

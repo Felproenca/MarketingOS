@@ -73,10 +73,10 @@ export async function collectState() {
 
   // Workers pm2
   out.workers = await safe('workers', () => new Promise(resolve => {
-    const r = spawnSync('pm2', ['jlist'], { encoding: 'utf8' })
+    const r = spawnSync('pm2', ['jlist'], { encoding: 'utf8', shell: true })
     let list = []
     try { list = JSON.parse(r.stdout || '[]') } catch { /* pm2 indisponivel */ }
-    const workers = list.filter(p => /worker/.test(p.name))
+    const workers = list.filter(p => /worker|orchestrator/.test(p.name))
     resolve(workers.map(p => ({ nome: p.name, status: p.pm2_env.status, restarts: p.pm2_env.restart_time, uptime: Math.round((Date.now() - (p.pm2_env.pm_uptime || 0)) / 60000) + 'min' })))
   }))
   if (out.workers) {

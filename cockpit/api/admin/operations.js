@@ -1,4 +1,5 @@
 import crypto from 'node:crypto'
+import { readFileSync } from 'node:fs'
 import { db } from '../_lib/config.js'
 import { authError, requireAdmin, requireClientAccess, requireUser } from '../_lib/auth.js'
 import { capabilityForJob, resolveAI } from '../_lib/ai-router.js'
@@ -11,7 +12,7 @@ import { clientReport } from '../_lib/reporting.js'
 import { createMission } from '../_lib/intake.js'
 import { handleCors } from '../_lib/cors.js'
 
-const REQUEST_TYPES = new Set(['carousel', 'mass_publish', 'video', 'generative_video', 'image', 'image_generate', 'creative', 'post', 'research', 'market_research', 'ads', 'analysis', 'data_sync', 'strategy', 'funnel', 'prospecting', 'acquisition', 'automation', 'relationship', 'publish', 'other'])
+const REQUEST_TYPES = new Set(['carousel', 'mass_publish', 'video', 'generative_video', 'image', 'image_generate', 'creative', 'copy', 'post', 'research', 'market_research', 'ads', 'analysis', 'data_sync', 'strategy', 'funnel', 'prospecting', 'acquisition', 'automation', 'relationship', 'publish', 'other'])
 const STATUSES = new Set(['queued', 'referenced', 'routed', 'running', 'review', 'approved', 'published', 'done', 'blocked', 'error'])
 
 // These routes have contracts and documentation, but no unattended MediaOS
@@ -26,6 +27,7 @@ function routeRequest(type) {
   if (type === 'image' || type === 'image_generate') return 'desingos'
   if (type === 'generative_video') return 'editoros'
   if (type === 'post') return 'mediaos'
+  if (type === 'copy') return 'marketingos'
   if (type === 'research' || type === 'market_research') return 'growthos'
   if (type === 'ads') return 'mediaos'
   if (type === 'analysis') return 'growthos'
@@ -46,6 +48,7 @@ function systemsFor(type) {
   if (type === 'image' || type === 'image_generate') return ['marketingos', 'reference', 'desingos', 'mediaos', 'data_now']
   if (type === 'generative_video') return ['marketingos', 'reference', 'editoros', 'mediaos', 'data_now']
   if (type === 'creative' || type === 'post') return ['marketingos', 'reference', 'desingos', 'mediaos']
+  if (type === 'copy') return ['marketingos', 'reference', 'mediaos']
   if (type === 'research' || type === 'market_research') return ['marketingos', 'reference', 'growthos', 'data_now']
   if (type === 'ads') return ['marketingos', 'reference', 'mediaos', 'data_now']
   if (type === 'analysis') return ['data_now', 'reference', 'growthos', 'marketingos']
@@ -86,6 +89,7 @@ export default async function handler(request, response) {
     if (request.method === 'POST' && request.body?.action === 'run_sync') return runSyncAction(request, response)
     if (request.method === 'POST' && request.body?.action === 'create_mission') return createMissionAction(request, response)
     if (request.method === 'POST' && request.body?.action === 'analyze') return analyzeAction(request, response)
+    if (request.method === 'POST' && request.body?.action === 'orchestrator_status') return orchestratorStatusAction(request, response)
     if (request.method === 'POST' && request.body?.action === 'agenda') return agendaAction(request, response)
     const user = await requireAdmin(request)
     if (request.method === 'GET' && String(request.query.report || '').startsWith('client:')) {
@@ -101,8 +105,15 @@ export default async function handler(request, response) {
 
 function hermesAdminEmails() { return String(process.env.ADMIN_EMAILS || '').split(',').map(value => value.trim().toLowerCase()).filter(Boolean) }
 function hermesClean(value, max = 500) { return String(value || '').trim().slice(0, max) }
-function hermesReply(message, scope, context) {
+function hermesReply(message, scope, context, orchestrator = null) {
   const text = message.toLowerCase()
+  if (/saúde|saude|status|online|sistema|orquestr|auditoria/.test(text) && orchestrator) {
+    return `Auditoria do sistema (${orchestrator.gerado_em?.slice(0, 16) || 'última'} UTC): ${orchestrator.problemas || 0} problema(s), ${orchestrator.severidade_alta || 0} de alta severidade. ${orchestrator.resumo || ''}`
+  }
+  if (/erro|bloque|atenção|problema|quebr/.test(text)) {
+    if (orchestrator?.problemas_detalhe?.length) return `Auditoria encontrou ${orchestrator.problemas} problema(s). Principais: ${orchestrator.problemas_detalhe.slice(0, 3).join(' | ')}`
+    return context.errors.length ? `Encontrei ${context.errors.length} ponto(s) que precisam de atenção: ${context.errors.slice(0, 5).map(item => item.title || item.error).join(' · ')}` : 'Não encontrei erros ou bloqueios recentes neste espaço.'
+  }
   if (/cliente|clientes|carteira/.test(text) && scope === 'operator') return `Você tem ${context.clients.length} cliente(s) na operação. ${context.clients.slice(0, 5).map(item => `${item.display_name || item.client_id} (${item.status || 'ativo'})`).join(' · ') || 'Nenhum cliente cadastrado.'}`
   if (/erro|bloque|atenção|problema/.test(text)) return context.errors.length ? `Encontrei ${context.errors.length} ponto(s) que precisam de atenção: ${context.errors.slice(0, 5).map(item => item.title || item.error).join(' · ')}` : 'Não encontrei erros ou bloqueios recentes neste espaço.'
   if (/resultado|entrega|artefato|produção/.test(text)) return `Há ${context.artifacts} entrega(s) e ${context.jobs} job(s) no recorte disponível. ${context.review ? `${context.review} aguarda(m) revisão/aprovação.` : 'Nenhuma entrega aguarda revisão.'}`
@@ -130,7 +141,14 @@ async function hermesAction(request, response) {
   if (isAdmin) await requireAdmin(request)
   else { if (!clientId) return response.status(400).json({ error: 'client_id_required' }); await requireClientAccess(request, clientId, db) }
   const context = await hermesContext(scope, clientId)
-  return response.status(200).json({ ok: true, assistant: 'hermes', scope, clientId: clientId || null, reply: hermesReply(message, scope, context), context: { jobs: context.jobs, artifacts: context.artifacts, review: context.review, alerts: context.errors.length } })
+  // Estado real do orquestrador (enviado a cada ciclo pelo loop local via audit_events)
+  let orchestrator = null
+  try {
+    const rows = await db("audit_events?event_type=eq.orchestrator_status&select=metadata,created_at&order=created_at.desc&limit=1").catch(() => [])
+    const last = rows?.[0]
+    if (last && Date.now() - new Date(last.created_at).getTime() < 30 * 60 * 1000) orchestrator = last.metadata?.status || null
+  } catch { /* sem status do orquestrador */ }
+  return response.status(200).json({ ok: true, assistant: 'hermes', scope, clientId: clientId || null, reply: hermesReply(message, scope, context, orchestrator), context: { jobs: context.jobs, artifacts: context.artifacts, review: context.review, alerts: context.errors.length, orchestrator: orchestrator ? { problemas: orchestrator.problemas, severidade_alta: orchestrator.severidade_alta, resumo: orchestrator.resumo } : null } })
 }
 
 function safeSecret(a, b) {
@@ -146,6 +164,18 @@ async function createMissionAction(request, response) {
     return response.status(201).json(result)
   } catch (e) {
     return response.status(e.statusCode || 500).json({ error: e.message, quota: e.quota || null })
+  }
+}
+
+async function orchestratorStatusAction(request, response) {
+  if (!safeSecret(request.headers['x-mediaos-execution-secret'], process.env.MEDIAOS_EXECUTION_INGEST_SECRET)) return response.status(401).json({ error: 'orchestrator_unauthorized' })
+  const status = request.body?.status || null
+  if (!status) return response.status(400).json({ error: 'status obrigatorio' })
+  try {
+    await db('audit_events', { method: 'POST', headers: { Prefer: 'return=minimal' }, body: JSON.stringify({ client_id: String(process.env.ORCHESTRATOR_HOLDER_CLIENT || 'felipe-proenca'), actor_id: '00000000-0000-0000-0000-0000000000ff', actor_role: 'admin', event_type: 'orchestrator_status', resource_type: 'orchestrator', resource_id: 'system', metadata: { status: { gerado_em: status.gerado_em, problemas: status.problemas || 0, severidade_alta: status.severidade_alta || 0, resumo: status.resumo || null, problemas_detalhe: (status.problemas_detalhe || []).slice(0, 10) } }, created_at: new Date().toISOString() }) })
+    return response.status(200).json({ ok: true })
+  } catch (e) {
+    return response.status(e.statusCode || 500).json({ error: e.message || 'orchestrator_status_failed' })
   }
 }
 

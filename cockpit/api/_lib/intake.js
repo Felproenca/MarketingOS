@@ -18,7 +18,7 @@ const CAPABILITY_TO_REQUEST_TYPE = {
   data_sync: 'data_sync',
   carousel: 'carousel',
   post: 'post',
-  copy: 'post',
+  copy: 'copy',
   image_generate: 'image_generate',
   video_generate: 'generative_video',
   video_edit: 'video',

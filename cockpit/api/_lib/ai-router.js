@@ -71,6 +71,7 @@ export function capabilityForJob(jobType) {
   if (skill?.capability) return skill.capability
   // Fallback only for job types without a declarative skill in the registry.
   if (jobType === 'carousel') return 'carousel'
+  if (jobType === 'copy') return 'copy'
   if (jobType === 'post') return 'post'
   if (jobType === 'research') return 'research'
   if (jobType === 'ads') return 'ads'

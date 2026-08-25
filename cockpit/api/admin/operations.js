@@ -85,6 +85,7 @@ export default async function handler(request, response) {
     if (request.method === 'POST' && request.body?.action === 'ingest_execution_result') return ingestExecutionResult(request, response)
     if (request.method === 'POST' && request.body?.action === 'run_sync') return runSyncAction(request, response)
     if (request.method === 'POST' && request.body?.action === 'create_mission') return createMissionAction(request, response)
+    if (request.method === 'POST' && request.body?.action === 'analyze') return analyzeAction(request, response)
     if (request.method === 'POST' && request.body?.action === 'agenda') return agendaAction(request, response)
     const user = await requireAdmin(request)
     if (request.method === 'GET' && String(request.query.report || '').startsWith('client:')) {
@@ -113,13 +114,13 @@ async function hermesContext(scope, clientId) {
   const suffix = clientId ? `&client_id=eq.${encodeURIComponent(clientId)}` : ''
   const [clients, jobs, artifacts, requests, connections] = await Promise.all([
     scope === 'operator' ? db('client_profiles?select=client_id,display_name,status&order=display_name.asc&limit=100') : db(`client_profiles?client_id=eq.${encodeURIComponent(clientId)}&select=client_id,display_name,status&limit=1`),
-    db(`media_jobs?select=id,title,status,error,client_id&order=created_at.desc&limit=50${suffix}`),
+    db(`media_jobs?select=id,job_type,status,error,client_id&order=created_at.desc&limit=50${suffix}`),
     db(`artifacts?select=id,title,status,client_id&order=updated_at.desc&limit=50${suffix}`),
     db(`work_requests?select=id,title,status,client_id&order=created_at.desc&limit=50${suffix}`),
-    db(`connections?select=client_id,source,status&limit=100${suffix}`).catch(() => []),
+    db(`connections?select=client_id,source&limit=100${suffix}`).catch(() => []),
   ])
   const jobRows = jobs || []; const artifactRows = artifacts || []; const requestRows = requests || []
-  return { clients: clients || [], jobs: jobRows.length, artifacts: artifactRows.length, review: artifactRows.filter(item => item.status === 'review').length, connections: (connections || []).filter(item => item.status !== 'error').length, errors: jobRows.filter(item => ['error', 'blocked'].includes(item.status) || item.error).concat(requestRows.filter(item => ['error', 'blocked'].includes(item.status))) }
+  return { clients: clients || [], jobs: jobRows.length, artifacts: artifactRows.length, review: artifactRows.filter(item => item.status === 'review').length, connections: (connections || []).length, errors: jobRows.filter(item => ['error', 'blocked'].includes(item.status) || item.error).concat(requestRows.filter(item => ['error', 'blocked'].includes(item.status))) }
 }
 async function hermesAction(request, response) {
   const body = request.body || {}; const message = hermesClean(body.message, 1200)
@@ -148,11 +149,45 @@ async function createMissionAction(request, response) {
   }
 }
 
+async function analyzeAction(request, response) {
+  if (!safeSecret(request.headers['x-mediaos-execution-secret'], process.env.MEDIAOS_EXECUTION_INGEST_SECRET)) return response.status(401).json({ error: 'analyze_unauthorized' })
+  const clientId = String(request.body?.clientId || '').trim().toLowerCase()
+  if (!clientId) return response.status(400).json({ error: 'clientId obrigatorio' })
+  try {
+    // Cria um job de análise na fila; o mediaos-worker local roda o pipeline de insights
+    // (métricas → DeepSeek → artifact analysis + pautas de agenda) e ingesta o resultado.
+    const wr = await db('work_requests', { method: 'POST', headers: { Prefer: 'return=representation' }, body: JSON.stringify({ client_id: clientId, title: 'Análise de dados', request_type: 'analysis', status: 'queued', source_system: 'marketingos', target_system: 'marketingos', requires_approval: true, payload: {}, created_at: new Date().toISOString() }) })
+    const request = wr?.[0]
+    const job = await db('media_jobs', { method: 'POST', headers: { Prefer: 'return=representation' }, body: JSON.stringify({ client_id: clientId, request_id: request?.id || null, job_type: 'analysis', capability: 'analysis', status: 'queued', priority: 'normal', input: { title: 'Análise de dados coletados', objective: 'Analisar os dados coletados e gerar insights + pautas' }, created_at: new Date().toISOString() }) })
+    return response.status(202).json({ ok: true, job: job?.[0]?.id || null, message: 'Análise enfileirada — o worker processa e gera o relatório + pautas da agenda.' })
+  } catch (e) {
+    return response.status(e.statusCode || 500).json({ error: e.message || 'analyze_failed' })
+  }
+}
+
 // Agenda editorial por cliente: itens propostos pelo operador, aprovados pelo cliente
 // no portal, e convertidos em solicitações reais de produção (action=generate).
 // Modelagem: cada item é um work_request com request_type='agenda_item' (não gera job).
 // Status: proposta | aprovado | recusado | gerado.
 const AGENDA_TYPES = new Set(['carousel', 'post', 'video', 'strategy', 'research', 'analysis', 'funnel', 'design', 'reel', 'image'])
+const AGENDA_STAGES = new Set(['topo', 'meio', 'fundo', 'retencao'])
+const AGENDA_CHANNELS = new Set(['instagram', 'site', 'google', 'whatsapp', 'multicanal'])
+
+function agendaMetadata(item = {}) {
+  const stage = String(item.funnel_stage || '').toLowerCase()
+  const channel = String(item.channel || '').toLowerCase()
+  return {
+    type: AGENDA_TYPES.has(String(item.type)) ? String(item.type) : 'post',
+    objective: String(item.objective || '').trim().slice(0, 1200),
+    due_date: item.due_date || null,
+    funnel_stage: AGENDA_STAGES.has(stage) ? stage : 'topo',
+    channel: AGENDA_CHANNELS.has(channel) ? channel : 'instagram',
+    format: String(item.format || '').trim().slice(0, 120),
+    pillar: String(item.pillar || '').trim().slice(0, 160),
+    cta: String(item.cta || '').trim().slice(0, 300),
+    kpi: String(item.kpi || '').trim().slice(0, 120),
+  }
+}
 
 async function agendaAction(request, response) {
   const body = request.body || {}
@@ -163,7 +198,7 @@ async function agendaAction(request, response) {
     if (sub === 'list') {
       const suffix = clientId ? `&client_id=eq.${encodeURIComponent(clientId)}` : ''
       const rows = await db(`work_requests?request_type=eq.agenda_item&select=id,client_id,title,status,payload,created_at,updated_at&order=created_at.desc&limit=100${suffix}`)
-      return response.status(200).json({ items: (rows || []).map(row => ({ id: row.id, client_id: row.client_id, title: row.title, status: row.status, type: row.payload?.agenda?.type || 'conteudo', objective: row.payload?.agenda?.objective || '', due_date: row.payload?.agenda?.due_date || null, production_request_id: row.payload?.agenda?.production_request_id || null, created_at: row.created_at })) })
+      return response.status(200).json({ items: (rows || []).map(row => ({ id: row.id, client_id: row.client_id, title: row.title, status: row.status, ...agendaMetadata(row.payload?.agenda), production_request_id: row.payload?.agenda?.production_request_id || null, created_at: row.created_at })) })
     }
     if (sub === 'create') {
       if (!clientId) return response.status(400).json({ error: 'clientId obrigatorio' })
@@ -172,9 +207,9 @@ async function agendaAction(request, response) {
       for (const item of items) {
         const title = String(item.title || '').trim()
         if (!title) continue
-        const type = AGENDA_TYPES.has(String(item.type)) ? String(item.type) : 'conteudo'
-        const row = await db('work_requests', { method: 'POST', headers: { Prefer: 'return=representation' }, body: JSON.stringify({ client_id: clientId, title, request_type: 'agenda_item', status: 'proposta', source_system: 'marketingos', target_system: 'marketingos', requires_approval: true, payload: { agenda: { type, objective: String(item.objective || ''), due_date: item.due_date || null } }, created_at: new Date().toISOString() }) })
-        if (row?.[0]?.id) created.push({ id: row[0].id, title, type, status: 'proposta' })
+        const agenda = agendaMetadata(item)
+        const row = await db('work_requests', { method: 'POST', headers: { Prefer: 'return=representation' }, body: JSON.stringify({ client_id: clientId, title, request_type: 'agenda_item', status: 'proposta', source_system: 'marketingos', target_system: 'marketingos', requires_approval: true, payload: { agenda }, created_at: new Date().toISOString() }) })
+        if (row?.[0]?.id) created.push({ id: row[0].id, title, ...agenda, status: 'proposta' })
       }
       return response.status(201).json({ ok: true, created })
     }
@@ -194,8 +229,9 @@ async function agendaAction(request, response) {
     const operator = { id: '00000000-0000-0000-0000-000000000001', email: String(process.env.ADMIN_EMAILS || '').split(',')[0] || 'operator@mkos.online' }
     const generated = []
     for (const item of approved) {
-      const agenda = item.payload?.agenda || {}
-      const result = await createMission({ body: { clientId, title: item.title, requestType: agenda.type || 'conteudo', objective: agenda.objective || item.title, prompt: agenda.objective ? `Item da agenda aprovado pelo cliente: ${item.title}. Objetivo: ${agenda.objective}` : `Item da agenda aprovado pelo cliente: ${item.title}`, priority: 'normal', source: 'agenda' }, user: operator })
+      const agenda = agendaMetadata(item.payload?.agenda)
+      const context = [`Item da agenda aprovado pelo cliente: ${item.title}.`, `Etapa do funil: ${agenda.funnel_stage}.`, `Canal: ${agenda.channel}.`, agenda.format && `Formato: ${agenda.format}.`, agenda.pillar && `Pilar: ${agenda.pillar}.`, agenda.objective && `Objetivo: ${agenda.objective}.`, agenda.cta && `CTA: ${agenda.cta}.`, agenda.kpi && `KPI principal: ${agenda.kpi}.`].filter(Boolean).join(' ')
+      const result = await createMission({ body: { clientId, title: item.title, requestType: agenda.type || 'post', objective: agenda.objective || item.title, prompt: context, priority: 'normal', source: 'agenda' }, user: operator })
       const requestId = result?.request?.id || null
       await db(`work_requests?id=eq.${encodeURIComponent(item.id)}`, { method: 'PATCH', headers: { Prefer: 'return=minimal' }, body: JSON.stringify({ status: 'gerado', payload: { ...(item.payload || {}), agenda: { ...agenda, production_request_id: requestId } }, updated_at: new Date().toISOString() }) })
       generated.push({ agenda_item_id: item.id, production_request_id: requestId, title: item.title })

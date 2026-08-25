@@ -2,6 +2,7 @@ import { requireUser, authError } from '../_lib/auth.js'
 import { db } from '../_lib/config.js'
 import { clientReport } from '../_lib/reporting.js'
 import { createMission } from '../_lib/intake.js'
+import { runSync } from '../_lib/sync.js'
 import { handleCors } from '../_lib/cors.js'
 
 // Previsão por média: média dos últimos registros por fonte (expectativa do próximo período)
@@ -57,6 +58,13 @@ export default async function handler(request, response) {
     if (request.method === 'POST') {
       const body = request.body || {}
       const action = String(body.action || '').toLowerCase()
+      if (action === 'sync_data') {
+        const source = String(body.source || '').toLowerCase()
+        const target = source === 'meta' ? 'instagram' : source === 'google' ? 'youtube' : ''
+        if (!target) return response.status(400).json({ error: 'source_invalida' })
+        const result = await runSync(slug, target)
+        return response.status(result.ok ? 200 : 502).json(result)
+      }
       // Agenda: o cliente aprova/recusa itens propostos pelo operador
       if (action === 'approve_agenda' || action === 'reject_agenda') {
         const itemIds = Array.isArray(body.itemIds) ? body.itemIds.map(String) : []
@@ -84,6 +92,10 @@ export default async function handler(request, response) {
     const artifacts = (await db(`artifacts?client_id=eq.${encodeURIComponent(slug)}&select=id,artifact_type,title,status,metadata,created_at&order=created_at.desc&limit=50`).catch(() => [])) || []
     const connections = (await db(`connections?client_id=eq.${encodeURIComponent(slug)}&select=source,username,connected_at,expires_at&order=source.asc`).catch(() => [])) || []
     const agendaRows = (await db(`work_requests?request_type=eq.agenda_item&client_id=eq.${encodeURIComponent(slug)}&select=id,title,status,payload,created_at&order=created_at.desc&limit=30`).catch(() => [])) || []
+    // Última análise de dados (artifact analysis) — insights + métricas para o dashboard
+    const analysisRows = (await db(`artifacts?client_id=eq.${encodeURIComponent(slug)}&artifact_type=eq.analysis&select=id,title,status,metadata,created_at&order=created_at.desc&limit=1`).catch(() => [])) || []
+    const lastAnalysis = analysisRows?.[0]
+    const analise = lastAnalysis ? { id: lastAnalysis.id, titulo: lastAnalysis.title, status: lastAnalysis.status, criado_em: lastAnalysis.created_at, preview_url: lastAnalysis.metadata?.preview_url || null, resumo: lastAnalysis.metadata?.analysis?.resumo || null, insights: lastAnalysis.metadata?.analysis?.insights || [], recomendacoes: lastAnalysis.metadata?.analysis?.recomendacoes || [], pautas: lastAnalysis.metadata?.analysis?.pautas || [] } : null
 
     return response.status(200).json({
       ...report,
@@ -93,7 +105,23 @@ export default async function handler(request, response) {
       previsao: computeForecast(metrics),
       insights_aquisicao: computeAcquisitionInsights(metrics),
       connections: (connections || []).map(connection => ({ source: connection.source, username: connection.username || null, connected: true, connectedAt: connection.connected_at || null, expiresAt: connection.expires_at || null })),
-      agenda: (agendaRows || []).map(item => ({ id: item.id, titulo: item.title, status: item.status, tipo: item.payload?.agenda?.type || 'conteudo', objetivo: item.payload?.agenda?.objective || '', production_request_id: item.payload?.agenda?.production_request_id || null, criado_em: item.created_at })),
+      agenda: (agendaRows || []).map(item => ({
+        id: item.id,
+        titulo: item.title,
+        status: item.status,
+        tipo: item.payload?.agenda?.type || 'conteudo',
+        objetivo: item.payload?.agenda?.objective || '',
+        data: item.payload?.agenda?.due_date || null,
+        etapa_funil: item.payload?.agenda?.funnel_stage || 'topo',
+        canal: item.payload?.agenda?.channel || 'instagram',
+        formato: item.payload?.agenda?.format || '',
+        pilar: item.payload?.agenda?.pillar || '',
+        cta: item.payload?.agenda?.cta || '',
+        kpi: item.payload?.agenda?.kpi || '',
+        production_request_id: item.payload?.agenda?.production_request_id || null,
+        criado_em: item.created_at,
+      })),
+      analise,
     })
   } catch (error) {
     return authError(response, error)

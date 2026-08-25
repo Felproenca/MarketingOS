@@ -25,7 +25,20 @@ export async function connections(request, response) {
       : mode === 'platform_api'
         ? `platform:${provider}`
         : `oauth:${crypto.randomUUID()}`
-    const rows = await db('provider_connections?on_conflict=client_id,provider,connection_type', { method: 'POST', headers: { Prefer: 'resolution=merge-duplicates,return=representation' }, body: JSON.stringify({ client_id: clientId, provider, connection_type: mode, secret_ref: secretRef, capabilities: Array.isArray(body.capabilities) ? body.capabilities : [], execution_mode: mode, scopes: Array.isArray(body.scopes) ? body.scopes : [], billing_owner: 'customer', metadata: { default_model: body.model || null, base_url: body.baseUrl || null, endpoint: body.endpoint || null }, status: 'active', updated_at: new Date().toISOString() }) })
+    // Validação REAL da chave antes de ativar: a conexão só vira 'active' se o provider aceitar.
+    // Falhou → grava com status 'error' e mensagem honesta (não finge conexão).
+    let status = 'active'
+    let validationNote = null
+    if (mode === 'api_key_customer' && body.secret && VALIDATORS[provider]) {
+      try {
+        await VALIDATORS[provider](String(body.secret), String(body.baseUrl || '').trim())
+      } catch (validationError) {
+        status = 'error'
+        validationNote = String(validationError?.message || validationError).slice(0, 240)
+      }
+    }
+    const rows = await db('provider_connections?on_conflict=client_id,provider,connection_type', { method: 'POST', headers: { Prefer: 'resolution=merge-duplicates,return=representation' }, body: JSON.stringify({ client_id: clientId, provider, connection_type: mode, secret_ref: secretRef, capabilities: Array.isArray(body.capabilities) ? body.capabilities : [], execution_mode: mode, scopes: Array.isArray(body.scopes) ? body.scopes : [], billing_owner: 'customer', metadata: { default_model: body.model || null, base_url: body.baseUrl || null, endpoint: body.endpoint || null, validation_note: validationNote, last_validated_at: new Date().toISOString() }, status, updated_at: new Date().toISOString() }) })
+    if (status === 'error') return response.status(422).json({ error: validationNote || 'Chave inválida para o provedor.', connection: sanitize(rows?.[0]) })
     return response.status(201).json({ connection: sanitize(rows?.[0]) })
   } catch (error) { return authError(response, error) }
 }
@@ -60,3 +73,11 @@ export async function upload(request, response) {
 }
 
 function sanitize(row) { if (!row) return null; const { secret_ref, ...safe } = row; return safe }
+
+// Validadores mínimos de chave por provedor (best-effort — a chave precisa funcionar, não só ser salva)
+const VALIDATORS = {
+  deepseek: async (key) => { const r = await fetch('https://api.deepseek.com/v1/models', { headers: { authorization: `Bearer ${key}` } }); if (!r.ok) throw new Error(`DeepSeek rejeitou a chave (HTTP ${r.status}).`) },
+  anthropic: async (key) => { const r = await fetch('https://api.anthropic.com/v1/models', { headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01' } }); if (!r.ok) throw new Error(`Anthropic rejeitou a chave (HTTP ${r.status}).`) },
+  openai: async (key, baseUrl) => { const base = (baseUrl || 'https://api.openai.com/v1').replace(/\/$/, ''); const r = await fetch(`${base}/models`, { headers: { authorization: `Bearer ${key}` } }); if (!r.ok) throw new Error(`OpenAI rejeitou a chave (HTTP ${r.status}).`) },
+  fal: async (key) => { const r = await fetch('https://queue.fal.run/', { headers: { authorization: `Key ${key}` } }); if (!r.ok && r.status !== 404) throw new Error(`Fal rejeitou a chave (HTTP ${r.status}).`) },
+}

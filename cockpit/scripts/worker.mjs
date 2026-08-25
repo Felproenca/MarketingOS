@@ -279,6 +279,14 @@ async function runScheduler() {
         })
         const body = await res.json().catch(() => ({}))
         console.log(`   → run_sync HTTP ${res.status} ${JSON.stringify(body).slice(0, 140)}`)
+        // Dados coletados → análise automática (inteligência: coleta vira leitura + pautas)
+        if (res.ok && body?.ok) {
+          try {
+            const wr = await db('work_requests', { method: 'POST', headers: { Prefer: 'return=representation' }, body: JSON.stringify({ client_id: s.client_id, title: 'Análise de dados', request_type: 'analysis', status: 'queued', source_system: 'marketingos', target_system: 'marketingos', requires_approval: true, payload: {}, created_at: now() }) })
+            const job = await db('media_jobs', { method: 'POST', headers: { Prefer: 'return=representation' }, body: JSON.stringify({ client_id: s.client_id, request_id: wr?.[0]?.id || null, job_type: 'analysis', capability: 'analysis', status: 'queued', priority: 'normal', input: { title: 'Análise pós-sync', objective: 'Analisar dados recém-coletados' }, created_at: now() }) })
+            console.log(`   → análise automática enfileirada (${job?.[0]?.id ? job[0].id.slice(0, 8) : '?'})`)
+          } catch (e2) { console.log(`   → erro ao enfileirar análise: ${e2.message}`) }
+        }
       } else {
         console.log('   → SEM SYNC_SECRET — apenas agendando (pull desativado).')
       }

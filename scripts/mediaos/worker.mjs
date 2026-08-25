@@ -196,10 +196,13 @@ function runVideo(job) {
 }
 
 function runAnalysis(job) {
-    const result = spawnExecutor(process.execPath, [analysisExecutor, "--client", job.client_id, "--job", job.id]);
+    // Análise real dos dados coletados: pipeline de insights (métricas → LLM → artifact analysis + pautas de agenda)
+    const result = spawnExecutor(process.execPath, [path.join(marketingRoot, "scripts", "insights", "analyze-client.mjs"), "--client", job.client_id, "--agenda"]);
   const output = `${result.stdout || ""}\n${result.stderr || ""}`.trim();
-  if (result.status !== 0) throw Object.assign(new Error(output || "analysis-executor falhou"), { retryable: false, blocked: /sem dados sincronizados/i.test(output) });
-  return parseLastJsonLine(output, "analysis-executor", { retryable: false });
+  if (result.status !== 0) throw Object.assign(new Error(output || "analysis-executor falhou"), { retryable: false, blocked: /sem dados coletados|amostra pequena/i.test(output) });
+  const parsed = parseLastJsonLine(output, "analysis-executor", { retryable: false });
+  if (!parsed?.ok) throw Object.assign(new Error(JSON.stringify(parsed || {}).slice(0, 400) || "análise falhou"), { retryable: false, blocked: /sem dados coletados|amostra pequena/i.test(output) });
+  return { output_path: "", result_type: "analysis", source: "data_now_normalized", artifact_created: Boolean(parsed.artifact), artifact_id: parsed.artifact || null, report_url: parsed.report_url || null, pautas: parsed.pautas || 0, agenda_criada: parsed.agenda_criada || 0 };
 }
 
 function runPost(job) {
@@ -426,6 +429,14 @@ async function processJob(job) {
     const analysisExecution = job.job_type === "analysis" ? runAnalysis(job) : null;
     const structuredExecution = ["strategy", "funnel", "data_sync", "prospecting", "publish", "ads", "automation"].includes(job.job_type) ? runStructured(job) : null;
     if (!videoExecution && !generatedVideoExecution && !imageExecution && !postExecution && !researchExecution && !analysisExecution && !structuredExecution) runExistingCarousel(job.request_id);
+  if (analysisExecution?.artifact_created) {
+    // O pipeline de análise (analyze-client) já criou o artifact analysis + pautas de agenda.
+    const result = { artifact_id: analysisExecution.artifact_id, assets: [], executor: 'marketingos-analysis-insights-v1' };
+    await patchJob(job.id, { status: "review", result, completed_at: new Date().toISOString(), error: null });
+    await patchRequestStatus(job.request_id, "review", null, { artifact_id: result.artifact_id });
+    await event(job.id, "artifact_created", "running", "review", "Análise de dados gerada (relatório + pautas na agenda).", { artifact_id: result.artifact_id });
+    return { ok: true, jobId: job.id, artifactId: result.artifact_id, assets: 0 };
+  }
     const refreshedRequests = await db(`work_requests?id=eq.${encodeURIComponent(job.request_id)}&select=*&limit=1`);
     const refreshedRequest = refreshedRequests?.[0];
     const execution = refreshedRequest?.payload?.execution;

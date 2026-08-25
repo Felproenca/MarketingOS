@@ -15,6 +15,7 @@ export default async function handler(request, response) {
     if (String(request.query.action || '') === 'reference') return handleReference(request, response, user)
     // Link de acesso mágico para o cliente (o operador gera e envia pelo canal que preferir)
     if (String(request.query.action || '') === 'access_link') return generateAccessLink(request, response, user)
+    if (String(request.query.action || '') === 'invite') return sendInviteAction(request, response, user)
     const admins = String(process.env.ADMIN_EMAILS || '').split(',').map(value => value.trim().toLowerCase()).filter(Boolean)
     const isAdmin = Boolean(user.email && admins.includes(user.email.toLowerCase()))
     if (request.method === 'POST') {
@@ -91,9 +92,47 @@ async function generateAccessLink(request, response, user) {
     })
     const data = await res.json().catch(() => ({}))
     if (!res.ok) return response.status(res.status || 500).json({ error: data.msg || data.message || 'Não foi possível gerar o link.' })
-    const magicUrl = data.properties?.action_link || data.properties?.email_otp || null
+    let magicUrl = data.properties?.action_link || null
+    // Usuário já existe (tem senha): gera link de recuperação/criação de senha com redirect p/ o portal
+    if (!magicUrl && data.id) {
+      const rec = await fetch(`${base}/auth/v1/admin/generate_link`, {
+        method: 'POST',
+        headers: { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'recovery', email, options: { redirect_to: `${portalUrl}/login/cliente?slug=${encodeURIComponent(clientId)}` } }),
+      })
+      const recData = await rec.json().catch(() => ({}))
+      magicUrl = recData?.properties?.action_link || null
+      if (!magicUrl && data.id) magicUrl = `${portalUrl}/login/cliente?slug=${encodeURIComponent(clientId)}`
+    }
     if (!magicUrl) return response.status(500).json({ error: 'Supabase não retornou o link. Confirme se o e-mail já foi convidado.' })
     return response.status(200).json({ ok: true, clientId, email, url: magicUrl, note: 'O link expira. Envie ao cliente; ele cairá direto no portal com os dados do espaço.' })
+  } catch (error) {
+    return authError(response, error)
+  }
+}
+
+// Envia/reenvia o convite por e-mail para o cliente criar a conta e acessar o portal
+async function sendInviteAction(request, response, user) {
+  try {
+    const body = request.body || {}
+    const clientId = String(request.query.clientId || body.clientId || '').trim().toLowerCase()
+    const email = String(body.email || '').trim().toLowerCase()
+    if (!clientId || !email) return response.status(400).json({ error: 'clientId e email são obrigatórios.' })
+    const base = process.env.SUPABASE_URL.replace(/\/$/, '').replace(/\/rest\/v1$/, '')
+    const key = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY
+    if (!key) return response.status(500).json({ error: 'SUPABASE_SECRET_KEY ausente.' })
+    const portalUrl = process.env.CLIENT_PORTAL_URL || 'https://marketingos-frontend.vercel.app'
+    const res = await fetch(`${base}/auth/v1/admin/invite`, {
+      method: 'POST',
+      headers: { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, redirect_to: `${portalUrl}/login/cliente?slug=${encodeURIComponent(clientId)}`, data: { client_id: clientId } }),
+    })
+    const data = await res.json().catch(() => ({}))
+    if (!res.ok) return response.status(res.status || 500).json({ error: data.msg || data.message || 'Não foi possível enviar o convite.' })
+    if (data.id) {
+      await db('client_memberships?on_conflict=client_id,user_id', { method: 'POST', headers: { Prefer: 'resolution=merge-duplicates,return=minimal' }, body: JSON.stringify({ client_id: clientId, user_id: data.id, role: 'owner' }) })
+    }
+    return response.status(200).json({ ok: true, clientId, email, sent: true, message: 'Convite enviado para o e-mail do cliente.' })
   } catch (error) {
     return authError(response, error)
   }

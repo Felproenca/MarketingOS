@@ -9,7 +9,8 @@ const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, '..');
 
 const PORT = 3333;
-const DASHBOARD_FILE = path.join(ROOT, 'site', 'forca-da-terra-competitivo.html');
+const TI_DASHBOARD = path.join(ROOT, 'site', 'toque-indiano-competitivo.html');
+const FT_DASHBOARD = path.join(ROOT, 'site', 'forca-da-terra-competitivo.html');
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -26,18 +27,15 @@ const MIME_TYPES = {
 const server = http.createServer((req, res) => {
   const urlPath = decodeURIComponent(req.url.split('?')[0]);
 
-  // Default routes for dashboard
+  // Routes for Toque Indiano
   if (
-    urlPath === '/' ||
-    urlPath === '/forca-da-terra' ||
-    urlPath === '/forca-da-terra-competitivo' ||
-    urlPath === '/dashboard' ||
-    urlPath === '/dashboard-forca-da-terra' ||
-    urlPath === '/index.html' ||
-    urlPath === '/forca-da-terra-competitivo.html'
+    urlPath === '/toque-indiano' ||
+    urlPath === '/toque-indiano-competitivo' ||
+    urlPath === '/toque-indiano.html' ||
+    urlPath === '/toqueindiano'
   ) {
-    if (fs.existsSync(DASHBOARD_FILE)) {
-      const content = fs.readFileSync(DASHBOARD_FILE);
+    if (fs.existsSync(TI_DASHBOARD)) {
+      const content = fs.readFileSync(TI_DASHBOARD);
       res.writeHead(200, {
         'Content-Type': 'text/html; charset=utf-8',
         'Content-Length': content.length,
@@ -48,7 +46,39 @@ const server = http.createServer((req, res) => {
     }
   }
 
-  // Check possible directories
+  // Routes for Força da Terra
+  if (
+    urlPath === '/forca-da-terra' ||
+    urlPath === '/forca-da-terra-competitivo' ||
+    urlPath === '/forca-da-terra.html' ||
+    urlPath === '/forcadaterra'
+  ) {
+    if (fs.existsSync(FT_DASHBOARD)) {
+      const content = fs.readFileSync(FT_DASHBOARD);
+      res.writeHead(200, {
+        'Content-Type': 'text/html; charset=utf-8',
+        'Content-Length': content.length,
+        'Cache-Control': 'no-cache'
+      });
+      res.end(content);
+      return;
+    }
+  }
+
+  // Root / or default: Toque Indiano if requested now, or fallback to TI
+  if (urlPath === '/' || urlPath === '/index.html') {
+    const defaultFile = fs.existsSync(TI_DASHBOARD) ? TI_DASHBOARD : FT_DASHBOARD;
+    const content = fs.readFileSync(defaultFile);
+    res.writeHead(200, {
+      'Content-Type': 'text/html; charset=utf-8',
+      'Content-Length': content.length,
+      'Cache-Control': 'no-cache'
+    });
+    res.end(content);
+    return;
+  }
+
+  // Check possible directories for static assets/html
   const candidateDirs = [
     path.join(ROOT, 'site'),
     path.join(ROOT, 'public'),
@@ -71,9 +101,9 @@ const server = http.createServer((req, res) => {
     }
   }
 
-  // Fallback: serve dashboard if html requested
-  if (fs.existsSync(DASHBOARD_FILE)) {
-    const content = fs.readFileSync(DASHBOARD_FILE);
+  // Fallback
+  if (fs.existsSync(TI_DASHBOARD)) {
+    const content = fs.readFileSync(TI_DASHBOARD);
     res.writeHead(200, {
       'Content-Type': 'text/html; charset=utf-8',
       'Content-Length': content.length
@@ -88,11 +118,8 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`\n======================================================`);
-  console.log(`🚀 DASHBOARD FORÇA DA TERRA RODANDO COM SUCESSO!`);
-  console.log(`👉 http://localhost:${PORT}`);
-  console.log(`👉 http://localhost:${PORT}/forca-da-terra-competitivo`);
+  console.log(`🚀 SERVIDOR MARKETINGOS BI RODANDO COM SUCESSO!`);
+  console.log(`👉 Toque Indiano: http://localhost:${PORT}/toque-indiano`);
+  console.log(`👉 Força da Terra: http://localhost:${PORT}/forca-da-terra`);
   console.log(`======================================================\n`);
-
-  // Open in browser
-  exec(`start http://localhost:${PORT}`);
 });

@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Força da Terra — Dashboard de Inteligência Competitiva & Estratégia de Mercado</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#fbf7f4',
+              100: '#f5eee8',
+              500: '#c26a45',
+              600: '#a85533',
+              700: '#873f24'
+            },
+            surface: {
+              900: '#0c0f12',
+              800: '#141a21',
+              700: '#1c242e',
+              600: '#283442'
+            },
+            botanic: {
+              500: '#3d7a5a',
+              600: '#2d5e44'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0b0e12;
+      color: #e2e8f0;
+    }
+    .serif-title {
+      font-family: 'Playfair Display', serif;
+    }
+    .glass-panel {
+      background: rgba(20, 26, 33, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .metric-card {
+      transition: all 0.25s ease;
+    }
+    .metric-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(194, 106, 69, 0.4);
+    }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #0c0f12; }
+    ::-webkit-scrollbar-thumb { background: #283442; border-radius: 4px; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Header / Navigation Bar -->
+  <header class="border-b border-surface-700/80 bg-surface-900/90 sticky top-0 z-50 backdrop-blur">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-amber-700 flex items-center justify-center shadow-lg shadow-brand-500/20">
+          <i data-lucide="sprout" class="w-6 h-6 text-white"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-semibold uppercase tracking-widest text-brand-500 bg-brand-500/10 px-2 py-0.5 rounded">MarketingOS Intelligence</span>
+            <span class="text-xs text-slate-400">Cliente: <strong class="text-slate-200">Força da Terra</strong></span>
+          </div>
+          <h1 class="text-xl font-bold tracking-tight text-white serif-title">Dossiê Competitivo & Estratégia de Margem</h1>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          Sincronizado Supabase
+        </span>
+        <button onclick="window.print()" class="px-3 py-1.5 text-xs font-medium text-slate-300 bg-surface-700 hover:bg-surface-600 rounded-lg border border-surface-600 flex items-center gap-1.5 transition">
+          <i data-lucide="printer" class="w-3.5 h-3.5"></i> Imprimir / PDF
+        </button>
+        <button onclick="toggleFullscreen()" class="px-3 py-1.5 text-xs font-medium text-white bg-brand-500 hover:bg-brand-600 rounded-lg shadow flex items-center gap-1.5 transition">
+          <i data-lucide="maximize" class="w-3.5 h-3.5"></i> Apresentar
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- Executive Summary Banner -->
+    <div class="glass-panel rounded-2xl p-6 sm:p-8 relative overflow-hidden border-l-4 border-l-brand-500">
+      <div class="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-brand-500/10 to-transparent pointer-events-none"></div>
+      <div class="max-w-3xl space-y-3">
+        <div class="inline-flex items-center gap-2 text-xs uppercase tracking-wider text-amber-400 font-semibold">
+          <i data-lucide="compass" class="w-4 h-4"></i> Diagnóstico Executivo de Posicionamento
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white leading-tight">
+          A Força da Terra tem produto de alta qualidade, mas está vendendo como <span class="text-brand-500 underline decoration-brand-500/40">commodity avulsa</span> a R$ 55 de ticket médio.
+        </h2>
+        <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+          Nossos concorrentes diretos (Cativa, Bioart, WNF, Twoone) já migraram suas operações para <strong>Kits de Rotina Sensorial</strong>, travando frete grátis em R$ 199,00 e cobrando até <strong>R$ 39,90 por sabonetes de 60g</strong>. Com o mesmo volume de tráfego, a reestruturação em kits e B2B consultivo dobra a receita da marca.
+        </p>
+      </div>
+    </div>
+
+    <!-- KPI Metric Cards Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      
+      <!-- Card 1: Ticket Médio -->
+      <div class="glass-panel p-5 rounded-2xl metric-card flex flex-col justify-between">
+        <div class="flex items-center justify-between text-slate-400 text-xs font-medium">
+          <span>TICKET MÉDIO ATUAL</span>
+          <i data-lucide="shopping-bag" class="w-4 h-4 text-brand-500"></i>
+        </div>
+        <div class="mt-4">
+          <div class="text-3xl font-bold text-white">R$ 55,00</div>
+          <div class="flex items-center gap-1.5 mt-2 text-xs font-semibold text-rose-400">
+            <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i> Alvo com Kits: R$ 139,00 (+152%)
+          </div>
+        </div>
+        <div class="mt-4 pt-3 border-t border-surface-700/60 text-xs text-slate-400">
+          Baseado em compras de produtos unitários.
+        </div>
+      </div>
+
+      <!-- Card 2: Preço Sabonetes -->
+      <div class="glass-panel p-5 rounded-2xl metric-card flex flex-col justify-between">
+        <div class="flex items-center justify-between text-slate-400 text-xs font-medium">
+          <span>BENCHMARK SABONETE</span>
+          <i data-lucide="tag" class="w-4 h-4 text-emerald-400"></i>
+        </div>
+        <div class="mt-4">
+          <div class="text-3xl font-bold text-emerald-400">R$ 37,20</div>
+          <div class="flex items-center gap-1.5 mt-2 text-xs font-semibold text-slate-300">
+            <span>Força da Terra: R$ 25,00</span>
+            <span class="text-rose-400">(-33% defasado)</span>
+          </div>
+        </div>
+        <div class="mt-4 pt-3 border-t border-surface-700/60 text-xs text-slate-400">
+          Cativa cobra R$ 39,90 por barra de apenas 60g.
+        </div>
+      </div>
+
+      <!-- Card 3: Barreira Frete Grátis -->
+      <div class="glass-panel p-5 rounded-2xl metric-card flex flex-col justify-between">
+        <div class="flex items-center justify-between text-slate-400 text-xs font-medium">
+          <span>FRETE GRÁTIS CONCORRÊNCIA</span>
+          <i data-lucide="truck" class="w-4 h-4 text-amber-400"></i>
+        </div>
+        <div class="mt-4">
+          <div class="text-3xl font-bold text-amber-400">R$ 199,90</div>
+          <div class="flex items-center gap-1.5 mt-2 text-xs font-semibold text-emerald-400">
+            <i data-lucide="trending-up" class="w-3.5 h-3.5"></i> Força carrinho de 3+ itens
+          </div>
+        </div>
+        <div class="mt-4 pt-3 border-t border-surface-700/60 text-xs text-slate-400">
+          Twoone Onetwo e Cativa usam esse gatilho.
+        </div>
+      </div>
+
+      <!-- Card 4: Alavancagem B2B -->
+      <div class="glass-panel p-5 rounded-2xl metric-card flex flex-col justify-between">
+        <div class="flex items-center justify-between text-slate-400 text-xs font-medium">
+          <span>SHARE B2B (SPAS/TERAPEUTAS)</span>
+          <i data-lucide="briefcase" class="w-4 h-4 text-cyan-400"></i>
+        </div>
+        <div class="mt-4">
+          <div class="text-3xl font-bold text-cyan-400">45%</div>
+          <div class="flex items-center gap-1.5 mt-2 text-xs font-semibold text-slate-300">
+            <span>Volume WNF/Terra Flor</span>
+          </div>
+        </div>
+        <div class="mt-4 pt-3 border-t border-surface-700/60 text-xs text-slate-400">
+          Força da Terra ainda não tem funil ativo.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Charts Section: Two Column Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      
+      <!-- Chart 1: Price Comparison by Category -->
+      <div class="glass-panel p-6 rounded-2xl space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-lg font-bold text-white">Dispersão de Preços Reais por Categoria</h3>
+            <p class="text-xs text-slate-400">Comparativo Força da Terra vs. Concorrentes Coletados</p>
+          </div>
+          <span class="text-xs bg-surface-700 px-2.5 py-1 rounded text-slate-300">Dados Set/2026</span>
+        </div>
+        <div class="h-72">
+          <canvas id="priceComparisonChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Chart 2: Revenue Simulation with Kits -->
+      <div class="glass-panel p-6 rounded-2xl space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-lg font-bold text-white">Impacto de Faturamento: Venda Avulsa vs. Kits</h3>
+            <p class="text-xs text-slate-400">Projeção mantendo o mesmo tráfego de 250 pedidos/mês</p>
+          </div>
+          <span class="text-xs bg-emerald-500/20 text-emerald-400 px-2.5 py-1 rounded font-semibold">+138% Faturamento</span>
+        </div>
+        <div class="h-72">
+          <canvas id="revenueImpactChart"></canvas>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- In-Depth Competitor Comparison Table -->
+    <div class="glass-panel rounded-2xl overflow-hidden">
+      <div class="p-6 border-b border-surface-700/80 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h3 class="text-lg font-bold text-white">Tabela de Dados dos Concorrentes Analisados</h3>
+          <p class="text-xs text-slate-400">Dados coletados ao vivo via Apify MCP & Crawler de Catálogos</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-slate-400">Filtrar por:</span>
+          <button onclick="filterTable('all')" class="px-2.5 py-1 text-xs rounded bg-brand-500 text-white font-medium filter-btn" data-filter="all">Todos (5)</button>
+          <button onclick="filterTable('d2c')" class="px-2.5 py-1 text-xs rounded bg-surface-700 text-slate-300 font-medium filter-btn" data-filter="d2c">Foco D2C</button>
+          <button onclick="filterTable('b2b')" class="px-2.5 py-1 text-xs rounded bg-surface-700 text-slate-300 font-medium filter-btn" data-filter="b2b">Foco B2B</button>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm text-slate-300">
+          <thead class="bg-surface-800/80 text-xs uppercase font-semibold text-slate-400 border-b border-surface-700/60">
+            <tr>
+              <th class="px-6 py-4">Marca / Concorrente</th>
+              <th class="px-6 py-4">Sabonete Barra</th>
+              <th class="px-6 py-4">Argila 100-150g</th>
+              <th class="px-6 py-4">Lavanda 10ml</th>
+              <th class="px-6 py-4">Frete Grátis</th>
+              <th class="px-6 py-4">Canal Principal</th>
+              <th class="px-6 py-4 text-right">Estratégia de Conversão</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-surface-700/40" id="competitorsTableBody">
+            <!-- Row 1: Cativa -->
+            <tr class="hover:bg-surface-800/50 transition comp-row" data-type="d2c">
+              <td class="px-6 py-4">
+                <div class="font-bold text-white flex items-center gap-2">
+                  Cativa Natureza
+                  <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded">Orgânico Certificado</span>
+                </div>
+                <div class="text-xs text-slate-400">cativanatureza.com.br</div>
+              </td>
+              <td class="px-6 py-4 font-semibold text-amber-400">R$ 39,90 <span class="text-xs text-slate-400">(60g)</span></td>
+              <td class="px-6 py-4">R$ 44,90</td>
+              <td class="px-6 py-4">R$ 56,00</td>
+              <td class="px-6 py-4">R$ 220,00</td>
+              <td class="px-6 py-4"><span class="px-2 py-0.5 rounded bg-surface-700 text-xs">D2C + Lojas Naturais</span></td>
+              <td class="px-6 py-4 text-right text-xs">Carrosséis comparativos "Rótulo Limpo" e kits temáticos</td>
+            </tr>
+
+            <!-- Row 2: WNF -->
+            <tr class="hover:bg-surface-800/50 transition comp-row" data-type="b2b">
+              <td class="px-6 py-4">
+                <div class="font-bold text-white flex items-center gap-2">
+                  WNF Oficial
+                  <span class="text-[10px] bg-cyan-500/20 text-cyan-300 px-1.5 py-0.5 rounded">Líder B2B</span>
+                </div>
+                <div class="text-xs text-slate-400">wnf.com.br</div>
+              </td>
+              <td class="px-6 py-4 font-semibold text-slate-300">R$ 34,90 <span class="text-xs text-slate-400">(Líquido)</span></td>
+              <td class="px-6 py-4">R$ 38,00 <span class="text-xs text-slate-400">(1kg: R$ 89)</span></td>
+              <td class="px-6 py-4">R$ 58,00</td>
+              <td class="px-6 py-4">R$ 249,00</td>
+              <td class="px-6 py-4"><span class="px-2 py-0.5 rounded bg-cyan-900/40 text-cyan-300 text-xs">B2B Spas/Clínicas</span></td>
+              <td class="px-6 py-4 text-right text-xs">WhatsApp no Header para revenda + Kits Routine pré-montados</td>
+            </tr>
+
+            <!-- Row 3: Twoone Onetwo -->
+            <tr class="hover:bg-surface-800/50 transition comp-row" data-type="d2c">
+              <td class="px-6 py-4">
+                <div class="font-bold text-white flex items-center gap-2">
+                  Twoone Onetwo
+                  <span class="text-[10px] bg-purple-500/20 text-purple-300 px-1.5 py-0.5 rounded">D2C Escala</span>
+                </div>
+                <div class="text-xs text-slate-400">twooneonetwo.com.br</div>
+              </td>
+              <td class="px-6 py-4 font-semibold text-amber-400">R$ 32,90 <span class="text-xs text-slate-400">(90g)</span></td>
+              <td class="px-6 py-4">R$ 39,90</td>
+              <td class="px-6 py-4">R$ 52,00</td>
+              <td class="px-6 py-4">R$ 199,90</td>
+              <td class="px-6 py-4"><span class="px-2 py-0.5 rounded bg-surface-700 text-xs">E-commerce D2C</span></td>
+              <td class="px-6 py-4 text-right text-xs">6% PIX + 10% 1ª Compra + Parcelamento 6x sem juros</td>
+            </tr>
+
+            <!-- Row 4: Bioart -->
+            <tr class="hover:bg-surface-800/50 transition comp-row" data-type="d2c">
+              <td class="px-6 py-4">
+                <div class="font-bold text-white flex items-center gap-2">
+                  Bioart Biocosméticos
+                  <span class="text-[10px] bg-rose-500/20 text-rose-300 px-1.5 py-0.5 rounded">Dermocosmético</span>
+                </div>
+                <div class="text-xs text-slate-400">bioart.com.br</div>
+              </td>
+              <td class="px-6 py-4 font-semibold text-amber-400">R$ 48,00 <span class="text-xs text-slate-400">(70g)</span></td>
+              <td class="px-6 py-4">R$ 98,00 <span class="text-xs text-slate-400">(Creme)</span></td>
+              <td class="px-6 py-4">N/D</td>
+              <td class="px-6 py-4">R$ 250,00</td>
+              <td class="px-6 py-4"><span class="px-2 py-0.5 rounded bg-surface-700 text-xs">Dermocosmético</span></td>
+              <td class="px-6 py-4 text-right text-xs">Transformou argila em tratamento de luxo / kits faciais</td>
+            </tr>
+
+            <!-- Row 5: Terra Flor -->
+            <tr class="hover:bg-surface-800/50 transition comp-row" data-type="b2b">
+              <td class="px-6 py-4">
+                <div class="font-bold text-white flex items-center gap-2">
+                  Terra Flor
+                  <span class="text-[10px] bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded">Técnico/Cursos</span>
+                </div>
+                <div class="text-xs text-slate-400">terraflor.com</div>
+              </td>
+              <td class="px-6 py-4 font-semibold text-slate-400">N/D</td>
+              <td class="px-6 py-4">R$ 38,00</td>
+              <td class="px-6 py-4">R$ 64,00</td>
+              <td class="px-6 py-4">R$ 280,00</td>
+              <td class="px-6 py-4"><span class="px-2 py-0.5 rounded bg-blue-900/40 text-blue-300 text-xs">Aromaterapeutas</span></td>
+              <td class="px-6 py-4 text-right text-xs">Laudos de cromatografia pública + Cursos de formação</td>
+            </tr>
+
+            <!-- Reference Row: Força da Terra -->
+            <tr class="bg-brand-500/10 font-medium border-t-2 border-brand-500/40">
+              <td class="px-6 py-4">
+                <div class="font-bold text-brand-400 flex items-center gap-2">
+                  <i data-lucide="target" class="w-4 h-4"></i> FORÇA DA TERRA (Atual)
+                </div>
+                <div class="text-xs text-slate-400">Nossa Linha Atual</div>
+              </td>
+              <td class="px-6 py-4 font-bold text-white">R$ 25,00</td>
+              <td class="px-6 py-4 text-white">R$ 28,00</td>
+              <td class="px-6 py-4 text-white">R$ 45,00</td>
+              <td class="px-6 py-4 text-rose-400 font-semibold">Sem trava clara</td>
+              <td class="px-6 py-4"><span class="px-2 py-0.5 rounded bg-brand-500/20 text-brand-300 text-xs">E-commerce Unitário</span></td>
+              <td class="px-6 py-4 text-right text-xs text-amber-300 font-semibold">Oportunidade: Ativar 3 Kits e B2B Consultivo</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Interactive Simulator Section -->
+    <div class="glass-panel p-6 sm:p-8 rounded-2xl space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 text-xs uppercase tracking-wider text-emerald-400 font-semibold">
+            <i data-lucide="calculator" class="w-4 h-4"></i> Simulador de Elevação de Ticket & Receita
+          </div>
+          <h3 class="text-xl font-bold text-white mt-1">O Que Acontece ao Migrar Vendas Avulsas para Kits de Rotina</h3>
+        </div>
+        <span class="text-xs text-slate-400">Ajuste os controles abaixo para ver o impacto em tempo real</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+        <!-- Control 1 -->
+        <div class="space-y-2">
+          <div class="flex justify-between text-xs text-slate-300 font-medium">
+            <span>Volume Mensal de Pedidos</span>
+            <span id="ordersDisplay" class="font-bold text-white">250 pedidos</span>
+          </div>
+          <input type="range" id="ordersSlider" min="50" max="1000" step="25" value="250" class="w-full accent-brand-500 cursor-pointer" oninput="updateSimulation()">
+        </div>
+
+        <!-- Control 2 -->
+        <div class="space-y-2">
+          <div class="flex justify-between text-xs text-slate-300 font-medium">
+            <span>Adesão aos Kits de Rotina (R$ 139)</span>
+            <span id="kitPctDisplay" class="font-bold text-emerald-400">50% das vendas</span>
+          </div>
+          <input type="range" id="kitPctSlider" min="0" max="100" step="5" value="50" class="w-full accent-emerald-500 cursor-pointer" oninput="updateSimulation()">
+        </div>
+
+        <!-- Control 3 -->
+        <div class="space-y-2">
+          <div class="flex justify-between text-xs text-slate-300 font-medium">
+            <span>Adesão a Pedidos B2B (R$ 380)</span>
+            <span id="b2bPctDisplay" class="font-bold text-cyan-400">15% das vendas</span>
+          </div>
+          <input type="range" id="b2bPctSlider" min="0" max="40" step="5" value="15" class="w-full accent-cyan-500 cursor-pointer" oninput="updateSimulation()">
+        </div>
+      </div>
+
+      <!-- Simulation Output Banner -->
+      <div class="bg-surface-800/90 rounded-xl p-5 border border-surface-700/80 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center sm:text-left">
+        <div>
+          <div class="text-xs text-slate-400 font-medium">Novo Ticket Médio Projetado</div>
+          <div class="text-2xl font-bold text-emerald-400 mt-1" id="simTicketMedio">R$ 145,75</div>
+          <div class="text-xs text-slate-400 mt-0.5">vs. R$ 55,00 hoje (+165%)</div>
+        </div>
+        <div>
+          <div class="text-xs text-slate-400 font-medium">Faturamento Mensal Estimado</div>
+          <div class="text-2xl font-bold text-white mt-1" id="simFaturamentoMes">R$ 36.437,50</div>
+          <div class="text-xs text-slate-400 mt-0.5">vs. R$ 13.750,00 hoje</div>
+        </div>
+        <div>
+          <div class="text-xs text-slate-400 font-medium">Receita Adicional Anual (Incremental)</div>
+          <div class="text-2xl font-bold text-brand-400 mt-1" id="simReceitaAnual">+ R$ 272.250,00</div>
+          <div class="text-xs text-slate-400 mt-0.5">Sem gastar mais em novos clientes</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Strategic Decision Action Plan (3 Core Pillars) -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- Action 1 -->
+      <div class="glass-panel p-6 rounded-2xl space-y-4 border-t-2 border-t-brand-500">
+        <div class="w-8 h-8 rounded-lg bg-brand-500/20 text-brand-400 flex items-center justify-center font-bold text-sm">1</div>
+        <h4 class="text-lg font-bold text-white">Lançar 3 Kits Oficiais de Entrada</h4>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          Tirar o foco de venda unitária de sabonete de R$ 25. Criar no e-commerce:
+        </p>
+        <ul class="text-xs text-slate-400 space-y-2">
+          <li class="flex items-start gap-2">
+            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5"></i>
+            <span><strong>Kit Ritual Descompressão (R$ 119):</strong> Sabonete de Argila + Sal Escalda-Pés + Blend Relaxante.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5"></i>
+            <span><strong>Kit Pele Equilibrada (R$ 139):</strong> Sabonete Argila Verde + Pote Argila 150g + Melaleuca 10ml.</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Action 2 -->
+      <div class="glass-panel p-6 rounded-2xl space-y-4 border-t-2 border-t-emerald-500">
+        <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm">2</div>
+        <h4 class="text-lg font-bold text-white">Adotar Gatilhos Comerciais de E-commerce</h4>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          Copiar a mecânica de sucesso de Twoone Onetwo e Cativa:
+        </p>
+        <ul class="text-xs text-slate-400 space-y-2">
+          <li class="flex items-start gap-2">
+            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5"></i>
+            <span>Travar <strong>Frete Grátis apenas acima de R$ 189,00</strong> para estimular carrinho composto.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5"></i>
+            <span>Oferecer <strong>6% de desconto no PIX</strong> e cupom <code>PRIMEIRACOMPRA</code> de 10%.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5"></i>
+            <span>Parcelamento em até <strong>4x sem juros</strong> no cartão para kits.</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Action 3 -->
+      <div class="glass-panel p-6 rounded-2xl space-y-4 border-t-2 border-t-cyan-500">
+        <div class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-sm">3</div>
+        <h4 class="text-lg font-bold text-white">Canal B2B Consultivo com WhatsApp</h4>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          Atrair massoterapeutas, esteticistas e spas locais (cópia do botão de sucesso da WNF):
+        </p>
+        <ul class="text-xs text-slate-400 space-y-2">
+          <li class="flex items-start gap-2">
+            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5"></i>
+            <span>Botão no topo do site: <strong>"Seja um Parceiro Profissional"</strong> direto no WhatsApp.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5"></i>
+            <span><strong>Kit Boas-Vindas Cabine (R$ 380):</strong> 10 Sabonetes + 3 Argilas 500g + 3 Óleos de Massagem.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5"></i>
+            <span>Margem de 35% a 40% de revenda para lojas naturais.</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-surface-700/80 bg-surface-900 py-6 mt-12 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-between gap-4">
+      <div>Força da Terra © 2026 — Inteligência Gerada pelo Squad MarketingOS & Apify MCP</div>
+      <div class="flex items-center gap-4">
+        <span>Persistência: Supabase Core</span>
+        <span>•</span>
+        <span>Status: Ativo</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts: Charts & Interactions -->
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Chart 1: Price Comparison
+    const ctxPrice = document.getElementById('priceComparisonChart').getContext('2d');
+    new Chart(ctxPrice, {
+      type: 'bar',
+      data: {
+        labels: ['Sabonete Barra', 'Argila Pura (100g)', 'Lavanda 10ml', 'Melaleuca 10ml', 'Óleo Vegetal 100ml'],
+        datasets: [
+          {
+            label: 'Força da Terra (Atual)',
+            data: [25.00, 28.00, 45.00, 42.00, 32.00],
+            backgroundColor: '#c26a45',
+            borderRadius: 6
+          },
+          {
+            label: 'Cativa Natureza',
+            data: [39.90, 44.90, 56.00, 49.90, 42.00],
+            backgroundColor: '#3d7a5a',
+            borderRadius: 6
+          },
+          {
+            label: 'WNF Oficial',
+            data: [34.90, 38.00, 58.00, 48.00, 38.00],
+            backgroundColor: '#0ea5e9',
+            borderRadius: 6
+          },
+          {
+            label: 'Twoone Onetwo',
+            data: [32.90, 39.90, 52.00, 46.00, 36.00],
+            backgroundColor: '#a855f7',
+            borderRadius: 6
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: { color: '#94a3b8', font: { size: 11 } }
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return context.dataset.label + ': R$ ' + context.parsed.y.toFixed(2);
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            ticks: { color: '#94a3b8', font: { size: 11 } }
+          },
+          y: {
+            grid: { color: '#1e293b' },
+            ticks: {
+              color: '#94a3b8',
+              callback: function(val) { return 'R$ ' + val; }
+            }
+          }
+        }
+      }
+    });
+
+    // Chart 2: Revenue Simulation
+    const ctxRev = document.getElementById('revenueImpactChart').getContext('2d');
+    const revenueChart = new Chart(ctxRev, {
+      type: 'line',
+      data: {
+        labels: ['Mês 1 (Atual)', 'Mês 2 (Kits Ativos)', 'Mês 3 (Frete R$189)', 'Mês 4 (B2B Iniciado)', 'Mês 5 (Maturidade)'],
+        datasets: [
+          {
+            label: 'Cenário Projetado com Kits & B2B',
+            data: [13750, 21500, 28200, 33500, 38900],
+            borderColor: '#10b981',
+            backgroundColor: 'rgba(16, 185, 129, 0.15)',
+            borderWidth: 3,
+            fill: true,
+            tension: 0.35,
+            pointBackgroundColor: '#10b981'
+          },
+          {
+            label: 'Cenário Base (Ticket R$ 55 estagnado)',
+            data: [13750, 13750, 14000, 13900, 14200],
+            borderColor: '#64748b',
+            borderDash: [5, 5],
+            borderWidth: 2,
+            fill: false,
+            tension: 0.1
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: { color: '#94a3b8', font: { size: 11 } }
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return context.dataset.label + ': R$ ' + context.parsed.y.toLocaleString('pt-BR');
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            ticks: { color: '#94a3b8' }
+          },
+          y: {
+            grid: { color: '#1e293b' },
+            ticks: {
+              color: '#94a3b8',
+              callback: function(val) { return 'R$ ' + (val/1000) + 'k'; }
+            }
+          }
+        }
+      }
+    });
+
+    // Table Filtering
+    function filterTable(type) {
+      const rows = document.querySelectorAll('.comp-row');
+      const buttons = document.querySelectorAll('.filter-btn');
+      
+      buttons.forEach(btn => {
+        if (btn.dataset.filter === type) {
+          btn.className = 'px-2.5 py-1 text-xs rounded bg-brand-500 text-white font-medium filter-btn';
+        } else {
+          btn.className = 'px-2.5 py-1 text-xs rounded bg-surface-700 text-slate-300 font-medium filter-btn';
+        }
+      });
+
+      rows.forEach(row => {
+        if (type === 'all' || row.dataset.type === type) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    // Interactive Simulator Calculation
+    function updateSimulation() {
+      const orders = parseInt(document.getElementById('ordersSlider').value);
+      const kitPct = parseInt(document.getElementById('kitPctSlider').value) / 100;
+      const b2bPct = parseInt(document.getElementById('b2bPctSlider').value) / 100;
+      const singlePct = Math.max(0, 1 - kitPct - b2bPct);
+
+      document.getElementById('ordersDisplay').innerText = orders + ' pedidos';
+      document.getElementById('kitPctDisplay').innerText = Math.round(kitPct * 100) + '% das vendas';
+      document.getElementById('b2bPctDisplay').innerText = Math.round(b2bPct * 100) + '% das vendas';
+
+      const singleAvg = 55.00;
+      const kitAvg = 139.00;
+      const b2bAvg = 380.00;
+
+      const newTicket = (singlePct * singleAvg) + (kitPct * kitAvg) + (b2bPct * b2bAvg);
+      const newMonthly = orders * newTicket;
+      const oldMonthly = orders * singleAvg;
+      const incrementalAnnual = (newMonthly - oldMonthly) * 12;
+
+      document.getElementById('simTicketMedio').innerText = 'R$ ' + newTicket.toFixed(2).replace('.', ',');
+      document.getElementById('simFaturamentoMes').innerText = 'R$ ' + newMonthly.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      document.getElementById('simReceitaAnual').innerText = '+ R$ ' + incrementalAnnual.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    // Fullscreen toggle for presentations
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+          alert(`Erro ao ativar tela cheia: ${err.message}`);
+        });
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+  </script>
+</body>
+</html>

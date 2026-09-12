@@ -1,6 +1,14 @@
 {
   "rewrites": [
     { "source": "/api/health", "destination": "/api/admin/operations?health=1" },
-    { "source": "/((?!api(?:/|$)).*)", "destination": "/index.html" }
+    { "source": "/api/missions/:id", "destination": "/api/missions?id=:id" },
+    { "source": "/api/skills/designos-social", "destination": "/api/pipeline?__route=designos-social" },
+    { "source": "/api/skills/funis-operator", "destination": "/api/pipeline?__route=funis-operator" },
+    { "source": "/api/skills/loop-publisher", "destination": "/api/pipeline?__route=loop-publisher" },
+    { "source": "/api/orchestrator/master-pipeline", "destination": "/api/pipeline?__route=master-pipeline" },
+    { "source": "/forca-da-terra-competitivo", "destination": "/forca-da-terra-competitivo.html" },
+    { "source": "/forca-da-terra", "destination": "/forca-da-terra.html" },
+    { "source": "/dashboard-forca-da-terra", "destination": "/dashboard-forca-da-terra.html" },
+    { "source": "/((?!api(?:/|$)|.*\\.html$).*)", "destination": "/index.html" }
   ]
 }
